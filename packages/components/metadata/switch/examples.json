@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "switch",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Setting that applies immediately",
+      "language": "ts",
+      "code": "import { Switch } from '@absoluteui/components/switch';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst notifications = Switch.create(host, { label: 'Email notifications', description: 'Weekly summary of activity' });\nhost.addEventListener('aui-change', () => {\n  document.documentElement.dataset.notifications = String(notifications.checked);\n});"
+    },
+    {
+      "id": "failed-save",
+      "title": "Reporting a failed save",
+      "language": "ts",
+      "code": "import { Switch } from '@absoluteui/components/switch';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst sync = Switch.create(host, { label: 'Sync across devices', checked: true });\n\nasync function save(on: boolean): Promise<void> {\n  const response = await fetch('/api/settings/sync', { method: 'PUT', body: JSON.stringify({ on }) });\n  if (!response.ok) {\n    sync.setChecked(!on);\n    sync.setCustomError('Could not save. Try again.');\n    sync.reportValidity();\n  }\n}\n\nhost.addEventListener('aui-change', () => {\n  void save(sync.checked);\n});"
+    }
+  ]
+}

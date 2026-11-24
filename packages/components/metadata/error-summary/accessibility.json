@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "component": "error-summary",
+  "pattern": "GOV.UK error summary: a focusable, labelled region with a native heading and a list of in-page links to the invalid fields.",
+  "roles": [
+    { "element": "host", "role": "region" },
+    { "element": "heading", "role": "heading (native h2, h3, or h4)" },
+    { "element": "list", "role": "list (native ul)" },
+    { "element": "item with target", "role": "link (native a href=#id)" },
+    { "element": "icon", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "host", "value": "Heading id" },
+    { "attribute": "tabindex", "element": "host", "value": "-1, so the summary can receive programmatic focus without entering the Tab order" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Summary or a link focused", "action": "Moves between the summary links and the rest of the page." },
+    { "key": "Enter", "context": "Link focused", "action": "Focuses the target (or calls its focus callback), scrolls it to the center, and emits aui-navigate." }
+  ],
+  "focus": "show() moves focus to the summary and scrolls it into view (focusOnShow). The host shows the shared focus ring on :focus-visible; links have their own 1px-offset focus ring.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "2.1.1", "2.4.3", "2.4.6", "2.4.7", "3.3.1", "3.3.3", "4.1.2"],
+  "notes": [
+    "Focusing the summary makes screen readers announce the region name (the heading) and its contents once; no live region is used.",
+    "Link activation prevents the fragment navigation, so the URL hash does not change and focus lands on the control, not its container.",
+    "Links are underlined and error-colored; color is not the only cue.",
+    "Choose headingLevel to fit the page's heading outline."
+  ],
+  "knownCaveats": [
+    "Announcement on focus has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

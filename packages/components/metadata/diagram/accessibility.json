@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "component": "diagram",
+  "pattern": "A focusable canvas (group, roledescription 'canvas') containing two multi-select listboxes, one for nodes and one for connections, each with one roving tab stop (WAI-ARIA APG listbox, with spatial arrow navigation for nodes). Each node's accessible name states its label, shape, and connections; a text alternative table lists every node with what it leads to and comes from. Edits have keyboard and single-pointer paths (no deprecated ARIA drag-and-drop attributes) and are announced through live regions.",
+  "roles": [
+    { "element": "toolbar <div>", "role": "group, named '{label} controls'" },
+    { "element": "toolbar and palette <button>s", "role": "button (native); Pan tool, Connect, and Move selection are toggles (aria-pressed)" },
+    { "element": "palette <div>", "role": "group, named 'Add shapes'" },
+    { "element": "viewport <div>", "role": "group with aria-roledescription 'canvas', named by label; focusable (arrow keys pan)" },
+    { "element": "nodes <g>", "role": "listbox (aria-multiselectable), named '{label}: nodes'" },
+    { "element": "node <g>", "role": "option with aria-roledescription 'node', named '{label}, {shape}, leads to …, comes from …'" },
+    { "element": "connections <g>", "role": "listbox (aria-multiselectable), named '{label}: connections'; hidden when there are none" },
+    { "element": "connection <g>", "role": "option with aria-roledescription 'connection', named '{from} to {to}[, {label}]'" },
+    { "element": "connector drawing, groups, grid, overlay, label text", "role": "none (aria-hidden=true)" },
+    { "element": "label editor <input type=text>", "role": "textbox, named 'Label of {name}'" },
+    { "element": "text alternative", "role": "button (aria-expanded, aria-controls) and a region with a table (caption, column and row headers)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "canvas / listboxes / options / toolbar / editor", "value": "label; '{label}: nodes'; '{label}: connections'; computed node and connection names; '{label} controls'; 'Label of {name}'" },
+    { "attribute": "aria-roledescription", "element": "canvas / node / connection", "value": "canvas / node / connection (localized)" },
+    { "attribute": "aria-selected", "element": "options", "value": "true for selected nodes and connections" },
+    { "attribute": "aria-multiselectable", "element": "listboxes", "value": "true" },
+    { "attribute": "tabindex", "element": "options", "value": "0 on the focused node and the focused connection, -1 on the others" },
+    { "attribute": "aria-disabled", "element": "toolbar buttons", "value": "true at the zoom limits and when undo, redo, delete, Move selection, or Connect is not possible" },
+    { "attribute": "aria-pressed", "element": "Pan tool, Connect, Move selection", "value": "true while active" },
+    { "attribute": "aria-expanded / aria-controls", "element": "text alternative toggle", "value": "Whether the table is shown / the table region id" },
+    { "attribute": "live region", "element": "shared live regions", "value": "Polite: zoom, added, deleted, moved, connected, reconnected, label changed, copied, pasted, undone, redone, layout applied, cancellations. Assertive: move mode, connecting from, Move selection prompt, refused connection, locked node." }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Diagram", "action": "Toolbar buttons, palette (edit mode), canvas, the focused node, the focused connection, then the text alternative." },
+    { "key": "Arrow keys", "context": "Canvas focused", "action": "Pan the view (Shift: four times farther)." },
+    { "key": "Arrow keys", "context": "Node focused", "action": "Move focus to the nearest node in that direction (spatial, not mirrored in RTL); Shift adds it to the selection." },
+    { "key": "Home / End", "context": "Node focused", "action": "First / last node in reading order." },
+    { "key": "Space / Shift+Space or Ctrl/Cmd+Space", "context": "Node or connection focused", "action": "Select only this item / toggle it in the selection." },
+    { "key": "Enter", "context": "Node focused, view mode", "action": "Activates the node (aui-node-activate)." },
+    { "key": "Enter or F2", "context": "Node or connection focused, edit mode", "action": "Edit the label inline (Enter or leaving the field commits, Escape cancels)." },
+    { "key": "C", "context": "Node focused, edit mode", "action": "First press: this node is the source ('Connecting from …'); move to the target and press C or Enter to connect. C on the source again cancels." },
+    { "key": "M", "context": "Node focused, edit mode", "action": "Move mode for the node (or the selection): arrows move by one grid step (Shift: five), Enter or M finishes (one undo step), Escape restores." },
+    { "key": "Delete / Backspace", "context": "Node or connection focused, edit mode", "action": "Delete the selection (or the focused item); deleting nodes deletes their connections. Locked nodes stay." },
+    { "key": "Ctrl/Cmd+C / Ctrl/Cmd+X / Ctrl/Cmd+V", "context": "Edit mode", "action": "Copy / cut the selected nodes (with the connections between them) / paste them offset." },
+    { "key": "Ctrl/Cmd+A", "context": "Diagram focused", "action": "Select every node." },
+    { "key": "Ctrl/Cmd+Z / Ctrl/Cmd+Shift+Z or Ctrl/Cmd+Y", "context": "Edit mode", "action": "Undo / redo." },
+    { "key": "+ or = / - / 0", "context": "Diagram focused", "action": "Zoom in / out around the center; fit to screen." },
+    { "key": "Escape", "context": "Diagram focused", "action": "Cancels connecting or Move selection, else clears the selection." },
+    { "key": "ArrowDown/ArrowRight / ArrowUp/ArrowLeft, Home / End", "context": "Connection focused", "action": "Next / previous connection; first / last." }
+  ],
+  "focus": "One node and one connection are in the Tab order (roving tabindex): the last focused, else the first in reading order. Focusing a node pans the view so it is fully visible. Re-rendering keeps focus on the same element; after deleting, focus moves to the first remaining node (or the canvas); after adding from the palette or pasting, focus moves to the new node; the label editor returns focus to its item. Nodes show a focus-ring rectangle; connections a ring along their path.",
+  "wcag": ["1.1.1", "1.3.1", "1.3.2", "1.4.1", "1.4.10", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "2.5.7", "2.5.8", "4.1.2", "4.1.3"],
+  "notes": [
+    "Every dragging action has an alternative (2.5.7): moving by M plus arrows or by the toolbar Move selection button then a single click on the canvas; connecting by C on source and target or the Connect button then a click on the target; adding shapes by clicking palette buttons; panning with arrow keys on the canvas; reconnecting by deleting and connecting again.",
+    "Node names include their connections, and the text alternative table lists the whole graph, so the structure is available without seeing the drawing (1.1.1, 1.3.1).",
+    "Selected nodes differ by fill and a three px outline, connectors by width, not color alone (1.4.1).",
+    "Ports are small pointer targets (2.5.8); the keyboard and toolbar connect paths are the equivalent controls."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Screen readers in browse mode may intercept arrow keys and letters; users need focus mode inside the diagram.",
+    "Pointer drags (move, connect, marquee, pan) are not announced while they happen; the result is.",
+    "Spatial arrow navigation can skip nodes hidden behind others in the same direction; Home/End and the text alternative reach every node."
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/multi-select",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiMultiSelect",
+      "description": "AbsoluteUI MultiSelect: `<aui-multi-select>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.\nTemplates: AuiItem (`@absoluteui/angular/templates`).",
+      "selector": "aui-multi-select",
+      "exportAs": [
+        "auiMultiSelect"
+      ],
+      "source": "generated",
+      "component": "multi-select",
+      "configKey": "multiSelect",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "string[]"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name."
+        },
+        {
+          "name": "options",
+          "type": "readonly MultiSelectOption[]",
+          "required": true,
+          "description": "{ value, label, disabled?, description? } with unique values."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name: one hidden input per selected value."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Input placeholder while nothing is selected (never replaces the label)."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "At least one value; value-missing after touch or reportValidity()."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the input, toggle, and chip remove buttons."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Shows the value; the list does not open and chips have no remove buttons."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Consumer-managed invalid state (shown immediately)."
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "required": false,
+          "description": "Message shown when invalid is true (text only)."
+        },
+        {
+          "name": "maxSelected",
+          "type": "number",
+          "required": false,
+          "description": "Most values that can be selected (integer >= 1); unselected options become unavailable once reached, and reaching it is announced."
+        },
+        {
+          "name": "selectAll",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "A \"Select all\" option that toggles every enabled option shown (up to maxSelected)."
+        },
+        {
+          "name": "filter",
+          "type": "MultiSelectFilter",
+          "required": false,
+          "default": "contains",
+          "configurable": true,
+          "description": "Diacritic- and case-insensitive filtering of options while typing."
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Close the list after each toggle."
+        },
+        {
+          "name": "openOnFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Open the list when the input gains focus or is clicked."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Messages and filtering locale."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Popup alignment."
+        },
+        {
+          "name": "renderOption",
+          "type": "((option: MultiSelectOption, context: MultiSelectRenderContext) => Node)",
+          "required": false,
+          "description": "Custom option content; the label stays the accessible name. Nodes are released with releaseNode when dropped."
+        },
+        {
+          "name": "loadOptions",
+          "type": "((query: string, context: MultiSelectLoadContext) => Promise<readonly MultiSelectOption[]>)",
+          "required": false,
+          "description": "Load options for the typed text instead of filtering options; debounced, aborted by a newer query or closing; loading and errors are shown and announced."
+        },
+        {
+          "name": "loadDelay",
+          "type": "number",
+          "required": false,
+          "default": "250",
+          "description": "Milliseconds between the last keystroke and loadOptions (0 to 5000)."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<MultiSelectIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string[]",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "MultiSelectChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the selection (option, Select all, chip remove, or Backspace)."
+        },
+        {
+          "name": "valueInput",
+          "payload": "unknown",
+          "event": "aui-input",
+          "detail": "{ query: string }",
+          "description": "The user edited the input text."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "The listbox opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "The listbox closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isOpen",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the listbox is shown."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Show the listbox."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Hide the listbox."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the input."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string[] | undefined",
+          "description": "The selected values."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error; null clears it."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear touched/submitted state (no aui-change)."
+        }
+      ],
+      "templates": [
+        "AuiItem"
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Combobox pattern (editable, list autocomplete, no automatic selection) with a multi-selectable listbox; selected values as a list of chips with remove buttons.",
+        "source": "packages/components/metadata/multi-select/accessibility.json"
+      },
+      "limitations": [
+        "Strict selection: values are always options; free text is never a value and is cleared when focus leaves.",
+        "No virtualization: all filtered options are rendered.",
+        "No option groups.",
+        "Chip remove buttons are in the tab order (one stop per selected value); Backspace in the empty input removes the last value.",
+        "Select all acts on the options shown (after filtering or loading), up to maxSelected."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport type { MultiSelectOption } from '@absoluteui/components/multi-select';\nimport { AuiMultiSelect } from '@absoluteui/angular/multi-select';\n\n@Component({\n  selector: 'app-skills',\n  imports: [ReactiveFormsModule, AuiMultiSelect],\n  template: `<aui-multi-select label=\"Skills\" [options]=\"skills\" [selectAll]=\"true\" [maxSelected]=\"5\" [formControl]=\"chosen\"></aui-multi-select>`,\n})\nexport class SkillsComponent {\n  readonly skills: MultiSelectOption[] = [\n    { value: 'ts', label: 'TypeScript' },\n    { value: 'sql', label: 'SQL' },\n  ];\n  readonly chosen = new FormControl<string[]>([], { nonNullable: true, validators: [Validators.required] });\n}"
+    }
+  ]
+}

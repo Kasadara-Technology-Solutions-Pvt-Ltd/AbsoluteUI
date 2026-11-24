@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "avatar-group",
+  "factory": { "name": "AvatarGroup.create", "signature": "AvatarGroup.create(host: HTMLElement, options: AvatarGroupOptions): AvatarGroup" },
+  "configKey": "avatarGroup",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the group, such as 'Project members'." },
+    { "name": "items", "type": "readonly AvatarGroupItem[]", "required": true, "globallyConfigurable": false, "description": "People: { name, src?, icon?, status? }." },
+    { "name": "max", "type": "number", "default": "4", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Avatars shown before the '+N' chip (1 to 50)." },
+    { "name": "size", "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl'", "required": false, "globallyConfigurable": false, "description": "Avatar size (default: Avatar configuration)." },
+    { "name": "shape", "type": "'circle' | 'square'", "required": false, "globallyConfigurable": false, "description": "Avatar shape (default: Avatar configuration)." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the overflow count and label." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (role=group)." },
+    { "name": "overflow", "type": "number", "description": "Number of people behind the '+N' chip." },
+    { "name": "options", "type": "Readonly<AvatarGroupOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<AvatarGroupOptions>): void", "description": "Merge and apply options; an invalid item leaves the previous rendering intact." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Destroy the avatars and remove rendering, attributes, classes, and subscriptions." }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-avatar-group", "description": "Host (role=group)." },
+    { "name": "aui-avatar-group__more", "description": "The '+N' overflow chip (an aui-avatar sized like the others)." }
+  ],
+  "iconSlots": []
+}

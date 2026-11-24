@@ -1,0 +1,6 @@
+[
+  { "title": "Value against target", "text": "A measure bar with a target tick over up to three range bands." },
+  { "title": "Named ranges", "text": "Range labels appear in names, tooltips, and the table, so shading never carries meaning alone." },
+  { "title": "Keyboard rows", "text": "One tab stop; Up and Down move between measures with a tooltip." },
+  { "title": "Data table fallback", "text": "A summary of how many measures meet target and a table of value, target, and range." }
+]

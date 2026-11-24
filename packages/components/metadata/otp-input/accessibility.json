@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "component": "otp-input",
+  "pattern": "One native <input> with <label for>; visual cells are aria-hidden presentation. Chosen over N single-character inputs: one-time-code autofill and password managers fill one field, paste/undo/selection stay native, screen readers hear one labelled field with a length hint instead of N unlabelled boxes, and fast typing never loses characters to focus changes.",
+  "roles": [
+    {
+      "element": "input",
+      "role": "textbox (native); none when masked (password)"
+    },
+    {
+      "element": "cells",
+      "role": "none (aria-hidden=true)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-describedby",
+      "element": "input",
+      "value": "Help text, the length hint (\"6 digits\"), then the visible error"
+    },
+    {
+      "attribute": "aria-invalid",
+      "element": "input",
+      "value": "\"true\" only while an error message is shown"
+    },
+    {
+      "attribute": "aria-hidden",
+      "element": "cells",
+      "value": "\"true\""
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "Digits / letters",
+      "context": "Input focused",
+      "action": "Enter a character; in a full code, typing overwrites the next character."
+    },
+    {
+      "key": "Backspace / Delete",
+      "context": "Input focused",
+      "action": "Native deletion."
+    },
+    {
+      "key": "ArrowLeft / ArrowRight / Home / End",
+      "context": "Input focused",
+      "action": "Native caret movement; the active cell follows."
+    },
+    {
+      "key": "Ctrl/Cmd+V",
+      "context": "Input focused",
+      "action": "Paste; a full code (spaces and dashes removed) replaces the value."
+    }
+  ],
+  "focus": "The active cell shows the focus indicator (color-focus-ring border and 1px ring) while the input has focus.",
+  "wcag": [
+    "1.3.1",
+    "1.3.5",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "2.1.1",
+    "2.4.7",
+    "3.3.1",
+    "3.3.2",
+    "3.3.8",
+    "4.1.2"
+  ],
+  "notes": [
+    "inputmode=numeric shows a numeric keypad for numeric codes.",
+    "WCAG 3.3.8: paste and autofill are supported, so users do not have to transcribe codes."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/avatar-group",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiAvatarGroup",
+      "description": "AbsoluteUI AvatarGroup: `<aui-avatar-group>`.",
+      "selector": "aui-avatar-group",
+      "exportAs": [
+        "auiAvatarGroup"
+      ],
+      "source": "generated",
+      "component": "avatar-group",
+      "configKey": "avatarGroup",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the group, such as 'Project members'."
+        },
+        {
+          "name": "items",
+          "type": "readonly AvatarGroupItem[]",
+          "required": true,
+          "description": "People: { name, src?, icon?, status? }."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "4",
+          "configurable": true,
+          "description": "Avatars shown before the '+N' chip (1 to 50)."
+        },
+        {
+          "name": "size",
+          "type": "AvatarSize",
+          "required": false,
+          "description": "Avatar size (default: Avatar configuration)."
+        },
+        {
+          "name": "shape",
+          "type": "AvatarShape",
+          "required": false,
+          "description": "Avatar shape (default: Avatar configuration)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the overflow count and label."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Named group of images: role=group with aria-label; each avatar is role=img named by its person; the overflow chip is role=img named 'N more'.",
+        "source": "packages/components/metadata/avatar-group/accessibility.json"
+      },
+      "limitations": [
+        "The people behind '+N' are not listed; show the full list elsewhere (for example in a dialog) when it matters.",
+        "Every update re-creates the avatars."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiAvatarGroup } from '@absoluteui/angular/avatar-group';\nimport type { AvatarGroupItem } from '@absoluteui/components/avatar-group';\n\n@Component({\n  selector: 'app-members',\n  imports: [AuiAvatarGroup],\n  template: `<aui-avatar-group label=\"Project members\" [items]=\"members\" [max]=\"3\"></aui-avatar-group>`,\n})\nexport class MembersComponent {\n  readonly members: AvatarGroupItem[] = [{ name: 'Ada Lovelace' }, { name: 'Grace Hopper' }, { name: 'Alan Turing' }, { name: 'Barbara Liskov' }];\n}"
+    }
+  ]
+}

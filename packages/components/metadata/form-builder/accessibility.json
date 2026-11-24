@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "component": "form-builder",
+  "pattern": "Toolbar plus Tabs (Design, Preview, JSON); the canvas is a Sortable List (keyboard grab, move, drop with announcements); the palette and properties are labelled regions of native buttons and AbsoluteUI form controls.",
+  "roles": [
+    {
+      "element": "toolbar",
+      "role": "toolbar (named by label)"
+    },
+    {
+      "element": "views",
+      "role": "tablist / tab / tabpanel (Tabs)"
+    },
+    {
+      "element": "palette, canvas, properties",
+      "role": "region (section with a heading)"
+    },
+    {
+      "element": "canvas list",
+      "role": "list (Sortable List)"
+    },
+    {
+      "element": "field select button",
+      "role": "button with aria-pressed"
+    },
+    {
+      "element": "preview output",
+      "role": "status"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-pressed",
+      "element": "field select button",
+      "value": "true for the selected field"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "field select button",
+      "value": "'Leave type, Dropdown, required'"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "remove button",
+      "value": "'Remove Leave type'"
+    },
+    {
+      "attribute": "aria-labelledby",
+      "element": "regions",
+      "value": "their headings"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "Enter / Space",
+      "context": "Palette button",
+      "action": "Add the field type after the selected field and select it."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Field select button",
+      "action": "Select the field and move focus to its properties."
+    },
+    {
+      "key": "Delete",
+      "context": "Field select button",
+      "action": "Remove the field."
+    },
+    {
+      "key": "Space / Enter, arrows, Space / Enter, Escape",
+      "context": "Canvas handle",
+      "action": "Grab, move, drop, or cancel (Sortable List)."
+    },
+    {
+      "key": "Ctrl+Z / Ctrl+Y / Ctrl+Shift+Z",
+      "context": "Builder (outside text fields)",
+      "action": "Undo and redo."
+    },
+    {
+      "key": "Arrow keys",
+      "context": "Tabs",
+      "action": "Switch between Design, Preview, and JSON."
+    }
+  ],
+  "focus": "Removing a field focuses the next field's select button (or the first palette button); undo and redo keep focus where it is.",
+  "wcag": [
+    "1.3.1",
+    "2.1.1",
+    "2.4.3",
+    "2.4.6",
+    "2.5.7",
+    "3.3.1",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "Every pointer drag (palette to canvas, canvas reordering) has a keyboard equivalent (WCAG 2.5.7).",
+    "Additions, removals, moves, undo, and redo are announced through the polite live region; rejected edits are shown in an assertive Inline Message."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

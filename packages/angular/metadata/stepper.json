@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/stepper",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiStepper",
+      "description": "AbsoluteUI Stepper: `<aui-stepper>`.\nTwo-way: `[(value)]`.",
+      "selector": "aui-stepper",
+      "exportAs": [
+        "auiStepper"
+      ],
+      "source": "generated",
+      "component": "stepper",
+      "configKey": "stepper",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the <nav> (aria-label), e.g. \"Checkout progress\". Must not be empty."
+        },
+        {
+          "name": "steps",
+          "type": "readonly StepperStep[]",
+          "required": true,
+          "description": "Steps in order (at least one). Ids must be unique and non-empty; labels must be non-empty. status is consumer-owned; href renders a reachable step as a link."
+        },
+        {
+          "name": "orientation",
+          "type": "StepperOrientation",
+          "required": false,
+          "default": "horizontal",
+          "configurable": true,
+          "description": "Layout. A horizontal stepper renders vertically when its container is 30rem wide or narrower."
+        },
+        {
+          "name": "linear",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "When true, a step after the current one is reachable only when every step before it has status 'complete'. Earlier steps are always reachable unless disabled."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "'rtl' sets dir=\"rtl\" on the <nav>; 'ltr' leaves the document direction in effect."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<StepperIcons>",
+          "required": false,
+          "description": "Icon slot overrides for the step indicator."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string",
+          "change": "valueChange",
+          "description": "Current step id. Must be the id of an existing step."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "navigate",
+          "payload": "StepperNavigateDetail",
+          "event": "aui-navigate",
+          "description": "The user activated a reachable step (unmodified primary click, Enter, or Space on a button). preventDefault keeps the current step and stops link navigation."
+        },
+        {
+          "name": "changed",
+          "payload": "StepperChangeDetail",
+          "event": "aui-change",
+          "description": "The current step changed after an uncanceled aui-navigate."
+        }
+      ],
+      "methods": [
+        {
+          "name": "state",
+          "signature": "state(id: string): StepperStepState | null | undefined",
+          "description": "Resolved state ('current' | 'complete' | 'error' | 'upcoming') of a step, or null for an unknown id."
+        },
+        {
+          "name": "isReachable",
+          "signature": "isReachable(id: string): boolean | undefined",
+          "description": "Whether the user can activate the step in the current state. False for the current step, disabled steps, and unknown ids."
+        },
+        {
+          "name": "select",
+          "signature": "select(id: string): void",
+          "description": "Make a step current programmatically. No events and no reachability check. Throws STEPPER_OPTIONS for an unknown id."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Navigation landmark with an ordered list of steps (progress indicator). Reachable steps are native links or buttons; the current step is marked with aria-current=\"step\". Not a tablist.",
+        "source": "packages/components/metadata/stepper/accessibility.json"
+      },
+      "limitations": [
+        "Every change (activation, select, update, global configuration) rebuilds the step list; a step that had focus during update() or a configuration change loses focus.",
+        "After a link step is activated without preventDefault, focus is not moved; the page is expected to navigate.",
+        "The layout switch from horizontal to vertical is fixed at a 30rem container width.",
+        "No arrow-key navigation between steps; steps are separate Tab stops.",
+        "Step content (panels) is not rendered by the stepper; drive it from aui-change."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { StepperNavigateDetail, StepperStep } from '@absoluteui/components/stepper';\nimport { AuiStepper } from '@absoluteui/angular/stepper';\n\n@Component({\n  selector: 'app-checkout-steps',\n  imports: [AuiStepper],\n  template: `<aui-stepper label=\"Checkout\" [steps]=\"steps\" [value]=\"current\" (changed)=\"current = $event.value\" (aui-navigate)=\"guard($event)\"></aui-stepper>`,\n})\nexport class CheckoutStepsComponent {\n  current = 'cart';\n  readonly steps: StepperStep[] = [\n    { id: 'cart', label: 'Cart', status: 'complete' },\n    { id: 'shipping', label: 'Shipping' },\n    { id: 'payment', label: 'Payment' },\n  ];\n\n  guard(event: Event): void {\n    const { id } = (event as CustomEvent<StepperNavigateDetail>).detail;\n    if (id === 'payment' && !this.shippingValid()) event.preventDefault();\n  }\n\n  private shippingValid(): boolean {\n    return true;\n  }\n}"
+    }
+  ]
+}

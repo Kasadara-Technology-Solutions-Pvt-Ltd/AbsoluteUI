@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/alert",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiAlert",
+      "description": "AbsoluteUI Alert: `<aui-alert>`.",
+      "selector": "aui-alert",
+      "exportAs": [
+        "auiAlert"
+      ],
+      "source": "generated",
+      "component": "alert",
+      "configKey": "alert",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "string | Node",
+          "required": false,
+          "description": "Message; strings render as text."
+        },
+        {
+          "name": "tone",
+          "type": "AlertTone",
+          "required": false,
+          "default": "info",
+          "description": "Tone: icon, colors, and hidden tone prefix."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Optional title (text)."
+        },
+        {
+          "name": "live",
+          "type": "AlertLive",
+          "required": false,
+          "default": "off",
+          "description": "off: static; polite: role=status; assertive: role=alert. Announces content inserted or changed after load."
+        },
+        {
+          "name": "actions",
+          "type": "readonly AlertAction[]",
+          "required": false,
+          "description": "Buttons { label, value, variant? } that emit aui-action."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<AlertIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Render a dismiss button (localized 'Dismiss')."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the tone prefix and dismiss label."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "action",
+          "payload": "AlertActionDetail",
+          "event": "aui-action",
+          "description": "An action button was activated."
+        },
+        {
+          "name": "dismissed",
+          "payload": "AlertDismissDetail",
+          "event": "aui-dismiss",
+          "description": "Before the alert hides; preventDefault keeps it visible."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isDismissed",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the alert was dismissed (hidden)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "dismiss",
+          "signature": "dismiss(): boolean | undefined",
+          "description": "Emit cancelable aui-dismiss, then hide unless prevented. Returns whether it was dismissed."
+        }
+      ],
+      "projection": {
+        "defaultSlot": "message"
+      },
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Alert pattern (role=alert) for urgent dynamic messages; role=status for polite updates; plain content when static.",
+        "source": "packages/components/metadata/alert/accessibility.json"
+      },
+      "limitations": [
+        "Live roles only announce content inserted or changed after the live region exists; an alert rendered with the initial page is not announced (use live 'off' for static content).",
+        "After dismissal via its button, focus is not moved by the component; handle aui-dismiss to move focus to a sensible element.",
+        "Dismissal is not persisted; the consumer decides whether to render the alert again."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiAlert } from '@absoluteui/angular/alert';\n\n@Component({\n  selector: 'app-save-status',\n  imports: [AuiAlert],\n  template: `<aui-alert tone=\"error\" live=\"assertive\" title=\"Could not save\" [message]=\"message\" [dismissible]=\"true\" [actions]=\"actions\" (action)=\"onAction($event.value)\"></aui-alert>`,\n})\nexport class SaveStatusComponent {\n  readonly message = 'Check your connection and try again.';\n  readonly actions = [{ label: 'Retry', value: 'retry' }];\n  onAction(value: string): void {\n    if (value === 'retry') {\n      // retry the save\n    }\n  }\n}"
+    }
+  ]
+}

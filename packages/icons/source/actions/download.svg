@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="download" data-animations="bounce:loading:accent">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 4v11"/>
+      <path d="M7.5 10.5L12 15l4.5-4.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M4 15h16v3.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 4v11"/>
+      <path d="M7.5 10.5L12 15l4.5-4.5"/>
+    </g>
+  </g>
+</svg>

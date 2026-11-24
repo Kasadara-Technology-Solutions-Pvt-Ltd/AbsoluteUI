@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "badge",
+  "examples": [
+    {
+      "id": "tones",
+      "title": "Status badges in each tone",
+      "language": "ts",
+      "code": "import { Badge, type BadgeTone } from '@absoluteui/components/badge';\n\nconst row = document.createElement('p');\ndocument.body.append(row);\nconst statuses: [string, BadgeTone][] = [['Draft', 'neutral'], ['In review', 'info'], ['Active', 'success'], ['Expiring', 'warning'], ['Overdue', 'error']];\nfor (const [label, tone] of statuses) {\n  const host = document.createElement('span');\n  row.append(host, ' ');\n  Badge.create(host, { label, tone, dot: true });\n}"
+    },
+    {
+      "id": "outline-sizes",
+      "title": "Outline variant, small size, and an icon",
+      "language": "ts",
+      "code": "import { Badge } from '@absoluteui/components/badge';\n\nconst heading = document.createElement('h3');\nheading.textContent = 'Release notes ';\nconst beta = document.createElement('span');\nheading.append(beta);\ndocument.body.append(heading);\nBadge.create(beta, { label: 'Beta', tone: 'info', variant: 'outline', size: 'sm', icon: 'info' });"
+    }
+  ]
+}

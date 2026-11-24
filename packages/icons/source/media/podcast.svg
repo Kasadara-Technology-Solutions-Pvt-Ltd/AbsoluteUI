@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="podcast">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="9.5" y="6" width="5" height="8.5" rx="2.5"/>
+      <path d="M12 17.5V21"/>
+      <path d="M9 21h6"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M6.5 15a7.5 7.5 0 0 1 0-9"/>
+      <path d="M17.5 6a7.5 7.5 0 0 1 0 9"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="9.5" y="6" width="5" height="8.5" rx="2.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="9.5" y="6" width="5" height="8.5" rx="2.5"/>
+      <path d="M12 17.5V21"/>
+      <path d="M9 21h6"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M6.5 15a7.5 7.5 0 0 1 0-9"/>
+      <path d="M17.5 6a7.5 7.5 0 0 1 0 9"/>
+    </g>
+  </g>
+</svg>

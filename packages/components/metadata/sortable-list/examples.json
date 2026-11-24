@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "sortable-list",
+  "examples": [
+    {
+      "id": "priorities",
+      "title": "Reorder priorities and keep the options in sync",
+      "language": "ts",
+      "code": "import { SortableList, type SortableListChangeDetail, type SortableListItem } from '@absoluteui/components/sortable-list';\n\nconst host = document.querySelector<HTMLElement>('#priorities');\nif (host) {\n  const list = SortableList.create(host, {\n    label: 'Priorities',\n    items: [\n      { id: 'security', label: 'Security review' },\n      { id: 'performance', label: 'Performance' },\n      { id: 'docs', label: 'Documentation' },\n    ],\n  });\n  host.addEventListener('aui-change', (event) => {\n    const { order } = (event as CustomEvent<SortableListChangeDetail>).detail;\n    const byId = new Map(list.options.items.map((item): [string, SortableListItem] => [item.id, item]));\n    // Feed the new order back so later updates and config changes keep it.\n    list.update({ items: order.flatMap((id) => byId.get(id) ?? []) });\n    // persist `order` here\n  });\n}"
+    },
+    {
+      "id": "rich-content",
+      "title": "Rich item content, a pinned item, and dragging from the whole item",
+      "language": "ts",
+      "code": "import { SortableList, type SortableListItem } from '@absoluteui/components/sortable-list';\n\nconst card = (title: string, owner: string): HTMLElement => {\n  const el = document.createElement('div');\n  const strong = document.createElement('strong');\n  strong.textContent = title;\n  el.append(strong, ` - ${owner}`);\n  return el;\n};\nconst items: SortableListItem[] = [\n  { id: 'notes', label: 'Release notes', content: card('Release notes', 'Ana'), disabled: true },\n  { id: 'api', label: 'API review', content: card('API review', 'Ben') },\n  { id: 'qa', label: 'QA pass', content: card('QA pass', 'Chen') },\n];\nconst host = document.createElement('div');\ndocument.body.append(host);\nSortableList.create(host, { label: 'Backlog', items, dragFrom: 'item' });"
+    },
+    {
+      "id": "move-controls",
+      "title": "Programmatic move-to-top control",
+      "language": "ts",
+      "code": "import { SortableList } from '@absoluteui/components/sortable-list';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst tracks = SortableList.create(host, {\n  label: 'Playlist',\n  items: [\n    { id: 't1', label: 'Intro' },\n    { id: 't2', label: 'Theme' },\n    { id: 't3', label: 'Finale' },\n  ],\n});\ndocument.querySelector('#finale-first')?.addEventListener('click', () => {\n  if (!tracks.isDragging) tracks.move('t3', 0);\n  const order: string[] = tracks.order;\n  host.dataset.order = order.join(',');\n});"
+    }
+  ]
+}

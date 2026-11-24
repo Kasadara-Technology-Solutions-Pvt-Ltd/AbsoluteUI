@@ -1,0 +1,7 @@
+[
+  { "title": "Bars, lines, areas", "text": "Each series picks its own type over shared categories." },
+  { "title": "Two value axes", "text": "Primary and secondary axes, each with its own number format." },
+  { "title": "Crosshair and zoom", "text": "An optional vertical crosshair and zoom and pan over categories." },
+  { "title": "Keyboard marks", "text": "One tab stop with a tooltip on focus; hover lists every series of a category." },
+  { "title": "Data table fallback", "text": "A generated summary and a table with the exact values." }
+]

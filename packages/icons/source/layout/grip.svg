@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="grip">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M9 6h.01"/>
+      <path d="M15 6h.01"/>
+      <path d="M9 12h.01"/>
+      <path d="M15 12h.01"/>
+      <path d="M9 18h.01"/>
+      <path d="M15 18h.01"/>
+    </g>
+  </g>
+</svg>

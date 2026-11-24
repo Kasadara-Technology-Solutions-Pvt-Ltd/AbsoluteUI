@@ -1,0 +1,10 @@
+{
+  "licensor": "Kasadara Technology Solutions Pvt Ltd",
+  "licenseName": "Apache-2.0",
+  "licenseUrl": "https://aui.kasadara.com/license/",
+  "registry": "https://pkgs.dev.azure.com/kasadara/_packaging/AbsoluteUI/npm/registry/",
+  "publicAuthor": {
+    "name": "Kasadara Technology Solutions",
+    "email": "github@kasadara.com"
+  }
+}

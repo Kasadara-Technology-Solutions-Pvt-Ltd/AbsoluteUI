@@ -1,0 +1,164 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-radio-group__fieldset {
+    display: grid;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  // A rendered legend is not a grid item, so it needs its own spacing.
+  .aui-radio-group__fieldset > .aui-field__label {
+    margin-block-end: aui.token('space-2');
+  }
+
+  .aui-radio-group__options {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-2');
+  }
+
+  .aui-radio-group__options--horizontal {
+    flex-flow: row wrap;
+    column-gap: aui.token('space-4');
+  }
+
+  .aui-radio-group__option {
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-2');
+    min-block-size: aui.token('touch-target-min');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-radio-group__box {
+    position: relative;
+    display: block;
+    flex: none;
+    inline-size: aui.ctoken('radio-group', 'size');
+    block-size: aui.ctoken('radio-group', 'size');
+    margin-block-start: max(0px, calc((1lh - #{aui.ctoken('radio-group', 'size')}) / 2));
+  }
+
+  // The native radio is the visible ring, the focus target, and the hit target.
+  .aui-radio-group__input {
+    appearance: none;
+    box-sizing: border-box;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.ctoken('radio-group', 'border-color');
+    border-radius: 50%;
+    cursor: pointer;
+    @include aui.transition(background-color, border-color);
+
+    &:hover:not(:disabled) {
+      border-color: aui.ctoken('radio-group', 'checked-bg');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &:checked {
+      background: aui.ctoken('radio-group', 'checked-bg');
+      border-color: aui.ctoken('radio-group', 'checked-bg');
+    }
+
+    &:disabled {
+      background: aui.token('color-disabled-bg');
+      border-color: aui.token('color-border');
+      cursor: not-allowed;
+    }
+
+    &:disabled:checked {
+      background: aui.token('color-text-disabled');
+      border-color: aui.token('color-text-disabled');
+    }
+  }
+
+  .aui-radio-group--invalid .aui-radio-group__input:not(:disabled) {
+    border-color: aui.token('color-error-fg');
+  }
+
+  // Selected dot: an inner disc, so selection does not rely on color alone.
+  .aui-radio-group__dot {
+    position: absolute;
+    inset: 30%;
+    display: none;
+    background: aui.ctoken('radio-group', 'dot-fg');
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .aui-radio-group__input:checked ~ .aui-radio-group__dot {
+    display: block;
+  }
+
+  .aui-radio-group__input:disabled ~ .aui-radio-group__dot {
+    background: aui.token('color-surface');
+  }
+
+  .aui-radio-group__text {
+    display: grid;
+    min-inline-size: 0;
+  }
+
+  .aui-radio-group__label {
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+
+  .aui-radio-group__option-description {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-radio-group__option:has(.aui-radio-group__input:disabled) .aui-radio-group__label {
+    color: aui.token('color-text-disabled');
+    cursor: not-allowed;
+  }
+
+  @include aui.forced-colors {
+    .aui-radio-group__input,
+    .aui-radio-group__dot {
+      forced-color-adjust: none;
+    }
+
+    .aui-radio-group__input {
+      background: Canvas;
+      border-color: CanvasText;
+
+      &:checked {
+        background: Canvas;
+        border-color: Highlight;
+      }
+
+      &:focus-visible {
+        outline-color: CanvasText;
+      }
+
+      &:disabled {
+        border-color: GrayText;
+      }
+    }
+
+    .aui-radio-group__dot {
+      background: Highlight;
+    }
+
+    .aui-radio-group__input:disabled ~ .aui-radio-group__dot {
+      background: GrayText;
+    }
+  }
+}

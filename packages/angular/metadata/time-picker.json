@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/time-picker",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiTimePicker",
+      "description": "AbsoluteUI TimePicker: `<aui-time-picker>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-time-picker",
+      "exportAs": [
+        "auiTimePicker"
+      ],
+      "source": "generated",
+      "component": "time-picker",
+      "configKey": "timePicker",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "PlainTime | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name of the group (via aria-labelledby)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "min",
+          "type": "PlainTime | null",
+          "required": false,
+          "default": "null",
+          "description": "Earliest allowed time (inclusive); first suggestion. Must not be after max."
+        },
+        {
+          "name": "max",
+          "type": "PlainTime | null",
+          "required": false,
+          "default": "null",
+          "description": "Latest allowed time (inclusive); last possible suggestion."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name for the hidden input (HH:MM or HH:MM:SS)."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by the group's aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "An empty entry is invalid; segments are required and the required indicator is shown."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables segments and the button; not submitted."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Focusable and submitted; not editable and the listbox does not open."
+        },
+        {
+          "name": "validate",
+          "type": "((value: PlainTime | null) => string | null)",
+          "required": false,
+          "description": "Consumer validation after built-in checks; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<TimePickerIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "granularity",
+          "type": "TimePickerGranularity",
+          "required": false,
+          "default": "minute",
+          "configurable": true,
+          "description": "Adds a second segment when 'second'."
+        },
+        {
+          "name": "hourCycle",
+          "type": "TimePickerHourCycle",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "12- or 24-hour entry and display; 'auto' follows the locale."
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": "30",
+          "configurable": true,
+          "description": "Minutes between suggested times (integer 1..720). Does not constrain typed values."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Segment order, hour cycle (auto), day periods, option labels, and messages."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Listbox alignment direction (applied when the listbox opens)."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "PlainTime | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "TimePickerChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the value or its validity (typing, stepping, or choosing a suggestion)."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "Listbox opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "Listbox closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isOpen",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the listbox is shown."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Show the listbox and focus it; the option nearest the value (or the first) becomes active."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Hide the listbox without changing the value; focus inside it returns to the button."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user edits."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "HH:MM (HH:MM:SS at second granularity), or null."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the first segment."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Close, restore the initial value, and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Segmented time field in a labelled group (as Date Input) with a button that opens a WAI-ARIA APG listbox popup: focus moves into the single-select listbox, which conveys the active option through aria-activedescendant.",
+        "source": "packages/components/metadata/time-picker/accessibility.json"
+      },
+      "limitations": [
+        "min must not be after max: ranges that cross midnight are not supported.",
+        "Suggestions are built on open and are not virtualized; the maximum is 1,440 (step 1).",
+        "Typed values do not have to align with step; step only controls the suggestions.",
+        "Only ASCII digits are accepted in segments; locale digits (for example Arabic-Indic) are not parsed.",
+        "Day periods whose localized forms share a first character (for example Korean 오전/오후) need the full text, Latin a/p, or ArrowUp/ArrowDown.",
+        "Milliseconds are not supported; values must have millisecond 0."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { plainTime, type PlainTime } from '@absoluteui/core';\nimport { AuiTimePicker } from '@absoluteui/angular/time-picker';\n\n@Component({\n  selector: 'app-opening-hours',\n  imports: [ReactiveFormsModule, AuiTimePicker],\n  template: `<aui-time-picker label=\"Opening time\" [min]=\"min\" [step]=\"15\" [required]=\"true\" [formControl]=\"opensAt\"></aui-time-picker>`,\n})\nexport class OpeningHoursComponent {\n  readonly min = plainTime(6, 0);\n  readonly opensAt = new FormControl<PlainTime | null>(null, { validators: [Validators.required] });\n}"
+    }
+  ]
+}

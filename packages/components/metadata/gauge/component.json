@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "name": "gauge",
+  "displayName": "Gauge",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { Gauge } from '@absoluteui/components/gauge';",
+  "styleImport": "@absoluteui/components/gauge/style.css",
+  "purpose": "Radial gauge for one value within a known range on a 240 degree arc, with optional qualitative bands (for example poor / fair / good), a target marker, and the formatted value in the center: a static svg role=\"meter\" whose value text names the band and the target. Independent of the chart frame, so it stays small.",
+  "whenToUse": [
+    "One key value against a known range (utilization, score, completion) on dashboards and cards.",
+    "When qualitative bands or a target give the value its meaning."
+  ],
+  "whenNotToUse": [
+    "Comparing several values: use Bar Chart or Bullet Chart (lengths compare more accurately than angles).",
+    "Progress of a task: use Progress Bar.",
+    "Values without a meaningful range."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core"
+  ],
+  "states": [
+    "default",
+    "with bands (current band named)",
+    "with target",
+    "no value (null)",
+    "value out of range (clamped)"
+  ],
+  "responsive": "Scales with its inline size (default 12rem, max 100%) through the SVG viewBox; text scales with it.",
+  "rtl": "Not mirrored: the arc runs clockwise from min at the lower left to max at the lower right in both directions (the direction option is accepted for configuration consistency). Title and description follow the document direction.",
+  "theme": "Value arc color-chart-<slot> (--aui-gauge-color); track color-chart-grid; bands color-chart-<n>; target and reading color-text; band name and range color-text-muted. Forced colors use Highlight, GrayText, and CanvasText.",
+  "timezone": "Not applicable.",
+  "security": "All text is set with textContent and attribute values; SVG is built with createElementNS; colors are CSS classes. No innerHTML, no style attributes, no inline handlers.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "Gauge.create with bands and a target, per instance",
+        "budget": "< 2 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Dozens of instances per page; no layout reads and no resize observer."
+  },
+  "limitations": [
+    "Fixed 240 degree arc; no needle, no ticks between the range ends.",
+    "Not interactive: no tooltip and no keyboard focus.",
+    "Not mirrored in RTL.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Several values or needles in one gauge.",
+    "Semicircle, full-circle, or linear variants.",
+    "Editing the value (the gauge is read-only)."
+  ],
+  "antiPatterns": [
+    "A gauge without a label that says what it measures.",
+    "Band colors as the only cue (keep band labels meaningful).",
+    "Rows of gauges for comparison."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/gauge: AuiGauge directive ([auiGauge]).",
+    "react": "@absoluteui/react/gauge: AuiGauge component.",
+    "vue": "@absoluteui/vue/gauge: AuiGauge component."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

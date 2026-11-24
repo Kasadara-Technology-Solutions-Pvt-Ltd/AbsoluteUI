@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "component": "number-input",
+  "pattern": "WAI-ARIA APG Spinbutton pattern on a text <input> with a <label for> association.",
+  "roles": [
+    { "element": "input", "role": "spinbutton" },
+    { "element": "stepper buttons", "role": "button (native), not in the tab order" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-valuenow", "element": "input", "value": "Current value; removed when empty or unparseable" },
+    { "attribute": "aria-valuetext", "element": "input", "value": "Value formatted in the locale (for example 15% or $1,234.50)" },
+    { "attribute": "aria-valuemin / aria-valuemax", "element": "input", "value": "min / max when set" },
+    { "attribute": "aria-describedby", "element": "input", "value": "Help text and visible error message ids" },
+    { "attribute": "aria-invalid", "element": "input", "value": "\"true\" only while an error message is shown" },
+    { "attribute": "aria-label", "element": "stepper buttons", "value": "Localized Increase / Decrease" },
+    { "attribute": "aria-controls", "element": "stepper buttons", "value": "Input id" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Moves focus to and from the input; stepper buttons are skipped." },
+    { "key": "ArrowUp / ArrowDown", "context": "Input focused", "action": "Increase / decrease by one step (from empty: min, else 0), clamped to [min, max]." },
+    { "key": "PageUp / PageDown", "context": "Input focused", "action": "Increase / decrease by ten steps." },
+    { "key": "Home / End", "context": "Input focused, min / max set", "action": "Set the minimum / maximum. Without the bound, native caret movement." },
+    { "key": "Enter", "context": "Input focused", "action": "Commit: reformat the value and fire aui-change; implicit form submission is not prevented." },
+    { "key": "All editing keys", "context": "Input focused", "action": "Native text editing." }
+  ],
+  "focus": "The control boundary shows the focus indicator (border in color-focus-ring plus a 1px ring). Pressing a stepper button keeps focus in the input.",
+  "wcag": ["1.3.1", "1.3.5", "1.4.3", "1.4.11", "2.1.1", "2.4.7", "2.5.3", "2.5.8", "3.3.1", "3.3.2", "3.3.3", "4.1.2", "4.1.3"],
+  "notes": [
+    "The required asterisk is aria-hidden; required state is conveyed by the native required attribute.",
+    "Errors appear after the first blur by default so users are not interrupted while typing.",
+    "Validation messages format numbers in the locale and style (for example 'Enter a value of 1.000 or more.').",
+    "The stepper buttons are a pointer affordance with tabindex -1; every action is available from the keyboard on the input.",
+    "Stepper buttons are disabled at the bounds."
+  ],
+  "knownCaveats": [
+    "Spinbutton announcements (aria-valuetext on step) have not yet been manually verified with NVDA, JAWS, and VoiceOver.",
+    "Mobile screen readers expose adjustable spinbutton gestures inconsistently for text inputs."
+  ]
+}

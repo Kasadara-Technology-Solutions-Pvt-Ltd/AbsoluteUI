@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/session-warning-dialog",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSessionWarningDialog",
+      "description": "AbsoluteUI Session Warning Dialog; projected content is added below the countdown:\n`<aui-session-warning-dialog [expiresAt]=\"deadline()\" [(open)]=\"warn\" (extended)=\"extend()\">...</aui-session-warning-dialog>`.\nWith `warnBefore` it opens itself; `open` follows it either way.",
+      "selector": "aui-session-warning-dialog",
+      "exportAs": [
+        "auiSessionWarningDialog"
+      ],
+      "source": "hand-written",
+      "component": "session-warning-dialog",
+      "configKey": "sessionWarningDialog",
+      "inputs": [
+        {
+          "name": "expiresAt",
+          "type": "Instant",
+          "required": true,
+          "description": "When the session ends."
+        },
+        {
+          "name": "warnBefore",
+          "type": "Duration",
+          "required": false,
+          "description": "Open automatically this long before expiresAt (at least 20 s)."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Default: localized \"Your session is about to expire\"."
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "description": "Default: localized inactivity message."
+        },
+        {
+          "name": "extendLabel",
+          "type": "string",
+          "required": false,
+          "description": "Default: localized \"Stay signed in\"."
+        },
+        {
+          "name": "signOutLabel",
+          "type": "string",
+          "required": false,
+          "description": "Default: localized \"Sign out\"."
+        },
+        {
+          "name": "expiredTitle",
+          "type": "string",
+          "required": false,
+          "description": "Default: localized \"Your session has expired\"."
+        },
+        {
+          "name": "expiredMessage",
+          "type": "string",
+          "required": false,
+          "description": "Default: localized \"You have been signed out. Sign in again to continue.\""
+        },
+        {
+          "name": "signInLabel",
+          "type": "string",
+          "required": false,
+          "description": "The single action after expiry. Default: localized \"Sign in again\"."
+        },
+        {
+          "name": "announceInterval",
+          "type": "number",
+          "required": false,
+          "default": "60",
+          "configurable": true,
+          "description": "Announce the remaining time each time it crosses a multiple of this many seconds (15..3600), and at 60, 30, and 10 seconds."
+        },
+        {
+          "name": "escapeExtends",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Escape means \"Stay signed in\"; when false, Escape does nothing."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message and unit-formatting locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "change": "openChange",
+          "description": "Whether the warning dialog is shown: `[(open)]`. Closing by Escape, the close button, or an action sets it to false."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "opened",
+          "payload": "null",
+          "event": "aui-open",
+          "description": "The dialog opened (from Dialog)."
+        },
+        {
+          "name": "closed",
+          "payload": "DialogCloseDetail",
+          "event": "aui-close",
+          "description": "The dialog closed (from Dialog)."
+        },
+        {
+          "name": "extended",
+          "payload": "SessionWarningExtendDetail",
+          "event": "aui-extend",
+          "description": "The user chose to stay signed in: extend the session, then call update({ expiresAt })."
+        },
+        {
+          "name": "signedOut",
+          "payload": "SessionWarningSignOutDetail",
+          "event": "aui-sign-out",
+          "description": "The user chose to sign out, or acknowledged expiry (\"Sign in again\")."
+        },
+        {
+          "name": "expired",
+          "payload": "null",
+          "event": "aui-expire",
+          "description": "The deadline passed (once per deadline, open or closed)."
+        }
+      ],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA alertdialog (native modal <dialog>) named by its title and described by the message and countdown.",
+        "source": "packages/components/metadata/session-warning-dialog/accessibility.json"
+      },
+      "limitations": [
+        "Background tabs throttle timers; the countdown is recomputed from the clock on the next tick, so it is correct but can update late.",
+        "A deadline in the past at creation opens in the expired state without emitting aui-expire.",
+        "After the user answers, auto-open is suspended until update({ expiresAt }).",
+        "Escape extends the session by default (escapeExtends).",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { instant, type Instant } from '@absoluteui/core';\nimport { AuiSessionWarningDialog } from '@absoluteui/angular/session-warning-dialog';\nimport { AuiButton } from '@absoluteui/angular/button';\n\n@Component({\n  selector: 'app-session',\n  imports: [AuiSessionWarningDialog, AuiButton],\n  template: `\n    <aui-session-warning-dialog [open]=\"warn()\" [expiresAt]=\"expiresAt()\"\n                 (extended)=\"extend()\" (signedOut)=\"signOut()\" (closed)=\"warn.set(false)\">\n      <p>Unsaved changes are kept.</p>\n    </aui-session-warning-dialog>\n    <button type=\"button\" auiButton (click)=\"warn.set(true)\">Show the warning</button>\n  `,\n})\nexport class SessionComponent {\n  readonly warn = signal(false);\n  readonly expiresAt = signal<Instant>(instant(Date.now() + 15 * 60_000));\n  extend(): void {\n    this.expiresAt.set(instant(Date.now() + 15 * 60_000));\n  }\n  signOut(): void {\n    location.assign('/sign-out');\n  }\n}"
+    }
+  ]
+}

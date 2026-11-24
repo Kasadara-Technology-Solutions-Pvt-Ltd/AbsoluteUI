@@ -1,0 +1,120 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-mention-input__input {
+    @include aui.control-surface;
+    @include aui.text-control-states;
+    display: block;
+    inline-size: 100%;
+    min-inline-size: 0;
+    padding-block: aui.token('space-2');
+    margin: 0;
+    resize: vertical;
+    overflow-wrap: break-word;
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-visible {
+      box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+    }
+  }
+
+  // Top-layer suggestion popup (Popover API); the positioning engine places it under the field.
+  .aui-mention-input__popup {
+    @include aui.popup-motion;
+    box-sizing: border-box;
+    min-inline-size: 14rem;
+    max-inline-size: min(24rem, calc(100vw - 1rem));
+    max-block-size: min(#{aui.token('popover-max-height')}, var(--aui-available-height, 100dvh));
+    padding: aui.token('space-1');
+    margin: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    box-shadow: aui.token('shadow-md');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+  }
+
+  .aui-mention-input__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-mention-input__option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 aui.token('space-2');
+    min-block-size: aui.token('control-height-sm');
+    padding: aui.token('space-1') aui.token('space-3');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+  }
+
+  // Active descendant: the selected background plus an outline, never color alone.
+  .aui-mention-input__option--active,
+  .aui-mention-input__option--active:hover {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    outline: aui.token('focus-ring-width') solid aui.token('color-selected-text');
+    outline-offset: calc(-1 * #{aui.token('focus-ring-width')});
+  }
+
+  .aui-mention-input__option-label {
+    flex: 1 1 auto;
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-mention-input__option-description {
+    flex-basis: 100%;
+    font-size: aui.token('font-size-sm');
+  }
+
+  .aui-mention-input__option:not(.aui-mention-input__option--active) .aui-mention-input__option-description {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-mention-input__status {
+    padding: aui.token('space-2') aui.token('space-3');
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-mention-input__option--active {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+      outline-color: HighlightText;
+    }
+
+    .aui-mention-input__popup {
+      border-color: CanvasText;
+    }
+
+    .aui-mention-input__input:focus-visible {
+      outline: 2px solid Highlight;
+    }
+  }
+}

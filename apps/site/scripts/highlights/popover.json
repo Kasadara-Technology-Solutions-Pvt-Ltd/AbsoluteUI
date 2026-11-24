@@ -1,0 +1,6 @@
+[
+  { "title": "Anchored panel", "text": "Interactive content next to its trigger, flipping to stay inside the viewport." },
+  { "title": "Focus handled", "text": "Focus moves into the panel on open and back to the trigger on close." },
+  { "title": "Light dismiss", "text": "Escape and outside clicks close it, each one configurable and cancelable." },
+  { "title": "Title and close button", "text": "An optional heading names the panel and an optional button closes it." }
+]

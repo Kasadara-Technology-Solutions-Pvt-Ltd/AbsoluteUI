@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="align-end" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 6h16"/>
+      <path d="M10 10h10"/>
+      <path d="M4 14h16"/>
+      <path d="M10 18h10"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "name": "dashboard-widget",
+  "displayName": "Dashboard Widget",
+  "category": "Dashboard",
+  "package": "@absoluteui/components",
+  "import": "import { DashboardWidget } from '@absoluteui/components/dashboard-widget';",
+  "styleImport": "@absoluteui/components/dashboard-widget/style.css",
+  "purpose": "Enhances a host element in place into a titled dashboard panel (widget container, collapsible widget, dashboard tile): a header with a heading (level 2-6), optional subtitle, and action buttons (custom icon actions, collapse, maximize, remove) is inserted as the host's first child; the host's other children are the body and are never moved. The host is a region labelled by the title. Collapse is a disclosure button (aria-expanded) that hides the body. Maximize shows the widget in the top layer through the Popover API as a modal dialog (role=dialog, aria-modal, focus trapped, page scroll locked; Escape or the restore button restores). Remove emits a cancelable aui-remove; the application removes the widget or its grid item.",
+  "whenToUse": [
+    "Panels inside a Dashboard Grid (pass data-aui-item on the host).",
+    "Titled content blocks on a dashboard that users collapse, expand to full screen, or remove."
+  ],
+  "whenNotToUse": [
+    "Generic content cards without widget actions: use Card.",
+    "Dialogs opened from elsewhere on the page: use Dialog.",
+    "Page sections that should not be landmarks: the host becomes role=region unless it already has another role."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["expanded", "collapsed", "maximized (modal)", "busy (aria-busy)", "action hover", "action focus-visible"],
+  "responsive": "Fills its container (a grid cell inside Dashboard Grid) and scrolls its content (overflow: auto). Header actions wrap. Maximized, the widget is fixed over the viewport inset by space-6. Action buttons are touch-target-min squares. Inside an editing Dashboard Grid the header leaves room for the move handle.",
+  "rtl": "Logical properties throughout. The collapsed chevron rotates toward the inline start (mirrored in RTL). Header actions follow the inline direction.",
+  "theme": "color-surface, color-border, radius-lg, and shadow-sm for the panel; shadow-lg and a color-backdrop ::backdrop when maximized; color-hover and a focus-ring-width outline on actions. Forced-colors mode draws a CanvasText border. The chevron transition is removed under reduced motion.",
+  "timezone": "Not applicable.",
+  "security": "Title, subtitle, and action labels are rendered with textContent and attributes. Body content is the consumer's and is never read, moved, or re-parsed. No HTML sinks; CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Collapsed and maximized state are reported through aui-toggle and aui-maximize; the application stores them if needed.",
+  "performance": {
+    "budgets": [
+      { "metric": "DashboardWidget.create", "budget": "Not separately budgeted; covered by the Dashboard Grid create budget (50 items < 40 ms in headless Chromium, e2e performance test)" }
+    ],
+    "testedScale": "Behavior unit tests with single widgets; dashboards of 50 widgets are the Dashboard Grid target."
+  },
+  "limitations": [
+    "Maximize relies on the Popover API for the top layer; without HTMLElement.showPopover the widget is only fixed-positioned (it may sit under other stacked content).",
+    "The collapse button has no aria-controls: the body is every host child except the header.",
+    "headingLevel cannot change after create (recreate the widget).",
+    "The remove event has no default action: the widget stays until the application removes it.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Rendering HTML in the title or subtitle.",
+    "Drag handles inside the widget (Dashboard Grid adds the move handle in edit mode).",
+    "Non-modal full-screen mode."
+  ],
+  "antiPatterns": [
+    "Duplicate titles on one dashboard: region and action names ('Collapse {title}', 'Remove {title}') become ambiguous.",
+    "Hiding critical content in a collapsed widget by default without telling users.",
+    "Using removable without handling aui-remove."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/dashboard-widget: hand-written AuiDashboardWidget directive ([auiDashboardWidget], enhances the host in place; inputs mirror the options; outputs auiToggle, auiMaximize, auiAction, auiRemove).",
+    "react": "@absoluteui/react/dashboard-widget: hand-written AuiDashboardWidget; renders a <section> with the children as the body; props = DashboardWidgetOptions + onToggle, onMaximize, onAction, onRemove (detail); ref receives the DashboardWidget.",
+    "vue": "@absoluteui/vue/dashboard-widget: AuiDashboardWidget (renders a <section>; default slot is the body; emits toggle, maximize, action, remove; template ref exposes controller)."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

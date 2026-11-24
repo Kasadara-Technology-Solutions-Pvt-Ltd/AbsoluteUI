@@ -1,0 +1,6 @@
+[
+  { "title": "Quarter and year", "text": "Pick a calendar quarter of a year from a grid or type it." },
+  { "title": "Limits and disabled quarters", "text": "Earliest and latest quarters plus a function to block any quarter." },
+  { "title": "Reporting periods", "text": "Fits quarterly reports, reviews, and planning." },
+  { "title": "Form ready", "text": "Validation, custom errors, and native form submission." }
+]

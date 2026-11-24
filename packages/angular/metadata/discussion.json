@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/discussion",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDiscussion",
+      "description": "AbsoluteUI Discussion: `<aui-discussion>`.\nTwo-way: `[(sort)]`.",
+      "selector": "aui-discussion",
+      "exportAs": [
+        "auiDiscussion"
+      ],
+      "source": "generated",
+      "component": "discussion",
+      "configKey": "discussion",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible title and accessible name of the discussion."
+        },
+        {
+          "name": "comments",
+          "type": "readonly DiscussionComment[]",
+          "required": false,
+          "default": "[]",
+          "description": "Comments: { id, parentId, author: { id, name, avatar? }, text, mentions?, createdAt, editedAt?, deleted?, replyCount? }."
+        },
+        {
+          "name": "currentUser",
+          "type": "DiscussionAuthor | null",
+          "required": false,
+          "default": "null",
+          "description": "The signed-in user; null makes the discussion read-only (no composer, no reply)."
+        },
+        {
+          "name": "maxLength",
+          "type": "number",
+          "required": false,
+          "description": "Maximum characters per comment (1..100000); longer text is blocked from posting, not truncated."
+        },
+        {
+          "name": "showCounter",
+          "type": "boolean",
+          "required": false,
+          "default": "true when maxLength is set",
+          "description": "Show the character counter on every composer; requires maxLength."
+        },
+        {
+          "name": "triggers",
+          "type": "readonly MentionTrigger[]",
+          "required": false,
+          "default": "@ suggesting the people in the discussion",
+          "description": "Mention triggers and providers of every composer (Mention Input)."
+        },
+        {
+          "name": "allowReplies",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show Reply on comments."
+        },
+        {
+          "name": "canEdit",
+          "type": "((comment: DiscussionComment) => boolean) | null",
+          "required": false,
+          "default": "own comments",
+          "description": "Whether the current user may edit a comment (deleted comments never)."
+        },
+        {
+          "name": "canDelete",
+          "type": "((comment: DiscussionComment) => boolean) | null",
+          "required": false,
+          "default": "own comments",
+          "description": "Whether the current user may delete a comment."
+        },
+        {
+          "name": "loadReplies",
+          "type": "((comment: DiscussionComment, context: DiscussionLoadContext) => Promise<readonly DiscussionComment[]>) | null",
+          "required": false,
+          "default": "null",
+          "description": "Loads replies of a comment whose replyCount exceeds its loaded replies; context { signal, loaded }."
+        },
+        {
+          "name": "status",
+          "type": "DiscussionStatus",
+          "required": false,
+          "default": "ready",
+          "description": "loading shows a spinner, error a message with Retry (aui-retry)."
+        },
+        {
+          "name": "errorText",
+          "type": "string",
+          "required": false,
+          "description": "Message shown with status error."
+        },
+        {
+          "name": "emptyTitle",
+          "type": "string",
+          "required": false,
+          "description": "Empty state title."
+        },
+        {
+          "name": "emptyDescription",
+          "type": "string",
+          "required": false,
+          "description": "Empty state description."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder of the new-comment box."
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "description": "Rows of every composer (1..20)."
+        },
+        {
+          "name": "businessCalendar",
+          "type": "BusinessCalendarEngine | null",
+          "required": false,
+          "default": "null",
+          "description": "Names holidays and non-working days in absolute dates."
+        },
+        {
+          "name": "now",
+          "type": "Instant",
+          "required": false,
+          "description": "Reference time of relative timestamps; default now, refreshed every minute."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<DiscussionIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "maxIndent",
+          "type": "number",
+          "required": false,
+          "default": "4",
+          "configurable": true,
+          "description": "Levels that indent (1..10); deeper replies show Replying to <name>."
+        },
+        {
+          "name": "collapseDepth",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "configurable": true,
+          "description": "Replies of comments at this depth or deeper start collapsed (1..50; top-level is depth 0)."
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "default": "20",
+          "configurable": true,
+          "description": "Top-level comments shown at first and per Show more comments (1..500)."
+        },
+        {
+          "name": "repliesPageSize",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "configurable": true,
+          "description": "Replies shown per thread at first and per Show more replies (1..200)."
+        },
+        {
+          "name": "showAvatars",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show avatars."
+        },
+        {
+          "name": "headingLevel",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "configurable": true,
+          "description": "Heading level of the title (2..6)."
+        },
+        {
+          "name": "composerPosition",
+          "type": "\"bottom\" | \"top\"",
+          "required": false,
+          "default": "top",
+          "configurable": true,
+          "description": "Where the new-comment box sits."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "IANA timezone of timestamps."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of labels, numbers, and dates."
+        }
+      ],
+      "models": [
+        {
+          "name": "sort",
+          "type": "DiscussionSort",
+          "change": "sortChange",
+          "description": "Order of top-level comments (replies are always oldest first)."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "posted",
+          "payload": "DiscussionPostDetail",
+          "event": "aui-post",
+          "description": "A top-level comment was posted: { comment }; prevent it to add nothing and keep the text."
+        },
+        {
+          "name": "replied",
+          "payload": "DiscussionReplyDetail",
+          "event": "aui-reply",
+          "description": "A reply was posted: { comment, parent }."
+        },
+        {
+          "name": "edited",
+          "payload": "DiscussionEditDetail",
+          "event": "aui-edit",
+          "description": "An edit was saved: { id, text, mentions, previous }; prevent it to keep the previous text."
+        },
+        {
+          "name": "deleted",
+          "payload": "DiscussionDeleteDetail",
+          "event": "aui-delete",
+          "description": "A delete was confirmed: { comment, placeholder } (placeholder: the comment has replies and stays as deleted)."
+        },
+        {
+          "name": "expandToggled",
+          "payload": "DiscussionExpandDetail",
+          "event": "aui-expand",
+          "description": "A thread was expanded or collapsed: { id, expanded }."
+        },
+        {
+          "name": "retried",
+          "payload": "unknown",
+          "event": "aui-retry",
+          "detail": "{}",
+          "description": "Retry in the error state."
+        },
+        {
+          "name": "mentioned",
+          "payload": "unknown",
+          "event": "aui-mention",
+          "detail": "MentionInputMentionDetail",
+          "description": "From the composers (Mention Input): a mention was inserted: { mention }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "addComment",
+          "signature": "addComment(comment: DiscussionComment): void",
+          "description": "Add a comment or replace the one with the same id; comments by others are announced."
+        },
+        {
+          "name": "updateComment",
+          "signature": "updateComment(id: string, patch: Partial<Omit<DiscussionComment, \"id\" | \"parentId\">>): void",
+          "description": "Merge fields into a comment."
+        },
+        {
+          "name": "removeComment",
+          "signature": "removeComment(id: string): void",
+          "description": "Remove a comment (no event): a placeholder when it has replies, otherwise gone with deleted ancestors left without replies."
+        },
+        {
+          "name": "expand",
+          "signature": "expand(id: string): void",
+          "description": "Show a thread's replies (loading them when needed)."
+        },
+        {
+          "name": "collapse",
+          "signature": "collapse(id: string): void",
+          "description": "Hide a thread's replies."
+        },
+        {
+          "name": "reply",
+          "signature": "reply(id: string): void",
+          "description": "Open and focus the reply box of a comment."
+        },
+        {
+          "name": "focusComment",
+          "signature": "focusComment(id: string): void",
+          "description": "Reveal and focus a comment."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the new-comment box (or the first comment when read-only)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "A labelled region with nested lists of articles (one list per reply level, so the nesting is semantic at every depth); every action is a native button in the Tab order, the composers are labelled multi-line text fields with mention suggestions (Mention Input, combobox-style listbox), and thread toggles are disclosure buttons. The WAI-ARIA tree pattern was not used because comments contain interactive content (buttons, links, text fields), which tree items must not.",
+        "source": "packages/components/metadata/discussion/accessibility.json"
+      },
+      "limitations": [
+        "Not virtualized: the DOM grows as the user pages in more comments or expands threads.",
+        "Replies are always in conversation order (oldest first); sort applies to top-level comments.",
+        "One reply, edit, or delete panel is open at a time; an unsent reply is kept as a draft when another panel opens.",
+        "Relative timestamps refresh every minute."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { instant } from '@absoluteui/core';\nimport type { DiscussionComment, DiscussionPostDetail } from '@absoluteui/components/discussion';\nimport { AuiDiscussion } from '@absoluteui/angular/discussion';\n\n@Component({\n  selector: 'app-comments',\n  imports: [AuiDiscussion],\n  template: `<aui-discussion label=\"Comments\" [currentUser]=\"me\" [comments]=\"comments\" [maxLength]=\"500\" (posted)=\"save($event)\"></aui-discussion>`,\n})\nexport class CommentsComponent {\n  readonly me = { id: 'u1', name: 'Ana' };\n  readonly comments: DiscussionComment[] = [\n    { id: '1', parentId: null, author: { id: 'u2', name: 'Ben' }, text: 'Office closed on Friday.', createdAt: instant(Date.UTC(2026, 10, 20, 9)) },\n  ];\n  save(detail: DiscussionPostDetail): void {\n    console.log(detail.comment.text);\n  }\n}"
+    }
+  ]
+}

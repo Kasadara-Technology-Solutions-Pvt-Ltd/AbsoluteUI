@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular",
+  "declarations": [
+    {
+      "kind": "service",
+      "name": "AuiConfig",
+      "description": "The configuration scope of the current injector. Inject it to read the effective\nsettings (`common()`), or to change the scope at run time (`set`, `patch`).",
+      "methods": [
+        {
+          "name": "set",
+          "signature": "set(config: AbsoluteUIConfig): void",
+          "description": "Replace this scope's own settings. Throws `AbsoluteUIError` on invalid values; the previous settings stay active."
+        },
+        {
+          "name": "patch",
+          "signature": "patch(config: AbsoluteUIConfig): void",
+          "description": "Merge settings into this scope's own settings."
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "AuiDirectionality",
+      "description": "Text direction of the current configuration scope.",
+      "methods": []
+    },
+    {
+      "kind": "service",
+      "name": "AuiIcons",
+      "description": "Icon registry and provider (application-wide).",
+      "methods": [
+        {
+          "name": "register",
+          "signature": "register(icons: Readonly<Record<string, IconDefinition>>): void",
+          "description": "Add or replace named icons."
+        },
+        {
+          "name": "setProvider",
+          "signature": "setProvider(provider: IconProvider | null): void",
+          "description": "Resolve icon names through an icon library adapter (`null` restores the registry)."
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "AuiIds",
+      "description": "Unique element ids. Ids are generated in creation order, so server rendering and\nthe client produce the same sequence for the same view tree.",
+      "methods": [
+        {
+          "name": "next",
+          "signature": "next(prefix?: string | undefined): string",
+          "description": "The next unique id, for example `aui-3`."
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "AuiLocale",
+      "description": "Locale settings of the current configuration scope.",
+      "methods": []
+    },
+    {
+      "kind": "service",
+      "name": "AuiPlatform",
+      "description": "Runtime capabilities. On the server, `window` is null and browser-only features report false.",
+      "methods": [
+        {
+          "name": "supports",
+          "signature": "supports(feature: \"ResizeObserver\" | \"IntersectionObserver\" | \"MutationObserver\" | \"matchMedia\"): boolean",
+          "description": "Whether a browser API is available (always false on the server)."
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "AuiTheme",
+      "description": "Application theme, density, and animation mode (applied to the document element).",
+      "methods": [
+        {
+          "name": "setTheme",
+          "signature": "setTheme(theme: string): void",
+          "description": "Switch the application theme (a built-in name or one registered with `registerTheme`)."
+        },
+        {
+          "name": "setDensity",
+          "signature": "setDensity(density: Density): void",
+          "description": "Switch the density (compact, comfortable, or spacious) for this configuration scope."
+        },
+        {
+          "name": "setAnimation",
+          "signature": "setAnimation(animation: AnimationMode): void",
+          "description": "Switch animations ('subtle' or 'none') for this configuration scope."
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "name": "provideAbsoluteUI",
+      "signature": "provideAbsoluteUI(options?: AbsoluteUIOptions | undefined): EnvironmentProviders",
+      "description": "Application setup:\n`bootstrapApplication(App, { providers: [provideAbsoluteUI({ timezone: 'Asia/Kolkata', components: { dataTable: { pageSize: 50 } } })] })`.\nOptional: without it, components use their defaults. In a lazy route's providers it\ncreates a nested scope like `provideAbsoluteUIConfig`."
+    },
+    {
+      "name": "provideAbsoluteUIConfig",
+      "signature": "provideAbsoluteUIConfig(config: AbsoluteUIConfig): Provider[]",
+      "description": "A nested configuration scope for a route or component subtree:\n`@Component({ providers: [provideAbsoluteUIConfig({ timezone: 'Europe/Berlin' })] })`.\nSettings merge over the parent scope and apply to every AbsoluteUI component inside."
+    }
+  ],
+  "types": [
+    {
+      "name": "AbsoluteUIConfig",
+      "description": "Configuration accepted by `provideAbsoluteUI`, `provideAbsoluteUIConfig`, and `AuiConfig.set`."
+    },
+    {
+      "name": "AbsoluteUIOptions",
+      "description": "Application options for `provideAbsoluteUI`."
+    }
+  ]
+}

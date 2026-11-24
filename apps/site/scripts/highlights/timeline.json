@@ -1,0 +1,7 @@
+[
+  { "title": "Grouped by day", "text": "Today, Yesterday, weekdays, and dates in your timezone; holidays and non-working days named from a business calendar." },
+  { "title": "Status you can read", "text": "Every tone has its own marker icon and a status word, so nothing depends on color." },
+  { "title": "Three layouts", "text": "Vertical, alternating sides, or a horizontal milestone strip that scrolls with the keyboard." },
+  { "title": "Older on demand", "text": "Collapse older items behind \"Show N older\" or load them from your server with loading, error, and retry." },
+  { "title": "Actions per item", "text": "Buttons grouped and named by the item, reachable with Tab, reported as aui-action." }
+]

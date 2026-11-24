@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="chart-bullet" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3" y="8" width="18" height="8" rx="1.5"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="stroke">
+      <path d="M17 9.5v5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M5.5 12h9"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="3" y="8" width="18" height="8" rx="1.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3" y="8" width="18" height="8" rx="1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M5.5 12h9"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <path d="M17 9.5v5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="muted" data-paint="fill" data-opacity="0.3">
+      <rect x="3" y="8" width="18" height="8" rx="1.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3" y="8" width="18" height="8" rx="1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M5.5 12h9"/>
+    </g>
+    <g data-layer="detail" data-role="error" data-paint="stroke">
+      <path d="M17 9.5v5"/>
+    </g>
+  </g>
+</svg>

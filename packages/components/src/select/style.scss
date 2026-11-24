@@ -1,0 +1,182 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  // The combobox is the control boundary and the popup anchor.
+  .aui-select__combobox {
+    @include aui.control-surface(
+      $height: aui.ctoken('select', 'height'),
+      $padding-x: aui.ctoken('select', 'padding-x'),
+      $bg: aui.ctoken('select', 'bg'),
+      $border-color: aui.ctoken('select', 'border-color'),
+      $radius: aui.ctoken('select', 'radius')
+    );
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    padding-inline-end: aui.token('space-2');
+    cursor: pointer;
+    user-select: none;
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+      border-color: aui.token('color-focus-ring');
+    }
+
+    &[aria-invalid='true'] {
+      border-color: aui.token('color-error-fg');
+    }
+
+    &[aria-readonly='true'] {
+      background: aui.token('color-surface-sunken');
+      cursor: default;
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      background: aui.token('color-disabled-bg');
+      border-color: aui.token('color-border');
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-select__value {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-select__value--placeholder {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-select__combobox[aria-disabled='true'] .aui-select__value--placeholder {
+    color: aui.token('color-text-disabled');
+  }
+
+  .aui-select__chevron {
+    display: inline-flex;
+    flex: none;
+    color: aui.token('color-text-muted');
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      @include aui.transition(transform);
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-select__combobox[aria-expanded='true'] .aui-select__chevron .aui-icon {
+    transform: rotate(180deg);
+  }
+
+  .aui-select__combobox[aria-disabled='true'] .aui-select__chevron {
+    color: aui.token('color-text-disabled');
+  }
+
+  // Top-layer popup (Popover API). Position is applied by the positioning engine.
+  .aui-select__popup {
+    @include aui.popup-motion;
+    box-sizing: border-box;
+    max-block-size: min(#{aui.token('popover-max-height')}, var(--aui-available-height, 100dvh));
+    padding: aui.token('space-1');
+    margin: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.ctoken('select', 'popup-radius');
+    box-shadow: aui.ctoken('select', 'popup-shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+  }
+
+  .aui-select__option {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 aui.token('space-2');
+    min-block-size: aui.token('control-height-sm');
+    padding: aui.token('space-1') aui.token('space-3');
+    border-radius: aui.ctoken('select', 'option-radius');
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &[aria-selected='true'] {
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+      font-weight: aui.token('font-weight-medium');
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+      background: transparent;
+    }
+  }
+
+  // Active descendant indicator: visible without relying on color alone.
+  .aui-select__option--active {
+    outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+    outline-offset: calc(-1 * #{aui.token('focus-ring-width')});
+  }
+
+  // On the selected background the focus-ring color can vanish (high contrast: black on
+  // black), so the indicator uses the selected text color there.
+  .aui-select__option--active[aria-selected='true'] {
+    outline-color: aui.token('color-selected-text');
+  }
+
+  .aui-select__option-label {
+    flex: 1 1 auto;
+  }
+
+  .aui-select__option-description {
+    flex-basis: 100%;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  // Keep secondary text on the selected background within an audited contrast pair.
+  .aui-select__option[aria-selected='true'] .aui-select__option-description {
+    color: aui.token('color-selected-text');
+    font-weight: aui.token('font-weight-regular');
+  }
+
+  .aui-select__check {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    color: aui.token('color-selected-indicator');
+    font-size: aui.icon-size('sm');
+  }
+
+  @include aui.forced-colors {
+    .aui-select__combobox:focus-visible,
+    .aui-select__option--active {
+      outline-color: Highlight;
+    }
+
+    .aui-select__option[aria-selected='true'] {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-select__popup {
+      border-color: CanvasText;
+    }
+  }
+}

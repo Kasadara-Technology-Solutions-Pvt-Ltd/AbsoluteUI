@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "component": "command-palette",
+  "factory": { "name": "CommandPalette.create", "signature": "CommandPalette.create(host: HTMLElement, options: CommandPaletteOptions): CommandPalette" },
+  "configKey": "commandPalette",
+  "options": [
+    { "name": "commands", "type": "readonly Command[]", "required": true, "globallyConfigurable": false, "description": "Commands: { id, label, keywords?, group?, description?, shortcut?, icon?, children?, disabled?, run? }." },
+    { "name": "label", "type": "string", "default": "Command palette", "required": false, "globallyConfigurable": false, "description": "Accessible name of the dialog." },
+    { "name": "placeholder", "type": "string", "default": "Type a command or search", "required": false, "globallyConfigurable": false, "description": "Search field placeholder." },
+    { "name": "providers", "type": "readonly CommandProvider[]", "required": false, "globallyConfigurable": false, "description": "Async searches ({ id, label, search(query, { signal }), minQueryLength? }), listed after the commands." },
+    { "name": "recent", "type": "readonly string[]", "default": "[]", "required": false, "globallyConfigurable": false, "description": "Command ids shown in the Recent section while the query is empty." },
+    { "name": "recentLimit", "type": "number", "default": "5", "required": false, "globallyConfigurable": false, "description": "Most recent commands remembered (0 hides the section)." },
+    { "name": "maxResults", "type": "number", "default": "50", "required": false, "globallyConfigurable": false, "description": "Most results per section." },
+    { "name": "icons", "type": "Partial<CommandPaletteIcons>", "required": false, "globallyConfigurable": false, "description": "Search, loading, back, and submenu icons." },
+    { "name": "shortcut", "type": "string | null", "default": "Mod+K", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Hotkey that opens and closes the palette (matchesHotkey syntax; Mod is Cmd on Apple platforms, Ctrl elsewhere); null for none." },
+    { "name": "debounce", "type": "number", "default": "200", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Milliseconds between the last keystroke and provider searches (0 to 2000)." },
+    { "name": "overscan", "type": "number", "default": "6", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Rows rendered beyond each edge of the visible area." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of messages and matching." },
+    { "name": "density", "type": "'compact' | 'comfortable' | 'spacious'", "default": "comfortable", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Row height." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (holds the dialog)." },
+    { "name": "dialog", "type": "HTMLDialogElement", "description": "The native modal dialog." },
+    { "name": "input", "type": "HTMLInputElement", "description": "The search field (role=combobox)." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the palette is open." },
+    { "name": "query", "type": "string", "description": "The current search text." },
+    { "name": "recent", "type": "string[]", "description": "Recent command ids, most recent first." },
+    { "name": "path", "type": "string[]", "description": "Ids of the open nested pages." },
+    { "name": "options", "type": "Readonly<CommandPaletteOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(options?: { page?: string; query?: string }): void", "description": "Open, optionally on a command's nested page and with a query." },
+    { "name": "close", "signature": "close(): void", "description": "Close and restore focus." },
+    { "name": "toggle", "signature": "toggle(): void", "description": "Open or close." },
+    { "name": "setQuery", "signature": "setQuery(query: string): void", "description": "Replace the search text and search." },
+    { "name": "update", "signature": "update(options: Partial<CommandPaletteOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close, remove the dialog and the shortcut listener, abort searches." }
+  ],
+  "events": [
+    { "name": "aui-select", "detail": "CommandPaletteSelectDetail", "bubbles": true, "cancelable": true, "description": "A command was chosen: { id, command, path, query, providerId }; preventDefault() skips command.run. The palette closes first." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "The palette opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "The palette closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-command-palette", "description": "Host (display: contents)." },
+    { "name": "aui-command-palette__dialog | __dialog--loading", "description": "The modal dialog; loading state." },
+    { "name": "aui-command-palette__search | __search-icon | __input | __spinner", "description": "Search row, icon, field, and loading indicator." },
+    { "name": "aui-command-palette__crumbs | __back | __trail", "description": "Nested page trail and back button." },
+    { "name": "aui-command-palette__list | __canvas", "description": "Result listbox and its positioning layer." },
+    { "name": "aui-command-palette__header", "description": "Section header (role=presentation)." },
+    { "name": "aui-command-palette__option | __option--active", "description": "A result (role=option) and the active one." },
+    { "name": "aui-command-palette__icon | __text | __label | __match | __description | __shortcut | __submenu", "description": "Result parts." },
+    { "name": "aui-command-palette__empty | __error | __footer | __hint | __status", "description": "Empty State host, provider error, key hints, and the live status." }
+  ],
+  "iconSlots": [
+    { "name": "search", "default": "search" },
+    { "name": "loading", "default": "spinner" },
+    { "name": "back", "default": "chevron-left" },
+    { "name": "submenu", "default": "chevron-right" }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/layout",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiStack",
+      "description": "Angular bindings for layout primitives. They style the host in place; children\nstay Angular-managed. The CSS classes (`aui-stack`, `aui-grid`, ...) also work directly.",
+      "selector": "[auiStack]",
+      "exportAs": [
+        "auiStack"
+      ],
+      "source": "hand-written",
+      "component": "layout",
+      "configKey": "layout",
+      "inputs": [
+        {
+          "name": "gap",
+          "type": "0 | 2 | 3 | 4 | 5 | 6 | 1 | 8 | 12 | 10",
+          "required": false,
+          "description": "Stack, Flex, Grid: gap step mapped to the space-N token. Defaults to the configured defaultGap."
+        },
+        {
+          "name": "align",
+          "type": "LayoutAlign",
+          "required": false,
+          "description": "Stack, Flex: cross-axis alignment (aui-align-*)."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Presentational CSS layout (no ARIA widget pattern). Dividers follow HTML <hr> and the WAI-ARIA separator role (non-focusable).",
+        "source": "packages/components/metadata/layout/accessibility.json"
+      },
+      "limitations": [
+        "Only one of Stack, Flex, or Grid can own an element at a time (LAYOUT_ALREADY_APPLIED); Container can be combined with any of them.",
+        "Fixed grid column counts do not collapse at narrow widths; use columns: 'auto' for reflow.",
+        "Labelled dividers are horizontal only; vertical dividers cannot carry text.",
+        "Handles that rely on the configured defaultGap re-apply when configuration changes; plain CSS classes use the space-4 default."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiFlex",
+      "selector": "[auiFlex]",
+      "exportAs": [
+        "auiFlex"
+      ],
+      "source": "hand-written",
+      "component": "layout",
+      "configKey": "layout",
+      "inputs": [
+        {
+          "name": "gap",
+          "type": "0 | 2 | 3 | 4 | 5 | 6 | 1 | 8 | 12 | 10",
+          "required": false,
+          "description": "Stack, Flex, Grid: gap step mapped to the space-N token. Defaults to the configured defaultGap."
+        },
+        {
+          "name": "align",
+          "type": "LayoutAlign",
+          "required": false,
+          "description": "Stack, Flex: cross-axis alignment (aui-align-*)."
+        },
+        {
+          "name": "justify",
+          "type": "LayoutJustify",
+          "required": false,
+          "description": "Flex: main-axis distribution (aui-justify-*)."
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Flex: wrap items onto new lines (false adds aui-flex--nowrap)."
+        },
+        {
+          "name": "flexDirection",
+          "type": "\"row\" | \"row-reverse\"",
+          "required": false,
+          "default": "row",
+          "description": "Flex: row follows the writing direction; row-reverse adds aui-flex--reverse."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Presentational CSS layout (no ARIA widget pattern). Dividers follow HTML <hr> and the WAI-ARIA separator role (non-focusable).",
+        "source": "packages/components/metadata/layout/accessibility.json"
+      },
+      "limitations": [
+        "Only one of Stack, Flex, or Grid can own an element at a time (LAYOUT_ALREADY_APPLIED); Container can be combined with any of them.",
+        "Fixed grid column counts do not collapse at narrow widths; use columns: 'auto' for reflow.",
+        "Labelled dividers are horizontal only; vertical dividers cannot carry text.",
+        "Handles that rely on the configured defaultGap re-apply when configuration changes; plain CSS classes use the space-4 default."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiGrid",
+      "selector": "[auiGrid]",
+      "exportAs": [
+        "auiGrid"
+      ],
+      "source": "hand-written",
+      "component": "layout",
+      "configKey": "layout",
+      "inputs": [
+        {
+          "name": "columns",
+          "type": "GridColumns",
+          "required": false,
+          "default": "auto",
+          "description": "Grid: fixed column count or responsive auto-fit mode."
+        },
+        {
+          "name": "minColumnWidth",
+          "type": "string",
+          "required": false,
+          "default": "16rem",
+          "description": "Grid auto mode: minimum column width as a strict CSS length (for example '12rem'); sets --aui-grid-min."
+        },
+        {
+          "name": "gap",
+          "type": "0 | 2 | 3 | 4 | 5 | 6 | 1 | 8 | 12 | 10",
+          "required": false,
+          "description": "Stack, Flex, Grid: gap step mapped to the space-N token. Defaults to the configured defaultGap."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Presentational CSS layout (no ARIA widget pattern). Dividers follow HTML <hr> and the WAI-ARIA separator role (non-focusable).",
+        "source": "packages/components/metadata/layout/accessibility.json"
+      },
+      "limitations": [
+        "Only one of Stack, Flex, or Grid can own an element at a time (LAYOUT_ALREADY_APPLIED); Container can be combined with any of them.",
+        "Fixed grid column counts do not collapse at narrow widths; use columns: 'auto' for reflow.",
+        "Labelled dividers are horizontal only; vertical dividers cannot carry text.",
+        "Handles that rely on the configured defaultGap re-apply when configuration changes; plain CSS classes use the space-4 default."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiContainer",
+      "selector": "[auiContainer]",
+      "exportAs": [
+        "auiContainer"
+      ],
+      "source": "hand-written",
+      "component": "layout",
+      "configKey": "layout",
+      "inputs": [
+        {
+          "name": "size",
+          "type": "ContainerSize",
+          "required": false,
+          "default": "lg",
+          "description": "Container: maximum inline size from container-width-* tokens."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Presentational CSS layout (no ARIA widget pattern). Dividers follow HTML <hr> and the WAI-ARIA separator role (non-focusable).",
+        "source": "packages/components/metadata/layout/accessibility.json"
+      },
+      "limitations": [
+        "Only one of Stack, Flex, or Grid can own an element at a time (LAYOUT_ALREADY_APPLIED); Container can be combined with any of them.",
+        "Fixed grid column counts do not collapse at narrow widths; use columns: 'auto' for reflow.",
+        "Labelled dividers are horizontal only; vertical dividers cannot carry text.",
+        "Handles that rely on the configured defaultGap re-apply when configuration changes; plain CSS classes use the space-4 default."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiGrid, AuiStack } from '@absoluteui/angular/layout';\n\n@Component({\n  selector: 'app-dashboard',\n  imports: [AuiStack, AuiGrid],\n  template: `\n    <div auiStack [gap]=\"6\">\n      <h2>Projects</h2>\n      <hr class=\"aui-divider\" />\n      <div auiGrid columns=\"auto\" minColumnWidth=\"14rem\" [gap]=\"4\">\n        @for (p of projects; track p) { <div>{{ p }}</div> }\n      </div>\n    </div>\n  `,\n})\nexport class DashboardComponent {\n  readonly projects = ['Alpha', 'Beta', 'Gamma'];\n}"
+    }
+  ]
+}

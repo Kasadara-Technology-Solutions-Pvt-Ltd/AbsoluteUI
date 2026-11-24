@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/popover",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiPopover",
+      "description": "AbsoluteUI Popover on its trigger:\n`<button [auiPopover]=\"filters\" popoverTitle=\"Filters\">Filters</button><ng-template #filters>...</ng-template>`.\nThe template is rendered as an embedded view, so its bindings stay live.",
+      "selector": "[auiPopover]",
+      "exportAs": [
+        "auiPopover"
+      ],
+      "source": "hand-written",
+      "component": "popover",
+      "configKey": "popover",
+      "inputs": [
+        {
+          "name": "auiPopover",
+          "type": "TemplateRef<unknown>",
+          "required": true,
+          "description": "The popover content: an `<ng-template>` reference."
+        },
+        {
+          "name": "popoverTitle",
+          "type": "string",
+          "required": false,
+          "description": "Visible heading; names the popup through aria-labelledby. Either title or label is required."
+        },
+        {
+          "name": "popoverLabel",
+          "type": "string",
+          "required": false,
+          "description": "aria-label when there is no title."
+        },
+        {
+          "name": "popoverPlacement",
+          "type": "Placement",
+          "required": false,
+          "default": "bottom-start",
+          "configurable": true,
+          "description": "Preferred side and logical alignment; flips and shifts to fit."
+        },
+        {
+          "name": "popoverOffset",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "configurable": true,
+          "description": "Gap between trigger and popup, px."
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Escape requests close (cancelable). Escape is consumed while the popover is topmost either way."
+        },
+        {
+          "name": "closeOnOutsidePointer",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Pointer down outside the popup and trigger requests close (cancelable)."
+        },
+        {
+          "name": "initialFocus",
+          "type": "PopoverInitialFocus",
+          "required": false,
+          "default": "first",
+          "configurable": true,
+          "description": "Where focus goes on open: first tabbable element (falls back to the container), the popup container, or nowhere."
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Render a localized close button in the header."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Resolves logical start/end placements."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<PopoverIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "opened",
+          "payload": "null",
+          "event": "aui-open",
+          "description": "After the popup opened (dispatched on the popup element)."
+        },
+        {
+          "name": "cancelled",
+          "payload": "PopoverCloseDetail",
+          "event": "aui-cancel",
+          "description": "Before a user-initiated close; preventDefault keeps it open."
+        },
+        {
+          "name": "closed",
+          "payload": "PopoverCloseDetail",
+          "event": "aui-close",
+          "description": "After the popup closed."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Show the popover."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Hide the popover; focus returns to the trigger."
+        },
+        {
+          "name": "toggle",
+          "signature": "toggle(): void",
+          "description": "Show the popover when hidden, hide it when shown."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Disclosure (trigger) with a non-modal Dialog (popup).",
+        "source": "packages/components/metadata/popover/accessibility.json"
+      },
+      "limitations": [
+        "The trigger should be a native <button>: Enter and Space activation relies on the native click. Other elements need their own keyboard activation.",
+        "The popup is inserted immediately after the trigger, so it inherits the trigger's container styles such as `dir` and font; it is not portaled.",
+        "The heading is always an h2.",
+        "Close animation is not played; the open fade uses @starting-style and is removed under reduced motion or `animation: 'none'`.",
+        "Canceling aui-cancel for a focus-out close leaves the popup open while focus is elsewhere."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiPopover } from '@absoluteui/angular/popover';\nimport { AuiButton } from '@absoluteui/angular/button';\nimport { AuiCheckbox } from '@absoluteui/angular/checkbox';\n\n@Component({\n  selector: 'app-toolbar',\n  imports: [AuiPopover, AuiButton, AuiCheckbox],\n  template: `\n    <button type=\"button\" auiButton [auiPopover]=\"filters\" popoverTitle=\"Filters\" popoverPlacement=\"bottom-start\" (closed)=\"apply()\">Filters</button>\n    <ng-template #filters><aui-checkbox label=\"Only active\" /></ng-template>\n  `,\n})\nexport class ToolbarComponent {\n  apply(): void {}\n}"
+    }
+  ]
+}

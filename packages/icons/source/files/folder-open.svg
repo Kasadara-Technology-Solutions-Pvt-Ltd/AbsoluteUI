@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="folder-open" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 18V6a2 2 0 0 1 2-2h3.6a2 2 0 0 1 1.6.8l1.2 1.6a1 1 0 0 0 .8.4H17a2 2 0 0 1 2 2v1.7"/>
+      <path d="M3 18L5.4 11.4A1.5 1.5 0 0 1 6.8 10.5H20.6A1 1 0 0 1 21.55 11.8L19.5 18.5A2 2 0 0 1 17.6 20H5A2 2 0 0 1 3 18Z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M2.5 9.5V6A2.5 2.5 0 0 1 5 3.5h3.6a2.5 2.5 0 0 1 2 1l1.1 1.5a1 1 0 0 0 .8.4H17a2.5 2.5 0 0 1 2.5 2.5v.6z"/>
+      <path d="M2.5 19L5 12.2A2 2 0 0 1 6.9 11H21a1 1 0 0 1 .95 1.3l-2.1 7A2.5 2.5 0 0 1 17.5 21H4.5A2 2 0 0 1 2.5 19z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3 18L5.4 11.4A1.5 1.5 0 0 1 6.8 10.5H20.6A1 1 0 0 1 21.55 11.8L19.5 18.5A2 2 0 0 1 17.6 20H5A2 2 0 0 1 3 18Z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 18V6a2 2 0 0 1 2-2h3.6a2 2 0 0 1 1.6.8l1.2 1.6a1 1 0 0 0 .8.4H17a2 2 0 0 1 2 2v1.7"/>
+      <path d="M3 18L5.4 11.4A1.5 1.5 0 0 1 6.8 10.5H20.6A1 1 0 0 1 21.55 11.8L19.5 18.5A2 2 0 0 1 17.6 20H5A2 2 0 0 1 3 18Z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.35">
+      <path d="M3 18L5.4 11.4A1.5 1.5 0 0 1 6.8 10.5H20.6A1 1 0 0 1 21.55 11.8L19.5 18.5A2 2 0 0 1 17.6 20H5A2 2 0 0 1 3 18Z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 18V6a2 2 0 0 1 2-2h3.6a2 2 0 0 1 1.6.8l1.2 1.6a1 1 0 0 0 .8.4H17a2 2 0 0 1 2 2v1.7"/>
+      <path d="M3 18L5.4 11.4A1.5 1.5 0 0 1 6.8 10.5H20.6A1 1 0 0 1 21.55 11.8L19.5 18.5A2 2 0 0 1 17.6 20H5A2 2 0 0 1 3 18Z"/>
+    </g>
+  </g>
+</svg>

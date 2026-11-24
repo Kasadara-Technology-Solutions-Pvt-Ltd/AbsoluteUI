@@ -1,0 +1,7 @@
+[
+  { "title": "Segmented entry", "text": "Separate day, month, and year segments ordered by the locale." },
+  { "title": "Date or date and time", "text": "Minute granularity adds time segments and returns an exact instant." },
+  { "title": "Time zone aware", "text": "Wall-clock times convert in the chosen time zone with explicit handling of gaps and overlaps." },
+  { "title": "Limits and validation", "text": "Minimum and maximum dates, required checks, and custom errors." },
+  { "title": "Form ready", "text": "Submits a standard value through a hidden input in native forms." }
+]

@@ -1,0 +1,313 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the Button stylesheet (@absoluteui/components/button/style.css).
+@layer aui.components {
+  .aui-image-viewer {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-2');
+    box-sizing: border-box;
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+  }
+
+  .aui-image-viewer--inline {
+    padding: aui.token('space-2');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.ctoken('image-viewer', 'radius');
+    background: aui.token('color-surface');
+  }
+
+  // Lightbox: a full-viewport modal dialog.
+  .aui-image-viewer--lightbox {
+    box-sizing: border-box;
+    inline-size: 100vw;
+    max-inline-size: 100vw;
+    block-size: 100dvh;
+    max-block-size: 100dvh;
+    margin: 0;
+    padding: aui.token('space-3');
+    border: 0;
+    background: aui.token('color-surface');
+
+    &:not([open]) {
+      display: none;
+    }
+
+    &::backdrop {
+      background: aui.token('color-backdrop');
+    }
+
+    .aui-image-viewer__stage {
+      flex: 1 1 auto;
+      block-size: auto;
+      min-block-size: 0;
+    }
+  }
+
+  .aui-image-viewer__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: aui.token('space-2');
+  }
+
+  .aui-image-viewer__counter {
+    color: aui.token('color-text-muted');
+    font-variant-numeric: tabular-nums;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-image-viewer__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-1');
+    margin-inline-start: auto;
+
+    .aui-button[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-image-viewer__zoom {
+    min-inline-size: 3.5em;
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+
+  // Rotate left is the mirrored rotate icon.
+  .aui-image-viewer__tool--rotateLeft .aui-icon {
+    transform: scaleX(-1);
+  }
+
+  [dir='rtl'] .aui-image-viewer__tool--previous .aui-icon,
+  [dir='rtl'] .aui-image-viewer__tool--next .aui-icon {
+    transform: scaleX(-1);
+  }
+
+  .aui-image-viewer__stage {
+    position: relative;
+    overflow: hidden;
+    block-size: var(--aui-image-viewer-height, 24rem);
+    border-radius: aui.ctoken('image-viewer', 'radius');
+    background: aui.ctoken('image-viewer', 'stage-bg');
+    cursor: default;
+    touch-action: none;
+    user-select: none;
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+  }
+
+  .aui-image-viewer--zoomed .aui-image-viewer__stage {
+    cursor: grab;
+  }
+
+  // Transforms are physical: the canvas is centered on the stage, then panned, rotated, and scaled.
+  .aui-image-viewer__canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    inline-size: var(--_aui-iv-w, 0);
+    block-size: var(--_aui-iv-h, 0);
+    transform: translate(-50%, -50%) translate(var(--_aui-iv-x, 0), var(--_aui-iv-y, 0)) rotate(var(--_aui-iv-rotate, 0deg)) scale(var(--_aui-iv-scale, 1));
+    transform-origin: center;
+    @include aui.transition(transform);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-image-viewer__canvas--dragging {
+    transition: none;
+  }
+
+  .aui-image-viewer__image {
+    display: block;
+    inline-size: 100%;
+    max-inline-size: none;
+    block-size: 100%;
+    pointer-events: none;
+  }
+
+  .aui-image-viewer__status {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: aui.token('space-2');
+    padding: aui.token('space-4');
+    color: aui.token('color-text-muted');
+    text-align: center;
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-icon {
+      --aui-icon-size: #{aui.icon-size('xl')};
+      inline-size: var(--aui-icon-size);
+      block-size: var(--aui-icon-size);
+    }
+  }
+
+  .aui-image-viewer__help {
+    @include aui.visually-hidden;
+  }
+
+  // Crop: the box dims everything outside it with a large shadow; the stage clips the shadow.
+  .aui-image-viewer__crop {
+    position: absolute;
+    top: var(--_aui-iv-crop-y, 0);
+    left: var(--_aui-iv-crop-x, 0);
+    box-sizing: border-box;
+    inline-size: var(--_aui-iv-crop-w, 0);
+    block-size: var(--_aui-iv-crop-h, 0);
+    border: aui.token('border-width-strong') solid aui.ctoken('image-viewer', 'crop-border');
+    box-shadow: 0 0 0 100vmax aui.ctoken('image-viewer', 'crop-overlay');
+    cursor: move;
+    touch-action: none;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(aui.token('space-1'));
+    }
+  }
+
+  .aui-image-viewer__handle {
+    position: absolute;
+    box-sizing: border-box;
+    inline-size: aui.token('space-4');
+    block-size: aui.token('space-4');
+    border: aui.token('border-width-strong') solid aui.ctoken('image-viewer', 'crop-border');
+    background: aui.token('color-surface');
+  }
+
+  .aui-image-viewer__handle--nw {
+    top: calc(-1 * #{aui.token('space-2')});
+    left: calc(-1 * #{aui.token('space-2')});
+    cursor: nwse-resize;
+  }
+
+  .aui-image-viewer__handle--ne {
+    top: calc(-1 * #{aui.token('space-2')});
+    right: calc(-1 * #{aui.token('space-2')});
+    cursor: nesw-resize;
+  }
+
+  .aui-image-viewer__handle--sw {
+    bottom: calc(-1 * #{aui.token('space-2')});
+    left: calc(-1 * #{aui.token('space-2')});
+    cursor: nesw-resize;
+  }
+
+  .aui-image-viewer__handle--se {
+    right: calc(-1 * #{aui.token('space-2')});
+    bottom: calc(-1 * #{aui.token('space-2')});
+    cursor: nwse-resize;
+  }
+
+  .aui-image-viewer__caption {
+    margin: 0;
+    color: aui.token('color-text');
+    line-height: aui.token('line-height-normal');
+    text-align: center;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-image-viewer__crop-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: aui.token('space-2');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-image-viewer__aspects,
+  .aui-image-viewer__crop-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+  }
+
+  .aui-image-viewer__thumbs {
+    display: flex;
+    gap: aui.token('space-2');
+    overflow-x: auto;
+    padding: aui.token('space-1');
+    scrollbar-width: thin;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-image-viewer__thumb {
+    flex: 0 0 auto;
+    inline-size: 4rem;
+    block-size: 3rem;
+    padding: 0;
+    overflow: hidden;
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-sm');
+    background: aui.ctoken('image-viewer', 'stage-bg');
+    cursor: pointer;
+
+    img {
+      display: block;
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+    }
+
+    &[aria-current='true'] {
+      outline: aui.token('border-width-strong') solid aui.ctoken('image-viewer', 'thumb-selected');
+      outline-offset: aui.token('border-width-strong');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-image-viewer__crop,
+    .aui-image-viewer__handle {
+      border-color: Highlight;
+    }
+
+    .aui-image-viewer__thumb[aria-current='true'] {
+      outline-color: Highlight;
+    }
+  }
+}

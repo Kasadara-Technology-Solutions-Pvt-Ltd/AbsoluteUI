@@ -1,0 +1,428 @@
+{
+  "schemaVersion": 1,
+  "component": "scatter-chart",
+  "factory": {
+    "name": "ScatterChart.create",
+    "signature": "ScatterChart.create(host: HTMLElement, options: ScatterChartOptions): ScatterChart"
+  },
+  "configKey": "scatterChart",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby)."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visually hide the title; it stays the accessible name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Replaces the generated accessible summary (aria-describedby)."
+    },
+    {
+      "name": "valueFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Number format for values in tooltips, labels, the data table, the summary, and axis ticks (ticks use fixed fraction digits)."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom value text; overrides valueFormat everywhere except axis ticks."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Ids of series hidden initially; update() replaces the hidden set."
+    },
+    {
+      "name": "series",
+      "type": "readonly ScatterChartSeries[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Series: { id, label, points: { x: number; y: number; size?: number; label?: string }[], color?: 1-8 }. Ids are unique and non-empty. Points with a non-finite x or y are skipped. Any point with a size makes the chart a bubble chart."
+    },
+    {
+      "name": "xAxis",
+      "type": "{ label?: string; min?: number; max?: number; tickCount?: number; includeZero?: boolean }",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "X axis title, fixed domain (min < max), approximate tick count (2-20), and zero inclusion (default false). The title also names x in point labels, tooltips, and the table (default \"X axis\")."
+    },
+    {
+      "name": "yAxis",
+      "type": "{ label?: string; min?: number; max?: number; tickCount?: number; includeZero?: boolean }",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Y axis title, fixed domain, tick count, and zero inclusion (default false). The title also names y (default \"Y axis\")."
+    },
+    {
+      "name": "sizeLabel",
+      "type": "string",
+      "default": "Size",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Name of the size dimension in bubble labels, tooltips, and the table."
+    },
+    {
+      "name": "sizeRange",
+      "type": "readonly [number, number]",
+      "default": [
+        4,
+        24
+      ],
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Bubble radius in CSS px for the smallest and largest size (each 1-100, min <= max). Area is proportional to size."
+    },
+    {
+      "name": "xFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Number format of x values (ticks, labels, tooltips, table, summary). Default: valueFormat."
+    },
+    {
+      "name": "zoom",
+      "type": "'none' | 'x' | 'xy'",
+      "default": "none",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Zoom and pan along x or both axes: a Zoom toolbar (Zoom in, Zoom out, Reset zoom), +/= and - and 0 keys on a focused point, Ctrl/Cmd + wheel, drag to pan a zoomed chart, Shift + drag to select a range. Turning it off resets the window."
+    },
+    {
+      "name": "zoomRange",
+      "type": "ChartZoomRange | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible x window { from, to } in data units; null shows everything. Clamped to the data (minimum span 1/50 of the extent). Applied without an aui-zoom event; use with zoom enabled."
+    },
+    {
+      "name": "zoomRangeY",
+      "type": "ChartZoomRange | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible y window with zoom: \"xy\" (ignored otherwise); null shows everything."
+    },
+    {
+      "name": "annotations",
+      "type": "readonly ChartAnnotation[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Reference lines ({ type: 'line', axis: 'x' | 'y', value, label?, tone? }) and bands ({ type: 'band', axis, from, to, label?, tone? }); tone: 'neutral' | 'info' | 'success' | 'warning' | 'danger'. x and y values are numbers. Drawn under the marks (aria-hidden); listed in the accessible summary."
+    },
+    {
+      "name": "theme",
+      "type": "ChartTheme",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+    },
+    {
+      "name": "renderTooltip",
+      "type": "(context: ChartTooltipContext) => Node | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+    },
+    {
+      "name": "syncGroup",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+    },
+    {
+      "name": "legend",
+      "type": "'auto' | 'show' | 'hide'",
+      "default": "auto",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "auto: legend when there is more than one series. Entries are toggle buttons."
+    },
+    {
+      "name": "dataTable",
+      "type": "'toggle' | 'visible' | 'hidden' | 'none'",
+      "default": "toggle",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Data table fallback with the exact data: behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+    },
+    {
+      "name": "tooltip",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Tooltip on pointer hover and keyboard focus."
+    },
+    {
+      "name": "patterns",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Texture fills (and dash patterns for lines) so marks never differ by color alone (always on in forced colors)."
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "default": 300,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+    },
+    {
+      "name": "crosshair",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Crosshair lines (vertical and horizontal, aria-hidden) through the hovered or focused point."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Number and message locale."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "rtl mirrors the x axis, puts the value axis on the right, and swaps ArrowLeft/ArrowRight."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "SVGSVGElement",
+      "description": "The plot (svg role=\"group\"), named by the title and described by the summary."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "description": "The generated (or custom) accessible summary."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "string[]",
+      "description": "Ids of hidden series, in data order."
+    },
+    {
+      "name": "zoomRange",
+      "type": "ChartZoomRange | null",
+      "description": "Current visible x window, or null."
+    },
+    {
+      "name": "zoomRangeY",
+      "type": "ChartZoomRange | null",
+      "description": "Current visible y window (zoom: \"xy\"), or null."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<ScatterChartOptions>): void",
+      "description": "Merge, validate, and re-render. Invalid options throw and keep the previous state. Keyboard focus stays on the same mark when it still exists."
+    },
+    {
+      "name": "setSeriesVisible",
+      "signature": "setSeriesVisible(id: string, visible: boolean): void",
+      "description": "Show or hide a series programmatically; emits no event."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, host classes, listeners, the resize observer, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-series-toggle",
+      "detail": "{ id: string; visible: boolean; hidden: string[] }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user toggled a legend entry (pointer or keyboard). Not emitted for update() or setSeriesVisible()."
+    },
+    {
+      "name": "aui-zoom",
+      "detail": "ScatterChartZoomDetail = ChartZoomDetail: { x: ChartZoomRange | null; y: ChartZoomRange | null; reason: 'button' | 'keyboard' | 'wheel' | 'pan' | 'select' | 'reset' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the visible window (toolbar, keys, Ctrl/Cmd + wheel, drag pan, Shift + drag selection). x and y are null when that axis shows everything (y is always null with zoom: \"x\"). Not emitted for the zoom range options or when the window does not change."
+    },
+    {
+      "name": "aui-point-click",
+      "detail": "ScatterChartPointClickDetail = ChartPointClickDetail: { seriesId: string | null; column: number; row: number; label: string; series: string; value: string; source: 'pointer' | 'keyboard' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-chart",
+      "description": "Host (shared chart chrome)."
+    },
+    {
+      "name": "aui-scatter-chart",
+      "description": "Host modifier for this chart type."
+    },
+    {
+      "name": "aui-chart--patterns",
+      "description": "patterns option on: textures (and dash patterns) shown."
+    },
+    {
+      "name": "aui-chart__header / __title / __title--hidden / __description",
+      "description": "Title and description."
+    },
+    {
+      "name": "aui-chart__legend / __legend-entry / __legend-item / __legend-item--hidden / __legend-label",
+      "description": "Legend list and its entries."
+    },
+    {
+      "name": "aui-chart__swatch",
+      "description": "aria-hidden legend and tooltip key (marker, dash, texture)."
+    },
+    {
+      "name": "aui-chart__body / __svg / __layer",
+      "description": "Plot container (height from --aui-chart-height), SVG, and drawing layer."
+    },
+    {
+      "name": "aui-chart__grid / __gridline / __zero-line / __axis / __axis-line / __tick-label / __axis-title",
+      "description": "Axes (aria-hidden)."
+    },
+    {
+      "name": "aui-chart__series--c1 ... --c8",
+      "description": "Palette slot classes; set --aui-chart-color from color-chart-<n>."
+    },
+    {
+      "name": "aui-chart__mark / __mark--active / __mark--hover",
+      "description": "Focusable data mark and its states."
+    },
+    {
+      "name": "aui-chart__tooltip / __tooltip-title / __tooltip-rows / __tooltip-row / __tooltip-label / __tooltip-value",
+      "description": "Tooltip (aria-hidden; the focused mark carries the same text)."
+    },
+    {
+      "name": "aui-chart__empty",
+      "description": "Empty state text (No data, All series are hidden)."
+    },
+    {
+      "name": "aui-chart__summary",
+      "description": "Hidden summary referenced by aria-describedby."
+    },
+    {
+      "name": "aui-chart__data / __data--hidden / __table-toggle / __table-scroll / __table / __cell--numeric",
+      "description": "Data table fallback."
+    },
+    {
+      "name": "aui-chart--zoomable / aui-chart--zoomed",
+      "description": "Host modifiers: zoom enabled (touch-action pan-y on the body); a window is applied (grab cursor)."
+    },
+    {
+      "name": "aui-chart__toolbar / __zoom / __tool",
+      "description": "Header toolbar (hidden while empty), the Zoom button group, and its icon buttons (aria-disabled when unavailable)."
+    },
+    {
+      "name": "aui-chart__crosshair / __crosshair-line",
+      "description": "aria-hidden crosshair lines drawn under the marks (crosshair option)."
+    },
+    {
+      "name": "aui-chart__brush",
+      "description": "Range-selection rectangle while Shift + dragging."
+    },
+    {
+      "name": "aui-scatter-chart--bubble",
+      "description": "Host modifier while any point has a size (bubble chart)."
+    },
+    {
+      "name": "aui-scatter-chart__points / __series / __point / __bubble / __cursor",
+      "description": "Points layer (clipped while zoomed), series group, point marker, translucent bubble, and the proxy mark of dense data."
+    },
+    {
+      "name": "aui-chart--legend-bottom / --legend-start / --legend-end",
+      "description": "theme.legendPosition (top is the default layout)."
+    },
+    {
+      "name": "aui-chart--no-grid / --gradient / --animate / --entering",
+      "description": "theme.gridLines: false, theme.gradient, theme.animation (entering: the render that animates)."
+    },
+    {
+      "name": "aui-chart__annotations / __annotation-line / __annotation-band / __annotation-label / __annotation--<tone>",
+      "description": "Annotations (aria-hidden), drawn under the marks."
+    },
+    {
+      "name": "aui-chart__gradient / __gradient-stop",
+      "description": "Gradient fills (theme.gradient)."
+    },
+    {
+      "name": "aui-chart__tooltip--custom",
+      "description": "Tooltip content comes from renderTooltip."
+    }
+  ],
+  "iconSlots": []
+}

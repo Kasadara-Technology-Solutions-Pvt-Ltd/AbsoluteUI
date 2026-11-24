@@ -1,0 +1,43 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+
+  // Slices are separated by a surface-colored stroke, so adjacent colors need no mutual contrast.
+  .aui-pie-chart__slice {
+    fill: var(--aui-chart-color);
+    stroke: aui.token('color-surface');
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+
+  .aui-pie-chart__slice.aui-chart__mark--hover,
+  .aui-pie-chart__slice.aui-chart__mark--active {
+    stroke: aui.token('color-text');
+    stroke-width: 2.5;
+  }
+
+  .aui-pie-chart__center {
+    fill: aui.token('color-text');
+    font-size: aui.token('font-size-xl');
+    font-weight: aui.token('font-weight-semibold');
+    font-variant-numeric: tabular-nums;
+  }
+
+  @include aui.forced-colors {
+    .aui-pie-chart__slice {
+      stroke: Canvas;
+    }
+
+    .aui-pie-chart__slice.aui-chart__mark--hover,
+    .aui-pie-chart__slice.aui-chart__mark--active {
+      stroke: Highlight;
+    }
+
+    .aui-pie-chart__center {
+      fill: CanvasText;
+    }
+  }
+}

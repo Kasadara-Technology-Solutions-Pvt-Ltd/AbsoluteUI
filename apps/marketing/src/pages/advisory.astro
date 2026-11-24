@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<Base title="Security advisories" description="Published security advisories for AbsoluteUI." path="/advisory/">
+  <PageHero eyebrow="Security" title="Security advisories" lead="Advisories for fixed vulnerabilities are published here, with the affected and fixed versions." />
+  <section class="section section-white section-line">
+    <div class="container container-narrow">
+      <div class="stack stack-lg">
+        <p class="notice"><Icon name="check-circle" />No advisories have been published.</p>
+        <p class="muted">To report a vulnerability, follow the <a href="/security/">security policy</a>.</p>
+      </div>
+    </div>
+  </section>
+</Base>

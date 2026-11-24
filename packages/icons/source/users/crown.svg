@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="crown">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 8l4 4 4-6 4 6 4-4-1.5 10h-13z"/>
+      <path d="M5.5 21h13"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M4 8l4 4 4-6 4 6 4-4-1.5 10h-13z" transform="translate(12 12) scale(1.08) translate(-12 -12)"/>
+      <rect x="5" y="19.5" width="14" height="2" rx="1"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M4 8l4 4 4-6 4 6 4-4-1.5 10h-13z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 8l4 4 4-6 4 6 4-4-1.5 10h-13z"/>
+      <path d="M5.5 21h13"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.45">
+      <path d="M4 8l4 4 4-6 4 6 4-4-1.5 10h-13z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 8l4 4 4-6 4 6 4-4-1.5 10h-13z"/>
+      <path d="M5.5 21h13"/>
+    </g>
+  </g>
+</svg>

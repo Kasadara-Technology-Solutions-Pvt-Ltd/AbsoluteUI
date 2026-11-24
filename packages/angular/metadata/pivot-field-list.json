@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/pivot-field-list",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiPivotFieldList",
+      "description": "AbsoluteUI Pivot Field List for a Pivot Grid in the same template:\n`<aui-pivot-grid #pivot=\"auiPivotGrid\" ...></aui-pivot-grid>\n <aui-pivot-field-list label=\"Pivot fields\" [grid]=\"pivot\"></aui-pivot-field-list>`.\nThe field list applies layout changes to the grid itself; the grid reports them through\n`[(layout)]` and `(layoutChanged)`. Created when the grid exists and re-created when it changes.",
+      "selector": "aui-pivot-field-list",
+      "exportAs": [
+        "auiPivotFieldList"
+      ],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "grid",
+          "type": "AuiPivotGrid<Row> | null",
+          "required": false,
+          "description": "The pivot grid it edits: a `#pivot=\"auiPivotGrid\"` reference."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the field list."
+        },
+        {
+          "name": "memberPageSize",
+          "type": "number",
+          "required": false,
+          "description": "Members shown per page in a field filter."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "description": "Messages locale (defaults to the configured locale)."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "fieldMoved",
+          "payload": "PivotFieldMoveDetail",
+          "description": "The user moved a field between areas (rows, columns, values, filters, or unused)."
+        }
+      ],
+      "methods": [],
+      "serverRendering": "browser"
+    }
+  ]
+}

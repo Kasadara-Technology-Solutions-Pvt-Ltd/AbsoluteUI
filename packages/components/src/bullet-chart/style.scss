@@ -1,0 +1,48 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-marks;
+
+  // Qualitative ranges: neutral shades of the text color over the surface (darkest first).
+  .aui-bullet-chart__range--1 {
+    fill: color-mix(in srgb, #{aui.token('color-text')} 22%, #{aui.token('color-surface')});
+  }
+
+  .aui-bullet-chart__range--2 {
+    fill: color-mix(in srgb, #{aui.token('color-text')} 13%, #{aui.token('color-surface')});
+  }
+
+  .aui-bullet-chart__range--3 {
+    fill: color-mix(in srgb, #{aui.token('color-text')} 6%, #{aui.token('color-surface')});
+  }
+
+  .aui-bullet-chart__target {
+    stroke: aui.token('color-text');
+    stroke-width: 3;
+  }
+
+  .aui-bullet-chart__label {
+    fill: aui.token('color-text');
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  @include aui.forced-colors {
+    .aui-bullet-chart__range--1,
+    .aui-bullet-chart__range--2,
+    .aui-bullet-chart__range--3 {
+      fill: Canvas;
+      stroke: GrayText;
+    }
+
+    .aui-bullet-chart__target {
+      stroke: CanvasText;
+    }
+
+    .aui-bullet-chart__label {
+      fill: CanvasText;
+    }
+  }
+}

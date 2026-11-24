@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "fieldset",
+  "displayName": "Fieldset",
+  "category": "Forms",
+  "package": "@absoluteui/components",
+  "import": "import { Fieldset } from '@absoluteui/components/fieldset';",
+  "styleImport": "@absoluteui/components/fieldset/style.css",
+  "purpose": "Enhances a native fieldset that groups related controls (an address, a date of birth, contact preferences) with the AbsoluteUI legend, help text, required marker, and a group-level error. The controls stay in place; the native element provides the group semantics and disabled state.",
+  "whenToUse": [
+    "Several fields answer one question: address, date of birth, contact preferences.",
+    "A validation rule that spans fields: 'Enter a street and a city', 'Choose at least one channel'."
+  ],
+  "whenNotToUse": [
+    "One control: use Form Field or the control's own label.",
+    "A set of checkboxes or radios with one value: use Checkbox Group or Radio Group (they render their own fieldset).",
+    "Visual grouping without a shared question: use Card or layout primitives."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["default", "required", "invalid", "disabled", "legend hidden"],
+  "responsive": "Grid of the legend, help, error, and the page's controls; the controls keep their own layout.",
+  "rtl": "Logical properties: the error bar sits at the inline start.",
+  "theme": "Uses the shared field chrome (legend, help, error) with color-text, color-text-muted, and color-error-fg; the invalid state adds a color-error-fg bar at the inline start.",
+  "timezone": "Not applicable.",
+  "security": "Legend, help, and error text are rendered with textContent; never parsed as HTML.",
+  "dataHandling": "No persistence, network access, or telemetry. The fieldset holds no values; its controls do.",
+  "performance": {
+    "budgets": [
+      { "metric": "Fieldset.enhance, per instance", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "Unit-tested per instance; not data-driven."
+  },
+  "limitations": [
+    "The group error is set by the application (for example from Form validation); Fieldset does not validate its controls.",
+    "Native disabled disables native controls inside; AbsoluteUI controls inside keep their own disabled option in sync only through their native elements."
+  ],
+  "unsupported": [
+    "Collapsing the group (use Collapsible or Accordion).",
+    "Rendering HTML in the legend."
+  ],
+  "antiPatterns": [
+    "Nesting fieldsets more than one level deep.",
+    "Using a fieldset only for a border around unrelated fields."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/fieldset: AuiFieldset directive (fieldset[auiFieldset]).",
+    "react": "@absoluteui/react/fieldset: AuiFieldset component (renders the fieldset; children stay React-managed).",
+    "vue": "@absoluteui/vue/fieldset: AuiFieldset component (renders the fieldset; the default slot stays Vue-managed)."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

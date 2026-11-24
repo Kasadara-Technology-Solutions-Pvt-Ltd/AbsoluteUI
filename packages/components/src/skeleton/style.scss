@@ -1,0 +1,83 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-skeleton {
+    display: block;
+    inline-size: var(--aui-skeleton-width, 100%);
+    max-inline-size: 100%;
+  }
+
+  .aui-skeleton--text {
+    display: grid;
+    gap: aui.token('space-2');
+  }
+
+  .aui-skeleton__line,
+  .aui-skeleton__block {
+    display: block;
+    // color-active is distinct from the page and surface backgrounds in every built-in theme
+    // (color-surface-sunken equals the dark theme's page background).
+    background: aui.token('color-active');
+  }
+
+  .aui-skeleton__line {
+    block-size: var(--aui-skeleton-height, 0.75em);
+    border-radius: aui.token('radius-sm');
+  }
+
+  .aui-skeleton__line--last {
+    inline-size: 60%;
+  }
+
+  .aui-skeleton--rect .aui-skeleton__block {
+    block-size: var(--aui-skeleton-height, 6rem);
+    border-radius: aui.token('radius-sm');
+  }
+
+  .aui-skeleton--circle {
+    inline-size: var(--aui-skeleton-width, 2.5rem);
+  }
+
+  .aui-skeleton--circle .aui-skeleton__block {
+    block-size: var(--aui-skeleton-height, var(--aui-skeleton-width, 2.5rem));
+    border-radius: aui.token('radius-pill');
+  }
+
+  .aui-skeleton--pulse .aui-skeleton__line,
+  .aui-skeleton--pulse .aui-skeleton__block {
+    animation: aui-skeleton-pulse 1.6s aui.token('easing-standard') infinite alternate;
+  }
+
+  @keyframes aui-skeleton-pulse {
+    from {
+      background-color: aui.token('color-active');
+    }
+
+    to {
+      background-color: aui.token('color-hover');
+    }
+  }
+
+  // Reduced motion / animation: none: static placeholders.
+  @include aui.reduced-motion {
+    .aui-skeleton--pulse .aui-skeleton__line,
+    .aui-skeleton--pulse .aui-skeleton__block {
+      animation: none;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-skeleton__line,
+  :where([data-aui-animation='none']) .aui-skeleton__block {
+    animation: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-skeleton__line,
+    .aui-skeleton__block {
+      background: GrayText;
+      animation: none;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "component": "dialog",
+  "factory": { "name": "Dialog.create", "signature": "Dialog.create(options: DialogOptions, doc?: Document): Dialog" },
+  "configKey": "dialog",
+  "options": [
+    { "name": "title", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name, rendered as the heading." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Referenced by aria-describedby." },
+    { "name": "content", "type": "Node | string", "required": false, "globallyConfigurable": false, "description": "Body content; strings render as text." },
+    { "name": "actions", "type": "readonly DialogAction[]", "required": false, "globallyConfigurable": false, "description": "Footer buttons; clicking closes with the action value." },
+    { "name": "role", "type": "'dialog' | 'alertdialog'", "default": "dialog", "required": false, "globallyConfigurable": false, "description": "Use alertdialog for urgent confirmations." },
+    { "name": "icons", "type": "Partial<{ close: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "closeOnEscape", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Escape requests close (cancelable)." },
+    { "name": "closeOnBackdrop", "type": "boolean", "default": false, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Backdrop click requests close (cancelable)." },
+    { "name": "showCloseButton", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Render the header close button." },
+    { "name": "size", "type": "'sm' | 'md' | 'lg'", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Maximum inline size." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLDialogElement", "description": "The native dialog element." },
+    { "name": "body", "type": "HTMLDivElement", "description": "Consumer content area." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the dialog is open." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(): void", "description": "Open modally; locks scroll; captures focus for restoration." },
+    { "name": "close", "signature": "close(returnValue?: string): void", "description": "Close programmatically (not cancelable)." },
+    { "name": "update", "signature": "update(options: Partial<DialogOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close if open, remove element, listeners, subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "After the dialog opened." },
+    { "name": "aui-cancel", "detail": "{ returnValue: string; reason: 'escape' | 'backdrop' | 'close-button' | 'action' }", "bubbles": false, "cancelable": true, "description": "Before a user-initiated close; preventDefault keeps it open." },
+    { "name": "aui-close", "detail": "{ returnValue: string; reason: DialogCloseReason }", "bubbles": false, "cancelable": false, "description": "After the dialog closed." }
+  ],
+  "contentAreas": [
+    { "name": "body", "description": "Dialog.body (or `content` option)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-dialog", "description": "Native <dialog> element." },
+    { "name": "aui-dialog--sm | --md | --lg", "description": "Size modifiers." },
+    { "name": "aui-dialog__header", "description": "Title row with close button." },
+    { "name": "aui-dialog__title", "description": "Heading (h2)." },
+    { "name": "aui-dialog__close", "description": "Close button." },
+    { "name": "aui-dialog__description", "description": "Description paragraph." },
+    { "name": "aui-dialog__body", "description": "Scrollable content area." },
+    { "name": "aui-dialog__footer", "description": "Action buttons." }
+  ],
+  "iconSlots": [
+    { "name": "close", "default": "close" }
+  ]
+}

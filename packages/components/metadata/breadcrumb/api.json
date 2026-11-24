@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "component": "breadcrumb",
+  "factory": { "name": "Breadcrumb.create", "signature": "Breadcrumb.create(host: HTMLElement, options: BreadcrumbOptions): Breadcrumb" },
+  "configKey": "breadcrumb",
+  "options": [
+    { "name": "items", "type": "readonly { label: string; href?: string }[]", "required": true, "globallyConfigurable": false, "description": "Trail from the root to the current page (last item). Items without href render as text." },
+    { "name": "label", "type": "string", "default": "Breadcrumb (localized)", "required": false, "globallyConfigurable": false, "description": "Accessible name of the <nav>." },
+    { "name": "linkCurrent", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Render the current (last) item as a link when it has an href." },
+    { "name": "icons", "type": "Partial<{ separator: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "maxItems", "type": "number", "default": 0, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "0 never collapses. Otherwise (>= 2), longer trails show the first item, an expander, and the last maxItems - 1 items." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message locale." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "rtl mirrors the separator icon." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "nav", "type": "HTMLElement", "description": "The <nav> landmark." },
+    { "name": "expanded", "type": "boolean", "description": "Whether the user expanded a collapsed trail." },
+    { "name": "options", "type": "Readonly<BreadcrumbOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<BreadcrumbOptions>): void", "description": "Merge and apply options. New items collapse again." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-navigate", "detail": "{ index: number; item: BreadcrumbItem }", "bubbles": true, "cancelable": true, "description": "An unmodified primary click on a link. preventDefault stops native navigation so a router can handle it." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-breadcrumb", "description": "Host." },
+    { "name": "aui-breadcrumb--rtl", "description": "Configured rtl direction." },
+    { "name": "aui-breadcrumb__nav", "description": "The <nav> landmark." },
+    { "name": "aui-breadcrumb__list", "description": "The <ol>." },
+    { "name": "aui-breadcrumb__item", "description": "An <li>; --collapsed for the expander item." },
+    { "name": "aui-breadcrumb__link", "description": "Item link." },
+    { "name": "aui-breadcrumb__text", "description": "Text item (current page or no href)." },
+    { "name": "aui-breadcrumb__separator", "description": "Decorative separator icon." },
+    { "name": "aui-breadcrumb__expander", "description": "Button that reveals collapsed items." }
+  ],
+  "iconSlots": [
+    { "name": "separator", "default": "chevron-right" }
+  ]
+}

@@ -1,0 +1,126 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  // The control boundary wraps addons and the reveal button so they read as one field.
+  .aui-text-input__control {
+    @include aui.control-surface(
+      $height: aui.ctoken('text-input', 'height'),
+      $bg: aui.ctoken('text-input', 'bg'),
+      $border-color: aui.ctoken('text-input', 'border-color'),
+      $radius: aui.ctoken('text-input', 'radius')
+    );
+    display: flex;
+    align-items: stretch;
+    padding-inline: 0;
+    overflow: hidden;
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-within {
+      border-color: aui.token('color-focus-ring');
+      box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+    }
+  }
+
+  .aui-text-input__input {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    padding-block: 0;
+    padding-inline: aui.ctoken('text-input', 'padding-x');
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+
+    &::placeholder {
+      color: aui.token('color-text-muted');
+      opacity: 1;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-text-input__addon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    padding-inline: aui.token('space-3');
+    color: aui.token('color-text-muted');
+    background: aui.token('color-surface-sunken');
+    white-space: nowrap;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-text-input__prefix {
+    border-inline-end: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-text-input__suffix {
+    border-inline-start: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-text-input__reveal {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: aui.ctoken('text-input', 'height');
+    padding: 0;
+    margin: 0;
+    color: aui.token('color-text-muted');
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: aui.token('color-text');
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-text-input--invalid .aui-text-input__control {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-text-input--disabled .aui-text-input__control {
+    background: aui.token('color-disabled-bg');
+    border-color: aui.token('color-border');
+  }
+
+  .aui-text-input:has(.aui-text-input__input:read-only:not(:disabled)) .aui-text-input__control {
+    background: aui.token('color-surface-sunken');
+  }
+
+  @include aui.forced-colors {
+    .aui-text-input__control:focus-within {
+      outline: 2px solid Highlight;
+    }
+  }
+}

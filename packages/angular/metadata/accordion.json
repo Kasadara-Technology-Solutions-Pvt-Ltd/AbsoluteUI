@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/accordion",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiAccordion",
+      "description": "AbsoluteUI Accordion: `<aui-accordion>`.\nTwo-way: `[(value)]`.",
+      "selector": "aui-accordion",
+      "exportAs": [
+        "auiAccordion"
+      ],
+      "source": "generated",
+      "component": "accordion",
+      "configKey": "accordion",
+      "inputs": [
+        {
+          "name": "items",
+          "type": "readonly AccordionItem[]",
+          "required": true,
+          "description": "Items with unique ids. Titles and string content render as text."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<AccordionIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Allow several panels open at once; otherwise expanding one collapses the others."
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Single mode: the open panel can be collapsed. When false its header is aria-disabled."
+        },
+        {
+          "name": "headingLevel",
+          "type": "AccordionHeadingLevel",
+          "required": false,
+          "default": "3",
+          "configurable": true,
+          "description": "Heading element wrapping each header button."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "readonly string[]",
+          "change": "valueChange",
+          "description": "Expanded item ids (at most one when multiple is false)."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "AccordionChangeDetail",
+          "event": "aui-change",
+          "description": "The user expanded or collapsed an item."
+        }
+      ],
+      "methods": [
+        {
+          "name": "panel",
+          "signature": "panel(id: string): HTMLDivElement | null | undefined",
+          "description": "Content container of an item's panel."
+        },
+        {
+          "name": "expand",
+          "signature": "expand(id: string): void",
+          "description": "Expand programmatically (no events); collapses others in single mode."
+        },
+        {
+          "name": "collapse",
+          "signature": "collapse(id: string): void",
+          "description": "Collapse programmatically (no events), even when not collapsible."
+        },
+        {
+          "name": "toggle",
+          "signature": "toggle(id: string): void",
+          "description": "Expand or collapse programmatically (no events)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Accordion pattern: native heading elements containing native buttons that control panels.",
+        "source": "packages/components/metadata/accordion/accessibility.json"
+      },
+      "limitations": [
+        "Collapsed panel content is removed from the find-in-page index (hidden attribute); hidden=until-found is not used.",
+        "The icon rotation and height transition are removed under reduced motion or animation 'none'; the rotated end state remains as a static indicator.",
+        "Changing `items` re-creates the item DOM; Node content is moved, not cloned."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { AccordionItem } from '@absoluteui/components/accordion';\nimport { AuiAccordion } from '@absoluteui/angular/accordion';\n\n@Component({\n  selector: 'app-faq',\n  imports: [AuiAccordion],\n  template: `<aui-accordion [items]=\"items\" [headingLevel]=\"2\" [value]=\"open\" (changed)=\"open = $event.value\"></aui-accordion>`,\n})\nexport class FaqComponent {\n  open: string[] = ['shipping'];\n  readonly items: AccordionItem[] = [\n    { id: 'shipping', title: 'Shipping', content: 'Orders ship within two business days.' },\n    { id: 'returns', title: 'Returns', content: 'Returns are free for 30 days.' },\n  ];\n}"
+    }
+  ]
+}

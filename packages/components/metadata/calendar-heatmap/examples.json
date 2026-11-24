@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "calendar-heatmap",
+  "examples": [
+    {
+      "id": "year",
+      "title": "A year of absences with a business calendar",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { createBusinessCalendar } from '@absoluteui/components/business-calendar';\nimport { CalendarHeatmap } from '@absoluteui/components/calendar-heatmap';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCalendarHeatmap.create(host, {\n  label: 'Absences in 2026',\n  year: 2026,\n  data: [\n    { date: plainDate(2026, 1, 5), value: 3 },\n    { date: plainDate(2026, 1, 6), value: 5 },\n    { date: plainDate(2026, 2, 10), value: 1 },\n  ],\n  businessCalendar: createBusinessCalendar({ holidays: [{ date: plainDate(2026, 1, 1), name: 'New Year' }] }),\n  colorScale: { color: 3, steps: 4 },\n});"
+    },
+    {
+      "id": "range",
+      "title": "A quarter starting on Sunday",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { CalendarHeatmap } from '@absoluteui/components/calendar-heatmap';\n\nconst host = document.querySelector<HTMLElement>('#tickets');\nif (host) {\n  const chart = CalendarHeatmap.create(host, {\n    label: 'Support tickets',\n    from: plainDate(2026, 1, 1),\n    to: plainDate(2026, 3, 31),\n    firstDayOfWeek: 7,\n    data: [{ date: plainDate(2026, 1, 2), value: 12 }],\n    weekdayLabels: 'all',\n  });\n  chart.update({ dataTable: 'visible' });\n}"
+    }
+  ]
+}

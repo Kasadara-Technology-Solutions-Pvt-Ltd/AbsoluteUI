@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/templates",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiCell",
+      "description": "Cell template for one column of `<aui-data-table>`: `<ng-template auiCell=\"name\" let-row>`, or `<ng-template auiCell let-row>` inside `<aui-column>`.",
+      "selector": "ng-template[auiCell]",
+      "exportAs": [],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiCell",
+          "type": "string",
+          "required": false,
+          "description": "Column id; leave it empty inside `<aui-column>`, which owns the template."
+        },
+        {
+          "name": "auiCellOf",
+          "type": "readonly Row[] | null",
+          "required": false,
+          "description": "Types the context only: the rows bound to the table."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiRowDetail",
+      "description": "Row detail template of `<aui-data-table>` (expandable rows): `<ng-template auiRowDetail let-row>`.",
+      "selector": "ng-template[auiRowDetail]",
+      "exportAs": [],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiRowDetailOf",
+          "type": "readonly Row[] | null",
+          "required": false,
+          "description": "Types the context only: the rows bound to the table."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiItem",
+      "description": "Item template: menu items (`button[auiMenu]`, `[auiContextMenu]`, `<aui-menu-bar>`), Kanban cards (`<aui-kanban>`), Org Chart nodes (`<aui-org-chart>`), Scheduler\nevents (`<aui-scheduler>`): `<ng-template auiItem [auiItemOf]=\"cards\" let-card let-ctx=\"context\">`.",
+      "selector": "ng-template[auiItem]",
+      "exportAs": [],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiItemOf",
+          "type": "readonly Item[] | null",
+          "required": false,
+          "description": "Types the context only: the items bound to the component."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiSelectedItem",
+      "description": "Content shown for the selected option of `<aui-select>`: `<ng-template auiSelectedItem let-option>`.",
+      "selector": "ng-template[auiSelectedItem]",
+      "exportAs": [],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiSelectedItemOf",
+          "type": "readonly Item[] | null",
+          "required": false,
+          "description": "Types the context only: the options bound to the select."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiHeader",
+      "description": "Header content of a `<aui-data-table>` column (decorative: the header text stays the\naccessible name): `<ng-template auiHeader=\"salary\" let-header=\"header\">`, or without an id inside `<aui-column>`.",
+      "selector": "ng-template[auiHeader]",
+      "exportAs": [],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiHeader",
+          "type": "string",
+          "required": false,
+          "description": "Column id; leave it empty inside `<aui-column>`."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiEmpty",
+      "description": "Empty state of `<aui-data-table>` (replaces `emptyMessage`): `<ng-template auiEmpty>`.",
+      "selector": "ng-template[auiEmpty]",
+      "exportAs": [],
+      "source": "hand-written",
+      "inputs": [],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiGroupHeader",
+      "description": "Group header content of `<aui-data-table [groupBy]>` (decorative: the toggle keeps the\ndefault text as its name): `<ng-template auiGroupHeader [auiGroupHeaderOf]=\"rows\" let-group>`.",
+      "selector": "ng-template[auiGroupHeader]",
+      "exportAs": [],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiGroupHeaderOf",
+          "type": "readonly Row[] | null",
+          "required": false,
+          "description": "Types the context only: the rows bound to the table."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiEditor",
+      "description": "Custom inline editor of an editable `<aui-data-table>` column: `<ng-template auiEditor let-value let-commit=\"commit\" let-cancel=\"cancel\">`\ninside `<aui-column editable>` (or `auiEditor=\"columnId\"` at table level). Call `commit(value)` or `cancel()`.",
+      "selector": "ng-template[auiEditor]",
+      "exportAs": [],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiEditor",
+          "type": "string",
+          "required": false,
+          "description": "Column id; leave it empty inside `<aui-column>`."
+        },
+        {
+          "name": "auiEditorOf",
+          "type": "readonly Row[] | null",
+          "required": false,
+          "description": "Types the context only: the rows bound to the table."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    }
+  ],
+  "types": [
+    {
+      "name": "AuiCellContext",
+      "description": "Context of a cell template: the row, and the column id."
+    },
+    {
+      "name": "AuiRowDetailContext",
+      "description": "Context of a row detail template."
+    },
+    {
+      "name": "AuiItemContext",
+      "description": "Context of an item template (Kanban card, Org Chart node, Scheduler event): the item and the component's render context."
+    },
+    {
+      "name": "AuiSelectedItemContext",
+      "description": "Context of a selected item template: the selected option."
+    },
+    {
+      "name": "AuiHeaderContext",
+      "description": "Context of a header template: the column."
+    },
+    {
+      "name": "AuiGroupHeaderContext",
+      "description": "Context of a group header template."
+    },
+    {
+      "name": "AuiEditorContext",
+      "description": "Context of an editor template: the value being edited and how to finish."
+    }
+  ]
+}

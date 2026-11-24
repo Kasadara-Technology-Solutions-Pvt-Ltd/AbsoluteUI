@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="folder-tree" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 4.5A1.5 1.5 0 0 1 4.5 3h2.2l1.3 1.5h2.5A1.5 1.5 0 0 1 12 6v1.5A1.5 1.5 0 0 1 10.5 9h-6A1.5 1.5 0 0 1 3 7.5z"/>
+      <path d="M6 9v9.5h6"/>
+      <path d="M6 12.5h6"/>
+      <path d="M12 11.5A1.5 1.5 0 0 1 13.5 10h2.2l1.3 1.5h2.5A1.5 1.5 0 0 1 21 13v0.5A1.5 1.5 0 0 1 19.5 15h-6A1.5 1.5 0 0 1 12 13.5z"/>
+      <path d="M12 17.5A1.5 1.5 0 0 1 13.5 16h2.2l1.3 1.5h2.5A1.5 1.5 0 0 1 21 19v0.5A1.5 1.5 0 0 1 19.5 21h-6A1.5 1.5 0 0 1 12 19.5z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 11.5A1.5 1.5 0 0 1 13.5 10h2.2l1.3 1.5h2.5A1.5 1.5 0 0 1 21 13v0.5A1.5 1.5 0 0 1 19.5 15h-6A1.5 1.5 0 0 1 12 13.5z"/>
+      <path d="M12 17.5A1.5 1.5 0 0 1 13.5 16h2.2l1.3 1.5h2.5A1.5 1.5 0 0 1 21 19v0.5A1.5 1.5 0 0 1 19.5 21h-6A1.5 1.5 0 0 1 12 19.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 4.5A1.5 1.5 0 0 1 4.5 3h2.2l1.3 1.5h2.5A1.5 1.5 0 0 1 12 6v1.5A1.5 1.5 0 0 1 10.5 9h-6A1.5 1.5 0 0 1 3 7.5z"/>
+      <path d="M6 9v9.5h6"/>
+      <path d="M6 12.5h6"/>
+      <path d="M12 11.5A1.5 1.5 0 0 1 13.5 10h2.2l1.3 1.5h2.5A1.5 1.5 0 0 1 21 13v0.5A1.5 1.5 0 0 1 19.5 15h-6A1.5 1.5 0 0 1 12 13.5z"/>
+      <path d="M12 17.5A1.5 1.5 0 0 1 13.5 16h2.2l1.3 1.5h2.5A1.5 1.5 0 0 1 21 19v0.5A1.5 1.5 0 0 1 19.5 21h-6A1.5 1.5 0 0 1 12 19.5z"/>
+    </g>
+  </g>
+</svg>

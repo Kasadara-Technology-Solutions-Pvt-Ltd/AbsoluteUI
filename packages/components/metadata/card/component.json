@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "name": "card",
+  "displayName": "Card and Surface",
+  "category": "Layout",
+  "package": "@absoluteui/components",
+  "import": "import { Card, Surface } from '@absoluteui/components/card';",
+  "styleImport": "@absoluteui/components/card/style.css",
+  "purpose": "Surface: a bordered, token-colored panel (flat, raised, sunken, optionally padded). Card: a surface with header (title, subtitle), media, body, and footer sections; an <article> named by its title when titled, and an optional block-link mode where the whole card is clickable with a single tab stop.",
+  "whenToUse": [
+    "Grouping a self-contained piece of content: a product, project, article teaser, or summary tile.",
+    "Collections of similar items in a grid, each linking to a detail page (interactive cards).",
+    "Panels that visually separate a region of a page (Surface)."
+  ],
+  "whenNotToUse": [
+    "A single clickable action without content: use a Button or Link.",
+    "Cards with several equally important actions: do not use interactive mode; put actions in the footer instead.",
+    "Tabular or comparable data across items: use a table.",
+    "Nesting cards inside cards."
+  ],
+  "internalDependencies": ["@absoluteui/core"],
+  "states": ["default", "raised", "sunken", "interactive", "hover (interactive)", "focus-visible (interactive)"],
+  "responsive": "Cards fill their container inline size; put them in an aui-grid--auto grid for responsive collections. Footer content wraps. Media images are fluid (inline-size 100%).",
+  "rtl": "Logical properties throughout; header, body, and footer content follow the writing direction.",
+  "theme": "color-surface, color-surface-sunken, color-border, radius-md, shadow-sm (raised), shadow-md (interactive hover), space-inset (density-aware). Interactive titles use color-link. Forced-colors mode keeps the border, uses LinkText for the title link, and a Highlight focus outline.",
+  "timezone": "Not applicable.",
+  "security": "Title, subtitle, and string content use textContent; Node content is appended as-is (the consumer owns it). interactive.href is validated with the WHATWG URL parser and must be http(s) or relative; javascript:, data:, and other schemes are rejected, including obfuscated forms. No inline styles. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [],
+    "testedScale": "Constant DOM per card (root plus five section elements) and one configuration subscription; no event listeners. Not yet part of the e2e performance suite."
+  },
+  "limitations": [
+    "In interactive cards, the link overlay makes body text hard to select with the mouse (a known trade-off of the block-link pattern).",
+    "Other controls inside an interactive card are lifted above the overlay and remain separate tab stops.",
+    "The card root element is replaced when a title is added or removed, because the tag changes between <article> and <div>.",
+    "Surface and Card do not manage elevation stacking contexts."
+  ],
+  "unsupported": [
+    "HTML strings as title, subtitle, or content (pass a Node instead).",
+    "Buttons (non-link actions) as the whole-card target.",
+    "Heading level 1 for card titles."
+  ],
+  "antiPatterns": [
+    "Wrapping a whole card in an <a>: screen readers announce all of its content as the link name.",
+    "Interactive cards without a descriptive title.",
+    "Heading levels that skip the surrounding outline; set headingLevel to match the page."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/card: AuiCard directive ([auiCard]); no directive for Surface.apply (use the aui-surface classes).",
+    "react": "@absoluteui/react/card: AuiCard component.",
+    "vue": "@absoluteui/vue/card: AuiCard component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

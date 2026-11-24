@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="wifi-off">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 19.5h.01"/>
+      <path d="M8.75 15.75a4.6 4.6 0 0 1 6.5 0"/>
+      <path d="M5.5 12.5a9.5 9.5 0 0 1 13 0"/>
+      <path d="M2.5 9a14 14 0 0 1 19 0"/>
+      <line x1="3" y1="3" x2="21" y2="21" data-knockout="5"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <path d="M3 3l18 18"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/tag-group",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiTagGroup",
+      "description": "AbsoluteUI TagGroup: `<aui-tag-group>`.\nImplements ControlValueAccessor; `[(value)]` without forms.",
+      "selector": "aui-tag-group",
+      "exportAs": [
+        "auiTagGroup"
+      ],
+      "source": "generated",
+      "component": "tag-group",
+      "configKey": "tagGroup",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": false,
+        "valueType": "string[]"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the group."
+        },
+        {
+          "name": "items",
+          "type": "readonly TagGroupItem[]",
+          "required": true,
+          "description": "Tags: { value, label, disabled? } (unique values, at most 1,000)."
+        },
+        {
+          "name": "removable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Remove button per tag; Delete and Backspace remove the focused tag."
+        },
+        {
+          "name": "selection",
+          "type": "TagGroupSelection",
+          "required": false,
+          "default": "none",
+          "description": "Selection mode."
+        },
+        {
+          "name": "size",
+          "type": "TagGroupSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Tag size."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<TagGroupIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the remove label and announcement."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string[]",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "TagGroupChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the selection (or removed a selected tag): { value }."
+        },
+        {
+          "name": "removed",
+          "payload": "TagGroupRemoveDetail",
+          "event": "aui-remove",
+          "description": "The user removes a tag: { value, item }. Prevent it to keep the tag."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the tag in the tab sequence."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Grid list (as in the React Aria TagGroup): role=grid with one row per tag and one gridcell per row; roving tabindex over the rows.",
+        "source": "packages/components/metadata/tag-group/accessibility.json"
+      },
+      "limitations": [
+        "Removing the last tag leaves focus on the page body; move focus to a sensible control in an aui-remove handler.",
+        "Every change re-creates the tag elements (focus is restored to the same tag)."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { TagGroupItem, TagGroupRemoveDetail } from '@absoluteui/components/tag-group';\nimport { AuiTagGroup } from '@absoluteui/angular/tag-group';\n\n@Component({\n  selector: 'app-filters',\n  imports: [AuiTagGroup],\n  template: `<aui-tag-group label=\"Applied filters\" [items]=\"filters\" [removable]=\"true\" (removed)=\"remove($event)\"></aui-tag-group>`,\n})\nexport class FiltersComponent {\n  filters: TagGroupItem[] = [{ value: 'london', label: 'London' }, { value: 'remote', label: 'Remote' }];\n\n  remove({ value }: TagGroupRemoveDetail): void {\n    this.filters = this.filters.filter((f) => f.value !== value);\n  }\n}"
+    }
+  ]
+}

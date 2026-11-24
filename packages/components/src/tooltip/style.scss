@@ -1,0 +1,35 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-tooltip {
+    box-sizing: border-box;
+    inline-size: max-content;
+    max-inline-size: min(aui.token('tooltip-max-width'), calc(100vw - 2 * #{aui.token('space-2')}));
+    padding: aui.token('space-1') aui.token('space-2');
+    color: aui.ctoken('tooltip', 'fg');
+    background: aui.ctoken('tooltip', 'bg');
+    border: 0;
+    border-radius: aui.ctoken('tooltip', 'radius');
+    box-shadow: aui.ctoken('tooltip', 'shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-tight');
+    overflow: visible;
+    overflow-wrap: anywhere;
+
+    @include aui.popup-motion;
+  }
+
+  // Global `animation: 'none'` (set per show from shouldAnimate()).
+  .aui-tooltip--static {
+    transition: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-tooltip {
+      border: aui.token('border-width') solid CanvasText;
+    }
+  }
+}

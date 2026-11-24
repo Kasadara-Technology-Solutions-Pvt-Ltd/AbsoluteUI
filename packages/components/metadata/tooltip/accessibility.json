@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "tooltip",
+  "pattern": "WAI-ARIA APG Tooltip pattern, with WCAG 1.4.13 Content on Hover or Focus.",
+  "roles": [
+    { "element": "tooltip div", "role": "tooltip" }
+  ],
+  "aria": [
+    { "attribute": "aria-describedby", "element": "trigger", "value": "id of the tooltip, added to existing ids (relation 'description')" },
+    { "attribute": "aria-labelledby", "element": "trigger", "value": "id of the tooltip, added to existing ids (relation 'label')" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Focus moves to the trigger (keyboard focus-visible)", "action": "Shows the tooltip immediately." },
+    { "key": "Tab / Shift+Tab", "context": "Focus leaves the trigger", "action": "Hides the tooltip." },
+    { "key": "Escape", "context": "Tooltip visible", "action": "Hides the tooltip without moving focus; the key is consumed." },
+    { "key": "Escape", "context": "No tooltip visible", "action": "Not handled; reaches enclosing overlays and the page." }
+  ],
+  "focus": "The tooltip is never focusable and never moves focus. It shows on keyboard focus (:focus-visible) of the trigger, not on pointer focus.",
+  "wcag": ["1.3.1", "1.4.3", "1.4.11", "1.4.13", "2.1.1", "4.1.2"],
+  "notes": [
+    "1.4.13 dismissible: Escape hides it without moving pointer or focus.",
+    "1.4.13 hoverable: moving the pointer from the trigger onto the tooltip keeps it open (hideDelay grace period).",
+    "1.4.13 persistent: stays visible while the trigger is hovered or focused, until Escape or another tooltip opens.",
+    "Only one tooltip is visible at a time.",
+    "Touch pointers do not show tooltips; tooltips must never hold essential information."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

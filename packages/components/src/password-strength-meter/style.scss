@@ -1,0 +1,108 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-password-strength-meter {
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-tight');
+    color: aui.token('color-text');
+  }
+
+  .aui-password-strength-meter__body {
+    display: grid;
+    gap: aui.token('space-2');
+  }
+
+  .aui-password-strength-meter__header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+  }
+
+  .aui-password-strength-meter__label {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-password-strength-meter__rating {
+    font-weight: aui.token('font-weight-semibold');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Four segments; the filled count equals the score. Tone colors repeat the rating text.
+  .aui-password-strength-meter__bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: aui.token('space-1');
+  }
+
+  .aui-password-strength-meter__segment {
+    block-size: aui.token('progress-height');
+    background: aui.token('color-surface-sunken');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-pill');
+    @include aui.transition(background-color);
+  }
+
+  .aui-password-strength-meter--score-1 .aui-password-strength-meter__segment--filled {
+    background: aui.token('color-error-fg');
+  }
+
+  .aui-password-strength-meter--score-2 .aui-password-strength-meter__segment--filled {
+    background: aui.token('color-warning-fg');
+  }
+
+  .aui-password-strength-meter--score-3 .aui-password-strength-meter__segment--filled,
+  .aui-password-strength-meter--score-4 .aui-password-strength-meter__segment--filled {
+    background: aui.token('color-success-fg');
+  }
+
+  .aui-password-strength-meter__requirements {
+    display: grid;
+    gap: aui.token('space-1');
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-password-strength-meter__requirement {
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-2');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-password-strength-meter__requirement--met {
+    color: aui.token('color-success-fg');
+  }
+
+  .aui-password-strength-meter__icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    margin-block-start: 0.05em;
+  }
+
+  @include aui.forced-colors {
+    .aui-password-strength-meter__segment {
+      border-color: CanvasText;
+    }
+
+    .aui-password-strength-meter__segment--filled,
+    .aui-password-strength-meter--score-1 .aui-password-strength-meter__segment--filled,
+    .aui-password-strength-meter--score-2 .aui-password-strength-meter__segment--filled,
+    .aui-password-strength-meter--score-3 .aui-password-strength-meter__segment--filled,
+    .aui-password-strength-meter--score-4 .aui-password-strength-meter__segment--filled {
+      background: Highlight;
+    }
+  }
+}

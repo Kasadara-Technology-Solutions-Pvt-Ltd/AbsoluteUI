@@ -1,0 +1,6 @@
+[
+  { "title": "Month and year", "text": "Pick a month of a year from a grid or type it." },
+  { "title": "Limits and disabled months", "text": "Earliest and latest months plus a function to block any month." },
+  { "title": "Locale aware", "text": "Month names follow the locale." },
+  { "title": "Form ready", "text": "Validation, custom errors, and native form submission." }
+]

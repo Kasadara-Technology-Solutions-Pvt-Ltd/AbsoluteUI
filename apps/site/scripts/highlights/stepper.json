@@ -1,0 +1,6 @@
+[
+  { "title": "Guided progress", "text": "Shows where users are in a multi-step task, with complete and error states." },
+  { "title": "Linear or free", "text": "Linear mode keeps later steps out of reach until earlier ones are done." },
+  { "title": "Optional steps", "text": "Mark steps as optional or disabled, with descriptions under the labels." },
+  { "title": "Cancelable navigation", "text": "Navigate events can be canceled to validate a step before moving on." }
+]

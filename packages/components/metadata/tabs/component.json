@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "name": "tabs",
+  "displayName": "Tabs",
+  "category": "Navigation",
+  "package": "@absoluteui/components",
+  "import": "import { Tabs } from '@absoluteui/components/tabs';",
+  "styleImport": "@absoluteui/components/tabs/style.css",
+  "purpose": "WAI-ARIA APG Tabs: a labelled tablist of native buttons with a roving tabindex and one tabpanel per tab, automatic or manual activation, horizontal or vertical orientation, RTL-aware arrow keys, and a scrolling tablist on overflow.",
+  "whenToUse": [
+    "Switching between peer views of related content in the same context, such as Overview, Activity, and Settings.",
+    "Reducing page length when users need only one section at a time."
+  ],
+  "whenNotToUse": [
+    "Sequential steps: use a stepper or wizard.",
+    "Navigating between pages or routes: use links (navigation bar, breadcrumb).",
+    "Content users need to compare side by side.",
+    "Many sections users read in order: use headings or an accordion."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["default", "hover", "focus-visible", "selected", "disabled", "overflowing (scrollable tablist)"],
+  "responsive": "The horizontal tablist never wraps: it scrolls horizontally (thin scrollbar) and the selected tab is scrolled into view without scrolling the page. Tabs keep a minimum touch-target height. Vertical tabs sit at the inline start of the panels.",
+  "rtl": "Logical properties throughout. Left/Right arrow keys are mirrored when direction is rtl (configured, or inherited from an ancestor dir attribute). The vertical indicator sits on the inline-start edge.",
+  "theme": "Selected tab: color-primary indicator on the block-end (horizontal) or inline-start (vertical) edge plus semibold weight, so selection is not conveyed by color alone. Hover uses color-hover; focus uses the shared focus ring. Forced-colors mode draws the indicator in Highlight.",
+  "timezone": "Not applicable.",
+  "security": "Tab labels and string panel content are rendered with textContent, never parsed as HTML. Node content is inserted as provided (the consumer owns it). CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Tabs.create with 20 tabs", "budget": "< 2 ms in headless Chromium" }
+    ],
+    "testedScale": "20 tabs in an overflowing tablist in the unit tests."
+  },
+  "limitations": [
+    "Panels are always in the DOM (hidden when inactive); lazy content is the consumer's responsibility, for example on aui-change.",
+    "Tabs cannot be closed, reordered, or added by the user.",
+    "No scroll buttons for an overflowing tablist; it scrolls natively (wheel, touch, keyboard focus)."
+  ],
+  "unsupported": [
+    "Rendering HTML strings as labels or content (pass a Node instead).",
+    "Tabs as links to separate URLs (use a navigation component)."
+  ],
+  "antiPatterns": [
+    "Using tabs for sequential steps.",
+    "Nesting tab sets.",
+    "Hiding content users must compare in different tabs."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/tabs: AuiTabs directive ([auiTabs]).",
+    "react": "@absoluteui/react/tabs: AuiTabs component.",
+    "vue": "@absoluteui/vue/tabs: AuiTabs component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

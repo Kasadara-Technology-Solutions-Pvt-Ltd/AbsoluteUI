@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "radio-group",
+  "displayName": "Radio Group",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { RadioGroup } from '@absoluteui/components/radio-group';",
+  "styleImport": "@absoluteui/components/radio-group/style.css",
+  "purpose": "Exactly one choice from a short, visible set of mutually exclusive options, built on native radios in a <fieldset role=\"radiogroup\"> + <legend>, with required validation and native arrow-key selection.",
+  "whenToUse": [
+    "Choosing one option from 2 to about 7 visible options where comparing them matters.",
+    "A required choice with no sensible default."
+  ],
+  "whenNotToUse": [
+    "Several independent choices: use Checkbox Group.",
+    "Long or searchable lists: use Select or Combobox.",
+    "A binary setting that applies immediately: use Switch."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["default", "hover", "focus-visible", "selected", "disabled (group)", "disabled (option)", "required", "invalid"],
+  "responsive": "Vertical by default. `orientation: 'horizontal'` lays options out in a wrapping row. Labels and option help text wrap; each row is at least touch-target-min tall.",
+  "rtl": "Logical properties and flex layout: radios sit at the inline start and horizontal options flow from the inline start. Native arrow keys follow the browser's direction handling.",
+  "theme": "Unselected: color-surface ring with a color-border-strong boundary. Selected: color-primary fill with a color-on-primary inner dot. Invalid: color-error-fg boundaries. Forced-colors mode uses Canvas, CanvasText, Highlight, and GrayText with forced-color-adjust: none so the ring and dot stay visible.",
+  "timezone": "Not applicable.",
+  "security": "Legend, option labels, help text, and messages are rendered with textContent. Validation messages never include the selected value. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. With `name`, the selected native radio submits `name=value`. Without `name`, radios share a generated name so they behave as one native group, and nothing identifying is derived from user data.",
+  "performance": {
+    "budgets": [
+      { "metric": "RadioGroup.create with 7 options, per instance", "budget": "< 2 ms average in headless Chromium (target; not yet covered by the performance test)" }
+    ],
+    "testedScale": "Unit-tested with up to 4 options per group; intended for short lists (up to about 20 options)."
+  },
+  "limitations": [
+    "Once a radio is selected the user cannot clear the selection (native behavior); offer an explicit \"None\" option if needed.",
+    "Radios with the same consumer `name` in the same form form one native group, even across RadioGroup instances."
+  ],
+  "unsupported": [
+    "HTML inside option labels or the legend.",
+    "Custom roving focus (the native behavior is used).",
+    "Read-only radio groups."
+  ],
+  "antiPatterns": [
+    "Pre-selecting an option for a question the user must answer consciously.",
+    "Using radios for more than about 7 options.",
+    "Reusing the same `name` for unrelated groups."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/radio-group: AuiRadioGroup directive ([auiRadioGroup]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/radio-group: AuiRadioGroup component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/radio-group: AuiRadioGroup component with v-model."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

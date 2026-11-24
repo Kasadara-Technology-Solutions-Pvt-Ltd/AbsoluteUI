@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="warehouse">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 20V9l9-5 9 5v11"/>
+      <path d="M7 20v-6h10v6"/>
+      <path d="M7 17h10"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M2 20.5V8.7l10-5.6 10 5.6v11.8h-4V13.5H6v7z"/>
+      <rect x="7" y="14.5" width="10" height="2" rx="0.5"/>
+      <rect x="7" y="17.5" width="10" height="3" rx="0.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3 20V9l9-5 9 5v11z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 20V9l9-5 9 5v11"/>
+      <path d="M7 20v-6h10v6"/>
+      <path d="M7 17h10"/>
+    </g>
+  </g>
+</svg>

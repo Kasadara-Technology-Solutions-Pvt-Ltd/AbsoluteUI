@@ -1,0 +1,87 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-date-picker {
+    display: grid;
+    font-family: aui.token('font-family-sans');
+    color: aui.token('color-text');
+  }
+
+  // The calendar button sits inside the Date Input boundary, flush with its end edge.
+  .aui-date-picker .aui-date-input__group {
+    padding-inline-end: 0;
+  }
+
+  .aui-date-picker__trailing {
+    display: inline-flex;
+    align-self: stretch;
+    margin-inline-start: aui.token('space-2');
+  }
+
+  .aui-date-picker__button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: aui.token('control-height-md');
+    padding: 0;
+    margin: 0;
+    color: aui.token('color-text-muted');
+    background: transparent;
+    border: 0;
+    border-start-end-radius: aui.token('radius-md');
+    border-end-end-radius: aui.token('radius-md');
+    cursor: pointer;
+    @include aui.transition(background-color, color);
+
+    &:hover {
+      color: aui.token('color-text');
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      background: transparent;
+      cursor: not-allowed;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  // Top-layer popup (Popover API). Position is applied by the positioning engine.
+  .aui-date-picker__popup {
+    @include aui.popup-motion;
+    box-sizing: border-box;
+    max-block-size: var(--aui-available-height, 100dvh);
+    padding: aui.token('space-3');
+    margin: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    box-shadow: aui.token('shadow-md');
+    font-family: aui.token('font-family-sans');
+  }
+
+  @include aui.forced-colors {
+    .aui-date-picker__popup {
+      border-color: CanvasText;
+    }
+
+    .aui-date-picker__button:disabled {
+      color: GrayText;
+    }
+  }
+}

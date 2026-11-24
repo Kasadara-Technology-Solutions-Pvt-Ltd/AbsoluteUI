@@ -1,0 +1,117 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the Button stylesheet (@absoluteui/components/button/style.css).
+@layer aui.components {
+  .aui-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: aui.token('space-2');
+    box-sizing: border-box;
+    inline-size: 100%;
+    margin-inline: auto;
+    padding: aui.token('space-6') aui.token('space-4');
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    text-align: center;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-empty-state__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-block-end: aui.token('space-2');
+    color: aui.ctoken('empty-state', 'icon-color');
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-icon {
+      --aui-icon-size: #{aui.ctoken('empty-state', 'icon-size')};
+      inline-size: var(--aui-icon-size);
+      block-size: var(--aui-icon-size);
+      font-size: var(--aui-icon-size);
+    }
+
+    img,
+    svg:not(.aui-icon) {
+      max-inline-size: min(100%, 16rem);
+      block-size: auto;
+    }
+  }
+
+  .aui-empty-state__title {
+    max-inline-size: 40ch;
+    margin: 0;
+    font-size: aui.token('font-size-lg');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+  }
+
+  .aui-empty-state__description {
+    max-inline-size: 52ch;
+    margin: 0;
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-empty-state__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: aui.token('space-2');
+    margin-block-start: aui.token('space-2');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-empty-state--sm {
+    gap: aui.token('space-1');
+    padding: aui.token('space-3');
+
+    .aui-empty-state__media .aui-icon {
+      --aui-icon-size: #{aui.icon-size('lg')};
+    }
+
+    .aui-empty-state__title {
+      font-size: aui.token('font-size-md');
+    }
+
+    .aui-empty-state__description {
+      font-size: aui.token('font-size-sm');
+    }
+  }
+
+  .aui-empty-state--lg {
+    gap: aui.token('space-3');
+    padding: aui.token('space-10') aui.token('space-6');
+
+    .aui-empty-state__media .aui-icon {
+      --aui-icon-size: calc(#{aui.ctoken('empty-state', 'icon-size')} * 1.5);
+    }
+
+    .aui-empty-state__title {
+      font-size: aui.token('font-size-xl');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-empty-state__media {
+      color: CanvasText;
+    }
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/otp-input",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiOtpInput",
+      "description": "AbsoluteUI OtpInput: `<aui-otp-input>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-otp-input",
+      "exportAs": [
+        "auiOtpInput"
+      ],
+      "source": "generated",
+      "component": "otp-input",
+      "configKey": "otpInput",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "string"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label (required accessible name)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label."
+        },
+        {
+          "name": "length",
+          "type": "number",
+          "required": false,
+          "default": "6",
+          "description": "Number of characters (1..32)."
+        },
+        {
+          "name": "type",
+          "type": "OtpInputType",
+          "required": false,
+          "default": "numeric",
+          "description": "Allowed characters."
+        },
+        {
+          "name": "mask",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show dots instead of characters (PINs); the input becomes type=password."
+        },
+        {
+          "name": "uppercase",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Alphanumeric only: convert letters to upper case."
+        },
+        {
+          "name": "groupSize",
+          "type": "number",
+          "required": false,
+          "description": "Visual group size (separators are presentation only)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text, referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "A code is required."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disabled."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Read-only."
+        },
+        {
+          "name": "autocomplete",
+          "type": "\"off\" | \"one-time-code\"",
+          "required": false,
+          "default": "one-time-code",
+          "description": "Autofill hint."
+        },
+        {
+          "name": "validate",
+          "type": "((value: string) => string | null)",
+          "required": false,
+          "description": "Consumer validation of a complete code."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<OtpInputIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message and number-formatting locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valueInput",
+          "payload": "OtpInputValueDetail",
+          "event": "aui-input",
+          "description": "User edited the code (the code is not in the detail)."
+        },
+        {
+          "name": "changed",
+          "payload": "OtpInputValueDetail",
+          "event": "aui-change",
+          "description": "User committed the value (native change)."
+        },
+        {
+          "name": "completed",
+          "payload": "OtpInputCompleteDetail",
+          "event": "aui-complete",
+          "description": "The code became complete through user input (typing, paste, or autofill)."
+        }
+      ],
+      "properties": [
+        {
+          "name": "complete",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Every cell filled."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | undefined",
+          "description": "The code."
+        },
+        {
+          "name": "clear",
+          "signature": "clear(): void",
+          "description": "Empty the code and focus the field (after a rejected code)."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now (marks the control submitted) and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); null clears it."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Move focus to the primary focusable element."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "One native <input> with <label for>; visual cells are aria-hidden presentation. Chosen over N single-character inputs: one-time-code autofill and password managers fill one field, paste/undo/selection stay native, screen readers hear one labelled field with a length hint instead of N unlabelled boxes, and fast typing never loses characters to focus changes.",
+        "source": "packages/components/metadata/otp-input/accessibility.json"
+      },
+      "limitations": [
+        "Only ASCII letters and digits are accepted (after NFKC, so full-width digits work).",
+        "Lengths from 1 to 32.",
+        "The active-cell highlight follows the caret on keyup, click, and selection; selection by pointer drag is not mirrored cell by cell.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { AuiOtpInput } from '@absoluteui/angular/otp-input';\n\n@Component({\n  selector: 'app-verify',\n  imports: [ReactiveFormsModule, AuiOtpInput],\n  template: `<aui-otp-input label=\"Verification code\" [required]=\"true\" [formControl]=\"code\" (completed)=\"verify()\"></aui-otp-input>`,\n})\nexport class VerifyComponent {\n  readonly code = new FormControl('', { nonNullable: true });\n  verify(): void {\n    // Send this.code.value to your server.\n  }\n}"
+    }
+  ]
+}

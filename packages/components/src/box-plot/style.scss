@@ -1,0 +1,54 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+
+  // Translucent box with a solid outline in the series color (3:1 on surfaces).
+  .aui-box-plot__box {
+    fill: var(--aui-chart-color);
+    fill-opacity: 0.25;
+    stroke: var(--aui-chart-color);
+    stroke-width: 1.5;
+  }
+
+  .aui-box-plot__box.aui-chart__mark--hover,
+  .aui-box-plot__box.aui-chart__mark--active {
+    fill-opacity: 0.45;
+    stroke: aui.token('color-text');
+    stroke-width: 2;
+  }
+
+  .aui-box-plot__median {
+    stroke: aui.token('color-text');
+    stroke-width: 2;
+  }
+
+  .aui-box-plot__whisker {
+    fill: none;
+    stroke: var(--aui-chart-color);
+    stroke-width: 1.5;
+  }
+
+  .aui-box-plot__outlier {
+    fill: aui.token('color-surface');
+    stroke: var(--aui-chart-color);
+    stroke-width: 1.5;
+  }
+
+  @include aui.forced-colors {
+    .aui-box-plot__median {
+      stroke: CanvasText;
+    }
+
+    .aui-box-plot__outlier {
+      fill: Canvas;
+    }
+
+    .aui-box-plot__box.aui-chart__mark--hover,
+    .aui-box-plot__box.aui-chart__mark--active {
+      stroke: Highlight;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "spinner",
+  "examples": [
+    {
+      "id": "delayed",
+      "title": "Delayed spinner for a fetch",
+      "language": "ts",
+      "code": "import { Spinner } from '@absoluteui/components/spinner';\n\nconst host = document.querySelector<HTMLElement>('#results-status');\nif (host) {\n  const spinner = Spinner.create(host, { label: 'Loading results', delay: 300 });\n  void fetch('/api/results').finally(() => {\n    spinner.destroy();\n  });\n}"
+    },
+    {
+      "id": "visible-label",
+      "title": "Visible label, small size",
+      "language": "ts",
+      "code": "import { Spinner } from '@absoluteui/components/spinner';\n\nconst host = document.querySelector<HTMLElement>('#saving');\nif (host) {\n  Spinner.create(host, { label: 'Saving changes', showLabel: true, size: 'sm' });\n}"
+    }
+  ]
+}

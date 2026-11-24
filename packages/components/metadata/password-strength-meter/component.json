@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "name": "password-strength-meter",
+  "displayName": "Password Strength Meter",
+  "category": "Authentication UI",
+  "package": "@absoluteui/components",
+  "import": "import { PasswordStrengthMeter } from '@absoluteui/components/password-strength-meter';",
+  "styleImport": "@absoluteui/components/password-strength-meter/style.css",
+  "purpose": "Advisory password feedback: a requirements checklist (length, character classes, custom rules) and a strength rating from a pluggable evaluator, with debounced polite announcements. Attaches to a Password Input (or any <input>) or evaluates a bound value. It is not a security guarantee: the server must enforce the real policy.",
+  "whenToUse": [
+    "Sign-up and change-password forms, next to a Password Input with autocomplete=new-password.",
+    "Showing a password policy as a live checklist."
+  ],
+  "whenNotToUse": [
+    "Sign-in forms (do not rate existing passwords).",
+    "As the only enforcement of a password policy."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "score 0 (empty)",
+    "score 1 Weak",
+    "score 2 Fair",
+    "score 3 Good",
+    "score 4 Strong",
+    "requirement met / not met"
+  ],
+  "responsive": "Full width; the four segments share the width; checklist items wrap.",
+  "rtl": "Segments fill from the inline start; icons precede text in the inline direction.",
+  "theme": "Segments use color-surface-sunken with a color-border-strong boundary; filled segments use color-error-fg (Weak), color-warning-fg (Fair), color-success-fg (Good, Strong). Met requirements use color-success-fg text with a check icon. Forced-colors mode uses Highlight fills and CanvasText borders.",
+  "timezone": "Not applicable.",
+  "security": "Advisory only. The default evaluator counts rules; it does not detect dictionary words, personal data, keyboard patterns, or breached passwords. Supply an evaluator (for example a vetted strength library or a breach check performed by your server) for stronger feedback. The password is never stored by the meter, logged, emitted in events, or announced. AbsoluteUI is not an authentication or security provider.",
+  "dataHandling": "The value is read from the attached input on each input event and discarded after evaluation (the value option, when used, is held in options). No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "evaluate() with the default rules",
+        "budget": "< 1 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "Evaluated on every keystroke; announcements are debounced to one per second of pause."
+  },
+  "limitations": [
+    "Requirement tests and evaluators must be synchronous.",
+    "Default rules: at least 12 characters, a lowercase letter, an uppercase letter, and a number. Mirror your server policy with the requirements option.",
+    "The default Strong rating needs all rules met and at least 16 characters; a single repeated character is always Weak.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Asynchronous evaluators (run breach checks in the application and pass a result through evaluate).",
+    "Rendering HTML in requirement labels."
+  ],
+  "antiPatterns": [
+    "Presenting the rating as a security guarantee.",
+    "Blocking submission on a client-side rating without the same check on the server.",
+    "Announcing on every keystroke."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/password-strength-meter: AuiPasswordStrengthMeter directive ([auiPasswordStrengthMeter]); bind [value] or [input].",
+    "react": "@absoluteui/react/password-strength-meter: AuiPasswordStrengthMeter component.",
+    "vue": "@absoluteui/vue/password-strength-meter: AuiPasswordStrengthMeter component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

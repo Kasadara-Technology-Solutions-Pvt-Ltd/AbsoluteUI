@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "component": "discussion",
+  "factory": { "name": "Discussion.create", "signature": "Discussion.create(host: HTMLElement, options: DiscussionOptions): Discussion" },
+  "configKey": "discussion",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible title and accessible name of the discussion." },
+    { "name": "comments", "type": "readonly DiscussionComment[]", "default": "[]", "required": false, "globallyConfigurable": false, "description": "Comments: { id, parentId, author: { id, name, avatar? }, text, mentions?, createdAt, editedAt?, deleted?, replyCount? }." },
+    { "name": "currentUser", "type": "DiscussionAuthor | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "The signed-in user; null makes the discussion read-only (no composer, no reply)." },
+    { "name": "maxLength", "type": "number", "required": false, "globallyConfigurable": false, "description": "Maximum characters per comment (1..100000); longer text is blocked from posting, not truncated." },
+    { "name": "showCounter", "type": "boolean", "default": "true when maxLength is set", "required": false, "globallyConfigurable": false, "description": "Show the character counter on every composer; requires maxLength." },
+    { "name": "triggers", "type": "readonly MentionTrigger[]", "default": "@ suggesting the people in the discussion", "required": false, "globallyConfigurable": false, "description": "Mention triggers and providers of every composer (Mention Input)." },
+    { "name": "allowReplies", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "description": "Show Reply on comments." },
+    { "name": "canEdit", "type": "((comment: DiscussionComment) => boolean) | null", "default": "own comments", "required": false, "globallyConfigurable": false, "description": "Whether the current user may edit a comment (deleted comments never)." },
+    { "name": "canDelete", "type": "((comment: DiscussionComment) => boolean) | null", "default": "own comments", "required": false, "globallyConfigurable": false, "description": "Whether the current user may delete a comment." },
+    { "name": "loadReplies", "type": "((comment: DiscussionComment, context: DiscussionLoadContext) => Promise<readonly DiscussionComment[]>) | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Loads replies of a comment whose replyCount exceeds its loaded replies; context { signal, loaded }." },
+    { "name": "status", "type": "'ready' | 'loading' | 'error'", "default": "ready", "required": false, "globallyConfigurable": false, "description": "loading shows a spinner, error a message with Retry (aui-retry)." },
+    { "name": "errorText", "type": "string", "required": false, "globallyConfigurable": false, "description": "Message shown with status error." },
+    { "name": "emptyTitle", "type": "string", "required": false, "globallyConfigurable": false, "description": "Empty state title." },
+    { "name": "emptyDescription", "type": "string", "required": false, "globallyConfigurable": false, "description": "Empty state description." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Placeholder of the new-comment box." },
+    { "name": "rows", "type": "number", "default": 3, "required": false, "globallyConfigurable": false, "description": "Rows of every composer (1..20)." },
+    { "name": "businessCalendar", "type": "BusinessCalendarEngine | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Names holidays and non-working days in absolute dates." },
+    { "name": "now", "type": "Instant", "required": false, "globallyConfigurable": false, "description": "Reference time of relative timestamps; default now, refreshed every minute." },
+    { "name": "icons", "type": "Partial<DiscussionIcons>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "sort", "type": "'oldest' | 'newest'", "default": "oldest", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Order of top-level comments (replies are always oldest first)." },
+    { "name": "maxIndent", "type": "number", "default": 4, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Levels that indent (1..10); deeper replies show Replying to <name>." },
+    { "name": "collapseDepth", "type": "number", "default": 3, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Replies of comments at this depth or deeper start collapsed (1..50; top-level is depth 0)." },
+    { "name": "pageSize", "type": "number", "default": 20, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Top-level comments shown at first and per Show more comments (1..500)." },
+    { "name": "repliesPageSize", "type": "number", "default": 5, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Replies shown per thread at first and per Show more replies (1..200)." },
+    { "name": "showAvatars", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show avatars." },
+    { "name": "headingLevel", "type": "number", "default": 3, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Heading level of the title (2..6)." },
+    { "name": "composerPosition", "type": "'top' | 'bottom'", "default": "top", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Where the new-comment box sits." },
+    { "name": "timezone", "type": "string", "default": "UTC", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "IANA timezone of timestamps." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of labels, numbers, and dates." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "comments", "type": "readonly DiscussionComment[]", "description": "Every comment in the model (frozen copies), including deleted placeholders." },
+    { "name": "composer", "type": "MentionInput | null", "description": "The new-comment box, or null without a current user." },
+    { "name": "options", "type": "Readonly<DiscussionOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "addComment", "signature": "addComment(comment: DiscussionComment): void", "description": "Add a comment or replace the one with the same id; comments by others are announced." },
+    { "name": "updateComment", "signature": "updateComment(id: string, patch: Partial<Omit<DiscussionComment, 'id' | 'parentId'>>): void", "description": "Merge fields into a comment." },
+    { "name": "removeComment", "signature": "removeComment(id: string): void", "description": "Remove a comment (no event): a placeholder when it has replies, otherwise gone with deleted ancestors left without replies." },
+    { "name": "expand", "signature": "expand(id: string): void", "description": "Show a thread's replies (loading them when needed)." },
+    { "name": "collapse", "signature": "collapse(id: string): void", "description": "Hide a thread's replies." },
+    { "name": "reply", "signature": "reply(id: string): void", "description": "Open and focus the reply box of a comment." },
+    { "name": "focusComment", "signature": "focusComment(id: string): void", "description": "Reveal and focus a comment." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the new-comment box (or the first comment when read-only)." },
+    { "name": "update", "signature": "update(options: Partial<DiscussionOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Abort loads; remove rendering, listeners, timers, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-post", "detail": "DiscussionPostDetail", "bubbles": true, "cancelable": true, "description": "A top-level comment was posted: { comment }; prevent it to add nothing and keep the text." },
+    { "name": "aui-reply", "detail": "DiscussionReplyDetail", "bubbles": true, "cancelable": true, "description": "A reply was posted: { comment, parent }." },
+    { "name": "aui-edit", "detail": "DiscussionEditDetail", "bubbles": true, "cancelable": true, "description": "An edit was saved: { id, text, mentions, previous }; prevent it to keep the previous text." },
+    { "name": "aui-delete", "detail": "DiscussionDeleteDetail", "bubbles": true, "cancelable": true, "description": "A delete was confirmed: { comment, placeholder } (placeholder: the comment has replies and stays as deleted)." },
+    { "name": "aui-expand", "detail": "DiscussionExpandDetail", "bubbles": true, "cancelable": false, "description": "A thread was expanded or collapsed: { id, expanded }." },
+    { "name": "aui-sort", "detail": "DiscussionSortDetail", "bubbles": true, "cancelable": false, "description": "The user changed the sort order: { sort }." },
+    { "name": "aui-retry", "detail": "{}", "bubbles": true, "cancelable": false, "description": "Retry in the error state." },
+    { "name": "aui-mention", "detail": "MentionInputMentionDetail", "bubbles": true, "cancelable": false, "description": "From the composers (Mention Input): a mention was inserted: { mention }." }
+  ],
+  "contentAreas": [
+    { "name": "comments[].text", "description": "Plain text (never HTML); mentions render as chips and http(s) URLs as links." }
+  ],
+  "cssClasses": [
+    { "name": "aui-discussion", "description": "Host (role=region, flex column)." },
+    { "name": "aui-discussion--no-avatars | --composer-bottom", "description": "State modifiers on the host." },
+    { "name": "aui-discussion__header | __heading | __title | __count | __sort", "description": "Title, comment count, and sort toggle group." },
+    { "name": "aui-discussion__composer | __field | __composer-actions | __post", "description": "New-comment box and its button." },
+    { "name": "aui-discussion__status | __status--error | __status-text | __retry | __empty | __more", "description": "Loading and error states, empty state, Show more comments." },
+    { "name": "aui-discussion__thread | __replies | __replies--flat | __item | __item--deep", "description": "Nested lists of comments; --flat stops the indentation." },
+    { "name": "aui-discussion__comment | __comment--deleted | __comment--own | __avatar | __avatar--deleted | __main", "description": "A comment (article)." },
+    { "name": "aui-discussion__meta | __author | __replying | __time | __time-relative | __time-absolute | __time--dismissed | __edited", "description": "Author, replying-to, timestamp with its tooltip, edited marker." },
+    { "name": "aui-discussion__text | __text--deleted | __mention | __link", "description": "Comment text, mention chips, links." },
+    { "name": "aui-discussion__actions | __action | __action--reply | --edit | --delete", "description": "Comment actions." },
+    { "name": "aui-discussion__slot | __inline | __inline--reply | --edit | __cancel | __submit | __confirm | __confirm-text | __confirm-delete | __confirm-cancel", "description": "Reply and edit boxes and the delete confirmation." },
+    { "name": "aui-discussion__toggle | __extra | __extra-error | __more-replies", "description": "Show or hide replies, more replies, loading and error rows." }
+  ],
+  "iconSlots": [
+    { "name": "reply", "default": "reply (icon set)" },
+    { "name": "edit", "default": "edit (icon set)" },
+    { "name": "delete", "default": "trash" },
+    { "name": "expand", "default": "chevron-down" },
+    { "name": "collapse", "default": "chevron-up" },
+    { "name": "empty", "default": "message (icon set)" }
+  ]
+}

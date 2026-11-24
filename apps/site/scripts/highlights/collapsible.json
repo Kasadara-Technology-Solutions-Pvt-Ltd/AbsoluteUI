@@ -1,0 +1,6 @@
+[
+  { "title": "One disclosure", "text": "A native button that shows and hides a single region of content." },
+  { "title": "Optional heading", "text": "Wrap the trigger in a heading to keep the page outline intact." },
+  { "title": "Plain or bordered", "text": "A light inline look or a bordered panel." },
+  { "title": "Change event", "text": "Reports when the user opens or closes it; programmatic changes stay quiet." }
+]

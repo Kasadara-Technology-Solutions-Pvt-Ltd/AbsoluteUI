@@ -1,0 +1,6 @@
+[
+  { "title": "Four edges", "text": "Slides in from the start, end, top, or bottom, in three sizes, mirrored in RTL." },
+  { "title": "Modal or not", "text": "Modal drawers make the page inert; non-modal ones let users keep working." },
+  { "title": "Cancelable close", "text": "Escape, backdrop, and close button raise a cancel event you can veto." },
+  { "title": "Footer actions", "text": "Action buttons close the drawer and report which one was pressed." }
+]

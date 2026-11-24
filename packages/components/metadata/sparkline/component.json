@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "name": "sparkline",
+  "displayName": "Sparkline",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { Sparkline } from '@absoluteui/components/sparkline';",
+  "styleImport": "@absoluteui/components/sparkline/style.css",
+  "purpose": "Word-sized inline trend graphic (line or bars) for text, tables, and cards: a static svg role=\"img\" with a generated accessible name summarizing count, first and last value, minimum, and maximum.",
+  "whenToUse": [
+    "Showing the shape of a trend next to a number (KPI tiles, table cells, sentences).",
+    "Many small trends on one page (cheap to create, no layout reads)."
+  ],
+  "whenNotToUse": [
+    "When users need to read individual values: use Line Chart or Bar Chart (tooltips, keyboard, data table).",
+    "As the only source of important information."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core"
+  ],
+  "states": [
+    "line",
+    "bar",
+    "empty (no data)",
+    "single value"
+  ],
+  "responsive": "Scales with its box through the SVG viewBox (preserveAspectRatio none, non-scaling strokes); default 6em x 1.5em, so it follows the text size.",
+  "rtl": "direction rtl mirrors the time direction (first value at the right).",
+  "theme": "Stroke and bars use color-chart-<color>; the zero baseline uses color-chart-axis. Forced colors use CanvasText.",
+  "timezone": "Not applicable.",
+  "security": "The accessible name is set as an attribute value; SVG is built with createElementNS. No style attributes, no innerHTML.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "Sparkline.create, 30 values, per instance (average of 200)",
+        "budget": "< 1 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Hundreds of instances per page; one to a few hundred values each (bars create one rect per value)."
+  },
+  "limitations": [
+    "Not interactive: no tooltip or keyboard access to individual values.",
+    "Min and max are not marked visually (only the last value)."
+  ],
+  "unsupported": [
+    "Axes, labels, and legends.",
+    "Win/loss and bullet variants."
+  ],
+  "antiPatterns": [
+    "Using a sparkline without a label that says what it measures.",
+    "Relying on the sparkline for exact values."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/sparkline: AuiSparkline directive ([auiSparkline]).",
+    "react": "@absoluteui/react/sparkline: AuiSparkline component.",
+    "vue": "@absoluteui/vue/sparkline: AuiSparkline component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

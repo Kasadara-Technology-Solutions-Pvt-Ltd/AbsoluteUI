@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="compass">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15.5 8.5l-2 5-5 2 2-5z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M15.5 8.5l-2 5-5 2 2-5z" transform="translate(12 12) scale(1.15) translate(-12 -12)"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15.5 8.5l-2 5-5 2 2-5z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="muted" data-paint="fill" data-opacity="0.25">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="error" data-paint="fill">
+      <path d="M15.5 8.5l-2 5-5 2 2-5z"/>
+    </g>
+  </g>
+</svg>

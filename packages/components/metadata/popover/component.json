@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "popover",
+  "displayName": "Popover",
+  "category": "Overlays",
+  "package": "@absoluteui/components",
+  "import": "import { Popover } from '@absoluteui/components/popover';",
+  "styleImport": "@absoluteui/components/popover/style.css",
+  "purpose": "Non-modal dialog anchored to a trigger button (APG disclosure plus non-modal dialog). Renders in the top layer through the Popover API, positioned next to the trigger, with Escape, outside-pointer, and focus-out light dismiss arbitrated by the shared overlay stack.",
+  "whenToUse": [
+    "Contextual content or controls tied to a trigger: filters, quick settings, details, a small form.",
+    "Content the user may interact with (links, buttons, inputs) that should not block the rest of the page."
+  ],
+  "whenNotToUse": [
+    "Tasks that must be completed or dismissed before continuing: use Dialog.",
+    "Short, non-interactive hints on hover or focus: use Tooltip.",
+    "A list of commands or choices: use Menu or Select.",
+    "Essential content users must not miss: keep it inline on the page."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "@absoluteui/components/button"],
+  "states": ["closed", "open", "closing (aui-cancel pending)"],
+  "responsive": "Content width up to min(24rem, 100vw - 2rem); the block size is capped at the available space on the chosen side and the popup scrolls. The positioning engine flips and shifts to stay in the viewport.",
+  "rtl": "`start`/`end` placements are logical: in RTL, bottom-start aligns the popup to the trigger's right edge. Header and close button use logical properties.",
+  "theme": "Surface, border, radius, and shadow tokens. Forced-colors mode draws a CanvasText border.",
+  "timezone": "Not applicable.",
+  "security": "Title, label, and string content are rendered as text; never parsed as HTML. Node content is inserted as given (the consumer owns it). CSP-safe: positioning uses the CSSOM.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Popover.open() to visible and positioned", "budget": "< 16 ms (one frame) in headless Chromium" }
+    ],
+    "testedScale": "One popover open at a time, nested inside a Dialog; many closed instances per page (listeners only on the trigger and popup)."
+  },
+  "limitations": [
+    "The trigger should be a native <button>: Enter and Space activation relies on the native click. Other elements need their own keyboard activation.",
+    "The popup is inserted immediately after the trigger, so it inherits the trigger's container styles such as `dir` and font; it is not portaled.",
+    "The heading is always an h2.",
+    "Close animation is not played; the open fade uses @starting-style and is removed under reduced motion or `animation: 'none'`.",
+    "Canceling aui-cancel for a focus-out close leaves the popup open while focus is elsewhere."
+  ],
+  "unsupported": [
+    "Modal behavior (inert background, focus trap): use Dialog.",
+    "Rendering HTML strings as content (pass a Node instead).",
+    "Opening on hover."
+  ],
+  "antiPatterns": [
+    "Popovers without an accessible name (the component throws).",
+    "Putting essential, non-recoverable input in a popover that light-dismisses; listen to aui-cancel or use a Dialog.",
+    "Nesting popovers several levels deep."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/popover: AuiPopover directive ([auiPopover]) on the trigger; [auiPopover] binds a TemplateRef rendered as the content.",
+    "react": "@absoluteui/react/popover: AuiPopover component.",
+    "vue": "@absoluteui/vue/popover: AuiPopover component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

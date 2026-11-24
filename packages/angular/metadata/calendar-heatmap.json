@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/calendar-heatmap",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCalendarHeatmap",
+      "description": "AbsoluteUI CalendarHeatmap: `<aui-calendar-heatmap>`.\nTwo-way: `[(hiddenSeries)]`.",
+      "selector": "aui-calendar-heatmap",
+      "exportAs": [
+        "auiCalendarHeatmap"
+      ],
+      "source": "generated",
+      "component": "calendar-heatmap",
+      "configKey": "calendarHeatmap",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby); also the data table caption."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (date range, days with values, total, highest and lowest days, non-working days and holidays)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for day values (tooltips, accessible names, legend, table, summary)."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat everywhere."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash?; axisColor?; lineWidth?; markerSize?; cornerRadius?; barRadius?; cellRadius?; sliceRadius?; boxRadius?; swatchRadius?; tooltipRadius?; controlRadius?; lineJoin?; areaOpacity?; gradient?; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Synchronized crosshair: charts with the same group show the highlight and tooltip at the same column (week index) when one is hovered or focused."
+        },
+        {
+          "name": "data",
+          "type": "readonly CalendarHeatmapDay[]",
+          "required": true,
+          "description": "Days: { date: PlainDate; value: number | null } (null, NaN, and infinities are days without value; later duplicates replace earlier ones). At most 20,000 entries."
+        },
+        {
+          "name": "year",
+          "type": "number",
+          "required": false,
+          "description": "Show this calendar year (ignored when from and to are both set)."
+        },
+        {
+          "name": "from",
+          "type": "PlainDate",
+          "required": false,
+          "description": "First day shown (inclusive). Default: January 1 of year, else the first data date."
+        },
+        {
+          "name": "to",
+          "type": "PlainDate",
+          "required": false,
+          "description": "Last day shown (inclusive), at most 1,097 days after from. Default: December 31 of year, else the last data date."
+        },
+        {
+          "name": "firstDayOfWeek",
+          "type": "number",
+          "required": false,
+          "description": "First row: ISO weekday 1 (Monday) to 7 (Sunday). Default: from the locale (getFirstDayOfWeek)."
+        },
+        {
+          "name": "businessCalendar",
+          "type": "BusinessCalendarEngine | null",
+          "required": false,
+          "description": "Business calendar (createBusinessCalendar from @absoluteui/components/business-calendar): non-working days are outlined, holidays get a dot and their name in tooltips, accessible names, and the table."
+        },
+        {
+          "name": "colorScale",
+          "type": "ChartColorSteps",
+          "required": false,
+          "description": "{ color?: 1-8 (default 1), min?, max? (fixed domain; default the nice-rounded data extent), steps?: 3-9 (default 5) }. Values outside a fixed domain use the first or last step."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Legend of the color steps with their ranges, \"No value\", and (with a business calendar) the non-working-day and holiday keys; auto and show both show it, hide removes it. Entries are not buttons."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table fallback (one row per day: date, value, and (with a business calendar) the day type): behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Shared chart option (toggles aui-chart--patterns); day squares are not textured, so it has no visible effect."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "180",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+        },
+        {
+          "name": "monthLabels",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Month names above the first week of each month."
+        },
+        {
+          "name": "weekdayLabels",
+          "type": "CalendarHeatmapWeekdayLabels",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Weekday names beside the rows: auto (every other row), all, or none."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number, date, and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl puts the first week on the right and swaps ArrowLeft/ArrowRight."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Shared chart option; a calendar heatmap has no series, so it has no effect."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A day was activated: pointer click or tap, or Enter / Space on the focused day. label is the formatted date, column the week, row the weekday row, value the formatted value."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Shared chart method; no effect beyond a re-render."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG calendar grid as a named, described group (role=\"group\" with aria-roledescription \"calendar heatmap\") of role=\"img\" days with roving focus following the APG date grid keys (day and week); a legend of steps and day types; data table fallback.",
+        "source": "packages/components/metadata/calendar-heatmap/accessibility.json"
+      },
+      "limitations": [
+        "Daily values only (PlainDate); no hourly breakdown.",
+        "Discrete sequential steps (3-9) of one palette slot.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { plainDate } from '@absoluteui/core';\nimport { AuiCalendarHeatmap } from '@absoluteui/angular/calendar-heatmap';\nimport type { CalendarHeatmapDay } from '@absoluteui/components/calendar-heatmap';\n\n@Component({\n  selector: 'app-absences',\n  imports: [AuiCalendarHeatmap],\n  template: `<aui-calendar-heatmap label=\"Absences\" [year]=\"2026\" [data]=\"data\"></aui-calendar-heatmap>`,\n})\nexport class AbsencesComponent {\n  readonly data: CalendarHeatmapDay[] = [{ date: plainDate(2026, 1, 5), value: 3 }];\n}"
+    }
+  ]
+}

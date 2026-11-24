@@ -1,0 +1,190 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // The region is a manual popover: reset the UA popover box, then pin it to a corner.
+  .aui-toaster {
+    box-sizing: border-box;
+    position: fixed;
+    inset: auto;
+    inline-size: min(aui.token('toast-width'), calc(100vw - 2 * #{aui.token('space-4')}));
+    max-block-size: calc(100dvh - 2 * #{aui.token('space-4')});
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    color: aui.token('color-text');
+    background: transparent;
+    border: 0;
+  }
+
+  .aui-toaster--bottom-end {
+    inset-block-end: aui.token('space-4');
+    inset-inline-end: aui.token('space-4');
+  }
+
+  .aui-toaster--bottom-start {
+    inset-block-end: aui.token('space-4');
+    inset-inline-start: aui.token('space-4');
+  }
+
+  .aui-toaster--top-end {
+    inset-block-start: aui.token('space-4');
+    inset-inline-end: aui.token('space-4');
+  }
+
+  .aui-toaster--top-start {
+    inset-block-start: aui.token('space-4');
+    inset-inline-start: aui.token('space-4');
+  }
+
+  .aui-toaster--top-center,
+  .aui-toaster--bottom-center {
+    inset-inline: 0;
+    margin-inline: auto;
+  }
+
+  .aui-toaster--top-center {
+    inset-block-start: aui.token('space-4');
+  }
+
+  .aui-toaster--bottom-center {
+    inset-block-end: aui.token('space-4');
+  }
+
+  .aui-toaster__list {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-2');
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  // Opaque surface under the translucent tone tint, so text contrast never depends on page content.
+  .aui-toast {
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-3');
+    padding: aui.token('space-3') aui.token('space-4');
+    color: aui.token('color-text');
+    background-color: aui.ctoken('toast', 'bg');
+    background-image: linear-gradient(aui.token('color-info-subtle'), aui.token('color-info-subtle'));
+    border: aui.token('border-width') solid aui.token('color-info-fg');
+    border-inline-start-width: aui.token('border-width-strong');
+    border-radius: aui.ctoken('toast', 'radius');
+    box-shadow: aui.ctoken('toast', 'shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+    opacity: 1;
+    transform: none;
+    // Slide/fade in; the mixin removes the transition under reduced motion or animation: 'none'.
+    @include aui.transition(opacity, transform);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-toaster--top-end .aui-toast,
+  .aui-toaster--top-start .aui-toast,
+  .aui-toaster--top-center .aui-toast {
+    @starting-style {
+      transform: translateY(-0.5rem);
+    }
+  }
+
+  .aui-toast__icon {
+    display: inline-flex;
+    flex: none;
+    color: aui.token('color-info-fg');
+
+    .aui-icon {
+      inline-size: aui.icon-size('md');
+      block-size: aui.icon-size('md');
+      font-size: aui.icon-size('md');
+    }
+  }
+
+  .aui-toast__text {
+    display: grid;
+    flex: 1 1 auto;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-toast__title,
+  .aui-toast__message {
+    margin: 0;
+  }
+
+  .aui-toast__title {
+    font-weight: aui.token('font-weight-semibold');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-toast__actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-toast__dismiss {
+    flex: none;
+    margin-block: calc(-1 * #{aui.token('space-1')});
+    margin-inline-end: calc(-1 * #{aui.token('space-2')});
+  }
+
+  .aui-toast--success {
+    background-image: linear-gradient(aui.token('color-success-subtle'), aui.token('color-success-subtle'));
+    border-color: aui.token('color-success-fg');
+
+    .aui-toast__icon {
+      color: aui.token('color-success-fg');
+    }
+  }
+
+  .aui-toast--warning {
+    background-image: linear-gradient(aui.token('color-warning-subtle'), aui.token('color-warning-subtle'));
+    border-color: aui.token('color-warning-fg');
+
+    .aui-toast__icon {
+      color: aui.token('color-warning-fg');
+    }
+  }
+
+  .aui-toast--error {
+    background-image: linear-gradient(aui.token('color-error-subtle'), aui.token('color-error-subtle'));
+    border-color: aui.token('color-error-fg');
+
+    .aui-toast__icon {
+      color: aui.token('color-error-fg');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-toast {
+      background-image: none;
+      border-color: CanvasText;
+    }
+
+    .aui-toast__icon {
+      color: CanvasText;
+    }
+  }
+}

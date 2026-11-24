@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "command-palette",
+  "examples": [
+    {
+      "id": "app",
+      "title": "Navigation, actions, nested pages, and a server provider",
+      "language": "ts",
+      "code": "import { CommandPalette, type Command, type CommandPaletteSelectDetail } from '@absoluteui/components/command-palette';\n\nconst commands: Command[] = [\n  { id: 'go-home', label: 'Go to dashboard', group: 'Navigation', icon: 'menu', run: () => { location.hash = '#/'; } },\n  { id: 'go-people', label: 'Go to people', group: 'Navigation', keywords: ['employees', 'directory'], run: () => { location.hash = '#/people'; } },\n  { id: 'leave', label: 'Request leave', group: 'Actions', shortcut: 'Mod+Shift+L', run: () => { location.hash = '#/leave/new'; } },\n  { id: 'theme', label: 'Change theme', group: 'Actions', children: [\n    { id: 'theme-light', label: 'Light' },\n    { id: 'theme-dark', label: 'Dark' },\n  ] },\n];\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst palette = CommandPalette.create(host, {\n  commands,\n  providers: [{\n    id: 'people',\n    label: 'People',\n    minQueryLength: 2,\n    search: async (query, { signal }) => {\n      const res = await fetch(`/api/people?q=${encodeURIComponent(query)}`, { signal });\n      const people = (await res.json()) as { id: string; name: string }[];\n      return people.map((p) => ({ id: `person-${p.id}`, label: p.name, icon: 'search' }));\n    },\n  }],\n});\nhost.addEventListener('aui-select', (event) => {\n  const { id } = (event as CustomEvent<CommandPaletteSelectDetail>).detail;\n  if (id.startsWith('theme-')) document.documentElement.dataset.theme = id.slice(6);\n});\nconst button = document.createElement('button');\nbutton.textContent = 'Search';\nbutton.addEventListener('click', () => { palette.open(); });\ndocument.body.append(button);"
+    },
+    {
+      "id": "shortcut",
+      "title": "A different shortcut and remembered recent commands",
+      "language": "ts",
+      "code": "import { CommandPalette } from '@absoluteui/components/command-palette';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst saved = sessionStorage.getItem('recent-commands');\nconst palette = CommandPalette.create(host, {\n  shortcut: 'Mod+Shift+P',\n  recent: saved ? (JSON.parse(saved) as string[]) : [],\n  commands: [\n    { id: 'save', label: 'Save', shortcut: 'Mod+S' },\n    { id: 'print', label: 'Print', shortcut: 'Mod+P' },\n  ],\n});\nhost.addEventListener('aui-close', () => {\n  sessionStorage.setItem('recent-commands', JSON.stringify(palette.recent));\n});"
+    }
+  ]
+}

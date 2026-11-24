@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "component": "date-time-picker",
+  "pattern": "WAI-ARIA APG Date Picker Dialog, non-modal variant, extended with an APG listbox of times: a labelled segmented date-time field (Date Input), a button with aria-haspopup=dialog, and a role=dialog popup containing the Calendar grid, a role=listbox of suggested times (aria-activedescendant), and a Done button.",
+  "roles": [
+    { "element": "segment group", "role": "group (Date Input)" },
+    { "element": "trigger button", "role": "button (native), aria-haspopup=dialog" },
+    { "element": "popup", "role": "dialog (aria-modal=false)" },
+    { "element": "calendar", "role": "grid (Calendar)" },
+    { "element": "time list", "role": "listbox with option children" },
+    { "element": "Done", "role": "button (native)" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "trigger button", "value": "\"Choose date and time\", or \"Change date and time, <long date and short time>\" when a value is set" },
+    { "attribute": "aria-expanded", "element": "trigger button", "value": "\"true\" while the popup is open" },
+    { "attribute": "aria-controls", "element": "trigger button", "value": "Popup id" },
+    { "attribute": "aria-label", "element": "popup", "value": "Localized \"Choose date and time\"" },
+    { "attribute": "aria-modal", "element": "popup", "value": "\"false\" (non-modal; the page stays reachable)" },
+    { "attribute": "aria-labelledby", "element": "listbox", "value": "Visible \"Time\" label" },
+    { "attribute": "aria-activedescendant", "element": "listbox", "value": "Active option id while open" },
+    { "attribute": "aria-selected", "element": "option", "value": "\"true\" for the field's time of day" },
+    { "attribute": "aria-disabled", "element": "option", "value": "\"true\" when the time resolves outside min/max on the current date" },
+    { "attribute": "aria-describedby", "element": "segment group", "value": "Help text, time-zone and DST hint, and error (Date Input)" }
+  ],
+  "keyboard": [
+    { "key": "Enter / Space", "context": "Trigger button", "action": "Open (or close) the popup; focus moves to the selected day, else today." },
+    { "key": "Alt+ArrowDown", "context": "Segment focused", "action": "Open the popup (the segment value does not change)." },
+    { "key": "Calendar keys", "context": "Day focused", "action": "Arrows, Home/End, PageUp/PageDown, Shift+PageUp/PageDown as in Calendar." },
+    { "key": "Enter / Space", "context": "Day focused", "action": "Pick the day, keeping the time of day (09:00 or the first available time when empty). The popup stays open." },
+    { "key": "ArrowUp / ArrowDown / Home / End / PageUp / PageDown", "context": "Time listbox", "action": "Move the active time." },
+    { "key": "Printable characters", "context": "Time listbox", "action": "Typeahead to the first matching time." },
+    { "key": "Enter / Space", "context": "Time listbox", "action": "Pick the active time, keeping the date; closes and focuses the trigger (closeOnSelect)." },
+    { "key": "Tab / Shift+Tab", "context": "Popup open", "action": "Month buttons, the day, the time listbox, then Done; leaving the popup (other than to the trigger) closes it." },
+    { "key": "Enter / Space", "context": "Done", "action": "Close the popup and focus the trigger." },
+    { "key": "Escape", "context": "Popup open", "action": "Close the popup and return focus to the trigger. Inside a Dialog, only the popup closes." },
+    { "key": "Date Input keys", "context": "Segment focused", "action": "As in Date Input." }
+  ],
+  "focus": "Opening moves focus into the calendar grid; closing with focus inside the popup returns it to the trigger button before the popup hides. Outside pointer presses close the popup. Moving focus between the segments, button, and popup does not mark the field touched.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "1.4.13", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "3.3.1", "3.3.2", "3.3.3", "4.1.2", "4.1.3"],
+  "notes": [
+    "The segments remain the primary input; the popup is an alternative (APG).",
+    "The popup is non-modal: focus is not trapped, and the rest of the page stays reachable.",
+    "DST adjustments are explained in text (hint referenced by aria-describedby), not only by the changed value.",
+    "The time zone is always stated in the hint, so the meaning of the wall-clock time is explicit.",
+    "The active time has an outline, not only a color change; unavailable times are also struck through."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior of the popup (dialog announcement, listbox inside a dialog) has not yet been manually verified with NVDA, JAWS, and VoiceOver.",
+    "Hint changes after picking are conveyed through aria-describedby and are not announced live."
+  ]
+}

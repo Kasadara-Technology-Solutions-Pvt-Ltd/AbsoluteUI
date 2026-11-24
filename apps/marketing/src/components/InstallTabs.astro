@@ -1,0 +1,30 @@
+---
+// Install instructions (M5, MR-7): npm (public registry, once published) and Azure Artifacts.
+import { AZURE_REGISTRY, GET_STARTED, npmPublic } from '../site';
+
+interface Props {
+  /** Also install the Angular package. */
+  angular?: boolean;
+  id: string;
+}
+const { angular = false, id } = Astro.props;
+const packages = ['@absoluteui/components', '@absoluteui/core', '@absoluteui/theme', ...(angular ? ['@absoluteui/angular'] : [])];
+const command = `npm install ${packages.join(' ')}`;
+const npmrc = `@absoluteui:registry=${AZURE_REGISTRY}`;
+---
+
+<div class="install" data-tabs>
+  <div class="install-tabs" role="tablist" aria-label="Install from">
+    <button type="button" role="tab" id={`${id}-tab-npm`} aria-controls={`${id}-npm`} aria-selected="true" data-tab="npm">npm</button>
+    <button type="button" role="tab" id={`${id}-tab-azure`} aria-controls={`${id}-azure`} aria-selected="false" data-tab="azure">Azure Artifacts</button>
+  </div>
+  <div class="install-body" id={`${id}-npm`} role="tabpanel" aria-labelledby={`${id}-tab-npm`} data-panel="npm">
+    <div class="cmd"><span class="cmd-prompt" aria-hidden="true">$</span><code id={`${id}-cmd-npm`}>{command}</code><button class="copy" type="button" data-copy data-copy-target={`${id}-cmd-npm`}>Copy</button></div>
+    {!npmPublic && <p class="install-note" data-npm-note>Public npm availability is coming soon; until then, install from Azure Artifacts.</p>}
+  </div>
+  <div class="install-body" id={`${id}-azure`} role="tabpanel" aria-labelledby={`${id}-tab-azure`} data-panel="azure" hidden>
+    <div class="install-file" id={`${id}-npmrc`}># .npmrc in your project{'\n'}{npmrc}</div>
+    <div class="cmd"><span class="cmd-prompt" aria-hidden="true">$</span><code id={`${id}-cmd-azure`}>{command}</code><button class="copy" type="button" data-copy data-copy-target={`${id}-cmd-azure`}>Copy</button></div>
+    <p class="install-note">Add your personal access token to your user <code>~/.npmrc</code>. See the <a href={GET_STARTED}>installation guide</a>.</p>
+  </div>
+</div>

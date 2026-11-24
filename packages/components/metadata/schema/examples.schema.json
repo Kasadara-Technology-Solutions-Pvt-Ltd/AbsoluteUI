@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "absoluteui/examples.schema.json",
+  "title": "AbsoluteUI examples (SPEC section 21.3: valid, complete, minimal, version-matched)",
+  "type": "object",
+  "required": ["schemaVersion", "component", "examples"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "enum": [1] },
+    "component": { "type": "string" },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "language", "code"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "language": { "type": "string", "enum": ["ts"] },
+          "code": { "type": "string" }
+        }
+      }
+    }
+  }
+}

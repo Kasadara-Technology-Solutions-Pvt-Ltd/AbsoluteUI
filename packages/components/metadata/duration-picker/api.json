@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "component": "duration-picker",
+  "factory": { "name": "DurationPicker.create", "signature": "DurationPicker.create(host: HTMLElement, options: DurationPickerOptions): DurationPicker" },
+  "configKey": "durationPicker",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name of the group (via aria-labelledby)." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "value", "type": "Duration | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Initial duration; also the value restored by reset(). Non-negative and a whole number of the smallest unit in fields." },
+    { "name": "min", "type": "Duration | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Inclusive lower bound for validation and stepping (non-negative). Stepping stops at zero when unset. Must not exceed max." },
+    { "name": "max", "type": "Duration | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Inclusive upper bound for validation and stepping (non-negative); also sets the digits and aria-valuemax of the largest segment." },
+    { "name": "step", "type": "Duration", "default": "one of the smallest unit", "required": false, "globallyConfigurable": false, "description": "Increment of the smallest segment and the valid-value grid from zero. Positive and a whole number of the smallest unit." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name for the hidden input (ISO 8601 duration, for example PT1H30M)." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by the group's aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "An empty entry is invalid; segments are required and the required indicator is shown." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the segments; not submitted." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Focusable and submitted; not editable, and stepping, Home/End, and separators are ignored." },
+    { "name": "validate", "type": "(value: Duration | null) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation after built-in checks; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<{ error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "fields", "type": "readonly DurationField[]", "default": ["hours", "minutes"], "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Unit segments, largest first, as a contiguous non-empty run of 'days' | 'hours' | 'minutes' | 'seconds'." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Segment names, unit text and its position, aria-valuetext, durations in messages, and messages." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Direction of the group; ArrowLeft/ArrowRight follow it." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "group", "type": "HTMLDivElement", "description": "The labelled role=group with one spinbutton segment per unit." },
+    { "name": "value", "type": "Duration | null", "description": "Current value; null when empty or failing a built-in check (a custom error from validate or setCustomError keeps the value, as in Time Picker)." },
+    { "name": "validity", "type": "DurationPickerValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the initial value, or a partial or invalid entry exists." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<DurationPickerOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: Duration | null): void", "description": "Programmatic value (no events); clears an external custom error. Throws DURATION_PICKER_OPTIONS for a negative value or one that is not a whole number of the smallest unit." },
+    { "name": "update", "signature": "update(options: Partial<DurationPickerOptions>): void", "description": "Merge and apply options; a fields, locale, or max change rebuilds the segments and keeps the current value." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error (server, cross-field rule); cleared when the user edits." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | null", "description": "ISO 8601 duration in hours, minutes, and seconds (PT1H30M), or null when empty or invalid." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the first (largest) segment." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear dirty/touched/submitted state (no events)." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, form registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: Duration | null; validity: DurationPickerValidity }", "bubbles": true, "cancelable": false, "description": "The user changed the value or its validity error (typing, stepping, Home/End, or a separator)." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-duration-picker", "description": "Host." },
+    { "name": "aui-duration-picker--invalid | --disabled | --readonly", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __required | __description | __error", "description": "Shared field chrome." },
+    { "name": "aui-duration-picker__group", "description": "Labelled group; control boundary and focus indicator." },
+    { "name": "aui-duration-picker__unit | __unit--days | --hours | --minutes | --seconds", "description": "Wrapper of one segment and its unit text." },
+    { "name": "aui-duration-picker__segment | __segment--days | --hours | --minutes | --seconds", "description": "Spinbutton segment inputs." },
+    { "name": "aui-duration-picker__unit-label", "description": "Short localized unit text (aria-hidden)." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

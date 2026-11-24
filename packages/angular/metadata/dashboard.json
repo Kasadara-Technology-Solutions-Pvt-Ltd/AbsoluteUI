@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/dashboard",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDashboard",
+      "description": "AbsoluteUI Dashboard: renders a JSON dashboard definition:\n`<aui-dashboard [(definition)]=\"definition\" [editable]=\"true\" (dashboardChange)=\"save()\"></aui-dashboard>`.\n`[(definition)]` follows every change (layout, widgets, undo, import) and `[(mode)]` the\nview/edit switch. A new `definition` value is applied when it differs from the current one;\nchanging any other input re-creates the dashboard (undo history and kiosk mode start fresh).",
+      "selector": "aui-dashboard",
+      "exportAs": [
+        "auiDashboard"
+      ],
+      "source": "hand-written",
+      "component": "dashboard",
+      "configKey": "dashboard",
+      "inputs": [
+        {
+          "name": "registry",
+          "type": "WidgetRegistry",
+          "required": false,
+          "description": "Widget types by name. Default: defaultWidgetRegistry (fill it with registerWidgetType or registerBuiltInWidgets)."
+        },
+        {
+          "name": "transforms",
+          "type": "TransformRegistry",
+          "required": false,
+          "description": "Custom transforms for { op: 'custom', name }. Default: defaultTransformRegistry."
+        },
+        {
+          "name": "fetcher",
+          "type": "DashboardFetcher",
+          "required": false,
+          "description": "(request, signal) => Promise<unknown>: performs data source requests and owns authentication. Default: defaultFetcher (global fetch, no redirects, JSON only, size-limited)."
+        },
+        {
+          "name": "allowedOrigins",
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Exact http(s) origins besides the page origin that data sources may call. Invalid entries throw DASHBOARD_OPTIONS. Default: none."
+        },
+        {
+          "name": "baseUrl",
+          "type": "string",
+          "required": false,
+          "description": "Base for root-relative data source URLs and the 'same origin'. Default: location.href."
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether users may switch to edit mode; false hides the edit switch and refuses setMode('edit')."
+        },
+        {
+          "name": "toolbar",
+          "type": "boolean | DashboardToolbarOptions",
+          "required": false,
+          "default": "true",
+          "description": "Show the toolbar; an object turns items off (variables, refresh, edit, undo, reset, add, json, pages)."
+        },
+        {
+          "name": "timeZone",
+          "type": "string",
+          "required": false,
+          "description": "IANA zone for date range presets and the 'Updated' time. Default: the runtime zone."
+        },
+        {
+          "name": "businessCalendars",
+          "type": "Readonly<Record<string, BusinessCalendarEngine>>",
+          "required": false,
+          "description": "Business calendars by the name date range variables refer to (business-day presets, date range picker)."
+        },
+        {
+          "name": "headingLevel",
+          "type": "2 | 3 | 4 | 5 | 6",
+          "required": false,
+          "default": "3",
+          "description": "Heading level of widget titles."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name of the widget area. Default: '{title} widgets'."
+        },
+        {
+          "name": "lazy",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Load a widget's data only when it comes within 200 px of the viewport (IntersectionObserver)."
+        },
+        {
+          "name": "historyLimit",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "configurable": true,
+          "description": "Undo steps (integer 1 to 1000)."
+        },
+        {
+          "name": "retries",
+          "type": "number",
+          "required": false,
+          "default": "2",
+          "configurable": true,
+          "description": "GET retries on network errors, timeouts, 408, 429, and 5xx, with exponential backoff and jitter (integer 0 to 5)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of messages, numbers, and times."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Direction of the grid, toolbar, tabs, and drawers."
+        }
+      ],
+      "models": [
+        {
+          "name": "definition",
+          "type": "unknown",
+          "change": "definitionChange",
+          "description": "The dashboard definition (plain JSON). Older schemaVersions are migrated; invalid input throws DASHBOARD_DEFINITION with the first issue's JSON Pointer. Change it later with setDefinition()."
+        },
+        {
+          "name": "mode",
+          "type": "DashboardMode",
+          "change": "modeChange",
+          "description": "Initial mode; 'edit' needs editable: true. Change it with setMode()."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "dashboardChange",
+          "payload": "DashboardChangeDetail"
+        },
+        {
+          "name": "variablesChange",
+          "payload": "DashboardVariablesChangeDetail"
+        },
+        {
+          "name": "widgetError",
+          "payload": "DashboardWidgetErrorDetail"
+        },
+        {
+          "name": "widgetSelect",
+          "payload": "DashboardWidgetSelectDetail"
+        },
+        {
+          "name": "pageChange",
+          "payload": "DashboardPageChangeDetail",
+          "event": "aui-page-change",
+          "description": "A different page is shown."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setVariable",
+          "signature": "setVariable(id: string, value: unknown): boolean",
+          "description": "Validate and set a variable; dependent data sources reload. False for an unknown id or invalid value."
+        },
+        {
+          "name": "refresh",
+          "signature": "refresh(source?: string | undefined): void",
+          "description": "Reload one data source, or every source of the current page, bypassing the cache."
+        },
+        {
+          "name": "setPage",
+          "signature": "setPage(id: string): void",
+          "description": "Show a page (emits `pageChange`)."
+        },
+        {
+          "name": "undo",
+          "signature": "undo(): boolean",
+          "description": "Step back in the definition history (emits `dashboardChange`)."
+        },
+        {
+          "name": "redo",
+          "signature": "redo(): boolean",
+          "description": "Step forward in the definition history (emits `dashboardChange`)."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Return to the saved definition (undoable; emits `dashboardChange`)."
+        },
+        {
+          "name": "markSaved",
+          "signature": "markSaved(): void",
+          "description": "Make the current definition the one `reset()` returns to (call after storing it)."
+        },
+        {
+          "name": "addWidget",
+          "signature": "addWidget(widget: Omit<WidgetDefinition, \"layout\"> & { layout?: WidgetLayout; }): readonly DefinitionIssue[]",
+          "description": "Add a widget; returns issues (empty when added)."
+        },
+        {
+          "name": "updateWidget",
+          "signature": "updateWidget(id: string, widget: WidgetDefinition): readonly DefinitionIssue[]",
+          "description": "Replace a widget's definition; returns issues (empty when applied)."
+        },
+        {
+          "name": "removeWidget",
+          "signature": "removeWidget(id: string): boolean",
+          "description": "Remove a widget and its layout entries."
+        },
+        {
+          "name": "startKiosk",
+          "signature": "startKiosk(options?: DashboardKioskOptions | undefined): void",
+          "description": "Read-only display without toolbar and tabs; optional page rotation and full screen."
+        },
+        {
+          "name": "stopKiosk",
+          "signature": "stopKiosk(): void",
+          "description": "Leave kiosk mode."
+        },
+        {
+          "name": "check",
+          "signature": "check(definition: unknown): readonly DefinitionIssue[]",
+          "description": "Migrate and validate a candidate definition without applying it (works before the first render)."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Composition: a group of toolbar controls (native controls of the AbsoluteUI components), optional WAI-ARIA APG Tabs for pages, and a labelled region of widgets (Dashboard Grid) whose widgets are labelled regions (Dashboard Widget). Editing uses the Dashboard Grid move handles; the builder is an APG modal Dialog (Drawer).",
+        "source": "packages/components/metadata/dashboard/accessibility.json"
+      },
+      "limitations": [
+        "Chart widgets do not emit point selections, so cross-widget interactions work from list and table widgets and from custom widget types.",
+        "Built-in widgets cover KPI, line, bar, pie, bullet, gauge, sparkline, table, list, progress, and text; other charts and the Data Grid need a custom widget type.",
+        "Dashboard PNG and PDF export are not provided; charts keep their own SVG/PNG export.",
+        "Undo covers definition changes; variable values and page selection are not part of the history.",
+        "The builder form edits common fields; transforms, interactions, and thresholds are edited in its JSON tab.",
+        "Kiosk full screen works only when startKiosk is called from a user gesture.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "DashboardPageChangeDetail",
+      "description": "Detail of `pageChange`: the page now shown."
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { AuiDashboard } from '@absoluteui/angular/dashboard';\n\n@Component({\n  selector: 'app-home-dashboard',\n  imports: [AuiDashboard],\n  template: `<aui-dashboard [(definition)]=\"definition\" [editable]=\"true\" (dashboardChange)=\"save()\"></aui-dashboard>`,\n})\nexport class HomeDashboardComponent {\n  readonly definition = signal<unknown>({ schemaVersion: 1, id: 'home', title: 'Home', widgets: [] });\n  save(): void {\n    localStorage.setItem('dashboard:home', JSON.stringify(this.definition()));\n  }\n}"
+    }
+  ]
+}

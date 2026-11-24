@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="pause">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M6.5 5L10 5L10 19L6.5 19Z"/>
+      <path d="M14 5L17.5 5L17.5 19L14 19Z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <rect x="5.5" y="4" width="5.5" height="16" rx="1.5"/>
+      <rect x="13" y="4" width="5.5" height="16" rx="1.5"/>
+    </g>
+  </g>
+</svg>

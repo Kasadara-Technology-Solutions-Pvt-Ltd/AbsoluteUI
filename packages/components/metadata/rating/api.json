@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "component": "rating",
+  "factory": { "name": "Rating.create", "signature": "Rating.create(host: HTMLElement, options: RatingOptions): Rating" },
+  "configKey": "rating",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label (required accessible name)." },
+    { "name": "hideLabel", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Visually hide the label." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text, referenced by the control." },
+    { "name": "max", "type": "number", "default": "5", "required": false, "globallyConfigurable": false, "description": "Number of symbols, 1 to 10." },
+    { "name": "value", "type": "RatingValue", "default": "null", "required": false, "globallyConfigurable": false, "description": "The score, or null for no rating; rounded to the step." },
+    { "name": "allowHalf", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Allow half steps." },
+    { "name": "clearable", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Choosing the current value again, Delete, Backspace, or 0 clears the rating." },
+    { "name": "required", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "A rating must be given." },
+    { "name": "disabled", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Disable the control." },
+    { "name": "readOnly", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Focusable and announced, but not changeable." },
+    { "name": "display", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Non-interactive display (role=img with the value text)." },
+    { "name": "valueText", "type": "(value: number, max: number) => string", "required": false, "globallyConfigurable": false, "description": "Full value text; default '{value} of {max}'." },
+    { "name": "labels", "type": "readonly string[]", "required": false, "globallyConfigurable": false, "description": "Visible caption per whole step, such as 'Good'." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name (hidden input; empty when no rating)." },
+    { "name": "validate", "type": "(value: RatingValue) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<RatingIcons>", "required": false, "globallyConfigurable": false, "description": "Scale symbol (item) and validation icon (error)." },
+    { "name": "size", "type": "RatingSize", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Symbol size: 'sm', 'md', or 'lg'." },
+    { "name": "validationTiming", "type": "ValidationTiming", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages appear." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the value text and messages." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "value", "type": "RatingValue", "description": "The score, or null." },
+    { "name": "validity", "type": "FieldValidity", "description": "Current validity." },
+    { "name": "options", "type": "Readonly<RatingOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: RatingValue): void", "description": "Set the value, rounded and clamped (no event)." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "Show or clear an external error." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the control." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear the validation state." },
+    { "name": "update", "signature": "update(options: Partial<RatingOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, and the form registration." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "RatingValueDetail", "bubbles": true, "cancelable": false, "description": "The user changed the score: { value, validity }." },
+    { "name": "aui-hover", "detail": "RatingHoverDetail", "bubbles": false, "cancelable": false, "description": "The pointer previews a value (null when it leaves): { value }." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-rating", "description": "Host (with aui-field)." },
+    { "name": "aui-rating--sm | --md | --lg", "description": "Size." },
+    { "name": "aui-rating--display | --readonly | --disabled | --invalid", "description": "State modifiers." },
+    { "name": "aui-rating__control", "description": "The slider (or image in display mode)." },
+    { "name": "aui-rating__item", "description": "One symbol." },
+    { "name": "aui-rating__empty", "description": "Outline symbol." },
+    { "name": "aui-rating__fill", "description": "Solid symbol clipped to the filled part." },
+    { "name": "aui-rating__fill--outline", "description": "Filled copy of an icon without a solid variant (the outline is filled)." },
+    { "name": "aui-rating__item--preview", "description": "Symbol while the pointer previews a value." },
+    { "name": "aui-rating__caption", "description": "Visible caption from labels (aria-hidden)." }
+  ],
+  "iconSlots": [
+    { "name": "item", "default": "star (icon set)" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

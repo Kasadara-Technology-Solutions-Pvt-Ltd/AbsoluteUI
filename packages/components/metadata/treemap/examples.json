@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "treemap",
+  "examples": [
+    {
+      "id": "drill-down",
+      "title": "Hierarchical budget with drill-down and the aui-drill event",
+      "language": "ts",
+      "code": "import { Treemap, type TreemapDrillDetail, type TreemapNode } from '@absoluteui/components/treemap';\n\nconst data: TreemapNode[] = [\n  { id: 'eng', label: 'Engineering', children: [{ id: 'web', label: 'Web', value: 30 }, { id: 'api', label: 'API', value: 20 }] },\n  { id: 'ops', label: 'Operations', value: 25 },\n  { id: 'people', label: 'People', value: 25 },\n];\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chart = Treemap.create(host, { label: 'Budget', data, valueFormat: { style: 'currency', currency: 'EUR', notation: 'compact' } });\nhost.addEventListener('aui-drill', (event) => {\n  const { path } = (event as CustomEvent<TreemapDrillDetail>).detail;\n  host.dataset.path = path.join('/');\n});\nchart.drillTo('eng');"
+    },
+    {
+      "id": "flat-export",
+      "title": "Flat treemap without drill-down, exported as PNG",
+      "language": "ts",
+      "code": "import { Treemap } from '@absoluteui/components/treemap';\nimport { downloadChart } from '@absoluteui/components/chart-export';\n\nconst host = document.querySelector<HTMLElement>('#disk');\nconst button = document.querySelector<HTMLButtonElement>('#export');\nif (host && button) {\n  const chart = Treemap.create(host, {\n    label: 'Disk usage',\n    data: [\n      { id: 'video', label: 'Video', value: 420 },\n      { id: 'photos', label: 'Photos', value: 180 },\n      { id: 'apps', label: 'Apps', value: 95 },\n      { id: 'docs', label: 'Documents', value: 30, color: 6 },\n    ],\n    drillDown: false,\n    valueFormat: { style: 'unit', unit: 'gigabyte' },\n    height: 240,\n  });\n  button.addEventListener('click', () => {\n    void downloadChart(chart, { format: 'png', fileName: 'disk-usage' });\n  });\n}"
+    }
+  ]
+}

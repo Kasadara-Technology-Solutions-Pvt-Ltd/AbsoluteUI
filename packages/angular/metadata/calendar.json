@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/calendar",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCalendar",
+      "description": "AbsoluteUI Calendar: `<aui-calendar>`.\nImplements ControlValueAccessor; `[(value)]` without forms.",
+      "selector": "aui-calendar",
+      "exportAs": [
+        "auiCalendar"
+      ],
+      "source": "generated",
+      "component": "calendar",
+      "configKey": "calendar",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": false,
+        "valueType": "PlainDate | null"
+      },
+      "inputs": [
+        {
+          "name": "selectionMode",
+          "type": "CalendarSelectionMode",
+          "required": false,
+          "default": "single",
+          "description": "Since 0.3.0. 'range': the first pick sets an anchor, the second completes the range (in either order); value is not used."
+        },
+        {
+          "name": "range",
+          "type": "Range<PlainDate> | null",
+          "required": false,
+          "default": "null",
+          "description": "Since 0.3.0. Selected inclusive range in range mode (start <= end)."
+        },
+        {
+          "name": "minDays",
+          "type": "number",
+          "required": false,
+          "description": "Since 0.3.0. Range mode: minimum range length in days, counting the first and last day (integer 1-100000); shorter ends are disabled while the anchor is pending."
+        },
+        {
+          "name": "maxDays",
+          "type": "number",
+          "required": false,
+          "description": "Since 0.3.0. Range mode: maximum range length in days, counting the first and last day (integer 1-100000); longer ends are disabled while the anchor is pending."
+        },
+        {
+          "name": "visibleMonths",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "Since 0.3.0. Consecutive months shown side by side (integer 1-3). Outside days are never shown with more than one month."
+        },
+        {
+          "name": "min",
+          "type": "PlainDate | null",
+          "required": false,
+          "description": "Inclusive lower bound; earlier days are disabled and focus never moves before it."
+        },
+        {
+          "name": "max",
+          "type": "PlainDate | null",
+          "required": false,
+          "description": "Inclusive upper bound."
+        },
+        {
+          "name": "isDateDisabled",
+          "type": "((date: PlainDate) => boolean)",
+          "required": false,
+          "description": "Disable individual days (focusable, not selectable)."
+        },
+        {
+          "name": "businessCalendar",
+          "type": "BusinessCalendarEngine | null",
+          "required": false,
+          "description": "Business calendar (since 0.9.0): non-working days and holidays are marked and named in the calendar."
+        },
+        {
+          "name": "disableNonWorking",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "With businessCalendar: non-working days cannot be picked or typed (since 0.9.0)."
+        },
+        {
+          "name": "focusedDate",
+          "type": "PlainDate",
+          "required": false,
+          "description": "Initially focused day and visible month. Default: value, else the range start, else today (clamped to min/max)."
+        },
+        {
+          "name": "firstDayOfWeek",
+          "type": "Weekday",
+          "required": false,
+          "description": "ISO weekday of the first column (1 = Monday, 7 = Sunday). Default: the locale's first day of week."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Grid accessible name. Default: the visible month-year heading (aria-labelledby). With several months each grid is named '{label}, {month}'."
+        },
+        {
+          "name": "today",
+          "type": "PlainDate",
+          "required": false,
+          "description": "Advanced: fixed 'today' instead of the current date in timezone (tests, server rendering)."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<CalendarIcons>",
+          "required": false,
+          "description": "Icon slot overrides; mirrored in RTL."
+        },
+        {
+          "name": "showOutsideDays",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show days of the adjacent months in the first and last week (one visible month only)."
+        },
+        {
+          "name": "showWeekNumbers",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Show ISO 8601 week numbers as row headers."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Heading, weekday names, day numbers, cell names, and first day of week."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "Zone used only to determine today."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Grid direction and ArrowLeft/ArrowRight mirroring."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "PlainDate | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "CalendarChangeDetail",
+          "event": "aui-change",
+          "description": "Single mode: the user selected a day (click, Enter, or Space), including re-selecting the current day. Range mode: the user picked the last day; range is the completed range (the first pick emits nothing)."
+        },
+        {
+          "name": "navigate",
+          "payload": "CalendarNavigateDetail",
+          "event": "aui-navigate",
+          "description": "The user changed the visible months (keyboard, month buttons, or an outside day); month is the first visible month."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setRange",
+          "signature": "setRange(range: Range<PlainDate> | null): void",
+          "description": "Since 0.3.0. Range mode: programmatic range (no events); a pending anchor is discarded and the first day becomes the focused day."
+        },
+        {
+          "name": "goTo",
+          "signature": "goTo(date: PlainDate): void",
+          "description": "Show the month of date (scrolling the visible months as needed) and make it the focused day (no events)."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Move DOM focus to the focused day."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Date Picker Dialog grid: table role=grid whose day cells (td) are the focusable gridcells with a roving tabindex. Since 0.3.0: one grid per visible month with a single roving tab stop across all grids, and range selection (aria-multiselectable grids).",
+        "source": "packages/components/metadata/calendar/accessibility.json"
+      },
+      "limitations": [
+        "Gregorian calendar only.",
+        "A range may include disabled days: only the first and last day are checked; minDays and maxDays count both days.",
+        "At most three visible months; outside days are never shown with more than one month.",
+        "'Today' is computed on render; a calendar left open across midnight updates on the next navigation or configuration change.",
+        "Week numbers are ISO 8601, taken from the Monday of each row, whatever the first day of week."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport type { PlainDate } from '@absoluteui/core';\nimport { AuiCalendar } from '@absoluteui/angular/calendar';\n\n@Component({\n  selector: 'app-booking',\n  imports: [ReactiveFormsModule, AuiCalendar],\n  template: `<aui-calendar label=\"Appointment date\" [firstDayOfWeek]=\"1\" [formControl]=\"date\"></aui-calendar>`,\n})\nexport class BookingComponent {\n  readonly date = new FormControl<PlainDate | null>(null);\n}"
+    }
+  ]
+}

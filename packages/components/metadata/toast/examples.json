@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "toast",
+  "examples": [
+    {
+      "id": "quick",
+      "title": "Default toaster via toast()",
+      "language": "ts",
+      "code": "import { toast } from '@absoluteui/components/toast';\n\ntoast({ tone: 'success', message: 'Changes saved.' });"
+    },
+    {
+      "id": "undo",
+      "title": "Undo action and progress update",
+      "language": "ts",
+      "code": "import { Toaster, type ToastCloseDetail } from '@absoluteui/components/toast';\n\nconst toaster = Toaster.create({ position: 'bottom-center', max: 2 });\nlet restored = false;\nconst handle = toaster.show({\n  message: 'Conversation archived.',\n  action: {\n    label: 'Undo',\n    onAction: () => {\n      restored = true;\n    },\n  },\n});\ntoaster.element.addEventListener('aui-close', (event) => {\n  const { id, reason } = (event as CustomEvent<ToastCloseDetail>).detail;\n  if (id === handle.id && reason !== 'action' && !restored) {\n    // archive is final\n  }\n});\n\nconst upload = toaster.show({ message: 'Uploading report.pdf', duration: 0 });\nupload.update({ tone: 'success', message: 'Uploaded report.pdf', duration: 5000 });"
+    }
+  ]
+}

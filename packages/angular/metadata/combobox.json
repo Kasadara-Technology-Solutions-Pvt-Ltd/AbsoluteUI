@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/combobox",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCombobox",
+      "description": "AbsoluteUI Combobox: `<aui-combobox>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.\nTemplates: AuiItem (`@absoluteui/angular/templates`).",
+      "selector": "aui-combobox",
+      "exportAs": [
+        "auiCombobox"
+      ],
+      "source": "generated",
+      "component": "combobox",
+      "configKey": "combobox",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "string | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name."
+        },
+        {
+          "name": "options",
+          "type": "readonly ComboboxOption[]",
+          "required": true,
+          "description": "{ value, label, disabled?, description? } with unique values."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name for the hidden input."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Input placeholder (supplementary; never replaces the label)."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Sets required and aria-required."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the input and toggle."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Prevents opening and editing."
+        },
+        {
+          "name": "invalid",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Sets aria-invalid and shows errorMessage."
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "required": false,
+          "description": "Validation message shown when invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<ComboboxIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "renderOption",
+          "type": "((option: ComboboxOption, context: ComboboxRenderContext) => Node)",
+          "required": false,
+          "description": "Custom option content (since 0.9.0); the label stays the accessible name. Nodes are released with releaseNode when dropped."
+        },
+        {
+          "name": "loadOptions",
+          "type": "((query: string, context: ComboboxLoadContext) => Promise<readonly ComboboxOption[]>)",
+          "required": false,
+          "description": "Load options for the typed text instead of filtering options (since 0.9.0); debounced, stale requests aborted, loading and errors announced."
+        },
+        {
+          "name": "loadDelay",
+          "type": "number",
+          "required": false,
+          "default": "250",
+          "description": "Milliseconds between the last keystroke and loadOptions (0-5000)."
+        },
+        {
+          "name": "filter",
+          "type": "ComboboxFilter",
+          "required": false,
+          "default": "contains",
+          "configurable": true,
+          "description": "Filtering strategy."
+        },
+        {
+          "name": "openOnFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Open the listbox on focus/click."
+        },
+        {
+          "name": "clearOnEscape",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Escape with a closed listbox clears the value."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Messages and filtering locale."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Popup alignment direction."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "ComboboxChangeDetail",
+          "event": "aui-change",
+          "description": "User changed the selection."
+        },
+        {
+          "name": "valueInput",
+          "payload": "unknown",
+          "event": "aui-input",
+          "detail": "{ query: string }",
+          "description": "User edited the input text."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "Listbox opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "Listbox closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isOpen",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the listbox is shown."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Show the listbox."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Hide the listbox."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user changes the value."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the control."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear touched/submitted state (no aui-change)."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "Selected value for form serialization."
+        }
+      ],
+      "templates": [
+        "AuiItem"
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Combobox pattern: editable combobox with list autocomplete, without automatic selection.",
+        "source": "packages/components/metadata/combobox/accessibility.json"
+      },
+      "limitations": [
+        "Strict selection: the value is always one of the options; free text reverts to the selected label on blur.",
+        "No virtualization: all filtered options are rendered.",
+        "No option groups; one value only (use Multi Select for several).",
+        "Filtering is diacritic- and case-insensitive substring or prefix matching; no fuzzy matching.",
+        "Result counts are announced through a shared polite live region 400 ms after typing stops."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport type { ComboboxOption } from '@absoluteui/components/combobox';\nimport { AuiCombobox } from '@absoluteui/angular/combobox';\n\n@Component({\n  selector: 'app-assign',\n  imports: [ReactiveFormsModule, AuiCombobox],\n  template: `<aui-combobox label=\"Assignee\" placeholder=\"Search people\" [options]=\"people\" [required]=\"true\" [formControl]=\"assignee\"></aui-combobox>`,\n})\nexport class AssignComponent {\n  readonly people: ComboboxOption[] = [\n    { value: 'ada', label: 'Ada Lovelace' },\n    { value: 'alan', label: 'Alan Turing' },\n  ];\n  readonly assignee = new FormControl<string | null>(null, { validators: [Validators.required] });\n}"
+    }
+  ]
+}

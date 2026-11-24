@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="currency-euro">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15.5 8.25a4.75 4.75 0 1 0 0 7.5"/>
+      <path d="M7 10.75h6"/>
+      <path d="M7 13.25h6"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15.5 8.25a4.75 4.75 0 1 0 0 7.5"/>
+      <path d="M7 10.75h6"/>
+      <path d="M7 13.25h6"/>
+    </g>
+  </g>
+</svg>

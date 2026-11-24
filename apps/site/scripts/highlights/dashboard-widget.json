@@ -1,0 +1,6 @@
+[
+  { "title": "Titled region", "text": "A heading, a subtitle, and a labelled region around your own content." },
+  { "title": "Header actions", "text": "Custom icon actions plus collapse, maximize, and remove buttons." },
+  { "title": "Maximize as dialog", "text": "Maximize shows the widget full screen as a modal dialog." },
+  { "title": "Content untouched", "text": "The body stays your own children, so framework content is safe." }
+]

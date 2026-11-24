@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/error-summary",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiErrorSummary",
+      "description": "AbsoluteUI ErrorSummary: `<aui-error-summary>`.",
+      "selector": "aui-error-summary",
+      "exportAs": [
+        "auiErrorSummary"
+      ],
+      "source": "generated",
+      "component": "error-summary",
+      "configKey": "errorSummary",
+      "inputs": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Heading text. Default: localized \"There is a problem\"."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Optional text under the heading."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<ErrorSummaryIcons>",
+          "required": false,
+          "description": "Heading icon override."
+        },
+        {
+          "name": "headingLevel",
+          "type": "HeadingLevel",
+          "required": false,
+          "default": "2",
+          "configurable": true,
+          "description": "Native heading element level."
+        },
+        {
+          "name": "focusOnShow",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Move focus to the summary when show() displays items. show(items, { focus }) overrides it per call."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the default heading."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "navigate",
+          "payload": "ErrorSummaryNavigateDetail",
+          "event": "aui-navigate",
+          "description": "A summary link was activated and focus moved to its target."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isVisible",
+          "type": "Signal<boolean>",
+          "description": "Read-only: True while items are shown."
+        }
+      ],
+      "methods": [
+        {
+          "name": "show",
+          "signature": "show(items: readonly ErrorSummaryItem[], options?: { focus?: boolean; } | undefined): void",
+          "description": "Replace the items and show the summary (an empty list hides it). Focuses and scrolls to the summary unless focus is false or focusOnShow is false. Throws on an empty message before changing anything."
+        },
+        {
+          "name": "clear",
+          "signature": "clear(): void",
+          "description": "Remove all items and hide the summary without moving focus."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "GOV.UK error summary: a focusable, labelled region with a native heading and a list of in-page links to the invalid fields.",
+        "source": "packages/components/metadata/error-summary/accessibility.json"
+      },
+      "limitations": [
+        "A target without an id receives a generated id (the consumer element is modified).",
+        "Link activation is handled in script; without script the #id link only scrolls, and focus lands on the target only if it is focusable.",
+        "Heading levels are limited to 2, 3, and 4."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, viewChild } from '@angular/core';\nimport { AuiErrorSummary } from '@absoluteui/angular/error-summary';\nimport { AuiButton } from '@absoluteui/angular/button';\n\n@Component({\n  selector: 'app-booking-errors',\n  imports: [AuiErrorSummary, AuiButton],\n  template: `\n    <aui-error-summary title=\"The booking was not saved\" [headingLevel]=\"2\"></aui-error-summary>\n    <button type=\"button\" auiButton variant=\"primary\" (click)=\"showServerError()\">Save booking</button>`,\n})\nexport class BookingErrorsComponent {\n  private readonly summary = viewChild.required(AuiErrorSummary);\n\n  showServerError(): void {\n    this.summary().show([{ message: 'The service is busy. Try again in a few minutes.' }]);\n  }\n}"
+    }
+  ]
+}

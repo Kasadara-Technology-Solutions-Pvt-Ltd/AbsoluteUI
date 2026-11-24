@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "name": "accordion",
+  "displayName": "Accordion",
+  "category": "Layout",
+  "package": "@absoluteui/components",
+  "import": "import { Accordion } from '@absoluteui/components/accordion';",
+  "styleImport": "@absoluteui/components/accordion/style.css",
+  "purpose": "Vertically stacked headings that each show or hide a section of content (WAI-ARIA APG Accordion), built on native headings and buttons, with single or multiple expansion and an animated height transition.",
+  "whenToUse": [
+    "Long pages where users need only some sections at a time, such as FAQs or settings groups.",
+    "Progressive disclosure of secondary details in a constrained space."
+  ],
+  "whenNotToUse": [
+    "Content users must read or compare side by side: show it on the page.",
+    "Switching between peer views of the same content: use Tabs.",
+    "A single show/hide toggle: a native <details> element is enough.",
+    "Navigation menus: use a navigation component."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["collapsed", "expanded", "expanded and locked (single, non-collapsible)", "disabled item", "focus-visible", "hover"],
+  "responsive": "Full width of its container. Headers wrap long titles (overflow-wrap: anywhere); the indicator icon stays at the inline end.",
+  "rtl": "Logical properties: the title sits at the inline start and the indicator at the inline end in both directions.",
+  "theme": "Border, text, muted-text, hover, and focus-ring role tokens. Forced-colors mode uses CanvasText borders and a Highlight focus outline.",
+  "timezone": "Not applicable.",
+  "security": "Titles and string content are rendered with textContent; never parsed as HTML. Node content is inserted as-is and is the consumer's responsibility. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Accordion.create with 50 items", "budget": "< 5 ms in headless Chromium" }
+    ],
+    "testedScale": "Unit-tested with up to 7 items; designed for tens of items."
+  },
+  "limitations": [
+    "Collapsed panel content is removed from the find-in-page index (hidden attribute); hidden=until-found is not used.",
+    "The icon rotation and height transition are removed under reduced motion or animation 'none'; the rotated end state remains as a static indicator.",
+    "Changing `items` re-creates the item DOM; Node content is moved, not cloned."
+  ],
+  "unsupported": [
+    "Rendering HTML strings as titles or content (pass a Node for rich content).",
+    "Nested interactive content inside headers."
+  ],
+  "antiPatterns": [
+    "Hiding content users need to complete a task.",
+    "Putting form fields that may hold errors in collapsed panels without expanding them on validation.",
+    "Using heading levels that skip the page outline; set headingLevel to match the surrounding headings."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/accordion: AuiAccordion directive ([auiAccordion]).",
+    "react": "@absoluteui/react/accordion: AuiAccordion component.",
+    "vue": "@absoluteui/vue/accordion: AuiAccordion component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

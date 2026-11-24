@@ -1,0 +1,7 @@
+[
+  { "title": "Queued notifications", "text": "Shows a few toasts at once and queues the rest until there is room." },
+  { "title": "Timers that wait", "text": "Auto-dismiss pauses while users hover or focus the toasts." },
+  { "title": "Keyboard shortcut", "text": "A hotkey moves focus to the newest toast and back to where users were." },
+  { "title": "Optional action", "text": "One action button per toast, such as Undo, closes it when pressed." },
+  { "title": "Six positions", "text": "Place the region in any corner or centered at the top or bottom." }
+]

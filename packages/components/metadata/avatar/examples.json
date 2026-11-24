@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "avatar",
+  "examples": [
+    {
+      "id": "fallbacks",
+      "title": "Initials, presence, sizes, and shapes",
+      "language": "ts",
+      "code": "import { Avatar, type AvatarSize } from '@absoluteui/components/avatar';\n\nconst row = document.createElement('p');\ndocument.body.append(row);\nconst people: [string, AvatarSize][] = [['Ada Lovelace', 'xs'], ['Grace Hopper', 'sm'], ['Alan Turing', 'md'], ['Barbara Liskov', 'lg'], ['Edsger Dijkstra', 'xl']];\nfor (const [name, size] of people) {\n  const host = document.createElement('span');\n  row.append(host, ' ');\n  Avatar.create(host, { name, size, status: size === 'md' ? 'online' : null });\n}\nconst team = document.createElement('span');\nrow.append(team);\nAvatar.create(team, { name: 'Platform team', shape: 'square', status: 'busy' });"
+    },
+    {
+      "id": "beside-name",
+      "title": "Decorative avatar next to a printed name",
+      "language": "ts",
+      "code": "import { Avatar } from '@absoluteui/components/avatar';\n\nconst author = document.createElement('p');\nconst picture = document.createElement('span');\nauthor.append(picture, ' Grace Hopper commented');\ndocument.body.append(author);\n// The name is printed next to the avatar, so the avatar is not announced again.\nAvatar.create(picture, { name: 'Grace Hopper', size: 'sm', decorative: true });"
+    }
+  ]
+}

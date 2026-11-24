@@ -1,0 +1,6 @@
+[
+  { "title": "Immediate settings", "text": "An on/off control for settings that take effect right away." },
+  { "title": "Native underneath", "text": "A native checkbox with the switch role keeps keyboard and form behavior." },
+  { "title": "Save failures", "text": "Show a custom error when saving the setting fails." },
+  { "title": "Form ready", "text": "Submits its value with the form like a checkbox." }
+]

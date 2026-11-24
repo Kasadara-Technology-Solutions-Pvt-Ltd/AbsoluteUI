@@ -1,0 +1,245 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Drawer mode reuses the Drawer styles and rail tooltips the Tooltip styles
+// (load @absoluteui/components/drawer/style.css and tooltip/style.css too).
+@layer aui.components {
+  .aui-sidebar {
+    --aui-sidebar-width: 16rem;
+    --aui-sidebar-rail-width: calc(#{aui.token('control-height-md')} + 2 * #{aui.token('space-2')});
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    inline-size: var(--aui-sidebar-width);
+    max-inline-size: 100%;
+    min-block-size: 0;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border-inline-end: aui.token('border-width') solid aui.token('color-border');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-tight');
+    @include aui.transition(inline-size);
+  }
+
+  // Below the breakpoint the navigation lives in a drawer; the inline host is removed from layout.
+  .aui-sidebar--drawer {
+    display: none;
+  }
+
+  .aui-sidebar--collapsed {
+    inline-size: var(--aui-sidebar-rail-width);
+  }
+
+  .aui-sidebar__nav {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    padding: aui.token('space-2');
+    overflow: auto;
+  }
+
+  .aui-sidebar__list {
+    display: grid;
+    gap: 0.125rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-sidebar__list--nested {
+    margin-block-start: 0.125rem;
+    padding-inline-start: aui.token('space-4');
+  }
+
+  .aui-sidebar__item {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-3');
+    inline-size: 100%;
+    min-block-size: aui.token('control-height-md');
+    padding: aui.token('space-1') aui.token('space-3');
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    text-align: start;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+
+    &[aria-current='page'] {
+      font-weight: aui.token('font-weight-semibold');
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+
+      &:focus-visible {
+        outline-color: aui.token('color-selected-text');
+      }
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+      background: transparent;
+    }
+  }
+
+  // A collapsed group that contains the active page.
+  .aui-sidebar__item--contains-active {
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-sidebar__icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: aui.icon-size('md');
+    block-size: aui.icon-size('md');
+
+    svg {
+      inline-size: 100%;
+      block-size: 100%;
+    }
+    font-size: aui.icon-size('md');
+  }
+
+  // Items without an icon show their initial only in the rail.
+  .aui-sidebar__icon--initial {
+    display: none;
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-semibold');
+    text-transform: uppercase;
+  }
+
+  .aui-sidebar__label {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-sidebar__chevron {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    color: aui.token('color-text-muted');
+    @include aui.transition(transform);
+    font-size: aui.icon-size('sm');
+  }
+
+  .aui-sidebar__group[aria-expanded='true'] .aui-sidebar__chevron {
+    transform: rotate(180deg);
+  }
+
+  .aui-sidebar__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: aui.token('space-2');
+    border-block-start: aui.token('border-width') solid aui.token('color-border');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-sidebar__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: aui.token('control-height-md');
+    block-size: aui.token('control-height-md');
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+
+    svg {
+      inline-size: aui.icon-size('md');
+      block-size: aui.icon-size('md');
+      font-size: aui.icon-size('md');
+    }
+
+    // Chevrons point toward the edge the sidebar collapses to.
+    &:dir(rtl) svg {
+      transform: scaleX(-1);
+    }
+  }
+
+  // Icon rail: labels stay in the accessibility tree (they name the items) but are hidden visually.
+  .aui-sidebar--collapsed {
+    .aui-sidebar__item {
+      justify-content: center;
+      padding-inline: 0;
+    }
+
+    .aui-sidebar__label {
+      @include aui.visually-hidden;
+    }
+
+    .aui-sidebar__chevron {
+      display: none;
+    }
+
+    .aui-sidebar__icon--initial {
+      display: inline-flex;
+    }
+
+    .aui-sidebar__list--nested {
+      padding-inline-start: 0;
+      border-block-start: aui.token('border-width') solid aui.token('color-border');
+      padding-block-start: 0.125rem;
+    }
+
+    .aui-sidebar__footer {
+      justify-content: center;
+    }
+  }
+
+  // Inside the drawer the navigation fills the body without its own padding.
+  .aui-drawer__body > .aui-sidebar__nav {
+    padding: 0;
+    overflow: visible;
+  }
+
+  @include aui.forced-colors {
+    .aui-sidebar {
+      border-color: CanvasText;
+    }
+
+    .aui-sidebar__item[aria-current='page'] {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-sidebar__item[aria-disabled='true'] {
+      color: GrayText;
+    }
+  }
+}

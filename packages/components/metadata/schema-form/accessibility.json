@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "component": "schema-form",
+  "pattern": "Native form with labelled AbsoluteUI controls (each follows its own APG pattern), Fieldset groups for objects and arrays, and the GOV.UK-style Error Summary from Form.",
+  "roles": [
+    {
+      "element": "form",
+      "role": "form (native, named by label or the schema title)"
+    },
+    {
+      "element": "object and array",
+      "role": "group (native fieldset with legend)"
+    },
+    {
+      "element": "array entries",
+      "role": "list / listitem (native ol)"
+    },
+    {
+      "element": "move and remove",
+      "role": "button (native, icon-only with a name)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-label",
+      "element": "form",
+      "value": "label option or schema title"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "move and remove buttons",
+      "value": "'Move Contact 2 up', 'Remove Contact 2'"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "fields and groups",
+      "value": "help text and messages (from the controls and Fieldset)"
+    },
+    {
+      "attribute": "hidden",
+      "element": "fields whose condition is false",
+      "value": "present; their controls are disabled"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Form",
+      "action": "Move through fields, entry actions, the add button, and the submit button."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Move, remove, add buttons",
+      "action": "Act; focus stays on the moved entry's action or moves to the next entry."
+    },
+    {
+      "key": "Enter",
+      "context": "Single-line field",
+      "action": "Submit (native form behavior)."
+    }
+  ],
+  "focus": "After a failed submission focus moves to the Error Summary (or the first field, per Form's focusOnInvalid). Adding an entry focuses its first field; removing focuses the next entry's remove button or the add button.",
+  "wcag": [
+    "1.3.1",
+    "1.3.5",
+    "2.1.1",
+    "2.4.3",
+    "2.4.6",
+    "3.3.1",
+    "3.3.2",
+    "3.3.3",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "Array changes are announced through the polite live region (added, removed, moved to position N of M).",
+    "Conditional fields are removed from the accessibility tree while hidden and never block submission."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

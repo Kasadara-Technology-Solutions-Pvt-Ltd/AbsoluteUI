@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "component": "data-grid",
+  "pattern": "WAI-ARIA APG Grid pattern: one tab stop, roving focus between cells and headers, arrow-key navigation, widgets inside cells reached with Enter or F2.",
+  "roles": [
+    {
+      "element": "grid container",
+      "role": "grid, or treegrid while grouped, in tree data, or with master/detail (aria-label, aria-rowcount, aria-colcount, aria-multiselectable with multiple selection or cell ranges)"
+    },
+    {
+      "element": "header, body, and pinned sections",
+      "role": "rowgroup (pinned sections named \"Pinned to top\" and \"Pinned to bottom\")"
+    },
+    {
+      "element": "rows",
+      "role": "row (aria-rowindex; aria-selected with row selection; aria-level, aria-expanded, aria-setsize, aria-posinset in treegrids; aria-busy for rows still loading)"
+    },
+    {
+      "element": "header cells",
+      "role": "columnheader (aria-colindex, aria-sort, aria-colspan for groups, aria-rowspan for spanning leaves, aria-expanded for collapsible groups)"
+    },
+    {
+      "element": "cells",
+      "role": "gridcell (aria-colindex, aria-selected with cell ranges, aria-rowspan / aria-colspan for spans and full-width or detail rows)"
+    },
+    {
+      "element": "filter panel; note dialog; column chooser; filter builder",
+      "role": "dialog (non-modal filter panel; modal Dialog for the others)"
+    },
+    {
+      "element": "column and cell menus",
+      "role": "menu with menuitem entries (Context Menu)"
+    },
+    {
+      "element": "advanced filter field; formula editor",
+      "role": "combobox with a listbox of options"
+    },
+    {
+      "element": "search box; find",
+      "role": "search landmark"
+    },
+    {
+      "element": "toolbar; status bar; group, pivot, and side panels; formula bar",
+      "role": "toolbar; group; group; region (side panels); group"
+    },
+    {
+      "element": "chart panel",
+      "role": "region named \"Chart of {title}\""
+    },
+    {
+      "element": "sparkline cells",
+      "role": "img with a generated name"
+    },
+    {
+      "element": "spacers, fillers, handles, drop line and ghost, file overlay, sticky group copies",
+      "role": "none (aria-hidden)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-rowcount / aria-colcount",
+      "element": "grid",
+      "value": "Full counts including rows and columns not rendered (-1 rows while a server count is unknown)"
+    },
+    {
+      "attribute": "aria-rowindex / aria-colindex",
+      "element": "rows / cells",
+      "value": "1-based positions in the full grid, counting pinned sections"
+    },
+    {
+      "attribute": "aria-sort",
+      "element": "primary sorted column header",
+      "value": "ascending | descending; other sort levels are spoken as \"sort priority n\""
+    },
+    {
+      "attribute": "aria-level / aria-expanded / aria-setsize / aria-posinset",
+      "element": "rows of treegrids",
+      "value": "Group, tree, and master rows"
+    },
+    {
+      "attribute": "aria-selected / aria-multiselectable",
+      "element": "rows or cells / grid",
+      "value": "Row selection and cell ranges"
+    },
+    {
+      "attribute": "aria-busy",
+      "element": "grid; rows",
+      "value": "true while loading (server blocks)"
+    },
+    {
+      "attribute": "aria-invalid / aria-describedby",
+      "element": "editors and filter fields",
+      "value": "The validation or syntax message"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "grid",
+      "value": "The description option"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "Arrow keys",
+      "context": "Cell or header",
+      "action": "Move one cell; Up from the first row enters the headers (the floating filter row first); Down from the headers enters the rows."
+    },
+    {
+      "key": "Home / End",
+      "context": "Cell",
+      "action": "First / last cell of the row."
+    },
+    {
+      "key": "Ctrl+Home / Ctrl+End",
+      "context": "Cell",
+      "action": "First cell of the grid / last cell of the grid."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Cell",
+      "action": "Move a page of rows."
+    },
+    {
+      "key": "Enter / F2",
+      "context": "Cell with widgets",
+      "action": "Move into the first widget; Escape or F2 returns to the cell."
+    },
+    {
+      "key": "Enter",
+      "context": "Cell without widgets",
+      "action": "aui-cell-activate."
+    },
+    {
+      "key": "Space / Shift+Space",
+      "context": "Cell (row selection)",
+      "action": "Toggle the row / select the range from the last toggled row."
+    },
+    {
+      "key": "Ctrl+A",
+      "context": "Cell",
+      "action": "Select every cell (cell selection), else all rows in scope (multiple row selection)."
+    },
+    {
+      "key": "Shift+arrows, Shift+Home/End, Shift+PageUp/PageDown",
+      "context": "Cell (cell selection)",
+      "action": "Extend the range from the focused cell; Ctrl+Shift+arrows to the edge."
+    },
+    {
+      "key": "Enter / Ctrl+Enter / Shift+Enter",
+      "context": "Leaf header (column selection)",
+      "action": "Select the column / add it / extend to it; Alt+Enter sorts."
+    },
+    {
+      "key": "Ctrl+C / Ctrl+X / Ctrl+V",
+      "context": "Cell",
+      "action": "Copy / cut / paste (the active range, or the focused cell)."
+    },
+    {
+      "key": "Delete",
+      "context": "Cell",
+      "action": "Clear the ranges (or the focused cell)."
+    },
+    {
+      "key": "Enter, F2, a printable key, Backspace",
+      "context": "Editable cell",
+      "action": "Start editing (a key replaces the value; Backspace starts empty; F2 and Enter select the value)."
+    },
+    {
+      "key": "Enter / Tab / Shift+Tab / Escape",
+      "context": "Editor",
+      "action": "Commit / commit and edit the next / previous editable cell / cancel. Arrow keys stay in the editor."
+    },
+    {
+      "key": "Ctrl+Enter",
+      "context": "Editor (with ranges)",
+      "action": "Write the value to every editable cell of the ranges. Large text: Enter adds a line; Tab or Ctrl+Enter commits."
+    },
+    {
+      "key": "ArrowUp / ArrowDown",
+      "context": "Number editor",
+      "action": "Step by step (within min and max)."
+    },
+    {
+      "key": "Ctrl+Z / Ctrl+Y, Ctrl+Shift+Z",
+      "context": "Cell",
+      "action": "Undo / redo."
+    },
+    {
+      "key": "Ctrl+Shift+ArrowUp / ArrowDown",
+      "context": "Drag handle cell (rowDragging)",
+      "action": "Move the row (the selected rows with multiRow) above or below its neighbour; in other cells the keys extend the range."
+    },
+    {
+      "key": "Ctrl+Shift+ArrowRight / ArrowLeft",
+      "context": "Drag handle cell, parent-id tree data",
+      "action": "Indent (last child of the row above) / outdent (after its parent); mirrored in RTL."
+    },
+    {
+      "key": "ArrowRight / ArrowLeft / Enter",
+      "context": "Group row",
+      "action": "Expand / collapse / toggle."
+    },
+    {
+      "key": "ArrowLeft",
+      "context": "Row inside a group, in the group column (or before it)",
+      "action": "Move to its group row."
+    },
+    {
+      "key": "Ctrl+D / Ctrl+R",
+      "context": "Cell (cell selection)",
+      "action": "Fill each range down from its first row / right from its first column (the keyboard alternative to the fill handle)."
+    },
+    {
+      "key": "Space or Enter",
+      "context": "Selection column header",
+      "action": "Select or clear all rows in scope."
+    },
+    {
+      "key": "Enter / Space (Shift adds)",
+      "context": "Sortable header",
+      "action": "Sort (Shift: multi-sort)."
+    },
+    {
+      "key": "F2",
+      "context": "Header",
+      "action": "Move to the header's filter button; Escape or F2 returns to the header."
+    },
+    {
+      "key": "Alt+ArrowDown",
+      "context": "Filterable header or floating filter cell",
+      "action": "Open the filter panel."
+    },
+    {
+      "key": "Escape",
+      "context": "Filter panel",
+      "action": "Close it; focus returns to the header."
+    },
+    {
+      "key": "Enter / F2",
+      "context": "Floating filter cell",
+      "action": "Move into its control; Escape returns to the cell."
+    },
+    {
+      "key": "Enter",
+      "context": "Floating filter input",
+      "action": "Apply now (a read-only summary opens the panel)."
+    },
+    {
+      "key": "ArrowDown / ArrowUp",
+      "context": "Expression field",
+      "action": "Open the suggestions; move the active suggestion."
+    },
+    {
+      "key": "Enter",
+      "context": "Expression field",
+      "action": "Insert the active suggestion, else apply the expression."
+    },
+    {
+      "key": "Escape",
+      "context": "Expression field",
+      "action": "Close the suggestions."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Collapsible group header",
+      "action": "Expand or collapse."
+    },
+    {
+      "key": "Shift+ArrowLeft / Right",
+      "context": "Header",
+      "action": "Move the column or group."
+    },
+    {
+      "key": "Alt+ArrowLeft / Right",
+      "context": "Header",
+      "action": "Resize by 10 px (Shift+Alt: 50 px)."
+    },
+    {
+      "key": "Enter, ArrowRight / ArrowLeft",
+      "context": "Details cell of a master row",
+      "action": "Toggle / expand / collapse its details; arrow keys enter a detail row as one cell, Enter or F2 moves into its content."
+    },
+    {
+      "key": "Alt+ArrowUp / Alt+ArrowDown",
+      "context": "Row number (rowNumbers: { resizable: true })",
+      "action": "Make the row 4 px shorter / taller (announced)."
+    },
+    {
+      "key": "Shift+F10 / ContextMenu",
+      "context": "Header / cell (columnMenu(), contextMenu())",
+      "action": "Open the column menu / the cell menu; arrow keys, Enter, and Escape inside it (Menu pattern)."
+    },
+    {
+      "key": "F3 / Shift+F3",
+      "context": "Grid (find())",
+      "action": "Next / previous match; findShortcut: true makes Ctrl+F move to the find field."
+    },
+    {
+      "key": "Shift+F2",
+      "context": "Cell (notes())",
+      "action": "Open the cell's note dialog."
+    },
+    {
+      "key": "ArrowLeft / ArrowRight, Home / End",
+      "context": "Toolbar (toolbar())",
+      "action": "Move between its buttons (one tab stop)."
+    },
+    {
+      "key": "ArrowDown / ArrowUp, Enter or Tab, Escape",
+      "context": "Formula editor with suggestions open",
+      "action": "Move the active suggestion, accept it, close the list (a second Escape cancels the edit)."
+    },
+    {
+      "key": "Escape",
+      "context": "Chart panel (chartRange, chartPivot)",
+      "action": "Close the panel; focus returns to the grid."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "Leave the grid."
+    }
+  ],
+  "focus": "One tab stop on the focused cell or header (initially the first header). The focused row and column stay rendered while scrolled away, so focus is never lost to virtualization.",
+  "wcag": [
+    "1.3.1",
+    "1.3.2",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.1.2",
+    "2.4.3",
+    "2.4.7",
+    "2.5.7",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "Sort changes, column moves and resizes, group toggles, loading, selection counts, writes, undo, row moves, pins, exports, and filter results are announced through the shared live region.",
+    "Pinned columns are sticky cells in DOM order, so reading order matches the visual order in both directions.",
+    "Every pointer gesture has a keyboard or menu path (WCAG 2.5.7): Alt+arrows resize columns and rows, Ctrl+Shift+arrows move rows, the pill buttons edit the group and pivot panels, the cell menu sends rows to drop zones, Ctrl+D / Ctrl+R fill; file drop needs a file input in the page.",
+    "Formula error cells read their meaning after the code; the formula editor is a combobox with suggestions and an argument hint in its description."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "Exported PDFs are not tagged (no PDF/UA); the grid, CSV, Excel, and print keep the table structure."
+  ]
+}

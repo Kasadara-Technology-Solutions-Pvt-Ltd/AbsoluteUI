@@ -1,0 +1,193 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Columns, row height, and gap come from the grid (CSSOM custom properties).
+  .aui-dashboard {
+    display: grid;
+    grid-template-columns: repeat(var(--aui-dashboard-columns, 12), minmax(0, 1fr));
+    grid-auto-rows: var(--aui-dashboard-row-height, 80px);
+    gap: var(--aui-dashboard-gap, 16px);
+    min-inline-size: 0;
+  }
+
+  .aui-dashboard__item {
+    position: relative;
+    min-inline-size: 0;
+    min-block-size: 0;
+    transition-property: translate;
+    transition-duration: aui.token('duration-fast');
+    transition-timing-function: aui.token('easing-standard');
+  }
+
+  .aui-dashboard__item[hidden] {
+    display: none;
+  }
+
+  // The dragged item follows the pointer above the others; no transition while dragging.
+  .aui-dashboard__item--dragging {
+    z-index: 1;
+    transition: none;
+    opacity: 0.9;
+    box-shadow: aui.token('shadow-lg');
+  }
+
+  .aui-dashboard__placeholder {
+    background: aui.token('color-selected');
+    border: aui.token('border-width') dashed aui.token('color-focus-ring');
+    border-radius: aui.token('radius-md');
+    pointer-events: none;
+  }
+
+  .aui-dashboard__handle {
+    position: absolute;
+    inset-block-start: aui.token('space-1');
+    inset-inline-end: aui.token('space-1');
+    z-index: 1;
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: aui.token('touch-target-min');
+    min-block-size: aui.token('touch-target-min');
+    padding: aui.token('space-1');
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    cursor: grab;
+    // Pointer and touch drags start here; the page does not scroll from the handle.
+    touch-action: none;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: aui.token('focus-ring-offset');
+    }
+
+    &[aria-pressed='true'] {
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+      border-color: aui.token('color-selected-text');
+      cursor: grabbing;
+    }
+
+    svg {
+      inline-size: 1rem;
+      block-size: 1rem;
+    }
+  }
+
+  .aui-dashboard__resize {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    z-index: 1;
+    inline-size: aui.token('touch-target-min');
+    block-size: aui.token('touch-target-min');
+    cursor: nwse-resize;
+    touch-action: none;
+    background: linear-gradient(135deg, transparent 55%, #{aui.token('color-chart-axis')} 55%, #{aui.token('color-chart-axis')} 62%, transparent 62%, transparent 72%, #{aui.token('color-chart-axis')} 72%, #{aui.token('color-chart-axis')} 79%, transparent 79%);
+  }
+
+  :where([dir='rtl']) .aui-dashboard__resize {
+    cursor: nesw-resize;
+    transform: scaleX(-1);
+  }
+
+  .aui-dashboard__item--locked .aui-dashboard__resize {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aui-dashboard__item {
+      transition: none;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-dashboard__item {
+    transition: none;
+  }
+
+  // Catalog.
+  .aui-dashboard-catalog__list {
+    display: grid;
+    gap: aui.token('space-2');
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .aui-dashboard-catalog__template {
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-2');
+    inline-size: 100%;
+    min-block-size: aui.token('touch-target-min');
+    padding: aui.token('space-2') aui.token('space-3');
+    font: inherit;
+    color: aui.token('color-text');
+    text-align: start;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-md');
+    cursor: grab;
+    touch-action: none;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: aui.token('focus-ring-offset');
+    }
+  }
+
+  .aui-dashboard-catalog__template--dragging {
+    cursor: grabbing;
+    border-style: dashed;
+  }
+
+  .aui-dashboard-catalog__icon {
+    flex: none;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin-block-start: 0.1em;
+  }
+
+  .aui-dashboard-catalog__text {
+    display: grid;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+  }
+
+  .aui-dashboard-catalog__label {
+    font-weight: aui.token('font-weight-medium');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-dashboard-catalog__description {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+    overflow-wrap: anywhere;
+  }
+
+  @include aui.forced-colors {
+    .aui-dashboard__placeholder {
+      background: Canvas;
+      border-color: Highlight;
+    }
+
+    .aui-dashboard__resize {
+      background: linear-gradient(135deg, transparent 55%, CanvasText 55%, CanvasText 62%, transparent 62%, transparent 72%, CanvasText 72%, CanvasText 79%, transparent 79%);
+    }
+
+    .aui-dashboard__handle[aria-pressed='true'] {
+      color: HighlightText;
+      background: Highlight;
+    }
+  }
+}

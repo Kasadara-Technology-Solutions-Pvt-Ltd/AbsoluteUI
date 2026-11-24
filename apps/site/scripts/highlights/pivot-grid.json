@@ -1,0 +1,7 @@
+[
+  { "title": "Rows, columns, values", "text": "Arrange fields into rows, columns, and values with sum, average, count, and more." },
+  { "title": "Totals and subtotals", "text": "Grand totals for rows, columns, or both, and optional column subtotals." },
+  { "title": "Field list", "text": "A companion field list lets users rearrange the layout and filter members." },
+  { "title": "Local or server data", "text": "Aggregate rows in the browser or plug in a data source that aggregates on a server." },
+  { "title": "Export the result", "text": "Read the result as a matrix or download it as CSV." }
+]

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "component": "form-field",
+  "factory": { "name": "FormField.create", "signature": "FormField.create(host: HTMLElement, options: FormFieldOptions): FormField" },
+  "configKey": "formField",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name (<label for> the control)." },
+    { "name": "control", "type": "HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement", "required": true, "globallyConfigurable": false, "mutability": "init-only", "description": "The native control to wrap; moved into the host. It receives an id if it has none. Choice, file, hidden, button, date/time (date, time, datetime-local, month, week), range, and color input types are rejected." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "required": false, "globallyConfigurable": false, "description": "Sets the native required property and the indicator. When omitted, the control's own required attribute is used." },
+    { "name": "validate", "type": "(value: string | string[]) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation after native constraints; return a message to mark the value invalid. string[] for <select multiple>." },
+    { "name": "icons", "type": "Partial<{ error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message and number-formatting locale." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are replaced by the chrome and the control." },
+    { "name": "control", "type": "FormFieldControl", "description": "The wrapped native control." },
+    { "name": "value", "type": "string | string[]", "description": "Current value; string[] for <select multiple>." },
+    { "name": "name", "type": "string | null", "description": "The control's name, or null when empty." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "The control's disabled property." },
+    { "name": "validity", "type": "FieldValidity", "description": "{ valid, error, message }; recomputed on each render." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the value at creation." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." }
+  ],
+  "methods": [
+    { "name": "refresh", "signature": "refresh(): void", "description": "Re-read native constraints, setCustomValidity() state, and the value after changing them in code." },
+    { "name": "update", "signature": "update(options: Partial<Omit<FormFieldOptions, 'control'>>): void", "description": "Merge and apply options." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now (marks the field submitted) and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error (server, cross-field rule); cleared when the user types. null or '' clears it." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | string[]", "description": "Value for form serialization." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the control." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the value (or selected options) captured at creation and clear dirty/touched/submitted/custom-error state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove the chrome, listeners, registration, and subscription; restore the consumer's aria-describedby. The control stays in the host." }
+  ],
+  "events": [
+    { "name": "aui-input", "detail": "{ value: string | string[]; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "Native input event on the control." },
+    { "name": "aui-change", "detail": "{ value: string | string[]; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "Native change event on the control." }
+  ],
+  "contentAreas": [
+    { "name": "control", "description": "The consumer's native element, placed between the label and the help text." }
+  ],
+  "cssClasses": [
+    { "name": "aui-field aui-form-field", "description": "Host." },
+    { "name": "aui-form-field--invalid", "description": "Host modifier while a message is shown." },
+    { "name": "aui-field__label | __required | __description | __error", "description": "Shared field chrome." },
+    { "name": "aui-form-field__control", "description": "Added to the native control: AbsoluteUI control surface." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

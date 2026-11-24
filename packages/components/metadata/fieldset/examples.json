@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "component": "fieldset",
+  "examples": [
+    {
+      "id": "address",
+      "title": "Address group with a group error",
+      "language": "ts",
+      "code": "import { Fieldset } from '@absoluteui/components/fieldset';\nimport { TextInput } from '@absoluteui/components/text-input';\nimport { Button } from '@absoluteui/components/button';\n\nconst element = document.createElement('fieldset');\nconst streetHost = document.createElement('div');\nconst cityHost = document.createElement('div');\nelement.append(streetHost, cityHost);\nconst check = document.createElement('button');\ncheck.type = 'button';\ncheck.textContent = 'Check address';\nButton.enhance(check);\ndocument.body.append(element, check);\nconst street = TextInput.create(streetHost, { label: 'Street', autocomplete: 'address-line1' });\nconst city = TextInput.create(cityHost, { label: 'City', autocomplete: 'address-level2' });\nconst address = Fieldset.enhance(element, { legend: 'Delivery address', description: 'Where we send the order', required: true });\ncheck.addEventListener('click', () => {\n  const missing = street.value.trim() === '' || city.value.trim() === '';\n  address.update({ error: missing ? 'Enter a street and a city' : null });\n  if (missing) address.focus();\n});"
+    }
+  ]
+}

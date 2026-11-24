@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/line-chart",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiLineChart",
+      "description": "AbsoluteUI LineChart: `<aui-line-chart>`.\nTwo-way: `[(hiddenSeries)]`, `[(zoomRange)]`.",
+      "selector": "aui-line-chart",
+      "exportAs": [
+        "auiLineChart"
+      ],
+      "source": "generated",
+      "component": "line-chart",
+      "configKey": "lineChart",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (aria-describedby)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for values in tooltips, labels, the data table, the summary, and axis ticks (ticks use fixed fraction digits)."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat everywhere except axis ticks."
+        },
+        {
+          "name": "x",
+          "type": "readonly LineChartXValue[]",
+          "required": true,
+          "description": "Shared x values, one per point: strings (category axis), numbers (linear axis), or instants (time axis). Numbers and instants must be ascending."
+        },
+        {
+          "name": "series",
+          "type": "readonly ChartSeries[]",
+          "required": true,
+          "description": "Series: { id, label, values: (number | null)[], color?: 1-8 }. values has exactly one entry per x value; null, NaN, and infinities are gaps."
+        },
+        {
+          "name": "area",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Fill the area between each line and the zero baseline (includes zero in the domain)."
+        },
+        {
+          "name": "xType",
+          "type": "LineChartXType",
+          "required": false,
+          "description": "Axis type. Default: inferred from the first x value."
+        },
+        {
+          "name": "xAxis",
+          "type": "LineChartAxis",
+          "required": false,
+          "description": "X axis title and approximate tick count (2-20)."
+        },
+        {
+          "name": "yAxis",
+          "type": "LineChartYAxis",
+          "required": false,
+          "description": "Y axis title, tick count, fixed domain, and zero inclusion (default true with area)."
+        },
+        {
+          "name": "formatX",
+          "type": "((value: LineChartXValue, index: number) => string)",
+          "required": false,
+          "description": "Custom x text for tooltips, labels, the table, and the summary."
+        },
+        {
+          "name": "timeFormat",
+          "type": "Omit<DateTimeFormatOptions, \"timeZone\">",
+          "required": false,
+          "description": "Date format of time x values. Default: chosen from the data resolution (year, month, day, minute, second)."
+        },
+        {
+          "name": "zoom",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Zoom and pan along x: a Zoom toolbar (Zoom in, Zoom out, Reset zoom), +/= and - and 0 keys on a focused point, arrow keys past the window edge pan, Ctrl/Cmd + wheel, drag to pan a zoomed chart, Shift + drag to select a range. Turning it off resets the window."
+        },
+        {
+          "name": "annotations",
+          "type": "readonly ChartAnnotation[]",
+          "required": false,
+          "description": "Reference lines ({ type: 'line', axis: 'x' | 'y', value, label?, tone? }) and bands ({ type: 'band', axis, from, to, label?, tone? }); tone: 'neutral' | 'info' | 'success' | 'warning' | 'danger'. x values are category labels or indexes, numbers, or epoch ms (time axes); y values are numbers. Drawn under the marks (aria-hidden); listed in the accessible summary."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "auto: legend when there is more than one series (pie charts: always)."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table fallback with the exact data: behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Dash patterns and texture fills so series never differ by color alone. Off by default (plain colors); always on in forced colors. Turn it on when series are told apart by color alone (grouped or stacked series, multi-slice pies) and no labels carry the distinction (WCAG 1.4.1)."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+        },
+        {
+          "name": "markers",
+          "type": "LineChartMarkers",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Point markers: auto when points are at least 12 px apart; focus shows only the hovered or focused point. Isolated points always show a marker."
+        },
+        {
+          "name": "crosshair",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Vertical crosshair line (aria-hidden) at the hovered or focused x value."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number, date, and message locale."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "IANA timezone for time axes, tooltips, labels, and the table."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors the category/x axis, the value axis side, and Left/Right arrow keys."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Ids of series (or slices) hidden initially; update() replaces the hidden set."
+        },
+        {
+          "name": "zoomRange",
+          "type": "ChartZoomRange | null",
+          "change": "zoomRangeChange",
+          "description": "Visible x window { from, to } in data units (category index, number, or epoch ms for time axes); null shows everything. Clamped to the data and to at least two points. Applied without an aui-zoom event; use with zoom: true (the toolbar and keys need it)."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "seriesToggled",
+          "payload": "LineChartSeriesToggleDetail",
+          "event": "aui-series-toggle",
+          "description": "The user toggled a legend entry (pointer or keyboard). Not emitted for update() or setSeriesVisible()."
+        },
+        {
+          "name": "zoomed",
+          "payload": "ChartZoomDetail",
+          "event": "aui-zoom",
+          "description": "The user changed the visible window (toolbar, keys, Ctrl/Cmd + wheel, drag pan, Shift + drag selection). x is null when showing everything. Not emitted for the zoomRange option or when the window does not change."
+        },
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Show or hide a series (slice) programmatically; emits no event."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG chart as a named, described group (role=\"group\" with aria-roledescription) of role=\"img\" data points with roving focus; data table fallback (native table). Follows the WAI Complex Images tutorial (short name plus long description) and the roving tabindex technique of WAI-ARIA APG.",
+        "source": "packages/components/metadata/line-chart/accessibility.json"
+      },
+      "limitations": [
+        "x values are shared by all series; each series needs exactly one value per x value.",
+        "Straight line segments only (no curve smoothing).",
+        "Axis labels are sized by estimate (about 0.6 em per character, 1 em for wide characters), so unusual fonts may truncate earlier or later than needed.",
+        "The zoom window keeps at least two points visible; zoomRange is clamped to the data.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiLineChart } from '@absoluteui/angular/line-chart';\nimport type { ChartSeries } from '@absoluteui/components/line-chart';\n\n@Component({\n  selector: 'app-revenue',\n  imports: [AuiLineChart],\n  template: `<aui-line-chart label=\"Revenue\" [x]=\"months\" [series]=\"series\" (seriesToggled)=\"hidden = $event.hidden\"></aui-line-chart>`,\n})\nexport class RevenueComponent {\n  readonly months = ['Jan', 'Feb', 'Mar'];\n  readonly series: ChartSeries[] = [{ id: 'rev', label: 'Revenue', values: [120, 135, 150] }];\n  hidden: string[] = [];\n}"
+    }
+  ]
+}

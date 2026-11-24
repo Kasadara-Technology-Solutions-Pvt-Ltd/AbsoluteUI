@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="quote" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4.5 11.5h4a1 1 0 0 1 1 1V17a1 1 0 0 1-1 1H5.5a1 1 0 0 1-1-1v-5.5c0-3.3 1.3-5.5 4.5-6.5"/>
+      <path d="M14 11.5h4a1 1 0 0 1 1 1V17a1 1 0 0 1-1 1H15a1 1 0 0 1-1-1v-5.5c0-3.3 1.3-5.5 4.5-6.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M4 11h5a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 9 19H5.5A1.5 1.5 0 0 1 4 17.5z"/>
+      <polyline points="4.75 11.5 5.3 8.6 6.6 6.8 8.9 5.5" data-outline-width="2"/>
+      <path d="M13.5 11h5a1.5 1.5 0 0 1 1.5 1.5v5A1.5 1.5 0 0 1 18.5 19H15A1.5 1.5 0 0 1 13.5 17.5z"/>
+      <polyline points="14.25 11.5 14.8 8.6 16.1 6.8 18.4 5.5" data-outline-width="2"/>
+    </g>
+  </g>
+</svg>

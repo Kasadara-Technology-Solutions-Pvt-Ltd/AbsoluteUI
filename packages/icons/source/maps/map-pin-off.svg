@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="map-pin-off">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/>
+      <circle cx="12" cy="9.5" r="2.5"/>
+      <line x1="3" y1="3" x2="21" y2="21" data-knockout="5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M3 3l18 18"/>
+    </g>
+  </g>
+</svg>

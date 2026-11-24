@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "name": "skeleton",
+  "displayName": "Skeleton",
+  "category": "Feedback",
+  "package": "@absoluteui/components",
+  "import": "import { Skeleton } from '@absoluteui/components/skeleton';",
+  "styleImport": "@absoluteui/components/skeleton/style.css",
+  "purpose": "Decorative loading placeholders (text lines, rectangles, circles) hidden from assistive technology, with a static helper to mark the loading region aria-busy. Sizes are strictly validated CSS lengths written through the CSSOM.",
+  "whenToUse": [
+    "Reserving layout for content that is loading, to reduce layout shift.",
+    "Lists, cards, and profile headers whose shape is known in advance."
+  ],
+  "whenNotToUse": [
+    "As the only loading feedback for assistive technology: pair with a visually hidden status (Spinner).",
+    "Measurable progress: use ProgressBar.",
+    "Content whose shape is unknown."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core"
+  ],
+  "states": [
+    "pulse",
+    "static (animation none or reduced motion)"
+  ],
+  "responsive": "Width defaults to 100% of the container (circle: 2.5rem) and never exceeds it; lines use a em-based height.",
+  "rtl": "Logical properties; the shorter last text line ends at the inline end of its content.",
+  "theme": "Placeholders use color-active (distinct from page and surface backgrounds in every built-in theme), pulsing toward color-hover; radius-sm for lines and rectangles, radius-pill for circles. Forced-colors mode uses GrayText without animation.",
+  "timezone": "Not applicable.",
+  "security": "Only lengths matching ^\\d+(\\.\\d+)?(px|rem|em|%|ch)$ are accepted and are applied as custom properties through the CSSOM; no style attribute strings or CSS functions can be injected.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "Skeleton.create() with 100 lines",
+        "budget": "< 2 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "Up to 100 lines per instance."
+  },
+  "limitations": [
+    "The pulse is disabled automatically under prefers-reduced-motion and animation: none.",
+    "Only px, rem, em, %, and ch lengths are accepted."
+  ],
+  "unsupported": [
+    "CSS functions (calc, var, clamp) as sizes.",
+    "Wave/shimmer gradients."
+  ],
+  "antiPatterns": [
+    "Skeletons without aria-busy on the region and an announced status.",
+    "Skeletons that do not resemble the final layout.",
+    "Leaving skeletons in place after loading fails; show an error instead."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/skeleton: AuiSkeleton directive ([auiSkeleton]).",
+    "react": "@absoluteui/react/skeleton: AuiSkeleton component.",
+    "vue": "@absoluteui/vue/skeleton: AuiSkeleton component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

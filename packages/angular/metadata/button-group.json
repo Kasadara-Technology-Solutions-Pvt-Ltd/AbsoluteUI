@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/button-group",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiButtonGroup",
+      "description": "AbsoluteUI ButtonGroup: `<aui-button-group>`.",
+      "selector": "aui-button-group",
+      "exportAs": [
+        "auiButtonGroup"
+      ],
+      "source": "generated",
+      "component": "button-group",
+      "configKey": "buttonGroup",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the group (aria-label)."
+        },
+        {
+          "name": "size",
+          "type": "ButtonSize",
+          "required": false,
+          "description": "Size of the Buttons the group creates or enhances; defaults to the Button configuration."
+        },
+        {
+          "name": "buttons",
+          "type": "readonly ButtonGroupButton[]",
+          "required": false,
+          "description": "create() only: Buttons to render. Icon-only buttons need a label."
+        },
+        {
+          "name": "orientation",
+          "type": "ButtonGroupOrientation",
+          "required": false,
+          "default": "horizontal",
+          "configurable": true,
+          "description": "Layout direction."
+        },
+        {
+          "name": "attached",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Shared borders and no inner radii; false spaces the buttons with a gap and lets horizontal groups wrap."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "action",
+          "payload": "ButtonGroupActionDetail",
+          "event": "aui-action",
+          "description": "create() only: a button was activated. value defaults to the button index."
+        }
+      ],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Native buttons inside an element with role=group and an accessible name (WAI-ARIA group role). Not the APG Toolbar pattern.",
+        "source": "packages/components/metadata/button-group/accessibility.json"
+      },
+      "limitations": [
+        "Not a toolbar: there is no arrow-key roving focus. A Toolbar component is planned for that pattern.",
+        "Attached horizontal groups scroll instead of wrapping at narrow widths; buttons at the end may be off-screen until scrolled.",
+        "enhance() only considers direct child <button> elements."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiButtonGroup } from '@absoluteui/angular/button-group';\n\n@Component({\n  selector: 'app-pager',\n  imports: [AuiButtonGroup],\n  template: `<aui-button-group label=\"Pagination\" size=\"sm\" [buttons]=\"buttons\" (action)=\"go($event.value)\"></aui-button-group>`,\n})\nexport class PagerComponent {\n  readonly buttons = [\n    { icon: 'chevron-left', label: 'Previous page', value: 'prev' },\n    { icon: 'chevron-right', label: 'Next page', value: 'next' },\n  ];\n  go(direction: string): void {\n    void direction;\n  }\n}"
+    }
+  ]
+}

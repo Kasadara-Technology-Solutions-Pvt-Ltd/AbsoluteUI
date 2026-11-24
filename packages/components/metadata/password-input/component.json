@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "name": "password-input",
+  "displayName": "Password Input",
+  "category": "Authentication UI",
+  "package": "@absoluteui/components",
+  "import": "import { PasswordInput } from '@absoluteui/components/password-input';",
+  "styleImport": "@absoluteui/components/password-input/style.css",
+  "purpose": "Password field built on a native password <input>: label, help text, localized validation, a show/hide toggle (aria-pressed), autocomplete for password managers (current-password / new-password), an optional Caps Lock warning, and a clipboard policy. The value never appears in events, messages, or announcements. It is an input, not an authentication provider.",
+  "whenToUse": [
+    "Sign-in, sign-up, and change-password forms.",
+    "Any secret the user types and may want to check visually (show/hide)."
+  ],
+  "whenNotToUse": [
+    "One-time codes and PINs: use OTP Input.",
+    "Non-secret text: use Text Input.",
+    "As a replacement for server-side password policy or authentication."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "focus-visible",
+    "filled",
+    "revealed",
+    "caps lock on",
+    "disabled",
+    "read-only",
+    "required",
+    "invalid"
+  ],
+  "responsive": "Full width of its container; the toggle keeps a control-height square at the inline end.",
+  "rtl": "Logical properties: the toggle sits at the inline end in both directions.",
+  "theme": "Same control surface, border, focus, and error tokens as Text Input; the Caps Lock warning uses color-warning-fg with an icon. Forced-colors mode draws a Highlight outline on focus.",
+  "timezone": "Not applicable.",
+  "security": "The value is never included in events (details carry validity only), validation messages, or announcements. spellcheck is off (spelling services may send text off-device) and autocapitalize is none. autocomplete defaults to current-password so password managers work. The clipboard policy is a deterrent, not a security boundary; the default allows paste. Edge's built-in reveal control is hidden to avoid a duplicate toggle. Credential handling, hashing, and policy enforcement belong to the application and server. CSP-safe.",
+  "dataHandling": "The value lives only in the native input. No persistence, logging, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "PasswordInput.create, per instance (1,000 instances)",
+        "budget": "< 1 ms average in headless Chromium"
+      }
+    ],
+    "testedScale": "1,000 inputs on one page in the performance test."
+  },
+  "limitations": [
+    "Caps Lock state is known only after a key or mouse event in the field (browsers expose it through getModifierState).",
+    "Revealing shows the password on screen: shoulder surfing is the user's decision.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Rendering HTML in the label, help text, or messages.",
+    "Storing or remembering passwords (password managers do this)."
+  ],
+  "antiPatterns": [
+    "Blocking paste into password fields.",
+    "Putting the password in a validation message or analytics event.",
+    "Changing the toggle's accessible name together with aria-pressed."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/password-input: AuiPasswordInput directive ([auiPasswordInput]) with ControlValueAccessor (string) and Validator.",
+    "react": "@absoluteui/react/password-input: AuiPasswordInput component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/password-input: AuiPasswordInput component with v-model."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

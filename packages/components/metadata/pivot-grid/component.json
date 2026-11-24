@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "name": "pivot-grid",
+  "displayName": "Pivot Grid",
+  "category": "Data",
+  "package": "@absoluteui/components",
+  "import": "import { PivotGrid, PivotFieldList, type PivotField } from '@absoluteui/components/pivot-grid';",
+  "styleImport": "@absoluteui/components/pivot-grid/style.css",
+  "purpose": "Cross-tabulates records by row fields and column fields and aggregates value fields (sum, count, average, min, max, distinct count) into a real <table> with nested column headers (colspan/rowspan, scope col/colgroup), compact-form row groups (indented, with the group subtotal on the group row), column group subtotals, and grand totals. Groups expand and collapse by button; members sort by label or by a value column; any field filters by included members. Data comes from a PivotDataSource: `data` uses the in-memory engine (createLocalPivotSource), `dataSource` delegates aggregation to a server with the same query contract, loading groups lazily on expand with cancellable, timed-out requests. The layout is serializable (aui-layout-change). The same subpath exports PivotFieldList (drag, keyboard, or single-pointer editing of rows, columns, values, and filters, aggregate selects, member filters with search and paging), the local engine, and CSV export (toCsv, downloadCsv); toMatrix() hands the visible pivot to charts.",
+  "whenToUse": [
+    "Summarizing many records by two dimensions (region by quarter) with totals and drill-down.",
+    "Letting users explore a data set by choosing row, column, and value fields themselves (with PivotFieldList).",
+    "Server-side OLAP-style aggregation over data too large for the browser (dataSource, expandDepth 0)."
+  ],
+  "whenNotToUse": [
+    "Listing individual records with sorting and paging: use Data Table.",
+    "A single fixed summary that never changes shape: a Data Table over pre-aggregated rows is simpler.",
+    "Spreadsheet editing of cells or formulas."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["loading (aria-busy, 'Loading')", "loaded", "group loading (toggle aria-busy)", "expanded / collapsed groups", "sorted by label / by value", "filtered", "empty ('No data')", "no values ('Add a field to Values to see results.')", "load error with Retry", "virtual", "field list: field grabbed / dragging / filter panel open"],
+  "responsive": "The table sits in a focusable scroll region that scrolls in both directions (WCAG 1.4.10): column headers stick to the top (stickyHeader) and row headers stick to the inline start, so wide pivots stay readable at 320 px. The field list lays out its four areas in an auto-fit grid (minimum 12rem) that stacks on narrow screens; buttons and handles are touch-target-min squares.",
+  "rtl": "The table follows the document direction (row headers at the inline start, sticky at inline-start); the collapsed-group chevron points to the inline end. In the field list, Left/Right arrow keys move a grabbed field to the previous/next list in reading order (mirrored in RTL).",
+  "theme": "Header rows and the grand total row use color-surface-sunken; totals are semibold with a border-width-strong rule (not color alone). Sort icons use color-text-muted until active. Field entries use color-surface; a grabbed field and an active filter toggle use color-selected with color-selected-text and a border; the drop marker is color-focus-ring. Forced-colors mode uses Highlight/HighlightText for grabbed and filtered states.",
+  "timezone": "Not applicable: dates are grouped by the keys the field's value accessor returns (derive 'YYYY-MM' or years there, in the zone the application chooses).",
+  "security": "All labels, members, and values render through textContent; no HTML sinks. Layouts and data source answers are validated before use (PIVOT_GRID_OPTIONS, PIVOT_DATA_SOURCE), so saved layouts and server responses cannot inject structure. Styles are written through the CSSOM only (CSP-safe). CSV export escapes spreadsheet formula injection (OWASP CSV Injection) unless escapeFormulas is false. Data source requests carry an AbortSignal and time out (requestTimeoutMs).",
+  "dataHandling": "No persistence, network access, or telemetry of its own: the local engine aggregates in memory; with a dataSource the application's functions perform every request. Values never appear in error messages. Superseded and destroyed requests are aborted and their answers ignored.",
+  "performance": {
+    "budgets": [
+      { "metric": "Local engine: create to ready with 100,000 records (2 row fields, 1 column field, all expanded)", "budget": "< 600 ms in headless Chromium (e2e performance test)" },
+      { "metric": "Expanding a row group (local engine, 100,000 records)", "budget": "< 250 ms in headless Chromium (e2e performance test)" },
+      { "metric": "Virtual scroll step with 5,000 visible rows", "budget": "< 50 ms in headless Chromium (e2e performance test)" }
+    ],
+    "testedScale": "100,000 records and 5,000 visible rows (virtual) for the budgets; up to 100 visible value columns; 6 records in the behavior unit tests. Without virtual, more than about 1,000 visible rows slows rendering."
+  },
+  "limitations": [
+    "Row groups use the compact form only (subtotal on the group row); tabular or outline forms and subtotals below the group are not provided.",
+    "Columns are not virtualized: keep visible value columns to about 100 (collapse column groups).",
+    "A query returns every child of a requested group; groups with very many members are not paged (members() for filter lists is paged).",
+    "Value fields are aggregated with the six built-in aggregates; custom or calculated fields and percentage-of-total displays are not provided (compute them in the accessor or on the server).",
+    "Member filters are include lists; label or value conditions ('top 10', 'greater than') are not provided.",
+    "A field appears at most once in rows, columns, and filters together, and at most once in values.",
+    "Cells are not focusable one by one (not an ARIA grid); users Tab through expand and sort buttons and scroll the region.",
+    "The local engine reads `data` at query time; mutating the array needs reload().",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Editing cell values or write-back to the source.",
+    "Built-in pivot charts (use toMatrix() with Bar Chart or Line Chart).",
+    "MDX, XMLA, or other OLAP protocols (implement a PivotDataSource over them).",
+    "Drill-through to the underlying records."
+  ],
+  "antiPatterns": [
+    "Passing a new data array literal on every framework render: every change reloads; keep it stable.",
+    "Returning partial answers from a data source (missing totals or children): totals and headers then look empty.",
+    "Using a pivot with one row field and no aggregation instead of a Data Table.",
+    "Disabling escapeFormulas for CSV that users open in spreadsheets."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/pivot-grid: generated AuiPivotGrid<Row> directive ([auiPivotGrid], inputs mirror PivotGridOptions; outputs auiLayoutChange, auiLoadError; controllerSignal). Field list: @absoluteui/angular/pivot-field-list AuiPivotFieldList ([auiPivotFieldList], input grid = the AuiPivotGrid directive or a PivotGrid; output auiFieldMove).",
+    "react": "@absoluteui/react/pivot-grid: generated AuiPivotGrid<Row> (props = PivotGridOptions<Row> + onLayoutChange/onLoadError; ref receives the PivotGrid). Field list: @absoluteui/react/pivot-field-list AuiPivotFieldList (grid, label, memberPageSize, locale, onFieldMove).",
+    "vue": "@absoluteui/vue/pivot-grid: generated AuiPivotGrid (emits layoutChange, loadError; template ref exposes controller). Field list: @absoluteui/vue/pivot-field-list AuiPivotFieldList (:grid, label; emits fieldMove)."
+  },
+  "versionIntroduced": "0.5.0",
+  "deprecated": null
+}

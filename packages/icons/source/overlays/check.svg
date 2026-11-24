@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" data-id="check">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="5" cy="5" r="4"/>
+      <polyline points="3 5.2 4.4 6.6 7 3.9" data-outline-width="1.5"/>
+    </g>
+  </g>
+</svg>

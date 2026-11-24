@@ -1,0 +1,7 @@
+[
+  { "title": "Pattern masks", "text": "Digits, letters, alphanumerics, escapes, and custom tokens with transforms such as upper case." },
+  { "title": "Presets", "text": "Phone, IBAN, ZIP, and ISO date shapes ready to spread into the options." },
+  { "title": "Raw or formatted", "text": "value is the raw text, formattedValue adds the literals; submit either one." },
+  { "title": "Caret and paste", "text": "Paste fills the slots, Backspace skips literals, and the caret stays where you expect." },
+  { "title": "Screen-reader friendly", "text": "A generated format hint is read with the field; placeholders never enter the value." }
+]

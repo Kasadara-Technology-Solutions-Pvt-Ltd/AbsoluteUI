@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "component": "pivot-grid",
+  "pattern": "Data table with multi-level headers (WAI Tables tutorial: tables with multi-level headers, technique H43 headers/id), inside a focusable labelled scroll region. Not an ARIA grid: expand and sort buttons are native buttons in the Tab order. The field list is a group of labelled lists with toggle-button move handles (keyboard drag-and-drop pattern, as Sortable List and Dashboard Grid) and live-region announcements; member filters are disclosure panels with a native checkbox fieldset.",
+  "roles": [
+    { "element": "scroll region <div>", "role": "region (tabindex=0), named by the caption (aria-labelledby)" },
+    { "element": "<table> / <caption>", "role": "table (native) with its caption" },
+    { "element": "corner and column headers <th>", "role": "columnheader (scope=col; expanded groups scope=colgroup)" },
+    { "element": "row headers <th>", "role": "rowheader (scope=row)" },
+    { "element": "data cells <td>", "role": "cell, associated with every header through the headers attribute" },
+    { "element": "expand/collapse, sort, Retry <button>", "role": "button (native)" },
+    { "element": "virtual spacer rows", "role": "none (aria-hidden=true)" },
+    { "element": "field list host", "role": "group, named by aria-label" },
+    { "element": "field lists <ul> / entries <li>", "role": "list / listitem (native), each list named by its title (aria-labelledby)" },
+    { "element": "move handle, filter toggle, remove <button>", "role": "button (native); the handle is a toggle (aria-pressed), the filter toggle a disclosure (aria-expanded, aria-controls)" },
+    { "element": "aggregate <select>", "role": "combobox (native select)" },
+    { "element": "filter panel", "role": "search input (type=search), fieldset with a visually hidden legend and native checkboxes, role=status count, buttons" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "scroll region", "value": "Caption id" },
+    { "attribute": "headers", "element": "data cells", "value": "Ids of the column group headers, the member or total header, the value header, and the row header" },
+    { "attribute": "aria-expanded", "element": "expand/collapse buttons", "value": "true / false" },
+    { "attribute": "aria-busy", "element": "table / expand button", "value": "true while the data source request runs" },
+    { "attribute": "aria-sort", "element": "corner header / value header", "value": "ascending or descending on the sorted header (the corner is ascending by default)" },
+    { "attribute": "aria-rowcount / aria-rowindex", "element": "table / header and body rows", "value": "Virtual mode only: total rows (header rows included) and each rendered row's position" },
+    { "attribute": "visually hidden text", "element": "nested row headers", "value": "The group path ('North, '), so a row header names its group even when the group row is scrolled away" },
+    { "attribute": "aria-label", "element": "move handle / aggregate select / remove / search", "value": "Localized 'Move {field}', 'Aggregate of {field}', 'Remove {field}', 'Search {field}'" },
+    { "attribute": "aria-describedby", "element": "move handles", "value": "The visible instructions paragraph" },
+    { "attribute": "aria-pressed", "element": "move handle", "value": "true while the field is grabbed (keyboard or single pointer)" },
+    { "attribute": "live region", "element": "shared live regions", "value": "Assertive: grabbed, moved, dropped, cancelled, not allowed, load failed. Polite: sorted by {column}, sorting cleared." }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Pivot Grid", "action": "Moves to the scroll region (arrow keys scroll it), then through the corner sort button, column expand buttons, value sort buttons, and row expand buttons in reading order." },
+    { "key": "Enter / Space", "context": "Expand/collapse button", "action": "Toggles the group; the first expansion loads its children (aria-busy). Focus stays on the button (restored after re-rendering, also in virtual mode)." },
+    { "key": "Enter / Space", "context": "Corner sort button", "action": "Toggles the row member order between ascending and descending labels; announces 'Sorted by {column}, ...'." },
+    { "key": "Enter / Space", "context": "Value sort button", "action": "Sorts rows within each group by that column: descending, then ascending, then off (label order); announces the sort." },
+    { "key": "Arrow keys, Page Up/Down, Home/End", "context": "Scroll region focused", "action": "Scroll the table (native scrolling)." },
+    { "key": "Enter / Space", "context": "Field list move handle", "action": "Grabs the field (aria-pressed=true) and announces '{field} grabbed. {area}, position {position} of {count}.'; pressed again drops it." },
+    { "key": "ArrowUp / ArrowDown", "context": "Field grabbed", "action": "Moves it up or down within its list; announces '{area}, position {position} of {count}.'" },
+    { "key": "ArrowLeft / ArrowRight", "context": "Field grabbed", "action": "Moves it to the end of the previous or next list (Fields, Filters, Columns, Rows, Values; mirrored in RTL), skipping lists the field is not allowed in." },
+    { "key": "Home / End", "context": "Field grabbed", "action": "Moves it to the start or end of its list." },
+    { "key": "Escape", "context": "Field grabbed", "action": "Cancels: the lists return to the layout; announces 'Move cancelled. {field} is back in {area}.'" },
+    { "key": "Tab", "context": "Field grabbed", "action": "Drops the field and moves focus on (leaving the field list also drops)." },
+    { "key": "Enter / Space", "context": "Filter toggle", "action": "Opens or closes the member filter panel (focus moves to its search field)." },
+    { "key": "Escape", "context": "Inside a filter panel", "action": "Closes the panel without applying and returns focus to the filter toggle." }
+  ],
+  "focus": "The scroll region is a tab stop with a focus ring. Expand and sort buttons keep focus after the table re-renders (and in virtual mode the focused row stays rendered). During a keyboard or single-pointer move the grabbed field's handle keeps focus (the lists re-render around it). Opening a filter panel focuses its search field; Apply, Cancel, and Escape return focus to the filter toggle.",
+  "wcag": ["1.3.1", "1.3.2", "1.4.1", "1.4.10", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "2.5.7", "2.5.8", "4.1.2", "4.1.3"],
+  "notes": [
+    "Multi-level headers are associated with every data cell through headers/id (H43), including column groups, totals, and value headers.",
+    "Totals differ by weight and a strong rule, not by color alone (1.4.1).",
+    "Moving fields never requires dragging (2.5.7): keyboard grab and arrow keys, or click the handle and then click the target list.",
+    "The scroll region is keyboard scrollable and headers stick, so content reflows at 320 px without loss (1.4.10).",
+    "Loading and error states are text in the table body; aria-busy marks the table while loading."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Screen readers differ in how much of a long headers list they read for each cell; very deep column nesting produces long announcements.",
+    "Pointer drags in the field list are not announced; keyboard and single-pointer moves are.",
+    "In virtual mode, table navigation commands of screen readers see only the rendered rows (aria-rowcount gives the total)."
+  ]
+}

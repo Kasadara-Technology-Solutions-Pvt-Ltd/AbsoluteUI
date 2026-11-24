@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/fieldset",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiFieldset",
+      "description": "AbsoluteUI Fieldset: `<fieldset auiFieldset legend=\"Address\">...controls...</fieldset>`.\nEnhances the native fieldset in place with the legend, help text, required marker, and a\ngroup error; the projected controls stay Angular-managed. Disabled is the native attribute.",
+      "selector": "fieldset[auiFieldset]",
+      "exportAs": [
+        "auiFieldset"
+      ],
+      "source": "hand-written",
+      "component": "fieldset",
+      "configKey": "fieldset",
+      "inputs": [
+        {
+          "name": "legend",
+          "type": "string",
+          "required": true,
+          "description": "Visible legend; the group's accessible name."
+        },
+        {
+          "name": "hideLegend",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the legend (it stays the accessible name)."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text for the group, referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Required marker; '(required)' is added to the spoken legend."
+        },
+        {
+          "name": "error",
+          "type": "string | null",
+          "required": false,
+          "description": "Group-level error message; empty or null hides it."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the required text."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<FieldsetIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Native fieldset and legend (HTML grouping): the legend names the group; help and the group error are referenced by aria-describedby.",
+        "source": "packages/components/metadata/fieldset/accessibility.json"
+      },
+      "limitations": [
+        "The group error is set by the application (for example from Form validation); Fieldset does not validate its controls.",
+        "Native disabled disables native controls inside; AbsoluteUI controls inside keep their own disabled option in sync only through their native elements."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiFieldset } from '@absoluteui/angular/fieldset';\nimport { AuiTextInput } from '@absoluteui/angular/text-input';\n\n@Component({\n  selector: 'app-address',\n  imports: [AuiFieldset, AuiTextInput],\n  template: `\n    <fieldset auiFieldset legend=\"Delivery address\" [required]=\"true\" [error]=\"error\">\n      <aui-text-input label=\"Street\" autocomplete=\"address-line1\"></aui-text-input>\n      <aui-text-input label=\"City\" autocomplete=\"address-level2\"></aui-text-input>\n    </fieldset>`,\n})\nexport class AddressComponent {\n  error: string | null = null;\n}"
+    }
+  ]
+}

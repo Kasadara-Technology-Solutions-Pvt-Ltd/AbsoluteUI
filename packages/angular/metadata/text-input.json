@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/text-input",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiTextInput",
+      "description": "AbsoluteUI TextInput: `<aui-text-input>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-text-input",
+      "exportAs": [
+        "auiTextInput"
+      ],
+      "source": "generated",
+      "component": "text-input",
+      "configKey": "textInput",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "string"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "type",
+          "type": "TextInputType",
+          "required": false,
+          "default": "text",
+          "description": "Native input type. email and url add type validation."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Supplementary hint; never replaces the label."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Empty value is invalid; shows the required indicator."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the input."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Value is focusable and submitted but not editable."
+        },
+        {
+          "name": "minLength",
+          "type": "number",
+          "required": false,
+          "description": "Minimum length in code points."
+        },
+        {
+          "name": "maxLength",
+          "type": "number",
+          "required": false,
+          "description": "Maximum length in code points (validated, not truncated)."
+        },
+        {
+          "name": "pattern",
+          "type": "string",
+          "required": false,
+          "description": "HTML pattern semantics (anchored, v flag)."
+        },
+        {
+          "name": "showCounter",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show remaining/over characters; requires maxLength."
+        },
+        {
+          "name": "autocomplete",
+          "type": "string",
+          "required": false,
+          "description": "Native autocomplete token. Password default: current-password."
+        },
+        {
+          "name": "inputMode",
+          "type": "\"none\" | \"text\" | \"numeric\" | \"tel\" | \"decimal\" | \"search\" | \"email\" | \"url\"",
+          "required": false,
+          "description": "Virtual keyboard hint."
+        },
+        {
+          "name": "spellcheck",
+          "type": "boolean",
+          "required": false,
+          "description": "Default true for type text, false otherwise."
+        },
+        {
+          "name": "prefix",
+          "type": "string",
+          "required": false,
+          "description": "Text addon at the inline start."
+        },
+        {
+          "name": "suffix",
+          "type": "string",
+          "required": false,
+          "description": "Text addon at the inline end."
+        },
+        {
+          "name": "revealable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Password inputs: show a reveal/hide toggle button."
+        },
+        {
+          "name": "clipboard",
+          "type": "ClipboardPolicy",
+          "required": false,
+          "default": "allow",
+          "description": "Clipboard policy for sensitive values."
+        },
+        {
+          "name": "validate",
+          "type": "((value: string) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<TextInputIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message and number-formatting locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valueInput",
+          "payload": "TextInputValueDetail",
+          "event": "aui-input",
+          "description": "User edited the value."
+        },
+        {
+          "name": "changed",
+          "payload": "TextInputValueDetail",
+          "event": "aui-change",
+          "description": "User committed the value (native change)."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user edits."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | undefined",
+          "description": "Value for form serialization."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the input."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Native <input> with a <label for> association (HTML).",
+        "source": "packages/components/metadata/text-input/accessibility.json"
+      },
+      "limitations": [
+        "`maxLength` is validated, not enforced by truncation: users can paste long text and correct it (GOV.UK character-count pattern).",
+        "Lengths are counted in Unicode code points; grapheme clusters such as flag emoji count as more than one.",
+        "The clipboard policy is a deterrent, not a security boundary: browser extensions and developer tools can still read the value.",
+        "Input masking (phone, card numbers) is not available."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { AuiTextInput } from '@absoluteui/angular/text-input';\n\n@Component({\n  selector: 'app-profile',\n  imports: [ReactiveFormsModule, AuiTextInput],\n  template: `<aui-text-input label=\"Email\" type=\"email\" [required]=\"true\" [formControl]=\"email\"></aui-text-input>`,\n})\nexport class ProfileComponent {\n  readonly email = new FormControl('', { nonNullable: true, validators: [Validators.required] });\n}"
+    }
+  ]
+}

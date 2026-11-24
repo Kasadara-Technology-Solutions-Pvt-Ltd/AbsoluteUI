@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "tree-select",
+  "examples": [
+    {
+      "id": "department",
+      "title": "Required department in a form",
+      "language": "ts",
+      "code": "import { TreeSelect, type TreeSelectChangeDetail } from '@absoluteui/components/tree-select';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst field = TreeSelect.create(host, {\n  label: 'Department',\n  name: 'department',\n  required: true,\n  placeholder: 'Choose a department',\n  nodes: [\n    { id: 'eng', label: 'Engineering', children: [\n      { id: 'eng-platform', label: 'Platform' },\n      { id: 'eng-web', label: 'Web' },\n    ] },\n    { id: 'ops', label: 'Operations', children: [{ id: 'ops-facilities', label: 'Facilities' }] },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<TreeSelectChangeDetail>).detail;\n  host.dataset.department = value[0] ?? '';\n});\nfield.reportValidity();"
+    },
+    {
+      "id": "locations",
+      "title": "Several locations with tri-state checkboxes and lazy children",
+      "language": "ts",
+      "code": "import { TreeSelect, type TreeNode } from '@absoluteui/components/tree-select';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nTreeSelect.create(host, {\n  label: 'Locations',\n  mode: 'multiple',\n  name: 'locations',\n  value: ['berlin'],\n  valueLabels: { berlin: 'Berlin' },\n  nodes: [\n    { id: 'emea', label: 'Europe', hasChildren: true },\n    { id: 'apac', label: 'Asia Pacific', hasChildren: true },\n  ],\n  loadChildren: async (node, { signal }) => {\n    const res = await fetch(`/api/locations?parent=${encodeURIComponent(node.id)}`, { signal });\n    return (await res.json()) as TreeNode[];\n  },\n});"
+    }
+  ]
+}

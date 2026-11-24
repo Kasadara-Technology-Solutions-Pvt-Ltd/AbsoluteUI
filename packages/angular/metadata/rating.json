@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/rating",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiRating",
+      "description": "AbsoluteUI Rating: `<aui-rating>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-rating",
+      "exportAs": [
+        "auiRating"
+      ],
+      "source": "generated",
+      "component": "rating",
+      "configKey": "rating",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "RatingValue"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label (required accessible name)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text, referenced by the control."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "description": "Number of symbols, 1 to 10."
+        },
+        {
+          "name": "allowHalf",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Allow half steps."
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Choosing the current value again, Delete, Backspace, or 0 clears the rating."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "A rating must be given."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable the control."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Focusable and announced, but not changeable."
+        },
+        {
+          "name": "display",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Non-interactive display (role=img with the value text)."
+        },
+        {
+          "name": "valueText",
+          "type": "((value: number, max: number) => string)",
+          "required": false,
+          "description": "Full value text; default '{value} of {max}'."
+        },
+        {
+          "name": "labels",
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Visible caption per whole step, such as 'Good'."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name (hidden input; empty when no rating)."
+        },
+        {
+          "name": "validate",
+          "type": "((value: RatingValue) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<RatingIcons>",
+          "required": false,
+          "description": "Scale symbol (item) and validation icon (error)."
+        },
+        {
+          "name": "size",
+          "type": "RatingSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Symbol size: 'sm', 'md', or 'lg'."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages appear."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the value text and messages."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "RatingValue",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "RatingValueDetail",
+          "event": "aui-change",
+          "description": "The user changed the score: { value, validity }."
+        },
+        {
+          "name": "hovered",
+          "payload": "RatingHoverDetail",
+          "event": "aui-hover",
+          "description": "The pointer previews a value (null when it leaves): { value }."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "Show or clear an external error."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the control."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear the validation state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Slider: one focusable role=slider with aria-valuenow, aria-valuemin (0 when clearable), aria-valuemax, and aria-valuetext such as '3.5 of 5'. Chosen over the radio group pattern because half steps and clearing are one value on a range and the control is a single tab stop. Display mode is role=img named by the label and the value text.",
+        "source": "packages/components/metadata/rating/accessibility.json"
+      },
+      "limitations": [
+        "At most 10 symbols.",
+        "Half steps are the finest granularity."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { RatingValue } from '@absoluteui/components/rating';\nimport { AuiRating } from '@absoluteui/angular/rating';\n\n@Component({\n  selector: 'app-review-score',\n  imports: [AuiRating],\n  template: `<aui-rating label=\"Overall performance\" [allowHalf]=\"true\" [(value)]=\"score\"></aui-rating>`,\n})\nexport class ReviewScoreComponent {\n  score: RatingValue = 3.5;\n}"
+    }
+  ]
+}

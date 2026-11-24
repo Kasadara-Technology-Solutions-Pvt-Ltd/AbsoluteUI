@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "component": "tooltip",
+  "factory": { "name": "Tooltip.create", "signature": "Tooltip.create(trigger: HTMLElement, options: TooltipOptions): Tooltip" },
+  "configKey": "tooltip",
+  "options": [
+    { "name": "content", "type": "string", "required": true, "globallyConfigurable": false, "description": "Tooltip text (text only)." },
+    { "name": "relation", "type": "'description' | 'label'", "default": "description", "required": false, "globallyConfigurable": false, "description": "Trigger gets aria-describedby ('description') or aria-labelledby ('label', for icon-only controls)." },
+    { "name": "placement", "type": "Placement", "default": "top", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Preferred side and logical alignment; flips and shifts to fit." },
+    { "name": "showDelay", "type": "integer (0..5000)", "default": 500, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Hover delay before showing, ms. Keyboard focus shows immediately." },
+    { "name": "hideDelay", "type": "integer (0..5000)", "default": 100, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Delay after the pointer leaves the trigger and tooltip before hiding, ms." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Resolves logical start/end placements." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLDivElement", "description": "The tooltip (div.aui-tooltip[role=tooltip])." },
+    { "name": "trigger", "type": "HTMLElement", "description": "The trigger element." },
+    { "name": "isVisible", "type": "boolean", "description": "Whether the tooltip is visible." },
+    { "name": "options", "type": "Readonly<TooltipOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "show", "signature": "show(): void", "description": "Show immediately (hides any other visible tooltip)." },
+    { "name": "hide", "signature": "hide(): void", "description": "Hide immediately." },
+    { "name": "update", "signature": "update(options: Partial<TooltipOptions>): void", "description": "Merge and apply options (content, relation, placement, delays)." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Hide; remove the element, the trigger ARIA reference, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "After the tooltip became visible (dispatched on the tooltip element)." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "After the tooltip was hidden." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-tooltip", "description": "Tooltip element (manual popover, top layer)." },
+    { "name": "aui-tooltip--static", "description": "Set when animation is disabled globally." }
+  ],
+  "iconSlots": []
+}

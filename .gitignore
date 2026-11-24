@@ -1,0 +1,54 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+*.tgz
+packages/*/LICENSE
+packages/*/NOTICE
+packages/*/SECURITY.md
+apps/theme-designer/.out/
+tests/e2e/.out/
+apps/site/dist/
+apps/site/.astro/
+apps/site/public/examples/
+apps/site/src/generated/
+apps/site/src/content/docs/components/
+apps/site/src/content/docs/api/
+apps/site/src/content/docs/quality/
+apps/site/src/content/docs/angular/
+apps/site/public/images/
+apps/site/public/.well-known/
+apps/demo-hrms/.env
+apps/demo-hrms/.out/
+apps/preview/.out/
+
+# Source archives in artifacts/ (the extracted logos are tracked).
+artifacts/*.zip
+apps/marketing/dist/
+apps/marketing/.astro/
+apps/marketing/public/frames/
+apps/marketing/public/reports/
+apps/marketing/public/.well-known/
+apps/marketing/src/generated/
+apps/pilot-angular/.angular/
+
+# Root dot folders: tool state, caches, private source maps, local Claude Code settings and worktrees.
+/.angular/
+/.cache/
+/.claude/
+/.private-sourcemaps/
+/.vitest/
+
+# Finished plans, handovers, and research, kept locally only (moved out of docs/).
+/obsolete/
+
+# Local, OS, and editor files.
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

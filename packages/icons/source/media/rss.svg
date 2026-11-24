@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="rss">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 12a7 7 0 0 1 7 7"/>
+      <path d="M5 5.5a13.5 13.5 0 0 1 13.5 13.5"/>
+      <circle cx="5" cy="19" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <polyline points="5 12 6.1 12.09 7.16 12.34 8.18 12.76 9.11 13.34 9.95 14.05 10.66 14.89 11.24 15.82 11.66 16.84 11.91 17.9 12 19" data-outline-width="3"/>
+      <polyline points="5 5.5 6.32 5.57 7.63 5.76 8.92 6.08 10.17 6.53 11.36 7.09 12.5 7.78 13.56 8.56 14.55 9.45 15.44 10.44 16.22 11.5 16.91 12.64 17.47 13.83 17.92 15.08 18.24 16.37 18.43 17.68 18.5 19" data-outline-width="3"/>
+      <circle cx="5" cy="19" r="2"/>
+    </g>
+  </g>
+</svg>

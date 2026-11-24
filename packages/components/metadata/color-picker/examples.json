@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "color-picker",
+  "examples": [
+    {
+      "id": "brand-color",
+      "title": "Popup with presets and a contrast hint",
+      "language": "ts",
+      "code": "import { ColorPicker, type ColorPickerValueDetail } from '@absoluteui/components/color-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nColorPicker.create(host, {\n  label: 'Brand color',\n  name: 'brand',\n  value: '#2563eb',\n  required: true,\n  contrastWith: '#ffffff',\n  presets: [\n    { value: '#2563eb', label: 'Blue' },\n    { value: '#16a34a', label: 'Green' },\n    { value: '#dc2626', label: 'Red' },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<ColorPickerValueDetail>).detail;\n  if (value !== null) document.documentElement.style.setProperty('--brand', value);\n});"
+    },
+    {
+      "id": "inline-alpha",
+      "title": "Inline with opacity and recent colors",
+      "language": "ts",
+      "code": "import { ColorPicker } from '@absoluteui/components/color-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst recent: string[] = ['#0f172a', '#f59e0b80'];\nconst picker = ColorPicker.create(host, { label: 'Overlay', mode: 'inline', alpha: true, value: '#0f172acc', recent, format: 'rgb' });\nhost.addEventListener('aui-change', () => {\n  const value = picker.value;\n  if (value !== null && !recent.includes(value)) {\n    recent.unshift(value);\n    picker.update({ recent: recent.slice(0, 8) });\n  }\n});"
+    }
+  ]
+}

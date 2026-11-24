@@ -1,0 +1,6 @@
+[
+  { "title": "Explain and guide", "text": "A title, a description, and up to two actions that say what to do next." },
+  { "title": "Fits anywhere", "text": "Three sizes for table cells, panels, and pages; the title can be plain text inside tables." },
+  { "title": "Heading you choose", "text": "Set the heading level to fit the page outline, or none at all." },
+  { "title": "Announced when live", "text": "With live, a search that matches nothing is announced politely to screen readers." }
+]

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "inline-message",
+  "displayName": "Inline Message",
+  "category": "Feedback",
+  "package": "@absoluteui/components",
+  "import": "import { InlineMessage } from '@absoluteui/components/inline-message';",
+  "styleImport": "@absoluteui/components/inline-message/style.css",
+  "purpose": "Compact one-line status shown next to the content it describes (for example 'Saved 2 minutes ago' or 'Offline'), with a tone icon and a visually hidden localized tone prefix. Static by default; opt-in live role for status that changes.",
+  "whenToUse": [
+    "Short status beside a heading, toolbar, card, or value: save state, connection state, sync state.",
+    "Status that changes while the user works, with live set to 'polite'."
+  ],
+  "whenNotToUse": [
+    "Messages that need a title, actions, or dismissal: use Alert.",
+    "Transient confirmations: use Toast.",
+    "Field validation errors: use the field's own error message or Validation Message."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["info", "success", "warning", "error", "live polite", "live assertive"],
+  "responsive": "Inline-flex pill limited to its container width; long text wraps (overflow-wrap: anywhere).",
+  "rtl": "Logical properties: the icon sits at the inline start in both directions.",
+  "theme": "Tone pairs color-{tone}-subtle background with a color-{tone}-fg icon; text uses color-text (pairs in the contrast gate). Forced-colors mode adds a CanvasText border and icon.",
+  "timezone": "Not applicable. Relative times such as 'Saved 2 minutes ago' are formatted by the consumer.",
+  "security": "Message is rendered with textContent; never parsed as HTML. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "InlineMessage.create, per instance", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "Unit-tested per instance; not data-driven."
+  },
+  "limitations": [
+    "Live roles only announce changes made after the live region exists; set live when creating the message and change it with update().",
+    "Text only: no links or rich content."
+  ],
+  "unsupported": [
+    "Rendering HTML or Nodes as the message.",
+    "Actions or dismissal (use Alert)."
+  ],
+  "antiPatterns": [
+    "Updating a live inline message on every keystroke or timer tick (announcement spam).",
+    "Conveying tone by color alone (keep the icon and tone prefix)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/inline-message: AuiInlineMessage directive ([auiInlineMessage]).",
+    "react": "@absoluteui/react/inline-message: AuiInlineMessage component.",
+    "vue": "@absoluteui/vue/inline-message: AuiInlineMessage component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

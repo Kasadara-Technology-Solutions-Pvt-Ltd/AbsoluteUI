@@ -1,0 +1,7 @@
+[
+  { "title": "Structured mentions", "text": "The value keeps each mention as { id, label, start, end }, and the offsets follow every edit." },
+  { "title": "Async and abortable", "text": "Debounced provider calls with an AbortSignal per query; stale answers are never shown." },
+  { "title": "Several triggers", "text": "@ for people, # for tags, or any character with its own provider." },
+  { "title": "Plain text only", "text": "No HTML or contenteditable: the text is stored and rendered as text." },
+  { "title": "Announced", "text": "Result counts, no matches, and inserted mentions are announced to screen readers." }
+]

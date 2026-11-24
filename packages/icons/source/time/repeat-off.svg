@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="repeat-off">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M17 3l3 3-3 3"/>
+      <path d="M20 6H8.5A4.5 4.5 0 0 0 4 10.5V11"/>
+      <path d="M7 21l-3-3 3-3"/>
+      <path d="M4 18h11.5a4.5 4.5 0 0 0 4.5-4.5V13"/>
+      <line x1="3" y1="3" x2="21" y2="21" data-knockout="5"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <path d="M3 3l18 18"/>
+    </g>
+  </g>
+</svg>

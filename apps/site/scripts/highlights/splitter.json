@@ -1,0 +1,7 @@
+[
+  { "title": "APG window splitter", "text": "Focusable separators with values, arrow keys, Home and End, and Enter to collapse." },
+  { "title": "Pixels or percent", "text": "Initial, minimum, and maximum sizes in pixels or percentages, kept on resize." },
+  { "title": "Collapsible panes", "text": "Collapse with Enter or by dragging past half the minimum; restore to the previous size." },
+  { "title": "Nested and RTL", "text": "Horizontal and vertical splitters nest; horizontal ones mirror in right-to-left layouts." },
+  { "title": "You own persistence", "text": "aui-change reports the sizes; pass them back as sizes. Nothing is stored by the component." }
+]

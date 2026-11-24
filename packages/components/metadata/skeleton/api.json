@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "component": "skeleton",
+  "factory": {
+    "name": "Skeleton.create",
+    "signature": "Skeleton.create(host: HTMLElement, options?: SkeletonOptions): Skeleton"
+  },
+  "configKey": "skeleton",
+  "options": [
+    {
+      "name": "shape",
+      "type": "'text' | 'rect' | 'circle'",
+      "default": "text",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Placeholder shape."
+    },
+    {
+      "name": "lines",
+      "type": "number",
+      "default": 3,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Text lines (integer 1..100); the last of several lines is 60% wide."
+    },
+    {
+      "name": "width",
+      "type": "string | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "CSS length (px, rem, em, %, ch). null restores the default."
+    },
+    {
+      "name": "height",
+      "type": "string | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "CSS length (px, rem, em, %, ch); per line for text. null restores the default."
+    },
+    {
+      "name": "animation",
+      "type": "'pulse' | 'none'",
+      "default": "pulse",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Pulse animation; always none under reduced motion."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The aria-hidden host."
+    }
+  ],
+  "methods": [
+    {
+      "name": "Skeleton.markBusy",
+      "signature": "Skeleton.markBusy(container: HTMLElement, busy: boolean): void",
+      "description": "Set or remove aria-busy=\"true\" on the loading region."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<SkeletonOptions>): void",
+      "description": "Merge and apply options."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove placeholders, attributes, custom properties, and subscriptions."
+    }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-skeleton",
+      "description": "Host (aria-hidden)."
+    },
+    {
+      "name": "aui-skeleton--text | --rect | --circle",
+      "description": "Shape modifiers."
+    },
+    {
+      "name": "aui-skeleton--pulse | --none",
+      "description": "Animation modifiers."
+    },
+    {
+      "name": "aui-skeleton__line",
+      "description": "Text line placeholder."
+    },
+    {
+      "name": "aui-skeleton__line--last",
+      "description": "Shorter last line (60%)."
+    },
+    {
+      "name": "aui-skeleton__block",
+      "description": "Rectangle or circle placeholder."
+    }
+  ],
+  "iconSlots": []
+}

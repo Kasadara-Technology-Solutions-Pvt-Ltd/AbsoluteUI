@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "form-field",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Label and validate a native input",
+      "language": "ts",
+      "code": "import { FormField } from '@absoluteui/components/form-field';\n\nconst control = document.createElement('input');\ncontrol.name = 'zip';\ncontrol.inputMode = 'numeric';\ncontrol.autocomplete = 'postal-code';\ncontrol.pattern = '[0-9]{5}';\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst zip = FormField.create(host, { label: 'ZIP code', control, required: true, description: 'Five digits' });\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(zip.validity.valid);\n});"
+    },
+    {
+      "id": "select",
+      "title": "Native select and textarea with consumer validation",
+      "language": "ts",
+      "code": "import { FormField, type FormFieldChangeDetail } from '@absoluteui/components/form-field';\n\nconst topic = document.createElement('select');\ntopic.name = 'topic';\ntopic.add(new Option('Choose a topic', ''));\ntopic.add(new Option('Billing', 'billing'));\ntopic.add(new Option('Technical support', 'support'));\nconst topicHost = document.createElement('div');\ndocument.body.append(topicHost);\nFormField.create(topicHost, { label: 'Topic', control: topic, required: true });\n\nconst details = document.createElement('textarea');\ndetails.name = 'details';\ndetails.maxLength = 500;\nconst detailsHost = document.createElement('div');\ndocument.body.append(detailsHost);\nFormField.create(detailsHost, {\n  label: 'Details',\n  control: details,\n  validate: (value) => (typeof value === 'string' && /https?:\\/\\//.test(value) ? 'Remove links from your message.' : null),\n});\ndetailsHost.addEventListener('aui-input', (event) => {\n  const { validity } = (event as CustomEvent<FormFieldChangeDetail>).detail;\n  detailsHost.dataset.valid = String(validity.valid);\n});"
+    },
+    {
+      "id": "existing-markup",
+      "title": "Enhance server-rendered markup and refresh after programmatic changes",
+      "language": "ts",
+      "code": "import { FormField } from '@absoluteui/components/form-field';\n\nconst host = document.querySelector<HTMLElement>('#quantity-field');\nconst control = host?.querySelector<HTMLInputElement>('input[type=\"number\"]');\nif (host && control) {\n  const quantity = FormField.create(host, { label: 'Quantity', control });\n  // Native attributes are the constraints; re-read them after changing them in code.\n  control.max = '10';\n  control.value = '12';\n  quantity.refresh();\n  quantity.reportValidity();\n}"
+    },
+    {
+      "id": "global-config",
+      "title": "Show messages on first input (Mode B)",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\nimport '@absoluteui/components/form-field';\n\nconfigureAbsoluteUI({ components: { formField: { validationTiming: 'input' } } });"
+    }
+  ]
+}

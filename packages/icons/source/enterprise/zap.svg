@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="zap">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M13 2.5L4.5 13.5H11l-1 8 8.5-11H12z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M13 2.5L4.5 13.5H11l-1 8 8.5-11H12z" transform="translate(11.5 12) scale(1.06) translate(-11.5 -12)"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M13 2.5L4.5 13.5H11l-1 8 8.5-11H12z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M13 2.5L4.5 13.5H11l-1 8 8.5-11H12z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.45">
+      <path d="M13 2.5L4.5 13.5H11l-1 8 8.5-11H12z"/>
+    </g>
+    <g data-layer="base" data-role="warning" data-paint="stroke">
+      <path d="M13 2.5L4.5 13.5H11l-1 8 8.5-11H12z"/>
+    </g>
+  </g>
+</svg>

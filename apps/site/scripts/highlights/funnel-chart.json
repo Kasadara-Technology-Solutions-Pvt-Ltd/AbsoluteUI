@@ -1,0 +1,6 @@
+[
+  { "title": "Stage widths", "text": "Each stage bar is proportional to its value, joined by connectors." },
+  { "title": "Conversion rates", "text": "Shows conversion from the previous stage beside each step." },
+  { "title": "Keyboard stages", "text": "One tab stop; names read value and conversion from the first and previous stage." },
+  { "title": "Data table fallback", "text": "A summary of overall conversion and the largest drop, plus a table." }
+]

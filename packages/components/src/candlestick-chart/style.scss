@@ -1,0 +1,94 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-interaction;
+
+  // Direction never depends on color alone: rising candles are hollow, falling ones filled.
+  .aui-candlestick-chart__candle,
+  .aui-candlestick-chart__bar {
+    stroke-width: 1.25;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .aui-candlestick-chart__candle--up {
+    fill: aui.token('color-surface');
+    stroke: aui.ctoken('candlestick-chart', 'up-color');
+  }
+
+  .aui-candlestick-chart__candle--down {
+    fill: aui.ctoken('candlestick-chart', 'down-color');
+    stroke: aui.ctoken('candlestick-chart', 'down-color');
+  }
+
+  .aui-candlestick-chart__bar {
+    fill: none;
+    stroke-width: 1.75;
+  }
+
+  .aui-candlestick-chart__bar--up {
+    stroke: aui.ctoken('candlestick-chart', 'up-color');
+  }
+
+  .aui-candlestick-chart__bar--down {
+    stroke: aui.ctoken('candlestick-chart', 'down-color');
+    stroke-dasharray: 3 1.5;
+  }
+
+  .aui-candlestick-chart__candle.aui-chart__mark--hover,
+  .aui-candlestick-chart__candle.aui-chart__mark--active,
+  .aui-candlestick-chart__bar.aui-chart__mark--hover,
+  .aui-candlestick-chart__bar.aui-chart__mark--active {
+    stroke-width: 2.5;
+  }
+
+  .aui-candlestick-chart__volume-bar {
+    fill-opacity: 0.45;
+  }
+
+  .aui-candlestick-chart__volume-bar--up {
+    fill: aui.ctoken('candlestick-chart', 'up-color');
+  }
+
+  .aui-candlestick-chart__volume-bar--down {
+    fill: aui.ctoken('candlestick-chart', 'down-color');
+  }
+
+  .aui-candlestick-chart__averages .aui-chart__line {
+    pointer-events: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-candlestick-chart__candle--up,
+    .aui-candlestick-chart__bar--up {
+      fill: Canvas;
+      stroke: CanvasText;
+    }
+
+    .aui-candlestick-chart__bar--up {
+      fill: none;
+    }
+
+    .aui-candlestick-chart__candle--down {
+      fill: CanvasText;
+      stroke: CanvasText;
+    }
+
+    .aui-candlestick-chart__bar--down {
+      stroke: CanvasText;
+    }
+
+    .aui-candlestick-chart__volume-bar {
+      fill: CanvasText;
+    }
+
+    .aui-candlestick-chart__candle.aui-chart__mark--hover,
+    .aui-candlestick-chart__candle.aui-chart__mark--active,
+    .aui-candlestick-chart__bar.aui-chart__mark--hover,
+    .aui-candlestick-chart__bar.aui-chart__mark--active {
+      stroke: Highlight;
+    }
+  }
+}

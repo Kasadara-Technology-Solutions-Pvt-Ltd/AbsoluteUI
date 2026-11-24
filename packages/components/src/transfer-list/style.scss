@@ -1,0 +1,309 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-transfer-list {
+    container-type: inline-size;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Two lists with the move buttons between them; the grid follows the reading direction.
+  .aui-transfer-list__body {
+    --_aui-transfer-list-row: #{aui.token('control-height-sm')};
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: stretch;
+    gap: aui.token('space-3');
+  }
+
+  .aui-transfer-list__panel {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    padding: aui.token('space-2');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-md');
+    @include aui.transition(border-color, box-shadow);
+  }
+
+  .aui-transfer-list__panel--drop {
+    border-color: aui.token('color-focus-ring');
+    box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+  }
+
+  .aui-transfer-list__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: aui.token('space-1') aui.token('space-2');
+  }
+
+  .aui-transfer-list__title {
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-transfer-list__count {
+    font-size: aui.token('font-size-xs');
+    font-variant-numeric: tabular-nums;
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-transfer-list__search {
+    @include aui.control-surface($height: aui.token('control-height-sm'));
+    inline-size: 100%;
+    font-size: aui.token('font-size-sm');
+    @include aui.text-control-states;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // The listbox is the scroll container; spacers inside the scrolled content stand in for the rows
+  // outside the window. (Padding would add to the box height, so the list would grow instead of scroll.)
+  .aui-transfer-list__list {
+    position: relative;
+    box-sizing: content-box;
+    block-size: calc(var(--_aui-transfer-list-rows, 8) * var(--_aui-transfer-list-row));
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    list-style: none;
+    border-radius: aui.token('radius-sm');
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+
+    &[aria-disabled='true'] {
+      cursor: not-allowed;
+    }
+
+    &::before,
+    &::after {
+      display: block;
+      content: '';
+    }
+
+    &::before {
+      block-size: var(--_aui-transfer-list-before, 0);
+    }
+
+    &::after {
+      block-size: var(--_aui-transfer-list-after, 0);
+    }
+  }
+
+  .aui-transfer-list__option {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    box-sizing: border-box;
+    block-size: var(--_aui-transfer-list-row);
+    padding-inline: aui.token('space-2');
+    overflow: hidden;
+    font-size: aui.token('font-size-sm');
+    white-space: nowrap;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &[aria-selected='true'] {
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      background: transparent;
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-transfer-list__option--draggable {
+    touch-action: none;
+  }
+
+  // Active descendant: an outline, so it is visible without relying on color.
+  .aui-transfer-list__list:focus .aui-transfer-list__option--active {
+    outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+    outline-offset: calc(-1 * #{aui.token('focus-ring-width')});
+  }
+
+  .aui-transfer-list__list:focus .aui-transfer-list__option--active[aria-selected='true'] {
+    outline-color: aui.token('color-selected-text');
+  }
+
+  // Checkbox-like indicator: the box is always drawn, the check only for checked options.
+  .aui-transfer-list__check {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    inline-size: 1rem;
+    block-size: 1rem;
+    color: transparent;
+    border: aui.token('border-width-strong') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+
+    .aui-icon {
+      inline-size: aui.icon-size('xs');
+      block-size: aui.icon-size('xs');
+    }
+
+    [aria-selected='true'] > & {
+      color: aui.token('color-on-primary');
+      background: aui.token('color-primary');
+      border-color: aui.token('color-primary');
+    }
+  }
+
+  .aui-transfer-list__label {
+    flex: none;
+    max-inline-size: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .aui-transfer-list__desc {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-text-muted');
+
+    [aria-selected='true'] > & {
+      color: inherit;
+    }
+  }
+
+  .aui-transfer-list__empty {
+    padding: aui.token('space-2');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+    text-align: center;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-transfer-list__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: aui.token('space-2');
+  }
+
+  .aui-transfer-list__move {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    inline-size: aui.token('touch-target-min');
+    block-size: aui.token('touch-target-min');
+    padding: 0;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+    @include aui.transition(background-color, border-color);
+
+    &:hover:not(:disabled) {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      background: aui.token('color-disabled-bg');
+      border-color: aui.token('color-border');
+      cursor: not-allowed;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+    }
+
+    // Arrows point toward the target list, which swaps sides in right-to-left.
+    &:dir(rtl) .aui-icon {
+      transform: scaleX(-1);
+    }
+  }
+
+  .aui-transfer-list--invalid .aui-transfer-list__panel--selected {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-transfer-list--dragging {
+    cursor: grabbing;
+    user-select: none;
+  }
+
+  // Narrow containers stack the lists; the buttons then run horizontally and turn a quarter.
+  @container (max-width: 30rem) {
+    .aui-transfer-list__body {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .aui-transfer-list__actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .aui-transfer-list__move .aui-icon,
+    .aui-transfer-list__move:dir(rtl) .aui-icon {
+      transform: none;
+      rotate: 90deg;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-transfer-list__option[aria-selected='true'] {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-transfer-list__list:focus .aui-transfer-list__option--active {
+      outline-color: CanvasText;
+    }
+
+    .aui-transfer-list__check {
+      border-color: CanvasText;
+
+      [aria-selected='true'] > & {
+        color: Highlight;
+        background: HighlightText;
+        border-color: HighlightText;
+      }
+    }
+
+    .aui-transfer-list__panel--drop {
+      border-color: Highlight;
+    }
+  }
+}

@@ -1,0 +1,351 @@
+{
+  "schemaVersion": 1,
+  "component": "calendar-heatmap",
+  "factory": {
+    "name": "CalendarHeatmap.create",
+    "signature": "CalendarHeatmap.create(host: HTMLElement, options: CalendarHeatmapOptions): CalendarHeatmap"
+  },
+  "configKey": "calendarHeatmap",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby); also the data table caption."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visually hide the title; it stays the accessible name.",
+      "default": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Replaces the generated accessible summary (date range, days with values, total, highest and lowest days, non-working days and holidays)."
+    },
+    {
+      "name": "valueFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Number format for day values (tooltips, accessible names, legend, table, summary)."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom value text; overrides valueFormat everywhere."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Shared chart option; a calendar heatmap has no series, so it has no effect."
+    },
+    {
+      "name": "theme",
+      "type": "ChartTheme",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash?; axisColor?; lineWidth?; markerSize?; cornerRadius?; barRadius?; cellRadius?; sliceRadius?; boxRadius?; swatchRadius?; tooltipRadius?; controlRadius?; lineJoin?; areaOpacity?; gradient?; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+    },
+    {
+      "name": "renderTooltip",
+      "type": "(context: ChartTooltipContext) => Node | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+    },
+    {
+      "name": "syncGroup",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Synchronized crosshair: charts with the same group show the highlight and tooltip at the same column (week index) when one is hovered or focused."
+    },
+    {
+      "name": "data",
+      "type": "readonly CalendarHeatmapDay[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Days: { date: PlainDate; value: number | null } (null, NaN, and infinities are days without value; later duplicates replace earlier ones). At most 20,000 entries."
+    },
+    {
+      "name": "year",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Show this calendar year (ignored when from and to are both set)."
+    },
+    {
+      "name": "from",
+      "type": "PlainDate",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "First day shown (inclusive). Default: January 1 of year, else the first data date."
+    },
+    {
+      "name": "to",
+      "type": "PlainDate",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Last day shown (inclusive), at most 1,097 days after from. Default: December 31 of year, else the last data date."
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "First row: ISO weekday 1 (Monday) to 7 (Sunday). Default: from the locale (getFirstDayOfWeek)."
+    },
+    {
+      "name": "businessCalendar",
+      "type": "BusinessCalendarEngine | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Business calendar (createBusinessCalendar from @absoluteui/components/business-calendar): non-working days are outlined, holidays get a dot and their name in tooltips, accessible names, and the table."
+    },
+    {
+      "name": "colorScale",
+      "type": "ChartColorSteps",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "{ color?: 1-8 (default 1), min?, max? (fixed domain; default the nice-rounded data extent), steps?: 3-9 (default 5) }. Values outside a fixed domain use the first or last step."
+    },
+    {
+      "name": "legend",
+      "type": "'auto' | 'show' | 'hide'",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Legend of the color steps with their ranges, \"No value\", and (with a business calendar) the non-working-day and holiday keys; auto and show both show it, hide removes it. Entries are not buttons.",
+      "default": "auto"
+    },
+    {
+      "name": "dataTable",
+      "type": "'toggle' | 'visible' | 'hidden' | 'none'",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Data table fallback (one row per day: date, value, and (with a business calendar) the day type): behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none.",
+      "default": "toggle"
+    },
+    {
+      "name": "tooltip",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Tooltip on pointer hover and keyboard focus.",
+      "default": true
+    },
+    {
+      "name": "patterns",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Shared chart option (toggles aui-chart--patterns); day squares are not textured, so it has no visible effect.",
+      "default": false
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Plot height in CSS px (integer 120-2000); the width follows the container.",
+      "default": 180
+    },
+    {
+      "name": "monthLabels",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Month names above the first week of each month.",
+      "default": true
+    },
+    {
+      "name": "weekdayLabels",
+      "type": "'auto' | 'all' | 'none'",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Weekday names beside the rows: auto (every other row), all, or none.",
+      "default": "auto"
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Number, date, and message locale.",
+      "default": "en-US",
+      "inheritedFromCommon": true
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "rtl puts the first week on the right and swaps ArrowLeft/ArrowRight.",
+      "default": "ltr",
+      "inheritedFromCommon": true
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "SVGSVGElement",
+      "description": "The plot (svg role=\"group\"), named by the title and described by the summary."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "description": "The generated (or custom) accessible summary."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "string[]",
+      "description": "Shared chart property; always empty."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<CalendarHeatmapOptions>): void",
+      "description": "Merge, validate, and re-render. Invalid options throw and keep the previous state. Keyboard focus stays on the same mark."
+    },
+    {
+      "name": "setSeriesVisible",
+      "signature": "setSeriesVisible(id: string, visible: boolean): void",
+      "description": "Shared chart method; no effect beyond a re-render."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, host classes, listeners, the resize observer, timers, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-point-click",
+      "detail": "CalendarHeatmapPointClickDetail = ChartPointClickDetail: { seriesId: string | null; column: number; row: number; label: string; series: string; value: string; source: 'pointer' | 'keyboard' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A day was activated: pointer click or tap, or Enter / Space on the focused day. label is the formatted date, column the week, row the weekday row, value the formatted value."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-chart",
+      "description": "Host (shared chart chrome)."
+    },
+    {
+      "name": "aui-calendar-heatmap",
+      "description": "Host modifier for this chart type."
+    },
+    {
+      "name": "aui-chart__header / __title / __title--hidden / __description / __toolbar",
+      "description": "Title, description, and the toolbar (zoom buttons)."
+    },
+    {
+      "name": "aui-chart__legend / __legend-entry / __legend-item / __legend-label / __swatch",
+      "description": "Legend and its aria-hidden keys."
+    },
+    {
+      "name": "aui-chart__body / __svg / __layer",
+      "description": "Plot container (height from --aui-chart-height), SVG, and drawing layer."
+    },
+    {
+      "name": "aui-chart__series--c1 ... --c8",
+      "description": "Palette slot classes; set --aui-chart-color from --aui-chart-<n>."
+    },
+    {
+      "name": "aui-chart__mark / __mark--active / __mark--hover",
+      "description": "Focusable marks and their states."
+    },
+    {
+      "name": "aui-chart__tooltip / __tooltip--custom / __tooltip-title / __tooltip-row",
+      "description": "Tooltip (aria-hidden; the focused mark carries the same text)."
+    },
+    {
+      "name": "aui-chart__empty / __summary",
+      "description": "Empty state text and the hidden summary referenced by aria-describedby."
+    },
+    {
+      "name": "aui-chart__data / __data--hidden / __table-toggle / __table-scroll / __table",
+      "description": "Data table fallback."
+    },
+    {
+      "name": "aui-chart--legend-bottom / --legend-start / --legend-end / --animate / --entering",
+      "description": "theme.legendPosition and theme.animation."
+    },
+    {
+      "name": "aui-calendar-heatmap__cells / __cell / __cell--empty",
+      "description": "Day squares (focusable marks) and days without value."
+    },
+    {
+      "name": "aui-calendar-heatmap__cell--off / __cell--holiday",
+      "description": "Non-working days (dashed outline) and holidays (business calendar)."
+    },
+    {
+      "name": "aui-calendar-heatmap__holidays / __dot",
+      "description": "aria-hidden holiday dots."
+    },
+    {
+      "name": "aui-calendar-heatmap__level--15 ... --100",
+      "description": "Fill strength in steps of 5 (sets --aui-calendar-heatmap-fill)."
+    },
+    {
+      "name": "aui-calendar-heatmap__swatch-empty / __swatch-off / __swatch-holiday",
+      "description": "Legend keys for days without value, non-working days, and holidays."
+    },
+    {
+      "name": "aui-chart__axis / __tick-label",
+      "description": "aria-hidden month and weekday labels."
+    }
+  ],
+  "iconSlots": []
+}

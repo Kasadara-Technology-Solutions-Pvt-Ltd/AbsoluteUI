@@ -1,0 +1,8 @@
+[
+  { "title": "JSON Schema in, form out", "text": "Draft 2020-12 keywords: types, required, enums, ranges, lengths, patterns, formats, arrays, and nested objects." },
+  { "title": "Real AbsoluteUI controls", "text": "Fields are Text Input, Select, Date Picker, and friends inside Form, so validation and the Error Summary work as usual." },
+  { "title": "UI schema", "text": "Widgets, order, columns, help text, placeholders, and safe JSON visibility conditions without eval." },
+  { "title": "Arrays with the keyboard", "text": "Add, remove, and reorder entries with buttons; every change is announced." },
+  { "title": "Typed JSON and pointers", "text": "getValue() returns typed JSON; server errors map back with setErrors by JSON Pointer." },
+  { "title": "Strict by design", "text": "Unsupported keywords are configuration errors with their pointers, never silently ignored." }
+]

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="phone-hangup">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 14.5c5-4.5 13-4.5 18 0l-1.5 2.5-3.5-1v-2.5a11 11 0 0 0-8 0V16l-3.5 1z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M3 14.5c5-4.5 13-4.5 18 0l-1.5 2.5-3.5-1v-2.5a11 11 0 0 0-8 0V16l-3.5 1z" transform="translate(12 14) scale(1.06) translate(-12 -14)"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3 14.5c5-4.5 13-4.5 18 0l-1.5 2.5-3.5-1v-2.5a11 11 0 0 0-8 0V16l-3.5 1z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 14.5c5-4.5 13-4.5 18 0l-1.5 2.5-3.5-1v-2.5a11 11 0 0 0-8 0V16l-3.5 1z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="error" data-paint="fill" data-opacity="0.25">
+      <path d="M3 14.5c5-4.5 13-4.5 18 0l-1.5 2.5-3.5-1v-2.5a11 11 0 0 0-8 0V16l-3.5 1z"/>
+    </g>
+    <g data-layer="base" data-role="error" data-paint="stroke">
+      <path d="M3 14.5c5-4.5 13-4.5 18 0l-1.5 2.5-3.5-1v-2.5a11 11 0 0 0-8 0V16l-3.5 1z"/>
+    </g>
+  </g>
+</svg>

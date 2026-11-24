@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/scheduler",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiScheduler",
+      "description": "AbsoluteUI Scheduler: `<aui-scheduler>`.\nTwo-way: `[(view)]`, `[(date)]`, `[(events)]`.\nTemplates: AuiItem (`@absoluteui/angular/templates`).",
+      "selector": "aui-scheduler",
+      "exportAs": [
+        "auiScheduler"
+      ],
+      "source": "generated",
+      "component": "scheduler",
+      "configKey": "scheduler",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name; grids are named \"{label}, {period}\"."
+        },
+        {
+          "name": "loadEvents",
+          "type": "((range: SchedulerRange, signal: AbortSignal) => Promise<readonly SchedulerEvent[]>)",
+          "required": false,
+          "description": "Range data source instead of events (single events overlapping the range, series masters that may occur in it, and their exceptions)."
+        },
+        {
+          "name": "resources",
+          "type": "readonly SchedulerResource[]",
+          "required": false,
+          "description": "Timeline rows: { id, label, description?, color? }."
+        },
+        {
+          "name": "views",
+          "type": "readonly SchedulerView[]",
+          "required": false,
+          "description": "Views in the switcher. Default: day, week, work week, month, agenda (plus timeline with resources)."
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Move and resize events (pointer, keyboard, toolbar)."
+        },
+        {
+          "name": "recurringEditScope",
+          "type": "\"ask\" | SchedulerEditScope",
+          "required": false,
+          "default": "ask",
+          "description": "How changes to recurring occurrences apply; ask shows a dialog."
+        },
+        {
+          "name": "businessCalendar",
+          "type": "BusinessCalendarDefinition",
+          "required": false,
+          "description": "Working days (work week), working hours (shading), holidays (headers)."
+        },
+        {
+          "name": "firstDayOfWeek",
+          "type": "IsoWeekday",
+          "required": false,
+          "description": "First day of weeks. Default: the locale's first day of week."
+        },
+        {
+          "name": "createId",
+          "type": "((base: Readonly<SchedulerEvent>, hint: string) => string)",
+          "required": false,
+          "description": "Id of events created from base (exceptions, split series). Default \"{id}~{hint}\"."
+        },
+        {
+          "name": "renderEvent",
+          "type": "((occurrence: SchedulerOccurrence, context: SchedulerRenderContext) => Node)",
+          "required": false,
+          "description": "Event content (non-interactive)."
+        },
+        {
+          "name": "now",
+          "type": "Instant",
+          "required": false,
+          "description": "Advanced: fixed current time (tests, demos); disables the per-minute refresh."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<SchedulerIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "slotDuration",
+          "type": "15 | 30 | 60",
+          "required": false,
+          "default": "30",
+          "configurable": true,
+          "description": "Minutes per slot (time view rows, day timeline columns)."
+        },
+        {
+          "name": "snapDuration",
+          "type": "number",
+          "required": false,
+          "default": "15",
+          "configurable": true,
+          "description": "Minutes moves and resizes snap to."
+        },
+        {
+          "name": "dayStartHour",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "configurable": true,
+          "description": "First hour shown in time views (0-23)."
+        },
+        {
+          "name": "dayEndHour",
+          "type": "number",
+          "required": false,
+          "default": "24",
+          "configurable": true,
+          "description": "Last hour shown, exclusive (1-24, after dayStartHour)."
+        },
+        {
+          "name": "scrollToHour",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "configurable": true,
+          "description": "Hour scrolled into view (and focused) when a time view opens."
+        },
+        {
+          "name": "monthEventLimit",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "configurable": true,
+          "description": "Rows of events per month cell before \"+N more\"."
+        },
+        {
+          "name": "agendaDays",
+          "type": "number",
+          "required": false,
+          "default": "7",
+          "configurable": true,
+          "description": "Days listed by the agenda (1-62)."
+        },
+        {
+          "name": "timelineScale",
+          "type": "SchedulerTimelineScale",
+          "required": false,
+          "default": "day",
+          "configurable": true,
+          "description": "Timeline columns: slots of a day, days of a week, or days of a month."
+        },
+        {
+          "name": "requestTimeoutMs",
+          "type": "number",
+          "required": false,
+          "default": "30000",
+          "configurable": true,
+          "description": "loadEvents timeout."
+        },
+        {
+          "name": "historyLimit",
+          "type": "number",
+          "required": false,
+          "default": "50",
+          "configurable": true,
+          "description": "Undo depth (0 disables undo)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Month and weekday names, dates, numbers, the first day of the week, and messages."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "Timezone of the layout, today, slots, and new times."
+        },
+        {
+          "name": "disambiguation",
+          "type": "Disambiguation",
+          "required": false,
+          "default": "compatible",
+          "configurable": true,
+          "description": "DST policy for wall-clock times in a gap or overlap (SPEC section 8.5)."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Reading direction; Left/Right arrow keys and chevrons follow it."
+        }
+      ],
+      "models": [
+        {
+          "name": "events",
+          "type": "readonly SchedulerEvent[]",
+          "change": "eventsChange",
+          "description": "Events: { id, title, start: Instant | PlainDate, end (exclusive instant or inclusive last day), timeZone?, recurrence?, seriesId?, originalStart?, resourceId?, color?, location?, description?, readOnly? }."
+        },
+        {
+          "name": "view",
+          "type": "SchedulerView",
+          "change": "viewChange",
+          "description": "Current view."
+        },
+        {
+          "name": "date",
+          "type": "PlainDate",
+          "change": "dateChange",
+          "description": "A day in the visible period. Default: today in the timezone."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "navigate",
+          "payload": "SchedulerNavigateDetail",
+          "event": "aui-navigate",
+          "description": "The user changed the view or period."
+        },
+        {
+          "name": "slotActivated",
+          "payload": "SchedulerSlotActivateDetail",
+          "event": "aui-slot-activate",
+          "description": "The user asked to create an event (Enter on an empty cell, Shift+Enter, a selection, a pointer range, or a double-click)."
+        },
+        {
+          "name": "eventActivated",
+          "payload": "SchedulerEventActivateDetail",
+          "event": "aui-event-activate",
+          "description": "The user activated an event (click, Enter, Space)."
+        },
+        {
+          "name": "eventChange",
+          "payload": "SchedulerEventChangeDetail",
+          "event": "aui-event-change",
+          "description": "Before a change is applied; preventDefault() refuses it."
+        },
+        {
+          "name": "eventDeleted",
+          "payload": "SchedulerEventDeleteDetail",
+          "event": "aui-event-delete",
+          "description": "Delete or Backspace on an editable event (the application removes it)."
+        },
+        {
+          "name": "loadError",
+          "payload": "SchedulerLoadErrorDetail",
+          "event": "aui-load-error",
+          "description": "loadEvents failed, timed out, or returned invalid events."
+        }
+      ],
+      "properties": [
+        {
+          "name": "canUndo",
+          "type": "Signal<boolean>",
+          "description": "Read-only: History state."
+        },
+        {
+          "name": "canRedo",
+          "type": "Signal<boolean>",
+          "description": "Read-only: History state."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setView",
+          "signature": "setView(view: SchedulerView): void",
+          "description": "Change the view (no aui-navigate)."
+        },
+        {
+          "name": "goTo",
+          "signature": "goTo(date: PlainDate): void",
+          "description": "Change the period (next and previous emit aui-navigate)."
+        },
+        {
+          "name": "next",
+          "signature": "next(): void",
+          "description": "Change the period (next and previous emit aui-navigate)."
+        },
+        {
+          "name": "previous",
+          "signature": "previous(): void",
+          "description": "Change the period (next and previous emit aui-navigate)."
+        },
+        {
+          "name": "today",
+          "signature": "today(): void",
+          "description": "Change the period (next and previous emit aui-navigate)."
+        },
+        {
+          "name": "refresh",
+          "signature": "refresh(): void",
+          "description": "Discard cached ranges and reload the visible range."
+        },
+        {
+          "name": "moveEvent",
+          "signature": "moveEvent(key: string, start: PlainDate | Instant, options?: { resourceId?: string; scope?: SchedulerEditScope; } | undefined): boolean | undefined",
+          "description": "Programmatic move of a visible occurrence (emits the cancelable aui-event-change; false when refused)."
+        },
+        {
+          "name": "resizeEvent",
+          "signature": "resizeEvent(key: string, end: PlainDate | Instant, options?: { scope?: SchedulerEditScope; } | undefined): boolean | undefined",
+          "description": "Programmatic end change."
+        },
+        {
+          "name": "undo",
+          "signature": "undo(): boolean | undefined",
+          "description": "Step through edits (emit aui-event-change with reason undo/redo)."
+        },
+        {
+          "name": "redo",
+          "signature": "redo(): boolean | undefined",
+          "description": "Step through edits (emit aui-event-change with reason undo/redo)."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the current cell or event."
+        }
+      ],
+      "templates": [
+        "AuiItem"
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG grid for every view except the agenda: table role=grid with day or slot gridcells under one roving tab stop; events are buttons inside the cell where they start (APG \"cells containing widgets\": Enter/F2 in, Escape/F2 out). The agenda is a region with day headings and lists under one roving tab stop. Moves have three equivalent paths (drag, Ctrl/Cmd+X then Ctrl/Cmd+V, toolbar Move / Move here).",
+        "source": "packages/components/metadata/scheduler/accessibility.json"
+      },
+      "limitations": [
+        "Multi-day timed events appear as one segment per day in time views (not in the all-day row).",
+        "All-day and timed events do not convert by dragging between the all-day row and the time grid.",
+        "The timeline shows one day (slots), one week, or one month (days); no custom zoom levels.",
+        "Month cells show monthEventLimit rows and \"+N more\" (which opens the day view).",
+        "Deleting only emits aui-event-delete; the application removes the event.",
+        "No drag and drop from outside the scheduler, no event creation UI (aui-slot-activate asks the application).",
+        "Recurrence follows the RRULE subset of @absoluteui/core.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { SchedulerEvent, SchedulerEventChangeDetail, SchedulerSlotActivateDetail } from '@absoluteui/components/scheduler';\nimport { AuiScheduler } from '@absoluteui/angular/scheduler';\n\n@Component({\n  selector: 'app-calendar',\n  imports: [AuiScheduler],\n  template: `<aui-scheduler label=\"Team\" [events]=\"events\" [editable]=\"true\" view=\"workWeek\" timezone=\"Europe/London\"\n    (eventChange)=\"events = $event.events\" (slotActivated)=\"create($event)\"></aui-scheduler>`,\n})\nexport class CalendarComponent {\n  events: SchedulerEvent[] = [];\n\n  create(slot: SchedulerSlotActivateDetail): void {\n    // open an editor for slot.start .. slot.end\n  }\n\n  saved(detail: SchedulerEventChangeDetail): number {\n    return detail.changes.updated.length;\n  }\n}"
+    }
+  ]
+}

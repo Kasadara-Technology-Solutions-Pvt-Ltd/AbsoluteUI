@@ -1,0 +1,136 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-tabs {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-tabs__list {
+    display: flex;
+    gap: aui.token('space-1');
+    border-block-end: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  // Horizontal overflow: the tablist scrolls instead of wrapping or clipping (SPEC section 12).
+  .aui-tabs--horizontal .aui-tabs__list {
+    // Without inline-size containment the tabs' min-content width leaks into the
+    // parent's intrinsic size and overflows grid/flex layouts at 320px (regression).
+    contain: inline-size;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+  }
+
+  .aui-tabs__tab {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-block-size: aui.token('touch-target-min');
+    padding-block: aui.token('space-2');
+    padding-inline: aui.ctoken('tabs', 'tab-padding-x');
+    margin: 0;
+    font: inherit;
+    color: aui.ctoken('tabs', 'tab-fg');
+    white-space: nowrap;
+    background: transparent;
+    border: 0;
+    // The selected indicator occupies this edge; unselected tabs reserve it so labels never shift.
+    border-block-end: aui.ctoken('tabs', 'indicator-width') solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    @include aui.transition(color, background-color, border-color);
+
+    &:hover:not(:disabled) {
+      color: aui.token('color-text');
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+
+    // Selection is shown by the indicator and a heavier weight, never by color alone.
+    &[aria-selected='true'] {
+      color: aui.ctoken('tabs', 'tab-selected-fg');
+      font-weight: aui.token('font-weight-semibold');
+      border-block-end-color: aui.ctoken('tabs', 'indicator-color');
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+
+    .aui-icon {
+      flex: none;
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-tabs__panel {
+    padding-block: aui.token('space-4');
+    overflow-wrap: anywhere;
+
+    &[hidden] {
+      display: none;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(2px);
+    }
+  }
+
+  // Vertical: tabs stack at the inline start; the indicator moves to the inline-start edge.
+  .aui-tabs--vertical {
+    flex-direction: row;
+    align-items: flex-start;
+
+    .aui-tabs__list {
+      flex-direction: column;
+      flex: none;
+      border-block-end: 0;
+      border-inline-end: aui.token('border-width') solid aui.token('color-border');
+    }
+
+    .aui-tabs__tab {
+      justify-content: flex-start;
+      border-block-end: 0;
+      border-inline-start: aui.ctoken('tabs', 'indicator-width') solid transparent;
+
+      &[aria-selected='true'] {
+        border-inline-start-color: aui.ctoken('tabs', 'indicator-color');
+      }
+    }
+
+    .aui-tabs__panels {
+      flex: 1 1 auto;
+      min-inline-size: 0;
+    }
+
+    .aui-tabs__panel {
+      padding-block: 0;
+      padding-inline: aui.token('space-4');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-tabs__tab[aria-selected='true'] {
+      border-color: Highlight;
+    }
+
+    .aui-tabs__tab:disabled {
+      color: GrayText;
+    }
+  }
+}

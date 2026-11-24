@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "switch",
+  "displayName": "Switch",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { Switch } from '@absoluteui/components/switch';",
+  "styleImport": "@absoluteui/components/switch/style.css",
+  "purpose": "An on/off setting that takes effect immediately, built on a native <input type=\"checkbox\" role=\"switch\"> with a track and thumb. Switches have no required state; validity is valid unless a custom error is set (for example when saving the setting failed).",
+  "whenToUse": [
+    "A binary setting that applies immediately, such as enabling notifications or dark mode.",
+    "Settings pages where each row toggles one feature."
+  ],
+  "whenNotToUse": [
+    "A choice that is only applied when a form is submitted: use Checkbox.",
+    "A choice the user must confirm (\"I agree\"): use a required Checkbox.",
+    "More than two states: use Radio Group or Select."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["off", "on", "hover", "focus-visible", "disabled", "disabled on", "invalid (custom error)"],
+  "responsive": "The track is fixed-size (switch-width by switch-height tokens); the label wraps next to it and help text aligns with the label. The row is at least touch-target-min tall and the label extends the hit target.",
+  "rtl": "The thumb is positioned with inset-inline-start, so \"on\" moves the thumb to the inline end in both directions (right in LTR, left in RTL) without extra rules.",
+  "theme": "Off: color-surface-sunken track with a color-border-strong boundary and thumb. On: color-primary track with a color-on-primary thumb. The state is carried by thumb position as well as color. Forced-colors mode uses Canvas/CanvasText (off), Highlight/HighlightText (on), and GrayText (disabled) with forced-color-adjust: none. Reduced motion removes the thumb transition.",
+  "timezone": "Not applicable.",
+  "security": "Label, help text, and messages are rendered with textContent. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. With `name`, the native input submits `name=value` when on, like a checkbox.",
+  "performance": {
+    "budgets": [
+      { "metric": "Switch.create, per instance (1,000 instances)", "budget": "< 1 ms average in headless Chromium (target; not yet covered by the performance test)" }
+    ],
+    "testedScale": "Unit-tested per instance; not yet included in the 1,000-instance performance test."
+  },
+  "limitations": [
+    "No `required` or `validate` option: a switch is a setting, not a question. Use setCustomError to report a failed save.",
+    "No built-in on/off text inside the track; the label must describe the setting.",
+    "The track is 2.25rem by 1.25rem; the 24px minimum target is met by the row and the clickable label, not the track alone."
+  ],
+  "unsupported": [
+    "A mixed/indeterminate state.",
+    "HTML inside the label."
+  ],
+  "antiPatterns": [
+    "Using a switch inside a form whose changes are applied only on submit.",
+    "Changing the label text with the state (\"On\"/\"Off\"); the state is already announced.",
+    "Requiring a switch to be on."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/switch: AuiSwitch directive ([auiSwitch]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/switch: AuiSwitch component; controlled (checked/defaultChecked + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/switch: AuiSwitch component with v-model."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

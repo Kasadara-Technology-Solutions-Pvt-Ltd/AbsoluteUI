@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/chart-export",
+  "declarations": [],
+  "functions": [
+    {
+      "name": "chartToSvg",
+      "signature": "chartToSvg<C extends ExportableChart & Controller<O>, O>(chart: ComponentBridge<C, O>, options?: ChartExportOptions | undefined): string | null",
+      "description": "Standalone SVG markup of the chart (computed paint and text styles inlined)."
+    },
+    {
+      "name": "chartToPng",
+      "signature": "chartToPng<C extends ExportableChart & Controller<O>, O>(chart: ComponentBridge<C, O>, options?: ChartExportOptions | undefined): Promise<Blob | null>",
+      "description": "PNG image of the chart."
+    },
+    {
+      "name": "downloadChart",
+      "signature": "downloadChart<C extends ExportableChart & Controller<O>, O>(chart: ComponentBridge<C, O>, options: ChartDownloadOptions): Promise<void>",
+      "description": "Download the chart as SVG or PNG."
+    }
+  ],
+  "reexports": [
+    "ChartDownloadOptions",
+    "ChartExportFormat",
+    "ChartExportOptions"
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiBarChart } from '@absoluteui/angular/bar-chart';\nimport { downloadChart } from '@absoluteui/angular/chart-export';\nimport { AuiButton } from '@absoluteui/angular/button';\nimport type { ChartSeries } from '@absoluteui/components/bar-chart';\n\n@Component({\n  selector: 'app-tickets',\n  imports: [AuiBarChart, AuiButton],\n  template: `\n    <aui-bar-chart #chart=\"auiBarChart\" label=\"Tickets\" [categories]=\"regions\" [series]=\"series\"></aui-bar-chart>\n    <button type=\"button\" auiButton (click)=\"save(chart)\">Download chart as SVG</button>\n  `,\n})\nexport class TicketsComponent {\n  readonly regions = ['North', 'South'];\n  readonly series: ChartSeries[] = [{ id: 'open', label: 'Open', values: [3, 5] }];\n\n  save(chart: AuiBarChart): void {\n    void downloadChart(chart, { format: 'svg', fileName: 'tickets' });\n  }\n}"
+    }
+  ]
+}

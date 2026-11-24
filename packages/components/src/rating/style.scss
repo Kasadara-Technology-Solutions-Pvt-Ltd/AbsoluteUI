@@ -1,0 +1,127 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-rating {
+    --_aui-rating-size: #{aui.token('icon-size-md')};
+
+    display: grid;
+    justify-items: start;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-rating--sm {
+    --_aui-rating-size: #{aui.token('icon-size-sm')};
+  }
+
+  .aui-rating--lg {
+    --_aui-rating-size: #{aui.token('icon-size-lg')};
+  }
+
+  .aui-rating__control {
+    display: inline-flex;
+    align-items: center;
+    border-radius: aui.token('radius-sm');
+    color: aui.ctoken('rating', 'empty');
+    cursor: pointer;
+    touch-action: manipulation;
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  // Each symbol is at least 24px wide and tall (WCAG 2.5.8 target size).
+  .aui-rating__item {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: 1.5rem;
+    min-block-size: 1.5rem;
+    padding: 0.125rem;
+    font-size: var(--_aui-rating-size);
+    line-height: 1;
+
+    .aui-icon {
+      display: block;
+      inline-size: 1em;
+      block-size: 1em;
+    }
+  }
+
+  .aui-rating__empty {
+    color: aui.ctoken('rating', 'empty');
+  }
+
+  // The filled copy is clipped from the inline start, so half stars follow the reading direction.
+  .aui-rating__fill {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    display: grid;
+    align-items: center;
+    inline-size: var(--_aui-rating-fill, 0%);
+    padding-block: 0.125rem;
+    padding-inline-start: 0.125rem;
+    overflow: hidden;
+    color: aui.ctoken('rating', 'fill');
+    @include aui.transition(inline-size);
+  }
+
+  // Icons without a solid variant: the outline copy is filled.
+  .aui-rating__fill--outline svg * {
+    fill: currentColor;
+  }
+
+  .aui-rating__item--preview .aui-rating__fill {
+    opacity: 0.75;
+  }
+
+  .aui-rating__caption {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-rating--display .aui-rating__control,
+  .aui-rating--readonly .aui-rating__control {
+    cursor: default;
+  }
+
+  .aui-rating--disabled .aui-rating__control {
+    color: aui.token('color-text-disabled');
+    cursor: not-allowed;
+
+    .aui-rating__empty,
+    .aui-rating__fill {
+      color: aui.token('color-text-disabled');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-rating__empty {
+      color: CanvasText;
+    }
+
+    .aui-rating__fill {
+      color: Highlight;
+    }
+
+    .aui-rating--disabled .aui-rating__empty,
+    .aui-rating--disabled .aui-rating__fill {
+      color: GrayText;
+    }
+  }
+}

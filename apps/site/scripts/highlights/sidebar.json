@@ -1,0 +1,6 @@
+[
+  { "title": "Nested groups", "text": "Links and expandable groups in any depth, with the active item and its groups marked." },
+  { "title": "Icon rail", "text": "Collapses to an icon rail with the labels shown as tooltips." },
+  { "title": "Drawer on small screens", "text": "Below a breakpoint it becomes an off-canvas drawer with focus moved in and restored." },
+  { "title": "Cancelable navigation", "text": "Navigate events can be canceled for client-side routing or unsaved-change checks." }
+]

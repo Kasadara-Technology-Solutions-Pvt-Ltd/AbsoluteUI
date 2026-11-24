@@ -1,0 +1,7 @@
+[
+  { "title": "Start and end", "text": "Pick when something starts and ends, with the duration shown." },
+  { "title": "All-day events", "text": "Switch between timed schedules and whole days." },
+  { "title": "Time zones", "text": "Choose the time zone the schedule is planned in." },
+  { "title": "Repeats", "text": "An optional recurrence rule turns a single event into a series." },
+  { "title": "Text round trip", "text": "Schedules convert to and from text for storage." }
+]

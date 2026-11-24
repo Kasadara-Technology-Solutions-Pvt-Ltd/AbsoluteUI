@@ -1,0 +1,245 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Tree Select also needs the Tree View stylesheet (@absoluteui/components/tree-view/style.css).
+@layer aui.components {
+  .aui-tree-select {
+    display: grid;
+    gap: aui.token('space-1');
+    font-family: aui.token('font-family-sans');
+    color: aui.token('color-text');
+  }
+
+  .aui-tree-select__label {
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-medium');
+    line-height: aui.token('line-height-tight');
+  }
+
+  // The control looks like one input: tags and the text input wrap inside the boundary.
+  .aui-tree-select__control {
+    @include aui.control-surface(
+      $height: aui.ctoken('tree-select', 'height'),
+      $padding-x: aui.ctoken('tree-select', 'padding-x'),
+      $bg: aui.ctoken('tree-select', 'bg'),
+      $border-color: aui.ctoken('tree-select', 'border-color'),
+      $radius: aui.ctoken('tree-select', 'radius')
+    );
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-1');
+    padding-block: aui.token('space-1');
+    padding-inline-end: calc(2 * #{aui.ctoken('tree-select', 'height')});
+    cursor: text;
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-within {
+      @include aui.focus-ring(0);
+      border-color: aui.token('color-focus-ring');
+    }
+  }
+
+  .aui-tree-select--invalid .aui-tree-select__control {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-tree-select--disabled .aui-tree-select__control {
+    color: aui.token('color-text-disabled');
+    background: aui.token('color-disabled-bg');
+    border-color: aui.token('color-border');
+    cursor: not-allowed;
+  }
+
+  .aui-tree-select__tags {
+    display: contents;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-tree-select__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    max-inline-size: 100%;
+    min-block-size: aui.token('control-height-sm');
+    padding-inline: aui.token('space-2') aui.token('space-1');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text');
+    background: aui.ctoken('tree-select', 'tag-bg');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.ctoken('tree-select', 'tag-radius');
+  }
+
+  .aui-tree-select__tag-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-tree-select__remove,
+  .aui-tree-select__clear,
+  .aui-tree-select__toggle {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: aui.token('color-text-muted');
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: aui.token('color-text-disabled');
+      background: transparent;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-tree-select__remove {
+    inline-size: aui.token('touch-target-min');
+    block-size: aui.token('touch-target-min');
+    color: inherit;
+  }
+
+  .aui-tree-select__clear,
+  .aui-tree-select__toggle {
+    position: absolute;
+    inset-block: 0;
+    inline-size: aui.ctoken('tree-select', 'height');
+  }
+
+  .aui-tree-select__toggle {
+    inset-inline-end: 0;
+
+    .aui-icon {
+      @include aui.transition(transform);
+    }
+
+    &[aria-expanded='true'] .aui-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .aui-tree-select__clear {
+    inset-inline-end: aui.ctoken('tree-select', 'height');
+  }
+
+  .aui-tree-select__input {
+    flex: 1 1 6rem;
+    min-inline-size: 6rem;
+    min-block-size: aui.token('control-height-sm');
+    padding: 0 aui.token('space-1');
+    font: inherit;
+    font-size: aui.token('font-size-md');
+    color: inherit;
+    background: transparent;
+    border: 0;
+    outline: none;
+
+    &::placeholder {
+      color: aui.token('color-text-muted');
+      opacity: 1;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-tree-select__description {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-tree-select__error {
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-1');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-tree-select__description[hidden],
+  .aui-tree-select__error[hidden] {
+    display: none;
+  }
+
+  // Top-layer popup (Popover API), positioned by the positioning engine.
+  .aui-tree-select__popup {
+    @include aui.popup-motion;
+    box-sizing: border-box;
+    max-block-size: min(#{aui.token('popover-max-height')}, var(--aui-available-height, 100dvh));
+    padding: aui.token('space-1');
+    margin: 0;
+    overflow: hidden;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.ctoken('tree-select', 'popup-radius');
+    box-shadow: aui.ctoken('tree-select', 'popup-shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+  }
+
+  // The popup tree is as tall as its rows, up to popupHeight.
+  .aui-tree-select__tree .aui-tree-view__viewport {
+    block-size: min(var(--_aui-tree-view-height, 16rem), calc(var(--_aui-tree-view-total, 16rem) + 2px));
+  }
+
+  // Inside the popup the tree needs no frame of its own.
+  .aui-tree-select__tree .aui-tree-view__viewport,
+  .aui-tree-select__tree .aui-tree-view__empty {
+    border: 0;
+  }
+
+  @include aui.forced-colors {
+    .aui-tree-select__control:focus-within {
+      outline-color: Highlight;
+    }
+
+    .aui-tree-select__tag,
+    .aui-tree-select__popup {
+      border-color: CanvasText;
+    }
+  }
+
+  .aui-field__required {
+    margin-inline-start: aui.token('space-1');
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-validation-message__icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    margin-block-start: 0.1em;
+  }
+}

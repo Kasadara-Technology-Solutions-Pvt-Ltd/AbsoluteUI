@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "password-input",
+  "examples": [
+    {
+      "id": "sign-in",
+      "title": "Sign-in password",
+      "language": "ts",
+      "code": "import { PasswordInput } from '@absoluteui/components/password-input';\n\nconst host = document.querySelector<HTMLElement>('#password');\nif (host) PasswordInput.create(host, { label: 'Password', name: 'password', required: true });"
+    },
+    {
+      "id": "new-password",
+      "title": "New password with a strength meter",
+      "language": "ts",
+      "code": "import { PasswordInput } from '@absoluteui/components/password-input';\nimport { PasswordStrengthMeter } from '@absoluteui/components/password-strength-meter';\n\nconst inputHost = document.querySelector<HTMLElement>('#new-password');\nconst meterHost = document.querySelector<HTMLElement>('#strength');\nif (inputHost && meterHost) {\n  const password = PasswordInput.create(inputHost, { label: 'New password', name: 'newPassword', autocomplete: 'new-password', required: true, minLength: 12 });\n  const meter = PasswordStrengthMeter.create(meterHost, { input: password });\n  password.update({ describedBy: [meter.describedById] });\n}"
+    }
+  ]
+}

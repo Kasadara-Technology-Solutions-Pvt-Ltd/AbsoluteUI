@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "transfer-list",
+  "displayName": "Transfer List",
+  "category": "Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { TransferList } from '@absoluteui/components/transfer-list';",
+  "styleImport": "@absoluteui/components/transfer-list/style.css",
+  "purpose": "Moves items between two lists, Available and Selected, such as team members, permissions, or report columns. Each list is a WAI-ARIA multi-select listbox with a search box and an item count; buttons move the checked or all visible items, Enter and double-click move too, and pointer drag between the lists is optional. Long lists are windowed. A Form control with one hidden input per selected value.",
+  "whenToUse": [
+    "Choosing a subset from a long list where users benefit from seeing both what is chosen and what is left: team assignment, permissions, report columns.",
+    "Selections of tens to thousands of items that need search on both sides."
+  ],
+  "whenNotToUse": [
+    "A few options: use Checkbox Group.",
+    "Picking several items inline in a form row: use Multi Select.",
+    "Ordering items: use Sortable List (the Selected list keeps the order of moves, but cannot be reordered)."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities", "@absoluteui/icons"],
+  "states": ["empty", "items checked", "filtered", "disabled item", "dragging", "drop target", "limit reached", "read-only", "disabled", "invalid"],
+  "responsive": "Two lists with the buttons between them; containers narrower than 30rem stack the lists and turn the buttons a quarter (container query). The lists show visibleRows rows (default 8) and scroll.",
+  "rtl": "The Available list is on the right, the arrows on the move buttons are mirrored, and text aligns to the right.",
+  "theme": "Global tokens only: surfaces, borders, selection colors, and the focus ring; checked options use color-selected and a filled check box. Forced colors use Highlight and HighlightText for checked options and CanvasText for the active option.",
+  "timezone": "Not applicable.",
+  "security": "Labels and descriptions are rendered with textContent. Window positions are set through the CSSOM (CSP-safe, no style attributes).",
+  "dataHandling": "No persistence, network access, or telemetry. Search runs over the items in memory.",
+  "performance": {
+    "budgets": [
+      { "metric": "TransferList.create with 10,000 items", "budget": "< 50 ms in headless Chromium (only the visible rows are rendered)" },
+      { "metric": "Scroll frame (window re-render)", "budget": "< 4 ms for 8 visible rows plus 12 overscan rows" }
+    ],
+    "testedScale": "10,000 items per list. Rows have one fixed height (control-height-sm); descriptions are truncated to one line."
+  },
+  "limitations": [
+    "Rows have a fixed height so the window can be computed; long labels and descriptions are truncated with an ellipsis.",
+    "Values not found in items are dropped from the value.",
+    "The Selected list cannot be reordered."
+  ],
+  "unsupported": [
+    "More than two lists.",
+    "Server-side search or paging; supply the items in memory (10,000 tested)."
+  ],
+  "antiPatterns": [
+    "Using it for two or three options.",
+    "Hiding the search box on long lists."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/transfer-list: AuiTransferList component (<aui-transfer-list>, [(value)], formControl).",
+    "react": "@absoluteui/react/transfer-list: AuiTransferList component (value, onValueChange).",
+    "vue": "@absoluteui/vue/transfer-list: AuiTransferList component (v-model)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "name": "drawer",
+  "displayName": "Drawer",
+  "category": "Overlays",
+  "package": "@absoluteui/components",
+  "import": "import { Drawer } from '@absoluteui/components/drawer';",
+  "styleImport": "@absoluteui/components/drawer/style.css",
+  "purpose": "Panel that slides in from a screen edge, built on native <dialog>. Modal drawers use showModal() (top layer, inert background, backdrop, scroll lock, focus restoration); non-modal drawers use show() and keep the page interactive. Close reasons and cancelable close events match Dialog.",
+  "whenToUse": [
+    "Secondary tasks that keep page context visible, such as editing a record from a list.",
+    "Navigation or settings panels on small screens (modal).",
+    "Supplementary panels such as filters or details next to live content (non-modal)."
+  ],
+  "whenNotToUse": [
+    "Short confirmations or destructive prompts: use Dialog (role=alertdialog).",
+    "Primary page content or long multi-step flows: use a page.",
+    "Content anchored to a trigger: use a popover or menu.",
+    "Non-modal drawers for tasks that must be completed before continuing: use a modal drawer."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "@absoluteui/components/button"],
+  "states": ["closed", "opening (slide-in)", "open", "closing (aui-cancel pending)", "closing (slide-out)"],
+  "responsive": "Side drawers use min(drawer-width token, 100vw) inline size and full viewport block size; top/bottom drawers use full inline size and max-block-size min(drawer-width token, 85dvh). Below 480px, side drawers take 100vw and footer actions stack full-width.",
+  "rtl": "placement 'start'/'end' follow the resolved direction: 'start' is the left edge in LTR and the right edge in RTL. The physical edge is exposed as data-aui-side and the element receives dir from configuration. Inner layout uses logical properties.",
+  "theme": "Surface, border, shadow and backdrop tokens; drawer-width-sm|md|lg for size. Forced-colors mode uses CanvasText borders.",
+  "timezone": "Not applicable.",
+  "security": "Title, description, and string content are rendered as text; never parsed as HTML. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Drawer.open() to showModal() completion", "budget": "< 16 ms (one frame) in headless Chromium" }
+    ],
+    "testedScale": "One drawer at a time, alongside other overlays arbitrated by the overlay stack."
+  },
+  "limitations": [
+    "Non-modal drawers are not in the top layer; they use z-index 1000 and can be covered by page content with a higher stacking context.",
+    "The element's dir attribute follows the configured direction (default 'ltr'), not the document's dir attribute.",
+    "Slide animations need @starting-style and transition-behavior: allow-discrete; older browsers open and close without animation.",
+    "Initial focus follows the native dialog focusing steps: an action with `autofocus: true`, otherwise the first focusable element (the close button when shown)."
+  ],
+  "unsupported": [
+    "Switching between modal and non-modal after creation (`modal` is init-only).",
+    "Swipe-to-dismiss gestures.",
+    "Rendering HTML strings as content (pass a Node instead)."
+  ],
+  "antiPatterns": [
+    "Drawers without a title.",
+    "Non-modal drawers for blocking tasks or forms that must be completed.",
+    "Leaving closeOnBackdrop enabled for drawers with unsaved input without handling aui-cancel.",
+    "Stacking several drawers; reuse one drawer with changing content."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/drawer: AuiDrawer directive (ng-template[auiDrawer]) with an [open] input; the template is the drawer body.",
+    "react": "@absoluteui/react/drawer: AuiDrawer component.",
+    "vue": "@absoluteui/vue/drawer: AuiDrawer component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

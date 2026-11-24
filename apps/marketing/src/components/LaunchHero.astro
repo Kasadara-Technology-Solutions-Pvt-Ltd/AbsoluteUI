@@ -1,0 +1,147 @@
+---
+import Icon from './Icon.astro';
+import { GET_STARTED, stats } from '../site';
+---
+
+<section class="launch-hero" aria-labelledby="launch-title" data-launch-hero>
+  <div class="launch-grid" aria-hidden="true"></div>
+  <div class="container launch-inner">
+    <div class="launch-content">
+      <p class="launch-eyebrow"><span></span> ENTERPRISE UI. WITHOUT THE BAGGAGE.</p>
+      <h1 id="launch-title">All the UI.<br /><span>Zero dependencies.</span><br />Confidence built in.</h1>
+      <p class="launch-description">Build ambitious products with {stats.components} accessible components. No third-party runtime dependencies. WCAG 2.2 AA checks and strict CSP support, backed by release evidence.</p>
+      <div class="launch-actions">
+        <a class="launch-primary" href={GET_STARTED}>Start building <Icon name="arrow" /></a>
+        <a class="launch-secondary" href="/accessibility/">Explore the evidence <Icon name="arrow" /></a>
+      </div>
+      <p class="launch-platforms">TypeScript &amp; JavaScript <span aria-hidden="true">/</span> Angular <span aria-hidden="true">/</span> Free for commercial use</p>
+    </div>
+
+    <div class="launch-art" aria-hidden="true">
+      <svg class="launch-universe" viewBox="0 0 640 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="launch-ring" x1="100" y1="100" x2="540" y2="530" gradientUnits="userSpaceOnUse"><stop stop-color="#00CBE9"/><stop offset=".5" stop-color="#155DFB"/><stop offset="1" stop-color="#6F38FC"/></linearGradient>
+          <radialGradient id="launch-aura"><stop stop-color="#5044FA" stop-opacity=".27"/><stop offset="1" stop-color="#5044FA" stop-opacity="0"/></radialGradient>
+          <linearGradient id="launch-core" x1="220" y1="200" x2="410" y2="410" gradientUnits="userSpaceOnUse"><stop stop-color="#02235F"/><stop offset="1" stop-color="#031E46"/></linearGradient>
+        </defs>
+        <circle cx="320" cy="300" r="290" fill="url(#launch-aura)"/>
+        <g class="launch-orbit launch-orbit-outer"><circle cx="320" cy="300" r="244" stroke="#61749e" stroke-opacity=".35" stroke-dasharray="3 12"/><circle cx="320" cy="56" r="5" fill="#9D7DFF"/><circle cx="320" cy="544" r="4" fill="#00CBE9"/></g>
+        <g class="launch-orbit launch-orbit-inner"><ellipse cx="320" cy="300" rx="207" ry="207" stroke="url(#launch-ring)" stroke-opacity=".4"/><circle cx="113" cy="300" r="6" fill="#01A4FB"/><circle cx="527" cy="300" r="5" fill="#6F38FC"/></g>
+        <path class="launch-flow" d="M151 153 245 235M486 151 395 232M125 410 235 353M496 424 405 355" stroke="url(#launch-ring)" stroke-width="2" stroke-dasharray="5 8"/>
+        <path d="m320 178 106 61v122l-106 61-106-61V239l106-61Z" fill="url(#launch-core)" stroke="url(#launch-ring)" stroke-width="1.5"/>
+        <path d="m320 194 92 53v106l-92 53-92-53V247l92-53Z" stroke="#00B9EE" stroke-opacity=".16"/>
+        <g class="launch-satellite launch-satellite-one">
+          <rect x="53" y="101" width="172" height="102" rx="16" fill="#0C2450" stroke="#536993"/>
+          <rect x="70" y="121" width="30" height="23" rx="5" fill="#183B78"/><path d="m77 133 5 4 10-10" stroke="#A3BEFF" stroke-width="2" stroke-linecap="round"/>
+          <path d="M112 127h91M112 140h57M71 163h132M71 180h88" stroke="#53688d" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <g class="launch-satellite launch-satellite-two">
+          <rect x="427" y="102" width="157" height="110" rx="16" fill="#0C2450" stroke="#536993"/>
+          <path d="M446 129h72" stroke="#94a7d0" stroke-width="5" stroke-linecap="round"/>
+          <rect x="447" y="151" width="22" height="42" rx="4" fill="#00CBE9"/><rect x="479" y="167" width="22" height="26" rx="4" fill="#155DFB"/><rect x="511" y="142" width="22" height="51" rx="4" fill="#6F38FC"/><rect x="543" y="155" width="22" height="38" rx="4" fill="#00CBE9"/>
+        </g>
+        <g class="launch-satellite launch-satellite-three">
+          <rect x="34" y="369" width="178" height="110" rx="16" fill="#0C2450" stroke="#536993"/>
+          <path d="M53 390h50M53 416h140M53 441h140M99 406v49m46-49v49" stroke="#6e85af" stroke-width="2"/>
+          <rect x="53" y="405" width="140" height="50" rx="5" stroke="#3e557c"/>
+          <rect x="55" y="408" width="42" height="30" rx="3" fill="#6739FD" fill-opacity=".45"/>
+        </g>
+        <g class="launch-satellite launch-satellite-four">
+          <rect x="424" y="390" width="172" height="100" rx="16" fill="#0C2450" stroke="#536993"/>
+          <path d="m454 413 23 9v16c0 16-12 26-23 31-11-5-23-15-23-31v-16l23-9Z" fill="#073A68" stroke="#00BFF3" stroke-width="1.5"/>
+          <path d="m443 438 8 8 14-17" stroke="#90E9FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M491 423h85M491 440h62M491 457h76" stroke="#8399c1" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <path d="M75 296h18m-9-9v18M543 312h20m-10-10v20M357 65h16m-8-8v16" stroke="#9badd7" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="launch-core-label"><b>0</b><span>runtime<br />dependencies</span></div>
+      <span class="launch-art-tag launch-art-tag-top">Everything you need.</span>
+      <span class="launch-art-tag launch-art-tag-bottom"><Icon name="shield" /> Nothing weighing you down.</span>
+    </div>
+
+    <div class="launch-footer">
+      <div class="launch-trust" aria-label="Engineering foundations">
+        <a href="/enterprise/"><b>0</b><span>Runtime dependencies<small>A smaller supply chain</small></span><Icon name="arrow" /></a>
+        <a href="/accessibility/"><b>AA</b><span>WCAG 2.2 tested<small>Evidence with every release</small></span><Icon name="arrow" /></a>
+        <a href="/security/"><Icon name="shield" /><span>Strict CSP ready<small>Trusted Types &amp; sanitized HTML</small></span><Icon name="arrow" /></a>
+      </div>
+      <div class="launch-bottom"><a href="#in-action" class="launch-scroll">See it in action <span aria-hidden="true">&darr;</span></a><button type="button" class="launch-motion" aria-pressed="false" data-launch-motion><span aria-hidden="true">&#10074;&#10074;</span> <span data-motion-label>Pause animation</span></button></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-launch-hero]');
+  const control = hero?.querySelector<HTMLButtonElement>('[data-launch-motion]');
+  control?.addEventListener('click', () => {
+    const paused = control.getAttribute('aria-pressed') !== 'true';
+    control.setAttribute('aria-pressed', String(paused));
+    hero?.classList.toggle('launch-paused', paused);
+    const label = control.querySelector('[data-motion-label]');
+    if (label) label.textContent = paused ? 'Resume animation' : 'Pause animation';
+  });
+</script>
+
+<style>
+  /* Brand palette comes from the gradients in the AbsoluteUI logo.
+     Pale cyan/blue/violet text tints preserve contrast on the logo's navy. */
+  .launch-hero { --launch-cyan:#00CBE9; --launch-blue:#155DFB; --launch-violet:#6F38FC; position:relative; isolation:isolate; overflow:hidden; background:#011435; color:#f4f7ff; min-height:calc(100svh - 80px); display:grid; align-items:center; }
+  .launch-hero::before { content:''; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse at 85% 35%,#155DFB30,transparent 55%),radial-gradient(ellipse at 5% 95%,#6F38FC20,transparent 50%); }
+  .launch-grid { position:absolute; inset:0; z-index:-1; background-image:linear-gradient(#7794bc0b 1px,transparent 1px),linear-gradient(90deg,#7794bc0b 1px,transparent 1px); background-size:64px 64px; mask-image:linear-gradient(to right,transparent,#000); }
+  .launch-inner { display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,1fr); gap:24px 32px; align-items:center; padding-top:clamp(30px,5vh,72px); padding-bottom:22px; }
+  .launch-content { position:relative; z-index:1; }
+  .launch-eyebrow { display:flex; align-items:center; gap:10px; font-size:14px; letter-spacing:1.5px; font-weight:700; color:#a9c1df; margin:0 0 24px; }
+  .launch-eyebrow span { width:7px; height:7px; border-radius:50%; background:#00CBE9; box-shadow:0 0 0 5px #00CBE920; flex-shrink:0; }
+  .launch-hero h1 { color:#f4f7ff; font-size:clamp(38px,4.5vw,72px); line-height:1.16; letter-spacing:-1.8px; font-weight:750; margin:0 0 24px; text-wrap:initial; }
+  .launch-hero h1 span { color:#72DFFF; background:linear-gradient(105deg,#00CBE9 5%,#81A7FF 55%,#B59AFF 100%); background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .launch-description { color:#b6c5df; font-size:clamp(16px,1.2vw,18px); line-height:1.85; max-width:530px; margin:0 0 30px; }
+  .launch-actions { display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
+  .launch-primary,.launch-secondary { display:inline-flex; align-items:center; justify-content:center; gap:16px; min-height:50px; padding:12px 22px; border-radius:10px; font-size:16px; font-weight:700; transition:transform .2s,box-shadow .2s,background .2s; text-decoration:none; }
+  .launch-primary { color:#FFFFFF; background:linear-gradient(110deg,var(--launch-blue),var(--launch-violet)); border:1px solid #6E91FF; box-shadow:0 4px 24px #155DFB30; }
+  .launch-primary:hover { transform:translateY(-3px); background:linear-gradient(110deg,#3269FD,#6739FD); box-shadow:0 7px 32px #6739FD50; }
+  .launch-secondary { color:#e2eafc; background:#17243a66; border:1px solid #43516d; }
+  .launch-secondary:hover { transform:translateY(-3px); background:#22314d; }
+  .launch-actions svg { width:18px; height:18px; }
+  .launch-platforms { color:#9aaccb; font-size:14px; margin-top:22px; line-height:1.8; }
+  .launch-platforms span { color:#536886; margin-inline:8px; }
+  .launch-art { position:relative; min-width:0; width:100%; max-width:640px; justify-self:center; aspect-ratio:640/620; }
+  .launch-universe { display:block; width:100%; height:100%; overflow:visible; }
+  .launch-core-label { position:absolute; inset:28% 30% 32%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; pointer-events:none; }
+  .launch-core-label b { color:#72DFFF; font-size:clamp(56px,7.5vw,106px); line-height:1; font-weight:600; text-shadow:0 0 35px #00CBE940; }
+  .launch-core-label span { font-size:14px; color:#c2d7e6; line-height:1.5; margin-top:8px; }
+  .launch-art-tag { position:absolute; color:#b5c9e5; font-size:14px; padding:7px 14px; background:#13213ae8; border:1px solid #3b5275; border-radius:30px; white-space:nowrap; }
+  .launch-art-tag-top { top:2%; left:8%; transform:rotate(-6deg); }
+  .launch-art-tag-bottom { bottom:4%; right:4%; display:flex; align-items:center; gap:8px; transform:rotate(3deg); }
+  .launch-art-tag svg { width:17px; height:17px; color:#72DFFF; }
+  .launch-footer { grid-column:1/-1; }
+  .launch-trust { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-block:1px solid #2b3a54; }
+  .launch-trust a { display:flex; gap:18px; align-items:center; color:#e8f0ff; padding:22px 28px; border-right:1px solid #2b3a54; text-decoration:none; transition:background .2s; }
+  .launch-trust a:first-child { padding-left:0; }
+  .launch-trust a:last-child { border:0; padding-right:0; }
+  .launch-trust a:hover { background:#15223a; }
+  .launch-trust b { font-size:32px; color:#72DFFF; line-height:1; font-weight:600; }
+  .launch-trust span { font-size:16px; font-weight:600; line-height:1.5; }
+  .launch-trust small { display:block; color:#9eafcc; font-size:14px; font-weight:400; margin-top:3px; }
+  .launch-trust svg { width:24px; height:24px; flex-shrink:0; color:#72DFFF; }
+  .launch-trust a>svg:last-child { margin-left:auto; width:16px; color:#a6b7d2; }
+  .launch-trust a>svg:first-child { width:32px; height:36px; }
+  .launch-bottom { display:flex; align-items:center; justify-content:space-between; padding-top:18px; gap:16px; }
+  .launch-scroll { display:inline-flex; align-items:center; gap:12px; color:#bbc9e3; text-decoration:none; font-size:14px; }
+  .launch-scroll span { color:#72DFFF; font-size:20px; }
+  .launch-motion { display:inline-flex; align-items:center; gap:9px; color:#b1c2df; background:transparent; border:1px solid #3b4b69; padding:6px 12px; border-radius:8px; font-size:14px; cursor:pointer; }
+  .launch-motion:hover { background:#1a2942; color:#fff; }
+  .launch-orbit { transform-origin:320px 300px; }
+  .launch-paused * { animation-play-state:paused !important; }
+  @media(min-width:1700px) { .launch-inner { max-width:1700px; } }
+  @media(max-width:1100px) { .launch-inner { gap:24px 16px; } .launch-hero h1 { font-size:clamp(36px,4.6vw,50px); } .launch-trust a { padding:18px 14px; gap:12px; } .launch-trust span { font-size:14px; } .launch-trust small { font-size:14px; } }
+  @media(max-width:760px) { .launch-hero { min-height:calc(100svh - 68px); } .launch-inner { grid-template-columns:minmax(0,1fr); padding-top:38px; gap:28px; } .launch-hero h1 { font-size:clamp(34px,7vw,52px); letter-spacing:-1px; } .launch-eyebrow { font-size:14px; letter-spacing:.5px; margin-bottom:20px; } .launch-description { font-size:16px; margin-bottom:24px; } .launch-art { max-width:440px; } .launch-core-label b { font-size:72px; } .launch-art-tag { font-size:14px; } .launch-trust { grid-template-columns:minmax(0,1fr); } .launch-trust a,.launch-trust a:first-child,.launch-trust a:last-child { padding:18px 8px; border-right:0; border-bottom:1px solid #2b3a54; } .launch-trust a:last-child { border-bottom:0; } .launch-trust small { display:inline; margin-left:8px; } .launch-footer { grid-column:auto; } .launch-primary,.launch-secondary { font-size:14px; padding-inline:16px; } .launch-platforms { font-size:14px; } }
+  @media(max-height:740px) and (min-width:761px) { .launch-inner { padding-top:24px; gap:14px 30px; } .launch-art { max-width:430px; } .launch-hero h1 { font-size:clamp(36px,4vw,54px); margin-bottom:18px; } .launch-eyebrow { margin-bottom:16px; } .launch-description { margin-bottom:20px; } .launch-trust a { padding-block:16px; } }
+  @media(prefers-reduced-motion:no-preference) { .launch-orbit-outer { animation:launch-orbit 65s linear infinite; } .launch-orbit-inner { animation:launch-orbit 45s linear infinite reverse; } .launch-satellite-one,.launch-satellite-four { animation:launch-float 6s ease-in-out infinite; } .launch-satellite-two,.launch-satellite-three { animation:launch-float 7s ease-in-out infinite reverse; } .launch-flow { animation:launch-flow 5s linear infinite; } .launch-scroll span { animation:launch-scroll 2s ease-in-out infinite; } .launch-content { animation:launch-enter .7s ease-out both; } }
+  @keyframes launch-orbit { to { transform:rotate(360deg); } }
+  @keyframes launch-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+  @keyframes launch-flow { to { stroke-dashoffset:-52; } }
+  @keyframes launch-scroll { 0%,100% { transform:translateY(0); } 50% { transform:translateY(4px); } }
+  @keyframes launch-enter { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  @media(prefers-reduced-motion:reduce) { .launch-hero * { animation:none !important; transition:none !important; } .launch-motion { display:none; } }
+  @media(forced-colors:active) { .launch-hero,.launch-primary,.launch-secondary,.launch-art-tag { background:Canvas; color:CanvasText; border:1px solid CanvasText; } .launch-hero h1 span { background:none; -webkit-text-fill-color:CanvasText; } .launch-hero h1,.launch-hero h1 span,.launch-description,.launch-eyebrow,.launch-platforms,.launch-trust a,.launch-trust b,.launch-trust small { color:CanvasText; } .launch-art { display:none; } .launch-inner { grid-template-columns:1fr; } }
+</style>

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "error-summary",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Standalone summary linking to invalid fields",
+      "language": "ts",
+      "code": "import { ErrorSummary } from '@absoluteui/components/error-summary';\nimport { TextInput } from '@absoluteui/components/text-input';\n\nconst summaryHost = document.createElement('div');\nconst nameHost = document.createElement('div');\ndocument.body.append(summaryHost, nameHost);\nconst name = TextInput.create(nameHost, { label: 'Full name' }).input;\nconst summary = ErrorSummary.create(summaryHost);\n// Focus moves to the summary; each linked item focuses its target on activation.\nsummary.show([\n  { message: 'Enter your full name', target: name },\n  { message: 'The service is busy. Try again in a few minutes.' },\n]);"
+    },
+    {
+      "id": "components",
+      "title": "Summary for AbsoluteUI controls with a custom focus callback",
+      "language": "ts",
+      "code": "import { ErrorSummary, type ErrorSummaryNavigateDetail } from '@absoluteui/components/error-summary';\nimport { TextInput } from '@absoluteui/components/text-input';\n\nconst summaryHost = document.createElement('div');\nconst emailHost = document.createElement('div');\ndocument.body.append(summaryHost, emailHost);\nconst email = TextInput.create(emailHost, { label: 'Email', name: 'email', type: 'email', required: true });\nconst summary = ErrorSummary.create(summaryHost, { headingLevel: 3, description: 'Fix the following to continue.' });\n\nif (!email.reportValidity()) {\n  summary.show([{ message: email.validity.message, target: email.host, focus: () => { email.focus(); } }]);\n}\nsummaryHost.addEventListener('aui-navigate', (event) => {\n  const { index } = (event as CustomEvent<ErrorSummaryNavigateDetail>).detail;\n  summaryHost.dataset.lastNavigated = String(index);\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Heading level for pages whose form sits under an h2 (Mode B)",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\nimport '@absoluteui/components/error-summary';\n\nconfigureAbsoluteUI({ components: { errorSummary: { headingLevel: 3 } } });"
+    }
+  ]
+}

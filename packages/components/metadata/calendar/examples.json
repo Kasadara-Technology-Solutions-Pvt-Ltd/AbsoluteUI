@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "calendar",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Weekday-only calendar with bounds",
+      "language": "ts",
+      "code": "import { dayOfWeek, plainDate, plainDateToString } from '@absoluteui/core';\nimport { Calendar, type CalendarChangeDetail } from '@absoluteui/components/calendar';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCalendar.create(host, {\n  label: 'Delivery date',\n  min: plainDate(2026, 10, 1),\n  max: plainDate(2026, 12, 31),\n  isDateDisabled: (date) => dayOfWeek(date) >= 6,\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<CalendarChangeDetail>).detail;\n  host.dataset.value = plainDateToString(value);\n});"
+    },
+    {
+      "id": "week-numbers",
+      "title": "ISO week numbers and a Monday week start",
+      "language": "ts",
+      "code": "import { Calendar } from '@absoluteui/components/calendar';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCalendar.create(host, { showWeekNumbers: true, firstDayOfWeek: 1 });"
+    },
+    {
+      "id": "range-two-months",
+      "title": "Range selection over two months",
+      "language": "ts",
+      "code": "import { plainDate, plainDateToString } from '@absoluteui/core';\nimport { Calendar, type CalendarChangeDetail } from '@absoluteui/components/calendar';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst calendar = Calendar.create(host, {\n  label: 'Stay',\n  selectionMode: 'range',\n  visibleMonths: 2,\n  min: plainDate(2026, 10, 1),\n  minDays: 2,\n  maxDays: 14,\n});\ncalendar.setRange({ start: plainDate(2026, 10, 5), end: plainDate(2026, 10, 9) });\nhost.addEventListener('aui-change', (event) => {\n  const { range } = (event as CustomEvent<CalendarChangeDetail>).detail;\n  if (range) host.dataset.range = `${plainDateToString(range.start)}/${plainDateToString(range.end)}`;\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Today in the user's timezone",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ common: { timezone: 'Asia/Kolkata' }, components: { calendar: { showOutsideDays: false } } });"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="locate" data-animations="pulse:loading">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="8.5"/>
+      <path d="M12 3.5v3"/>
+      <path d="M12 17.5v3"/>
+      <path d="M3.5 12h3"/>
+      <path d="M17.5 12h3"/>
+      <path d="M12 12h.01"/>
+    </g>
+  </g>
+</svg>

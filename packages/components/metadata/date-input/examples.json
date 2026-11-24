@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "date-input",
+  "examples": [
+    {
+      "id": "date",
+      "title": "Date-only value with bounds",
+      "language": "ts",
+      "code": "import { plainDate, plainDateToString, type PlainDate } from '@absoluteui/core';\nimport { DateInput, type DateInputChangeDetail } from '@absoluteui/components/date-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDateInput.create(host, { label: 'Due date', name: 'due', min: plainDate(2026, 1, 1), required: true });\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<DateInputChangeDetail>).detail;\n  if (value?.kind === 'PlainDate') {\n    const due: PlainDate = value;\n    document.title = plainDateToString(due);\n  }\n});"
+    },
+    {
+      "id": "zoned",
+      "title": "Exact meeting time in a configured timezone",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI, instantToString } from '@absoluteui/core';\nimport { DateInput, type DateInputChangeDetail } from '@absoluteui/components/date-input';\n\nconfigureAbsoluteUI({ common: { timezone: 'Asia/Kolkata' }, components: { dateInput: { disambiguation: 'reject' } } });\nconst host = document.createElement('div');\ndocument.body.append(host);\nDateInput.create(host, { label: 'Meeting time', granularity: 'minute' });\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<DateInputChangeDetail>).detail;\n  if (value?.kind === 'Instant') document.title = instantToString(value);\n});"
+    }
+  ]
+}

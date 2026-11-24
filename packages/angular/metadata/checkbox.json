@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/checkbox",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCheckbox",
+      "description": "AbsoluteUI Checkbox: `<aui-checkbox>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(checked)]` without forms.",
+      "selector": "aui-checkbox",
+      "exportAs": [
+        "auiCheckbox"
+      ],
+      "source": "generated",
+      "component": "checkbox",
+      "configKey": "checkbox",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "boolean"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name; clicking it toggles the checkbox."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Mixed state (aria-checked=mixed via the native property). Cleared when the user toggles."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": "on",
+          "description": "Submitted value when checked."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "The box must be checked; shows the required indicator."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the checkbox."
+        },
+        {
+          "name": "validate",
+          "type": "((checked: boolean) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the state invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<CheckboxIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "change": "checkedChange",
+          "description": "The checked: `[(checked)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "CheckboxChangeDetail",
+          "event": "aui-change",
+          "description": "The user toggled the checkbox."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error; cleared when the user toggles."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "`value` when checked, otherwise null."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the checkbox."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial checked and mixed state and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Native <input type=\"checkbox\"> with a <label for> association (HTML; WAI-ARIA APG Checkbox, dual- and tri-state).",
+        "source": "packages/components/metadata/checkbox/accessibility.json"
+      },
+      "limitations": [
+        "The mixed state is presentational: the user toggling clears it, and it is never submitted.",
+        "The box itself is 1.25rem; the 24px minimum target is met by the row and the clickable label, not the box alone."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { AuiCheckbox } from '@absoluteui/angular/checkbox';\n\n@Component({\n  selector: 'app-signup',\n  imports: [ReactiveFormsModule, AuiCheckbox],\n  template: `<aui-checkbox label=\"I accept the terms\" [required]=\"true\" [formControl]=\"terms\"></aui-checkbox>`,\n})\nexport class SignupComponent {\n  readonly terms = new FormControl(false, { nonNullable: true, validators: [Validators.requiredTrue] });\n}"
+    }
+  ]
+}

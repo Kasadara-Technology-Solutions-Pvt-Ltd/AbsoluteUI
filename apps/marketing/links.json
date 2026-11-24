@@ -1,0 +1,11 @@
+{
+  "$comment": "Links of the marketing site (docs/PLAN-R4.md section 4.8, docs/PLAN-MARKETING-REDESIGN.md, docs/PLAN-ONE-SITE.md). `site` is the canonical host of the one website (OS-2). `docsUrl` and `designerUrl` are the roots of the docs and Theme Designer sections of the same site (OS-3, OS-5), as root-relative paths. Absolute values on the reserved .invalid domain are placeholders: the build warns about each one and `npm run marketing:build -- --release` fails while any remain. `npmPublic` (MR-7): false shows the \"public npm availability is coming soon\" note on the npm install tab. `dev` holds the local dev-server URLs used by `astro dev` (.claude/launch.json): the docs dev server serves /docs/, the designer dev server also answers under /designer/.",
+  "site": "https://aui.kasadara.com",
+  "docsUrl": "/docs/",
+  "designerUrl": "/designer/",
+  "dev": {
+    "docsUrl": "http://127.0.0.1:4340/docs/",
+    "designerUrl": "http://127.0.0.1:4330/designer/"
+  },
+  "npmPublic": false
+}

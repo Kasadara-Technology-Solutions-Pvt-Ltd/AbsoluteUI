@@ -1,0 +1,7 @@
+[
+  { "title": "Many views", "text": "Day, week, work week, month, agenda, and resource timeline views." },
+  { "title": "Recurring events", "text": "Recurrence rules with edits to one occurrence, the following ones, or the series." },
+  { "title": "Business calendar", "text": "Working days and holidays shape the views and navigation." },
+  { "title": "Drag or keyboard", "text": "Move, resize, and create events by pointer or keyboard, with undo." },
+  { "title": "Time zones", "text": "Events keep their own time zone and display in the scheduler time zone." }
+]

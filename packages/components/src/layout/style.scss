@@ -1,0 +1,201 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Container: centered, width-capped region. Padding keeps content off the viewport edge.
+  .aui-container {
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: aui.token('container-width-lg');
+    margin-inline: auto;
+    padding-inline: aui.token('space-4');
+  }
+
+  .aui-container--sm {
+    max-inline-size: aui.token('container-width-sm');
+  }
+
+  .aui-container--md {
+    max-inline-size: aui.token('container-width-md');
+  }
+
+  .aui-container--lg {
+    max-inline-size: aui.token('container-width-lg');
+  }
+
+  .aui-container--xl {
+    max-inline-size: aui.token('container-width-xl');
+  }
+
+  // Stack: vertical rhythm between siblings.
+  .aui-stack {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-4');
+    min-inline-size: 0;
+  }
+
+  // Flex / Inline: rows that wrap by default so content reflows at narrow widths.
+  .aui-flex,
+  .aui-inline {
+    display: flex;
+    flex-flow: row wrap;
+    gap: aui.token('space-4');
+    min-inline-size: 0;
+  }
+
+  .aui-inline {
+    align-items: center;
+  }
+
+  .aui-flex--nowrap {
+    flex-wrap: nowrap;
+  }
+
+  .aui-flex--reverse {
+    flex-direction: row-reverse;
+  }
+
+  // Grid: fixed column counts, or auto-fit columns with a minimum width that never overflows.
+  .aui-grid {
+    display: grid;
+    gap: aui.token('space-4');
+    min-inline-size: 0;
+  }
+
+  @for $i from 1 through 12 {
+    .aui-grid--cols-#{$i} {
+      grid-template-columns: repeat(#{$i}, minmax(0, 1fr));
+    }
+  }
+
+  .aui-grid--auto {
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--aui-grid-min, 16rem), 100%), 1fr));
+  }
+
+  // Alignment utilities shared by stack, flex, inline, and grid.
+  $align: (
+    'start': flex-start,
+    'center': center,
+    'end': flex-end,
+    'stretch': stretch,
+    'baseline': baseline,
+  );
+
+  @each $name, $value in $align {
+    .aui-align-#{$name} {
+      align-items: $value;
+    }
+  }
+
+  $justify: (
+    'start': flex-start,
+    'center': center,
+    'end': flex-end,
+    'between': space-between,
+    'around': space-around,
+    'evenly': space-evenly,
+  );
+
+  @each $name, $value in $justify {
+    .aui-justify-#{$name} {
+      justify-content: $value;
+    }
+  }
+
+  // Gap utilities: declared after the primitives so they override the default gap.
+  .aui-gap-0 {
+    gap: 0;
+  }
+
+  .aui-gap-1 {
+    gap: aui.token('space-1');
+  }
+
+  .aui-gap-2 {
+    gap: aui.token('space-2');
+  }
+
+  .aui-gap-3 {
+    gap: aui.token('space-3');
+  }
+
+  .aui-gap-4 {
+    gap: aui.token('space-4');
+  }
+
+  .aui-gap-5 {
+    gap: aui.token('space-5');
+  }
+
+  .aui-gap-6 {
+    gap: aui.token('space-6');
+  }
+
+  .aui-gap-8 {
+    gap: aui.token('space-8');
+  }
+
+  .aui-gap-10 {
+    gap: aui.token('space-10');
+  }
+
+  .aui-gap-12 {
+    gap: aui.token('space-12');
+  }
+
+  // Divider: <hr> or role=separator. The line is a border so forced-colors mode keeps it visible.
+  .aui-divider {
+    display: block;
+    flex: none;
+    align-self: stretch;
+    block-size: 0;
+    margin: 0;
+    overflow: visible;
+    color: aui.token('color-text-muted');
+    background: none;
+    border: 0;
+    border-block-start: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-divider--vertical {
+    inline-size: 0;
+    block-size: auto;
+    min-block-size: 1em;
+    border-block-start: 0;
+    border-inline-start: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-divider--labelled {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-3');
+    block-size: auto;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-tight');
+    border-block-start: 0;
+
+    &::before,
+    &::after {
+      flex: 1 1 0;
+      content: '';
+      border-block-start: aui.token('border-width') solid aui.token('color-border');
+    }
+  }
+
+  .aui-divider__label {
+    flex: none;
+    max-inline-size: 80%;
+    overflow-wrap: anywhere;
+  }
+
+  @include aui.forced-colors {
+    .aui-divider,
+    .aui-divider--labelled::before,
+    .aui-divider--labelled::after {
+      border-color: CanvasText;
+    }
+  }
+}

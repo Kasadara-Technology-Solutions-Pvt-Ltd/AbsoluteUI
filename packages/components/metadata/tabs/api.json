@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "component": "tabs",
+  "factory": { "name": "Tabs.create", "signature": "Tabs.create(host: HTMLElement, options: TabsOptions): Tabs" },
+  "configKey": "tabs",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the tablist (aria-label)." },
+    { "name": "tabs", "type": "readonly { id: string; label: string; icon?: IconRef; disabled?: boolean; content?: Node | string }[]", "required": true, "globallyConfigurable": false, "description": "Tabs in order. Ids must be unique; they are consumer keys, not DOM ids." },
+    { "name": "value", "type": "string", "required": false, "globallyConfigurable": false, "description": "Selected tab id. Default: the first enabled tab." },
+    { "name": "activation", "type": "'automatic' | 'manual'", "default": "automatic", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "automatic selects on focus; manual needs Enter or Space." },
+    { "name": "orientation", "type": "'horizontal' | 'vertical'", "default": "horizontal", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Layout and arrow keys (Left/Right or Up/Down)." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Mirrors Left/Right in rtl. An ancestor dir=rtl also mirrors." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "tablist", "type": "HTMLDivElement", "description": "The role=tablist element." },
+    { "name": "value", "type": "string", "description": "Selected tab id." },
+    { "name": "options", "type": "Readonly<TabsOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "panel", "signature": "panel(id: string): HTMLDivElement | null", "description": "The tabpanel for a tab id, for consumers to fill." },
+    { "name": "select", "signature": "select(id: string): void", "description": "Select programmatically (no events)." },
+    { "name": "update", "signature": "update(options: Partial<TabsOptions>): void", "description": "Merge and apply options. Panels are kept by id." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, observers, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: string; previous: string }", "bubbles": true, "cancelable": false, "description": "The user selected a different tab." }
+  ],
+  "contentAreas": [
+    { "name": "panel", "description": "One tabpanel per tab: tabs.panel(id), or the tab's `content` option." }
+  ],
+  "cssClasses": [
+    { "name": "aui-tabs", "description": "Host." },
+    { "name": "aui-tabs--horizontal | --vertical", "description": "Orientation modifiers on the host." },
+    { "name": "aui-tabs__list", "description": "role=tablist." },
+    { "name": "aui-tabs__tab", "description": "role=tab button." },
+    { "name": "aui-tabs__label", "description": "Tab label text." },
+    { "name": "aui-tabs__panels", "description": "Panel container." },
+    { "name": "aui-tabs__panel", "description": "role=tabpanel." }
+  ],
+  "iconSlots": []
+}

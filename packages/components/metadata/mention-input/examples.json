@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "mention-input",
+  "examples": [
+    {
+      "id": "comment",
+      "title": "Comment with people and tags",
+      "language": "ts",
+      "code": "import { MentionInput, type MentionSuggestion, type MentionInputValueDetail } from '@absoluteui/components/mention-input';\n\nconst people: MentionSuggestion[] = [\n  { id: 'u1', label: 'Ana', description: 'People team' },\n  { id: 'u2', label: 'Ben', description: 'Engineering' },\n];\nconst tags: MentionSuggestion[] = [{ id: 't1', label: 'onboarding' }, { id: 't2', label: 'payroll' }];\nconst match = (list: MentionSuggestion[], query: string): MentionSuggestion[] => list.filter((s) => s.label.toLowerCase().startsWith(query.toLowerCase()));\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nMentionInput.create(host, {\n  label: 'Comment',\n  maxLength: 500,\n  showCounter: true,\n  triggers: [\n    { char: '@', label: '@ for people', provider: async (query) => match(people, query) },\n    { char: '#', label: '# for tags', provider: async (query) => match(tags, query) },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<MentionInputValueDetail>).detail;\n  console.log(value.text, value.mentions.map((m) => m.id));\n});"
+    },
+    {
+      "id": "server",
+      "title": "Server provider with abort",
+      "language": "ts",
+      "code": "import { MentionInput, type MentionSuggestion } from '@absoluteui/components/mention-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nMentionInput.create(host, {\n  label: 'Note',\n  debounce: 250,\n  triggers: [\n    {\n      char: '@',\n      minChars: 1,\n      provider: async (query, { signal }) => {\n        const response = await fetch(`/api/people?q=${encodeURIComponent(query)}`, { signal });\n        return (await response.json()) as MentionSuggestion[];\n      },\n    },\n  ],\n});"
+    },
+    {
+      "id": "initial-value",
+      "title": "Initial value with a mention",
+      "language": "ts",
+      "code": "import { MentionInput } from '@absoluteui/components/mention-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst field = MentionInput.create(host, {\n  label: 'Handover note',\n  multiline: false,\n  value: { text: 'Ask @Ana about access', mentions: [{ id: 'u1', label: 'Ana', trigger: '@', start: 4, end: 8 }] },\n  triggers: [{ char: '@', provider: async () => [] }],\n});\nconsole.log(field.value.mentions[0]?.id);"
+    }
+  ]
+}

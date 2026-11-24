@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "component": "org-chart",
+  "factory": { "name": "OrgChart.create", "signature": "OrgChart.create(host: HTMLElement, options: OrgChartOptions): OrgChart; layoutOrgChart(roots: readonly OrgChartLayoutInput[], options: OrgChartLayoutOptions): OrgChartLayout. Export subpath @absoluteui/components/org-chart-export: orgChartToSvg(chart: OrgChart, options?: OrgChartExportOptions): string; orgChartToPng(chart, options?): Promise<Blob>; downloadOrgChart(chart, options: OrgChartDownloadOptions): Promise<void>" },
+  "configKey": "orgChart",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Accessible name of the tree (aria-label); the toolbar is named '{label} controls'. Non-empty." },
+    { "name": "nodes", "type": "readonly OrgChartNode[]", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Flat nodes: { id (unique), parentId (manager id or null for a top-level node), label (name), title?, description?, hasChildren? (reports exist but load through loadChildren), locked? (cannot be moved in edit mode) }. Validated: unique ids, known parents, no cycles (ORG_CHART_OPTIONS). Sibling order follows the array. Replacing it with update() clears the undo history." },
+    { "name": "expanded", "type": "readonly string[]", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Explicitly expanded node ids (overrides expandDepth). Read the current set from the expanded getter." },
+    { "name": "selected", "type": "string | null", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Selected node id (aria-selected=true)." },
+    { "name": "renderNode", "type": "(node: Readonly<OrgChartNode>, context: OrgChartRenderContext) => Node", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Card content ({ depth, expanded, childCount, doc } context). Return non-interactive content: the treeitem is the control and its text is its accessible name. Default: initials, label, title, description." },
+    { "name": "loadChildren", "type": "(node: Readonly<OrgChartNode>, signal: AbortSignal) => Promise<readonly OrgChartNode[]>", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Loads the reports of a node with hasChildren on its first expansion (validated; each parentId must be a known or returned node). Rejections and timeouts keep the node collapsed, announce the failure, and emit aui-load-error." },
+    { "name": "editable", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Edit mode: re-parent nodes by pointer drag onto the new manager, Ctrl/Cmd+X then Ctrl/Cmd+V, or the toolbar Move / Move here buttons; undo and redo." },
+    { "name": "canMove", "type": "(node: Readonly<OrgChartNode>, parent: Readonly<OrgChartNode> | null) => boolean", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Veto a move (edit mode and moveNode). Cycles and locked nodes are always refused." },
+    { "name": "historyLimit", "type": "number", "default": 50, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Undo depth, integer 0..500 (0 disables history)." },
+    { "name": "nodeRadius", "type": "number", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Card corner radius in CSS px, 0..50. Unset: --aui-chart-node-radius, else --aui-chart-corner-radius, else the theme's radius-md. Written as --aui-chart-node-radius through the CSSOM; the SVG export keeps it." },
+    { "name": "orientation", "type": "'vertical' | 'horizontal'", "default": "vertical", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "'vertical': managers above their reports (top-down); 'horizontal': managers at the inline start, reports toward the inline end." },
+    { "name": "nodeWidth", "type": "number", "default": 200, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Card width in CSS px, integer 80..600." },
+    { "name": "nodeHeight", "type": "number", "default": 72, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Card height in CSS px, integer 32..400." },
+    { "name": "siblingGap", "type": "number", "default": 24, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Space between neighboring cards of a level, integer 4..400 CSS px." },
+    { "name": "levelGap", "type": "number", "default": 48, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Space between levels (connector length), integer 16..400 CSS px." },
+    { "name": "expandDepth", "type": "number", "default": 2, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Levels expanded initially when `expanded` is not given (integer 0..64; 0 shows only the top-level nodes)." },
+    { "name": "minZoom", "type": "number", "default": 0.2, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Smallest zoom factor, 0.05..1." },
+    { "name": "maxZoom", "type": "number", "default": 2, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Largest zoom factor, 1..8." },
+    { "name": "requestTimeoutMs", "type": "number", "default": 30000, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "loadChildren timeout in ms (integer 100..600000); the signal is aborted with a TimeoutError." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of search, typeahead, report counts, zoom percentages, and messages." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "rtl mirrors the layout (first report on the right; horizontal charts grow to the left) and swaps ArrowLeft/ArrowRight." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host (class aui-org-chart)." },
+    { "name": "element", "type": "HTMLDivElement", "description": "The tree element (role=tree)." },
+    { "name": "nodes", "type": "OrgChartNode[]", "description": "Every node with its current manager, in tree order (copies, for saving after edits and lazy loads)." },
+    { "name": "expanded", "type": "string[]", "description": "Expanded node ids." },
+    { "name": "selected", "type": "string | null", "description": "Selected node id." },
+    { "name": "editable", "type": "boolean", "description": "Edit mode." },
+    { "name": "scale", "type": "number", "description": "Current zoom factor." },
+    { "name": "canUndo | canRedo", "type": "boolean", "description": "Move history is available." },
+    { "name": "geometry", "type": "OrgChartGeometry", "description": "Visible layout (boxes, edges, size), nodes, a rendered card for computed colors, and the highlighted path (used by org-chart-export)." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<OrgChartOptions>): void", "description": "Merge and apply options (validated first). nodes replaces the data (undo history cleared, expansion kept for ids that still exist); expanded or expandDepth resets the expansion. No event." },
+    { "name": "setExpanded", "signature": "setExpanded(id: string, expanded: boolean): Promise<void>", "description": "Expand (loading lazy reports first) or collapse a node. Emits aui-expand-change." },
+    { "name": "expandAll | collapseAll", "signature": "expandAll(): void; collapseAll(): void", "description": "Expand every node with loaded reports (lazy nodes are not loaded) / collapse all." },
+    { "name": "search", "signature": "search(query: string): string[]", "description": "Ids whose label, title, or description contains the text (case-insensitive, locale-aware), in tree order, including collapsed nodes." },
+    { "name": "pathTo", "signature": "pathTo(id: string): string[]", "description": "Ids from the top-level node down to the node." },
+    { "name": "reveal", "signature": "reveal(id: string, options?: { focus?: boolean; select?: boolean; highlight?: boolean }): void", "description": "Expand the node's managers, center it, highlight its path (cards and connectors; default on), focus it (default) and optionally select it; announces 'Path: A, B, C.'" },
+    { "name": "clearHighlight", "signature": "clearHighlight(): void", "description": "Remove the path highlight." },
+    { "name": "select", "signature": "select(id: string | null): void", "description": "Select a node without emitting aui-node-select." },
+    { "name": "centerOn", "signature": "centerOn(id: string): void", "description": "Center the view on a visible node (keeps the zoom)." },
+    { "name": "fit", "signature": "fit(): void", "description": "Scale (at most 100 %) and center the whole visible chart in the viewport; announces the zoom." },
+    { "name": "zoomTo", "signature": "zoomTo(scale: number): void", "description": "Zoom around the viewport center, clamped to minZoom..maxZoom; announces 'Zoom {percent}' and emits aui-zoom." },
+    { "name": "moveNode", "signature": "moveNode(id: string, parentId: string | null, index?: number): boolean", "description": "Re-parent a node (index among the new siblings, default last; null parent = top level). Returns false (and announces) when refused: cycle, locked node, or canMove. Undoable; emits aui-node-move." },
+    { "name": "undo | redo", "signature": "undo(): boolean; redo(): boolean", "description": "Undo / redo the last move (parent and position). Announce and emit aui-node-move (reason 'undo' / 'redo'); false when there is nothing to undo/redo." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Abort loads; remove the toolbar, viewport, listeners, and host classes." }
+  ],
+  "events": [
+    { "name": "aui-node-select", "detail": "OrgChartNodeSelectDetail { id: string; node: OrgChartNode }", "bubbles": true, "cancelable": false, "description": "A node was selected by click, Enter, or Space." },
+    { "name": "aui-expand-change", "detail": "OrgChartExpandChangeDetail { id: string; expanded: boolean }", "bubbles": true, "cancelable": false, "description": "A node was expanded (after its reports loaded) or collapsed through the UI or setExpanded." },
+    { "name": "aui-node-move", "detail": "OrgChartNodeMoveDetail { reason: 'move' | 'undo' | 'redo'; id: string; parentId: string | null; previousParentId: string | null; index: number; nodes: OrgChartNode[] }", "bubbles": true, "cancelable": false, "description": "A node got a new manager (drag, paste, toolbar, moveNode, undo, redo). Save detail.nodes or send the change to the server." },
+    { "name": "aui-zoom", "detail": "OrgChartZoomDetail { scale: number }", "bubbles": true, "cancelable": false, "description": "The zoom changed through the toolbar, keys, Ctrl/Cmd + wheel, or zoomTo (fit does not emit)." },
+    { "name": "aui-load-error", "detail": "OrgChartLoadErrorDetail { id: string; error: unknown }", "bubbles": true, "cancelable": false, "description": "loadChildren rejected, timed out, or returned invalid nodes." }
+  ],
+  "contentAreas": [
+    { "name": "renderNode", "description": "Card content of each node (default: initials, label, title, description). Inserted once per node and re-rendered when the node's label, title, or description changes, or renderNode changes." }
+  ],
+  "cssClasses": [
+    { "name": "aui-org-chart", "description": "Host; aui-org-chart--editing in edit mode, aui-org-chart--horizontal for the horizontal orientation." },
+    { "name": "aui-org-chart__toolbar | __tool", "description": "Toolbar group and its buttons (aria-disabled at limits; the Move button is a toggle, aria-pressed)." },
+    { "name": "aui-org-chart__viewport | --panning", "description": "Clipping viewport (block-size 30rem by default: set block-size to size the chart); background drags pan." },
+    { "name": "aui-org-chart__canvas", "description": "Transformed canvas (translate and scale through the CSSOM); --aui-org-chart-node-width and --aui-org-chart-node-height." },
+    { "name": "aui-org-chart__links | __link | __link--path", "description": "Connector SVG (aria-hidden) and paths; highlighted path." },
+    { "name": "aui-org-chart__tree", "description": "The role=tree element." },
+    { "name": "aui-org-chart__node | --path | --cut | --locked | --dragging | --drop | --no-drop", "description": "Treeitems positioned through the CSSOM (left, top); states for the highlighted path, the node being moved, locked, dragged, and valid/invalid drop targets." },
+    { "name": "aui-org-chart__card", "description": "Card box inside each node (selected: color-selected with a strong border)." },
+    { "name": "aui-org-chart__avatar | __text | __name | __title | __description | __sep", "description": "Default card content; __sep holds visually hidden separators for the accessible name." },
+    { "name": "aui-org-chart__toggle", "description": "Expand chip with the report count (pointer target, aria-hidden; the treeitem handles keys)." }
+  ],
+  "iconSlots": [
+    { "name": "toolbar", "default": "zoom-out, zoom-in, maximize (fit), grip (move), check (move here), undo, redo" },
+    { "name": "expand chip", "default": "chevron-down / chevron-up (vertical); chevron-right / chevron-left (horizontal, mirrored in RTL)" }
+  ]
+}

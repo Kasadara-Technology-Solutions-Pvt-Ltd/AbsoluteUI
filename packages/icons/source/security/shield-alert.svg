@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="shield-alert">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 8v4.5"/>
+      <path d="M12 15.5h.01"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z" transform="translate(12 12) scale(1.12) translate(-12 -12)"/>
+      <line x1="12" y1="7.75" x2="12" y2="12.75" data-outline-width="2"/>
+      <circle cx="12" cy="15.75" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 8v4.5"/>
+      <path d="M12 15.5h.01"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.25">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z"/>
+    </g>
+    <g data-layer="base" data-role="warning" data-paint="stroke">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z"/>
+    </g>
+    <g data-layer="accent" data-role="warning" data-paint="stroke">
+      <path d="M12 8v4.5"/>
+      <path d="M12 15.5h.01"/>
+    </g>
+  </g>
+</svg>

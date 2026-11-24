@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "component": "spinner",
+  "factory": {
+    "name": "Spinner.create",
+    "signature": "Spinner.create(host: HTMLElement, options?: SpinnerOptions): Spinner"
+  },
+  "configKey": "spinner",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Announced (and optionally visible) label. Default: localized \"Loading\"."
+    },
+    {
+      "name": "showLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Show the label visibly; otherwise it is visually hidden but announced."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ spinner: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    },
+    {
+      "name": "size",
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Icon size."
+    },
+    {
+      "name": "delay",
+      "type": "number",
+      "default": 0,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "init-only",
+      "description": "Milliseconds (integer 0..60000) before the content is shown."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Message locale for the default label."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The role=\"status\" host."
+    },
+    {
+      "name": "visible",
+      "type": "boolean",
+      "description": "Whether the delay elapsed and content is rendered."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<SpinnerOptions>): void",
+      "description": "Merge and apply options (delay cannot change)."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Cancel a pending delay; remove rendering, role, and subscriptions."
+    }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-spinner",
+      "description": "Host (role=\"status\")."
+    },
+    {
+      "name": "aui-spinner--sm | --md | --lg",
+      "description": "Size modifiers."
+    },
+    {
+      "name": "aui-spinner--pending",
+      "description": "Delay not yet elapsed."
+    },
+    {
+      "name": "aui-spinner__icon",
+      "description": "Decorative rotating icon (aria-hidden)."
+    },
+    {
+      "name": "aui-spinner__label",
+      "description": "Label text."
+    },
+    {
+      "name": "aui-spinner__label--hidden",
+      "description": "Visually hidden label."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "spinner",
+      "default": "spinner"
+    }
+  ]
+}

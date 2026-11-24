@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="newspaper" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 20h14a2 2 0 0 0 2-2V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v13a2 2 0 0 1-2 2 2 2 0 0 1-2-2V10a1 1 0 0 1 1-1h3"/>
+      <path d="M10.5 8h6"/>
+      <path d="M10.5 12h6"/>
+      <path d="M10.5 16h4"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="6.5" y="3" width="14.5" height="18" rx="2"/>
+      <line x1="10.5" y1="8" x2="16.5" y2="8" data-outline-width="1.75"/>
+      <line x1="10.5" y1="12" x2="16.5" y2="12" data-outline-width="1.75"/>
+      <line x1="10.5" y1="16" x2="14.5" y2="16" data-outline-width="1.75"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <rect x="2.5" y="8.5" width="3" height="12.5" rx="1.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="7" y="4" width="13" height="16" rx="1"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 20h14a2 2 0 0 0 2-2V5a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v13a2 2 0 0 1-2 2 2 2 0 0 1-2-2V10a1 1 0 0 1 1-1h3"/>
+      <path d="M10.5 8h6"/>
+      <path d="M10.5 12h6"/>
+      <path d="M10.5 16h4"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,342 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Command Palette also needs the Kbd and Empty State stylesheets.
+@layer aui.components {
+  .aui-command-palette {
+    display: contents;
+  }
+
+  // Modal dialog near the top of the viewport (results grow downward without moving the field).
+  .aui-command-palette__dialog {
+    box-sizing: border-box;
+    inline-size: min(40rem, calc(100vw - 2 * #{aui.token('space-4')}));
+    max-block-size: calc(100dvh - 2 * #{aui.token('space-4')});
+    margin: min(12vh, 6rem) auto auto;
+    padding: 0;
+    color: aui.token('color-text');
+    background: aui.ctoken('command-palette', 'bg');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.ctoken('command-palette', 'radius');
+    box-shadow: aui.ctoken('command-palette', 'shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    overflow: hidden;
+    opacity: 0;
+    @include aui.transition(opacity, display, overlay);
+    transition-behavior: allow-discrete;
+
+    &:not([open]) {
+      pointer-events: none;
+    }
+
+    &[open] {
+      display: flex;
+      flex-direction: column;
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+
+    &::backdrop {
+      background: aui.ctoken('command-palette', 'backdrop');
+    }
+  }
+
+  .aui-command-palette__search {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    padding: aui.token('space-2') aui.token('space-3');
+    border-block-end: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-command-palette__search-icon,
+  .aui-command-palette__spinner,
+  .aui-command-palette__icon,
+  .aui-command-palette__submenu {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    color: aui.token('color-text-muted');
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-command-palette__submenu:dir(rtl) .aui-icon {
+    transform: scaleX(-1);
+  }
+
+  .aui-command-palette__spinner .aui-icon {
+    animation: aui-command-palette-rotate 0.8s linear infinite;
+  }
+
+  .aui-command-palette__crumbs {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: aui.token('space-1');
+    max-inline-size: 50%;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-command-palette__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: aui.token('touch-target-min');
+    block-size: aui.token('touch-target-min');
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:dir(rtl) .aui-icon {
+      transform: scaleX(-1);
+    }
+  }
+
+  .aui-command-palette__trail {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-command-palette__input {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    min-block-size: aui.token('control-height-md');
+    padding: 0;
+    font: inherit;
+    font-size: aui.token('font-size-lg');
+    color: inherit;
+    background: transparent;
+    border: 0;
+    outline: none;
+
+    &::placeholder {
+      color: aui.token('color-text-muted');
+      opacity: 1;
+    }
+  }
+
+  // The search box shows focus on the whole field row.
+  .aui-command-palette__search:focus-within {
+    box-shadow: inset 0 calc(-1 * #{aui.token('focus-ring-width')}) 0 aui.token('color-focus-ring');
+  }
+
+  // Virtualized results: block size follows the content up to a maximum (CSSOM total).
+  .aui-command-palette__list {
+    position: relative;
+    block-size: var(--_aui-command-palette-total, auto);
+    max-block-size: min(24rem, 55dvh);
+    overflow: auto;
+    overscroll-behavior: contain;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-command-palette__canvas {
+    position: relative;
+    block-size: var(--_aui-command-palette-total, 0px);
+  }
+
+  .aui-command-palette__header,
+  .aui-command-palette__option {
+    position: absolute;
+    inset-inline: aui.token('space-1');
+    inset-block-start: 0;
+    box-sizing: border-box;
+    block-size: var(--_aui-command-palette-row, 2.75rem);
+    translate: 0 var(--_aui-command-palette-y, 0px);
+  }
+
+  .aui-command-palette__header {
+    display: flex;
+    align-items: flex-end;
+    padding: 0 aui.token('space-2') aui.token('space-1');
+    overflow: hidden;
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-semibold');
+    color: aui.token('color-text-muted');
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .aui-command-palette__option {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    padding-inline: aui.token('space-2');
+    overflow: hidden;
+    white-space: nowrap;
+    border-radius: aui.ctoken('command-palette', 'option-radius');
+    cursor: pointer;
+    user-select: none;
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+  }
+
+  // The active result: fill plus a start-edge bar (not color alone).
+  .aui-command-palette__option--active {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-block: aui.token('space-2');
+      inset-inline-start: 0;
+      inline-size: 3px;
+      background: aui.token('color-selected-indicator');
+      border-radius: aui.token('radius-pill');
+    }
+
+    .aui-command-palette__icon,
+    .aui-command-palette__submenu,
+    .aui-command-palette__description {
+      color: inherit;
+    }
+  }
+
+  .aui-command-palette__text {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: baseline;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    overflow: hidden;
+  }
+
+  .aui-command-palette__label {
+    flex: none;
+    max-inline-size: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .aui-command-palette__description {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  // Matches are bold and underlined (no color dependence; legible on the active result too).
+  .aui-command-palette__match {
+    font-weight: aui.token('font-weight-semibold');
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    background: transparent;
+  }
+
+  .aui-command-palette__shortcut {
+    flex: none;
+  }
+
+  .aui-command-palette__empty {
+    padding: aui.token('space-4');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-command-palette__error {
+    padding: aui.token('space-1') aui.token('space-3');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-error-fg');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-command-palette__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1') aui.token('space-4');
+    padding: aui.token('space-2') aui.token('space-3');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+    border-block-start: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-command-palette__hint {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+  }
+
+  .aui-command-palette__status {
+    @include aui.visually-hidden;
+  }
+
+  @keyframes aui-command-palette-rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @include aui.reduced-motion {
+    .aui-command-palette__spinner .aui-icon {
+      animation-duration: 2.4s;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-command-palette__spinner .aui-icon {
+    animation: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-command-palette__dialog {
+      border-color: CanvasText;
+    }
+
+    .aui-command-palette__option--active {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+
+      &::before {
+        background: HighlightText;
+      }
+    }
+
+
+    .aui-command-palette__search:focus-within {
+      box-shadow: inset 0 -2px 0 Highlight;
+    }
+  }
+}

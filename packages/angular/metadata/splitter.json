@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/splitter",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSplitter",
+      "description": "AbsoluteUI Splitter: `<aui-splitter>`.\nTwo-way: `[(sizes)]`.",
+      "selector": "aui-splitter",
+      "exportAs": [
+        "auiSplitter"
+      ],
+      "source": "generated",
+      "component": "splitter",
+      "configKey": "splitter",
+      "inputs": [
+        {
+          "name": "panes",
+          "type": "readonly SplitterPane[]",
+          "required": true,
+          "description": "Two to ten panes: { content: Node, label, size?, min?, max?, collapsible?, collapsed? }; lengths in px (number or '240px') or '%'."
+        },
+        {
+          "name": "orientation",
+          "type": "SplitterOrientation",
+          "required": false,
+          "default": "horizontal",
+          "description": "horizontal: panes side by side (vertical separators); vertical: stacked panes."
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": "16",
+          "configurable": true,
+          "description": "Pixels a separator moves per arrow key press."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the collapsed-state text."
+        }
+      ],
+      "models": [
+        {
+          "name": "sizes",
+          "type": "readonly number[] | null",
+          "change": "sizesChange",
+          "description": "Restored sizes in percent per pane (from aui-change); overrides the panes' size."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "SplitterChangeDetail",
+          "event": "aui-change",
+          "description": "The user resized, collapsed, expanded, or reset: { sizes, collapsed, index, reason }; persist sizes and pass them back as sizes."
+        }
+      ],
+      "methods": [
+        {
+          "name": "collapse",
+          "signature": "collapse(index: number): void",
+          "description": "Collapse a collapsible pane (no event)."
+        },
+        {
+          "name": "expand",
+          "signature": "expand(index: number): void",
+          "description": "Restore a collapsed pane (no event)."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Back to the initial sizes and collapsed states (no event)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Window Splitter (variable): each separator is a focusable role=separator whose value is the size of the pane before it in percent; arrow keys move it, Home and End go to the limits, Enter collapses and restores.",
+        "source": "packages/components/metadata/splitter/accessibility.json"
+      },
+      "limitations": [
+        "A separator moves only its two neighboring panes.",
+        "The separator is 12px thick by default (splitter-size); its target spans the whole pane length.",
+        "Sizes are percentages of the space between separators; pixel sizes in panes[].size apply to the first layout only."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { SplitterPane } from '@absoluteui/components/splitter';\nimport { AuiSplitter } from '@absoluteui/angular/splitter';\n\nfunction pane(text: string): HTMLElement {\n  const el = document.createElement('div');\n  el.textContent = text;\n  return el;\n}\n\n@Component({\n  selector: 'app-workspace',\n  imports: [AuiSplitter],\n  template: `<aui-splitter [panes]=\"panes\" [(sizes)]=\"sizes\"></aui-splitter>`,\n})\nexport class WorkspaceComponent {\n  readonly panes: SplitterPane[] = [{ content: pane('Files'), label: 'Files', size: '25%', min: 160, collapsible: true }, { content: pane('Editor'), label: 'Editor', min: 320 }];\n  sizes: number[] | null = null;\n}"
+    }
+  ]
+}

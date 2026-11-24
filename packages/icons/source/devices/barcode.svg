@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="barcode">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 5v14"/>
+      <path d="M7.5 5v14"/>
+      <path d="M11 5v14"/>
+      <path d="M14.5 5v14"/>
+      <path d="M17 5v14"/>
+      <path d="M20 5v14"/>
+    </g>
+  </g>
+</svg>

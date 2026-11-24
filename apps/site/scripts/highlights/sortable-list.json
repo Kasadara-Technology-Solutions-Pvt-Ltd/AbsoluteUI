@@ -1,0 +1,6 @@
+[
+  { "title": "Pointer or keyboard", "text": "Reorder by dragging, or grab with Space and move with the arrow keys." },
+  { "title": "Announced moves", "text": "Screen readers hear every grab, move, drop, and cancel." },
+  { "title": "Handle or whole item", "text": "Start a drag from a handle or from anywhere on the item." },
+  { "title": "Programmatic moves", "text": "Move items from code while the user sees the same result." }
+]

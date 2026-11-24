@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "component": "recurrence-picker",
+  "pattern": "A fieldset of native form controls (select, number inputs, radio groups, toggle buttons) with a legend, a live summary, and a list of next occurrences.",
+  "roles": [
+    {
+      "element": "fieldset",
+      "role": "group (native)"
+    },
+    {
+      "element": "weekday toggles",
+      "role": "button with aria-pressed inside role=group"
+    },
+    {
+      "element": "monthly and end choices",
+      "role": "radio groups in nested fieldsets"
+    },
+    {
+      "element": "summary",
+      "role": "none (aria-live=polite)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-describedby",
+      "element": "fieldset",
+      "value": "Help text, error message, and the summary"
+    },
+    {
+      "attribute": "aria-pressed",
+      "element": "weekday toggle",
+      "value": "\"true\" when the day repeats"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "weekday toggle",
+      "value": "Full weekday name (the visible text is the narrow name)"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "inline selects",
+      "value": "\"Day of month\", \"Week of the month\", \"Weekday\", \"Month\", \"Number of occurrences\""
+    },
+    {
+      "attribute": "aria-invalid",
+      "element": "interval and count inputs",
+      "value": "\"true\" while their error is shown"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Picker",
+      "action": "Moves through the frequency select, interval, weekday toggles, radios, inline selects, the end date, and the count."
+    },
+    {
+      "key": "Space / Enter",
+      "context": "Weekday toggle",
+      "action": "Toggles the day."
+    },
+    {
+      "key": "Arrow keys",
+      "context": "Radio group",
+      "action": "Native radio selection (the inline controls follow)."
+    },
+    {
+      "key": "ArrowUp / ArrowDown",
+      "context": "Interval or count",
+      "action": "Native number stepping."
+    }
+  ],
+  "focus": "Every control is native and in document order; hidden rows (for other frequencies) are not focusable. Rebuilding options keeps the selected values.",
+  "wcag": [
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.11",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "2.5.8",
+    "3.2.2",
+    "3.3.1",
+    "3.3.2",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "The summary is a polite live region, so each change is read as a sentence (\"Every 2 weeks on Monday and Wednesday\").",
+    "Radio groups are grouped by name but have no form owner, so only the hidden input is submitted."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/kanban",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiKanban",
+      "description": "AbsoluteUI Kanban: `<aui-kanban>`.\nTwo-way: `[(cards)]`.\nTemplates: AuiItem (`@absoluteui/angular/templates`).",
+      "selector": "aui-kanban",
+      "exportAs": [
+        "auiKanban"
+      ],
+      "source": "generated",
+      "component": "kanban",
+      "configKey": "kanban",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the board (role=group); the toolbar is named '{label} controls'. Non-empty."
+        },
+        {
+          "name": "columns",
+          "type": "readonly KanbanColumn[]",
+          "required": true,
+          "description": "Columns in display order: { id (unique), label, wipLimit? (1..10000 cards across swimlanes), collapsed? (initial), locked? (no cards move into or out of it) }. At least one. Replacing it clears the undo history."
+        },
+        {
+          "name": "lanes",
+          "type": "readonly KanbanLane[]",
+          "required": false,
+          "description": "Swimlanes (rows): { id, label, collapsed? }. With lanes every card needs a laneId."
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Cards (and columns) can be moved. false hides the toolbar, grips, and column handles; arrow-key navigation and Enter still work."
+        },
+        {
+          "name": "columnReorder",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show column handles for reordering columns (when editable)."
+        },
+        {
+          "name": "renderCard",
+          "type": "((card: Readonly<KanbanCard>, context: KanbanRenderContext) => Node)",
+          "required": false,
+          "description": "Card content ({ column, lane, doc }). Return non-interactive content: the card is the focusable list item and its text is read by screen readers. Default: title, description, tags."
+        },
+        {
+          "name": "canMove",
+          "type": "((card: Readonly<KanbanCard>, to: Readonly<KanbanPosition>) => boolean)",
+          "required": false,
+          "description": "Veto a move (keyboard moves skip refused columns; pointer drops show an invalid target). Locked cards and columns, and full columns under wipPolicy 'block', are always refused."
+        },
+        {
+          "name": "moveCard",
+          "type": "((move: KanbanCardMoveDetail, signal: AbortSignal) => void | Promise<void>)",
+          "required": false,
+          "description": "Save a move after it was applied. While it runs the card is aria-busy and cannot move again. A rejection or a timeout (requestTimeoutMs) moves the card back, removes the move from the history, announces the failure, and emits aui-move-error."
+        },
+        {
+          "name": "wipPolicy",
+          "type": "KanbanWipPolicy",
+          "required": false,
+          "default": "warn",
+          "configurable": true,
+          "description": "'warn' marks columns over their limit ('Over limit' text and icon); 'block' also refuses moves into a column at its limit (moves within the column stay possible)."
+        },
+        {
+          "name": "virtualThreshold",
+          "type": "number",
+          "required": false,
+          "default": "150",
+          "configurable": true,
+          "description": "Cells with more cards than this (20..100000) scroll on their own and render only the cards in view (measured heights, spacers, aria-setsize/aria-posinset)."
+        },
+        {
+          "name": "requestTimeoutMs",
+          "type": "number",
+          "required": false,
+          "default": "30000",
+          "configurable": true,
+          "description": "moveCard timeout in milliseconds (100..600000)."
+        },
+        {
+          "name": "historyLimit",
+          "type": "number",
+          "required": false,
+          "default": "50",
+          "configurable": true,
+          "description": "Undo depth (0..500); 0 disables undo."
+        },
+        {
+          "name": "headingLevel",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "configurable": true,
+          "description": "aria-level of column and swimlane headings (2..6)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Numbers and messages."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Swaps ArrowLeft/ArrowRight between columns."
+        }
+      ],
+      "models": [
+        {
+          "name": "cards",
+          "type": "readonly KanbanCard[]",
+          "change": "cardsChange",
+          "description": "Cards: { id (unique), columnId, laneId? (required with lanes), title, description?, tags? (chips), color? (1..8 accent stripe), locked? }. The order within a cell is the array order. Validated (KANBAN_OPTIONS). Replacing it clears the undo history and aborts pending saves."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "cardActivated",
+          "payload": "KanbanCardActivateDetail",
+          "event": "aui-card-activate",
+          "description": "Enter on a card, or a click (outside a single-pointer move)."
+        },
+        {
+          "name": "cardMoved",
+          "payload": "KanbanCardMoveDetail",
+          "event": "aui-card-move",
+          "description": "Before a move is applied; preventDefault() keeps the card where it was."
+        },
+        {
+          "name": "moveError",
+          "payload": "KanbanMoveErrorDetail",
+          "event": "aui-move-error",
+          "description": "moveCard rejected or timed out; the card is back where it was."
+        },
+        {
+          "name": "columnMoved",
+          "payload": "KanbanColumnMoveDetail",
+          "event": "aui-column-move",
+          "description": "Before a column reorder is applied; preventDefault() keeps the order."
+        },
+        {
+          "name": "collapseChange",
+          "payload": "KanbanCollapseChangeDetail",
+          "event": "aui-collapse-change",
+          "description": "A column or swimlane was collapsed or expanded."
+        }
+      ],
+      "properties": [
+        {
+          "name": "canUndo",
+          "type": "Signal<boolean>",
+          "description": "Read-only: A move or column reorder can be undone."
+        },
+        {
+          "name": "canRedo",
+          "type": "Signal<boolean>",
+          "description": "Read-only: An undone change can be redone."
+        },
+        {
+          "name": "pending",
+          "type": "Signal<string[]>",
+          "description": "Read-only: Ids of cards whose move is being saved."
+        }
+      ],
+      "methods": [
+        {
+          "name": "positionOf",
+          "signature": "positionOf(id: string): KanbanPosition | null | undefined",
+          "description": "Column, swimlane (null without swimlanes), and index of a card."
+        },
+        {
+          "name": "moveColumn",
+          "signature": "moveColumn(id: string, index: number): boolean | undefined",
+          "description": "Move a column in the column order (undoable, emits aui-column-move)."
+        },
+        {
+          "name": "setCollapsed",
+          "signature": "setCollapsed(kind: \"column\" | \"lane\", id: string, collapsed: boolean): void",
+          "description": "Collapse or expand a column or swimlane (emits aui-collapse-change)."
+        },
+        {
+          "name": "focusCard",
+          "signature": "focusCard(id: string): void",
+          "description": "Focus a card, expanding its column and swimlane and scrolling a virtual cell to it."
+        },
+        {
+          "name": "undo",
+          "signature": "undo(): boolean | undefined",
+          "description": "Undo the last move or column reorder (saved through moveCard with reason 'undo'). Refused while saves are pending."
+        },
+        {
+          "name": "redo",
+          "signature": "redo(): boolean | undefined",
+          "description": "Redo the last undone change."
+        }
+      ],
+      "templates": [
+        "AuiItem"
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Headed lists: a named group (the board) containing column headings and, with swimlanes, labelled sections; each cell is a named list (role=list) of focusable list items (cards) with aria-posinset and aria-setsize. One roving tab stop covers all cards; arrow keys move between cards and columns. Moves follow the Sortable List grab-and-move model (Space picks up, arrows move, Space drops, Escape cancels) with live-region announcements, plus a single-pointer path through the toolbar (WCAG 2.5.7). No deprecated ARIA drag-and-drop attributes.",
+        "source": "packages/components/metadata/kanban/accessibility.json"
+      },
+      "limitations": [
+        "Only cards within a cell are virtualized (above virtualThreshold); columns and swimlanes are always rendered.",
+        "WIP limits apply per column across all swimlanes (no per-swimlane limits).",
+        "A card with a pending save cannot be moved again, and undo waits until all saves finish.",
+        "A failed save moves the card back and drops that move from the undo history.",
+        "Pointer drags are not announced step by step (keyboard moves are).",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { KanbanCard, KanbanCardMoveDetail, KanbanColumn } from '@absoluteui/components/kanban';\nimport { AuiKanban } from '@absoluteui/angular/kanban';\n\n@Component({\n  selector: 'app-board',\n  imports: [AuiKanban],\n  template: `<aui-kanban label=\"Sprint\" [columns]=\"columns\" [cards]=\"cards\" wipPolicy=\"block\" (cardMoved)=\"moved($event)\"></aui-kanban>`,\n})\nexport class BoardComponent {\n  columns: KanbanColumn[] = [{ id: 'todo', label: 'To do' }, { id: 'done', label: 'Done' }];\n  cards: KanbanCard[] = [{ id: 'a', columnId: 'todo', title: 'Write the spec' }];\n\n  moved(detail: KanbanCardMoveDetail): void {\n    // send detail.id and detail.to to the server\n    void detail;\n  }\n}"
+    }
+  ]
+}

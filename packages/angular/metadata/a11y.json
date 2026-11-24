@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/a11y",
+  "declarations": [
+    {
+      "kind": "service",
+      "name": "AuiLiveAnnouncer",
+      "description": "Screen-reader announcements through the shared live regions (inside an open modal dialog when there is one).",
+      "methods": [
+        {
+          "name": "announce",
+          "signature": "announce(message: string, politeness?: Politeness | undefined): void",
+          "description": "Announce a message (text only, never parsed as HTML). No-op on the server."
+        }
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiFocusTrap",
+      "description": "Keep keyboard focus inside the host while enabled: `<div auiFocusTrap>...</div>` or\n`[auiFocusTrap]=\"editing()\"`. Focus moves in on activation and returns on deactivation.",
+      "selector": "[auiFocusTrap]",
+      "exportAs": [
+        "auiFocusTrap"
+      ],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiFocusTrap",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the trap is active (default true; an empty attribute counts as true)."
+        },
+        {
+          "name": "restoreFocus",
+          "type": "boolean",
+          "required": false,
+          "description": "Return focus to the previously focused element on deactivation (default true)."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiFocusRestore",
+      "description": "Return focus to the element that was focused when the host appeared, when the host is\ndestroyed: `@if (editing) { <section auiFocusRestore>...</section> }`.",
+      "selector": "[auiFocusRestore]",
+      "exportAs": [
+        "auiFocusRestore"
+      ],
+      "source": "hand-written",
+      "inputs": [],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiRovingTabindex",
+      "description": "Roving tabindex (WAI-ARIA APG) over the host's items: one item in the tab sequence,\narrow keys move between items, Home/End jump, disabled items are skipped.\n`<div role=\"toolbar\" auiRovingTabindex=\"[data-item]\" orientation=\"horizontal\">`.",
+      "selector": "[auiRovingTabindex]",
+      "exportAs": [
+        "auiRovingTabindex"
+      ],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiRovingTabindex",
+          "type": "string",
+          "required": false,
+          "description": "CSS selector of the items inside the host (default: direct children)."
+        },
+        {
+          "name": "orientation",
+          "type": "Orientation",
+          "required": false,
+          "description": "Which arrow keys move between items: 'vertical', 'horizontal', or 'both' (default 'vertical')."
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "required": false,
+          "description": "Wrap from the last item to the first and back (default true)."
+        },
+        {
+          "name": "typeahead",
+          "type": "boolean",
+          "required": false,
+          "description": "Typing characters moves to the next item whose text starts with them (default false)."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "description": "Overrides the configured direction (RTL mirrors horizontal arrows)."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "activated",
+          "payload": "{ item: HTMLElement; index: number; }",
+          "description": "An item became active through the keyboard."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setActive",
+          "signature": "setActive(index: number, focus?: boolean | undefined): void",
+          "description": "Make an item the active one (and optionally focus it)."
+        }
+      ],
+      "serverRendering": "browser"
+    },
+    {
+      "kind": "directive",
+      "name": "AuiHotkey",
+      "description": "Keyboard shortcut on the host (or the document with `hotkeyScope=\"document\"`):\n`<div auiHotkey=\"Mod+K\" (hotkey)=\"openSearch()\">`. \"Mod\" is Meta on Apple platforms\nand Control elsewhere. The matching keydown is prevented.",
+      "selector": "[auiHotkey]",
+      "exportAs": [
+        "auiHotkey"
+      ],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "auiHotkey",
+          "type": "string",
+          "required": true,
+          "description": "Key combination such as \"Mod+K\", \"Shift+?\", or \"Escape\" (\"Mod\" is Meta on Apple platforms, Control elsewhere)."
+        },
+        {
+          "name": "hotkeyScope",
+          "type": "\"element\" | \"document\"",
+          "required": false,
+          "description": "Listen on the host only ('element', default) or anywhere in the document ('document'); read once when the host renders."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "hotkey",
+          "payload": "KeyboardEvent",
+          "description": "The combination was pressed (its default action is prevented)."
+        }
+      ],
+      "methods": [],
+      "serverRendering": "browser"
+    }
+  ],
+  "reexports": [
+    "Politeness"
+  ]
+}

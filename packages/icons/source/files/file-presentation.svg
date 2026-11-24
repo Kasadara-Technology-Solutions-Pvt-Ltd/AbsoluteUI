@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="file-presentation" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+      <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <rect x="8" y="11" width="8" height="5" rx="1"/>
+      <path d="M10 18.5h4"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M13 2H7a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V9h-5a2 2 0 0 1-2-2z"/>
+      <rect x="8" y="11" width="8" height="5" rx="1"/>
+      <line x1="10" y1="18.5" x2="14" y2="18.5" data-outline-width="2"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <path d="M15 2.6L19.4 7H16a1 1 0 0 1-1-1z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+      <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <rect x="8" y="11" width="8" height="5" rx="1"/>
+      <path d="M10 18.5h4"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.2">
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+      <path d="M14 3v4a1 1 0 0 0 1 1h4"/>
+    </g>
+    <g data-layer="detail" data-role="warning" data-paint="stroke">
+      <rect x="8" y="11" width="8" height="5" rx="1"/>
+      <path d="M10 18.5h4"/>
+    </g>
+  </g>
+</svg>

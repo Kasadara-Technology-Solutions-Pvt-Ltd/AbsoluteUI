@@ -1,0 +1,107 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-alert {
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-3');
+    padding: aui.token('space-3') aui.token('space-4');
+    color: aui.token('color-text');
+    background: aui.token('color-info-subtle');
+    border: aui.ctoken('alert', 'border-width') solid aui.token('color-info-fg');
+    border-inline-start-width: aui.token('border-width-strong');
+    border-radius: aui.ctoken('alert', 'radius');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-alert__icon {
+    display: inline-flex;
+    flex: none;
+    color: aui.token('color-info-fg');
+
+    .aui-icon {
+      inline-size: aui.icon-size('md');
+      block-size: aui.icon-size('md');
+      font-size: aui.icon-size('md');
+    }
+  }
+
+  .aui-alert__content {
+    display: grid;
+    flex: 1 1 auto;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-alert__title {
+    font-weight: aui.token('font-weight-semibold');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-alert__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    margin-block-start: aui.token('space-1');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-alert__dismiss {
+    flex: none;
+    margin-block: calc(-1 * #{aui.token('space-1')});
+    margin-inline-end: calc(-1 * #{aui.token('space-2')});
+  }
+
+  .aui-alert--success {
+    background: aui.token('color-success-subtle');
+    border-color: aui.token('color-success-fg');
+
+    .aui-alert__icon {
+      color: aui.token('color-success-fg');
+    }
+  }
+
+  .aui-alert--warning {
+    background: aui.token('color-warning-subtle');
+    border-color: aui.token('color-warning-fg');
+
+    .aui-alert__icon {
+      color: aui.token('color-warning-fg');
+    }
+  }
+
+  .aui-alert--error {
+    background: aui.token('color-error-subtle');
+    border-color: aui.token('color-error-fg');
+
+    .aui-alert__icon {
+      color: aui.token('color-error-fg');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-alert {
+      border-color: CanvasText;
+    }
+
+    .aui-alert__icon {
+      color: CanvasText;
+    }
+  }
+}

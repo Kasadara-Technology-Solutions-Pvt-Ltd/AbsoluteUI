@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/router",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiRouterNav",
+      "description": "Router navigation for an AbsoluteUI navigation component: `<aui-sidebar auiRouterNav [items]=\"items\">`\nwith items such as `{ id: 'people', label: 'People', routerLink: '/people' }`.",
+      "selector": "aui-sidebar[auiRouterNav], aui-breadcrumb[auiRouterNav], aui-stepper[auiRouterNav], aui-tabs[auiRouterNav], aui-menu-bar[auiRouterNav], button[auiMenu][auiRouterNav]",
+      "exportAs": [
+        "auiRouterNav"
+      ],
+      "source": "hand-written",
+      "inputs": [],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser"
+    }
+  ],
+  "types": [
+    {
+      "name": "AuiRouterTarget",
+      "description": "Router fields an item, step, or tab may carry (in addition to its own fields)."
+    },
+    {
+      "name": "AuiRouterItem",
+      "description": "An item type with optional router fields, nested `items` included, e.g.\n`AuiRouterItem<SidebarItem>`, `AuiRouterItem<MenuItem>`, `AuiRouterItem<StepperStep>`."
+    }
+  ]
+}

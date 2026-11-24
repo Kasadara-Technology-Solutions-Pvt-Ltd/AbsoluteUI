@@ -1,0 +1,343 @@
+/* Documentation styling: typography, live example frames, and reference tables. */
+h1,
+h2,
+h3,
+.site-title {
+  font-family: var(--site-font-display);
+  letter-spacing: -0.015em;
+}
+
+.sl-markdown-content h3 {
+  font-size: var(--sl-text-h4);
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h2 {
+  margin-block-start: 3rem;
+  padding-block-start: 1.25rem;
+  border-block-start: 1px solid var(--site-border);
+}
+
+.sl-markdown-content > .sl-heading-wrapper.level-h2:first-child {
+  margin-block-start: 0;
+  padding-block-start: 0;
+  border-block-start: 0;
+}
+
+.content-panel h1#_top {
+  background: var(--site-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Component page meta pills. */
+.aui-doc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.aui-doc-meta span {
+  padding: 0.125rem 0.625rem;
+  border: 1px solid var(--site-border);
+  border-radius: 999px;
+  font-size: var(--sl-text-xs);
+  color: var(--sl-color-gray-2);
+  background: var(--sl-color-gray-6);
+}
+
+.aui-doc-meta .deprecated {
+  color: var(--sl-color-orange-high);
+  border-color: var(--sl-color-orange);
+}
+
+/* Live examples: the frame isolates AbsoluteUI CSS from the site (R4-3). */
+.aui-live {
+  margin: 0;
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius);
+  overflow: hidden;
+  background: var(--site-surface);
+  box-shadow: 0 0 0 4px var(--site-glow);
+}
+
+.aui-live iframe {
+  display: block;
+  inline-size: 100%;
+  block-size: max(var(--aui-live-height, 0px), var(--aui-live-min, 180px));
+  border: 0;
+  transition: block-size 150ms ease;
+}
+
+.aui-live__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 0.875rem;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border-block-end: 1px solid var(--site-border);
+  background: var(--sl-color-gray-6);
+  font-size: var(--sl-text-xs);
+}
+
+.aui-live__bar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--sl-color-gray-2);
+}
+
+.aui-live__bar select {
+  font: inherit;
+  color: var(--sl-color-white);
+  background: var(--sl-color-black);
+  border: 1px solid var(--site-border);
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+}
+
+.aui-live__bar a {
+  margin-inline-start: auto;
+  color: var(--sl-color-accent-high);
+}
+
+@media (max-width: 50em) {
+  .aui-live__bar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .aui-live__bar label {
+    display: grid;
+    gap: 0.125rem;
+  }
+
+  .aui-live__bar select {
+    inline-size: 100%;
+  }
+
+  .aui-live__bar a {
+    grid-column: 1 / -1;
+    margin-inline-start: 0;
+  }
+}
+
+.sl-markdown-content .aui-live + * {
+  margin-block-start: 0.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aui-live iframe {
+    transition: none;
+  }
+}
+
+/* Reference tables (R20-28): no horizontal scrolling. Content wraps (and may break anywhere), and
+   every column keeps at least 220px (user). A table whose columns cannot all get 220px in the
+   available width is shown as stacked cards instead, each cell labelled by its column: tables.ts
+   measures this and sets .aui-table--stacked; below 40rem the same layout applies without script. */
+.sl-markdown-content table {
+  display: table;
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  table-layout: auto;
+  font-size: var(--sl-text-sm);
+}
+
+.sl-markdown-content :is(td, th) {
+  min-inline-size: 220px;
+  overflow-wrap: anywhere;
+}
+
+.sl-markdown-content td code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.sl-markdown-content table.aui-table--stacked,
+.sl-markdown-content .aui-table--stacked :is(thead, tbody, tr, td, th) {
+  display: block;
+  inline-size: auto;
+  min-inline-size: 0;
+}
+
+.sl-markdown-content .aui-table--stacked thead {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sl-markdown-content .aui-table--stacked tr {
+  padding-block: 0.5rem;
+  border-block-end: 1px solid var(--site-border);
+}
+
+.sl-markdown-content .aui-table--stacked td {
+  border: 0;
+  padding-block: 0.125rem;
+}
+
+.sl-markdown-content .aui-table--stacked td[data-empty] {
+  display: none;
+}
+
+.sl-markdown-content .aui-table--stacked td[data-label]::before {
+  content: attr(data-label) ': ';
+  font-weight: 600;
+  color: var(--sl-color-gray-2);
+}
+
+@media (max-width: 40rem) {
+  .sl-markdown-content table,
+  .sl-markdown-content :is(thead, tbody, tr, td, th) {
+    display: block;
+    inline-size: auto;
+    min-inline-size: 0;
+  }
+
+  .sl-markdown-content thead {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .sl-markdown-content tr {
+    padding-block: 0.5rem;
+    border-block-end: 1px solid var(--site-border);
+  }
+
+  .sl-markdown-content td {
+    border: 0;
+    padding-block: 0.125rem;
+  }
+
+  .sl-markdown-content td[data-label]::before {
+    content: attr(data-label) ': ';
+    font-weight: 600;
+    color: var(--sl-color-gray-2);
+  }
+}
+
+/* Code blocks wrap long lines instead of scrolling horizontally (R20-28): the same rule Expressive
+   Code applies to its own `wrap` blocks, for every block, indentation included, so no line is wider than the screen. */
+.expressive-code pre .ec-line .code {
+  min-inline-size: 0;
+  white-space: break-spaces;
+  overflow-wrap: anywhere;
+}
+
+/* The code element is a flex item of pre: let it shrink below its content so lines wrap. */
+.expressive-code pre > code {
+  min-inline-size: 0;
+}
+
+/* Component page template (R20-4): full width, overview grid, tabs, collapsed details. */
+:root:has(.aui-cpage) {
+  --sl-content-width: 100%;
+}
+
+.aui-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sl-markdown-content .aui-highlights li {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius);
+  background: var(--sl-color-gray-6);
+}
+
+.aui-highlights strong {
+  color: var(--sl-color-white);
+}
+
+.aui-highlights span {
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-2);
+}
+
+.aui-usecols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 0.5rem 2rem;
+}
+
+.aui-usecols > div > :first-child {
+  margin-block-start: 0;
+}
+
+.aui-tabs__list {
+  display: flex;
+  gap: 0.25rem;
+  margin-block-end: 1rem;
+  border-block-end: 1px solid var(--site-border);
+}
+
+.aui-tabs__tab {
+  margin-block-end: -1px;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-block-end: 0;
+  border-start-start-radius: 0.5rem;
+  border-start-end-radius: 0.5rem;
+  background: none;
+  color: var(--sl-color-gray-2);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.aui-tabs__tab[aria-selected='true'] {
+  border-color: var(--site-border);
+  background: var(--sl-color-bg);
+  color: var(--sl-color-white);
+  box-shadow: inset 0 3px 0 var(--sl-color-accent);
+}
+
+.aui-tabs__tab:focus-visible {
+  outline: 2px solid var(--sl-color-accent-high);
+  outline-offset: 2px;
+}
+
+.aui-tabs:not(.aui-tabs--ready) > .aui-tabs__panel::before {
+  content: attr(data-tab);
+  display: block;
+  margin-block: 1.5rem 0.5rem;
+  font-weight: 700;
+}
+
+.aui-tabs__panel[hidden] {
+  display: none;
+}
+
+.aui-details {
+  margin-block: 0.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--site-border);
+  border-radius: var(--site-radius);
+}
+
+.aui-details > summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.aui-details[open] > summary {
+  margin-block-end: 0.5rem;
+}

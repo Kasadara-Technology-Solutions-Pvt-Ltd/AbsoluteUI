@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "name": "alert",
+  "displayName": "Alert",
+  "category": "Feedback",
+  "package": "@absoluteui/components",
+  "import": "import { Alert } from '@absoluteui/components/alert';",
+  "styleImport": "@absoluteui/components/alert/style.css",
+  "purpose": "Prominent message block for page- or section-level status (info, success, warning, error) with a tone icon, a visually hidden localized tone prefix, optional title, actions, and dismiss button. Static by default; opt-in live role (status or alert) for messages inserted or changed after load.",
+  "whenToUse": [
+    "Page- or section-level status that must stay visible until the user reads or dismisses it (for example a failed save or a service notice).",
+    "Messages that offer follow-up actions such as Retry or View details.",
+    "Messages inserted or updated in response to user actions, with live set to 'polite' or 'assertive'."
+  ],
+  "whenNotToUse": [
+    "Short status next to a control or value: use Inline Message.",
+    "Transient confirmation that needs no action: use Toast.",
+    "Field validation errors: use the field's own error message and the Error Summary.",
+    "Decisions that must block the page: use Dialog (role alertdialog)."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "@absoluteui/components/button"],
+  "states": ["info", "success", "warning", "error", "with title", "with actions", "dismissible", "dismissed (hidden)", "live polite", "live assertive"],
+  "responsive": "Fills its container; content wraps (overflow-wrap: anywhere) and action buttons wrap onto new lines.",
+  "rtl": "Logical properties: the icon and the strong tone border sit at the inline start and the dismiss button at the inline end, in both directions.",
+  "theme": "Tone pairs color-{tone}-subtle background with color-{tone}-fg icon and border; body text uses color-text (all pairs in the contrast gate). Forced-colors mode draws CanvasText borders and icons.",
+  "timezone": "Not applicable.",
+  "security": "Title and string messages are rendered with textContent; Node messages are inserted as given (the consumer owns them). No HTML parsing, no inline styles except CSSOM for the visually hidden prefix. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Alert.create, per instance", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "Unit-tested per instance; alerts are not data-driven."
+  },
+  "limitations": [
+    "Live roles only announce content inserted or changed after the live region exists; an alert rendered with the initial page is not announced (use live 'off' for static content).",
+    "After dismissal via its button, focus is not moved by the component; handle aui-dismiss to move focus to a sensible element.",
+    "Dismissal is not persisted; the consumer decides whether to render the alert again."
+  ],
+  "unsupported": [
+    "Rendering HTML strings as the message (pass a Node instead).",
+    "Automatic timeout (use Toast)."
+  ],
+  "antiPatterns": [
+    "Conveying tone by color alone (the component always renders an icon and a tone prefix; do not hide them).",
+    "Using live 'assertive' for non-urgent information.",
+    "Stacking several alerts for the same event."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/alert: AuiAlert directive ([auiAlert]).",
+    "react": "@absoluteui/react/alert: AuiAlert component.",
+    "vue": "@absoluteui/vue/alert: AuiAlert component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

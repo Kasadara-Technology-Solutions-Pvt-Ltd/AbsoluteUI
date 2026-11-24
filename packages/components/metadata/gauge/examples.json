@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "gauge",
+  "examples": [
+    {
+      "id": "bands-target",
+      "title": "Gauge with bands, a target, and percent values",
+      "language": "ts",
+      "code": "import { Gauge } from '@absoluteui/components/gauge';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst gauge = Gauge.create(host, {\n  label: 'CPU load',\n  value: 72,\n  bands: [\n    { to: 50, label: 'Normal', color: 3 },\n    { to: 80, label: 'Busy', color: 5 },\n    { to: 100, label: 'Critical', color: 2 },\n  ],\n  target: 60,\n  valueFormat: { style: 'unit', unit: 'percent' },\n});\nhost.dataset.reading = gauge.valueText;"
+    },
+    {
+      "id": "live-value",
+      "title": "Custom range and a value updated over time",
+      "language": "ts",
+      "code": "import { Gauge } from '@absoluteui/components/gauge';\n\nconst host = document.querySelector<HTMLElement>('#nps');\nif (host) {\n  const gauge = Gauge.create(host, { label: 'Net promoter score', value: null, min: -100, max: 100, showRange: true, description: 'Last 30 days' });\n  gauge.update({ value: 38 });\n}"
+    }
+  ]
+}

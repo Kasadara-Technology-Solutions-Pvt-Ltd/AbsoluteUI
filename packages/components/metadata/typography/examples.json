@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "typography",
+  "examples": [
+    {
+      "id": "heading",
+      "title": "Semantic level independent of visual size",
+      "language": "ts",
+      "code": "import { Heading, Text } from '@absoluteui/components/typography';\n\nconst section = document.createElement('section');\nsection.append(\n  Heading.create(2, 'Billing', { size: 4 }),\n  Text.create('Invoices are issued on the first of each month.', { tone: 'muted', size: 'sm' }),\n);\ndocument.body.append(section);"
+    },
+    {
+      "id": "external-link",
+      "title": "Link that opens in a new tab",
+      "language": "ts",
+      "code": "import { Link } from '@absoluteui/components/typography';\n\nconst p = document.createElement('p');\np.append('Read the ', Link.create({ href: 'https://example.com/guide', text: 'setup guide', external: true }), '.');\ndocument.body.append(p);"
+    },
+    {
+      "id": "line-clamp",
+      "title": "Clamp a preview to two lines",
+      "language": "ts",
+      "code": "import { setLineClamp } from '@absoluteui/components/typography';\n\nconst preview = document.createElement('p');\npreview.className = 'aui-text';\npreview.textContent = 'A long description that should show at most two lines in the list view.';\ndocument.body.append(preview);\nconst unclamp = setLineClamp(preview, 2);\npreview.addEventListener('click', unclamp, { once: true });"
+    },
+    {
+      "id": "global-config",
+      "title": "Localize the new-tab hint",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI, registerMessages } from '@absoluteui/core';\n\nregisterMessages('typography', 'de', { opensInNewTab: '(öffnet in einem neuen Tab)' });\nconfigureAbsoluteUI({ components: { typography: { locale: 'de-DE' } } });"
+    }
+  ]
+}

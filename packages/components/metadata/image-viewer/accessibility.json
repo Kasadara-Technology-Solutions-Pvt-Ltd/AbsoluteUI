@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "component": "image-viewer",
+  "pattern": "Inline: a labelled region with a toolbar (WAI-ARIA APG Toolbar), a focusable image stage, and thumbnail buttons with aria-current. Lightbox: the same content in a modal dialog (APG Dialog) that restores focus when it closes.",
+  "roles": [
+    { "element": "host (inline) or dialog (lightbox)", "role": "region or dialog, named by label" },
+    { "element": "toolbar", "role": "toolbar (roving tabindex)" },
+    { "element": "stage", "role": "group, named 'Image 2 of 5: alt text', described by the keyboard help" },
+    { "element": "image", "role": "img with the image's alt text" },
+    { "element": "thumbnails", "role": "group of buttons named by alt text; the current one has aria-current=true" },
+    { "element": "crop area", "role": "group, named with its size, described by the crop keyboard help" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "host or dialog", "value": "label option" },
+    { "attribute": "aria-controls", "element": "toolbar", "value": "the stage id" },
+    { "attribute": "aria-describedby", "element": "stage and crop area", "value": "visually hidden keyboard help" },
+    { "attribute": "aria-disabled", "element": "unavailable tools", "value": "true (they stay focusable in the toolbar)" },
+    { "attribute": "aria-current", "element": "current thumbnail", "value": "true" },
+    { "attribute": "aria-pressed", "element": "aspect ratio buttons", "value": "true for the active preset" }
+  ],
+  "keyboard": [
+    { "key": "+ / =", "context": "Stage", "action": "Zoom in." },
+    { "key": "-", "context": "Stage", "action": "Zoom out." },
+    { "key": "0", "context": "Stage", "action": "Fit the image to the view." },
+    { "key": "1", "context": "Stage", "action": "Actual size (100%)." },
+    { "key": "R / Shift+R", "context": "Stage", "action": "Rotate clockwise / counter-clockwise." },
+    { "key": "ArrowLeft / ArrowRight", "context": "Stage", "action": "Previous / next image (mirrored in RTL); pans when zoomed in." },
+    { "key": "ArrowUp / ArrowDown", "context": "Stage, zoomed in", "action": "Pan." },
+    { "key": "Home / End", "context": "Stage", "action": "First / last image." },
+    { "key": "ArrowLeft / ArrowRight / Home / End", "context": "Toolbar or thumbnails", "action": "Move between tools or thumbnails." },
+    { "key": "Enter / Space", "context": "Tool or thumbnail", "action": "Activate the tool or show the image." },
+    { "key": "Arrow keys", "context": "Crop area", "action": "Move the crop area." },
+    { "key": "Shift+Arrow keys", "context": "Crop area", "action": "Resize the crop area (keeps the aspect ratio)." },
+    { "key": "Enter", "context": "Crop area", "action": "Apply the crop." },
+    { "key": "Escape", "context": "Crop mode / lightbox", "action": "Cancel the crop; otherwise close the lightbox." }
+  ],
+  "focus": "The lightbox moves focus to the stage when it opens and returns it to the previously focused element when it closes. Starting a crop focuses the crop area; applying or cancelling returns focus to the stage.",
+  "wcag": ["1.1.1", "1.3.1", "1.4.3", "1.4.11", "2.1.1", "2.4.3", "2.4.7", "2.5.1", "2.5.7", "4.1.2", "4.1.3"],
+  "notes": [
+    "Every image needs alt text; decorative images are announced as 'Image n'.",
+    "Image changes, zoom steps, rotation, crop size changes, and load errors are announced politely.",
+    "Pinch and drag have single-pointer alternatives (buttons, keys, double click) for WCAG 2.5.1 and 2.5.7."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

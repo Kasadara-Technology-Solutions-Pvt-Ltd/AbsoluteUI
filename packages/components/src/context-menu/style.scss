@@ -1,0 +1,11 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// The popup reuses the Menu styles (load @absoluteui/components/menu/style.css too);
+// these rules only adjust what differs for a menu opened at the pointer.
+@layer aui.components {
+  .aui-menu--context {
+    min-inline-size: 12rem;
+  }
+}

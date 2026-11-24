@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "network-graph",
+  "examples": [
+    {
+      "id": "team",
+      "title": "Team collaboration",
+      "language": "ts",
+      "code": "import { NetworkGraph } from '@absoluteui/components/network-graph';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nNetworkGraph.create(host, {\n  label: 'Team collaboration',\n  nodes: [\n    { id: 'ana', label: 'Ana', group: 'design' },\n    { id: 'ben', label: 'Ben', group: 'eng' },\n    { id: 'chi', label: 'Chi', group: 'eng' },\n    { id: 'dev', label: 'Dev', group: 'product' },\n  ],\n  edges: [\n    { source: 'ana', target: 'ben', weight: 3 },\n    { source: 'ben', target: 'chi', weight: 5 },\n    { source: 'chi', target: 'dev' },\n    { source: 'dev', target: 'ana' },\n  ],\n  groups: [\n    { id: 'design', label: 'Design' },\n    { id: 'eng', label: 'Engineering' },\n    { id: 'product', label: 'Product' },\n  ],\n});"
+    },
+    {
+      "id": "pins",
+      "title": "Directed edges, pins, and the pin event",
+      "language": "ts",
+      "code": "import { NetworkGraph, type NetworkGraphNodePinDetail } from '@absoluteui/components/network-graph';\n\nconst host = document.querySelector<HTMLElement>('#deps');\nif (host) {\n  const graph = NetworkGraph.create(host, {\n    label: 'Service dependencies',\n    nodes: [{ id: 'web', label: 'Web' }, { id: 'api', label: 'API' }, { id: 'db', label: 'Database' }],\n    edges: [{ source: 'web', target: 'api' }, { source: 'api', target: 'db' }],\n    directed: true,\n    seed: 7,\n    pinned: [{ id: 'db', x: 0, y: 0 }],\n  });\n  host.addEventListener('aui-node-pin', (e) => {\n    const detail = (e as CustomEvent<NetworkGraphNodePinDetail>).detail;\n    if (!detail.pinned) graph.relayout();\n  });\n}"
+    }
+  ]
+}

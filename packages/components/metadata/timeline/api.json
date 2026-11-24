@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "component": "timeline",
+  "factory": { "name": "Timeline.create", "signature": "Timeline.create(host: HTMLElement, options: TimelineOptions): Timeline" },
+  "configKey": "timeline",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the list (and of the scroll region when horizontal)." },
+    { "name": "items", "type": "readonly TimelineItem[]", "required": true, "globallyConfigurable": false, "description": "Items in display order: { id, title, time?, description?, tone?, status?, icon?, avatar?, href?, actions? }." },
+    { "name": "order", "type": "'newest-first' | 'oldest-first'", "default": "newest-first", "required": false, "globallyConfigurable": false, "description": "Order of items; older items collapse and load at the older end." },
+    { "name": "initialVisible", "type": "number | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Show this many items and collapse the older rest behind 'Show N older'." },
+    { "name": "loadMore", "type": "((context: TimelineLoadContext) => Promise<readonly TimelineItem[]>) | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Fetch older items; the context has an AbortSignal and the oldest item." },
+    { "name": "hasMore", "type": "boolean", "default": "true when loadMore is set", "required": false, "globallyConfigurable": false, "description": "More items can be loaded; an empty result sets it to false." },
+    { "name": "businessCalendar", "type": "BusinessCalendarEngine | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Names holidays and non-working days in day headings." },
+    { "name": "headingLevel", "type": "2 | 3 | 4 | 5 | 6", "default": "3", "required": false, "globallyConfigurable": false, "description": "Heading level of day headings." },
+    { "name": "now", "type": "Instant", "default": "the current instant", "required": false, "globallyConfigurable": false, "description": "Reference for relative times and 'Today'." },
+    { "name": "empty", "type": "string", "default": "localized 'No activity yet.'", "required": false, "globallyConfigurable": false, "description": "Text when there are no items." },
+    { "name": "icons", "type": "Partial<TimelineIcons>", "required": false, "globallyConfigurable": false, "description": "Tone markers, 'Show older', and retry icons." },
+    { "name": "orientation", "type": "'vertical' | 'horizontal'", "default": "vertical", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Direction of the line." },
+    { "name": "layout", "type": "'start' | 'alternate'", "default": "start", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Items on one side, or alternating sides (vertical)." },
+    { "name": "timeFormat", "type": "'relative' | 'absolute'", "default": "absolute", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "'3 hours ago' or a formatted time; the full date is always in the title and datetime." },
+    { "name": "groupByDay", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Group consecutive items of the same day under a day heading." },
+    { "name": "locale", "type": "string", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale for dates, numbers, and messages." },
+    { "name": "timezone", "type": "string", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "IANA timezone for grouping and formatting instants." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "options", "type": "Readonly<TimelineOptions>", "description": "Current options." },
+    { "name": "items", "type": "TimelineItem[]", "description": "Every item in display order, including loaded ones." },
+    { "name": "expanded", "type": "boolean", "description": "Older items are shown." },
+    { "name": "hasMore", "type": "boolean", "description": "More items can be loaded." },
+    { "name": "loading", "type": "boolean", "description": "loadMore is running." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<TimelineOptions>): void", "description": "Merge and apply options; new items replace loaded ones." },
+    { "name": "setExpanded", "signature": "setExpanded(expanded: boolean): void", "description": "Show or collapse older items (no event)." },
+    { "name": "loadOlder", "signature": "loadOlder(): Promise<void>", "description": "Run loadMore as the 'Load older' button does." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Abort loading and remove rendering, buttons, avatars, and listeners." }
+  ],
+  "events": [
+    { "name": "aui-action", "detail": "TimelineActionDetail", "bubbles": true, "cancelable": false, "description": "An item action was activated: { itemId, actionId, item }." },
+    { "name": "aui-toggle", "detail": "TimelineToggleDetail", "bubbles": true, "cancelable": false, "description": "Older items were shown or collapsed: { expanded }." },
+    { "name": "aui-load-more", "detail": "TimelineLoadMoreDetail", "bubbles": true, "cancelable": false, "description": "loadMore resolved: { items, hasMore }." },
+    { "name": "aui-load-error", "detail": "TimelineLoadErrorDetail", "bubbles": true, "cancelable": false, "description": "loadMore rejected or returned invalid items: { error }." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-timeline", "description": "Host." },
+    { "name": "aui-timeline--vertical | --horizontal", "description": "Orientation." },
+    { "name": "aui-timeline--alternate", "description": "Alternate layout." },
+    { "name": "aui-timeline--grouped", "description": "Grouped by day." },
+    { "name": "aui-timeline__scroller", "description": "Scroll container (a focusable region when horizontal)." },
+    { "name": "aui-timeline__list", "description": "The outer ordered list." },
+    { "name": "aui-timeline__group", "description": "A day group (list item)." },
+    { "name": "aui-timeline__day", "description": "Day heading." },
+    { "name": "aui-timeline__items", "description": "Ordered list of items." },
+    { "name": "aui-timeline__item", "description": "An item; aui-timeline__item--<tone> and --end (alternate)." },
+    { "name": "aui-timeline__marker", "description": "Icon or avatar marker (aria-hidden)." },
+    { "name": "aui-timeline__content", "description": "Title, status, time, description, actions." },
+    { "name": "aui-timeline__title | __status | __time | __description | __actions", "description": "Item parts." },
+    { "name": "aui-timeline__footer", "description": "'Show older' and 'Load older' buttons and the error message." },
+    { "name": "aui-timeline__toggle | __load | __error | __empty", "description": "Footer parts and the empty text." }
+  ],
+  "iconSlots": [
+    { "name": "neutral", "default": "circle (icon set)" },
+    { "name": "info", "default": "info" },
+    { "name": "success", "default": "check-circle" },
+    { "name": "warning", "default": "alert-triangle" },
+    { "name": "error", "default": "alert-circle" },
+    { "name": "showOlder", "default": "chevron-down" },
+    { "name": "retry", "default": "refresh" }
+  ]
+}

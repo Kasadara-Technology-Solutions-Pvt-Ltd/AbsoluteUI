@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="roadmap">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 21c2.5-3 5-7.5 6.75-12"/>
+      <path d="M21 21c-2.5-3-5-7.5-6.75-12"/>
+      <path d="M12 16v2.5"/>
+      <path d="M12 11.5v1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 8.5V3h4.5l-1.25 1.75L16.5 6.5H12"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M2 21.5c2.7-3.3 5.3-8 7.1-12h5.8c1.8 4 4.4 8.7 7.1 12z"/>
+      <rect x="11.25" y="15.75" width="1.5" height="3" rx="0.5"/>
+      <rect x="11.25" y="11.75" width="1.5" height="2" rx="0.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <path d="M11.25 8.5V2.25H17.5l-1.6 2.25 1.6 2.25h-4.75V8.5z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3 21c2.5-3 5-7.5 6.75-12h4.5c1.75 4.5 4.25 9 6.75 12z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 21c2.5-3 5-7.5 6.75-12"/>
+      <path d="M21 21c-2.5-3-5-7.5-6.75-12"/>
+      <path d="M12 16v2.5"/>
+      <path d="M12 11.5v1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 8.5V3h4.5l-1.25 1.75L16.5 6.5H12"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+[
+  { "title": "Value in range", "text": "A radial arc for one value between a minimum and maximum." },
+  { "title": "Bands and target", "text": "Named qualitative bands and a target marker; the current band shows under the value." },
+  { "title": "Meter semantics", "text": "Exposed as a meter whose value text names the band and the target." },
+  { "title": "Lightweight", "text": "A static reading without the chart frame, so it stays small." }
+]

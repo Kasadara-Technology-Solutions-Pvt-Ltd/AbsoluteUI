@@ -1,0 +1,7 @@
+[
+  { "title": "Spreadsheet editing", "text": "Edit cells with validation, undo and redo, copy and paste, and fill handles." },
+  { "title": "Filters and grouping", "text": "Set, text, and number filters, floating filters, row grouping, and aggregates." },
+  { "title": "Large data", "text": "Virtual rows and columns keep thousands of rows fast, with server-side loading when needed." },
+  { "title": "Pivot, tree, and detail", "text": "Pivot mode, tree data, and master-detail rows in the same grid." },
+  { "title": "Export anywhere", "text": "CSV, Excel, and PDF export plus printing, without third-party libraries." }
+]

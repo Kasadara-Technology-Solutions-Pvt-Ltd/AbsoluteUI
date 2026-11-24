@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "date-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required date with bounds",
+      "language": "ts",
+      "code": "import { plainDate, plainDateToString } from '@absoluteui/core';\nimport { DatePicker, type DatePickerChangeDetail } from '@absoluteui/components/date-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDatePicker.create(host, { label: 'Check-in', name: 'checkIn', required: true, min: plainDate(2026, 1, 1), max: plainDate(2026, 12, 31) });\nhost.addEventListener('aui-change', (event) => {\n  const { value, validity } = (event as CustomEvent<DatePickerChangeDetail>).detail;\n  host.dataset.value = value && validity.valid ? plainDateToString(value) : '';\n});"
+    },
+    {
+      "id": "unavailable",
+      "title": "Unavailable days and a Monday week start",
+      "language": "ts",
+      "code": "import { dayOfWeek } from '@absoluteui/core';\nimport { DatePicker } from '@absoluteui/components/date-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDatePicker.create(host, { label: 'Delivery date', firstDayOfWeek: 1, isDateDisabled: (date) => dayOfWeek(date) === 7 });"
+    },
+    {
+      "id": "global-config",
+      "title": "Keep the calendar open after picking",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ common: { timezone: 'Europe/London' }, components: { datePicker: { closeOnSelect: false } } });"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "component": "sparkline",
+  "factory": {
+    "name": "Sparkline.create",
+    "signature": "Sparkline.create(host: HTMLElement, options: SparklineOptions): Sparkline"
+  },
+  "configKey": "sparkline",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "What the values are, for example \"Revenue, last 12 months\"; starts the accessible name."
+    },
+    {
+      "name": "values",
+      "type": "readonly (number | null)[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Values in order; null, NaN, and infinities are gaps."
+    },
+    {
+      "name": "variant",
+      "type": "'line' | 'bar'",
+      "default": "line",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Line or bars (bars include zero and draw negatives below a baseline)."
+    },
+    {
+      "name": "color",
+      "type": "1 | 2 | 3 | 4 | 5 | 6 | 7 | 8",
+      "default": 1,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Palette slot (color-chart-<n>)."
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Fixed domain minimum (for comparable sparklines)."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Fixed domain maximum."
+    },
+    {
+      "name": "valueFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Number format for the accessible name."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Custom value text for the accessible name."
+    },
+    {
+      "name": "valueText",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Replaces the generated accessible name."
+    },
+    {
+      "name": "theme",
+      "type": "ChartTheme",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']. The sparkline uses palette, lineWidth, axisColor (bar baseline), and animation."
+    },
+    {
+      "name": "highlightLast",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Mark the last value (dot for line, full opacity for bar)."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Number, date, and message locale."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "rtl mirrors the category/x axis, the value axis side, and Left/Right arrow keys."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "SVGSVGElement",
+      "description": "The svg role=\"img\"."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "description": "The accessible name (generated or valueText)."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<SparklineOptions>): void",
+      "description": "Merge, validate, and re-render."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, classes, and the configuration subscription."
+    }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-sparkline",
+      "description": "Host; inline-block, 6em x 1.5em by default (set inline-size / block-size to resize)."
+    },
+    {
+      "name": "aui-sparkline--line / --bar",
+      "description": "Variant modifiers."
+    },
+    {
+      "name": "aui-sparkline--c1 ... --c8",
+      "description": "Palette slot; sets --aui-sparkline-color."
+    },
+    {
+      "name": "aui-sparkline__svg / __line / __dot / __last / __bar / __bar--last / __baseline",
+      "description": "SVG and its parts (non-scaling strokes)."
+    }
+  ],
+  "iconSlots": []
+}

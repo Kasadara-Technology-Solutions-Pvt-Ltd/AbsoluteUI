@@ -1,0 +1,7 @@
+[
+  { "title": "Dependencies", "text": "Dependent tasks follow when a task moves, counted in working days." },
+  { "title": "Business calendar", "text": "Working days and holidays drive durations and the schedule." },
+  { "title": "Critical path", "text": "Highlight the tasks that decide the end date, and compare with baselines." },
+  { "title": "Resource load", "text": "Assign people with units and see their load as a histogram." },
+  { "title": "Drag or keyboard", "text": "Move and resize tasks by pointer or keyboard, with undo and redo." }
+]

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "tooltip",
+  "examples": [
+    {
+      "id": "description",
+      "title": "Keyboard shortcut hint",
+      "language": "ts",
+      "code": "import { Tooltip } from '@absoluteui/components/tooltip';\nimport { Button } from '@absoluteui/components/button';\n\nconst save = document.createElement('button');\nsave.type = 'button';\nsave.textContent = 'Save';\nButton.enhance(save);\ndocument.body.append(save);\nTooltip.create(save, { content: 'Ctrl+S' });"
+    },
+    {
+      "id": "icon-label",
+      "title": "Name an icon-only button",
+      "language": "ts",
+      "code": "import { Tooltip } from '@absoluteui/components/tooltip';\nimport { Button } from '@absoluteui/components/button';\n\nconst settings = document.createElement('button');\nsettings.type = 'button';\ndocument.body.append(settings);\n// The tooltip names the icon-only button (aria-labelledby), so create it before the Button.\nTooltip.create(settings, { content: 'Settings', relation: 'label', placement: 'bottom' });\nButton.enhance(settings, { icon: 'menu', variant: 'ghost' });"
+    },
+    {
+      "id": "global-config",
+      "title": "Global delays",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { tooltip: { showDelay: 300, hideDelay: 200 } } });"
+    }
+  ]
+}

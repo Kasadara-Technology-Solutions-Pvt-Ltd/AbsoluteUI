@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "name": "kbd",
+  "displayName": "Kbd",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { Kbd } from '@absoluteui/components/kbd';",
+  "styleImport": "@absoluteui/components/kbd/style.css",
+  "purpose": "Keyboard shortcut shown as keycaps, from the same hotkey syntax as matchesHotkey ('Mod+Shift+K'). Mod is Command on Apple platforms and Ctrl elsewhere; Apple modifiers show as symbols with their names for assistive technology.",
+  "whenToUse": [
+    "Documenting a shortcut next to the command it triggers: menu items, tooltips, help pages.",
+    "Showing a key the user should press, such as Esc or Enter."
+  ],
+  "whenNotToUse": [
+    "Code or command-line text: use a code element.",
+    "Interactive key remapping: Kbd only displays."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities"],
+  "states": ["apple", "other", "sm", "md"],
+  "responsive": "Inline keycaps that do not wrap within a shortcut; the combination wraps as a unit with surrounding text.",
+  "rtl": "Key order follows the hotkey string in both directions (shortcuts are not mirrored).",
+  "theme": "Keycap uses component tokens kbd-bg (color-surface-sunken), kbd-border-color (color-border-strong), kbd-radius (radius-sm); label color-text on kbd-bg is in the contrast gate. Monospace keycaps (font-family-mono). Forced-colors mode draws CanvasText keycap borders.",
+  "timezone": "Not applicable.",
+  "security": "Key text is rendered with textContent; never parsed as HTML. CSP-safe.",
+  "dataHandling": "Reads navigator.userAgent once per render when platform is auto. No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Kbd.create, per instance", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "Unit-tested per instance; not data-driven."
+  },
+  "limitations": [
+    "One combination per instance; for a sequence (G then I) use one Kbd per step.",
+    "Platform detection uses the user-agent string (auto); set platform to override."
+  ],
+  "unsupported": [
+    "Listening for key presses (use matchesHotkey from @absoluteui/utilities).",
+    "Rendering HTML or Nodes as key labels."
+  ],
+  "antiPatterns": [
+    "Hard-coding 'Ctrl' for a shortcut that is Command on Apple platforms (use Mod).",
+    "Using a shortcut as the only way to reach a command."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/kbd: AuiKbd component (<aui-kbd>).",
+    "react": "@absoluteui/react/kbd: AuiKbd component.",
+    "vue": "@absoluteui/vue/kbd: AuiKbd component."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

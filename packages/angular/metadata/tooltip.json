@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/tooltip",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiTooltip",
+      "description": "AbsoluteUI Tooltip on its trigger: `<button auiTooltip=\"Opens the help center\">`.",
+      "selector": "[auiTooltip]",
+      "exportAs": [
+        "auiTooltip"
+      ],
+      "source": "hand-written",
+      "component": "tooltip",
+      "configKey": "tooltip",
+      "inputs": [
+        {
+          "name": "auiTooltip",
+          "type": "string",
+          "required": true,
+          "description": "Tooltip text (text only)."
+        },
+        {
+          "name": "tooltipRelation",
+          "type": "TooltipRelation",
+          "required": false,
+          "default": "description",
+          "description": "Trigger gets aria-describedby ('description') or aria-labelledby ('label', for icon-only controls)."
+        },
+        {
+          "name": "tooltipPlacement",
+          "type": "Placement",
+          "required": false,
+          "default": "top",
+          "configurable": true,
+          "description": "Preferred side and logical alignment; flips and shifts to fit."
+        },
+        {
+          "name": "tooltipShowDelay",
+          "type": "number",
+          "required": false,
+          "default": "500",
+          "configurable": true,
+          "description": "Hover delay before showing, ms. Keyboard focus shows immediately."
+        },
+        {
+          "name": "tooltipHideDelay",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "configurable": true,
+          "description": "Delay after the pointer leaves the trigger and tooltip before hiding, ms."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Resolves logical start/end placements."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "opened",
+          "payload": "null",
+          "event": "aui-open",
+          "description": "After the tooltip became visible (dispatched on the tooltip element)."
+        },
+        {
+          "name": "closed",
+          "payload": "null",
+          "event": "aui-close",
+          "description": "After the tooltip was hidden."
+        }
+      ],
+      "methods": [
+        {
+          "name": "show",
+          "signature": "show(): void",
+          "description": "Show the tooltip now (without the hover delay)."
+        },
+        {
+          "name": "hide",
+          "signature": "hide(): void",
+          "description": "Hide the tooltip."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Tooltip pattern, with WCAG 1.4.13 Content on Hover or Focus.",
+        "source": "packages/components/metadata/tooltip/accessibility.json"
+      },
+      "limitations": [
+        "Touch pointers never show the tooltip; tooltips must not hold essential information.",
+        "Disabled native buttons receive no pointer or focus events, so their tooltips never show; use aria-disabled instead.",
+        "Only one tooltip is visible at a time per loaded copy of the module.",
+        "The tooltip is appended to the end of the body, or to the trigger's enclosing <dialog> so it stays hoverable while a modal dialog makes the rest of the page inert.",
+        "The gap between trigger and tooltip is fixed at 6px."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiTooltip } from '@absoluteui/angular/tooltip';\nimport { AuiButton } from '@absoluteui/angular/button';\n\n@Component({\n  selector: 'app-editor-toolbar',\n  imports: [AuiTooltip, AuiButton],\n  template: `\n    <button type=\"button\" auiButton auiTooltip=\"Ctrl+S\" tooltipPlacement=\"bottom\">Save</button>\n    <button type=\"button\" auiButton icon=\"menu\" variant=\"ghost\" auiTooltip=\"Settings\" tooltipRelation=\"label\"></button>\n  `,\n})\nexport class EditorToolbarComponent {}"
+    }
+  ]
+}

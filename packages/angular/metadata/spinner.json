@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/spinner",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSpinner",
+      "description": "AbsoluteUI Spinner: `<aui-spinner>`.",
+      "selector": "aui-spinner",
+      "exportAs": [
+        "auiSpinner"
+      ],
+      "source": "generated",
+      "component": "spinner",
+      "configKey": "spinner",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Announced (and optionally visible) label. Default: localized \"Loading\"."
+        },
+        {
+          "name": "showLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the label visibly; otherwise it is visually hidden but announced."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<SpinnerIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "size",
+          "type": "SpinnerSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Icon size."
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "configurable": true,
+          "description": "Milliseconds (integer 0..60000) before the content is shown."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message locale for the default label."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "serverRenderingNote": "renders nothing on the server by design (for example until a delay elapses)",
+      "accessibility": {
+        "pattern": "ARIA status live region (role=\"status\", implicit aria-live=\"polite\").",
+        "source": "packages/components/metadata/spinner/accessibility.json"
+      },
+      "limitations": [
+        "The label is announced when content is inserted into the pre-existing status region; with delay 0 the region and content appear in the same task, so some screen readers may not announce it. Use a delay, or create the spinner on an empty host before the operation starts.",
+        "delay is init-only.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { AuiSpinner } from '@absoluteui/angular/spinner';\n\n@Component({\n  selector: 'app-results',\n  imports: [AuiSpinner],\n  template: `@if (loading()) { <aui-spinner label=\"Loading results\" [delay]=\"300\" size=\"sm\"></aui-spinner> }`,\n})\nexport class ResultsComponent {\n  readonly loading = signal(true);\n}"
+    }
+  ]
+}

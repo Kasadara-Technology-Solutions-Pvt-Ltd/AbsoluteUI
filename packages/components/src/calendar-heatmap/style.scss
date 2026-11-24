@@ -1,0 +1,71 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+
+  // Discrete fill strengths: the palette slot mixed into the surface (15-100 %).
+  @for $i from 3 through 20 {
+    .aui-calendar-heatmap__level--#{$i * 5} {
+      --aui-calendar-heatmap-fill: color-mix(in srgb, var(--aui-chart-color) #{$i * 5%}, #{aui.token('color-surface')});
+    }
+  }
+
+  .aui-calendar-heatmap__cell {
+    fill: var(--aui-calendar-heatmap-fill, var(--aui-chart-color));
+    stroke: none;
+  }
+
+  .aui-calendar-heatmap__cell--empty,
+  .aui-calendar-heatmap .aui-chart__swatch.aui-calendar-heatmap__swatch-empty .aui-chart__swatch-fill {
+    fill: aui.token('color-surface-sunken');
+  }
+
+  // Non-working days: a dashed outline, so a quiet weekend never reads as missing data.
+  .aui-calendar-heatmap__cell--off,
+  .aui-calendar-heatmap .aui-chart__swatch.aui-calendar-heatmap__swatch-off .aui-chart__swatch-fill {
+    stroke: aui.token('color-border-strong');
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+  }
+
+  .aui-calendar-heatmap .aui-chart__swatch.aui-calendar-heatmap__swatch-off .aui-chart__swatch-fill {
+    fill: aui.token('color-surface');
+  }
+
+  .aui-calendar-heatmap__dot,
+  .aui-calendar-heatmap .aui-chart__swatch.aui-calendar-heatmap__swatch-holiday .aui-chart__swatch-fill {
+    fill: aui.token('color-text');
+    pointer-events: none;
+  }
+
+  .aui-calendar-heatmap .aui-chart__swatch .aui-chart__swatch-fill {
+    fill: var(--aui-calendar-heatmap-fill, var(--aui-chart-color));
+  }
+
+  .aui-calendar-heatmap__cell.aui-chart__mark--hover,
+  .aui-calendar-heatmap__cell.aui-chart__mark--active {
+    stroke: aui.token('color-text');
+    stroke-width: 2;
+    stroke-dasharray: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-calendar-heatmap__cell,
+    .aui-calendar-heatmap__cell--empty {
+      fill: Canvas;
+      stroke: CanvasText;
+      stroke-width: 1;
+    }
+
+    .aui-calendar-heatmap__cell.aui-chart__mark--hover,
+    .aui-calendar-heatmap__cell.aui-chart__mark--active {
+      stroke: Highlight;
+    }
+
+    .aui-calendar-heatmap__dot {
+      fill: CanvasText;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="image-off">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="4" width="19" height="16" rx="2"/>
+      <path d="M3 18.5l5.5-6 4.5 5 2.5-2.5 5 4.5"/>
+      <circle cx="16" cy="9" r="1.75"/>
+      <line x1="3" y1="3" x2="21" y2="21" data-knockout="5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M3 3l18 18"/>
+    </g>
+  </g>
+</svg>

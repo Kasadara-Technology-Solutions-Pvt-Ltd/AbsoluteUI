@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="sun">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="4.5"/>
+      <path d="M20.5 12h.01"/>
+      <path d="M18.01 18.01h.01"/>
+      <path d="M12 20.5h.01"/>
+      <path d="M5.99 18.01h.01"/>
+      <path d="M3.5 12h.01"/>
+      <path d="M5.99 5.99h.01"/>
+      <path d="M12 3.5h.01"/>
+      <path d="M18.01 5.99h.01"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <circle cx="12" cy="12" r="5.25"/>
+      <circle cx="20.75" cy="12" r="1.25"/>
+      <circle cx="18.19" cy="18.19" r="1.25"/>
+      <circle cx="12" cy="20.75" r="1.25"/>
+      <circle cx="5.81" cy="18.19" r="1.25"/>
+      <circle cx="3.25" cy="12" r="1.25"/>
+      <circle cx="5.81" cy="5.81" r="1.25"/>
+      <circle cx="12" cy="3.25" r="1.25"/>
+      <circle cx="18.19" cy="5.81" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="12" r="4.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="4.5"/>
+      <path d="M20.5 12h.01"/>
+      <path d="M18.01 18.01h.01"/>
+      <path d="M12 20.5h.01"/>
+      <path d="M5.99 18.01h.01"/>
+      <path d="M3.5 12h.01"/>
+      <path d="M5.99 5.99h.01"/>
+      <path d="M12 3.5h.01"/>
+      <path d="M18.01 5.99h.01"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.45">
+      <circle cx="12" cy="12" r="4.5"/>
+    </g>
+    <g data-layer="base" data-role="warning" data-paint="stroke">
+      <circle cx="12" cy="12" r="4.5"/>
+      <path d="M20.5 12h.01"/>
+      <path d="M18.01 18.01h.01"/>
+      <path d="M12 20.5h.01"/>
+      <path d="M5.99 18.01h.01"/>
+      <path d="M3.5 12h.01"/>
+      <path d="M5.99 5.99h.01"/>
+      <path d="M12 3.5h.01"/>
+      <path d="M18.01 5.99h.01"/>
+    </g>
+  </g>
+</svg>

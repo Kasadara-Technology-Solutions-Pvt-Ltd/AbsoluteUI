@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AbsoluteUI R1 harness: feedback and layout</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/dialog.css">
+    <link rel="stylesheet" href="/alert.css">
+    <link rel="stylesheet" href="/inline-message.css">
+    <link rel="stylesheet" href="/toast.css">
+    <link rel="stylesheet" href="/progress-bar.css">
+    <link rel="stylesheet" href="/spinner.css">
+    <link rel="stylesheet" href="/skeleton.css">
+    <link rel="stylesheet" href="/accordion.css">
+    <link rel="stylesheet" href="/button-group.css">
+    <link rel="stylesheet" href="/layout.css">
+    <link rel="stylesheet" href="/card.css">
+    <link rel="stylesheet" href="/typography.css">
+    <link rel="stylesheet" href="/demo.css">
+    <script type="module" src="/feedback.js"></script>
+  </head>
+  <body>
+    <main id="main" class="aui-container aui-container--lg">
+      <h1 class="aui-heading aui-heading--2">AbsoluteUI R1 feedback and layout</h1>
+      <p class="aui-text aui-text--muted">Status, disclosure, layout primitives, and typography. <a class="aui-link" href="#cards">Jump to cards</a>.</p>
+      <section aria-labelledby="h-alerts" id="alerts">
+        <h2 id="h-alerts" class="aui-heading aui-heading--4">Alerts</h2>
+        <div id="alert-info"></div>
+        <div id="alert-error"></div>
+        <div id="inline"></div>
+      </section>
+      <section aria-labelledby="h-progress" id="progress">
+        <h2 id="h-progress" class="aui-heading aui-heading--4">Progress</h2>
+        <div id="bar"></div>
+        <div id="bar-indeterminate"></div>
+        <div id="spinner"></div>
+        <div id="skeleton-region"><div id="skeleton"></div></div>
+      </section>
+      <section aria-labelledby="h-actions">
+        <h2 id="h-actions" class="aui-heading aui-heading--4">Actions</h2>
+        <div id="group"></div>
+        <p>Last action: <output id="last-action">none</output></p>
+      </section>
+      <section aria-labelledby="h-accordion">
+        <h2 id="h-accordion" class="aui-heading aui-heading--4">Accordion</h2>
+        <div id="accordion"></div>
+      </section>
+      <section aria-labelledby="h-cards" id="cards">
+        <h2 id="h-cards" class="aui-heading aui-heading--4">Cards</h2>
+        <div id="grid"><div id="card-a"></div><div id="card-b"></div><div id="card-c"></div></div>
+      </section>
+    </main>
+  </body>
+</html>

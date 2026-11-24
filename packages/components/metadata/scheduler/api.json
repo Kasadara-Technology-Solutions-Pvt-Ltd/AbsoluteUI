@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "component": "scheduler",
+  "factory": {
+    "name": "Scheduler.create",
+    "signature": "Scheduler.create(host: HTMLElement, options: SchedulerOptions): Scheduler"
+  },
+  "configKey": "scheduler",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Accessible name; grids are named \"{label}, {period}\"."
+    },
+    {
+      "name": "events",
+      "type": "readonly SchedulerEvent[]",
+      "default": [],
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Events: { id, title, start: Instant | PlainDate, end (exclusive instant or inclusive last day), timeZone?, recurrence?, seriesId?, originalStart?, resourceId?, color?, location?, description?, readOnly? }."
+    },
+    {
+      "name": "loadEvents",
+      "type": "(range: SchedulerRange, signal: AbortSignal) => Promise<readonly SchedulerEvent[]>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Range data source instead of events (single events overlapping the range, series masters that may occur in it, and their exceptions)."
+    },
+    {
+      "name": "resources",
+      "type": "readonly SchedulerResource[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Timeline rows: { id, label, description?, color? }."
+    },
+    {
+      "name": "view",
+      "type": "'day' | 'week' | 'workWeek' | 'month' | 'agenda' | 'timeline'",
+      "default": "week",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Current view."
+    },
+    {
+      "name": "views",
+      "type": "readonly SchedulerView[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Views in the switcher. Default: day, week, work week, month, agenda (plus timeline with resources)."
+    },
+    {
+      "name": "date",
+      "type": "PlainDate",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A day in the visible period. Default: today in the timezone."
+    },
+    {
+      "name": "editable",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Move and resize events (pointer, keyboard, toolbar)."
+    },
+    {
+      "name": "recurringEditScope",
+      "type": "'ask' | 'occurrence' | 'following' | 'series'",
+      "default": "ask",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "How changes to recurring occurrences apply; ask shows a dialog."
+    },
+    {
+      "name": "businessCalendar",
+      "type": "BusinessCalendarDefinition",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Working days (work week), working hours (shading), holidays (headers)."
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "IsoWeekday",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "First day of weeks. Default: the locale's first day of week."
+    },
+    {
+      "name": "createId",
+      "type": "(base: Readonly<SchedulerEvent>, hint: string) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Id of events created from base (exceptions, split series). Default \"{id}~{hint}\"."
+    },
+    {
+      "name": "renderEvent",
+      "type": "(occurrence: SchedulerOccurrence, context: SchedulerRenderContext) => Node",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Event content (non-interactive)."
+    },
+    {
+      "name": "now",
+      "type": "Instant",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Advanced: fixed current time (tests, demos); disables the per-minute refresh."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ previous: IconRef; next: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    },
+    {
+      "name": "slotDuration",
+      "type": "15 | 30 | 60",
+      "default": 30,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Minutes per slot (time view rows, day timeline columns)."
+    },
+    {
+      "name": "snapDuration",
+      "type": "5 | 10 | 15 | 30 | 60",
+      "default": 15,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Minutes moves and resizes snap to."
+    },
+    {
+      "name": "dayStartHour",
+      "type": "number",
+      "default": 0,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "First hour shown in time views (0-23)."
+    },
+    {
+      "name": "dayEndHour",
+      "type": "number",
+      "default": 24,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Last hour shown, exclusive (1-24, after dayStartHour)."
+    },
+    {
+      "name": "scrollToHour",
+      "type": "number",
+      "default": 8,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Hour scrolled into view (and focused) when a time view opens."
+    },
+    {
+      "name": "monthEventLimit",
+      "type": "number",
+      "default": 3,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Rows of events per month cell before \"+N more\"."
+    },
+    {
+      "name": "agendaDays",
+      "type": "number",
+      "default": 7,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Days listed by the agenda (1-62)."
+    },
+    {
+      "name": "timelineScale",
+      "type": "'day' | 'week' | 'month'",
+      "default": "day",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Timeline columns: slots of a day, days of a week, or days of a month."
+    },
+    {
+      "name": "requestTimeoutMs",
+      "type": "number",
+      "default": 30000,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "loadEvents timeout."
+    },
+    {
+      "name": "historyLimit",
+      "type": "number",
+      "default": 50,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Undo depth (0 disables undo)."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Month and weekday names, dates, numbers, the first day of the week, and messages."
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "default": "UTC",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Timezone of the layout, today, slots, and new times."
+    },
+    {
+      "name": "disambiguation",
+      "type": "'compatible' | 'earlier' | 'later' | 'reject'",
+      "default": "compatible",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "DST policy for wall-clock times in a gap or overlap (SPEC section 8.5)."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Reading direction; Left/Right arrow keys and chevrons follow it."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "Consumer host."
+    },
+    {
+      "name": "view",
+      "type": "SchedulerView",
+      "description": "Current view."
+    },
+    {
+      "name": "date",
+      "type": "PlainDate",
+      "description": "Anchor date of the visible period."
+    },
+    {
+      "name": "range",
+      "type": "SchedulerRange",
+      "description": "{ start, end (instants), startDate, endDate (inclusive) } of the visible days."
+    },
+    {
+      "name": "events",
+      "type": "SchedulerEvent[]",
+      "description": "Every event (copies), for saving."
+    },
+    {
+      "name": "occurrences",
+      "type": "readonly SchedulerOccurrence[]",
+      "description": "Occurrences in the visible range, sorted (key, event, start, end, allDay, recurring, seriesId, originalStart)."
+    },
+    {
+      "name": "editable",
+      "type": "boolean",
+      "description": "Edit mode."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "description": "A loadEvents request is pending."
+    },
+    {
+      "name": "canUndo / canRedo",
+      "type": "boolean",
+      "description": "History state."
+    },
+    {
+      "name": "businessCalendar",
+      "type": "BusinessCalendarEngine",
+      "description": "Engine of the business calendar definition."
+    },
+    {
+      "name": "element",
+      "type": "HTMLElement | null",
+      "description": "The current grid (or the agenda region)."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<SchedulerOptions>): void",
+      "description": "Merge and apply options; events replace the list and clear history."
+    },
+    {
+      "name": "setView",
+      "signature": "setView(view: SchedulerView): void",
+      "description": "Change the view (no aui-navigate)."
+    },
+    {
+      "name": "goTo / next / previous / today",
+      "signature": "goTo(date: PlainDate): void; next(): void; previous(): void; today(): void",
+      "description": "Change the period (next and previous emit aui-navigate)."
+    },
+    {
+      "name": "refresh",
+      "signature": "refresh(): void",
+      "description": "Discard cached ranges and reload the visible range."
+    },
+    {
+      "name": "moveEvent",
+      "signature": "moveEvent(key: string, start: Instant | PlainDate, options?: { resourceId?: string; scope?: SchedulerEditScope }): boolean",
+      "description": "Programmatic move of a visible occurrence (emits the cancelable aui-event-change; false when refused)."
+    },
+    {
+      "name": "resizeEvent",
+      "signature": "resizeEvent(key: string, end: Instant | PlainDate, options?: { scope?: SchedulerEditScope }): boolean",
+      "description": "Programmatic end change."
+    },
+    {
+      "name": "undo / redo",
+      "signature": "undo(): boolean; redo(): boolean",
+      "description": "Step through edits (emit aui-event-change with reason undo/redo)."
+    },
+    {
+      "name": "focus",
+      "signature": "focus(): void",
+      "description": "Focus the current cell or event."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Abort requests and remove rendering, listeners, timers, and subscriptions."
+    },
+    {
+      "name": "expandEvents / applyEdit / packColumns / packLanes",
+      "signature": "expandEvents(events, range): SchedulerOccurrence[]; applyEdit(events, request): { events; changes } | null; packColumns(spans); packLanes(spans)",
+      "description": "Module functions: the pure model and layout (server-side expansion, tests)."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-navigate",
+      "detail": "{ view: SchedulerView; date: PlainDate; range: SchedulerRange }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the view or period."
+    },
+    {
+      "name": "aui-slot-activate",
+      "detail": "{ start: Instant | PlainDate; end: Instant | PlainDate; allDay: boolean; resourceId: string | null }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user asked to create an event (Enter on an empty cell, Shift+Enter, a selection, a pointer range, or a double-click)."
+    },
+    {
+      "name": "aui-event-activate",
+      "detail": "{ occurrence: SchedulerOccurrence; event: SchedulerEvent }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user activated an event (click, Enter, Space)."
+    },
+    {
+      "name": "aui-event-change",
+      "detail": "{ reason: \"move\" | \"resize\" | \"undo\" | \"redo\"; occurrence: SchedulerOccurrence | null; scope: SchedulerEditScope | null; changes: { added; updated; removed }; events: SchedulerEvent[] }",
+      "bubbles": true,
+      "cancelable": true,
+      "description": "Before a change is applied; preventDefault() refuses it."
+    },
+    {
+      "name": "aui-event-delete",
+      "detail": "{ occurrence: SchedulerOccurrence; event: SchedulerEvent }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "Delete or Backspace on an editable event (the application removes it)."
+    },
+    {
+      "name": "aui-load-error",
+      "detail": "{ range: SchedulerRange; error: unknown }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "loadEvents failed, timed out, or returned invalid events."
+    }
+  ],
+  "contentAreas": [
+    {
+      "name": "renderEvent",
+      "description": "Custom, non-interactive event content."
+    }
+  ],
+  "cssClasses": [
+    {
+      "name": "aui-scheduler | --day | --week | --workWeek | --month | --agenda | --timeline | --editable",
+      "description": "Host and view modifiers; custom properties --aui-scheduler-slot, --aui-scheduler-lane, --aui-scheduler-date, --aui-scheduler-height size the grid."
+    },
+    {
+      "name": "aui-scheduler__toolbar | __nav | __title | __views | __view | __edit | __button | __button--{action}",
+      "description": "Toolbar."
+    },
+    {
+      "name": "aui-scheduler__status | __retry",
+      "description": "Loading and error status."
+    },
+    {
+      "name": "aui-scheduler__body | __grid | __grid--time | --month | --timeline",
+      "description": "Scroll container and grids."
+    },
+    {
+      "name": "aui-scheduler__corner | __day-header | __day-header--today | --non-working | __weekday | __day-number | __holiday | __row-header | __time | __time-header | __resource",
+      "description": "Headers."
+    },
+    {
+      "name": "aui-scheduler__cell | --all-day | --day | --non-working | --selected | --today | --outside | __date | __chips | __more",
+      "description": "Cells."
+    },
+    {
+      "name": "aui-scheduler__all-day-row | __slot-row | __slot-row--hour | __resource-row | __spacer",
+      "description": "Rows."
+    },
+    {
+      "name": "aui-scheduler__event | --c1..--c8 | --all-day | --bar | --chip | --recurring | --read-only | --cut | --dragging | --short | __event-content | __event-time | __event-title | __event-location | __resize",
+      "description": "Events."
+    },
+    {
+      "name": "aui-scheduler__now",
+      "description": "Current-time line (aria-hidden)."
+    },
+    {
+      "name": "aui-scheduler__agenda | __agenda-day | __agenda-date | __agenda-list | __agenda-time | __empty",
+      "description": "Agenda."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "previous",
+      "default": "chevron-left"
+    },
+    {
+      "name": "next",
+      "default": "chevron-right"
+    }
+  ]
+}

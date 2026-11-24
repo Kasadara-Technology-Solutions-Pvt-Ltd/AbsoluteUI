@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "otp-input",
+  "examples": [
+    {
+      "id": "mfa",
+      "title": "Six-digit MFA code that submits on completion",
+      "language": "ts",
+      "code": "import { OtpInput } from '@absoluteui/components/otp-input';\n\nconst host = document.querySelector<HTMLElement>('#code');\nconst form = document.querySelector<HTMLFormElement>('#verify');\nif (host && form) {\n  const otp = OtpInput.create(host, { label: 'Verification code', name: 'code', required: true, description: 'Enter the code from your authenticator app.' });\n  otp.host.addEventListener('aui-complete', () => {\n    form.requestSubmit();\n  });\n}"
+    },
+    {
+      "id": "recovery",
+      "title": "Recovery code in groups of four",
+      "language": "ts",
+      "code": "import { OtpInput } from '@absoluteui/components/otp-input';\n\nconst host = document.querySelector<HTMLElement>('#recovery');\nif (host) OtpInput.create(host, { label: 'Recovery code', length: 8, type: 'alphanumeric', uppercase: true, groupSize: 4, autocomplete: 'off' });"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+[
+  { "title": "Ctrl+K anywhere", "text": "A modal command search with a configurable shortcut, shown with Kbd, and focus restored on close." },
+  { "title": "Fuzzy and highlighted", "text": "Subsequence matching over labels and keywords; matched characters are marked with text nodes." },
+  { "title": "Sections and pages", "text": "Recent commands, groups, and nested pages: Enter opens a sub-list, Backspace goes back." },
+  { "title": "Async providers", "text": "Server searches are debounced and aborted on each keystroke, with a loading state." },
+  { "title": "Virtualized results", "text": "Thousands of commands stay fast; the listbox keeps focus in the field with aria-activedescendant." }
+]

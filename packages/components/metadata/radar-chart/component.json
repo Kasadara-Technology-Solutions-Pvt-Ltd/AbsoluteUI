@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "name": "radar-chart",
+  "displayName": "Radar Chart",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { RadarChart } from '@absoluteui/components/radar-chart';",
+  "styleImport": "@absoluteui/components/radar-chart/style.css",
+  "purpose": "Accessible SVG radar (polar) chart comparing a few series across several quantitative axes arranged clockwise around a circle: each series is a closed, optionally filled polygon with a focusable vertex per axis on a shared radial scale, a legend of toggle buttons, tooltips, a generated summary, and a data table fallback.",
+  "whenToUse": [
+    "Comparing the profile of 1-5 items across 3-12 comparable measures on the same scale (skills, product attributes, scores)."
+  ],
+  "whenNotToUse": [
+    "Precise comparison of values: use Bar Chart (grouped).",
+    "Measures on different scales or units (the scale is shared).",
+    "Many series (polygons overlap) or ordered data such as time: use Line Chart."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "unfilled (fill false)",
+    "empty (no series or no finite values: No data)",
+    "all series hidden",
+    "series hidden",
+    "vertex focused (tooltip)",
+    "vertex hovered",
+    "table open"
+  ],
+  "responsive": "The width follows the container (ResizeObserver) and the height is the height option; the radius fits the smaller dimension after reserving room for axis names, which are truncated when space is short. Reflows at 320 CSS px; wide data tables scroll in a focusable region.",
+  "rtl": "Axes keep clockwise order from the top (like pie charts, decision C5); ArrowLeft/ArrowRight are swapped so forward follows the reading direction. Legend, tooltip, and table follow the document direction.",
+  "theme": "Series use color-chart-1..8 by palette slot (outline, vertices, 12% fill); rings and spokes color-chart-grid; ring ticks color-text-muted; axis names color-text. Forced colors use CanvasText and Highlight.",
+  "timezone": "Not applicable.",
+  "security": "All text (title, description, axis names, values, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; sizes and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "RadarChart.create with 5 series x 12 axes, including the first render",
+        "budget": "< 30 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Designed for up to about 5 series and 12 axes; every vertex is a focusable SVG path."
+  },
+  "limitations": [
+    "One shared radial scale for all axes; no per-axis scales.",
+    "Missing values are drawn at the center (no gaps in the polygon).",
+    "valueAxis.label and valueAxis.includeZero are accepted but not used.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Per-axis scales or units, polar area (rose) and radial bar charts.",
+    "Selection and brushing."
+  ],
+  "antiPatterns": [
+    "More than about 5 series (overlapping polygons).",
+    "Comparing polygon areas (area depends on axis order).",
+    "Mixing measures with different units on one scale."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/radar-chart: AuiRadarChart directive ([auiRadarChart]).",
+    "react": "@absoluteui/react/radar-chart: AuiRadarChart component.",
+    "vue": "@absoluteui/vue/radar-chart: AuiRadarChart component."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

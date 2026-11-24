@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="wifi" data-animations="reveal:loading">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 19.5h.01"/>
+      <path d="M8.75 15.75a4.6 4.6 0 0 1 6.5 0"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="stroke">
+      <path d="M5.5 12.5a9.5 9.5 0 0 1 13 0"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M2.5 9a14 14 0 0 1 19 0"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 19.5L2.5 9a14 14 0 0 1 19 0z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 19.5h.01"/>
+      <path d="M8.75 15.75a4.6 4.6 0 0 1 6.5 0"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <path d="M5.5 12.5a9.5 9.5 0 0 1 13 0"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M2.5 9a14 14 0 0 1 19 0"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 19.5h.01"/>
+      <path d="M8.75 15.75a4.6 4.6 0 0 1 6.5 0"/>
+    </g>
+    <g data-layer="secondary" data-role="accent" data-paint="stroke">
+      <path d="M5.5 12.5a9.5 9.5 0 0 1 13 0"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke" data-opacity="0.5">
+      <path d="M2.5 9a14 14 0 0 1 19 0"/>
+    </g>
+  </g>
+</svg>

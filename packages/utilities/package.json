@@ -1,0 +1,36 @@
+{
+  "name": "@absoluteui/utilities",
+  "version": "0.13.0",
+  "description": "AbsoluteUI utilities: DOM, focus, keyboard, positioning, overlay, and accessibility engines.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "homepage": "https://aui.kasadara.com/docs/api/utilities/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI.git",
+    "directory": "packages/utilities"
+  },
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/kasadara/_packaging/AbsoluteUI/npm/registry/"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md",
+    "metadata"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@absoluteui/core": "0.13.0"
+  }
+}

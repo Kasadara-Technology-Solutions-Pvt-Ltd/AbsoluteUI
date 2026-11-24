@@ -1,0 +1,77 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-inline-message {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    max-inline-size: 100%;
+    padding-block: 0.125rem;
+    padding-inline: aui.token('space-2');
+    color: aui.token('color-text');
+    background: aui.token('color-info-subtle');
+    border-radius: aui.token('radius-pill');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+    vertical-align: middle;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-inline-message__icon {
+    display: inline-flex;
+    flex: none;
+    color: aui.token('color-info-fg');
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-inline-message__text {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-inline-message--success {
+    background: aui.token('color-success-subtle');
+
+    .aui-inline-message__icon {
+      color: aui.token('color-success-fg');
+    }
+  }
+
+  .aui-inline-message--warning {
+    background: aui.token('color-warning-subtle');
+
+    .aui-inline-message__icon {
+      color: aui.token('color-warning-fg');
+    }
+  }
+
+  .aui-inline-message--error {
+    background: aui.token('color-error-subtle');
+
+    .aui-inline-message__icon {
+      color: aui.token('color-error-fg');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-inline-message {
+      border: aui.token('border-width') solid CanvasText;
+    }
+
+    .aui-inline-message__icon {
+      color: CanvasText;
+    }
+  }
+}

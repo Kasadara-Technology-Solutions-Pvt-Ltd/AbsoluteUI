@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/checkbox-group",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCheckboxGroup",
+      "description": "AbsoluteUI CheckboxGroup: `<aui-checkbox-group>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-checkbox-group",
+      "exportAs": [
+        "auiCheckboxGroup"
+      ],
+      "source": "generated",
+      "component": "checkbox-group",
+      "configKey": "checkboxGroup",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "string[]"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Legend text and accessible name of the group."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the legend; it remains the accessible name."
+        },
+        {
+          "name": "options",
+          "type": "readonly CheckboxGroupOption[]",
+          "required": true,
+          "description": "Choices; values must be unique."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name shared by every checkbox."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Group help text referenced by the fieldset's aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "At least one option must be selected."
+        },
+        {
+          "name": "minSelected",
+          "type": "number",
+          "required": false,
+          "description": "Minimum selections once any option is selected (integer 1..options.length)."
+        },
+        {
+          "name": "maxSelected",
+          "type": "number",
+          "required": false,
+          "description": "Maximum selections (integer 1..options.length)."
+        },
+        {
+          "name": "orientation",
+          "type": "CheckboxGroupOrientation",
+          "required": false,
+          "default": "vertical",
+          "description": "Layout of the options."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the whole group (fieldset disabled)."
+        },
+        {
+          "name": "validate",
+          "type": "((value: string[]) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the selection invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<CheckboxGroupIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message and number-formatting locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string[]",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "CheckboxGroupChangeDetail",
+          "event": "aui-change",
+          "description": "The user toggled an option."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error; cleared when the selection changes."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string[] | undefined",
+          "description": "Selected values for form serialization."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the first enabled checkbox."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial selection and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Native <fieldset> + <legend> grouping native checkboxes, each with a <label for> (HTML; WAI-ARIA APG Checkbox).",
+        "source": "packages/components/metadata/checkbox-group/accessibility.json"
+      },
+      "limitations": [
+        "minSelected and maxSelected apply once anything is selected; an empty optional group is valid (HTML constraint semantics). Use `required` to demand a selection.",
+        "Selection-count messages have singular and plural forms only; languages with more plural categories need a custom validate message.",
+        "Group-level help text and errors are referenced from the fieldset; some screen readers announce fieldset descriptions only when entering the group."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { AuiCheckboxGroup } from '@absoluteui/angular/checkbox-group';\n\n@Component({\n  selector: 'app-preferences',\n  imports: [ReactiveFormsModule, AuiCheckboxGroup],\n  template: `<aui-checkbox-group label=\"Notifications\" [options]=\"channels\" [required]=\"true\" [formControl]=\"notify\"></aui-checkbox-group>`,\n})\nexport class PreferencesComponent {\n  readonly channels = [\n    { value: 'email', label: 'Email' },\n    { value: 'sms', label: 'SMS' },\n  ];\n  readonly notify = new FormControl<string[]>([], { nonNullable: true });\n}"
+    }
+  ]
+}

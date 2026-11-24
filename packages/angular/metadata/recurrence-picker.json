@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/recurrence-picker",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiRecurrencePicker",
+      "description": "AbsoluteUI RecurrencePicker: `<aui-recurrence-picker>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-recurrence-picker",
+      "exportAs": [
+        "auiRecurrencePicker"
+      ],
+      "source": "generated",
+      "component": "recurrence-picker",
+      "configKey": "recurrencePicker",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "RecurrenceRule | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Legend of the fieldset (required accessible name)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the legend; it stays the accessible name."
+        },
+        {
+          "name": "start",
+          "type": "PlainDate | PlainDateTime | null",
+          "required": false,
+          "description": "Series start: defaults, the minimum end date, and the preview."
+        },
+        {
+          "name": "frequencies",
+          "type": "readonly RecurrenceFrequency[]",
+          "required": false,
+          "description": "Frequencies offered. Default all four."
+        },
+        {
+          "name": "maxInterval",
+          "type": "number",
+          "required": false,
+          "default": "99",
+          "description": "Largest interval."
+        },
+        {
+          "name": "maxCount",
+          "type": "number",
+          "required": false,
+          "default": "999",
+          "description": "Largest occurrence count."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name of the hidden input (iCalendar text)."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by the fieldset."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "\"Does not repeat\" is invalid."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables every control; not submitted."
+        },
+        {
+          "name": "firstDayOfWeek",
+          "type": "IsoWeekday",
+          "required": false,
+          "description": "First weekday toggle. Default: the locale's first day of week."
+        },
+        {
+          "name": "validate",
+          "type": "((value: RecurrenceRule | null) => string | null)",
+          "required": false,
+          "description": "Consumer validation after built-in checks."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<RecurrencePickerIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear."
+        },
+        {
+          "name": "previewCount",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "configurable": true,
+          "description": "Next occurrences listed under the summary (needs start); 0 hides the preview."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Month and weekday names, dates, numbers, the first day of the week, and messages."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "Timezone of the start wall-clock time, the preview, and UNTIL."
+        },
+        {
+          "name": "disambiguation",
+          "type": "Disambiguation",
+          "required": false,
+          "default": "compatible",
+          "configurable": true,
+          "description": "DST policy for wall-clock times in a gap or overlap (SPEC section 8.5)."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Reading direction; Left/Right arrow keys and chevrons follow it."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "RecurrenceRule | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "RecurrencePickerChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the rule or its validity error."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error; cleared when the user edits."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "iCalendar text, or null when not repeating or invalid."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the frequency select."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear state (no events)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "A fieldset of native form controls (select, number inputs, radio groups, toggle buttons) with a legend, a live summary, and a list of next occurrences.",
+        "source": "packages/components/metadata/recurrence-picker/accessibility.json"
+      },
+      "limitations": [
+        "Controls cover one day of month or one nth weekday per month; other rules (several month days, BYSETPOS, several months) are kept as \"Custom\" and cannot be edited in place.",
+        "No hourly or minute frequencies; the time of day comes from the series start.",
+        "EXDATE/RDATE are preserved but not edited here.",
+        "The end date is always a date (no end time).",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { parseRecurrenceRule, plainDate, type RecurrenceRule } from '@absoluteui/core';\nimport { AuiRecurrencePicker } from '@absoluteui/angular/recurrence-picker';\n\n@Component({\n  selector: 'app-repeat',\n  imports: [ReactiveFormsModule, AuiRecurrencePicker],\n  template: `<aui-recurrence-picker label=\"Repeat\" [start]=\"start\" [formControl]=\"rule\"></aui-recurrence-picker>`,\n})\nexport class RepeatComponent {\n  readonly start = plainDate(2026, 9, 29);\n  readonly rule = new FormControl<RecurrenceRule | null>(parseRecurrenceRule('FREQ=WEEKLY;BYDAY=TU'));\n}"
+    }
+  ]
+}

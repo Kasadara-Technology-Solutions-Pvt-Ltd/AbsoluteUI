@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "component": "chat",
+  "factory": { "name": "Chat.create", "signature": "Chat.create(host: HTMLElement, options: ChatOptions): Chat" },
+  "configKey": "chat",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the conversation log." },
+    { "name": "messages", "type": "readonly ChatMessage[]", "default": "[]", "required": false, "globallyConfigurable": false, "description": "Messages: { id, role, text, format?, timestamp?, author?, attachments?, status?, error?, feedback? }." },
+    { "name": "authors", "type": "Partial<Record<ChatRole, ChatAuthor>>", "required": false, "globallyConfigurable": false, "description": "Default author per role: { name, avatar?, icon? }." },
+    { "name": "suggestions", "type": "readonly ChatSuggestion[]", "default": "[]", "required": false, "globallyConfigurable": false, "description": "Suggestion chips above the composer: { id, label, text? } (hidden while streaming)." },
+    { "name": "typing", "type": "string | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Name of someone typing (people chats)." },
+    { "name": "composer", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "description": "Show the composer (Prompt Input)." },
+    { "name": "prompt", "type": "Partial<Omit<PromptInputOptions, 'status' | 'value'>>", "required": false, "globallyConfigurable": false, "description": "Composer options (placeholder, attachments, accept, triggers, counter, submitKey, ...)." },
+    { "name": "emptyText", "type": "string", "required": false, "globallyConfigurable": false, "description": "Text shown while there are no messages." },
+    { "name": "copyable", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "description": "Copy action on user and assistant messages (and on code blocks)." },
+    { "name": "feedback", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "description": "Thumbs up and down on finished assistant messages." },
+    { "name": "businessCalendar", "type": "BusinessCalendarEngine | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Names holidays and non-working days in the day separators." },
+    { "name": "today", "type": "PlainDate", "required": false, "globallyConfigurable": false, "description": "Reference day for Today and Yesterday; default today in the timezone." },
+    { "name": "icons", "type": "Partial<ChatIcons>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "assistantFormat", "type": "'markdown' | 'text'", "default": "markdown", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Format of assistant and tool messages that do not set format." },
+    { "name": "showTimestamps", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show times and day separators." },
+    { "name": "showAvatars", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show avatars next to messages." },
+    { "name": "maxRenderedMessages", "type": "number", "default": 200, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Most messages in the DOM (integer 20..2000); earlier ones are behind Show earlier messages." },
+    { "name": "headingLevel", "type": "number", "default": 3, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Heading level of a Markdown # heading (integer 2..6)." },
+    { "name": "timezone", "type": "string", "default": "UTC", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "IANA timezone of times and day separators." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of labels, times, and dates." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "messages", "type": "readonly ChatMessage[]", "description": "The messages in order (frozen copies)." },
+    { "name": "streaming", "type": "boolean", "description": "Whether a reply is streaming." },
+    { "name": "following", "type": "boolean", "description": "Whether the log follows new content (the user has not scrolled up)." },
+    { "name": "prompt", "type": "PromptInput | null", "description": "The composer, or null when composer is false." },
+    { "name": "options", "type": "Readonly<ChatOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "addMessage", "signature": "addMessage(message: ChatMessage): void", "description": "Append a message, or replace the message with the same id." },
+    { "name": "updateMessage", "signature": "updateMessage(id: string, patch: Partial<Omit<ChatMessage, 'id'>>): void", "description": "Merge fields into a message." },
+    { "name": "removeMessage", "signature": "removeMessage(id: string): void", "description": "Remove a message (stops it when it is streaming)." },
+    { "name": "clear", "signature": "clear(): void", "description": "Remove every message." },
+    { "name": "stream", "signature": "stream(source: ChatStreamSource | ((signal: AbortSignal) => ChatStreamSource), init?: ChatStreamInit): Promise<ChatMessage>", "description": "Stream a reply into a new or existing message; resolves with the final message (complete, stopped, or error)." },
+    { "name": "stop", "signature": "stop(): void", "description": "Stop the streaming reply; emits aui-stop." },
+    { "name": "scrollToLatest", "signature": "scrollToLatest(): void", "description": "Scroll to the newest message and follow new content again." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the composer (or the log without one)." },
+    { "name": "update", "signature": "update(options: Partial<ChatOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Stop streaming and remove rendering, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-send", "detail": "ChatSendDetail", "bubbles": true, "cancelable": true, "description": "The user sent a message or chose a suggestion: { text, attachments }; prevent it to keep the text and add no message." },
+    { "name": "aui-stop", "detail": "ChatStopDetail", "bubbles": true, "cancelable": false, "description": "A streaming reply was stopped (Stop or stop()): { id }." },
+    { "name": "aui-retry", "detail": "ChatRetryDetail", "bubbles": true, "cancelable": false, "description": "Retry on a failed or stopped reply: { id, prompt } (the user message before it)." },
+    { "name": "aui-feedback", "detail": "ChatFeedbackDetail", "bubbles": true, "cancelable": false, "description": "The user rated a reply: { id, value: 'up' | 'down' | null }." },
+    { "name": "aui-suggestion", "detail": "ChatSuggestionDetail", "bubbles": true, "cancelable": true, "description": "A suggestion chip was chosen: { suggestion }; prevent it to handle it yourself instead of sending its text." },
+    { "name": "aui-attachment-open", "detail": "ChatAttachmentOpenDetail", "bubbles": true, "cancelable": false, "description": "An attachment chip was activated: { messageId, attachment }." }
+  ],
+  "contentAreas": [
+    { "name": "messages[].text", "description": "Message text: plain text or the Markdown subset (never HTML)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-chat", "description": "Host (flex column)." },
+    { "name": "aui-chat--streaming | --no-avatars", "description": "State modifiers on the host." },
+    { "name": "aui-chat__viewport | __log", "description": "Scroll container (role=log) and its positioned wrapper." },
+    { "name": "aui-chat__earlier | __empty | __messages | __day", "description": "Show earlier button, empty text, message list, day separator." },
+    { "name": "aui-chat__message | __message--user | --assistant | --system | --tool | --error | --streaming", "description": "A message (article) and its role and state." },
+    { "name": "aui-chat__avatar | __avatar--icon | __body | __meta | __author | __time", "description": "Avatar and the author and time line." },
+    { "name": "aui-chat__bubble | __content | __content--markdown | __bubble--typing | __dots", "description": "Message text and the typing dots." },
+    { "name": "aui-chat__md-heading | __md-code | __md-link | __code | __code-head | __code-language | __code-copy | __code-body", "description": "Markdown headings, inline code, links, and code blocks." },
+    { "name": "aui-chat__attachments | __attachment | __attachment-name | __attachment-size", "description": "Attachment chips." },
+    { "name": "aui-chat__error | __stopped", "description": "Error and stopped notices." },
+    { "name": "aui-chat__actions | __action | __copy | __helpful | __unhelpful | __retry", "description": "Message actions." },
+    { "name": "aui-chat__typing | __jump | __suggestions | __suggestion | __composer", "description": "Typing row, Jump to latest, suggestion chips, composer host." }
+  ],
+  "iconSlots": [
+    { "name": "copy", "default": "copy (icon set)" },
+    { "name": "helpful", "default": "thumbs-up (icon set)" },
+    { "name": "unhelpful", "default": "thumbs-down (icon set)" },
+    { "name": "retry", "default": "refresh" },
+    { "name": "error", "default": "alert-circle" },
+    { "name": "file", "default": "file" },
+    { "name": "jump", "default": "arrow-down" },
+    { "name": "assistant", "default": "sparkles (icon set)" },
+    { "name": "tool", "default": "code" }
+  ]
+}

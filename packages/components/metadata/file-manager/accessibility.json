@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "component": "file-manager",
+  "pattern": "A labelled region with a WAI-ARIA APG toolbar, a Breadcrumb navigation, a Tree View of folders, and the folder content as an APG listbox with multiple selection (focus stays on the listbox; aria-activedescendant names the active entry). Dialogs follow the APG dialog and alertdialog patterns.",
+  "roles": [
+    { "element": "host", "role": "region (labelled by label)" },
+    { "element": "toolbar", "role": "toolbar" },
+    { "element": "path", "role": "navigation (Breadcrumb)" },
+    { "element": "folder pane", "role": "tree (Tree View)" },
+    { "element": "content", "role": "listbox with option children (list rows or grid tiles)" },
+    { "element": "status bar", "role": "status" },
+    { "element": "delete confirmation", "role": "alertdialog" },
+    { "element": "name prompt and preview", "role": "dialog" }
+  ],
+  "aria": [
+    { "attribute": "aria-multiselectable", "element": "listbox", "value": "true" },
+    { "attribute": "aria-activedescendant", "element": "listbox", "value": "id of the active option" },
+    { "attribute": "aria-selected", "element": "option", "value": "true | false" },
+    { "attribute": "aria-posinset / aria-setsize", "element": "option", "value": "position in the folder (options are virtualized)" },
+    { "attribute": "aria-busy", "element": "listbox", "value": "true while the folder loads" },
+    { "attribute": "aria-pressed", "element": "view buttons", "value": "true for the current view" },
+    { "attribute": "aria-label", "element": "listbox", "value": "name of the current folder" }
+  ],
+  "keyboard": [
+    { "key": "ArrowUp / ArrowDown", "context": "Content", "action": "Previous or next entry (the row above or below in the grid view); selects it." },
+    { "key": "ArrowLeft / ArrowRight", "context": "Content, grid view", "action": "Previous or next tile in reading order." },
+    { "key": "Home / End / PageUp / PageDown", "context": "Content", "action": "First, last, or one page of entries." },
+    { "key": "Shift+Arrow, Shift+Space, Shift+click", "context": "Content", "action": "Extend the selection from the anchor." },
+    { "key": "Ctrl+Arrow, then Ctrl+Space; Ctrl+click", "context": "Content", "action": "Move without selecting, then toggle the entry." },
+    { "key": "Ctrl+A", "context": "Content", "action": "Select all entries." },
+    { "key": "Enter / double click", "context": "Content", "action": "Open: folders are shown, files previewed." },
+    { "key": "Backspace / Alt+ArrowUp", "context": "Content", "action": "Go to the parent folder." },
+    { "key": "F2", "context": "Content", "action": "Rename the selected entry." },
+    { "key": "Delete", "context": "Content", "action": "Delete the selection (after confirmation)." },
+    { "key": "Ctrl+X / Ctrl+V", "context": "Content", "action": "Cut the selection; paste it into the current folder." },
+    { "key": "Ctrl+Shift+N", "context": "Content", "action": "New folder." },
+    { "key": "Shift+F10 / ContextMenu", "context": "Content", "action": "Actions for the selection." },
+    { "key": "Escape", "context": "Content", "action": "Cancel a cut, then clear the selection." },
+    { "key": "Type characters", "context": "Content", "action": "Move to the next entry whose name starts with them." },
+    { "key": "ArrowLeft / ArrowRight / Home / End", "context": "Toolbar", "action": "Move between enabled toolbar buttons." }
+  ],
+  "focus": "The listbox keeps focus while the active entry moves (aria-activedescendant), so virtualized scrolling never loses focus. After opening a folder focus stays in the content (an empty folder focuses its first action); after going up the folder you came from is active. Dialogs move focus inside and restore it on close; after a dialog the list is focused again.",
+  "wcag": ["1.1.1", "1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.4.3", "2.4.6", "2.4.7", "2.5.7", "3.3.1", "4.1.2", "4.1.3"],
+  "notes": [
+    "Every drag-and-drop move has a keyboard alternative (Ctrl+X, Ctrl+V, or the context menu), satisfying 2.5.7 Dragging Movements.",
+    "The status bar announces the item and selection counts; operations announce their result (created, renamed, moved, deleted, uploaded) and errors are shown as text and announced assertively.",
+    "Selection is shown by a bar or a ring as well as the fill, not by color alone."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Options in the grid view are grouped in presentational rows; screen readers announce them as one list."
+  ]
+}

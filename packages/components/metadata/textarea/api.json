@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "component": "textarea",
+  "factory": { "name": "Textarea.create", "signature": "Textarea.create(host: HTMLElement, options: TextareaOptions): Textarea" },
+  "configKey": "textarea",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "value", "type": "string", "default": "", "required": false, "globallyConfigurable": false, "description": "Initial value; also the value restored by reset()." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Supplementary hint; never replaces the label." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Empty value is invalid; shows the required indicator." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the textarea." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Value is focusable and submitted but not editable." },
+    { "name": "minLength", "type": "number", "required": false, "globallyConfigurable": false, "description": "Minimum length in code points." },
+    { "name": "maxLength", "type": "number", "required": false, "globallyConfigurable": false, "description": "Maximum length in code points (validated, not truncated)." },
+    { "name": "showCounter", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Show remaining/over characters; requires maxLength." },
+    { "name": "rows", "type": "number", "default": 3, "required": false, "globallyConfigurable": false, "description": "Visible text rows, integer 1..100; the minimum height for resize 'auto'." },
+    { "name": "resize", "type": "'none' | 'vertical' | 'auto'", "default": "vertical", "required": false, "globallyConfigurable": false, "description": "Native vertical resize handle, fixed height, or grow with content." },
+    { "name": "maxRows", "type": "number", "required": false, "globallyConfigurable": false, "description": "Upper bound in rows for resize 'auto' (integer >= rows); content scrolls beyond it." },
+    { "name": "autocomplete", "type": "string", "required": false, "globallyConfigurable": false, "description": "Native autocomplete token." },
+    { "name": "spellcheck", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "description": "Native spellcheck." },
+    { "name": "validate", "type": "(value: string) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<{ error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message and number-formatting locale." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "textarea", "type": "HTMLTextAreaElement", "description": "The native textarea." },
+    { "name": "value", "type": "string", "description": "Current value." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the initial value." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<TextareaOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: string): void", "description": "Programmatic value (no events); clears an external custom error." },
+    { "name": "update", "signature": "update(options: Partial<TextareaOptions>): void", "description": "Merge and apply options." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error (server, cross-field rule); cleared when the user edits." },
+    { "name": "getFormValue", "signature": "getFormValue(): string", "description": "Value for form serialization." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the textarea." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-input", "detail": "{ value: string; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "User edited the value." },
+    { "name": "aui-change", "detail": "{ value: string; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "User committed the value (native change, on blur)." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-textarea", "description": "Host." },
+    { "name": "aui-textarea--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-textarea--resize-none | --auto | --auto-native", "description": "Sizing modifiers on the host (--auto-native: field-sizing: content is used)." },
+    { "name": "aui-field__label | __required | __description | __counter | __error", "description": "Shared field chrome." },
+    { "name": "aui-textarea__input", "description": "Native textarea; also the control boundary." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

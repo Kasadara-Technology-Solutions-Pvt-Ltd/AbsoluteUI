@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="x-circle" data-animations="shake:error">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M9 9l6 6"/>
+      <path d="M15 9l-6 6"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M14.29 8.29A1 1 0 0 1 15.71 9.71L13.41 12L15.71 14.29A1 1 0 0 1 14.29 15.71L12 13.41L9.71 15.71A1 1 0 0 1 8.29 14.29L10.59 12L8.29 9.71A1 1 0 0 1 9.71 8.29L12 10.59Z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M9 9l6 6"/>
+      <path d="M15 9l-6 6"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="error" data-paint="fill" data-opacity="0.2">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="error" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="error" data-paint="stroke">
+      <path d="M9 9l6 6"/>
+      <path d="M15 9l-6 6"/>
+    </g>
+  </g>
+</svg>

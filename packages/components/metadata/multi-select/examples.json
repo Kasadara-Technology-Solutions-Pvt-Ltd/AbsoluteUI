@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "multi-select",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Several values in a form",
+      "language": "ts",
+      "code": "import { MultiSelect, type MultiSelectChangeDetail } from '@absoluteui/components/multi-select';\n\nconst form = document.createElement('form');\nconst host = document.createElement('div');\nform.append(host);\ndocument.body.append(form);\nconst skills = MultiSelect.create(host, {\n  label: 'Skills',\n  name: 'skills',\n  required: true,\n  selectAll: true,\n  maxSelected: 5,\n  options: [\n    { value: 'ts', label: 'TypeScript' },\n    { value: 'sql', label: 'SQL' },\n    { value: 'ux', label: 'UX research', description: 'Interviews and testing' },\n  ],\n  value: ['ts'],\n});\nskills.host.addEventListener('aui-change', (event) => {\n  const { value, added, removed } = (event as CustomEvent<MultiSelectChangeDetail>).detail;\n  console.log(value, added, removed);\n});"
+    },
+    {
+      "id": "async",
+      "title": "Options loaded while typing",
+      "language": "ts",
+      "code": "import { MultiSelect, type MultiSelectOption } from '@absoluteui/components/multi-select';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nMultiSelect.create(host, {\n  label: 'Reviewers',\n  options: [],\n  loadOptions: async (query, { signal }): Promise<MultiSelectOption[]> => {\n    const response = await fetch(`/api/people?q=${encodeURIComponent(query)}`, { signal });\n    const people = (await response.json()) as { id: string; name: string }[];\n    return people.map((p) => ({ value: p.id, label: p.name }));\n  },\n});"
+    }
+  ]
+}

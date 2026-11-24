@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "name": "upload-queue",
+  "displayName": "Upload Queue",
+  "category": "Upload",
+  "package": "@absoluteui/components",
+  "import": "import { UploadQueue } from '@absoluteui/components/upload-queue';",
+  "styleImport": "@absoluteui/components/upload-queue/style.css",
+  "purpose": "List of files being uploaded, with a Progress Bar per item, status (queued, uploading, done, failed, cancelled), cancel/retry/remove actions, and live announcements. Uploading is transport-agnostic: the consumer supplies upload(file, { signal, onProgress, attempt, id }); the queue adds a concurrency limit, AbortController cancellation, and retries with exponential backoff. It never performs a network request itself.",
+  "whenToUse": [
+    "Uploading files with visible progress and the ability to cancel or retry.",
+    "Chunked or resumable uploads (the consumer function loops over chunks and reports progress).",
+    "Together with File Upload, or on its own with files from any source."
+  ],
+  "whenNotToUse": [
+    "A single small file submitted with the form: submit it natively with File Upload.",
+    "Background sync that must survive page reloads: the queue lives in memory."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities",
+    "progress-bar"
+  ],
+  "states": [
+    "empty",
+    "item: queued | uploading | done | failed | cancelled",
+    "busy (any item queued or uploading)"
+  ],
+  "responsive": "Full width. Each row keeps the media (icon or preview), the progress bar (label and description wrap), and 24 px action buttons on one line.",
+  "rtl": "Logical properties: media at the inline start, actions at the inline end, progress fills from the inline start.",
+  "theme": "Rows on color-surface with a color-border-strong boundary (color-error-fg when failed); progress uses Progress Bar tones (success on done, error on failed). Forced-colors mode uses CanvasText borders.",
+  "timezone": "Not applicable.",
+  "security": "The queue performs no network access; the consumer function does. File names and messages are rendered with textContent. Rejection reasons are never displayed raw (they may leak server internals): the default is a generic localized message, and errorMessage maps errors to user-facing text. Previews use object URLs in <img> (no script execution), which requires img-src blob: in the CSP; URLs are revoked on removal and destroy.",
+  "dataHandling": "Files and responses stay in memory for the lifetime of the queue. Nothing is persisted, logged, or transmitted by AbsoluteUI.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "UploadQueue.add, 200 files",
+        "budget": "< 100 ms in headless Chromium"
+      },
+      {
+        "metric": "Progress updates",
+        "budget": "coalesced to one render per animation frame"
+      }
+    ],
+    "testedScale": "200 items in the performance test; progress reported for every chunk."
+  },
+  "limitations": [
+    "Cancellation is cooperative: the consumer function must pass signal to fetch/XHR. A function that ignores it keeps its concurrency slot until it settles (the item is shown as cancelled immediately).",
+    "Retries restart the whole file; resuming from an offset is the consumer function's job (use attempt and id).",
+    "Completion is announced once per batch; individual successes are included in the summary rather than announced one by one.",
+    "State is not persisted across reloads.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Built-in transports (fetch, XHR, tus, S3 multipart): supply your own function.",
+    "Drag reordering of queue items.",
+    "Rendering HTML in file names or error messages."
+  ],
+  "antiPatterns": [
+    "Showing raw exception or server messages to users.",
+    "Ignoring the abort signal in the upload function.",
+    "Announcing every progress change."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/upload-queue: AuiUploadQueue directive ([auiUploadQueue]); call controller.add(files).",
+    "react": "@absoluteui/react/upload-queue: AuiUploadQueue component.",
+    "vue": "@absoluteui/vue/upload-queue: AuiUploadQueue component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

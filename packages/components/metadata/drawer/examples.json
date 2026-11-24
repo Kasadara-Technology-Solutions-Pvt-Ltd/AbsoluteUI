@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "drawer",
+  "examples": [
+    {
+      "id": "edit-record",
+      "title": "Modal drawer with actions",
+      "language": "ts",
+      "code": "import { Drawer, type DrawerCloseDetail } from '@absoluteui/components/drawer';\n\nconst editor = Drawer.create({\n  title: 'Edit customer',\n  description: 'Changes are saved when you select Save.',\n  size: 'lg',\n  actions: [\n    { label: 'Cancel', value: 'cancel' },\n    { label: 'Save', value: 'save', variant: 'primary' },\n  ],\n});\neditor.element.addEventListener('aui-close', (event) => {\n  const { returnValue } = (event as CustomEvent<DrawerCloseDetail>).detail;\n  if (returnValue === 'save') {\n    // persist changes\n  }\n});\neditor.open();"
+    },
+    {
+      "id": "filters",
+      "title": "Non-modal filter panel",
+      "language": "ts",
+      "code": "import { Drawer } from '@absoluteui/components/drawer';\n\nconst filters = Drawer.create({ title: 'Filters', modal: false, placement: 'start', size: 'sm' });\nconst list = document.createElement('fieldset');\nfilters.body.append(list);\ndocument.querySelector('#toggle-filters')?.addEventListener('click', () => {\n  if (filters.isOpen) filters.close();\n  else filters.open();\n});"
+    },
+    {
+      "id": "guard-unsaved",
+      "title": "Prevent closing with unsaved changes",
+      "language": "ts",
+      "code": "import { Drawer } from '@absoluteui/components/drawer';\n\nlet dirty = true;\nconst panel = Drawer.create({ title: 'Edit profile', placement: 'bottom' });\npanel.element.addEventListener('aui-cancel', (event) => {\n  if (dirty) event.preventDefault();\n});\npanel.open();\ndirty = false;"
+    }
+  ]
+}

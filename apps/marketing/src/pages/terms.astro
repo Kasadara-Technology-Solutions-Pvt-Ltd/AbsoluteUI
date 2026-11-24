@@ -1,0 +1,13 @@
+---
+// Website Terms of Use, shared by the product site, the docs, and the Theme Designer (TERMS.md at
+// the repository root). The software itself is governed by the license, not these terms.
+import Base from '../layouts/Base.astro';
+import Document from '../components/Document.astro';
+import { Content } from '../generated/terms.md';
+---
+
+<Base title="Terms of Use" description="Terms for using the AbsoluteUI websites and the Theme Designer. The software is licensed separately under the Apache License 2.0." path="/terms/">
+  <Document eyebrow="Legal" title="Website Terms of Use" lead="Terms for using the product site, the documentation, and the Theme Designer. The AbsoluteUI software is licensed separately.">
+    <Content />
+  </Document>
+</Base>

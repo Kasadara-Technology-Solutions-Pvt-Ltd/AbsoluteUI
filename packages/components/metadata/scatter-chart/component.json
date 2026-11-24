@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "name": "scatter-chart",
+  "displayName": "Scatter Chart",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { ScatterChart } from '@absoluteui/components/scatter-chart';",
+  "styleImport": "@absoluteui/components/scatter-chart/style.css",
+  "purpose": "Accessible SVG scatter plot (and bubble chart when points have a size) of one or more series of (x, y) points on linear axes, with a toggleable legend, keyboard-reachable points in x order with tooltips, optional crosshair, optional zoom and pan along x or both axes, a generated summary, and a data table fallback. Series differ by color and marker shape, never by color alone.",
+  "whenToUse": [
+    "Relationships or correlation between two numeric variables.",
+    "Clusters and outliers across a few groups (up to about 8 series).",
+    "A third numeric dimension as bubble size (sizes set on points)."
+  ],
+  "whenNotToUse": [
+    "Trends over an ordered x shared by all series: use Line Chart.",
+    "Comparing categories: use Bar Chart or Combo Chart.",
+    "Distribution of one variable: use Histogram (or Box Plot).",
+    "Very large point clouds (tens of thousands of points): not a target of this component."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "bubble (any point has a size)",
+    "empty (no data)",
+    "all series hidden",
+    "series hidden",
+    "point focused (tooltip)",
+    "hovered (nearest point)",
+    "crosshair shown",
+    "zoomed (x or x and y window)",
+    "panning or selecting (pointer drag)",
+    "table open",
+    "dense (virtual points above 600 visible points)"
+  ],
+  "responsive": "Width follows the container (ResizeObserver); height is the height option. Tick counts follow the plot size; the y axis width follows its labels. Reflows at 320 CSS px.",
+  "rtl": "direction rtl mirrors the x axis (smallest x at the right), puts the y axis on the right, swaps ArrowLeft/ArrowRight; drag panning follows the mirrored axis. Legend, tooltip, and table follow the document direction.",
+  "theme": "Colors from color-chart-1..8 by palette slot; gridlines color-chart-grid; axes color-chart-axis; text color-text / color-text-muted; tooltip color-surface with color-border-strong. Forced colors use CanvasText, Canvas, GrayText, and Highlight.",
+  "timezone": "Not applicable: numeric and category axes only; no dates are formatted.",
+  "security": "All text (title, description, labels, values, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; sizes and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "ScatterChart.create, 2,000 points, including the first render",
+        "budget": "< 60 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Measured in tests/e2e/perf-r3.spec.ts with 2,000 points. Above 600 visible points points are virtual (two proxy marks plus one decorative path per series), so DOM size is independent of point count. Hover uses a spatial hash. The data table is built only when opened (toggle mode)."
+  },
+  "limitations": [
+    "Linear axes only.",
+    "Keyboard order within a series is by x (then y), not by data order.",
+    "Points without a size in a bubble chart are drawn as regular 4 px markers.",
+    "Axis label widths are estimated (about 0.6 em per character).",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Logarithmic or time axes.",
+    "Regression or trend lines, density contours.",
+    "Lasso or free-form selection; linked brushing across charts.",
+    "HTML content in labels or tooltips."
+  ],
+  "antiPatterns": [
+    "More than about 8 series (colors and shapes start repeating).",
+    "Hiding the data table (dataTable: none) when users must read exact values.",
+    "Encoding critical meaning only in bubble size."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/scatter-chart: AuiScatterChart directive ([auiScatterChart]).",
+    "react": "@absoluteui/react/scatter-chart: AuiScatterChart component.",
+    "vue": "@absoluteui/vue/scatter-chart: AuiScatterChart component."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

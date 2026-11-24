@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "cascader",
+  "displayName": "Cascader",
+  "category": "Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { Cascader } from '@absoluteui/components/cascader';",
+  "styleImport": "@absoluteui/components/cascader/style.css",
+  "purpose": "Selects a node in a hierarchy through cascading columns, such as country > state > city or category > subcategory. A trigger button opens a non-modal popup with a search box and one listbox per level; children can load lazily with loading, error, and retry states. Single or multiple selection; the trigger shows the selected path. A Form control with hidden inputs carrying the selected leaf values.",
+  "whenToUse": [
+    "Locations, organization units, product categories: hierarchies of two to five levels where each level narrows the next.",
+    "Large hierarchies loaded level by level from a server."
+  ],
+  "whenNotToUse": [
+    "A flat list: use Select or Combobox.",
+    "Deep or irregular trees where users need to see the whole structure: use a tree view.",
+    "Two levels with few options: two dependent Selects are simpler."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities", "@absoluteui/icons"],
+  "states": ["closed", "open", "level loading", "level load error", "searching", "no results", "selected path", "multiple (chips)", "read-only", "disabled", "invalid"],
+  "responsive": "The trigger fills its container. The popup shows the columns side by side up to 48rem (or the viewport) and scrolls horizontally beyond that; each level list scrolls vertically.",
+  "rtl": "Columns run right to left; ArrowLeft opens the next level and ArrowRight goes back; the next-level chevrons are mirrored.",
+  "theme": "Global tokens only: control surface, popup surface and shadow, selection colors, and the focus ring. Forced colors use Highlight and HighlightText for selected options and CanvasText for the popup border.",
+  "timezone": "Not applicable.",
+  "security": "Labels and paths are rendered with textContent. Loaded children are validated ({ value, label } strings) before use. No HTML is accepted.",
+  "dataHandling": "Loaded children are cached per node for the component's lifetime (an interrupted or failed load is retried the next time the node opens). No persistence or telemetry; network access happens only inside your loadChildren.",
+  "performance": {
+    "budgets": [
+      { "metric": "Cascader.create, per instance", "budget": "< 3 ms average in headless Chromium" },
+      { "metric": "Opening a level of 250 options", "budget": "< 16 ms" }
+    ],
+    "testedScale": "Levels of up to 1,000 options and up to 32 levels; search walks every loaded node and lists at most maxResults (default 50) paths."
+  },
+  "limitations": [
+    "Search only finds nodes that are loaded (given in options or loaded earlier); it does not call loadChildren.",
+    "A value whose path is not loaded yet shows the raw values for the unknown segments until those levels load.",
+    "Columns are not windowed; very long levels (thousands of options) should be loaded lazily or split."
+  ],
+  "unsupported": [
+    "Server-side search across unloaded levels (use a Combobox with loadOptions that returns paths).",
+    "Reordering or editing the hierarchy."
+  ],
+  "antiPatterns": [
+    "Single-level data in a cascader.",
+    "Leaving levelLabels out when the levels have names (Country, State, City): the default names are generic."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/cascader: AuiCascader component (<aui-cascader>, [(value)], formControl).",
+    "react": "@absoluteui/react/cascader: AuiCascader component (value, onValueChange).",
+    "vue": "@absoluteui/vue/cascader: AuiCascader component (v-model)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "box-plot",
+  "examples": [
+    {
+      "id": "raw-and-stats",
+      "title": "Raw values and precomputed statistics, two series",
+      "language": "ts",
+      "code": "import { BoxPlot, type BoxPlotSeries } from '@absoluteui/components/box-plot';\n\nconst series: BoxPlotSeries[] = [\n  { id: 'prod', label: 'Production', data: [[120, 135, 150, 160, 180, 420], { min: 90, q1: 110, median: 125, q3: 140, max: 170, outliers: [310] }] },\n  { id: 'staging', label: 'Staging', data: [[140, 150, 170, 190, 210], null] },\n];\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nBoxPlot.create(host, {\n  label: 'Request latency by region',\n  categories: ['Europe', 'North America'],\n  series,\n  valueAxis: { label: 'Milliseconds' },\n  valueFormat: { maximumFractionDigits: 0 },\n});"
+    },
+    {
+      "id": "precompute",
+      "title": "Precompute statistics with boxStats and use min/max whiskers",
+      "language": "ts",
+      "code": "import { BoxPlot, boxStats, quantile } from '@absoluteui/components/box-plot';\n\nconst samples = [4.1, 3.8, 5.2, 4.7, 9.9, 4.4, 4.0];\nconst stats = boxStats(samples);\nconst p90 = quantile([...samples].sort((a, b) => a - b), 0.9);\n\nconst host = document.querySelector<HTMLElement>('#build-times');\nif (host) {\n  const chart = BoxPlot.create(host, {\n    label: 'Build time',\n    description: `90th percentile: ${p90.toFixed(1)} min`,\n    categories: ['main'],\n    series: [{ id: 'ci', label: 'CI', data: [stats] }],\n  });\n  chart.update({ whiskers: 'minmax', series: [{ id: 'ci', label: 'CI', data: [samples] }] });\n}"
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@mixin progress-static {
+  inset-inline-start: 0;
+  inline-size: 100%;
+  animation: none;
+  background: repeating-linear-gradient(-45deg, #{aui.token('color-primary')} 0 0.5rem, #{aui.token('color-surface-sunken')} 0.5rem 1rem);
+}
+
+@layer aui.components {
+  .aui-progress-bar {
+    display: grid;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-tight');
+    color: aui.token('color-text');
+  }
+
+  .aui-progress-bar__header {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+  }
+
+  .aui-progress-bar__label {
+    font-weight: aui.token('font-weight-medium');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-progress-bar__icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    font-size: aui.icon-size('sm');
+  }
+
+  .aui-progress-bar__value {
+    margin-inline-start: auto;
+    color: aui.token('color-text-muted');
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .aui-progress-bar__description {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-progress-bar__value[hidden],
+  .aui-progress-bar__description[hidden] {
+    display: none;
+  }
+
+  .aui-progress-bar__track {
+    position: relative;
+    block-size: aui.token('progress-height');
+    background: aui.token('color-surface-sunken');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-pill');
+    overflow: hidden;
+  }
+
+  .aui-progress-bar__fill {
+    block-size: 100%;
+    inline-size: var(--aui-progress, 0%);
+    background: aui.token('color-primary');
+    border-radius: inherit;
+    @include aui.transition(inline-size);
+  }
+
+  .aui-progress-bar--success {
+    .aui-progress-bar__fill {
+      background: aui.token('color-success-fg');
+    }
+
+    .aui-progress-bar__icon {
+      color: aui.token('color-success-fg');
+    }
+  }
+
+  .aui-progress-bar--warning {
+    .aui-progress-bar__fill {
+      background: aui.token('color-warning-fg');
+    }
+
+    .aui-progress-bar__icon {
+      color: aui.token('color-warning-fg');
+    }
+  }
+
+  .aui-progress-bar--error {
+    .aui-progress-bar__fill {
+      background: aui.token('color-error-fg');
+    }
+
+    .aui-progress-bar__icon {
+      color: aui.token('color-error-fg');
+    }
+  }
+
+  // Indeterminate: a partial bar sweeps along the inline axis.
+  .aui-progress-bar--indeterminate .aui-progress-bar__fill {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    inline-size: 40%;
+    animation: aui-progress-indeterminate 1.4s aui.token('easing-standard') infinite;
+  }
+
+  @keyframes aui-progress-indeterminate {
+    from {
+      inset-inline-start: -40%;
+    }
+
+    to {
+      inset-inline-start: 100%;
+    }
+  }
+
+  // Reduced motion / animation: none: a static striped full-width bar instead of the sweep.
+  @include aui.reduced-motion {
+    .aui-progress-bar--indeterminate .aui-progress-bar__fill {
+      @include progress-static;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-progress-bar--indeterminate .aui-progress-bar__fill {
+    @include progress-static;
+  }
+
+  @include aui.forced-colors {
+    .aui-progress-bar__track {
+      border-color: CanvasText;
+    }
+
+    .aui-progress-bar__fill,
+    .aui-progress-bar--indeterminate .aui-progress-bar__fill {
+      background: Highlight;
+    }
+  }
+}

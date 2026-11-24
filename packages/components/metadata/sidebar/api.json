@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "component": "sidebar",
+  "factory": { "name": "Sidebar.create", "signature": "Sidebar.create(host: HTMLElement, options: SidebarOptions): Sidebar" },
+  "configKey": "sidebar",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Accessible name of the <nav> (aria-label) and the drawer title, e.g. \"Main\". Must not be empty." },
+    { "name": "items", "type": "readonly SidebarItem[] (SidebarLink { type?: 'item'; id; label; href?; icon?; disabled? } | SidebarGroup { type: 'group'; id; label; icon?; items })", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Navigation tree (at least one item; groups need at least one child). Ids are unique across the whole tree; labels are non-empty. Links without href render as buttons." },
+    { "name": "value", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Active (current page) item id; must be a non-group item. Default: no active item." },
+    { "name": "collapsed", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Icon rail: labels are visually hidden and shown as tooltips. Inline mode only; forced to false when collapsible is false." },
+    { "name": "expanded", "type": "readonly string[]", "default": "the groups containing the active item", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Expanded group ids. Every id must be a group id." },
+    { "name": "collapsible", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Render the collapse (rail) toggle in the footer." },
+    { "name": "breakpoint", "type": "number", "default": 768, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Integer 0..4096: viewport width in CSS px below which the sidebar becomes a modal drawer. 0 never switches." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "'rtl' sets dir=\"rtl\" on the <nav> and footer; tooltips and the drawer also follow an inherited rtl direction." },
+    { "name": "icons", "type": "Partial<{ group: IconRef; collapse: IconRef; expand: IconRef }>", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Icon slot overrides." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "nav", "type": "HTMLElement", "description": "The <nav> landmark. It lives in the host inline and in the drawer body in drawer mode." },
+    { "name": "value", "type": "string | null", "description": "Active item id, or null." },
+    { "name": "collapsed", "type": "boolean", "description": "Whether the icon rail is requested (applied inline only)." },
+    { "name": "expanded", "type": "string[]", "description": "Expanded group ids, in tree order." },
+    { "name": "mode", "type": "'inline' | 'drawer'", "description": "'drawer' below the breakpoint, otherwise 'inline'." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the drawer is open (always false inline)." },
+    { "name": "options", "type": "Readonly<SidebarOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(): void", "description": "Open the drawer; focus moves into it. No-op in inline mode." },
+    { "name": "close", "signature": "close(): void", "description": "Close the drawer; focus returns to the element focused before open(). No-op when closed or inline." },
+    { "name": "toggle", "signature": "toggle(): void", "description": "close() when open, otherwise open()." },
+    { "name": "select", "signature": "select(id: string): void", "description": "Mark a non-group item active and expand its groups. No events; does not close the drawer. Throws SIDEBAR_OPTIONS for an unknown or group id." },
+    { "name": "update", "signature": "update(options: Partial<SidebarOptions>): void", "description": "Merge, validate, and apply options. Focus stays on the item with the same id. An active id missing from new items becomes null. No events." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, host classes, tooltips, the drawer, the media query listener, listeners, and the configuration subscription." }
+  ],
+  "events": [
+    { "name": "aui-navigate", "detail": "{ id: string; item: SidebarLink }", "bubbles": true, "cancelable": true, "description": "The user activated an enabled item (unmodified primary click, Enter, or Space on a button). preventDefault stops link navigation, the active change, and the drawer close." },
+    { "name": "aui-change", "detail": "{ value: string; previous: string | null }", "bubbles": true, "cancelable": false, "description": "The active item changed after an uncanceled aui-navigate. Not emitted when the active item is activated again." },
+    { "name": "aui-expanded-change", "detail": "{ id: string; expanded: boolean; value: string[] }", "bubbles": true, "cancelable": false, "description": "The user toggled a group. value lists all expanded group ids in tree order." },
+    { "name": "aui-collapsed-change", "detail": "{ collapsed: boolean }", "bubbles": true, "cancelable": false, "description": "The user activated the collapse toggle." },
+    { "name": "aui-mode-change", "detail": "{ mode: 'inline' | 'drawer' }", "bubbles": true, "cancelable": false, "description": "The viewport crossed the breakpoint after creation. The initial mode is not reported." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-sidebar", "description": "Host. Sets --aui-sidebar-width (default 16rem) and --aui-sidebar-rail-width." },
+    { "name": "aui-sidebar--collapsed", "description": "Icon rail (inline mode only)." },
+    { "name": "aui-sidebar--drawer", "description": "Drawer mode; the host is display:none." },
+    { "name": "aui-sidebar__nav", "description": "The <nav> landmark." },
+    { "name": "aui-sidebar__list | __list--nested", "description": "Top-level and group <ul>." },
+    { "name": "aui-sidebar__entry", "description": "An <li>." },
+    { "name": "aui-sidebar__item", "description": "Link, button, disabled link, or group button; data-id is the item id." },
+    { "name": "aui-sidebar__group", "description": "Group disclosure button (also has aui-sidebar__item)." },
+    { "name": "aui-sidebar__item--contains-active", "description": "Collapsed group that contains the active item." },
+    { "name": "aui-sidebar__icon | __icon--initial | __label | __chevron", "description": "Item parts; __icon--initial is the first-letter fallback shown only in the rail." },
+    { "name": "aui-sidebar__footer | __toggle", "description": "Footer and the collapse toggle button." }
+  ],
+  "iconSlots": [
+    { "name": "group", "default": "chevron-down" },
+    { "name": "collapse", "default": "chevrons-left" },
+    { "name": "expand", "default": "chevrons-right" }
+  ]
+}

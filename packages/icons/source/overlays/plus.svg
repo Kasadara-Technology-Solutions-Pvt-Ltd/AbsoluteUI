@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" data-id="plus">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="5" cy="5" r="4"/>
+      <path d="M4.25 3h1.5v1.25H7v1.5H5.75V7h-1.5V5.75H3v-1.5h1.25z"/>
+    </g>
+  </g>
+</svg>

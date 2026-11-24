@@ -1,0 +1,32 @@
+{
+  "name": "@absoluteui/mcp",
+  "version": "0.13.0",
+  "description": "AbsoluteUI MCP server: local, read-only, version-matched AbsoluteUI knowledge and checks for AI coding assistants over stdio.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "homepage": "https://aui.kasadara.com/docs/guides/ai-assistants/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI.git",
+    "directory": "packages/mcp"
+  },
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/kasadara/_packaging/AbsoluteUI/npm/registry/"
+  },
+  "engines": {
+    "node": "^22.22.3 || >=24.15.0"
+  },
+  "bin": {
+    "absoluteui-mcp": "dist/bin.js"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md"
+  ],
+  "exports": {
+    "./package.json": "./package.json"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "name": "heatmap",
+  "displayName": "Heatmap",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { Heatmap } from '@absoluteui/components/heatmap';",
+  "styleImport": "@absoluteui/components/heatmap/style.css",
+  "purpose": "Accessible SVG heatmap: a matrix of values over two categorical axes (columns along x, rows along y) whose cell fills encode values on a sequential or diverging scale in discrete steps, with printed cell values where they fit, a legend of step ranges, two-dimensional keyboard navigation with tooltips, a generated summary, and a data table fallback.",
+  "whenToUse": [
+    "Showing patterns across two categorical dimensions (weekday by hour, region by month, feature by segment).",
+    "Diverging data around a meaningful midpoint (change from baseline, correlation): use colorScale.type 'diverging'."
+  ],
+  "whenNotToUse": [
+    "When exact comparison of a few values matters: use Bar Chart (fill lightness is a weak cue).",
+    "Continuous x and y values: use Scatter Chart.",
+    "Very large matrices (thousands of cells): aggregate first; every cell is a DOM element."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default (sequential)",
+    "diverging",
+    "empty (no rows, no columns, or no finite values: No data)",
+    "empty cell (null)",
+    "cell focused (tooltip)",
+    "cell hovered",
+    "table open"
+  ],
+  "responsive": "The width follows the container (ResizeObserver) and the height is the height option; cells share the plot evenly. Row labels take at most 30% of the width and are truncated; column labels are truncated or thinned when crowded. Cell values are printed only where they fit. Reflows at 320 CSS px; wide data tables scroll in a focusable region.",
+  "rtl": "direction rtl mirrors the columns (first column at the right), puts the row labels and row axis title on the right, and swaps ArrowLeft/ArrowRight. Legend, tooltip, and table follow the document direction.",
+  "theme": "Cells use color-chart-<slot> mixed into color-surface at 15-100% by step (color-mix), separated by a color-surface stroke; empty cells use color-surface-sunken; hover and focus outline color-text. Forced colors: outlined cells (Canvas / CanvasText, Highlight on focus).",
+  "timezone": "Not applicable.",
+  "security": "All text (title, description, labels, values, legend, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; sizes and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "Heatmap.create with 24 x 30 cells, including the first render",
+        "budget": "< 60 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Designed for up to about 1,000 cells (for example 24 x 30 or 52 x 7); every cell is a focusable SVG rect."
+  },
+  "limitations": [
+    "Discrete steps only (3-9, per side for diverging); no continuous color ramp.",
+    "One palette slot (sequential) or two (diverging); no custom color stops.",
+    "cellLabels 'always' prints values only where they fit, like 'auto'.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Continuous (numeric or time) axes, uneven cell sizes, and calendar layouts.",
+    "Row or column clustering, sorting, and dendrograms.",
+    "Selection and brushing."
+  ],
+  "antiPatterns": [
+    "Turning off cellLabels, legend, and dataTable together (fill lightness would be the only cue).",
+    "A sequential scale for data with a meaningful midpoint (use diverging).",
+    "Encoding a categorical variable as cell color."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/heatmap: AuiHeatmap directive ([auiHeatmap]).",
+    "react": "@absoluteui/react/heatmap: AuiHeatmap component.",
+    "vue": "@absoluteui/vue/heatmap: AuiHeatmap component."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

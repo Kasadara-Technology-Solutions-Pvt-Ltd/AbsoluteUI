@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "name": "dashboard",
+  "displayName": "Dashboard",
+  "category": "Dashboard",
+  "package": "@absoluteui/components",
+  "import": "import { Dashboard, checkDefinition, type DashboardDefinition } from '@absoluteui/components/dashboard';\nimport { registerBuiltInWidgets } from '@absoluteui/components/dashboard/widgets';\nimport { enableDashboardBuilder } from '@absoluteui/components/dashboard/builder';",
+  "styleImport": "@absoluteui/components/dashboard/style.css",
+  "purpose": "Renders a configurable, API-driven dashboard from one versioned JSON definition (layout per breakpoint, widgets, data sources, variables, pages, style) on top of Dashboard Grid and Dashboard Widget. Users switch between view and edit mode (when the host allows editing), move and resize widgets by pointer or keyboard, add, edit, and remove widgets, and undo every change; each change emits the new validated definition for the host to store. Widget data comes from same-origin or allow-listed cross-origin APIs through a host fetcher that owns authentication, from static data, or from mock data. JSON never carries code: widget types and custom transforms are registered in code; mapping uses JSON Pointer and a fixed set of transforms. Subpaths: dashboard/widgets (11 built-in widget types), dashboard/builder (widget builder Drawer with a JSON tab, dashboard JSON editor, templates), dashboard/schema (JSON Schema of the definition).",
+  "whenToUse": [
+    "Dashboards whose layout and widgets users or administrators configure, saved per user or tenant as JSON.",
+    "Pre-canned dashboards shipped as JSON and rendered without page code, with data from your APIs.",
+    "Letting users build widgets in the browser (type, data source, mapping, style) and keep the result as JSON."
+  ],
+  "whenNotToUse": [
+    "A fixed page of a few charts written in code: compose Dashboard Grid, Dashboard Widget, and the chart components directly.",
+    "Free-form canvases with overlapping items or pixel positions.",
+    "Business logic in the dashboard (calculations beyond the declarative transforms): compute it in your API or register a custom transform."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/helpers",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "view",
+    "edit",
+    "kiosk",
+    "widget idle",
+    "widget loading",
+    "widget ready",
+    "widget empty",
+    "widget error (with retry unless blocked)",
+    "widget stale (last data kept after a failed refresh)",
+    "page selected",
+    "rotation paused"
+  ],
+  "responsive": "The widget area is a Dashboard Grid with the definition's breakpoints (default lg 1024 px / 12 columns, md 640 px / 6, sm 0 / 1); narrower layouts are derived unless the definition stores them. The toolbar wraps: variables on the inline start, actions on the inline end. Page tabs scroll with the Tabs component. Widgets load lazily when they come within 200 px of the viewport.",
+  "rtl": "Logical properties throughout; the grid, toolbar, tabs, drawer, and every control follow the direction option or the document direction.",
+  "theme": "Root, widgets, toolbar, builder, and kiosk bar use theme tokens only. Definitions choose accents by role (primary, neutral, info, success, warning, danger, chart-1 to chart-8), surfaces (default, subtle, transparent), borders, shadows, header visibility, density (data-aui-density on the root or a widget), and padding steps 0 to 4. Threshold tones draw a border; the value text carries the meaning. Forced colors: the accent strip uses CanvasText. Print hides toolbar, kiosk bar, retry buttons, and widget actions.",
+  "timezone": "Date range variables resolve presets (today, last 7 days, this quarter, year to date, last 5 and 20 business days, and more) in the timeZone option (default: the runtime zone). Business-day presets use the business calendar registered under the variable's businessCalendar name (Monday to Friday without one). Values are ISO dates (inclusive) passed to data sources through {{variable.from}} and {{variable.to}}. The 'Updated' time is formatted in the same zone.",
+  "security": "Definitions are untrusted input: checkDefinition validates every document (closed objects, plain JSON only, depth and size limits, no __proto__/prototype/constructor keys or pointer tokens) and never echoes received values in issues. Data source URLs must be absolute http(s) or root-relative, without user info or placeholders; requests go only to the page origin or allowedOrigins (exact origins); credentials: 'include' only for those origins; definitions cannot set Authorization, Cookie, Host, Origin, Referer, Proxy-*, or Sec-* headers (authentication belongs to the host fetcher). The default fetcher refuses redirects, accepts JSON only, enforces maxBytes (default 5 MiB) and timeouts, and strips unsafe keys. Text renders with textContent; style options map to tokens, never CSS strings; no HTML sinks. Imported JSON files are limited to 1 MB.",
+  "dataHandling": "No persistence, telemetry, or network access except data source requests, which go through the host fetcher. The host stores definitions (aui-dashboard-change, definition, markSaved). Responses are cached in memory per source for its ttl and shared by widgets; nothing is written to storage. Variable values stay in memory and are sent only as data source parameters.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "dashboard core bundle (Dashboard with grid, widgets, toolbar controls)",
+        "budget": "<= 260 KiB minified (check:treeshake)"
+      },
+      {
+        "metric": "built-in widgets bundle (dashboard/widgets)",
+        "budget": "<= 230 KiB minified (check:treeshake)"
+      },
+      {
+        "metric": "definition checks only (checkDefinition)",
+        "budget": "<= 25 KiB minified (check:treeshake)"
+      }
+    ],
+    "testedScale": "Definitions up to the validation limits (200 widgets, 100 data sources, 50 variables, 20 pages); behavior tests use 1 to 3 widgets per page; Dashboard Grid budgets cover 50 items."
+  },
+  "limitations": [
+    "Chart widgets do not emit point selections, so cross-widget interactions work from list and table widgets and from custom widget types.",
+    "Built-in widgets cover KPI, line, bar, pie, bullet, gauge, sparkline, table, list, progress, and text; other charts and the Data Grid need a custom widget type.",
+    "Dashboard PNG and PDF export are not provided; charts keep their own SVG/PNG export.",
+    "Undo covers definition changes; variable values and page selection are not part of the history.",
+    "The builder form edits common fields; transforms, interactions, and thresholds are edited in its JSON tab.",
+    "Kiosk full screen works only when startKiosk is called from a user gesture.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Code, expressions, HTML, or CSS inside definitions.",
+    "Requests to origins outside the page origin and allowedOrigins, or credentials set in JSON.",
+    "Dragging widgets between pages or between dashboards.",
+    "Horizontal compaction."
+  ],
+  "antiPatterns": [
+    "Putting tokens or passwords in data source params or headers: authenticate in the fetcher.",
+    "Adding origins to allowedOrigins that users do not trust: any user who can edit the definition can call them with the viewer's credentials when credentials: 'include' is used.",
+    "Saving definitions without validating them on the server too: checkDefinition runs in the browser, which the user controls.",
+    "Re-creating the dashboard on every definition change instead of letting it apply changes (setDefinition keeps loaded data)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/dashboard: hand-written AuiDashboard component (<aui-dashboard>; [(definition)] and [(mode)] models synced from aui-dashboard-change and aui-mode-change; inputs mirror DashboardOptions; outputs dashboardChange, variablesChange, widgetError, widgetSelect, pageChange; methods proxy the controller).",
+    "react": "Not provided (the React adapter is private).",
+    "vue": "Not provided (the Vue adapter is private)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

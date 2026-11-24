@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "absoluteui/accessibility.schema.json",
+  "title": "AbsoluteUI accessibility contract (SPEC section 13, section 20.1 items 13-15)",
+  "type": "object",
+  "required": ["schemaVersion", "component", "pattern", "roles", "aria", "keyboard", "focus", "wcag", "notes", "knownCaveats"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "enum": [1] },
+    "component": { "type": "string" },
+    "pattern": { "type": "string" },
+    "roles": {
+      "type": "array",
+      "items": { "type": "object", "required": ["element", "role"], "properties": { "element": { "type": "string" }, "role": { "type": "string" } } }
+    },
+    "aria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["attribute", "element", "value"],
+        "properties": { "attribute": { "type": "string" }, "element": { "type": "string" }, "value": { "type": "string" } }
+      }
+    },
+    "keyboard": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "context", "action"],
+        "properties": { "key": { "type": "string" }, "context": { "type": "string" }, "action": { "type": "string" } }
+      }
+    },
+    "focus": { "type": "string" },
+    "wcag": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "array", "items": { "type": "string" } },
+    "knownCaveats": { "type": "array", "items": { "type": "string" } }
+  }
+}

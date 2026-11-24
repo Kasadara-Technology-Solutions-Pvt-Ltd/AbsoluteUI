@@ -1,0 +1,58 @@
+---
+import '@fontsource-variable/cairo';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/app.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { links } from '../site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path of the current page, for aria-current in the navigation. */
+  path: string;
+}
+const { title, description, path } = Astro.props;
+const fullTitle = path === '/' ? `AbsoluteUI | ${title}` : `${title} | AbsoluteUI`;
+const canonical = new URL(path, links.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f8faff" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <!-- Apply the saved theme before first paint (hashed into the CSP by scripts/csp-inline.mjs). -->
+    <script is:inline>try{if(localStorage.getItem('aui-site-theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header path={path} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import { initChrome } from '../lib/chrome';
+      import { initTabs } from '../lib/tabs';
+      import { initSearch } from '../lib/search';
+      import { initFrames } from '../lib/frames';
+      import { initConsent } from '../lib/consent';
+      initChrome();
+      initTabs();
+      initSearch();
+      initFrames();
+      initConsent();
+    </script>
+  </body>
+</html>

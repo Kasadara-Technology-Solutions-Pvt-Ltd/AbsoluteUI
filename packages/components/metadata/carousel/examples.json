@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "carousel",
+  "examples": [
+    {
+      "id": "featured",
+      "title": "Featured items",
+      "language": "ts",
+      "code": "import { Carousel } from '@absoluteui/components/carousel';\nimport { Card } from '@absoluteui/components/card';\n\nconst slides = [\n  ['Spring sale', '20% off garden furniture until Sunday.'],\n  ['New arrivals', 'The summer collection is here.'],\n  ['Free delivery', 'On every order over 50 EUR.'],\n].map(([title, content]) => {\n  const host = document.createElement('div');\n  Card.create(host, { title: title ?? '', content: content ?? '' });\n  return { content: host, label: title ?? '' };\n});\nconst host = document.createElement('section');\ndocument.body.append(host);\nCarousel.create(host, { label: 'Featured', slides, loop: true });"
+    },
+    {
+      "id": "autoplay",
+      "title": "Autoplay with a pause button",
+      "language": "ts",
+      "code": "import { Carousel } from '@absoluteui/components/carousel';\n\nconst host = document.createElement('section');\ndocument.body.append(host);\n// Rotation pauses on hover and focus, and does not start for users who prefer reduced motion.\nCarousel.create(host, {\n  label: 'Announcements',\n  autoplay: 6000,\n  loop: true,\n  slides: [\n    { content: 'The office is closed on Monday for the public holiday.' },\n    { content: 'Benefits enrollment closes on the 30th.' },\n    { content: 'Welcome to the 12 people who joined this month.' },\n  ],\n});"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "component": "context-menu",
+  "factory": { "name": "ContextMenu.create", "signature": "ContextMenu.create(target: HTMLElement, options: ContextMenuOptions): ContextMenu" },
+  "configKey": "contextMenu",
+  "options": [
+    { "name": "items", "type": "readonly MenuItem[]", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Menu items (the Menu item model: action with optional submenu items, checkbox, radio, separator, group). Ids are unique across the whole tree. An empty array is allowed." },
+    { "name": "label", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "aria-label of the menu. Default: localized 'Context menu'. Must be non-empty when set." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "While true, right-click and the keyboard keys keep the browser's native behavior and open() is still possible; setting it closes an open menu." },
+    { "name": "renderItem", "type": "(item: MenuSelectableItem, context: MenuRenderContext) => Node", "required": false, "globallyConfigurable": false, "description": "Custom item content (since 0.9.0); the label stays the accessible name and typeahead text. Nodes are reused per item and released with releaseNode when dropped." },
+    { "name": "icons", "type": "Partial<{ submenu: IconRef; checked: IconRef; radio: IconRef }>", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Icon slot overrides." },
+    { "name": "closeOnSelect", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Close after activating a checkbox or radio item. Action items always close the menu." },
+    { "name": "typeahead", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Printable characters move focus to the next item whose label starts with them." },
+    { "name": "nativeModifier", "type": "'shift' | 'none'", "default": "shift", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "'shift': Shift+right-click is left to the browser's native menu. 'none': every right-click opens the component menu." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Logical alignment, submenu side, submenu arrow keys, and chevron mirroring." }
+  ],
+  "properties": [
+    { "name": "target", "type": "HTMLElement", "description": "The element whose content opens the menu. It receives no ARIA attributes." },
+    { "name": "element", "type": "HTMLDivElement", "description": "Top-level role=menu popup (popover=manual, class aui-menu aui-menu--context), appended to the target's enclosing <dialog> or <body>." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the menu is open." },
+    { "name": "origin", "type": "Element | null", "description": "Element the open (or last opened) menu belongs to: the right-clicked element, the focused element, or the target for open(). Null before the first open and after destroy()." },
+    { "name": "options", "type": "Readonly<ContextMenuOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(point?: { x: number; y: number }): void", "description": "Open at viewport (client) coordinates, or below the target when no point is given; focus moves to the first enabled item and origin becomes the target. Non-finite coordinates throw CONTEXT_MENU_OPTIONS." },
+    { "name": "close", "signature": "close(): void", "description": "Close all levels; focus is restored only when it was inside the menu. No aui-select." },
+    { "name": "update", "signature": "update(options: Partial<ContextMenuOptions>): void", "description": "Merge, validate, and apply options; new items reset checkbox/radio state and close open submenus. A failed update keeps the previous options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close, remove all popups, listeners, and subscriptions; the target keeps the native menu again." }
+  ],
+  "events": [
+    { "name": "aui-select", "detail": "{ id: string; item: MenuSelectableItem; checked?: boolean; origin: Element }", "bubbles": true, "cancelable": false, "description": "Dispatched on the target when the user activates an enabled item. origin is the element the menu was opened for; checked is the new state for checkbox and radio items." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "Dispatched on the menu element after the top level opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "Dispatched on the menu element after all levels closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-menu--context", "description": "Added to the top-level popup; sets a 12rem minimum inline size." },
+    { "name": "aui-menu (and all aui-menu__* classes)", "description": "Menu popup and items; styled by @absoluteui/components/menu/style.css." }
+  ],
+  "iconSlots": [
+    { "name": "submenu", "default": "chevron-right" },
+    { "name": "checked", "default": "check" },
+    { "name": "radio", "default": "check" }
+  ]
+}

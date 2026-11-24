@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="walk" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="13" cy="4.5" r="2"/>
+      <path d="M12.5 8.5L10.5 14l3 3v4.5"/>
+      <path d="M10.5 14l-2.5 7"/>
+      <path d="M11.5 9l-3 2.5v3"/>
+      <path d="M13 9l2 3.5 3 1"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <circle cx="13" cy="4.5" r="2.5"/>
+      <polyline points="12.5 8.5 10.5 14 13.5 17 13.5 21.5" data-outline-width="3"/>
+      <polyline points="10.5 14 8 21" data-outline-width="2.75"/>
+      <polyline points="11.5 9 8.5 11.5 8.5 14.5" data-outline-width="2.25"/>
+      <polyline points="13 9 15 12.5 18 13.5" data-outline-width="2.25"/>
+    </g>
+  </g>
+</svg>

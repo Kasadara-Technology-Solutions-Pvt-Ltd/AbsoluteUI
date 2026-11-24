@@ -1,0 +1,7 @@
+[
+  { "title": "Grouped or stacked", "text": "Vertical or horizontal bars, side by side or stacked, with negative values diverging from zero." },
+  { "title": "Keyboard bars", "text": "One tab stop; arrow keys move between bars with a tooltip on focus and hover." },
+  { "title": "Legend toggles", "text": "Legend buttons show and hide series." },
+  { "title": "Data table fallback", "text": "A generated summary and a data table, with a Total column when stacked." },
+  { "title": "Textures", "text": "Optional patterns so series never differ by color alone." }
+]

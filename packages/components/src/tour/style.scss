@@ -1,0 +1,194 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the Button stylesheet (@absoluteui/components/button/style.css).
+@layer aui.components {
+  // The host only owns the two top-layer popovers; it never takes space or hides them.
+  .aui-tour {
+    display: contents;
+  }
+
+  .aui-tour__overlay {
+    position: fixed;
+    inset: 0;
+    box-sizing: border-box;
+    inline-size: 100vw;
+    block-size: 100dvh;
+    max-inline-size: none;
+    max-block-size: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    // Non-modal: the page stays usable around and inside the spotlight.
+    pointer-events: none;
+
+    &:popover-open {
+      display: block;
+    }
+
+    &[popover]:not(:popover-open) {
+      display: none;
+    }
+  }
+
+  .aui-tour__spotlight {
+    position: fixed;
+    inset-block-start: var(--_aui-tour-y, 50vh);
+    // Physical: the coordinates come from getBoundingClientRect.
+    left: var(--_aui-tour-x, 50vw);
+    inline-size: var(--_aui-tour-w, 0);
+    block-size: var(--_aui-tour-h, 0);
+    box-sizing: border-box;
+    border-radius: aui.ctoken('tour', 'spotlight-radius');
+    box-shadow: 0 0 0 200vmax aui.ctoken('tour', 'backdrop');
+    outline: aui.token('focus-ring-width') solid aui.ctoken('tour', 'spotlight-ring');
+    outline-offset: 0;
+
+    @include aui.transition(left, inset-block-start, inline-size, block-size, $duration: aui.token('duration-normal'));
+  }
+
+  .aui-tour--centered .aui-tour__spotlight {
+    outline: none;
+  }
+
+  // Modal: the overlay blocks the page (including the spotlighted element).
+  .aui-tour--modal .aui-tour__overlay {
+    pointer-events: auto;
+  }
+
+  // Modal without a spotlight: a plain backdrop.
+  .aui-tour--no-spotlight .aui-tour__overlay {
+    background: aui.ctoken('tour', 'backdrop');
+  }
+
+  .aui-tour--no-spotlight .aui-tour__spotlight {
+    display: none;
+  }
+
+  .aui-tour__panel {
+    box-sizing: border-box;
+    inline-size: max-content;
+    max-inline-size: min(24rem, calc(100vw - 2 * #{aui.token('space-4')}));
+    max-block-size: var(--aui-available-height, calc(100dvh - 2 * #{aui.token('space-4')}));
+    padding: aui.token('space-4');
+    overflow: auto;
+    color: aui.token('color-text');
+    background: aui.ctoken('tour', 'bg');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.ctoken('tour', 'radius');
+    box-shadow: aui.ctoken('tour', 'shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    overflow-wrap: anywhere;
+
+    @include aui.popup-motion;
+
+    &:popover-open {
+      display: flex;
+      flex-direction: column;
+      gap: aui.token('space-2');
+    }
+
+    &[popover]:not(:popover-open) {
+      display: none;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+  }
+
+  .aui-tour--static .aui-tour__panel,
+  .aui-tour--static .aui-tour__spotlight {
+    transition: none;
+  }
+
+  .aui-tour__title {
+    margin: 0;
+    font-size: aui.token('font-size-lg');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+  }
+
+  .aui-tour__content {
+    min-inline-size: 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-tour__progress {
+    margin: 0;
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-tour__dots {
+    display: flex;
+    gap: aui.token('space-1');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-tour__dot {
+    inline-size: aui.token('space-2');
+    block-size: aui.token('space-2');
+    background: aui.ctoken('tour', 'dot-color');
+    border-radius: 50%;
+  }
+
+  .aui-tour__dot--active {
+    background: aui.ctoken('tour', 'dot-active');
+  }
+
+  .aui-tour__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: aui.token('space-2');
+    margin-block-start: aui.token('space-2');
+  }
+
+  .aui-tour__nav {
+    display: flex;
+    gap: aui.token('space-2');
+    margin-inline-start: auto;
+  }
+
+  @include aui.reduced-motion {
+    .aui-tour__spotlight {
+      transition: none;
+    }
+  }
+
+  @include aui.forced-colors {
+    // Shadows are not painted in forced colors: the ring carries the spotlight.
+    .aui-tour__spotlight {
+      outline: 3px solid Highlight;
+    }
+
+    .aui-tour__panel {
+      border-color: CanvasText;
+    }
+
+    .aui-tour__dot {
+      background: GrayText;
+    }
+
+    .aui-tour__dot--active {
+      background: Highlight;
+    }
+  }
+}

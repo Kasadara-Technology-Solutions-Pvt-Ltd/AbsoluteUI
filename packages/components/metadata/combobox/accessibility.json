@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "component": "combobox",
+  "pattern": "WAI-ARIA APG Combobox pattern: editable combobox with list autocomplete, without automatic selection.",
+  "roles": [
+    { "element": "input", "role": "combobox" },
+    { "element": "listbox container", "role": "listbox" },
+    { "element": "each option", "role": "option" },
+    { "element": "toggle button", "role": "button (native, tabindex=-1)" }
+  ],
+  "aria": [
+    { "attribute": "aria-autocomplete", "element": "input", "value": "list" },
+    { "attribute": "aria-expanded", "element": "input and toggle", "value": "true when the listbox is shown" },
+    { "attribute": "aria-controls", "element": "input and toggle", "value": "listbox id" },
+    { "attribute": "aria-activedescendant", "element": "input", "value": "id of the active option; removed when none" },
+    { "attribute": "aria-selected", "element": "option", "value": "true for the selected option" },
+    { "attribute": "aria-disabled", "element": "option", "value": "true for disabled options" },
+    { "attribute": "aria-invalid / aria-required / aria-describedby", "element": "input", "value": "Reflect invalid, required, description and error text" }
+  ],
+  "keyboard": [
+    { "key": "ArrowDown", "context": "Closed", "action": "Opens; activates the selected option or the first enabled option." },
+    { "key": "ArrowUp", "context": "Closed", "action": "Opens; activates the selected option or the last enabled option." },
+    { "key": "Alt+ArrowDown", "context": "Closed", "action": "Opens without activating an option." },
+    { "key": "ArrowDown / ArrowUp", "context": "Open", "action": "Moves the active option, skipping disabled options, wrapping." },
+    { "key": "PageDown / PageUp", "context": "Open", "action": "Moves the active option by 10." },
+    { "key": "Enter", "context": "Open with an active option", "action": "Selects it, closes, emits aui-change." },
+    { "key": "Escape", "context": "Open", "action": "Closes the listbox; keeps the value." },
+    { "key": "Escape", "context": "Closed with a value, clearOnEscape=true", "action": "Clears the value." },
+    { "key": "Tab", "context": "Any", "action": "Closes the listbox and moves focus; free text reverts to the selected label." },
+    { "key": "Printable characters", "context": "Any", "action": "Edits the text, opens, and filters." }
+  ],
+  "focus": "DOM focus always stays on the input; options are never focused. The active option has a visible outline.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.4.7", "3.3.1", "3.3.2", "4.1.2", "4.1.3"],
+  "notes": [
+    "Result counts are announced via a polite live region after typing pauses.",
+    "The toggle button is excluded from the tab order per the APG example; it has a localized accessible name."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending."
+  ]
+}

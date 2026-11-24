@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "component": "dashboard-grid",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "A responsive dashboard from existing children",
+      "language": "ts",
+      "code": "import { DashboardGrid, type DashboardItem } from '@absoluteui/components/dashboard-grid';\n\nconst host = document.createElement('div');\nfor (const [id, title] of [['sales', 'Sales'], ['users', 'Active users'], ['map', 'Regions']] as const) {\n  const section = document.createElement('section');\n  section.dataset.auiItem = id;\n  const heading = document.createElement('h2');\n  heading.textContent = title;\n  section.append(heading);\n  host.append(section);\n}\ndocument.body.append(host);\n\nconst items: DashboardItem[] = [\n  { id: 'sales', x: 0, y: 0, w: 6, h: 2 },\n  { id: 'users', x: 6, y: 0, w: 6, h: 2 },\n  { id: 'map', x: 0, y: 2, w: 12, h: 3, minH: 2 },\n];\nconst grid = DashboardGrid.create(host, { label: 'Overview', items });\nhost.dataset.breakpoint = grid.breakpoint.name;"
+    },
+    {
+      "id": "edit-and-save",
+      "title": "Edit mode, saving layouts per breakpoint, and undo",
+      "language": "ts",
+      "code": "import { DashboardGrid, type DashboardGridLayoutChangeDetail, type DashboardItem } from '@absoluteui/components/dashboard-grid';\nimport { Button } from '@absoluteui/components/button';\n\nconst items: DashboardItem[] = [\n  { id: 'kpi', x: 0, y: 0, w: 4, h: 2, label: 'Revenue' },\n  { id: 'chart', x: 4, y: 0, w: 8, h: 4, minW: 4 },\n  { id: 'notice', x: 0, y: 2, w: 4, h: 2, locked: true },\n];\nlet saved: Record<string, DashboardItem[]> = {};\n\nconst host = document.querySelector<HTMLElement>('#dashboard');\nif (host) {\n  const grid = DashboardGrid.create(host, { label: 'Operations', items, layouts: saved, editable: true, rowHeight: 96 });\n  host.addEventListener('aui-layout-change', (event) => {\n    const { layouts } = (event as CustomEvent<DashboardGridLayoutChangeDetail>).detail;\n    saved = layouts;\n  });\n  const undo = document.createElement('button');\n  undo.type = 'button';\n  undo.textContent = 'Undo layout change';\nButton.enhance(undo);\n  undo.addEventListener('click', () => {\n    grid.undo();\n  });\n  const done = document.createElement('button');\n  done.type = 'button';\n  done.textContent = 'Done editing';\nButton.enhance(done, { variant: 'primary' });\n  done.addEventListener('click', () => {\n    grid.setEditable(false);\n  });\n  host.before(undo, done);\n}"
+    },
+    {
+      "id": "catalog",
+      "title": "Add widgets from a catalog (click, Enter, Space, or drag onto the grid)",
+      "language": "ts",
+      "code": "import { DashboardCatalog, DashboardGrid, type DashboardCatalogAddDetail, type DashboardTemplate } from '@absoluteui/components/dashboard-grid';\nimport { DashboardWidget } from '@absoluteui/components/dashboard-widget';\n\nconst catalogHost = document.createElement('div');\nconst gridHost = document.createElement('div');\ndocument.body.append(catalogHost, gridHost);\n\nconst grid = DashboardGrid.create(gridHost, { label: 'My dashboard', items: [], editable: true });\nconst templates: DashboardTemplate[] = [\n  { id: 'kpi', label: 'KPI', description: 'A single metric', w: 3, h: 2 },\n  { id: 'chart', label: 'Chart', description: 'A trend over time', w: 6, h: 4, minW: 4 },\n];\nDashboardCatalog.create(catalogHost, {\n  grid,\n  label: 'Widgets',\n  templates,\n  create: (template, item) => {\n    const section = document.createElement('section');\n    DashboardWidget.create(section, { title: template.label, removable: true });\n    section.addEventListener('aui-remove', () => {\n      grid.removeItem(item.id);\n    });\n    return section;\n  },\n});\n// At most four charts: veto further additions.\ncatalogHost.addEventListener('aui-catalog-add', (event) => {\n  const { template } = (event as CustomEvent<DashboardCatalogAddDetail>).detail;\n  if (template.id === 'chart' && grid.items.filter((i) => i.id.startsWith('chart-')).length >= 4) event.preventDefault();\n});"
+    },
+    {
+      "id": "layout-functions",
+      "title": "Pure layout functions (no DOM)",
+      "language": "ts",
+      "code": "import { adaptLayout, compactLayout, findFreeSpot, resolveLayout, sortLayout, type DashboardItem } from '@absoluteui/components/dashboard-grid';\n\nconst layout: DashboardItem[] = [\n  { id: 'a', x: 0, y: 0, w: 6, h: 2 },\n  { id: 'b', x: 6, y: 0, w: 6, h: 2 },\n  { id: 'c', x: 0, y: 2, w: 12, h: 1 },\n];\n// Move c to the top-left at half width: a is pushed down, then the layout is compacted.\nconst moved = compactLayout(resolveLayout(layout, { id: 'c', x: 0, y: 0, w: 6, h: 1 }, 12));\nconst spot = findFreeSpot(moved, 4, 1, 12);\nconst phone = adaptLayout(moved, 12, 1);\nconst readingOrder = sortLayout(phone).map((item) => item.id);\ndocument.body.dataset.summary = `${String(spot.x)},${String(spot.y)} ${readingOrder.join(' ')}`;"
+    },
+    {
+      "id": "global-config",
+      "title": "Taller rows, wider gaps, and free placement for every grid",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { dashboardGrid: { rowHeight: 96, gap: 24, compaction: 'none' } } });"
+    }
+  ]
+}

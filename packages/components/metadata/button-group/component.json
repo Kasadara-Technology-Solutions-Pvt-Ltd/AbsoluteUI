@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "button-group",
+  "displayName": "Button Group",
+  "category": "Actions",
+  "package": "@absoluteui/components",
+  "import": "import { ButtonGroup } from '@absoluteui/components/button-group';",
+  "styleImport": "@absoluteui/components/button-group/style.css",
+  "purpose": "A labelled role=group of related native buttons, visually attached (shared borders) or spaced, horizontal or vertical. Composes Button; keyboard interaction stays native (Tab through every button).",
+  "whenToUse": [
+    "A small set of related actions that belong together, such as Previous / Next or Copy / Paste.",
+    "Grouping buttons so assistive technologies announce their shared purpose."
+  ],
+  "whenNotToUse": [
+    "Choosing one or several options: use Radio Group, Checkbox Group, or a segmented control.",
+    "Large sets of commands with arrow-key navigation: use Toolbar (planned).",
+    "Navigation between pages or views: use links or Tabs."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/components/button"],
+  "states": ["default", "hover", "focus-visible", "disabled button", "attached", "spaced (attached: false)", "horizontal", "vertical"],
+  "responsive": "Spaced horizontal groups (attached: false) wrap at narrow widths. Attached horizontal groups never wrap (that would break the shared borders); they scroll horizontally within max-inline-size 100%. Vertical groups stack.",
+  "rtl": "Logical properties: shared borders and removed radii follow the inline direction, so the first button has the start radii in both directions.",
+  "theme": "Inherits Button tokens; adds only spacing, border-width, and the focus ring. Forced-colors mode draws a Highlight focus outline.",
+  "timezone": "Not applicable.",
+  "security": "Button text and labels are rendered with textContent. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "ButtonGroup.create with 10 buttons", "budget": "< 2 ms in headless Chromium" }
+    ],
+    "testedScale": "Unit-tested with up to 3 buttons; intended for small groups (2 to 7 buttons)."
+  },
+  "limitations": [
+    "Not a toolbar: there is no arrow-key roving focus. A Toolbar component is planned for that pattern.",
+    "Attached horizontal groups scroll instead of wrapping at narrow widths; buttons at the end may be off-screen until scrolled.",
+    "enhance() only considers direct child <button> elements."
+  ],
+  "unsupported": [
+    "Toggle (pressed) state management; set aria-pressed on the buttons yourself.",
+    "Split buttons and menu buttons."
+  ],
+  "antiPatterns": [
+    "Unrelated actions in one group.",
+    "Groups without a label.",
+    "Very long attached groups that force horizontal scrolling; use attached: false so they wrap."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/button-group: AuiButtonGroup directive ([auiButtonGroup]).",
+    "react": "@absoluteui/react/button-group: AuiButtonGroup component.",
+    "vue": "@absoluteui/vue/button-group: AuiButtonGroup component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

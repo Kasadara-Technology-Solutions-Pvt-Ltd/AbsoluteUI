@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "component": "scroll-area",
+  "factory": { "name": "ScrollArea.enhance", "signature": "ScrollArea.enhance(element: HTMLElement, options: ScrollAreaOptions): ScrollArea" },
+  "configKey": "scrollArea",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the region." },
+    { "name": "orientation", "type": "'vertical' | 'horizontal' | 'both'", "default": "vertical", "required": false, "globallyConfigurable": false, "description": "Scroll axis." },
+    { "name": "maxBlockSize", "type": "string", "required": false, "globallyConfigurable": false, "description": "Maximum block size as a CSS length (sets --aui-scroll-area-max-block-size)." },
+    { "name": "shadows", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Fade the edges where more content exists." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLElement", "description": "The enhanced element." },
+    { "name": "edges", "type": "ScrollAreaEdges", "description": "Edges with hidden content ({ top, bottom, left, right })." },
+    { "name": "overflowing", "type": "boolean", "description": "Whether the content overflows (the region is then focusable)." },
+    { "name": "options", "type": "Readonly<ScrollAreaOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "refresh", "signature": "refresh(): void", "description": "Recompute the edges now." },
+    { "name": "update", "signature": "update(options: Partial<ScrollAreaOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove classes, data attributes, observers, and restore the element's own attributes." }
+  ],
+  "events": [],
+  "contentAreas": [
+    { "name": "content", "description": "The element's own children; they stay in place." }
+  ],
+  "cssClasses": [
+    { "name": "aui-scroll-area", "description": "The enhanced element." },
+    { "name": "aui-scroll-area--vertical | --horizontal | --both", "description": "Scroll axis." },
+    { "name": "aui-scroll-area--shadows", "description": "Edge fades are on." },
+    { "name": "data-aui-scroll-top | -bottom | -left | -right", "description": "Present while content is hidden at that edge." }
+  ],
+  "iconSlots": []
+}

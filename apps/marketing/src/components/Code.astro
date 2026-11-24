@@ -1,0 +1,32 @@
+---
+// Highlighted code (Shiki at build time, class output). `label` names the file or command.
+import { highlight, type CodeLang } from '../lib/shiki';
+
+interface Props {
+  code: string;
+  label?: string;
+  lang?: CodeLang;
+  /** Render without the card header (inside another panel). */
+  bare?: boolean;
+  class?: string;
+}
+const { code, label, lang = 'ts', bare = false, class: className } = Astro.props;
+const html = await highlight(code, lang);
+const names: Record<CodeLang, string> = { ts: 'TypeScript', js: 'JavaScript', html: 'HTML', css: 'CSS', sh: 'shell', json: 'JSON', ini: '.npmrc' };
+---
+
+{
+  bare ? (
+    <div class:list={['code-bare', className]} set:html={html} />
+  ) : (
+    <figure class:list={['code-card', className]}>
+      {label && (
+        <figcaption class="code-card-head">
+          <span>{label}</span>
+          <span>{names[lang]}</span>
+        </figcaption>
+      )}
+      <Fragment set:html={html} />
+    </figure>
+  )
+}

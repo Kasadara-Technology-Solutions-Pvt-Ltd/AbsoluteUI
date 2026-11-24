@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "component": "time-picker",
+  "factory": { "name": "TimePicker.create", "signature": "TimePicker.create(host: HTMLElement, options: TimePickerOptions): TimePicker" },
+  "configKey": "timePicker",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name of the group (via aria-labelledby)." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "value", "type": "PlainTime | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Initial wall-clock time; also the value restored by reset(). Millisecond must be 0; second must be 0 at minute granularity." },
+    { "name": "min", "type": "PlainTime | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Earliest allowed time (inclusive); first suggestion. Must not be after max." },
+    { "name": "max", "type": "PlainTime | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Latest allowed time (inclusive); last possible suggestion." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name for the hidden input (HH:MM or HH:MM:SS)." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by the group's aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "An empty entry is invalid; segments are required and the required indicator is shown." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables segments and the button; not submitted." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Focusable and submitted; not editable and the listbox does not open." },
+    { "name": "validate", "type": "(value: PlainTime | null) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation after built-in checks; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<{ time: IconRef; error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "granularity", "type": "'minute' | 'second'", "default": "minute", "required": false, "globallyConfigurable": true, "mutability": "init-only", "description": "Adds a second segment when 'second'." },
+    { "name": "hourCycle", "type": "'auto' | 'h12' | 'h23'", "default": "auto", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "12- or 24-hour entry and display; 'auto' follows the locale." },
+    { "name": "step", "type": "number", "default": 30, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Minutes between suggested times (integer 1..720). Does not constrain typed values." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Segment order, hour cycle (auto), day periods, option labels, and messages." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Listbox alignment direction (applied when the listbox opens)." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "group", "type": "HTMLDivElement", "description": "The labelled role=group; control boundary and popup anchor." },
+    { "name": "button", "type": "HTMLButtonElement", "description": "Opens the suggestions listbox." },
+    { "name": "listbox", "type": "HTMLDivElement", "description": "The suggestions listbox." },
+    { "name": "value", "type": "PlainTime | null", "description": "Current value; null when empty, incomplete, or failing a built-in check." },
+    { "name": "validity", "type": "TimePickerValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the listbox is shown." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the initial value, or a partial entry exists." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<TimePickerOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: PlainTime | null): void", "description": "Programmatic value (no events); clears an external custom error." },
+    { "name": "update", "signature": "update(options: Partial<TimePickerOptions>): void", "description": "Merge and apply options. Throws CFG_INIT_ONLY when granularity changes." },
+    { "name": "open", "signature": "open(): void", "description": "Show the listbox and focus it; the option nearest the value (or the first) becomes active." },
+    { "name": "close", "signature": "close(): void", "description": "Hide the listbox without changing the value; focus inside it returns to the button." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error (server, cross-field rule); cleared when the user edits." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | null", "description": "HH:MM (HH:MM:SS at second granularity), or null." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the first segment." },
+    { "name": "reset", "signature": "reset(): void", "description": "Close, restore the initial value, and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close, remove rendering, listeners, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: PlainTime | null; validity: TimePickerValidity }", "bubbles": true, "cancelable": false, "description": "The user changed the value or its validity (typing, stepping, or choosing a suggestion)." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "Listbox opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "Listbox closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-time-picker", "description": "Host." },
+    { "name": "aui-time-picker--invalid | --disabled | --readonly", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __required | __description | __error", "description": "Shared field chrome." },
+    { "name": "aui-time-picker__group", "description": "Labelled group; control boundary and popup anchor." },
+    { "name": "aui-time-picker__fields", "description": "LTR-isolated run of segments and separators." },
+    { "name": "aui-time-picker__segment | __segment--hour | --minute | --second | --dayPeriod", "description": "Segment inputs." },
+    { "name": "aui-time-picker__separator", "description": "Locale separator text (aria-hidden)." },
+    { "name": "aui-time-picker__button", "description": "Choose time button." },
+    { "name": "aui-time-picker__popup", "description": "Top-layer popover container." },
+    { "name": "aui-time-picker__listbox", "description": "Suggestions listbox (focusable)." },
+    { "name": "aui-time-picker__option", "description": "Suggested time; --active marks the active descendant." },
+    { "name": "aui-time-picker__empty", "description": "Shown when no suggestion fits between min and max." }
+  ],
+  "iconSlots": [
+    { "name": "time", "default": "clock" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

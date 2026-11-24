@@ -1,0 +1,6 @@
+[
+  { "title": "Linked errors", "text": "Lists every error as a link that moves focus to the field that needs fixing." },
+  { "title": "Announced once", "text": "A labelled region that takes focus when shown, so screen readers read it once without a live region." },
+  { "title": "Custom focus", "text": "Items can supply their own focus behavior, such as a component's focus method." },
+  { "title": "Standalone or automatic", "text": "Form fills it for you, and it also works alone for server-rendered errors." }
+]

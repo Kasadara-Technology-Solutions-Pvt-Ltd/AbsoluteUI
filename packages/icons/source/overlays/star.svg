@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" data-id="star">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M5 1.2L6 3.82L8.8 3.96L6.62 5.73L7.35 8.44L5 6.9L2.65 8.44L3.38 5.73L1.2 3.96L4 3.82z"/>
+    </g>
+  </g>
+</svg>

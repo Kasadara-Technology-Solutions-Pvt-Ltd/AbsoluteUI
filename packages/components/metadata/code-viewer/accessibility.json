@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "component": "code-viewer",
+  "pattern": "A focusable, named scroll region (role=region) containing the code as text; toolbar actions are native toggle and push buttons.",
+  "roles": [
+    { "element": "viewport", "role": "region (named by label, described by the line count and language or the diff counts)" },
+    { "element": "diff mode buttons", "role": "group of toggle buttons (aria-pressed)" },
+    { "element": "wrap", "role": "toggle button (aria-pressed)" },
+    { "element": "copy", "role": "button" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "viewport", "value": "the label option" },
+    { "attribute": "aria-describedby", "element": "viewport", "value": "visually hidden summary: '120 lines, TypeScript' or '3 added, 2 removed, JSON'" },
+    { "attribute": "aria-hidden", "element": "line numbers, diff markers, side-by-side headings", "value": "true (the line text carries the meaning)" },
+    { "attribute": "aria-pressed", "element": "wrap and diff mode buttons", "value": "true | false" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Code Viewer", "action": "Toolbar buttons, then the code region." },
+    { "key": "Arrow keys / Page Up / Page Down / Home / End", "context": "Code region", "action": "Scroll the code (native scrolling of the focused region)." },
+    { "key": "Enter / Space", "context": "Toolbar button", "action": "Toggle wrapping, switch the diff mode, or copy." }
+  ],
+  "focus": "The region is focusable (tabindex=0) so keyboard users can scroll it; toggling options keeps focus on the button.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.10", "1.4.11", "2.1.1", "2.4.7", "4.1.2", "4.1.3"],
+  "notes": [
+    "Added and removed lines start with visually hidden 'Added:' and 'Removed:' text, and highlighted lines with 'Highlighted:', so changes are not conveyed by color alone.",
+    "Copy results and option changes are announced in a polite live region; a refused clipboard is announced assertively.",
+    "Line numbers are hidden from assistive technology and excluded from text selection."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "In virtualized files, only the rows in view are in the accessibility tree; screen-reader users read them by scrolling the region."
+  ]
+}

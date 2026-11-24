@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "component": "bottom-sheet",
+  "pattern": "WAI-ARIA APG Dialog (Modal) pattern implemented with native <dialog>.showModal(); non-modal sheets use <dialog>.show(). With two or more snap points the drag handle follows the APG Slider pattern.",
+  "roles": [
+    { "element": "<dialog>", "role": "dialog (native)" },
+    { "element": "title", "role": "heading level 2" },
+    { "element": "handle (two or more snap points)", "role": "slider" },
+    { "element": "handle (fewer than two snap points)", "role": "none (aria-hidden, decorative)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "<dialog>", "value": "id of the title heading" },
+    { "attribute": "aria-describedby", "element": "<dialog>", "value": "id of the description (when provided)" },
+    { "attribute": "aria-modal", "element": "<dialog>", "value": "Implicit true for modal sheets (native showModal()); absent for non-modal sheets" },
+    { "attribute": "aria-label", "element": "close button", "value": "Localized 'Close'" },
+    { "attribute": "aria-label", "element": "handle slider", "value": "Localized 'Sheet height'" },
+    { "attribute": "aria-orientation", "element": "handle slider", "value": "vertical" },
+    { "attribute": "aria-valuemin / aria-valuemax", "element": "handle slider", "value": "Lowest / highest snap point as a whole percent of the viewport height" },
+    { "attribute": "aria-valuenow", "element": "handle slider", "value": "Current snap point as a whole percent" },
+    { "attribute": "aria-valuetext", "element": "handle slider", "value": "Localized '{percent}% of screen height'" },
+    { "attribute": "tabindex", "element": "handle slider", "value": "0" },
+    { "attribute": "aria-hidden", "element": "handle (fewer than two snap points)", "value": "true (no role, not focusable)" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Modal sheet open", "action": "Moves focus among sheet controls (close button, handle slider, content); the background is inert." },
+    { "key": "Tab / Shift+Tab", "context": "Non-modal sheet open", "action": "Follows document order; focus can leave the sheet and reach the page." },
+    { "key": "Escape", "context": "Sheet is the topmost overlay, closeOnEscape=true", "action": "Emits cancelable aui-cancel (reason 'escape'), then closes and restores focus." },
+    { "key": "Escape", "context": "closeOnEscape=false", "action": "No effect; the native close request is prevented, including repeated presses." },
+    { "key": "Escape", "context": "Handle drag in progress", "action": "Cancels the drag only; the sheet returns to its height and stays open." },
+    { "key": "Escape", "context": "Nested overlay open", "action": "Closes only the topmost overlay." },
+    { "key": "ArrowUp / ArrowRight / PageUp", "context": "Handle slider focused", "action": "Next larger snap point (stops at the largest); emits aui-snap-change." },
+    { "key": "ArrowDown / ArrowLeft / PageDown", "context": "Handle slider focused", "action": "Next smaller snap point (stops at the smallest); emits aui-snap-change. Never closes the sheet." },
+    { "key": "Home / End", "context": "Handle slider focused", "action": "Smallest / largest snap point." },
+    { "key": "Enter / Space", "context": "Close button or content button focused", "action": "Activates the button." }
+  ],
+  "focus": "On open, focus moves to the first focusable element (native dialog focusing steps): the close button when shown, since it precedes the handle in DOM order. A non-modal sheet with no focusable content focuses the dialog itself (tabindex -1). On close, a modal sheet returns focus to the element focused before opening; a non-modal sheet does so only when focus was inside the sheet or on the body. Hiding the focused close button through configuration moves focus to the dialog.",
+  "wcag": ["1.3.1", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "2.5.7", "2.5.8", "4.1.2"],
+  "notes": [
+    "Dragging is never the only way to operate the sheet (WCAG 2.5.7): with two or more snap points a single click on the handle cycles the heights and the handle is keyboard-operable; dismissal is also available through Escape and the close button.",
+    "The handle strip spans the full width at control-height-sm height, a large touch target (WCAG 2.5.8).",
+    "Background inertness and top-layer rendering of modal sheets are provided by the browser.",
+    "Slide motion is removed under prefers-reduced-motion and data-aui-animation='none'.",
+    "The handle is shown first visually but follows the header in DOM and focus order."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Snap changes are conveyed through the slider's aria-valuetext only; there is no separate live-region announcement.",
+    "When closeOnEscape, showCloseButton, and closeOnDragDown are all false, the sheet has no built-in dismissal; the consumer must provide one."
+  ]
+}

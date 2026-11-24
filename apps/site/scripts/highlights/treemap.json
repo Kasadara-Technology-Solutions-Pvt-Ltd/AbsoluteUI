@@ -1,0 +1,6 @@
+[
+  { "title": "Squarified tiles", "text": "Tile area follows value, largest first; groups sum their children." },
+  { "title": "Drill-down", "text": "Open a group with a click or Enter, go back with Backspace or the breadcrumb." },
+  { "title": "Keyboard tiles", "text": "One tab stop; arrow keys move between tiles in size order." },
+  { "title": "Data table fallback", "text": "A generated summary and a table of the whole hierarchy." }
+]

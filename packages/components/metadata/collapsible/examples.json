@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "collapsible",
+  "examples": [
+    {
+      "id": "details",
+      "title": "Show more details",
+      "language": "ts",
+      "code": "import { Collapsible } from '@absoluteui/components/collapsible';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCollapsible.create(host, {\n  label: 'How is the delivery date calculated?',\n  content: 'Orders placed before 14:00 on a business day ship the same day. Weekends and public holidays are not counted.',\n});"
+    },
+    {
+      "id": "bordered-section",
+      "title": "Bordered advanced section with a heading",
+      "language": "ts",
+      "code": "import { Collapsible, type CollapsibleChangeDetail } from '@absoluteui/components/collapsible';\nimport { Switch } from '@absoluteui/components/switch';\n\nconst host = document.createElement('section');\nconst settings = document.createElement('div');\nconst cacheHost = document.createElement('div');\nsettings.append(cacheHost);\ndocument.body.append(host);\nSwitch.create(cacheHost, { label: 'Cache responses for offline use' });\nCollapsible.create(host, { label: 'Advanced settings', content: settings, headingLevel: 3, variant: 'bordered' });\n// Remember that the user has seen the advanced settings (aui-change fires only on user toggles).\nhost.addEventListener('aui-change', (event) => {\n  if ((event as CustomEvent<CollapsibleChangeDetail>).detail.open) host.dataset.viewed = 'true';\n});"
+    }
+  ]
+}

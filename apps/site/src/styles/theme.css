@@ -1,0 +1,51 @@
+/*
+ * AbsoluteUI site theme: Starlight custom properties (the site does not use AbsoluteUI for its chrome).
+ * Cobalt accent on neutral slate greys. Checked with contrastRatio: every text pair meets WCAG 2.2 AA
+ * (accent on page 8.4:1 light, 7.8:1 dark; active navigation 11.7:1 / 12.2:1; muted text 6.4:1 / 6.1:1).
+ */
+:root {
+  --sl-font: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sl-font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Mono', Menlo, monospace;
+  --site-font-display: 'Bricolage Grotesque Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --site-radius: 0.875rem;
+}
+
+/* Dark (default Starlight mode). */
+:root {
+  --sl-color-accent-low: #0e2347;
+  --sl-color-accent: #6ea8ff;
+  --sl-color-accent-high: #d6e4ff;
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #e6eaf1;
+  --sl-color-gray-2: #c1c8d4;
+  --sl-color-gray-3: #8a94a6;
+  --sl-color-gray-4: #566174;
+  --sl-color-gray-5: #353e4d;
+  --sl-color-gray-6: #1c2330;
+  --sl-color-black: #0d1219;
+  /* Page titles use the gradient as text colour: every stop is at least 5.6:1 on the page. */
+  --site-gradient: linear-gradient(135deg, #d6e4ff 0%, #6ea8ff 50%, #3d8bff 100%);
+  --site-surface: #131a24;
+  --site-border: #263041;
+  --site-glow: rgb(0 71 171 / 0.22);
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #e6eefb;
+  --sl-color-accent: #0047ab;
+  --sl-color-accent-high: #0a2a66;
+  --sl-color-white: #0f172a;
+  --sl-color-gray-1: #1e293b;
+  --sl-color-gray-2: #334155;
+  --sl-color-gray-3: #526077;
+  --sl-color-gray-4: #7a8699;
+  --sl-color-gray-5: #c9d1dc;
+  --sl-color-gray-6: #eef2f6;
+  --sl-color-gray-7: #f6f8fb;
+  --sl-color-black: #ffffff;
+  /* Every stop is at least 4.8:1 on white. */
+  --site-gradient: linear-gradient(135deg, #0a2a66 0%, #0047ab 50%, #1d6fd8 100%);
+  --site-surface: #ffffff;
+  --site-border: #e2e8f0;
+  --site-glow: rgb(0 71 171 / 0.1);
+}

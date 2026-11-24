@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="milestone">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 19.5h18"/>
+      <path d="M12 15v4.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 4l5.5 5.5L12 15l-5.5-5.5z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <line x1="3" y1="19.5" x2="21" y2="19.5" data-outline-width="2"/>
+      <line x1="12" y1="16" x2="12" y2="19.5" data-outline-width="2"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <path d="M12 4l5.5 5.5L12 15l-5.5-5.5z" transform="translate(12 9.5) scale(1.12) translate(-12 -9.5)"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 4l5.5 5.5L12 15l-5.5-5.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 19.5h18"/>
+      <path d="M12 15v4.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 4l5.5 5.5L12 15l-5.5-5.5z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 19.5h18"/>
+      <path d="M12 15v4.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <path d="M12 4l5.5 5.5L12 15l-5.5-5.5z"/>
+    </g>
+  </g>
+</svg>

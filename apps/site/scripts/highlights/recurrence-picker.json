@@ -1,0 +1,6 @@
+[
+  { "title": "Repeat rules", "text": "Daily, weekly, monthly, or yearly with an interval, weekdays, and monthly positions." },
+  { "title": "Ends your way", "text": "Never, after a number of occurrences, or on a date." },
+  { "title": "Readable summary", "text": "A plain-language summary and a preview of the next occurrences." },
+  { "title": "Standard rules", "text": "Values are recurrence rules that convert to and from the iCalendar RRULE format." }
+]

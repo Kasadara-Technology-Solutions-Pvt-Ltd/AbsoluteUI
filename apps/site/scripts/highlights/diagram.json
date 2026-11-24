@@ -1,0 +1,7 @@
+[
+  { "title": "JSON model", "text": "Nodes with seven shapes or custom SVG, ports, edges with three routings, arrowheads, labels, and groups." },
+  { "title": "Auto-layout", "text": "Layered flowcharts and trees in four directions, keeping hand-moved steps when you ask." },
+  { "title": "Full editing", "text": "Palette, drag to move with snap and guides, connect from ports, reconnect, inline labels, copy, paste, undo." },
+  { "title": "Keyboard first", "text": "Spatial arrow navigation, move mode, a connect flow, and a text alternative listing every connection." },
+  { "title": "Export", "text": "Theme-matched SVG and PNG files without style attributes, ready to share." }
+]

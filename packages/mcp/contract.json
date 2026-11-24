@@ -1,0 +1,740 @@
+{
+  "tools": [
+    {
+      "name": "search_docs",
+      "title": "Search the AbsoluteUI docs",
+      "annotations": {
+        "title": "Search the AbsoluteUI docs",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "query"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Words to search for, such as \"date range with business days\"."
+          },
+          "kinds": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "component",
+                "api",
+                "angular",
+                "guide",
+                "token",
+                "icon"
+              ]
+            },
+            "uniqueItems": true,
+            "maxItems": 6,
+            "description": "Restrict to these kinds."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 25,
+            "description": "Maximum hits (default 10)."
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "query",
+          "hits"
+        ],
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "hits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "kind",
+                "id",
+                "title",
+                "uri"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "list_components",
+      "title": "List AbsoluteUI components",
+      "annotations": {
+        "title": "List AbsoluteUI components",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "group": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "One of: Layout and content, Feedback, Charts, Overlays, Navigation, Date and time, Buttons, Forms, Conversation, Dashboard, Data, Upload, Planning and boards, Authentication."
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "version"
+        ]
+      }
+    },
+    {
+      "name": "get_component",
+      "title": "Get a component reference",
+      "annotations": {
+        "title": "Get a component reference",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "Component name, such as \"date-picker\" (add-on entry points such as \"data-grid-export\" also work)."
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "overview",
+                "highlights",
+                "options",
+                "methods",
+                "events",
+                "properties",
+                "keyboard",
+                "accessibility",
+                "behavior",
+                "performance",
+                "tokens",
+                "css",
+                "security",
+                "limitations",
+                "usage",
+                "typescript"
+              ]
+            },
+            "uniqueItems": true,
+            "minItems": 1,
+            "maxItems": 16
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "name",
+          "docUrl"
+        ]
+      }
+    },
+    {
+      "name": "get_examples",
+      "title": "Get component examples",
+      "annotations": {
+        "title": "Get component examples",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "framework": {
+            "enum": [
+              "ts",
+              "angular"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "examples",
+              "showcase"
+            ]
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 128
+            },
+            "uniqueItems": true,
+            "minItems": 1,
+            "maxItems": 50
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "name",
+          "examples"
+        ]
+      }
+    },
+    {
+      "name": "get_api",
+      "title": "Get a package API",
+      "annotations": {
+        "title": "Get a package API",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "package"
+        ],
+        "properties": {
+          "package": {
+            "enum": [
+              "core",
+              "utilities",
+              "helpers",
+              "theme",
+              "icons",
+              "services"
+            ]
+          },
+          "module": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Subpath module, such as \"date\" for @absoluteui/helpers/date, or \"designer\" for @absoluteui/theme/designer."
+          },
+          "symbol": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "Exported name, such as \"addBusinessDays\"."
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "package"
+        ]
+      }
+    },
+    {
+      "name": "get_angular",
+      "title": "Get an Angular binding",
+      "annotations": {
+        "title": "Get an Angular binding",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "declaration": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "Only this declaration (class name) of the entry."
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "entry",
+          "import"
+        ]
+      }
+    },
+    {
+      "name": "get_guide",
+      "title": "Get a guide",
+      "annotations": {
+        "title": "Get a guide",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "slug"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "section": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "slug",
+          "title",
+          "docUrl"
+        ]
+      }
+    },
+    {
+      "name": "get_tokens",
+      "title": "Get design tokens",
+      "annotations": {
+        "title": "Get design tokens",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "component": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "group": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "themes"
+        ]
+      }
+    },
+    {
+      "name": "search_icons",
+      "title": "Search the AbsoluteUI icon set",
+      "annotations": {
+        "title": "Search the AbsoluteUI icon set",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "query"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "category": {
+            "enum": [
+              "navigation",
+              "actions",
+              "status",
+              "users",
+              "files",
+              "layout",
+              "forms",
+              "communication",
+              "time",
+              "analytics",
+              "security",
+              "enterprise",
+              "development",
+              "cloud",
+              "devices",
+              "finance",
+              "maps",
+              "media"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "icons"
+        ]
+      }
+    },
+    {
+      "name": "get_setup",
+      "title": "Get installation and setup",
+      "annotations": {
+        "title": "Get installation and setup",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "framework": {
+            "enum": [
+              "ts",
+              "angular"
+            ]
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "version",
+          "framework",
+          "guides"
+        ]
+      }
+    },
+    {
+      "name": "validate_usage",
+      "title": "Check AbsoluteUI usage",
+      "annotations": {
+        "title": "Check AbsoluteUI usage",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "framework"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50000
+          },
+          "framework": {
+            "enum": [
+              "ts",
+              "angular"
+            ]
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "framework",
+          "diagnostics",
+          "summary",
+          "typeCheck"
+        ],
+        "properties": {
+          "diagnostics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "severity",
+                "rule",
+                "message",
+                "line",
+                "column"
+              ],
+              "properties": {
+                "severity": {
+                  "enum": [
+                    "error",
+                    "warning",
+                    "info"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "get_schema",
+      "title": "Get a JSON Schema",
+      "annotations": {
+        "title": "Get a JSON Schema",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "dashboard"
+            ]
+          },
+          "widgetTypes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-z][a-z0-9-]*(\\.[a-z][a-z0-9-]*)*$"
+            },
+            "uniqueItems": true,
+            "minItems": 1,
+            "maxItems": 100,
+            "description": "Restrict widget types to these registered names."
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "name",
+          "schema"
+        ]
+      }
+    },
+    {
+      "name": "validate_dashboard",
+      "title": "Check a dashboard definition",
+      "annotations": {
+        "title": "Check a dashboard definition",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "definition"
+        ],
+        "properties": {
+          "definition": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 200000,
+            "description": "The definition as JSON text."
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "required": [
+          "valid",
+          "issues"
+        ],
+        "properties": {
+          "valid": {
+            "type": "boolean"
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "path",
+                "code",
+                "expected"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "resourceTemplates": [
+    {
+      "uriTemplate": "absoluteui://component/{name}",
+      "name": "component",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uriTemplate": "absoluteui://component/{name}/metadata/{file}",
+      "name": "component-metadata",
+      "mimeType": "application/json"
+    },
+    {
+      "uriTemplate": "absoluteui://api/{package}/{module}",
+      "name": "api",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uriTemplate": "absoluteui://angular/{entry}",
+      "name": "angular",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uriTemplate": "absoluteui://guide/{+slug}",
+      "name": "guide",
+      "mimeType": "text/markdown"
+    }
+  ],
+  "fixedResources": [
+    {
+      "uri": "absoluteui://components",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "absoluteui://tokens",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "absoluteui://icons",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "absoluteui://schema/dashboard",
+      "mimeType": "application/json"
+    },
+    {
+      "uri": "absoluteui://llms.txt",
+      "mimeType": "text/plain"
+    }
+  ],
+  "prompts": [
+    {
+      "name": "build_form",
+      "arguments": [
+        {
+          "name": "fields",
+          "required": true
+        },
+        {
+          "name": "framework",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "add_data_grid",
+      "arguments": [
+        {
+          "name": "data",
+          "required": true
+        },
+        {
+          "name": "features",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "build_dashboard",
+      "arguments": [
+        {
+          "name": "goal",
+          "required": true
+        },
+        {
+          "name": "framework",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "choose_component",
+      "arguments": [
+        {
+          "name": "need",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "review_accessibility",
+      "arguments": [
+        {
+          "name": "code",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "theme_app",
+      "arguments": [
+        {
+          "name": "brand",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

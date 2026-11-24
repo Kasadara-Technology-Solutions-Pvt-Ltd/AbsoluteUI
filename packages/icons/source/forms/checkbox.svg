@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="checkbox" data-animations="draw:on-change:accent">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M8 12.5l2.75 2.75L16 9.75"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="2.5" y="2.5" width="19" height="19" rx="3.5"/>
+      <polyline points="8 12.5 10.75 15.25 16 9.75" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M8 12.5l2.75 2.75L16 9.75"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.25">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3"/>
+    </g>
+    <g data-layer="base" data-role="accent" data-paint="stroke">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M8 12.5l2.75 2.75L16 9.75"/>
+    </g>
+  </g>
+</svg>

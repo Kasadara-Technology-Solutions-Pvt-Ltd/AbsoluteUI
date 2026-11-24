@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "component": "schema-form",
+  "factory": {
+    "name": "SchemaForm.create",
+    "signature": "SchemaForm.create(host: HTMLElement, options: SchemaFormOptions): SchemaForm"
+  },
+  "configKey": "schemaForm",
+  "options": [
+    {
+      "name": "schema",
+      "type": "FormSchema",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "JSON Schema subset (root type object); unsupported keywords throw a configuration error listing each pointer."
+    },
+    {
+      "name": "uiSchema",
+      "type": "UiField",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Presentation: widget, label, help, placeholder, order, columns, span, visibleIf, rows, orientation, disableNonWorking, addLabel, patternMessage; children under fields, array items under items."
+    },
+    {
+      "name": "value",
+      "type": "JsonObject",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Initial value; values that do not match the schema type are ignored. reset() returns to it."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Accessible name of the form. Default: the schema title."
+    },
+    {
+      "name": "submitLabel",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Submit button text. Default: localized Submit."
+    },
+    {
+      "name": "showReset",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Also show a reset button."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Disable every field and the actions."
+    },
+    {
+      "name": "businessCalendar",
+      "type": "BusinessCalendarEngine | null",
+      "default": "null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Working days and holidays for the date pickers; disableNonWorking in the UI schema uses it."
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "IANA time zone of date-time fields. Default: the global configuration."
+    },
+    {
+      "name": "validate",
+      "type": "(value: JsonObject, signal: AbortSignal) => Promise<SchemaFormErrors>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Async validation after the constraint checks pass; return messages by JSON Pointer."
+    },
+    {
+      "name": "showActions",
+      "type": "boolean",
+      "default": "true",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Show the submit (and optional reset) buttons."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Locale of messages and of the rendered controls."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "HTMLFormElement",
+      "description": "The native form element."
+    },
+    {
+      "name": "form",
+      "type": "Form",
+      "description": "The Form instance (validation, Error Summary, submission, state events)."
+    },
+    {
+      "name": "options",
+      "type": "Readonly<SchemaFormOptions>",
+      "description": "Current options."
+    }
+  ],
+  "methods": [
+    {
+      "name": "getValue",
+      "signature": "getValue(): JsonObject",
+      "description": "The current value as JSON; hidden and empty optional fields are left out."
+    },
+    {
+      "name": "setValue",
+      "signature": "setValue(value: JsonObject): void",
+      "description": "Replace the current value (no events)."
+    },
+    {
+      "name": "validate",
+      "signature": "validate(): boolean",
+      "description": "Validate visible fields and array sizes and show messages (no async validation)."
+    },
+    {
+      "name": "submit",
+      "signature": "submit(): void",
+      "description": "Submit through the native pipeline."
+    },
+    {
+      "name": "reset",
+      "signature": "reset(): void",
+      "description": "Restore the initial value and clear messages."
+    },
+    {
+      "name": "setErrors",
+      "signature": "setErrors(errors: SchemaFormErrors): void",
+      "description": "Show errors by JSON Pointer on fields, groups, or the summary."
+    },
+    {
+      "name": "clearErrors",
+      "signature": "clearErrors(): void",
+      "description": "Remove every message."
+    },
+    {
+      "name": "focusField",
+      "signature": "focusField(pointer: string): boolean",
+      "description": "Move focus to the field at a pointer; false when it is not visible."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<SchemaFormOptions>): void",
+      "description": "Merge options and re-render, keeping the current value unless value is given."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Destroy every control and the Form and empty the host."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-change",
+      "detail": "SchemaFormChangeDetail",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "Any edit, including array add, remove, and move: { value, pointer }. Control events do not leave the form."
+    },
+    {
+      "name": "aui-submit",
+      "detail": "SchemaFormSubmitDetail",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "Valid submission: { value } (typed JSON)."
+    },
+    {
+      "name": "aui-invalid",
+      "detail": "SchemaFormInvalidDetail",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "Submission blocked: { errors: [{ pointer, label, message }] }."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-schema-form",
+      "description": "Host (a size container)."
+    },
+    {
+      "name": "aui-schema-form__form",
+      "description": "The native form (also aui-form)."
+    },
+    {
+      "name": "aui-schema-form__grid | __grid--columns",
+      "description": "Fields of an object; with columns from the UI schema."
+    },
+    {
+      "name": "aui-schema-form__cell | __cell--span",
+      "description": "Wrapper of one field; spanning several columns."
+    },
+    {
+      "name": "aui-schema-form__group",
+      "description": "Nested object (Fieldset)."
+    },
+    {
+      "name": "aui-schema-form__array",
+      "description": "Array of entries (Fieldset)."
+    },
+    {
+      "name": "aui-schema-form__items | __item | __tools",
+      "description": "Entry list, one entry, and its move and remove buttons."
+    },
+    {
+      "name": "aui-schema-form__empty | __add",
+      "description": "Empty-array text and the add button."
+    },
+    {
+      "name": "aui-schema-form__actions",
+      "description": "Submit and reset buttons."
+    }
+  ],
+  "iconSlots": []
+}

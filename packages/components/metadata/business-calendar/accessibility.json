@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "component": "business-calendar",
+  "pattern": "WAI-ARIA APG grid (as Calendar): one table role=grid per month with a single roving tab stop across all months; every day cell names its date and kind.",
+  "roles": [
+    {
+      "element": "month table",
+      "role": "grid"
+    },
+    {
+      "element": "day cell",
+      "role": "gridcell"
+    },
+    {
+      "element": "weekday header",
+      "role": "columnheader"
+    },
+    {
+      "element": "visible range",
+      "role": "none (aria-live=polite)"
+    },
+    {
+      "element": "legend and holidays",
+      "role": "list"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-label",
+      "element": "grid",
+      "value": "\"{label}, {month year}\""
+    },
+    {
+      "attribute": "aria-label",
+      "element": "day cell",
+      "value": "Full date and kind, for example \"Thursday, January 1, 2026, holiday: New Year's Day\" or \"..., working day (changed): Stocktaking\""
+    },
+    {
+      "attribute": "aria-current",
+      "element": "day cell",
+      "value": "\"date\" on today"
+    },
+    {
+      "attribute": "aria-readonly",
+      "element": "grid",
+      "value": "\"true\" unless editable"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "previous/next buttons",
+      "value": "\"Previous months\" / \"Next months\" (singular with one month)"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowLeft / ArrowRight",
+      "context": "Day",
+      "action": "Previous / next day (mirrored in RTL); pages when leaving the visible months."
+    },
+    {
+      "key": "ArrowUp / ArrowDown",
+      "context": "Day",
+      "action": "Same weekday of the previous / next week."
+    },
+    {
+      "key": "Home / End",
+      "context": "Day",
+      "action": "First / last day of the week."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Day",
+      "action": "Same day of the previous / next month; with Shift, the previous / next year."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Day",
+      "action": "Emits aui-day-select; in edit mode also toggles working / non-working and announces the change."
+    },
+    {
+      "key": "Tab",
+      "context": "Calendar",
+      "action": "Previous button, next button, then the focused day (one tab stop for all months)."
+    }
+  ],
+  "focus": "One roving tab stop across all visible months; moving past the visible months pages them. Focus stays on a toggled day after an edit.",
+  "wcag": [
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.11",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "Day kinds are never conveyed by color alone: each cell names its kind, holidays have a bottom bar, changed days a dashed outline, and holidays are listed as text.",
+    "Edits are announced through the shared live region (\"January 6, 2026 is now a non-working day.\")."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

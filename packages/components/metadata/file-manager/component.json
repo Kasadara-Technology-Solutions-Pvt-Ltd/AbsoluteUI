@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "name": "file-manager",
+  "displayName": "File Manager",
+  "category": "Data",
+  "package": "@absoluteui/components",
+  "import": "import { FileManager } from '@absoluteui/components/file-manager';",
+  "styleImport": "@absoluteui/components/file-manager/style.css",
+  "purpose": "Browses and organizes files held by a host-supplied async provider: a folder tree and the folder content side by side in a Splitter, a breadcrumb path, a toolbar, virtualized list and grid views, sorting, multiple selection, rename, new folder, delete with confirmation, move by drag and drop or cut and paste, uploads with progress and cancel, and previews (images in an Image Viewer lightbox, text and code in a Code Viewer dialog, or a custom preview). Every provider call is abortable and every failure is shown and reported.",
+  "whenToUse": [
+    "Employee documents, contracts, or attachments that people upload, organize, and preview.",
+    "A document library or shared drive in a business application, backed by your API or storage service.",
+    "Picking or managing files inside a folder hierarchy rather than a flat list."
+  ],
+  "whenNotToUse": [
+    "Selecting files to send with a form: use File Upload.",
+    "A flat list of uploads with progress: use Upload Queue.",
+    "A hierarchy that is not files and folders: use Tree View."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "breadcrumb", "button", "code-viewer", "context-menu", "dialog", "empty-state", "image-viewer", "inline-message", "menu", "progress-bar", "spinner", "splitter", "text-input", "tree-view"],
+  "states": ["loading", "ready", "empty folder", "load error", "list view", "grid view", "selection", "cut", "drag over", "uploading", "upload error", "operation error", "read-only", "without folder pane"],
+  "responsive": "The toolbar wraps; the folder pane is a collapsible Splitter pane (or hidden with showFolderPane: false); the grid view fits as many tiles per row as the content width allows and recomputes on resize; the list columns shrink and truncate with an ellipsis.",
+  "rtl": "Toolbar, path, panes, columns, and tiles follow the writing direction; in the grid view ArrowLeft and ArrowRight follow the reading order; toolbar arrow keys are mirrored.",
+  "theme": "Component tokens file-manager-border-color (color-border), file-manager-drop-bg (color-info-subtle), file-manager-drop-border (color-focus-ring), and file-manager-tile-radius (radius-md). Names, columns, selection, drop target, and focus pairs are in the contrast gate. Selection uses a bar (list) or a ring (grid) besides the fill; forced colors use Highlight.",
+  "timezone": "Modified dates are formatted in the configured timezone (common timezone option); the provider supplies them as Instants.",
+  "security": "Names and every provider string are set as text, never as HTML. New names are validated (no / or \\, not . or .., no control characters, at most 255 characters, unique in the folder). Provider entries are validated before use. Image previews go through the Image Viewer URL policy (https:, blob:, raster data:, same origin). Uploads are checked against accept and maxFileSize in the browser; the server must check again.",
+  "dataHandling": "No persistence, network access, or telemetry of its own: all data goes through the provider. Listings are cached per folder in memory until refresh or update({ provider }).",
+  "performance": {
+    "budgets": [
+      { "metric": "Render a folder of 10,000 entries in the list view (after the provider resolves)", "budget": "< 50 ms in headless Chromium; about 30 option elements in the DOM" },
+      { "metric": "Scroll frame in a 10,000-entry folder", "budget": "< 4 ms of script per frame" },
+      { "metric": "Selection change (click or arrow key)", "budget": "< 2 ms: attributes of the rendered options only" }
+    ],
+    "testedScale": "10,000 entries per folder in the list and grid views (virtualized); folder trees a few thousand folders deep in total, loaded lazily."
+  },
+  "limitations": [
+    "No copy operation: the provider contract covers move, rename, delete, create, and upload.",
+    "Folder uploads (directories dropped from the operating system) are not expanded; only files are uploaded.",
+    "Paths of folders opened through navigate() are known only for folders the File Manager has listed before."
+  ],
+  "unsupported": [
+    "Inline editing of names in the list (rename uses a dialog).",
+    "Previewing PDF, office, audio, or video files built in: pass a custom preview function."
+  ],
+  "antiPatterns": [
+    "Relying on accept and maxFileSize as the only checks; validate uploads on the server.",
+    "Returning every file of the storage from list(); return the direct children of the folder.",
+    "Ignoring the AbortSignal in the provider; abort the request so stale folders never arrive late."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/file-manager: AuiFileManager component (<aui-file-manager>).",
+    "react": "@absoluteui/react/file-manager: AuiFileManager component.",
+    "vue": "@absoluteui/vue/file-manager: AuiFileManager component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

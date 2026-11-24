@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "component": "bottom-sheet",
+  "factory": { "name": "BottomSheet.create", "signature": "BottomSheet.create(options: BottomSheetOptions, doc?: Document): BottomSheet" },
+  "configKey": "bottomSheet",
+  "options": [
+    { "name": "title", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Accessible name, rendered as the heading (text only). Must be non-empty after trimming." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Referenced by aria-describedby (text only). Hidden when empty." },
+    { "name": "content", "type": "Node | string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Body content; strings render as text. Inserted at construction and again only when update() passes `content`." },
+    { "name": "snapPoints", "type": "readonly number[]", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Heights as fractions of the viewport height, strictly ascending, each in (0, 1]. Without snap points the sheet fits its content (capped at 90dvh). Two or more make the handle a slider." },
+    { "name": "snap", "type": "number", "default": 0, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Index into snapPoints used when the sheet opens (0 = lowest). Must be 0 without snap points. When set, open() re-applies it." },
+    { "name": "modal", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "true: showModal() with inert background, backdrop and scroll lock. false: show(); the page stays interactive (supplementary panels only)." },
+    { "name": "icons", "type": "Partial<{ close: IconRef }>", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Icon slot overrides." },
+    { "name": "closeOnEscape", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Escape requests close (cancelable, reason 'escape') when the sheet is the topmost overlay." },
+    { "name": "closeOnBackdrop", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Backdrop click requests close (cancelable, reason 'backdrop'). Modal only." },
+    { "name": "showCloseButton", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Render the header close button (reason 'close-button')." },
+    { "name": "closeOnDragDown", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Dragging the handle down past min(120px, 25% of the lowest height) requests close (cancelable, reason 'drag')." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLDialogElement", "description": "The native dialog element (appended to document.body at creation)." },
+    { "name": "body", "type": "HTMLDivElement", "description": "Consumer content area." },
+    { "name": "handle", "type": "HTMLDivElement", "description": "The drag handle strip: role=slider with two or more snap points, otherwise aria-hidden." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the sheet is open." },
+    { "name": "modal", "type": "boolean", "description": "Whether the sheet was created modal." },
+    { "name": "snap", "type": "number", "description": "Current snap point index (0 without snap points)." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(): void", "description": "Open (modal: showModal() and scroll lock; non-modal: show()); moves focus inside, captures focus for restoration, registers with the overlay stack, emits aui-open. No-op when open." },
+    { "name": "close", "signature": "close(): void", "description": "Close programmatically (not cancelable, reason 'programmatic'). No-op when closed." },
+    { "name": "snapTo", "signature": "snapTo(index: number): void", "description": "Move to a snap point programmatically; no event. Throws BOTTOM_SHEET_OPTIONS for an index outside snapPoints." },
+    { "name": "update", "signature": "update(options: BottomSheetUpdateOptions): void", "description": "Merge and apply options (all except modal). Validates the merged options first; a failed update keeps the previous state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close if open (restoring focus and scroll), then remove the element, listeners, drag tracking, overlay registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "After the sheet opened." },
+    { "name": "aui-cancel", "detail": "{ reason: 'escape' | 'backdrop' | 'close-button' | 'drag' }", "bubbles": false, "cancelable": true, "description": "Before a user-initiated close; preventDefault keeps it open (a dismissing drag snaps back)." },
+    { "name": "aui-close", "detail": "{ reason: BottomSheetCloseReason }", "bubbles": false, "cancelable": false, "description": "After the sheet closed." },
+    { "name": "aui-snap-change", "detail": "{ index: number; value: number }", "bubbles": false, "cancelable": false, "description": "The user changed the snap point (keyboard, handle click, or drag release). value is the viewport fraction. Not emitted by snapTo() or update()." }
+  ],
+  "contentAreas": [
+    { "name": "body", "description": "BottomSheet.body (or the `content` option)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-bottom-sheet", "description": "Native <dialog> element." },
+    { "name": "aui-bottom-sheet--modal | --non-modal", "description": "Modality modifiers." },
+    { "name": "aui-bottom-sheet--snapped", "description": "A snap point is active; block-size is calc(100dvh * --aui-bottom-sheet-snap)." },
+    { "name": "aui-bottom-sheet--dragging", "description": "A handle drag is in progress; transitions are off." },
+    { "name": "aui-bottom-sheet--static", "description": "Set on open when motion is disabled (reduced motion or animation 'none'); removes transitions." },
+    { "name": "aui-bottom-sheet__handle", "description": "Full-width drag strip (shown first through CSS order)." },
+    { "name": "aui-bottom-sheet__grip", "description": "Visual grip bar inside the handle." },
+    { "name": "aui-bottom-sheet__header", "description": "Title row with close button." },
+    { "name": "aui-bottom-sheet__title", "description": "Heading (h2)." },
+    { "name": "aui-bottom-sheet__close", "description": "Close button (Button, ghost, sm)." },
+    { "name": "aui-bottom-sheet__description", "description": "Description paragraph." },
+    { "name": "aui-bottom-sheet__body", "description": "Scrollable content area." },
+    { "name": "--aui-bottom-sheet-snap", "description": "Custom property set through the CSSOM: active snap fraction." },
+    { "name": "--aui-bottom-sheet-offset", "description": "Custom property set through the CSSOM during a drag: downward slide in px." },
+    { "name": "--aui-bottom-sheet-live-height", "description": "Custom property set through the CSSOM during a drag with snap points: live height in px." }
+  ],
+  "iconSlots": [
+    { "name": "close", "default": "close" }
+  ]
+}

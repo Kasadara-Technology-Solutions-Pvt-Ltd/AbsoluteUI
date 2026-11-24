@@ -1,0 +1,7 @@
+[
+  { "title": "Drag or keyboard", "text": "Move items with the pointer or the arrow keys, and resize with Shift and the arrows." },
+  { "title": "Responsive layouts", "text": "Layouts are stored per breakpoint and derived for narrower screens." },
+  { "title": "Compaction and locks", "text": "Items float up to fill gaps, and locked items never move." },
+  { "title": "Reading order", "text": "The DOM follows the visual order, so focus order matches what users see." },
+  { "title": "Widget catalog", "text": "Add widgets from a catalog of templates." }
+]

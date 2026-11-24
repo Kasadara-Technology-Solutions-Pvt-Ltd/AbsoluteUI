@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "component": "chat",
+  "pattern": "Log (WAI-ARIA role=log) of messages as articles, with a polite live region announcement per finished message; the composer is a labelled multi-line text field.",
+  "roles": [
+    { "element": "log", "role": "log (aria-live off; announcements go through the shared polite live region)" },
+    { "element": "message", "role": "article, named by its author and time" },
+    { "element": "actions", "role": "group ('Message actions') of native buttons; thumbs up and down are toggle buttons (aria-pressed)" },
+    { "element": "attachments", "role": "list of buttons" },
+    { "element": "suggestions", "role": "group of buttons" },
+    { "element": "code block", "role": "figure with a caption (language) and a scrollable, focusable pre" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "log", "value": "the label option" },
+    { "attribute": "aria-live", "element": "log", "value": "off: streamed text is not read token by token" },
+    { "attribute": "aria-labelledby", "element": "message", "value": "the author and time line" },
+    { "attribute": "aria-pressed", "element": "feedback buttons", "value": "true for the chosen rating" },
+    { "attribute": "aria-label", "element": "attachment chip", "value": "'Open <name>, <size>'" },
+    { "attribute": "aria-controls", "element": "Jump to latest", "value": "the log" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Chat", "action": "Show earlier messages, the log (scrollable), links, code blocks, attachment chips, message actions, Jump to latest, suggestions, then the composer." },
+    { "key": "Arrow keys / Page Up / Page Down / Home / End", "context": "Log focused", "action": "Scroll the conversation (native)." },
+    { "key": "Enter / Space", "context": "Buttons", "action": "Activate (copy, rate, retry, open attachment, suggestion, jump)." },
+    { "key": "Enter", "context": "Composer", "action": "Send (Shift+Enter for a new line; configurable)." }
+  ],
+  "focus": "Focus stays where it is when messages arrive. Jump to latest moves focus to the newest message; Show earlier messages keeps focus on its button and keeps the reading position.",
+  "wcag": ["1.3.1", "1.4.3", "1.4.10", "1.4.11", "1.4.13", "2.1.1", "2.2.2", "2.4.3", "2.4.7", "2.5.8", "4.1.2", "4.1.3"],
+  "notes": [
+    "While a reply streams, assistive technology hears '<name> is typing' once, then the finished reply (first 300 characters), or 'Reply stopped' or 'Reply failed'.",
+    "New messages from others (addMessage) are announced; the user's own messages are not.",
+    "The typing dots are decorative; the typing text is available to assistive technology.",
+    "Auto-scroll stops while the user reads earlier messages, so content never moves under the reader (WCAG 2.2.2)."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

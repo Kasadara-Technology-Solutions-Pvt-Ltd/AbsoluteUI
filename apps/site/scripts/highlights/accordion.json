@@ -1,0 +1,6 @@
+[
+  { "title": "Single or multiple", "text": "Expand one section at a time or several at once." },
+  { "title": "Real headings", "text": "Triggers sit in headings at the level you choose, for document structure." },
+  { "title": "Keyboard support", "text": "Arrow keys, Home, and End move between section headers." },
+  { "title": "Disabled sections", "text": "Individual sections can be disabled while staying visible." }
+]

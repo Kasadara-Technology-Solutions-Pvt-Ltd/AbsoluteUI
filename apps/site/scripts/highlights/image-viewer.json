@@ -1,0 +1,7 @@
+[
+  { "title": "Zoom every way", "text": "Wheel, pinch, buttons, and + / - keys, around the pointer; fit and actual size with 0 and 1." },
+  { "title": "Pan and rotate", "text": "Drag or arrow keys to pan a zoomed image; R rotates in 90 degree steps." },
+  { "title": "Gallery or lightbox", "text": "Inline viewer or a modal lightbox that restores focus, with a thumbnail strip and \"2 of 5\"." },
+  { "title": "Crop to a Blob", "text": "Aspect ratio presets, a crop area you move and resize by pointer or keyboard, and a canvas plus Blob out." },
+  { "title": "Safe by default", "text": "Alt text required; only https, blob, raster data, and same-origin image URLs; CSP-safe transforms." }
+]

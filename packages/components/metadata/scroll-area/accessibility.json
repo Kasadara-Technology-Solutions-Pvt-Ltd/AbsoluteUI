@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "component": "scroll-area",
+  "pattern": "Scrollable region (WCAG 2.1.1): a scrollable element that holds no focusable content must itself be focusable and named; it is a region with aria-label while it overflows.",
+  "roles": [
+    { "element": "element", "role": "region while overflowing when it is a generic div or span; otherwise its own role (a list stays a list)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "element", "value": "the label option, while overflowing" },
+    { "attribute": "tabindex", "element": "element", "value": "0 while overflowing (an existing tabindex is kept)" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Page", "action": "Moves to the region while its content overflows." },
+    { "key": "Arrow keys / Page Up / Page Down / Home / End / Space", "context": "Focused region", "action": "Scroll natively." }
+  ],
+  "focus": "Focusable only while there is something to scroll; the focus ring is drawn with the fades off.",
+  "wcag": ["1.3.1", "2.1.1", "2.4.7", "4.1.2"],
+  "notes": [
+    "The fades are a visual hint only; screen-reader users reach all content in reading order.",
+    "No custom scrollbars: the platform scrollbar, including its high-contrast and accessibility settings, is kept."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

@@ -1,0 +1,6 @@
+[
+  { "title": "Accessible status", "text": "A status role with a label, visible or for screen readers only." },
+  { "title": "Show delay", "text": "Waits before it appears, so quick loads never flash a spinner." },
+  { "title": "Three sizes", "text": "Small, medium, and large, with an icon you can replace." },
+  { "title": "Reduced motion", "text": "Respects the reduced motion preference of the user." }
+]

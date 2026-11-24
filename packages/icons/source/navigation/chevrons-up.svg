@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="chevrons-up">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 11.5l5-5 5 5"/>
+      <path d="M7 17.5l5-5 5 5"/>
+    </g>
+  </g>
+</svg>

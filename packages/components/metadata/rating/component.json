@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "name": "rating",
+  "displayName": "Rating",
+  "category": "Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { Rating } from '@absoluteui/components/rating';",
+  "styleImport": "@absoluteui/components/rating/style.css",
+  "purpose": "Picks a score on a short scale of stars or a custom symbol, with optional half steps, clearing, three sizes, and a non-interactive display mode that reads as text such as '3.5 of 5'. Follows the WAI-ARIA APG slider pattern: one tab stop, arrows, Page, Home, End, and digit keys. A Form control with a hidden input for native submission.",
+  "whenToUse": [
+    "Subjective scores on a short scale: performance reviews, feedback, product quality.",
+    "Showing an existing score in a list or a card (display mode)."
+  ],
+  "whenNotToUse": [
+    "Scales longer than 10 or values that need precision: use Slider or Number Input.",
+    "Named choices such as 'Meets expectations': use Radio Group (or Rating with labels and valueText when the scale is ordinal)."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities", "@absoluteui/icons"],
+  "states": ["empty (no rating)", "rated", "half step", "hover preview", "display", "read-only", "disabled", "required", "invalid (required, validate, custom error)", "sm / md / lg"],
+  "responsive": "Inline size follows the number of symbols; each symbol keeps a target of at least 24 by 24 CSS pixels.",
+  "rtl": "Symbols run right to left, half symbols fill from the right, and ArrowLeft increases.",
+  "theme": "Component tokens rating-fill (filled symbols, falls back to color-warning-fg) and rating-empty (empty outlines, color-border-strong), both 3:1 against color-surface in the contrast gate. Forced colors use Highlight, CanvasText, and GrayText.",
+  "timezone": "Not applicable.",
+  "security": "Labels, captions, and value text are rendered with textContent; fill widths are set through the CSSOM (CSP-safe).",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Rating.create, per instance", "budget": "< 2 ms average in headless Chromium" }
+    ],
+    "testedScale": "1 to 10 symbols; hundreds of display-mode instances in a table."
+  },
+  "limitations": [
+    "At most 10 symbols.",
+    "Half steps are the finest granularity."
+  ],
+  "unsupported": [
+    "Arbitrary fractions (3.7): values round to the step.",
+    "Different icons per position."
+  ],
+  "antiPatterns": [
+    "Relying on color alone: the symbols differ in shape (outline and solid) and the value is announced as text.",
+    "Using a rating for a binary choice: use Switch or Checkbox."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/rating: AuiRating component (<aui-rating>, [(value)], formControl).",
+    "react": "@absoluteui/react/rating: AuiRating component (value, onValueChange).",
+    "vue": "@absoluteui/vue/rating: AuiRating component (v-model)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

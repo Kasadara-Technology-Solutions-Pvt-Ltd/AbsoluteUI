@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "layout",
+  "pattern": "Presentational CSS layout (no ARIA widget pattern). Dividers follow HTML <hr> and the WAI-ARIA separator role (non-focusable).",
+  "roles": [
+    { "element": "container, stack, flex, grid", "role": "none added (the consumer element keeps its own semantics)" },
+    { "element": "horizontal divider", "role": "separator (native <hr>)" },
+    { "element": "vertical or labelled divider", "role": "separator (role attribute on a <div>)" },
+    { "element": "decorative divider", "role": "hidden (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-orientation", "element": "vertical divider", "value": "\"vertical\"" },
+    { "attribute": "aria-label", "element": "labelled divider", "value": "The label text (separator children are presentational)" },
+    { "attribute": "aria-hidden", "element": "decorative divider", "value": "\"true\"" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Not applicable: layout primitives and dividers are not focusable. Focus follows the source order of the consumer's content, including under aui-flex--reverse." }
+  ],
+  "focus": "Not focusable. Layout never changes the DOM order, so reading and focus order stay in source order.",
+  "wcag": ["1.3.1", "1.3.2", "1.4.10", "1.4.12"],
+  "notes": [
+    "Auto-fit grids and wrapping flex rows support 320 CSS px reflow (WCAG 1.4.10).",
+    "Gaps use rem-based tokens, so spacing scales with user text-size and text-spacing settings.",
+    "Row-reverse only changes visual order; avoid it where order carries meaning (WCAG 1.3.2)."
+  ],
+  "knownCaveats": [
+    "Screen readers differ in whether they announce separators and their labels; labelled dividers are supplementary, not structural.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

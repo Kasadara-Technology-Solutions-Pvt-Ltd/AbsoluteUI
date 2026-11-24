@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="git-tag">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="17.5" r="3"/>
+      <path d="M3 17.5h6"/>
+      <path d="M15 17.5h6"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M7 3h8l3 3-3 3H7z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M7 3h8l3 3-3 3H7z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="17.5" r="3"/>
+      <path d="M3 17.5h6"/>
+      <path d="M15 17.5h6"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M7 3h8l3 3-3 3H7z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/date-input",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDateInput",
+      "description": "AbsoluteUI DateInput: `<aui-date-input>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-date-input",
+      "exportAs": [
+        "auiDateInput"
+      ],
+      "source": "generated",
+      "component": "date-input",
+      "configKey": "dateInput",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "DateInputValue | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Group label and accessible name."
+        },
+        {
+          "name": "min",
+          "type": "DateInputValue | null",
+          "required": false,
+          "description": "Inclusive lower bound."
+        },
+        {
+          "name": "max",
+          "type": "DateInputValue | null",
+          "required": false,
+          "description": "Inclusive upper bound."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name for the ISO 8601 hidden input."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Empty value is invalid (value-missing)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables all segments."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Prevents editing."
+        },
+        {
+          "name": "granularity",
+          "type": "DateInputGranularity",
+          "required": false,
+          "default": "date",
+          "configurable": true,
+          "description": "Value type and segments."
+        },
+        {
+          "name": "hourCycle",
+          "type": "HourCycle",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "12/24-hour clock; auto follows the locale."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Segment order, labels, messages, formatting."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "Zone for minute granularity."
+        },
+        {
+          "name": "disambiguation",
+          "type": "Disambiguation",
+          "required": false,
+          "default": "compatible",
+          "configurable": true,
+          "description": "DST policy for nonexistent/ambiguous local times."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Arrow-key segment navigation direction."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "DateInputValue | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "DateInputChangeDetail",
+          "event": "aui-change",
+          "description": "User edit changed the value or validity."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setLocalValue",
+          "signature": "setLocalValue(value: PlainDateTime | null): void",
+          "description": "Minute granularity, for composite controls: write a wall-clock date-time resolved as if typed (timezone, disambiguation, DST hint or error). No aui-change."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages immediately; returns validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user changes the value."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the control."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear touched/submitted state (no aui-change)."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "ISO 8601 value (YYYY-MM-DD or instant with Z), or null when empty or invalid."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Labelled group of labelled text inputs (segmented date field). No APG pattern exists for segmented date fields; native text inputs are used for maximum assistive technology compatibility.",
+        "source": "packages/components/metadata/date-input/accessibility.json"
+      },
+      "limitations": [
+        "No calendar popup (use Date Picker).",
+        "Gregorian calendar only; years 1-9999.",
+        "Minute granularity only; seconds are not editable.",
+        "Timezone rule accuracy depends on the browser's ICU data (SPEC section 8.7).",
+        "Incomplete and required errors are shown after the group loses focus or reportValidity() is called; other errors show immediately."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { plainDate, type PlainDate } from '@absoluteui/core';\nimport { AuiDateInput } from '@absoluteui/angular/date-input';\n\n@Component({\n  selector: 'app-applicant',\n  imports: [ReactiveFormsModule, AuiDateInput],\n  template: `\n    <form [formGroup]=\"applicant\">\n      <aui-date-input label=\"Date of birth\" [max]=\"latest\" [required]=\"true\" formControlName=\"birthDate\"></aui-date-input>\n    </form>`,\n})\nexport class ApplicantComponent {\n  readonly latest = plainDate(2026, 9, 27);\n  readonly applicant = new FormGroup({ birthDate: new FormControl<PlainDate | null>(null, { validators: [Validators.required] }) });\n}"
+    }
+  ]
+}

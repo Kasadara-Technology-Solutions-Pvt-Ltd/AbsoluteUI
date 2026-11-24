@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="calendar-event">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2"/>
+      <path d="M3.5 9.5h17"/>
+      <path d="M8 3v4"/>
+      <path d="M16 3v4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 11.6L12.95 13.89L15.42 14.09L13.54 15.7L14.12 18.11L12 16.82L9.88 18.11L10.46 15.7L8.58 14.09L11.05 13.89z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="2.5" y="4" width="19" height="17.5" rx="2.5"/>
+      <path d="M12 11.2L13.06 13.74L15.8 13.96L13.71 15.76L14.35 18.44L12 17L9.65 18.44L10.29 15.76L8.2 13.96L10.94 13.74z"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <rect x="7" y="2" width="2" height="4" rx="1"/>
+      <rect x="15" y="2" width="2" height="4" rx="1"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3.5 9.5h17v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2"/>
+      <path d="M3.5 9.5h17"/>
+      <path d="M8 3v4"/>
+      <path d="M16 3v4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 11.6L12.95 13.89L15.42 14.09L13.54 15.7L14.12 18.11L12 16.82L9.88 18.11L10.46 15.7L8.58 14.09L11.05 13.89z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.15">
+      <path d="M3.5 9.5h17v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2"/>
+      <path d="M3.5 9.5h17"/>
+      <path d="M8 3v4"/>
+      <path d="M16 3v4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 11.6L12.95 13.89L15.42 14.09L13.54 15.7L14.12 18.11L12 16.82L9.88 18.11L10.46 15.7L8.58 14.09L11.05 13.89z"/>
+    </g>
+  </g>
+</svg>

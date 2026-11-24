@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="map">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M2.5 7l4.75-2 4.75 2 4.75-2 4.75 2v13l-4.75-2-4.75 2-4.75-2-4.75 2z"/>
+      <path d="M7.25 5v13"/>
+      <path d="M12 7v13"/>
+      <path d="M16.75 5v13"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M2.5 7l4.75-2 4.75 2 4.75-2 4.75 2v13l-4.75-2-4.75 2-4.75-2-4.75 2z" transform="translate(12 12.5) scale(1.05) translate(-12 -12.5)"/>
+      <line x1="7.25" y1="6.5" x2="7.25" y2="16.5" data-outline-width="1.5"/>
+      <line x1="12" y1="8.5" x2="12" y2="18.5" data-outline-width="1.5"/>
+      <line x1="16.75" y1="6.5" x2="16.75" y2="16.5" data-outline-width="1.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M2.5 7l4.75-2 4.75 2 4.75-2 4.75 2v13l-4.75-2-4.75 2-4.75-2-4.75 2z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M2.5 7l4.75-2 4.75 2 4.75-2 4.75 2v13l-4.75-2-4.75 2-4.75-2-4.75 2z"/>
+      <path d="M7.25 5v13"/>
+      <path d="M12 7v13"/>
+      <path d="M16.75 5v13"/>
+    </g>
+  </g>
+</svg>

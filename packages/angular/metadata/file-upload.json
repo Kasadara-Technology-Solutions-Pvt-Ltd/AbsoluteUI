@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/file-upload",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiFileUpload",
+      "description": "AbsoluteUI FileUpload: `<aui-file-upload>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-file-upload",
+      "exportAs": [
+        "auiFileUpload"
+      ],
+      "source": "generated",
+      "component": "file-upload",
+      "configKey": "fileUpload",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "File[]"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name (part of the button name)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label (it stays in the accessible name)."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text, referenced by aria-describedby."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name; also set on the native input for native submission."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Allow several files; a new selection appends. Single mode replaces the file."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "At least one file is required."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable the button, drop zone, and remove buttons."
+        },
+        {
+          "name": "acceptTypes",
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Accepted MIME types (\"image/png\", \"image/*\"). Every file is checked."
+        },
+        {
+          "name": "acceptExtensions",
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Accepted extensions including the dot (\".pdf\"). When both lists are set, a file must match both."
+        },
+        {
+          "name": "maxFileSize",
+          "type": "number",
+          "required": false,
+          "description": "Maximum size of each file, in bytes."
+        },
+        {
+          "name": "maxTotalSize",
+          "type": "number",
+          "required": false,
+          "description": "Maximum combined size, in bytes."
+        },
+        {
+          "name": "maxFiles",
+          "type": "number",
+          "required": false,
+          "description": "Maximum number of files (requires multiple)."
+        },
+        {
+          "name": "buttonText",
+          "type": "string",
+          "required": false,
+          "description": "Button text. Default: localized \"Choose file\" / \"Choose files\"."
+        },
+        {
+          "name": "validate",
+          "type": "((files: readonly File[]) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<FileUploadIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "dropZone",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Render the drag-and-drop zone around the button."
+        },
+        {
+          "name": "showConstraints",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Render a hint listing the type, size, and count limits."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message and size-formatting locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "File[]",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "FileUploadChangeDetail",
+          "event": "aui-change",
+          "description": "The user added (chooser or drop) or removed files."
+        },
+        {
+          "name": "rejected",
+          "payload": "FileUploadRejectDetail",
+          "event": "aui-reject",
+          "description": "A selection contained files that were not added."
+        }
+      ],
+      "properties": [
+        {
+          "name": "rejections",
+          "type": "Signal<readonly FileRejection[]>",
+          "description": "Read-only: Files not added by the last selection, with reasons."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): File[] | undefined",
+          "description": "A copy of the selected files."
+        },
+        {
+          "name": "removeFile",
+          "signature": "removeFile(file: File): void",
+          "description": "Remove one file (no events)."
+        },
+        {
+          "name": "openPicker",
+          "signature": "openPicker(): void",
+          "description": "Open the native chooser (needs user activation)."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now (marks the control submitted) and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); null clears it."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Move focus to the primary focusable element."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Native <input type=\"file\"> opened by a native <button>; the drop zone is an enhancement (WCAG 2.5.7: dragging is never required).",
+        "source": "packages/components/metadata/file-upload/accessibility.json"
+      },
+      "limitations": [
+        "Sizes use decimal units (1 kB = 1,000 bytes), as Intl formats them.",
+        "Duplicate detection uses name, size, and modification time.",
+        "Dropped folders are rejected; folder upload (webkitdirectory) is not supported.",
+        "The drag-over highlight depends on the browser exposing \"Files\" in dataTransfer.types during dragenter.",
+        "Without a DataTransfer constructor (very old browsers) the native input cannot be synchronized; getFormValue() stays authoritative.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { AuiFileUpload } from '@absoluteui/angular/file-upload';\n\n@Component({\n  selector: 'app-attachments',\n  imports: [ReactiveFormsModule, AuiFileUpload],\n  template: `<aui-file-upload label=\"Attachments\" [multiple]=\"true\" [acceptExtensions]=\"['.pdf']\" [formControl]=\"files\"></aui-file-upload>`,\n})\nexport class AttachmentsComponent {\n  readonly files = new FormControl<File[]>([], { nonNullable: true });\n}"
+    }
+  ]
+}

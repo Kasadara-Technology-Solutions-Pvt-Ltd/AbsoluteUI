@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "recurrence-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Weekly on the start weekday, with a preview",
+      "language": "ts",
+      "code": "import { plainDate, plainDateTime, plainTime, recurrenceRuleToString } from '@absoluteui/core';\nimport { RecurrencePicker, type RecurrencePickerChangeDetail } from '@absoluteui/components/recurrence-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nRecurrencePicker.create(host, {\n  label: 'Repeat',\n  name: 'rrule',\n  start: plainDateTime(plainDate(2026, 9, 29), plainTime(9)),\n  timezone: 'Europe/London',\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<RecurrencePickerChangeDetail>).detail;\n  host.dataset.rule = value ? recurrenceRuleToString(value) : '';\n});"
+    },
+    {
+      "id": "existing",
+      "title": "Edit an existing rule from iCalendar text",
+      "language": "ts",
+      "code": "import { parseRecurrenceRule, plainDate } from '@absoluteui/core';\nimport { RecurrencePicker } from '@absoluteui/components/recurrence-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst picker = RecurrencePicker.create(host, {\n  label: 'Billing cycle',\n  value: parseRecurrenceRule('FREQ=MONTHLY;BYDAY=-1FR;COUNT=12'),\n  start: plainDate(2026, 1, 30),\n  frequencies: ['monthly', 'yearly'],\n  previewCount: 3,\n});\nexport const text = picker.summary;"
+    },
+    {
+      "id": "global-config",
+      "title": "Global preview size",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { recurrencePicker: { previewCount: 8, validationTiming: 'input' } } });"
+    }
+  ]
+}

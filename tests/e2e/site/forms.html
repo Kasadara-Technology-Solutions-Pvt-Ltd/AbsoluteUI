@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AbsoluteUI R1 harness: forms</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/combobox.css">
+    <link rel="stylesheet" href="/date-input.css">
+    <link rel="stylesheet" href="/text-input.css">
+    <link rel="stylesheet" href="/textarea.css">
+    <link rel="stylesheet" href="/number-input.css">
+    <link rel="stylesheet" href="/select.css">
+    <link rel="stylesheet" href="/checkbox.css">
+    <link rel="stylesheet" href="/checkbox-group.css">
+    <link rel="stylesheet" href="/multi-select.css">
+    <link rel="stylesheet" href="/radio-group.css">
+    <link rel="stylesheet" href="/switch.css">
+    <link rel="stylesheet" href="/form.css">
+    <link rel="stylesheet" href="/form-field.css">
+    <link rel="stylesheet" href="/error-summary.css">
+    <link rel="stylesheet" href="/validation-message.css">
+    <link rel="stylesheet" href="/demo.css">
+    <script type="module" src="/forms.js"></script>
+  </head>
+  <body>
+    <main class="demo">
+      <h1>AbsoluteUI R1 forms</h1>
+      <form id="signup" class="demo-form" aria-labelledby="h-signup">
+        <h2 id="h-signup">Create account</h2>
+        <div id="f-email"></div>
+        <div id="f-password"></div>
+        <div id="f-confirm"></div>
+        <div id="f-username"></div>
+        <div id="f-bio"></div>
+        <div id="f-age"></div>
+        <div id="f-budget"></div>
+        <div id="f-role"></div>
+        <div id="f-country"></div>
+        <div id="f-start"></div>
+        <div id="f-plan"></div>
+        <div id="f-interests"></div>
+        <div id="f-zip"><input id="zip" name="zip" required pattern="[0-9]{5}" inputmode="numeric" autocomplete="postal-code"></div>
+        <div id="f-news"></div>
+        <div id="f-terms"></div>
+        <div class="aui-form__actions">
+          <button type="submit" id="submit">Create account</button>
+          <button type="reset" id="reset">Reset</button>
+        </div>
+      </form>
+      <section aria-labelledby="h-result">
+        <h2 id="h-result">Result</h2>
+        <output id="form-result">none</output>
+        <div id="vm-target-wrap"><label for="vm-target">Standalone field</label> <input id="vm-target"></div>
+        <div id="vm"></div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 1,
+  "component": "bar-chart",
+  "factory": {
+    "name": "BarChart.create",
+    "signature": "BarChart.create(host: HTMLElement, options: BarChartOptions): BarChart"
+  },
+  "configKey": "barChart",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby)."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visually hide the title; it stays the accessible name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Replaces the generated accessible summary (aria-describedby)."
+    },
+    {
+      "name": "valueFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Number format for values in tooltips, labels, the data table, the summary, and axis ticks (ticks use fixed fraction digits)."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Custom value text; overrides valueFormat everywhere except axis ticks."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Ids of series (or slices) hidden initially; update() replaces the hidden set."
+    },
+    {
+      "name": "categories",
+      "type": "readonly string[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Category labels, one per bar group (text only)."
+    },
+    {
+      "name": "series",
+      "type": "readonly ChartSeries[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Series: { id, label, values: (number | null)[], color?: 1-8 }, one value per category; null, NaN, and infinities leave a gap."
+    },
+    {
+      "name": "orientation",
+      "type": "'vertical' | 'horizontal'",
+      "default": "vertical",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "vertical: columns; horizontal: bars along the inline axis with category labels beside the plot."
+    },
+    {
+      "name": "layout",
+      "type": "'grouped' | 'stacked'",
+      "default": "grouped",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "grouped: side by side; stacked: summed per category (positives up from zero, negatives down)."
+    },
+    {
+      "name": "categoryAxis",
+      "type": "{ label?: string }",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Category axis title."
+    },
+    {
+      "name": "valueAxis",
+      "type": "{ label?: string; min?: number; max?: number; tickCount?: number }",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Value axis title, fixed domain (bars are clipped to it), and approximate tick count (2-20). The automatic domain always includes zero."
+    },
+    {
+      "name": "zoom",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Zoom and pan over categories (vertical columns only; horizontal bar charts ignore it): a Zoom toolbar, +/= and - and 0 keys on a focused bar, arrow keys past the window edge pan, Ctrl/Cmd + wheel, drag to pan a zoomed chart, Shift + drag to select a range. Turning it off resets the window."
+    },
+    {
+      "name": "zoomRange",
+      "type": "ChartZoomRange | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible category index window { from, to }; null shows everything. Clamped to the data. Applied without an aui-zoom event; use with zoom: true."
+    },
+    {
+      "name": "annotations",
+      "type": "readonly ChartAnnotation[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Reference lines ({ type: 'line', axis: 'x' | 'y', value, label?, tone? }) and bands ({ type: 'band', axis, from, to, label?, tone? }); tone: 'neutral' | 'info' | 'success' | 'warning' | 'danger'. Category-axis values are labels or indexes; value-axis values are numbers (x and y follow the orientation). Drawn under the marks (aria-hidden); listed in the accessible summary."
+    },
+    {
+      "name": "theme",
+      "type": "ChartTheme",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+    },
+    {
+      "name": "renderTooltip",
+      "type": "(context: ChartTooltipContext) => Node | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+    },
+    {
+      "name": "syncGroup",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+    },
+    {
+      "name": "legend",
+      "type": "'auto' | 'show' | 'hide'",
+      "default": "auto",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "auto: legend when there is more than one series (pie charts: always)."
+    },
+    {
+      "name": "dataTable",
+      "type": "'toggle' | 'visible' | 'hidden' | 'none'",
+      "default": "toggle",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Data table fallback with the exact data: behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+    },
+    {
+      "name": "tooltip",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Tooltip on pointer hover and keyboard focus."
+    },
+    {
+      "name": "patterns",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Dash patterns and texture fills so series never differ by color alone. Off by default (plain colors); always on in forced colors. Turn it on when series are told apart by color alone (grouped or stacked series, multi-slice pies) and no labels carry the distinction (WCAG 1.4.1)."
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "default": 300,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+    },
+    {
+      "name": "valueLabels",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Print values at the bar ends (grouped) or inside segments that fit (stacked)."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Number, date, and message locale."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "rtl mirrors the category/x axis, the value axis side, and Left/Right arrow keys."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "SVGSVGElement",
+      "description": "The plot (svg role=\"group\"), named by the title and described by the summary."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "description": "The generated (or custom) accessible summary."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "string[]",
+      "description": "Ids of hidden series (slices for Pie Chart)."
+    },
+    {
+      "name": "zoomRange",
+      "type": "ChartZoomRange | null",
+      "description": "Current visible category window, or null when showing everything."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<BarChartOptions>): void",
+      "description": "Merge, validate, and re-render. Invalid options throw and keep the previous state. Keyboard focus stays on the same data point."
+    },
+    {
+      "name": "setSeriesVisible",
+      "signature": "setSeriesVisible(id: string, visible: boolean): void",
+      "description": "Show or hide a series (slice) programmatically; emits no event."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, host classes, listeners, the resize observer, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-series-toggle",
+      "detail": "{ id: string; visible: boolean; hidden: string[] }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user toggled a legend entry (pointer or keyboard). Not emitted for update() or setSeriesVisible()."
+    },
+    {
+      "name": "aui-point-click",
+      "detail": "BarChartPointClickDetail = ChartPointClickDetail: { seriesId: string | null; column: number; row: number; label: string; series: string; value: string; source: 'pointer' | 'keyboard' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+    },
+    {
+      "name": "aui-zoom",
+      "detail": "BarChartZoomDetail = ChartZoomDetail: { x: ChartZoomRange | null; y: null; reason: 'button' | 'keyboard' | 'wheel' | 'pan' | 'select' | 'reset' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the visible category window (toolbar, keys, Ctrl/Cmd + wheel, drag pan, Shift + drag selection). x is null when showing everything. Not emitted for the zoomRange option."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-chart",
+      "description": "Host (shared chart chrome)."
+    },
+    {
+      "name": "aui-bar-chart",
+      "description": "Host modifier for this chart type."
+    },
+    {
+      "name": "aui-chart--patterns",
+      "description": "patterns option on: dash patterns and textures shown."
+    },
+    {
+      "name": "aui-chart__header / __title / __title--hidden / __description",
+      "description": "Title and description."
+    },
+    {
+      "name": "aui-chart__legend / __legend-entry / __legend-item / __legend-item--hidden / __legend-label / __legend-detail",
+      "description": "Legend list and toggle buttons."
+    },
+    {
+      "name": "aui-chart__swatch",
+      "description": "aria-hidden legend and tooltip key (marker, dash, texture)."
+    },
+    {
+      "name": "aui-chart__body / __svg / __layer",
+      "description": "Plot container (height from --aui-chart-height), SVG, and drawing layer."
+    },
+    {
+      "name": "aui-chart__grid / __gridline / __zero-line / __axis / __axis-line / __tick-label / __axis-title",
+      "description": "Axes (aria-hidden)."
+    },
+    {
+      "name": "aui-chart__series--c1 ... --c8",
+      "description": "Palette slot classes; set --aui-chart-color from color-chart-<n>."
+    },
+    {
+      "name": "aui-chart__dash--1 ... --4 / aui-chart__pattern / aui-chart__pattern-tile",
+      "description": "Dash patterns and texture overlays."
+    },
+    {
+      "name": "aui-chart__mark / __mark--active / __mark--hover",
+      "description": "Focusable data mark and its states."
+    },
+    {
+      "name": "aui-chart__value-label",
+      "description": "Printed values with a surface-colored halo."
+    },
+    {
+      "name": "aui-chart__tooltip / __tooltip-title / __tooltip-rows / __tooltip-row / __tooltip-label / __tooltip-value",
+      "description": "Tooltip (aria-hidden; the focused mark carries the same text)."
+    },
+    {
+      "name": "aui-chart__empty",
+      "description": "Empty state text (No data, All series are hidden)."
+    },
+    {
+      "name": "aui-chart__summary",
+      "description": "Hidden summary referenced by aria-describedby."
+    },
+    {
+      "name": "aui-chart__data / __data--hidden / __table-toggle / __table-scroll / __table / __cell--numeric",
+      "description": "Data table fallback."
+    },
+    {
+      "name": "aui-bar-chart--horizontal / --stacked",
+      "description": "Orientation and layout modifiers."
+    },
+    {
+      "name": "aui-bar-chart__bars / __series / __bar / __labels",
+      "description": "Bar groups, bar marks, and value labels."
+    },
+    {
+      "name": "aui-chart--legend-bottom / --legend-start / --legend-end",
+      "description": "theme.legendPosition (top is the default layout)."
+    },
+    {
+      "name": "aui-chart--no-grid / --gradient / --animate / --entering",
+      "description": "theme.gridLines: false, theme.gradient, theme.animation (entering: the render that animates)."
+    },
+    {
+      "name": "aui-chart__annotations / __annotation-line / __annotation-band / __annotation-label / __annotation--<tone>",
+      "description": "Annotations (aria-hidden), drawn under the marks."
+    },
+    {
+      "name": "aui-chart__gradient / __gradient-stop",
+      "description": "Gradient fills (theme.gradient)."
+    },
+    {
+      "name": "aui-chart__tooltip--custom",
+      "description": "Tooltip content comes from renderTooltip."
+    }
+  ],
+  "iconSlots": []
+}

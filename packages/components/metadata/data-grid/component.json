@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "name": "data-grid",
+  "displayName": "Data Grid",
+  "category": "Data",
+  "package": "@absoluteui/components",
+  "import": "import { DataGrid } from '@absoluteui/components/data-grid';",
+  "styleImport": "@absoluteui/components/data-grid/style.css",
+  "purpose": "Spreadsheet-like ARIA grid for large data: cell-by-cell keyboard navigation, row and column virtualization, column groups, pinning, resizing, moving, multi-sort, column filters (panel, floating row, quick search) and an advanced filter, row selection, cell ranges with copy, paste, and fill, cell editing (row and batch modes, list editors) with undo, row grouping with aggregates, tree data, master/detail, pivot mode, a server row model, menus and panels, row pinning, spanning, and dragging, CSV, Excel, PDF, and print, formulas and calculated columns, sparklines and charts, and saved view state.",
+  "whenToUse": [
+    "Large or wide data sets users explore cell by cell with the keyboard.",
+    "Many columns that need pinning, groups, resizing, and reordering.",
+    "Hundreds of thousands to millions of rows in the browser, or more on a server (server row model).",
+    "Analysis: grouping with totals, pivot tables, formulas, charts, and exports to Excel or PDF."
+  ],
+  "whenNotToUse": [
+    "Read-mostly tables where every control is reached with Tab: use Data Table (plain table semantics).",
+    "Page layout of non-tabular content: use Layout."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities",
+    "pagination",
+    "dialog",
+    "button",
+    "context-menu",
+    "menu",
+    "tooltip",
+    "combobox",
+    "multi-select",
+    "sparkline",
+    "bar-chart",
+    "line-chart",
+    "pie-chart",
+    "@absoluteui/helpers"
+  ],
+  "states": [
+    "default",
+    "empty",
+    "no matching rows",
+    "loading",
+    "cell focused",
+    "header focused",
+    "sorted",
+    "multi-sorted",
+    "filtered",
+    "filter panel open",
+    "advanced filter error",
+    "builder open",
+    "rows selected",
+    "cell ranges",
+    "editing",
+    "edit invalid",
+    "row editing",
+    "batch pending",
+    "column resizing",
+    "column dragging",
+    "group collapsed",
+    "paged",
+    "grouped",
+    "group expanded",
+    "tree expanded",
+    "details expanded",
+    "pivoting",
+    "rows loading (server)",
+    "block failed",
+    "rows pinned",
+    "row dragging",
+    "drop target",
+    "menu open",
+    "side bar open",
+    "find matches",
+    "note dialog open",
+    "formula error",
+    "formula editing",
+    "chart panel open",
+    "printing"
+  ],
+  "responsive": "One scroll container in both axes; pinned columns stay at their edge; the header stays on top; layout fill or auto.",
+  "rtl": "Logical properties throughout: pinned sides, arrow keys, resize direction, and drag indicators mirror.",
+  "theme": "Component tokens data-grid-* over global tokens; focus outline, pinned separators, and resize lines use system colors in forced-colors mode.",
+  "timezone": "datetime columns are formatted in the configured IANA time zone, never the machine zone.",
+  "security": "Cell text is set with textContent; render returns Nodes (consumer-owned) or text; class names from cellClass are validated tokens; sizes are written through the CSSOM (CSP-safe). Writes create new row objects (rows are never mutated); pasted text is converted by typed parsers, never evaluated. Formulas use the library's own parser and evaluator (no eval or Function; strict CSP and Trusted Types stay intact). CSV export escapes formula-like text; Excel writes text as text (formulas only from application code), keeps http, https, and mailto links only, and hashes a protection password with SHA-512 (never stored). Untrusted state (setState) and fonts for PDF are validated.",
+  "dataHandling": "No persistence, network, or telemetry. getState/setState give a JSON view state the application may store; notes are read and written through the application's store; exports (CSV, Excel, PDF) and print run in the browser; dropped files go to the application's handler; the server row model calls only the application's datasource.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "DataGrid.create with 1,000,000 rows x 20 columns",
+        "budget": "< 800 ms in headless Chromium (validating a million unique row ids dominates)"
+      },
+      {
+        "metric": "Render work per vertical scroll frame, 1,000,000 rows",
+        "budget": "< 16 ms"
+      },
+      {
+        "metric": "Render work per horizontal scroll frame, 200 columns",
+        "budget": "< 16 ms"
+      },
+      {
+        "metric": "First locale-aware text sort of 100,000 rows",
+        "budget": "< 1300 ms (collator comparisons; ranks are cached per column)"
+      },
+      {
+        "metric": "Repeated sort of 100,000 rows (cached ranks)",
+        "budget": "< 150 ms"
+      },
+      {
+        "metric": "applyTransaction with 1,000 updates on 100,000 sorted rows",
+        "budget": "< 250 ms (unchanged rows keep their cached sort ranks)"
+      },
+      {
+        "metric": "Filter 100,000 rows with two text conditions",
+        "budget": "< 80 ms (one normalized text per row; ASCII fast path)"
+      },
+      {
+        "metric": "First quick filter, 100,000 rows x 20 columns, words that most rows miss",
+        "budget": "< 2500 ms (displayed text is formatted per column until one matches; texts are cached per row)"
+      },
+      {
+        "metric": "Repeated quick filter, 100,000 rows",
+        "budget": "< 200 ms"
+      },
+      {
+        "metric": "Open a set filter panel with 100,000 distinct values",
+        "budget": "< 2000 ms (values sorted with the locale collator; cached until the rows change; 1,000 rendered)"
+      },
+      {
+        "metric": "Parse and apply an advanced filter of 3 conditions on 100,000 rows",
+        "budget": "< 120 ms"
+      },
+      {
+        "metric": "Group 100,000 rows by two columns with three aggregates",
+        "budget": "< 900 ms (filter, sort, group, flatten, render)"
+      },
+      {
+        "metric": "Expand every group of 100,000 grouped rows",
+        "budget": "< 200 ms"
+      }
+    ],
+    "testedScale": "1,000,000 rows; 300 columns."
+  },
+  "limitations": [
+    "Pivot mode has no sorting by a result column and no datasource; the server row model does not combine with pivot, master/detail, or client tree data.",
+    "Column filters apply live (no Apply button mode yet); advanced filter keywords are English.",
+    "Formulas have no NOW(); any row change recalculates formulas lazily for the cells shown; formulas use . for decimals and , between arguments in every locale.",
+    "Range charts offer bar, stacked bar, line, area, and pie. PDF export embeds application fonts whole, does not shape Arabic, and is not tagged (the browser print route covers complex scripts).",
+    "Pointer resizing, row and pill dragging, and file drop need a pointer; keyboard, menu, and API alternatives exist (file drop needs a file input in the page).",
+    "Children stay within their column group when moved.",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ],
+  "unsupported": [
+    "HTML strings in cells.",
+    "String expressions in options (functions only); formulas are text but run in the library's own evaluator, never eval."
+  ],
+  "antiPatterns": [
+    "Using the grid for forms or layout.",
+    "Interactive cell content that traps the arrow keys without an Escape path."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/data-grid: <aui-data-grid> with [(sort)], [(page)], [(pageSize)], outputs, and typed methods.",
+    "react": "@absoluteui/react/data-grid (private).",
+    "vue": "@absoluteui/vue/data-grid (private)."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

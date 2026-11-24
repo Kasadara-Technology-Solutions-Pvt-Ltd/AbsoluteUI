@@ -1,0 +1,7 @@
+[
+  { "title": "100,000+ items", "text": "Only the visible items and an overscan are in the DOM; offsets use typed arrays and binary search." },
+  { "title": "Fixed or measured heights", "text": "A fixed item height, or measured variable heights that keep the visible content anchored." },
+  { "title": "Listbox selection", "text": "Single or multiple selection with Shift ranges, Ctrl+A, type-ahead, and a roving tab stop." },
+  { "title": "Focus never lost", "text": "The focused item stays rendered while you scroll away, so keyboard users keep their place." },
+  { "title": "Lazy and infinite", "text": "aui-range-change reports the visible range; loadMore appends pages with a polite status." }
+]

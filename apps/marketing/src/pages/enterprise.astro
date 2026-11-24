@@ -1,0 +1,109 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { GET_STARTED, docs, n, stats } from '../site';
+
+const ev = stats.evidence;
+const pillars = [
+  {
+    icon: 'lock',
+    title: 'Security by construction',
+    items: ['Runs under a strict Content Security Policy with Trusted Types', 'No inline styles or scripts; CSS is never injected by JavaScript', 'Rich text and HTML input pass through a sanitiser', 'A published security policy and advisory process'],
+    href: docs('/docs/getting-started/security/'),
+    link: 'Security and CSP guide',
+  },
+  {
+    icon: 'package',
+    title: 'Supply chain you can audit',
+    items: [`${stats.runtimeDependencies} third-party runtime dependencies`, 'Minified ES modules with subpath imports', 'Tree-shaking verified in the release checks', 'Source maps are never published'],
+    href: docs('/docs/getting-started/installation/'),
+    link: 'Installation',
+  },
+  {
+    icon: 'shield',
+    title: 'Accessibility evidence',
+    items: ['Automated WCAG 2.2 AA testing on every release', 'Keyboard contract and ARIA roles documented per component', 'Known limits stated plainly', 'Downloadable report'],
+    href: '/accessibility/',
+    link: 'Accessibility results',
+  },
+  {
+    icon: 'gauge',
+    title: 'Performance budgets',
+    items: ev ? [`${n(ev.performance.within)} of ${n(ev.performance.total)} measurements within budget`, 'Budgets declared in shipped metadata', 'Release fails when a budget is exceeded', 'Downloadable report'] : ['Budgets declared in shipped metadata', 'Release fails when a budget is exceeded'],
+    href: '/performance/',
+    link: 'Performance results',
+  },
+  {
+    icon: 'globe',
+    title: 'Global by default',
+    items: ['Locale-aware numbers, currencies, and dates', 'Time-zone-correct dates and instants', 'Business calendars with weekends and holidays', 'Right-to-left layouts'],
+    href: docs('/docs/guides/dates-and-time-zones/'),
+    link: 'Dates and time zones',
+  },
+  {
+    icon: 'server',
+    title: 'Server-rendering safe',
+    items: ['Every entry point imports in Node.js without a DOM', 'Helpers work in server code on their own', 'JavaScript modules declared free of side effects for bundlers'],
+    href: docs('/docs/guides/helpers-and-services/'),
+    link: 'Helpers and services',
+  },
+] as const;
+---
+
+<Base title="Enterprise" description="Security, supply chain, accessibility, performance, and licence facts for organisations evaluating AbsoluteUI." path="/enterprise/">
+  <PageHero eyebrow="Enterprise" title="Ready for regulated, long-lived applications" lead="The facts an architecture review asks for: how AbsoluteUI handles security, dependencies, accessibility, performance, and licensing.">
+    <div class="actions">
+      <a class="btn btn-primary" href={GET_STARTED}>Get started <Icon name="arrow" /></a>
+      <a class="btn btn-secondary" href="/demos/">See a reference application</a>
+    </div>
+  </PageHero>
+
+  <section class="section section-white section-line" aria-label="Readiness">
+    <div class="container">
+      <div class="cards">
+        {
+          pillars.map((p) => (
+            <div class="card">
+              <span class="ficon">
+                <Icon name={p.icon} />
+              </span>
+              <h2 class="h3">{p.title}</h2>
+              <ul class="checklist">
+                {p.items.map((item) => (
+                  <li>
+                    <Icon name="check" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <a class="text-link card-link" href={p.href}>
+                {p.link} <Icon name="arrow" />
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="licence">
+    <div class="container">
+      <div class="split">
+        <div class="stack stack-lg">
+          <p class="eyebrow">Licensing for organisations</p>
+          <h2 id="licence">Free for every organisation, forever</h2>
+          <p class="lead">One license for everyone: individuals, companies, and public bodies, for commercial and non-commercial use. There are no paid tiers and no license keys.</p>
+          <a class="text-link" href="/license/">Read the full license <Icon name="arrow" /></a>
+        </div>
+        <ul class="checklist">
+          <li><Icon name="check" />Use in any number of applications at no cost</li>
+          <li><Icon name="check" />Configure, theme, extend, and wrap through the public interfaces</li>
+          <li><Icon name="check" />Bundle and minify with your build tools</li>
+          <li><Icon name="check" />Attribute AbsoluteUI to Kasadara Technology Solutions Pvt Ltd in your notices</li>
+          <li><Icon name="check" />Do not modify the AbsoluteUI code itself</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>

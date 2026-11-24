@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "radar-chart",
+  "examples": [
+    {
+      "id": "profiles",
+      "title": "Two profiles on a fixed scale with series toggling",
+      "language": "ts",
+      "code": "import { RadarChart, type RadarChartSeriesToggleDetail } from '@absoluteui/components/radar-chart';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chart = RadarChart.create(host, {\n  label: 'Candidate skills',\n  axes: ['Design', 'Frontend', 'Backend', 'Testing', 'Operations'],\n  series: [\n    { id: 'ana', label: 'Ana', values: [4, 5, 3, 4, 2] },\n    { id: 'ben', label: 'Ben', values: [2, 3, 5, 3, 4] },\n  ],\n  valueAxis: { min: 0, max: 5, tickCount: 5 },\n});\nhost.addEventListener('aui-series-toggle', (event) => {\n  const { hidden } = (event as CustomEvent<RadarChartSeriesToggleDetail>).detail;\n  host.dataset.hidden = hidden.join(',');\n});\nchart.setSeriesVisible('ben', false);"
+    },
+    {
+      "id": "outline",
+      "title": "Unfilled polygons with percent values",
+      "language": "ts",
+      "code": "import { RadarChart } from '@absoluteui/components/radar-chart';\n\nconst host = document.querySelector<HTMLElement>('#coverage');\nif (host) {\n  RadarChart.create(host, {\n    label: 'Test coverage by module',\n    axes: ['Auth', 'Billing', 'Search', 'Reports', 'Admin', 'API'],\n    series: [\n      { id: 'unit', label: 'Unit', values: [0.9, 0.75, 0.6, null, 0.8, 0.95], color: 1 },\n      { id: 'e2e', label: 'End-to-end', values: [0.6, 0.5, 0.4, 0.3, 0.2, 0.7], color: 4 },\n    ],\n    valueAxis: { min: 0, max: 1 },\n    valueFormat: { style: 'percent' },\n    fill: false,\n    dataTable: 'visible',\n  });\n}"
+    }
+  ]
+}

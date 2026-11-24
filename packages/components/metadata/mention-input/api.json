@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "component": "mention-input",
+  "factory": { "name": "MentionInput.create", "signature": "MentionInput.create(host: HTMLElement, options: MentionInputOptions): MentionInput" },
+  "configKey": "mentionInput",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Supplementary hint; never replaces the label." },
+    { "name": "triggers", "type": "readonly MentionTrigger[]", "required": true, "globallyConfigurable": false, "description": "Trigger characters with their async providers: { char, provider(query, { signal, trigger }), label?, minChars? }." },
+    { "name": "value", "type": "MentionInputValue | string", "default": "''", "required": false, "globallyConfigurable": false, "description": "Initial value: plain text or { text, mentions }; also restored by reset()." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name; the hidden input carries the JSON value." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Empty text is invalid; shows the required indicator." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the field." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Focusable and submitted, not editable; no suggestions." },
+    { "name": "multiline", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "true: a textarea; false: a single-line input with the combobox role." },
+    { "name": "rows", "type": "number", "default": 3, "required": false, "globallyConfigurable": false, "description": "Visible rows of the textarea." },
+    { "name": "maxLength", "type": "number", "required": false, "globallyConfigurable": false, "description": "Maximum length in code points (validated, not truncated)." },
+    { "name": "showCounter", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Show remaining/over characters; requires maxLength." },
+    { "name": "validate", "type": "(value: MentionInputValue) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<{ error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "debounce", "type": "number", "default": 200, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Milliseconds between the last keystroke and the provider call (0 to 5000)." },
+    { "name": "maxSuggestions", "type": "number", "default": 8, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Most suggestions shown at once (1 to 50)." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message and number-formatting locale." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "input", "type": "HTMLTextAreaElement | HTMLInputElement", "description": "The native field." },
+    { "name": "value", "type": "MentionInputValue", "description": "{ text, mentions }, mentions sorted by start." },
+    { "name": "expanded", "type": "boolean", "description": "Whether the suggestion list is open." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the initial value." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<MentionInputOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: MentionInputValue | string): void", "description": "Programmatic value (no events); a string clears the mentions; mismatched mentions throw." },
+    { "name": "update", "signature": "update(options: Partial<MentionInputOptions>): void", "description": "Merge and apply options (multiline is fixed at creation)." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error; cleared when the user edits." },
+    { "name": "getFormValue", "signature": "getFormValue(): MentionInputValue", "description": "Value for form serialization." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the field." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, pending queries, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-input", "detail": "MentionInputValueDetail", "bubbles": true, "cancelable": false, "description": "The text or mentions changed: { value, validity }." },
+    { "name": "aui-change", "detail": "MentionInputValueDetail", "bubbles": true, "cancelable": false, "description": "Committed: a mention was inserted, or focus left with a changed value." },
+    { "name": "aui-mention", "detail": "MentionInputMentionDetail", "bubbles": true, "cancelable": false, "description": "A suggestion was inserted: { mention }." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-mention-input", "description": "Host." },
+    { "name": "aui-mention-input--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __required | __description | __counter | __error", "description": "Shared field chrome." },
+    { "name": "aui-mention-input__input", "description": "Native textarea or input." },
+    { "name": "aui-mention-input__popup", "description": "Top-layer suggestion popup." },
+    { "name": "aui-mention-input__list", "description": "Suggestion listbox." },
+    { "name": "aui-mention-input__option | __option--active", "description": "A suggestion and the active suggestion." },
+    { "name": "aui-mention-input__option-label | __option-description", "description": "Suggestion texts." },
+    { "name": "aui-mention-input__status", "description": "Loading, no matches, or failure text." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "line-chart",
+  "examples": [
+    {
+      "id": "time-series",
+      "title": "Monthly time series in a configured timezone",
+      "language": "ts",
+      "code": "import { LineChart, type LineChartSeriesToggleDetail } from '@absoluteui/components/line-chart';\nimport { plainDate, plainDateTime, toInstant } from '@absoluteui/core';\n\nconst months = Array.from({ length: 6 }, (_, i) => toInstant(plainDateTime(plainDate(2026, i + 1, 1)), 'Europe/London'));\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chart = LineChart.create(host, {\n  label: 'Monthly active users',\n  description: 'Thousands of users',\n  x: months,\n  series: [\n    { id: 'web', label: 'Web', values: [42, 45, null, 51, 55, 61] },\n    { id: 'mobile', label: 'Mobile', values: [30, 33, 38, 41, 47, 52] },\n  ],\n  yAxis: { label: 'Users (thousands)' },\n  timezone: 'Europe/London',\n});\nhost.addEventListener('aui-series-toggle', (event) => {\n  const { hidden } = (event as CustomEvent<LineChartSeriesToggleDetail>).detail;\n  host.dataset.hidden = hidden.join(',');\n});\nchart.update({ hiddenSeries: ['mobile'] });"
+    },
+    {
+      "id": "area-currency",
+      "title": "Area chart with currency values and categories",
+      "language": "ts",
+      "code": "import { LineChart } from '@absoluteui/components/line-chart';\n\nconst host = document.querySelector<HTMLElement>('#cash');\nif (host) {\n  LineChart.create(host, {\n    label: 'Net cash flow',\n    x: ['Q1', 'Q2', 'Q3', 'Q4'],\n    series: [{ id: 'cash', label: 'Cash flow', values: [-120, 40, 180, 95] }],\n    area: true,\n    height: 220,\n    valueFormat: { style: 'currency', currency: 'USD', maximumFractionDigits: 0 },\n    dataTable: 'visible',\n  });\n}"
+    },
+    {
+      "id": "zoom-crosshair",
+      "title": "Zoom along x with a crosshair and the aui-zoom event",
+      "language": "ts",
+      "code": "import { LineChart, type LineChartZoomDetail } from '@absoluteui/components/line-chart';\n\nconst days = Array.from({ length: 60 }, (_, i) => i + 1);\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chart = LineChart.create(host, {\n  label: 'Daily orders',\n  x: days,\n  series: [{ id: 'orders', label: 'Orders', values: days.map((d) => 100 + ((d * 17) % 40)) }],\n  xAxis: { label: 'Day' },\n  zoom: true,\n  zoomRange: { from: 1, to: 14 },\n  crosshair: true,\n});\nhost.addEventListener('aui-zoom', (event) => {\n  const { x, reason } = (event as CustomEvent<LineChartZoomDetail>).detail;\n  host.dataset.window = x ? `${String(x.from)}-${String(x.to)} (${reason})` : 'all';\n});\nchart.update({ zoomRange: null });"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "hover-card",
+  "examples": [
+    {
+      "id": "profile",
+      "title": "Profile preview on a link",
+      "language": "ts",
+      "code": "import { HoverCard } from '@absoluteui/components/hover-card';\n\nconst link = document.querySelector<HTMLAnchorElement>('a[href=\"/u/ada\"]');\nif (link) {\n  const content = document.createElement('div');\n  const name = document.createElement('p');\n  name.textContent = 'Ada Lovelace';\n  const role = document.createElement('p');\n  role.textContent = 'Mathematician, London';\n  content.append(name, role);\n  HoverCard.create(link, { content, placement: 'bottom-start' });\n}"
+    },
+    {
+      "id": "interactive",
+      "title": "Interactive card that is not used as the trigger's description",
+      "language": "ts",
+      "code": "import { HoverCard, type HoverCardCloseDetail } from '@absoluteui/components/hover-card';\nimport { Button } from '@absoluteui/components/button';\n\nconst trigger = document.createElement('a');\ntrigger.href = '/repos/atlas';\ntrigger.textContent = 'atlas';\ndocument.body.append(trigger);\n\nconst content = document.createElement('div');\nconst summary = document.createElement('p');\nsummary.textContent = 'Mapping toolkit. 1.2k stars.';\nconst star = document.createElement('button');\nstar.type = 'button';\nstar.textContent = 'Star';\nButton.enhance(star, { size: 'sm' });\ncontent.append(summary, star);\n\n// Tab moves from the trigger into the card, so the Star button is keyboard reachable.\nconst card = HoverCard.create(trigger, { content, describe: false, showDelay: 400, hideDelay: 400 });\ncard.element.addEventListener('aui-close', (event) => {\n  const { reason } = (event as CustomEvent<HoverCardCloseDetail>).detail;\n  trigger.dataset.cardClosed = reason;\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Global defaults",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { hoverCard: { placement: 'top', showDelay: 800, hideDelay: 200 } } });"
+    }
+  ]
+}

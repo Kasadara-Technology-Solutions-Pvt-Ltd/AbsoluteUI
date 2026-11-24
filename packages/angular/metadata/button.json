@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/button",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiButton",
+      "description": "AbsoluteUI Button: `<button auiButton variant=\"primary\">Save</button>`.\nVariants `primary`, `secondary`, `outline`, `ghost`, `danger`; sizes `sm`, `md`, `lg`; `loading`;\n`icon` + `iconPosition` or a projected icon component; `fullWidth`. Disabled is the native attribute.\nEnhances the native button in place (native `type`, `form`, and `disabled` keep working);\nits content, including projected icon components, stays Angular-managed.",
+      "selector": "button[auiButton]",
+      "exportAs": [
+        "auiButton"
+      ],
+      "source": "hand-written",
+      "component": "button",
+      "configKey": "button",
+      "inputs": [
+        {
+          "name": "variant",
+          "type": "ButtonVariant",
+          "required": false,
+          "default": "secondary",
+          "configurable": true,
+          "description": "Visual emphasis."
+        },
+        {
+          "name": "size",
+          "type": "ButtonSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Control height and font size."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Busy state: aria-disabled, activation blocked, spinner shown, 'Loading' added to the accessible name."
+        },
+        {
+          "name": "icon",
+          "type": "IconRef | null",
+          "required": false,
+          "default": "null",
+          "description": "Icon name or definition."
+        },
+        {
+          "name": "iconPosition",
+          "type": "\"start\" | \"end\"",
+          "required": false,
+          "default": "start",
+          "description": "Icon placement (logical)."
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Stretch to the full inline size of the container."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name for icon-only buttons."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<ButtonIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [
+        {
+          "name": "pressed",
+          "type": "boolean | null",
+          "change": "pressedChange",
+          "description": "Toggle button: bind [(pressed)]; unset is an ordinary button."
+        }
+      ],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Button pattern, implemented with a native <button>.",
+        "source": "packages/components/metadata/button/accessibility.json"
+      },
+      "limitations": [
+        "Loading state blocks activation through a capture-phase click listener; consumer listeners added with capture on the same element before enhancement still run.",
+        "Icon-only buttons without text require `label`, aria-label or aria-labelledby; otherwise construction throws BUTTON_ICON_ONLY_LABEL."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiLinkButton",
+      "description": "A link styled as a button: `<a auiButton href=\"/help\">Help</a>` or, with the router,\n`<a auiButton routerLink=\"/reports\">Reports</a>` (import `RouterLink` from `@angular/router`).\nThe element stays a link: href, `target`, `rel`, `download`, modified clicks (new tab),\n`routerLinkActive`, query params, and fragments keep working natively.\n`disabled` sets `aria-disabled`, removes the link from the tab order, and blocks activation\n(including `RouterLink` navigation) while keeping the href; `loading` blocks activation too.",
+      "selector": "a[auiButton]",
+      "exportAs": [
+        "auiButton"
+      ],
+      "source": "hand-written",
+      "component": "button",
+      "configKey": "button",
+      "inputs": [
+        {
+          "name": "variant",
+          "type": "ButtonVariant",
+          "required": false,
+          "default": "secondary",
+          "configurable": true,
+          "description": "Visual emphasis."
+        },
+        {
+          "name": "size",
+          "type": "ButtonSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Control height and font size."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Busy state: aria-disabled, activation blocked, spinner shown, 'Loading' added to the accessible name."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Links have no native `disabled`: `aria-disabled`, out of the tab order, activation blocked."
+        },
+        {
+          "name": "icon",
+          "type": "IconRef | null",
+          "required": false,
+          "default": "null",
+          "description": "Icon name or definition."
+        },
+        {
+          "name": "iconPosition",
+          "type": "\"start\" | \"end\"",
+          "required": false,
+          "default": "start",
+          "description": "Icon placement (logical)."
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Stretch to the full inline size of the container."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name for icon-only links."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<ButtonIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Button pattern, implemented with a native <button>.",
+        "source": "packages/components/metadata/button/accessibility.json"
+      },
+      "limitations": [
+        "Loading state blocks activation through a capture-phase click listener; consumer listeners added with capture on the same element before enhancement still run.",
+        "Icon-only buttons without text require `label`, aria-label or aria-labelledby; otherwise construction throws BUTTON_ICON_ONLY_LABEL."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { AuiButton } from '@absoluteui/angular/button';\n\n@Component({\n  selector: 'app-save-bar',\n  imports: [AuiButton],\n  template: `\n    <button type=\"button\" auiButton variant=\"secondary\" (click)=\"cancel()\">Cancel</button>\n    <button type=\"button\" auiButton variant=\"primary\" [loading]=\"saving()\" (click)=\"save()\">Save changes</button>`,\n})\nexport class SaveBarComponent {\n  readonly saving = signal(false);\n  cancel(): void {}\n  save(): void {\n    this.saving.set(true);\n  }\n}"
+    }
+  ]
+}

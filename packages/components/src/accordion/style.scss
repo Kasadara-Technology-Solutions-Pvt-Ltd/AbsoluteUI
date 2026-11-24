@@ -1,0 +1,151 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-accordion {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    color: aui.token('color-text');
+    border-block-start: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-accordion__item {
+    border-block-end: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-accordion__heading {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+
+  .aui-accordion__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: aui.token('space-3');
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: aui.token('control-height-lg');
+    padding-block: aui.token('space-3');
+    padding-inline: aui.token('space-4');
+    margin: 0;
+    font-family: inherit;
+    font-size: aui.token('font-size-md');
+    font-weight: aui.token('font-weight-medium');
+    line-height: aui.token('line-height-tight');
+    text-align: start;
+    color: aui.token('color-text');
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    @include aui.transition(background-color);
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * aui.token('focus-ring-width')));
+    }
+
+    &[aria-disabled='true'] {
+      cursor: default;
+    }
+
+    &[aria-disabled='true']:hover {
+      background: transparent;
+    }
+  }
+
+  .aui-accordion__item--disabled .aui-accordion__trigger {
+    color: aui.token('color-text-disabled');
+    cursor: not-allowed;
+  }
+
+  .aui-accordion__title {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-accordion__icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    color: aui.token('color-text-muted');
+    @include aui.transition(transform);
+    font-size: aui.icon-size('sm');
+  }
+
+  // Static end state: the rotated icon still conveys "expanded" without motion.
+  .aui-accordion__trigger[aria-expanded='true'] .aui-accordion__icon {
+    transform: rotate(180deg);
+  }
+
+  // Height animation: a grid row transitions 0fr -> 1fr. `display` transitions
+  // discretely so the `hidden` attribute can be applied immediately.
+  .aui-accordion__panel {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition-property: grid-template-rows, display;
+    transition-duration: aui.token('duration-normal');
+    transition-timing-function: aui.token('easing-standard');
+    transition-behavior: allow-discrete;
+
+    // Only after the first toggle, so panels expanded at creation do not animate on load.
+    .aui-accordion--animated > .aui-accordion__item > & {
+      @starting-style {
+        grid-template-rows: 0fr;
+      }
+    }
+
+    &[hidden] {
+      display: none;
+      grid-template-rows: 0fr;
+    }
+
+    @include aui.reduced-motion {
+      transition: none;
+    }
+
+    :where([data-aui-animation='none']) & {
+      transition: none;
+    }
+  }
+
+  .aui-accordion__clip {
+    min-block-size: 0;
+    overflow: hidden;
+  }
+
+  .aui-accordion__content {
+    padding-block: 0 aui.token('space-4');
+    padding-inline: aui.token('space-4');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+    overflow-wrap: anywhere;
+  }
+
+  @include aui.forced-colors {
+    .aui-accordion,
+    .aui-accordion__item {
+      border-color: CanvasText;
+    }
+
+    .aui-accordion__trigger:focus-visible {
+      outline-color: Highlight;
+    }
+
+    .aui-accordion__item--disabled .aui-accordion__trigger {
+      color: GrayText;
+    }
+
+    .aui-accordion__icon {
+      color: ButtonText;
+    }
+  }
+}

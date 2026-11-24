@@ -1,0 +1,102 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the Button stylesheet (@absoluteui/components/button/style.css).
+@layer aui.components {
+  .aui-carousel {
+    display: grid;
+    gap: aui.token('space-3');
+    min-inline-size: 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-carousel__pause {
+    justify-self: end;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-carousel__viewport {
+    overflow: hidden;
+    border-radius: aui.ctoken('carousel', 'radius');
+    touch-action: pan-y;
+  }
+
+  // Slides sit side by side; the track moves by whole slides (mirrored in RTL).
+  .aui-carousel__track {
+    display: flex;
+    translate: calc(var(--_aui-carousel-index, 0) * -100%) 0;
+
+    &:dir(rtl) {
+      translate: calc(var(--_aui-carousel-index, 0) * 100%) 0;
+    }
+
+    .aui-carousel--animated > .aui-carousel__viewport > & {
+      @include aui.transition(translate);
+    }
+  }
+
+  .aui-carousel__slide {
+    flex: 0 0 100%;
+    min-inline-size: 0;
+  }
+
+  .aui-carousel__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: aui.token('space-2');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-carousel__picker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: aui.token('space-1');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Picker buttons keep a 24px target (WCAG 2.5.8) around a small dot.
+  .aui-carousel__dot.aui-button {
+    min-inline-size: 1.5rem;
+    min-block-size: 1.5rem;
+    padding: 0;
+
+    &::before {
+      content: '';
+      inline-size: 0.625rem;
+      block-size: 0.625rem;
+      border: 2px solid aui.ctoken('carousel', 'indicator');
+      border-radius: aui.token('radius-pill');
+    }
+  }
+
+  // The current dot is filled: shape as well as color.
+  .aui-carousel__dot--current.aui-button::before {
+    background: aui.ctoken('carousel', 'indicator');
+  }
+
+  @include aui.forced-colors {
+    .aui-carousel__dot.aui-button::before {
+      border-color: ButtonText;
+    }
+
+    .aui-carousel__dot--current.aui-button::before {
+      background: Highlight;
+      border-color: Highlight;
+    }
+  }
+}

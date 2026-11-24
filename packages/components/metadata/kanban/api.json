@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "component": "kanban",
+  "factory": { "name": "Kanban.create", "signature": "Kanban.create(host: HTMLElement, options: KanbanOptions): Kanban; moveKanbanCard(cards, id, to: KanbanTarget): KanbanCard[]; positionOf(cards, id, lanes: boolean): KanbanPosition | null; cellCards(cards, columnId, laneId): KanbanCard[]; columnCounts(cards): Map<string, number>" },
+  "configKey": "kanban",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Accessible name of the board (role=group); the toolbar is named '{label} controls'. Non-empty." },
+    { "name": "columns", "type": "readonly KanbanColumn[]", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Columns in display order: { id (unique), label, wipLimit? (1..10000 cards across swimlanes), collapsed? (initial), locked? (no cards move into or out of it) }. At least one. Replacing it clears the undo history." },
+    { "name": "lanes", "type": "readonly KanbanLane[]", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Swimlanes (rows): { id, label, collapsed? }. With lanes every card needs a laneId." },
+    { "name": "cards", "type": "readonly KanbanCard[]", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Cards: { id (unique), columnId, laneId? (required with lanes), title, description?, tags? (chips), color? (1..8 accent stripe), locked? }. The order within a cell is the array order. Validated (KANBAN_OPTIONS). Replacing it clears the undo history and aborts pending saves." },
+    { "name": "editable", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Cards (and columns) can be moved. false hides the toolbar, grips, and column handles; arrow-key navigation and Enter still work." },
+    { "name": "columnReorder", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Show column handles for reordering columns (when editable)." },
+    { "name": "renderCard", "type": "(card: Readonly<KanbanCard>, context: KanbanRenderContext) => Node", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Card content ({ column, lane, doc }). Return non-interactive content: the card is the focusable list item and its text is read by screen readers. Default: title, description, tags." },
+    { "name": "canMove", "type": "(card: Readonly<KanbanCard>, to: Readonly<KanbanPosition>) => boolean", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Veto a move (keyboard moves skip refused columns; pointer drops show an invalid target). Locked cards and columns, and full columns under wipPolicy 'block', are always refused." },
+    { "name": "moveCard", "type": "(move: KanbanCardMoveDetail, signal: AbortSignal) => Promise<void> | void", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Save a move after it was applied. While it runs the card is aria-busy and cannot move again. A rejection or a timeout (requestTimeoutMs) moves the card back, removes the move from the history, announces the failure, and emits aui-move-error." },
+    { "name": "wipPolicy", "type": "'warn' | 'block'", "default": "warn", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "'warn' marks columns over their limit ('Over limit' text and icon); 'block' also refuses moves into a column at its limit (moves within the column stay possible)." },
+    { "name": "virtualThreshold", "type": "number", "default": 150, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Cells with more cards than this (20..100000) scroll on their own and render only the cards in view (measured heights, spacers, aria-setsize/aria-posinset)." },
+    { "name": "requestTimeoutMs", "type": "number", "default": 30000, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "moveCard timeout in milliseconds (100..600000)." },
+    { "name": "historyLimit", "type": "number", "default": 50, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Undo depth (0..500); 0 disables undo." },
+    { "name": "headingLevel", "type": "number", "default": 3, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "aria-level of column and swimlane headings (2..6)." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Numbers and messages." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Swaps ArrowLeft/ArrowRight between columns." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host." },
+    { "name": "element", "type": "HTMLDivElement", "description": "The scrolling board (role=group)." },
+    { "name": "cards", "type": "KanbanCard[]", "description": "Every card in board order (copies)." },
+    { "name": "columns", "type": "KanbanColumn[]", "description": "Columns in the current order; collapsed reflects the board." },
+    { "name": "editable", "type": "boolean", "description": "Whether editing is on." },
+    { "name": "canUndo", "type": "boolean", "description": "A move or column reorder can be undone." },
+    { "name": "canRedo", "type": "boolean", "description": "An undone change can be redone." },
+    { "name": "pending", "type": "string[]", "description": "Ids of cards whose move is being saved." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<KanbanOptions>): void", "description": "Merge and apply options; new cards or columns clear the history." },
+    { "name": "positionOf", "signature": "positionOf(id: string): KanbanPosition | null", "description": "Column, swimlane (null without swimlanes), and index of a card." },
+    { "name": "moveCard", "signature": "moveCard(id: string, to: KanbanTarget): boolean", "description": "Move a card (index defaults to the end of the cell). Goes through the same checks, event, save, and history as a user move; false when refused or cancelled." },
+    { "name": "moveColumn", "signature": "moveColumn(id: string, index: number): boolean", "description": "Move a column in the column order (undoable, emits aui-column-move)." },
+    { "name": "setCollapsed", "signature": "setCollapsed(kind: 'column' | 'lane', id: string, collapsed: boolean): void", "description": "Collapse or expand a column or swimlane (emits aui-collapse-change)." },
+    { "name": "focusCard", "signature": "focusCard(id: string): void", "description": "Focus a card, expanding its column and swimlane and scrolling a virtual cell to it." },
+    { "name": "undo", "signature": "undo(): boolean", "description": "Undo the last move or column reorder (saved through moveCard with reason 'undo'). Refused while saves are pending." },
+    { "name": "redo", "signature": "redo(): boolean", "description": "Redo the last undone change." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Abort pending saves, remove listeners and the rendered board." }
+  ],
+  "events": [
+    { "name": "aui-card-activate", "detail": "{ id: string; card: KanbanCard }", "bubbles": true, "cancelable": false, "description": "Enter on a card, or a click (outside a single-pointer move)." },
+    { "name": "aui-card-move", "detail": "{ reason: 'move' | 'undo' | 'redo'; id: string; card: KanbanCard; from: KanbanPosition; to: KanbanPosition; cards: KanbanCard[] }", "bubbles": true, "cancelable": true, "description": "Before a move is applied; preventDefault() keeps the card where it was." },
+    { "name": "aui-move-error", "detail": "{ id: string; reason: KanbanMoveReason; error: unknown }", "bubbles": true, "cancelable": false, "description": "moveCard rejected or timed out; the card is back where it was." },
+    { "name": "aui-column-move", "detail": "{ reason: KanbanMoveReason; id: string; from: number; to: number; order: string[] }", "bubbles": true, "cancelable": true, "description": "Before a column reorder is applied; preventDefault() keeps the order." },
+    { "name": "aui-collapse-change", "detail": "{ kind: 'column' | 'lane'; id: string; collapsed: boolean }", "bubbles": true, "cancelable": false, "description": "A column or swimlane was collapsed or expanded." }
+  ],
+  "contentAreas": [
+    { "name": "renderCard", "description": "Custom, non-interactive card content." }
+  ],
+  "cssClasses": [
+    { "name": "aui-kanban | --editable | --lanes | --picking", "description": "Host and modifiers; --aui-kanban-column-width, --aui-kanban-collapsed-width, --aui-kanban-list-height size the board." },
+    { "name": "aui-kanban__toolbar | __tool | __tool-text", "description": "Toolbar (Move, Undo, Redo)." },
+    { "name": "aui-kanban__board | __row | __columns | __column-header (--collapsed, --held, --over, --full) | __column-handle | __column-title | __column-name | __count | __over | __column-toggle", "description": "Board and column headers." },
+    { "name": "aui-kanban__lanes | __lane (--collapsed) | __lane-header | __lane-toggle | __lane-name | __cells", "description": "Swimlanes." },
+    { "name": "aui-kanban__cell (--collapsed, --locked, --drop, --no-drop) | __list (--virtual) | __spacer | __empty | __summary", "description": "Cells and card lists." },
+    { "name": "aui-kanban__card (--c1..--c8, --accent, --held, --dragging, --picked, --locked) | __grip | __card-body | __title | __description | __tags | __tag | __state", "description": "Cards (the drag offset is --aui-kanban-drag-x / --aui-kanban-drag-y)." }
+  ],
+  "iconSlots": [
+    { "name": "move / grip / column handle", "default": "grip" },
+    { "name": "undo", "default": "undo" },
+    { "name": "redo", "default": "redo" },
+    { "name": "over limit", "default": "alert-triangle" },
+    { "name": "collapse", "default": "chevron-down / chevron-right" }
+  ]
+}

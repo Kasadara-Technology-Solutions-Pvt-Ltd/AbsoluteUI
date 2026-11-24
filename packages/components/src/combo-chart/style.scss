@@ -1,0 +1,14 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-interaction;
+  @include aui.chart-marks;
+
+  // Series with `style.marker: "none"`: points appear only while hovered or focused.
+  .aui-chart__point--unmarked:not(.aui-chart__mark--hover, .aui-chart__mark--active, :focus-visible) {
+    opacity: 0;
+  }
+}

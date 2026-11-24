@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/context-menu",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiContextMenu",
+      "description": "AbsoluteUI Context Menu, on the target element:\n`<div [auiContextMenu]=\"items\" contextMenuLabel=\"File actions\" (selected)=\"run($event)\">...</div>`.\nThe target keeps its Angular-managed children; the menu popup is appended to the\nenclosing modal dialog or <body>.",
+      "selector": "[auiContextMenu]",
+      "exportAs": [
+        "auiContextMenu"
+      ],
+      "source": "hand-written",
+      "component": "context-menu",
+      "configKey": "contextMenu",
+      "inputs": [
+        {
+          "name": "auiContextMenu",
+          "type": "readonly MenuItem[]",
+          "required": true,
+          "description": "Menu items (the Menu item model: action with optional submenu items, checkbox, radio, separator, group). Ids are unique across the whole tree. An empty array is allowed."
+        },
+        {
+          "name": "contextMenuLabel",
+          "type": "string",
+          "required": false,
+          "description": "aria-label of the menu. Default: localized 'Context menu'. Must be non-empty when set."
+        },
+        {
+          "name": "contextMenuDisabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "While true, right-click and the keyboard keys keep the browser's native behavior and open() is still possible; setting it closes an open menu."
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Close after activating a checkbox or radio item. Action items always close the menu."
+        },
+        {
+          "name": "typeahead",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Printable characters move focus to the next item whose label starts with them."
+        },
+        {
+          "name": "nativeModifier",
+          "type": "ContextMenuNativeModifier",
+          "required": false,
+          "default": "shift",
+          "configurable": true,
+          "description": "'shift': Shift+right-click is left to the browser's native menu. 'none': every right-click opens the component menu."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Logical alignment, submenu side, submenu arrow keys, and chevron mirroring."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<MenuIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "renderItem",
+          "type": "MenuRenderItem",
+          "required": false,
+          "description": "Custom item content as a function; or put `<ng-template auiItem let-item>` inside the host (since 0.9.0)."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "selected",
+          "payload": "ContextMenuSelectDetail",
+          "event": "aui-select",
+          "description": "Dispatched on the target when the user activates an enabled item. origin is the element the menu was opened for; checked is the new state for checkbox and radio items."
+        },
+        {
+          "name": "opened",
+          "payload": "null",
+          "event": "aui-open",
+          "description": "Dispatched on the menu element after the top level opened."
+        },
+        {
+          "name": "closed",
+          "payload": "null",
+          "event": "aui-close",
+          "description": "Dispatched on the menu element after all levels closed."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(point?: { x: number; y: number; } | undefined): void",
+          "description": "Open at client coordinates, or below the target."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Close the menu (and its submenus)."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Menu (the Menu engine) opened as a context menu at the pointer or at the focused element; roving focus with real DOM focus on items.",
+        "source": "packages/components/metadata/context-menu/accessibility.json"
+      },
+      "limitations": [
+        "The target gets no ARIA attributes: nothing announces that a context menu exists. Add a visible or described hint (for example aria-describedby text such as 'Press Shift+F10 for actions') and provide every action elsewhere.",
+        "nativeModifier applies to pointer right-clicks only: inside an enabled target Shift+F10 and the ContextMenu key always open the component menu, so the native menu is not reachable from the keyboard there.",
+        "One item list per instance; vary items per origin with update({ items }) from a capture-phase contextmenu listener on the target.",
+        "The pointer anchor is fixed relative to the target's box; when the target itself is a scroll container, scrolling its content does not move the menu.",
+        "Keyboard-generated contextmenu events are recognized heuristically (button other than 2 at client point 0,0); browsers that report other coordinates open at that point instead of the focused element.",
+        "Popups are appended to the target's enclosing <dialog> or to <body> at construction; moving the target into or out of a dialog afterwards needs destroy() and create()."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { ContextMenuSelectDetail, MenuItem } from '@absoluteui/components/context-menu';\nimport { AuiContextMenu } from '@absoluteui/angular/context-menu';\n\n@Component({\n  selector: 'app-file-list',\n  imports: [AuiContextMenu],\n  template: `\n    <p id=\"files-hint\">Right-click a file or press Shift+F10 for actions.</p>\n    <ul aria-describedby=\"files-hint\" [auiContextMenu]=\"items\" contextMenuLabel=\"File actions\" (selected)=\"onSelect($event)\">\n      @for (file of files; track file) {\n        <li tabindex=\"0\" [attr.data-file]=\"file\">{{ file }}</li>\n      }\n    </ul>\n  `,\n})\nexport class FileListComponent {\n  readonly files = ['report.md', 'notes.txt'];\n  readonly items: MenuItem[] = [\n    { id: 'rename', label: 'Rename' },\n    { id: 'delete', label: 'Delete', tone: 'danger' },\n  ];\n\n  onSelect(detail: ContextMenuSelectDetail): void {\n    const file = detail.origin.closest('[data-file]')?.getAttribute('data-file');\n    if (detail.id === 'delete' && file) {\n      // confirm and delete the file\n    }\n  }\n}"
+    }
+  ]
+}

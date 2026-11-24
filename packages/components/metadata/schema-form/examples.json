@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "schema-form",
+  "examples": [
+    {
+      "id": "leave-request",
+      "title": "Leave request with a conditional field",
+      "language": "ts",
+      "code": "import { SchemaForm, type FormSchema, type SchemaFormSubmitDetail } from '@absoluteui/components/schema-form';\n\nconst schema: FormSchema = {\n  type: 'object',\n  title: 'Leave request',\n  required: ['type', 'from', 'days'],\n  properties: {\n    type: { type: 'string', title: 'Leave type', oneOf: [{ const: 'annual', title: 'Annual leave' }, { const: 'sick', title: 'Sick leave' }, { const: 'other', title: 'Other' }] },\n    reason: { type: 'string', title: 'Reason', maxLength: 500 },\n    from: { type: 'string', title: 'First day', format: 'date' },\n    days: { type: 'integer', title: 'Working days', minimum: 1, maximum: 30 },\n  },\n};\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst form = SchemaForm.create(host, {\n  schema,\n  uiSchema: { columns: 2, fields: { reason: { widget: 'textarea', visibleIf: { field: 'type', equals: 'other' }, span: 2 } } },\n  submitLabel: 'Request leave',\n});\nhost.addEventListener('aui-submit', (event) => {\n  console.log((event as CustomEvent<SchemaFormSubmitDetail>).detail.value);\n});\nform.getValue();"
+    },
+    {
+      "id": "arrays-and-server-errors",
+      "title": "Arrays of objects and server errors",
+      "language": "ts",
+      "code": "import { SchemaForm, type FormSchema } from '@absoluteui/components/schema-form';\n\nconst schema: FormSchema = {\n  type: 'object',\n  properties: {\n    name: { type: 'string', title: 'Name' },\n    contacts: {\n      type: 'array',\n      title: 'Emergency contacts',\n      minItems: 1,\n      maxItems: 3,\n      items: { type: 'object', title: 'Contact', required: ['name', 'phone'], properties: { name: { type: 'string', title: 'Name' }, phone: { type: 'string', title: 'Phone' } } },\n    },\n  },\n};\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst form = SchemaForm.create(host, {\n  schema,\n  validate: async (value, signal) => {\n    const response = await fetch('/api/onboarding/check', { method: 'POST', body: JSON.stringify(value), signal });\n    const body: unknown = await response.json();\n    return typeof body === 'object' && body !== null ? Object.fromEntries(Object.entries(body).filter((e): e is [string, string] => typeof e[1] === 'string')) : {};\n  },\n});\n// Server errors by JSON Pointer:\nform.setErrors({ '/contacts/0/phone': 'Enter a phone number we can call.' });"
+    }
+  ]
+}

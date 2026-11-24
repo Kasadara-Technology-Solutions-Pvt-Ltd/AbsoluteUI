@@ -1,0 +1,9 @@
+{
+  "entry": "@absoluteui/angular/toast",
+  "declarations": {
+    "AUI_TOASTER_OPTIONS": "export declare const AUI_TOASTER_OPTIONS: InjectionToken<ToasterOptions>;",
+    "AuiToaster": "export declare class AuiToaster implements OnDestroy {\n    #private;\n    show(options: ToastOptions): ToastHandle | null;\n    clear(): void;\n    ngOnDestroy(): void;\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiToaster, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "provideAuiToaster": "export declare function provideAuiToaster(options: ToasterOptions): Provider;"
+  },
+  "reexports": []
+}

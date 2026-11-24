@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="package">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3.5 7.5L12 3l8.5 4.5v9L12 21l-8.5-4.5z"/>
+      <path d="M3.5 7.5L12 12l8.5-4.5"/>
+      <path d="M12 12v9"/>
+      <path d="M7.75 5.25l8.5 4.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M3.5 7.5L12 3l8.5 4.5v9L12 21l-8.5-4.5z" transform="translate(12 12) scale(1.06) translate(-12 -12)"/>
+      <polyline points="3.5 7.5 12 12 20.5 7.5" data-outline-width="1.5"/>
+      <line x1="12" y1="12.5" x2="12" y2="21" data-outline-width="1.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3.5 7.5L12 3l8.5 4.5v9L12 21l-8.5-4.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3.5 7.5L12 3l8.5 4.5v9L12 21l-8.5-4.5z"/>
+      <path d="M3.5 7.5L12 12l8.5-4.5"/>
+      <path d="M12 12v9"/>
+      <path d="M7.75 5.25l8.5 4.5"/>
+    </g>
+  </g>
+</svg>

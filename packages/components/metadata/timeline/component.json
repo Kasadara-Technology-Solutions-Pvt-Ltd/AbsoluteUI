@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "name": "timeline",
+  "displayName": "Timeline",
+  "category": "Layout and content",
+  "package": "@absoluteui/components",
+  "import": "import { Timeline } from '@absoluteui/components/timeline';",
+  "styleImport": "@absoluteui/components/timeline/style.css",
+  "purpose": "Shows an activity or event history: items with a time (an exact instant or an all-day date), a title, a description, an icon or avatar, a status tone shown by icon and word, and keyboard-reachable actions. Vertical or horizontal, items on one side or alternating, grouped by day in the configured timezone with business-calendar names for holidays and non-working days, relative or absolute times, and older items collapsed behind 'Show N older' or loaded on demand with loading, error, and retry states.",
+  "whenToUse": [
+    "Activity history of a record: document changes, approvals, employee profile events.",
+    "Order or case tracking with a status per step in time.",
+    "A horizontal milestone overview, such as a project or onboarding plan."
+  ],
+  "whenNotToUse": [
+    "Step-by-step task flows the user moves through: use Stepper.",
+    "Scheduling or durations on a time axis: use Gantt or Scheduler.",
+    "Chat conversations: use Chat."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/helpers", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["vertical", "horizontal", "alternate", "grouped by day", "ungrouped", "relative times", "absolute times", "collapsed older items", "expanded", "loading more", "load error", "no more items", "empty", "tones (neutral, info, success, warning, error)"],
+  "responsive": "Vertical timelines are fluid and wrap text; alternate timelines keep both sides at equal width; horizontal timelines scroll in a focusable region with items of 14rem.",
+  "rtl": "The line, markers, and alternate sides mirror; horizontal timelines run from the right.",
+  "theme": "Component tokens timeline-line-color (color-border-strong), timeline-marker-size (icon-size-md), and timeline-marker-neutral, -info, -success, -warning, -error (tone foregrounds), every marker 3:1 against color-surface in the contrast gate. Forced colors use CanvasText on Canvas.",
+  "timezone": "Instants are grouped and formatted in the configured timezone (common config or the timezone option); PlainDate items are all-day and never shift. Day headings name holidays and non-working days from a business calendar.",
+  "security": "Titles, descriptions, status words, and action labels are rendered with textContent; item hrefs are limited to http(s) and relative URLs, avatar sources to safe image URLs; invalid values throw before rendering.",
+  "dataHandling": "No persistence, network access, or telemetry; loadMore is host code.",
+  "performance": {
+    "budgets": [
+      { "metric": "Timeline.create with 1,000 items grouped by day", "budget": "< 60 ms in headless Chromium" },
+      { "metric": "Timeline.create with initialVisible 20 of 1,000 items", "budget": "< 8 ms in headless Chromium" }
+    ],
+    "testedScale": "Up to 10,000 items in memory; use initialVisible or loadMore to keep the DOM to a few hundred items."
+  },
+  "limitations": [
+    "Not virtualized: keep the rendered items to a few hundred with initialVisible or loadMore.",
+    "Relative times are computed at render; call update({ now }) to refresh them.",
+    "The alternate layout applies to vertical timelines only."
+  ],
+  "unsupported": [
+    "Rich text (HTML) in titles or descriptions.",
+    "Durations or overlapping ranges on a time axis (use Gantt)."
+  ],
+  "antiPatterns": [
+    "Showing status by color alone: give each item a tone or a status word.",
+    "Rendering thousands of items at once instead of collapsing older ones."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/timeline: AuiTimeline component (<aui-timeline>).",
+    "react": "@absoluteui/react/timeline: AuiTimeline component.",
+    "vue": "@absoluteui/vue/timeline: AuiTimeline component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

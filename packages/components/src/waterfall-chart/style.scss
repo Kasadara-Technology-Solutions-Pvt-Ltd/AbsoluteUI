@@ -1,0 +1,14 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-marks;
+
+  // Steps without a value: an invisible focus target on the running-total level.
+  .aui-waterfall-chart__gap {
+    fill: transparent;
+    stroke: none;
+  }
+}

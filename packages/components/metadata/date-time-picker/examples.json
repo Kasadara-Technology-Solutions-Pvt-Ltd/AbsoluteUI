@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "date-time-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required departure in New York with bounds",
+      "language": "ts",
+      "code": "import { instantToString, parseInstant } from '@absoluteui/core';\nimport { DateTimePicker, type DateTimePickerChangeDetail } from '@absoluteui/components/date-time-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDateTimePicker.create(host, {\n  label: 'Departure',\n  name: 'departure',\n  required: true,\n  timezone: 'America/New_York',\n  min: parseInstant('2026-01-01T05:00:00Z'),\n  max: parseInstant('2027-01-01T05:00:00Z'),\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value, validity } = (event as CustomEvent<DateTimePickerChangeDetail>).detail;\n  host.dataset.value = value && validity.valid ? instantToString(value) : '';\n});"
+    },
+    {
+      "id": "dst-policy",
+      "title": "Reject nonexistent and repeated local times",
+      "language": "ts",
+      "code": "import { DateTimePicker } from '@absoluteui/components/date-time-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst picker = DateTimePicker.create(host, { label: 'Maintenance window', timezone: 'Europe/Berlin', disambiguation: 'reject', step: 15, hourCycle: 'h23' });\nhost.addEventListener('aui-change', () => {\n  if (picker.validity.error === 'nonexistent-time' || picker.validity.error === 'ambiguous-time') picker.reportValidity();\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Hourly suggestions that keep the popup open",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ common: { timezone: 'Asia/Kolkata' }, components: { dateTimePicker: { step: 60, closeOnSelect: false } } });"
+    }
+  ]
+}

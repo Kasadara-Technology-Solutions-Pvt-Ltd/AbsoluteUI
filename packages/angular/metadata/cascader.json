@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/cascader",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCascader",
+      "description": "AbsoluteUI Cascader: `<aui-cascader>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-cascader",
+      "exportAs": [
+        "auiCascader"
+      ],
+      "source": "generated",
+      "component": "cascader",
+      "configKey": "cascader",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "CascaderValue"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label; names the trigger and the popup."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text, referenced by the trigger."
+        },
+        {
+          "name": "options",
+          "type": "readonly CascaderOption[]",
+          "required": true,
+          "description": "The tree { value, label, children?, isLeaf?, disabled? }; sibling values are unique."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Select several paths, shown as removable chips."
+        },
+        {
+          "name": "changeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Any node can be selected, not only leaves."
+        },
+        {
+          "name": "loadChildren",
+          "type": "((option: CascaderOption, context: CascaderLoadContext) => Promise<readonly CascaderOption[]>)",
+          "required": false,
+          "description": "Loads a node's children when it opens; aborted when the popup closes."
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show a search box in the popup."
+        },
+        {
+          "name": "maxResults",
+          "type": "number",
+          "required": false,
+          "default": "50",
+          "description": "Maximum search results (1 to 1000)."
+        },
+        {
+          "name": "levelLabels",
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Accessible names of the levels (default Level 1, Level 2, ...)."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Trigger text when nothing is selected (default Select)."
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show a clear button for a single selection that is not required."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name: one hidden input per path with its leaf value."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "A selection is required."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable the control."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the value; the popup does not open."
+        },
+        {
+          "name": "validate",
+          "type": "((value: CascaderValue) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<CascaderIcons>",
+          "required": false,
+          "description": "Icon overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages appear."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of messages and search matching."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Reading direction for arrow keys and popup alignment."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "CascaderValue",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "CascaderValueDetail",
+          "event": "aui-change",
+          "description": "The selection changed: { value, labels, validity }."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "The popup opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "The popup closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "show",
+          "signature": "show(): void",
+          "description": "Open the popup and focus the search box (or the first level)."
+        },
+        {
+          "name": "close",
+          "signature": "close(restoreFocus?: boolean | undefined): void",
+          "description": "Close the popup; pending loads are aborted."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | string[] | null | undefined",
+          "description": "Leaf values for Form serialization."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "Show or clear an external error."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the trigger."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear messages."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "A select-only combobox (a button element with role=combobox and aria-haspopup=\"dialog\") opens a non-modal dialog (WAI-ARIA APG Dialog, non-modal variant) that holds a search box and one WAI-ARIA APG Listbox per level. Levels behave like the columns of a column browser: Up and Down move within a level, the inline arrow keys move between levels. A tree view was not used because only one branch per level is shown at a time.",
+        "source": "packages/components/metadata/cascader/accessibility.json"
+      },
+      "limitations": [
+        "Search only finds nodes that are loaded (given in options or loaded earlier); it does not call loadChildren.",
+        "A value whose path is not loaded yet shows the raw values for the unknown segments until those levels load.",
+        "Columns are not windowed; very long levels (thousands of options) should be loaded lazily or split."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { CascaderOption, CascaderValue } from '@absoluteui/components/cascader';\nimport { AuiCascader } from '@absoluteui/angular/cascader';\n\n@Component({\n  selector: 'app-location-field',\n  imports: [AuiCascader],\n  template: `<aui-cascader label=\"Location\" [options]=\"tree\" [(value)]=\"location\"></aui-cascader>`,\n})\nexport class LocationFieldComponent {\n  readonly tree: CascaderOption[] = [{ value: 'in', label: 'India', children: [{ value: 'blr', label: 'Bengaluru' }] }];\n  location: CascaderValue = ['in', 'blr'];\n}"
+    }
+  ]
+}

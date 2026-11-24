@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="battery" data-animations="reveal:loading">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="7" width="17" height="10" rx="2"/>
+      <path d="M22 10.5v3"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="stroke">
+      <path d="M6 10.5v3"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M9.5 10.5v3"/>
+      <path d="M13 10.5v3"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="1.5" y="6" width="19" height="12" rx="2.5"/>
+      <rect x="4.5" y="9" width="3" height="6" rx="0.5"/>
+      <rect x="8" y="9" width="3" height="6" rx="0.5"/>
+      <rect x="11.5" y="9" width="3" height="6" rx="0.5"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <line x1="22" y1="10.5" x2="22" y2="13.5" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="2.5" y="7" width="17" height="10" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="7" width="17" height="10" rx="2"/>
+      <path d="M22 10.5v3"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M6 10.5v3"/>
+      <path d="M9.5 10.5v3"/>
+      <path d="M13 10.5v3"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="7" width="17" height="10" rx="2"/>
+      <path d="M22 10.5v3"/>
+    </g>
+    <g data-layer="secondary" data-role="success" data-paint="fill">
+      <rect x="5" y="10" width="9" height="4" rx="1"/>
+    </g>
+  </g>
+</svg>

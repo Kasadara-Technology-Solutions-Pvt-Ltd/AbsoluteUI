@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="test-pass" data-animations="draw:success:accent">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M9 3h6"/>
+      <path d="M10 3v5L4.6 17.5A2.3 2.3 0 0 0 6.6 21H12"/>
+      <path d="M14 3v5l2.75 4.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15 18l2 2 4-4.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M10 8L4.6 17.5A2.3 2.3 0 0 0 6.6 21H12v-4a4 4 0 0 1 4-4h.9L14 8z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M9 3h6"/>
+      <path d="M10 3v5L4.6 17.5A2.3 2.3 0 0 0 6.6 21H12"/>
+      <path d="M14 3v5l2.75 4.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15 18l2 2 4-4.5"/>
+    </g>
+  </g>
+</svg>

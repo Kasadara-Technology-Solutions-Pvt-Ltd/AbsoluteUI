@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="wallet" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M18 9V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-2.5"/>
+      <path d="M3 6.5A2.5 2.5 0 0 0 5.5 9H18"/>
+      <path d="M21 10h-4.5a2.5 2.5 0 0 0 0 5H21z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M18.5 8.5V6A2.5 2.5 0 0 0 16 3.5H5A2.5 2.5 0 0 0 2.5 6v12A2.5 2.5 0 0 0 5 20.5h13a2.5 2.5 0 0 0 2.5-2.5v-2h-4a3.5 3.5 0 0 1 0-7z"/>
+      <circle cx="16.5" cy="12.5" r="1"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <path d="M16.5 10.5H21.5V14.5H16.5a2 2 0 0 1 0-4z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M18 9V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-2.5V9z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M18 9V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-2.5"/>
+      <path d="M3 6.5A2.5 2.5 0 0 0 5.5 9H18"/>
+      <path d="M21 10h-4.5a2.5 2.5 0 0 0 0 5H21z"/>
+    </g>
+  </g>
+</svg>

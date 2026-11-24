@@ -1,0 +1,180 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Top-layer popup (Popover API). Position is applied by the positioning engine.
+  .aui-menu {
+    @include aui.popup-motion;
+    box-sizing: border-box;
+    min-inline-size: 10rem;
+    max-inline-size: min(22rem, calc(100vw - 2 * #{aui.token('space-2')}));
+    max-block-size: min(#{aui.token('popover-max-height')}, var(--aui-available-height, 100dvh));
+    padding: aui.token('space-1');
+    margin: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    color: aui.token('color-text');
+    background: aui.ctoken('menu', 'bg');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.ctoken('menu', 'radius');
+    box-shadow: aui.ctoken('menu', 'shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-tight');
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+  }
+
+  .aui-menu__item {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-block-size: aui.ctoken('menu', 'item-height');
+    padding: aui.token('space-1') aui.token('space-2');
+    border-radius: aui.ctoken('menu', 'item-radius');
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+
+    // Focus follows the pointer, so the focused item is also the hovered item.
+    &:focus,
+    &[aria-expanded='true'] {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+
+      .aui-menu__description,
+      .aui-menu__shortcut {
+        color: inherit;
+      }
+    }
+  }
+
+  .aui-menu__item--danger:not([aria-disabled='true']) {
+    color: aui.token('color-error-fg');
+  }
+
+  // Check column: reserved on every item of a level that contains checkable items.
+  .aui-menu__check {
+    display: none;
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+
+    .aui-menu--has-check > .aui-menu__item > &,
+    .aui-menu--has-check > .aui-menu__group > .aui-menu__item > & {
+      display: inline-flex;
+    }
+
+    .aui-icon,
+    svg {
+      inline-size: 100%;
+      block-size: 100%;
+    }
+    font-size: aui.icon-size('sm');
+  }
+
+  .aui-menu__icon {
+    display: inline-flex;
+    flex: none;
+
+    svg {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-menu__text {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-inline-size: 0;
+  }
+
+  .aui-menu__label {
+    flex: 1 1 auto;
+    overflow-wrap: anywhere;
+  }
+
+  // renderItem (since 0.9.0): the label stays the accessible name; the custom node is shown.
+  .aui-menu__label--hidden {
+    @include aui.visually-hidden;
+  }
+
+  .aui-menu__custom {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+  }
+
+  .aui-menu__description {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-menu__shortcut {
+    flex: none;
+    margin-inline-start: auto;
+    padding-inline-start: aui.token('space-4');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-menu__submenu-icon {
+    flex: none;
+    margin-inline-start: auto;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    color: aui.token('color-text-muted');
+    font-size: aui.icon-size('sm');
+  }
+
+  // The chevron points toward the side the submenu opens on.
+  .aui-menu[data-direction='rtl'] .aui-menu__submenu-icon {
+    transform: scaleX(-1);
+  }
+
+  .aui-menu__separator {
+    block-size: 0;
+    margin-block: aui.token('space-1');
+    margin-inline: calc(-1 * #{aui.token('space-1')});
+    border-block-start: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-menu__group-label {
+    padding: aui.token('space-2') aui.token('space-2') aui.token('space-1');
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-medium');
+    color: aui.token('color-text-muted');
+  }
+
+  @include aui.forced-colors {
+    .aui-menu {
+      border-color: CanvasText;
+    }
+
+    .aui-menu__item:focus {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-menu__item[aria-disabled='true'] {
+      color: GrayText;
+    }
+
+    .aui-menu__separator {
+      border-color: CanvasText;
+    }
+  }
+}

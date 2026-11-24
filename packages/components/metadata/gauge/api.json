@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "component": "gauge",
+  "factory": {
+    "name": "Gauge.create",
+    "signature": "Gauge.create(host: HTMLElement, options: GaugeOptions): Gauge"
+  },
+  "configKey": "gauge",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "What is measured: visible title and the accessible name of the meter (aria-labelledby)."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visually hide the title; it stays the accessible name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible text below the gauge (text only). Not referenced by aria-describedby."
+    },
+    {
+      "name": "value",
+      "type": "number | null",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Current value. null (or a non-finite number) shows an em dash and the value text \"No value\"; aria-valuenow is removed. Values outside min-max are clamped on the arc and in aria-valuenow; the value text keeps the real value."
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "default": 0,
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Range start (finite)."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": 100,
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Range end (finite, greater than min)."
+    },
+    {
+      "name": "bands",
+      "type": "readonly GaugeBand[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Qualitative bands { to: number, label: string, color?: 1-8 } in ascending to order; the first band starts at min. Drawn as a thin arc outside the track; the current band's label is printed under the reading and appended to the value text."
+    },
+    {
+      "name": "target",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Target value marked across the arc; appended to the value text (\"target 60%\")."
+    },
+    {
+      "name": "color",
+      "type": "1 | 2 | 3 | 4 | 5 | 6 | 7 | 8",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Palette slot of the value arc. Default: the current band's color (its color, else its position), else 1."
+    },
+    {
+      "name": "valueFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Number format for the reading, range ends, target, and value text."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom value text; overrides valueFormat everywhere."
+    },
+    {
+      "name": "valueText",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Replaces the generated aria-valuetext."
+    },
+    {
+      "name": "theme",
+      "type": "ChartTheme",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']. The gauge uses palette, gridColor (track), fontFamily, textColor (range and band labels), and animation."
+    },
+    {
+      "name": "showRange",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Print the formatted min and max under the ends of the arc."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Number and message locale."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Accepted for configuration consistency; the gauge is not mirrored (min at the lower left, clockwise to max at the lower right)."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "SVGSVGElement",
+      "description": "The svg role=\"meter\"."
+    },
+    {
+      "name": "valueText",
+      "type": "string",
+      "description": "The accessible value text (aria-valuetext: generated or valueText)."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<GaugeOptions>): void",
+      "description": "Merge, validate, and re-render."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, host classes, and the configuration subscription."
+    }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-gauge",
+      "description": "Host; inline grid, 12rem wide by default (set inline-size to resize; the SVG scales through its viewBox)."
+    },
+    {
+      "name": "aui-gauge--c1 ... --c8",
+      "description": "Value arc palette slot; sets --aui-gauge-color."
+    },
+    {
+      "name": "aui-gauge__title / __title--hidden / __description",
+      "description": "Title (accessible name) and description."
+    },
+    {
+      "name": "aui-gauge__svg",
+      "description": "The svg role=\"meter\"."
+    },
+    {
+      "name": "aui-gauge__track / __value",
+      "description": "Background arc and value arc (aria-hidden)."
+    },
+    {
+      "name": "aui-gauge__band / __band--c1 ... --c8",
+      "description": "Band arcs and their palette slots (aria-hidden)."
+    },
+    {
+      "name": "aui-gauge__target",
+      "description": "Target marker line (aria-hidden)."
+    },
+    {
+      "name": "aui-gauge__reading / __band-label / __range",
+      "description": "Center reading, current band name, and range ends (aria-hidden)."
+    }
+  ],
+  "iconSlots": []
+}

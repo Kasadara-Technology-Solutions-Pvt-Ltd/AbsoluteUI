@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/dialog",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDialog",
+      "description": "AbsoluteUI Dialog; the projected content is the body:\n`<aui-dialog title=\"Delete file?\" [(open)]=\"confirming\"><p>This cannot be undone.</p></aui-dialog>`.\n`open` follows user dismissals (Escape, backdrop, close button, actions).",
+      "selector": "aui-dialog",
+      "exportAs": [
+        "auiDialog"
+      ],
+      "source": "hand-written",
+      "component": "dialog",
+      "configKey": "dialog",
+      "inputs": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name, rendered as the heading."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Referenced by aria-describedby."
+        },
+        {
+          "name": "actions",
+          "type": "readonly DialogAction[]",
+          "required": false,
+          "description": "Footer buttons; clicking closes with the action value."
+        },
+        {
+          "name": "role",
+          "type": "\"dialog\" | \"alertdialog\"",
+          "required": false,
+          "default": "dialog",
+          "description": "Use alertdialog for urgent confirmations."
+        },
+        {
+          "name": "size",
+          "type": "DialogSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Maximum inline size."
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Escape requests close (cancelable)."
+        },
+        {
+          "name": "closeOnBackdrop",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Backdrop click requests close (cancelable)."
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Render the header close button."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<DialogIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "change": "openChange",
+          "description": "Whether the dialog is shown: `[(open)]`. Closing by Escape, the close button, or an action sets it to false."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "opened",
+          "payload": "null",
+          "event": "aui-open",
+          "description": "After the dialog opened."
+        },
+        {
+          "name": "cancelled",
+          "payload": "DialogCloseDetail",
+          "event": "aui-cancel",
+          "description": "Dismissal by Escape or backdrop, before `closed`."
+        },
+        {
+          "name": "closed",
+          "payload": "DialogCloseDetail",
+          "event": "aui-close",
+          "description": "After the dialog closed."
+        }
+      ],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Dialog (Modal) and Alert Dialog patterns, implemented with native <dialog>.showModal().",
+        "source": "packages/components/metadata/dialog/accessibility.json"
+      },
+      "limitations": [
+        "Pressing Escape in a focused combobox with a value but closed listbox clears the combobox first (per APG) instead of closing the dialog.",
+        "Close animation is not played; the open transition uses @starting-style and is removed under reduced motion.",
+        "Initial focus follows the native dialog focusing steps: an action with `autofocus: true`, otherwise the first focusable element (the close button when shown)."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport type { DialogAction, DialogCloseDetail } from '@absoluteui/components/dialog';\nimport { AuiButton } from '@absoluteui/angular/button';\nimport { AuiDialog } from '@absoluteui/angular/dialog';\n\n@Component({\n  selector: 'app-delete-file',\n  imports: [AuiButton, AuiDialog],\n  template: `\n    <button type=\"button\" auiButton variant=\"danger\" (click)=\"confirming.set(true)\">Delete file</button>\n    <aui-dialog title=\"Delete report.pdf?\" role=\"alertdialog\" [actions]=\"actions\" [open]=\"confirming()\" (closed)=\"closed($event)\">\n      <p>The file is removed for everyone. This cannot be undone.</p>\n    </aui-dialog>`,\n})\nexport class DeleteFileComponent {\n  readonly confirming = signal(false);\n  readonly actions: DialogAction[] = [\n    { label: 'Cancel', value: 'cancel', variant: 'secondary', autofocus: true },\n    { label: 'Delete', value: 'delete', variant: 'danger' },\n  ];\n\n  closed(detail: DialogCloseDetail): void {\n    this.confirming.set(false);\n    if (detail.returnValue === 'delete') {\n      // delete the file\n    }\n  }\n}"
+    }
+  ]
+}

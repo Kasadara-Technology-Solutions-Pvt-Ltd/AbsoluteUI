@@ -1,0 +1,6 @@
+[
+  { "title": "Stacked avatars", "text": "Overlapping avatars for teams, reviewers, or watchers." },
+  { "title": "Overflow chip", "text": "Beyond the maximum, a +N chip stands for the remaining people." },
+  { "title": "One accessible group", "text": "The group has a label and every person keeps a name." },
+  { "title": "Shared size and shape", "text": "Size and shape apply to every avatar in the group." }
+]

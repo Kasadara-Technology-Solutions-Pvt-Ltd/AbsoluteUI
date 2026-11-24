@@ -1,0 +1,20 @@
+---
+// A long-form policy page (license, security, privacy): readable column.
+import PageHero from './PageHero.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead: string;
+}
+const { eyebrow, title, lead } = Astro.props;
+---
+
+<PageHero eyebrow={eyebrow} title={title} lead={lead} />
+<section class="section section-white">
+  <div class="container container-narrow">
+    <article class="prose">
+      <slot />
+    </article>
+  </div>
+</section>

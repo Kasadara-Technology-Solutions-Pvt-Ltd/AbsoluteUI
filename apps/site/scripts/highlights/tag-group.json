@@ -1,0 +1,6 @@
+[
+  { "title": "Selectable tags", "text": "No selection, single, or multiple selection with a change event." },
+  { "title": "Removable", "text": "Remove tags with a button or the keyboard; the remove event can be cancelled." },
+  { "title": "Grid keyboard model", "text": "Arrow keys move between tags and their remove buttons." },
+  { "title": "Disabled tags", "text": "Individual tags can be disabled while staying visible." }
+]

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="mouse">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="6" y="3" width="12" height="18" rx="6"/>
+      <path d="M12 7v3"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="5" y="2" width="14" height="20" rx="7"/>
+      <line x1="12" y1="6.5" x2="12" y2="10" data-outline-width="1.75"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="6" y="3" width="12" height="18" rx="6"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="6" y="3" width="12" height="18" rx="6"/>
+      <path d="M12 7v3"/>
+    </g>
+  </g>
+</svg>

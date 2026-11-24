@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "component": "color-picker",
+  "factory": { "name": "ColorPicker.create", "signature": "ColorPicker.create(host: HTMLElement, options: ColorPickerOptions): ColorPicker" },
+  "configKey": "colorPicker",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label (accessible name of the trigger or the value field)." },
+    { "name": "hideLabel", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Visually hide the label." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text, referenced by aria-describedby." },
+    { "name": "value", "type": "ColorPickerValue", "default": "null", "required": false, "globallyConfigurable": false, "description": "Initial color: hex, rgb(), or hsl() text (normalized to hex), or null." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name; a hidden input submits the hex value." },
+    { "name": "required", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "A color must be chosen." },
+    { "name": "disabled", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Disable the picker." },
+    { "name": "readOnly", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Show the value without allowing changes (thumbs stay focusable)." },
+    { "name": "alpha", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Show the opacity slider; the value becomes #rrggbbaa." },
+    { "name": "mode", "type": "'popup' | 'inline'", "default": "popup", "required": false, "globallyConfigurable": false, "description": "Popup from a trigger button, or the panel in place." },
+    { "name": "presets", "type": "readonly (string | ColorSwatch)[]", "required": false, "globallyConfigurable": false, "description": "App-supplied preset swatches with optional spoken names." },
+    { "name": "recent", "type": "readonly (string | ColorSwatch)[]", "required": false, "globallyConfigurable": false, "description": "App-supplied recent colors (the app keeps the list)." },
+    { "name": "eyeDropper", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Offer the screen eyedropper where the browser has the EyeDropper API." },
+    { "name": "clearable", "type": "boolean", "default": "!required", "required": false, "globallyConfigurable": false, "description": "Show a clear button that sets the value to null." },
+    { "name": "contrastWith", "type": "string", "required": false, "globallyConfigurable": false, "description": "Background color for the WCAG contrast hint (ratio and AA/AAA verdict)." },
+    { "name": "validate", "type": "(value: string) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation of the hex value; return a message to mark it invalid." },
+    { "name": "icons", "type": "Partial<ColorPickerIcons>", "required": false, "globallyConfigurable": false, "description": "Icons for the error, eyedropper, and clear button." },
+    { "name": "format", "type": "ColorFormat", "default": "hex", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Text format of the value field: 'hex', 'rgb', or 'hsl'." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages appear." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of messages and value text." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "input", "type": "HTMLInputElement", "description": "The value text field." },
+    { "name": "value", "type": "ColorPickerValue", "description": "The hex value, or null." },
+    { "name": "open", "type": "boolean", "description": "Whether the popup is open." },
+    { "name": "validity", "type": "FieldValidity", "description": "Current validity." },
+    { "name": "options", "type": "Readonly<ColorPickerOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: ColorPickerValue): void", "description": "Set the value (color text or null; no event). Invalid text throws." },
+    { "name": "show", "signature": "show(): void", "description": "Open the popup (popup mode)." },
+    { "name": "hide", "signature": "hide(restoreFocus?: boolean): void", "description": "Close the popup; focus returns to the trigger by default." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "Show or clear an external error." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the trigger (popup) or the area thumb (inline)." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear validation state." },
+    { "name": "update", "signature": "update(options: Partial<ColorPickerOptions>): void", "description": "Merge and apply options; an invalid update keeps the previous state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close the popup, abort a running eyedropper, and remove rendering, listeners, and the form registration." }
+  ],
+  "events": [
+    { "name": "aui-input", "detail": "ColorPickerValueDetail", "bubbles": true, "cancelable": false, "description": "The value changes while dragging, with a key, or on any commit: { value, validity }." },
+    { "name": "aui-change", "detail": "ColorPickerValueDetail", "bubbles": true, "cancelable": false, "description": "The value was committed (pointer release, key, swatch, typed text, eyedropper, clear): { value, validity }." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "The popup opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "The popup closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-color-picker", "description": "Host (with aui-field)." },
+    { "name": "aui-color-picker--popup | --inline | --disabled | --readonly | --invalid | --empty", "description": "State modifiers." },
+    { "name": "aui-color-picker__trigger", "description": "Popup trigger button." },
+    { "name": "aui-color-picker__trigger-swatch | __trigger-text", "description": "Trigger swatch and value text." },
+    { "name": "aui-color-picker__panel", "description": "Panel (dialog in the top layer, or group inline)." },
+    { "name": "aui-color-picker__area | __area-thumb", "description": "Saturation and brightness area and its thumb." },
+    { "name": "aui-color-picker__slider | --hue | --alpha | __slider-thumb", "description": "Hue and opacity sliders." },
+    { "name": "aui-color-picker__thumb", "description": "Any thumb (role=slider)." },
+    { "name": "aui-color-picker__formats | __format", "description": "Format buttons." },
+    { "name": "aui-color-picker__row | __preview | __input", "description": "Preview swatch and value field." },
+    { "name": "aui-color-picker__icon-button | __eyedropper | __clear", "description": "Eyedropper and clear buttons." },
+    { "name": "aui-color-picker__swatches | __swatch | __swatch-button", "description": "Preset and recent swatches." },
+    { "name": "aui-color-picker__contrast", "description": "Contrast hint (data-verdict: passAAA, passAA, passLarge, fail)." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" },
+    { "name": "eyeDropper", "default": "locate" },
+    { "name": "clear", "default": "close" }
+  ]
+}

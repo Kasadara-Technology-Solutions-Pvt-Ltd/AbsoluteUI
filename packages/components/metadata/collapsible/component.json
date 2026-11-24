@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "collapsible",
+  "displayName": "Collapsible",
+  "category": "Layout",
+  "package": "@absoluteui/components",
+  "import": "import { Collapsible } from '@absoluteui/components/collapsible';",
+  "styleImport": "@absoluteui/components/collapsible/style.css",
+  "purpose": "Single disclosure: a native button (aria-expanded, aria-controls), optionally inside a heading, that shows and hides one content region, such as 'Show more details' or an advanced-settings section.",
+  "whenToUse": [
+    "Optional or advanced content that most users do not need: details, advanced settings, long explanations.",
+    "One section that the user can expand on its own."
+  ],
+  "whenNotToUse": [
+    "Several related sections: use Accordion.",
+    "Content the user must see to complete the task (do not hide it).",
+    "Navigation menus: use Menu or Sidebar."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["closed", "open", "disabled", "plain", "bordered", "with heading"],
+  "responsive": "Full width of its container; the region height animates when the theme allows motion.",
+  "rtl": "Logical properties: the icon follows the label at the inline end.",
+  "theme": "Trigger color-text with color-link on hover (plain) or color-hover background (bordered); bordered uses component tokens collapsible-border-color and collapsible-radius. Focus ring color-focus-ring. Height animation uses duration-normal and easing-standard and is off for reduced motion and animation 'none'.",
+  "timezone": "Not applicable.",
+  "security": "String content and the label are rendered as text; Node content is inserted as given (the application owns it).",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Collapsible.create, per instance", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "Unit-tested per instance; not data-driven."
+  },
+  "limitations": [
+    "Hidden content is not found by the browser's find in page.",
+    "The open state is not remembered across page loads (store it in the application if needed)."
+  ],
+  "unsupported": [
+    "Several sections with single-open behavior (use Accordion).",
+    "HTML strings as content (pass a Node)."
+  ],
+  "antiPatterns": [
+    "Hiding required instructions or errors in a collapsed region.",
+    "Using a collapsible as a navigation menu."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/collapsible: AuiCollapsible component (<aui-collapsible>).",
+    "react": "@absoluteui/react/collapsible: AuiCollapsible component.",
+    "vue": "@absoluteui/vue/collapsible: AuiCollapsible component."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

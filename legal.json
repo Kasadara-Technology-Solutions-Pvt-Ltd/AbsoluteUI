@@ -1,0 +1,53 @@
+{
+  "$comment": "Single source for company, contact, and legal-page details used by the one AbsoluteUI website (home page, docs under /docs/, Theme Designer under /designer/; docs/PLAN-ONE-SITE.md) and the package build (docs/decisions/legal-pages.md). scripts/check-legal.mjs keeps LICENSE.md, SECURITY.md, PRIVACY.md, TERMS.md, and release.config.json consistent with it.",
+  "company": "Kasadara Technology Solutions Pvt Ltd",
+  "address": "25, Avinashi Rd, TNHB Colony, Indira Nagar, Civil Aerodrome Post, Coimbatore, Tamil Nadu 641014, India",
+  "copyrightYear": "2026",
+  "emails": {
+    "security": "security@kasadara.com",
+    "legal": "legalops@kasadara.com"
+  },
+  "repository": "https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI",
+  "sites": {
+    "marketing": "https://aui.kasadara.com",
+    "docs": "https://aui.kasadara.com/docs",
+    "designer": "https://aui.kasadara.com/designer"
+  },
+  "pages": {
+    "license": "https://aui.kasadara.com/license/",
+    "privacy": "https://aui.kasadara.com/privacy/",
+    "terms": "https://aui.kasadara.com/terms/",
+    "security": "https://aui.kasadara.com/security/",
+    "advisories": "https://aui.kasadara.com/advisory/",
+    "notices": "https://aui.kasadara.com/notices/",
+    "accessibility": "https://aui.kasadara.com/accessibility/"
+  },
+  "license": { "spdx": "Apache-2.0", "name": "Apache License 2.0", "since": "0.13.0", "adopted": "2026-11-24", "previous": "AbsoluteUI Free Use License 1.0 (0.9.0 to 0.13.0 as published to the package feed)" },
+  "documents": {
+    "PRIVACY.md": { "title": "Privacy Policy", "effective": "2026-11-23" },
+    "TERMS.md": { "title": "Website Terms of Use", "effective": "2026-11-23" },
+    "SECURITY.md": { "title": "Security Policy", "effective": "2026-11-24" }
+  },
+  "notices": [
+    { "name": "Cairo", "package": "@fontsource-variable/cairo", "sites": ["marketing", "designer"] },
+    { "name": "JetBrains Mono", "package": "@fontsource-variable/jetbrains-mono", "sites": ["marketing", "docs"] },
+    { "name": "Noto Sans", "package": "@fontsource-variable/noto-sans", "sites": ["marketing", "docs"], "note": "Default font of the AbsoluteUI theme in live examples and demos." },
+    { "name": "Inter", "package": "@fontsource-variable/inter", "sites": ["docs"] },
+    { "name": "Bricolage Grotesque", "package": "@fontsource-variable/bricolage-grotesque", "sites": ["docs"] },
+    { "name": "Tailwind CSS", "package": "tailwindcss", "sites": ["marketing"], "note": "Base styles compiled into the site stylesheet." },
+    { "name": "Astro", "package": "astro", "sites": ["marketing", "docs"], "note": "Site generator; small parts of its output ship with the pages." },
+    { "name": "Starlight", "package": "@astrojs/starlight", "sites": ["docs"] },
+    { "name": "Expressive Code", "package": "astro-expressive-code", "sites": ["docs"] },
+    { "name": "Pagefind", "package": "pagefind", "licenseFile": "LICENSE/LICENSE", "sites": ["docs"] }
+  ],
+  "storage": [
+    { "site": "marketing, docs, designer", "key": "aui-site-analytics-consent", "kind": "local storage", "purpose": "Your analytics choice for the whole website (home page, documentation, and Theme Designer)." },
+    { "site": "marketing", "key": "aui-site-theme", "kind": "local storage", "purpose": "Light or dark theme, if you switch it." },
+    { "site": "docs", "key": "starlight-theme", "kind": "local storage", "purpose": "Light, dark, or automatic theme, if you change it." },
+    { "site": "docs", "key": "aui-live-settings", "kind": "local storage", "purpose": "Theme, density, direction, and locale you pick for live examples." },
+    { "site": "docs", "key": "starlight-synced-tabs__*", "kind": "local storage", "purpose": "The code tab you last picked (for example TypeScript or Angular), kept in sync across pages." },
+    { "site": "docs", "key": "sl-sidebar-state", "kind": "session storage", "purpose": "Which sidebar groups are open, until you close the tab." },
+    { "site": "designer", "key": "aui-theme-designer-draft", "kind": "local storage", "purpose": "Your unsaved theme draft, so a reload does not lose it. It never leaves your browser." },
+    { "site": "marketing, docs, designer", "key": "_clck, _clsk", "kind": "cookies (Microsoft Clarity)", "purpose": "Set only after you accept analytics; they group page views into visits." }
+  ]
+}

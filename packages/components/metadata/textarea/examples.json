@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "textarea",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required comments with a character counter",
+      "language": "ts",
+      "code": "import { Textarea } from '@absoluteui/components/textarea';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst comments = Textarea.create(host, { label: 'Comments', name: 'comments', required: true, maxLength: 500, showCounter: true });\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(comments.validity.valid);\n});"
+    },
+    {
+      "id": "auto-grow",
+      "title": "Grow with content between 2 and 8 rows",
+      "language": "ts",
+      "code": "import { Textarea } from '@absoluteui/components/textarea';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nTextarea.create(host, { label: 'Message', rows: 2, resize: 'auto', maxRows: 8 });"
+    },
+    {
+      "id": "validate",
+      "title": "Custom validation",
+      "language": "ts",
+      "code": "import { Textarea } from '@absoluteui/components/textarea';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nTextarea.create(host, {\n  label: 'Bio',\n  minLength: 20,\n  validate: (value) => (/https?:\\/\\//.test(value) ? 'Links are not allowed in the bio.' : null),\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Show messages on first input (Mode B)",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { textarea: { validationTiming: 'input' } } });"
+    }
+  ]
+}

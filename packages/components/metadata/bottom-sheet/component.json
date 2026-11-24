@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "name": "bottom-sheet",
+  "displayName": "Bottom Sheet",
+  "category": "Overlays",
+  "package": "@absoluteui/components",
+  "import": "import { BottomSheet } from '@absoluteui/components/bottom-sheet';",
+  "styleImport": "@absoluteui/components/bottom-sheet/style.css",
+  "purpose": "Panel attached to the bottom edge of the viewport, built on native <dialog>. Modal sheets use showModal() (top layer, inert background, backdrop, scroll lock, focus restoration); non-modal sheets use show() and keep the page interactive. Optional snap points set the height as fractions of the viewport height. The drag handle resizes the sheet and, dragged down, dismisses it; it is never the only way: with two or more snap points the handle is a keyboard-operable slider and a click cycles the heights, and Escape and the close button dismiss. Close reasons and cancelable close events mirror Drawer.",
+  "whenToUse": [
+    "Short, contextual tasks on small screens, such as share targets, quick actions, or a filter panel.",
+    "Supplementary detail that users resize while keeping page context visible, such as a map result list (non-modal, with snap points).",
+    "Mobile-first flows where a panel reachable with the thumb is preferable to a centered dialog."
+  ],
+  "whenNotToUse": [
+    "Short confirmations or destructive prompts: use Dialog (role=alertdialog).",
+    "Long forms or multi-step flows: use a page or a Drawer.",
+    "Content anchored to a trigger: use a popover or menu.",
+    "Menus of commands on desktop layouts: use Menu.",
+    "Non-modal sheets for tasks that must be completed before continuing: use a modal sheet."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "@absoluteui/components/button"],
+  "states": ["closed", "opening (slide-in)", "open", "open at snap point N", "dragging", "closing (aui-cancel pending)", "closing (slide-out)"],
+  "responsive": "Full width up to the drawer-width-lg token, centered horizontally (inline-size: min(100vw, drawer-width-lg)). Without snap points the sheet fits its content up to 90dvh; with snap points the height is the snap fraction of 100dvh. The body scrolls with overscroll containment. Padding honors env(safe-area-inset-left|right|bottom) so content clears notches and the home indicator. The handle strip is a full-width touch target.",
+  "rtl": "No direction option. The sheet is horizontally centered and slides vertically, so direction does not change placement. Inner layout uses logical properties (the close button sits at the inline end). Arrow keys on the handle slider are not mirrored: ArrowRight and ArrowUp always make the sheet larger.",
+  "theme": "Surface, border, radius, shadow and backdrop tokens; drawer-width-lg for the maximum width; duration-normal for the slide. Forced-colors mode uses CanvasText for the border and the grip.",
+  "timezone": "Not applicable.",
+  "security": "Title, description, and string content are rendered as text; never parsed as HTML. Node content is inserted as provided (the consumer owns it). Drag geometry is applied as CSS custom properties through the CSSOM (element.style.setProperty), never through style attributes in markup, so it is CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. The current snap index is held in memory only.",
+  "performance": {
+    "budgets": [
+      { "metric": "BottomSheet.open()", "budget": "< 16 ms (one frame) in headless Chromium" }
+    ],
+    "testedScale": "One sheet at a time, alongside other overlays arbitrated by the overlay stack; up to three snap points in the unit tests."
+  },
+  "limitations": [
+    "Non-modal sheets are not in the top layer; they use z-index 1000 and can be covered by page content with a higher stacking context.",
+    "Only the handle strip starts a drag; the body scrolls and never drags the sheet.",
+    "Snap points are fractions of the viewport height, not pixel heights or content-based heights.",
+    "Slide animations need @starting-style and transition-behavior: allow-discrete; older browsers open and close without animation.",
+    "Initial focus follows the native dialog focusing steps: the first focusable element, which is the close button when shown (it precedes the handle in DOM order although the handle is shown first).",
+    "open() re-applies the `snap` option when it is set, so a height the user chose is not kept across reopening in that case.",
+    "A <form method=\"dialog\"> submit inside the content closes with reason 'programmatic'."
+  ],
+  "unsupported": [
+    "Switching between modal and non-modal after creation (`modal` is init-only).",
+    "Sheets attached to the top or side edges (use Drawer).",
+    "Pixel or content-measured snap heights.",
+    "Dragging the sheet from its body or header.",
+    "Rendering HTML strings as content (pass a Node instead)."
+  ],
+  "antiPatterns": [
+    "Sheets without a title.",
+    "Relying on the drag gesture as the only way to dismiss (keep the close button or Escape enabled).",
+    "Disabling closeOnEscape, the close button, and drag dismissal together on a modal sheet.",
+    "Stacking several sheets; reuse one sheet with changing content.",
+    "Non-modal sheets for blocking tasks or forms that must be completed."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/bottom-sheet: AuiBottomSheet directive (ng-template[auiBottomSheet]) with an [open] input; the template is the sheet body; outputs auiOpen, auiCancel, auiClose, auiSnapChange.",
+    "react": "@absoluteui/react/bottom-sheet: AuiBottomSheet component.",
+    "vue": "@absoluteui/vue/bottom-sheet: AuiBottomSheet component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

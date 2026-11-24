@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "menu",
+  "examples": [
+    {
+      "id": "actions",
+      "title": "Row actions with a submenu and a destructive item",
+      "language": "ts",
+      "code": "import { Menu, type MenuSelectDetail } from '@absoluteui/components/menu';\nimport { Button } from '@absoluteui/components/button';\n\nconst trigger = document.createElement('button');\ntrigger.type = 'button';\ntrigger.textContent = 'Actions';\nButton.enhance(trigger);\ndocument.body.append(trigger);\nMenu.create(trigger, {\n  items: [\n    { id: 'edit', label: 'Edit', icon: 'plus', shortcut: 'Ctrl+E' },\n    { id: 'share', label: 'Share', items: [\n      { id: 'email', label: 'Email' },\n      { id: 'link', label: 'Copy link' },\n    ] },\n    { type: 'separator' },\n    { id: 'delete', label: 'Delete', tone: 'danger' },\n  ],\n});\ntrigger.addEventListener('aui-select', (event) => {\n  const { id } = (event as CustomEvent<MenuSelectDetail>).detail;\n  trigger.dataset.lastAction = id;\n});"
+    },
+    {
+      "id": "view-options",
+      "title": "Checkbox and radio items that keep the menu open",
+      "language": "ts",
+      "code": "import { Menu, type MenuSelectDetail } from '@absoluteui/components/menu';\nimport { Button } from '@absoluteui/components/button';\n\nconst trigger = document.createElement('button');\ntrigger.type = 'button';\ntrigger.textContent = 'View';\nButton.enhance(trigger);\ndocument.body.append(trigger);\nMenu.create(trigger, {\n  closeOnSelect: false,\n  items: [\n    { type: 'checkbox', id: 'wrap', label: 'Word wrap', checked: true },\n    { type: 'group', label: 'Density', items: [\n      { type: 'radio', id: 'compact', label: 'Compact', group: 'density', checked: false },\n      { type: 'radio', id: 'comfortable', label: 'Comfortable', group: 'density', checked: true },\n    ] },\n  ],\n});\ntrigger.addEventListener('aui-select', (event) => {\n  const { id, checked } = (event as CustomEvent<MenuSelectDetail>).detail;\n  document.body.dataset[id] = String(checked);\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Global defaults",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { menu: { placement: 'bottom-end', typeahead: false } } });"
+    }
+  ]
+}

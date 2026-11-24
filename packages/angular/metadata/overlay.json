@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/overlay",
+  "declarations": [
+    {
+      "kind": "class",
+      "name": "AuiDialogRef",
+      "description": "Handle of an overlay opened by `AuiDialogService` or `AuiDrawerService`.",
+      "methods": [
+        {
+          "name": "close",
+          "signature": "close(result?: R | undefined): void",
+          "description": "Close with a result."
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "AuiDialogService",
+      "description": "Open components or templates in a modal AbsoluteUI Dialog.",
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open<R = unknown, D = unknown>(content: Type<unknown> | TemplateRef<AuiOverlayTemplateContext<D, R>>, config: AuiDialogConfig<D>): AuiDialogRef<R>",
+          "description": "Open a component (it can inject `AUI_DIALOG_DATA` and `AuiDialogRef`) or a template in a modal dialog."
+        }
+      ]
+    },
+    {
+      "kind": "service",
+      "name": "AuiDrawerService",
+      "description": "Open components or templates in an AbsoluteUI Drawer.",
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open<R = unknown, D = unknown>(content: Type<unknown> | TemplateRef<AuiOverlayTemplateContext<D, R>>, config: AuiDrawerConfig<D>): AuiDialogRef<R>",
+          "description": "Open a component (it can inject `AUI_DIALOG_DATA` and `AuiDialogRef`) or a template in a drawer."
+        }
+      ]
+    }
+  ],
+  "constants": [
+    {
+      "name": "AUI_DIALOG_DATA",
+      "type": "InjectionToken<unknown>",
+      "description": "Data passed with `open(..., { data })`."
+    }
+  ],
+  "types": [
+    {
+      "name": "AuiOverlayClosed",
+      "description": "How an overlay opened by a service was closed."
+    },
+    {
+      "name": "AuiOverlayTemplateContext",
+      "description": "Context of a template opened by a service: `let-data` and `let-ref=\"ref\"`."
+    },
+    {
+      "name": "AuiDialogConfig",
+      "description": "Options of `AuiDialogService.open`: title, description, `data` for the content, and the Dialog options."
+    },
+    {
+      "name": "AuiDrawerConfig",
+      "description": "Options of `AuiDrawerService.open`: title, description, `data` for the content, and the Drawer options."
+    }
+  ]
+}

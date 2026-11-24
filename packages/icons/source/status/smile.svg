@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="smile">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M9 9.5h.01"/>
+      <path d="M15 9.5h.01"/>
+      <path d="M8.5 14a4 4 0 0 0 7 0"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="9" cy="9.5" r="1.25"/>
+      <circle cx="15" cy="9.5" r="1.25"/>
+      <polyline points="8.37 13.94 8.99 14.89 9.85 15.62 10.88 16.09 12 16.25 13.12 16.09 14.15 15.62 15.01 14.89 15.63 13.94" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M9 9.5h.01"/>
+      <path d="M15 9.5h.01"/>
+      <path d="M8.5 14a4 4 0 0 0 7 0"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.35">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M9 9.5h.01"/>
+      <path d="M15 9.5h.01"/>
+      <path d="M8.5 14a4 4 0 0 0 7 0"/>
+    </g>
+  </g>
+</svg>

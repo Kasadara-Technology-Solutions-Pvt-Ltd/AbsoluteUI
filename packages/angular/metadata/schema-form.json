@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/schema-form",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSchemaForm",
+      "description": "AbsoluteUI SchemaForm: `<aui-schema-form>`.",
+      "selector": "aui-schema-form",
+      "exportAs": [
+        "auiSchemaForm"
+      ],
+      "source": "generated",
+      "component": "schema-form",
+      "configKey": "schemaForm",
+      "inputs": [
+        {
+          "name": "schema",
+          "type": "FormSchema",
+          "required": true,
+          "description": "JSON Schema subset (root type object); unsupported keywords throw a configuration error listing each pointer."
+        },
+        {
+          "name": "uiSchema",
+          "type": "UiField",
+          "required": false,
+          "description": "Presentation: widget, label, help, placeholder, order, columns, span, visibleIf, rows, orientation, disableNonWorking, addLabel, patternMessage; children under fields, array items under items."
+        },
+        {
+          "name": "value",
+          "type": "JsonObject",
+          "required": false,
+          "description": "Initial value; values that do not match the schema type are ignored. reset() returns to it."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name of the form. Default: the schema title."
+        },
+        {
+          "name": "submitLabel",
+          "type": "string",
+          "required": false,
+          "description": "Submit button text. Default: localized Submit."
+        },
+        {
+          "name": "showReset",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Also show a reset button."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable every field and the actions."
+        },
+        {
+          "name": "businessCalendar",
+          "type": "BusinessCalendarEngine | null",
+          "required": false,
+          "default": "null",
+          "description": "Working days and holidays for the date pickers; disableNonWorking in the UI schema uses it."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "description": "IANA time zone of date-time fields. Default: the global configuration."
+        },
+        {
+          "name": "validate",
+          "type": "((value: JsonObject, signal: AbortSignal) => Promise<Readonly<Record<string, string>>>)",
+          "required": false,
+          "description": "Async validation after the constraint checks pass; return messages by JSON Pointer."
+        },
+        {
+          "name": "showActions",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the submit (and optional reset) buttons."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of messages and of the rendered controls."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "SchemaFormChangeDetail",
+          "event": "aui-change",
+          "description": "Any edit, including array add, remove, and move: { value, pointer }. Control events do not leave the form."
+        },
+        {
+          "name": "submitted",
+          "payload": "SchemaFormSubmitDetail",
+          "event": "aui-submit",
+          "description": "Valid submission: { value } (typed JSON)."
+        },
+        {
+          "name": "invalidSubmit",
+          "payload": "SchemaFormInvalidDetail",
+          "event": "aui-invalid",
+          "description": "Submission blocked: { errors: [{ pointer, label, message }] }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "getValue",
+          "signature": "getValue(): JsonObject | undefined",
+          "description": "The current value as JSON; hidden and empty optional fields are left out."
+        },
+        {
+          "name": "submit",
+          "signature": "submit(): void",
+          "description": "Submit through the native pipeline."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear messages."
+        },
+        {
+          "name": "setErrors",
+          "signature": "setErrors(errors: Readonly<Record<string, string>>): void",
+          "description": "Show errors by JSON Pointer on fields, groups, or the summary."
+        },
+        {
+          "name": "clearErrors",
+          "signature": "clearErrors(): void",
+          "description": "Remove every message."
+        },
+        {
+          "name": "focusField",
+          "signature": "focusField(pointer: string): boolean | undefined",
+          "description": "Move focus to the field at a pointer; false when it is not visible."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Native form with labelled AbsoluteUI controls (each follows its own APG pattern), Fieldset groups for objects and arrays, and the GOV.UK-style Error Summary from Form.",
+        "source": "packages/components/metadata/schema-form/accessibility.json"
+      },
+      "limitations": [
+        "Conditions compare values with equals, notEquals, in, and filled, combined with all, any, and not.",
+        "Arrays of arrays are not supported; array items are primitives or objects.",
+        "Reordering array entries rebuilds their controls (focus moves to the corresponding action button)."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { FormSchema, SchemaFormSubmitDetail } from '@absoluteui/components/schema-form';\nimport { AuiSchemaForm } from '@absoluteui/angular/schema-form';\n\n@Component({\n  selector: 'app-leave-request',\n  imports: [AuiSchemaForm],\n  template: `<aui-schema-form [schema]=\"schema\" submitLabel=\"Request leave\" (submitted)=\"save($event)\"></aui-schema-form>`,\n})\nexport class LeaveRequestComponent {\n  readonly schema: FormSchema = { type: 'object', title: 'Leave request', required: ['from'], properties: { from: { type: 'string', title: 'First day', format: 'date' } } };\n  save(detail: SchemaFormSubmitDetail): void {\n    console.log(detail.value);\n  }\n}"
+    }
+  ]
+}

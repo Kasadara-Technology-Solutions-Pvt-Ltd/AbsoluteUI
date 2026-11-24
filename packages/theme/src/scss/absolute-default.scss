@@ -1,0 +1,128 @@
+// Absolute Default theme family: light, dark, high contrast, and system.
+@use 'sass:map';
+@use 'aui';
+
+@include aui.layer-order;
+
+// docs/PLAN-R8.md D5: every icon follows `--aui-icon-size` set on itself or any ancestor
+// (lowest layer, so component stylesheets keep their own sizes unless the variable is set).
+@layer aui.base {
+  .aui-icon {
+    inline-size: var(--aui-icon-size, 1em);
+    block-size: var(--aui-icon-size, 1em);
+    font-size: var(--aui-icon-size, 1em);
+  }
+
+  // docs/PLAN-R16-ICONS.md R16-11: directional vector icons mirror in right-to-left layouts.
+  .aui-icon[data-mirror]:dir(rtl) {
+    transform: scaleX(-1);
+  }
+
+  @supports not selector(:dir(rtl)) {
+    [dir='rtl'] .aui-icon[data-mirror] {
+      transform: scaleX(-1);
+    }
+  }
+
+  // R16-14: spin and pulse run as CSS so a server-rendered loading icon moves before scripts run.
+  [data-aui-motion='spin'][data-aui-motion-state='running'] {
+    animation: aui-icon-spin var(--aui-icon-motion-duration, 900ms) linear infinite;
+  }
+
+  [data-aui-motion='pulse'][data-aui-motion-state='running'] {
+    animation: aui-icon-pulse var(--aui-icon-motion-duration, 1200ms) ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-aui-motion]:not([data-aui-motion-essential]) {
+      animation: none;
+    }
+  }
+}
+
+@keyframes aui-icon-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes aui-icon-pulse {
+  50% {
+    transform: scale(1.08);
+    opacity: 0.7;
+  }
+}
+
+@mixin _tokens($theme-name) {
+  $theme: map.get(aui.$aui-themes, $theme-name);
+  @each $name, $value in map.get($theme, 'tokens') {
+    --aui-#{$name}: #{$value};
+  }
+}
+
+@mixin _density($name) {
+  @each $token, $value in map.get(aui.$aui-densities, $name) {
+    --aui-#{$token}: #{$value};
+  }
+}
+
+@layer aui.theme {
+  :root,
+  [data-aui-theme='absolute-default'] {
+    @include _tokens('absolute-default');
+    color-scheme: light;
+  }
+
+  [data-aui-theme='absolute-dark'] {
+    @include _tokens('absolute-dark');
+    color-scheme: dark;
+  }
+
+  [data-aui-theme='absolute-high-contrast'] {
+    @include _tokens('absolute-high-contrast');
+    color-scheme: light;
+  }
+
+  [data-aui-theme='absolute-system'] {
+    @include _tokens('absolute-default');
+    color-scheme: light dark;
+
+    @media (prefers-color-scheme: dark) {
+      @include _tokens('absolute-dark');
+    }
+
+    @media (prefers-contrast: more) {
+      @include _tokens('absolute-high-contrast');
+    }
+  }
+
+  // Density overrides must also win over nested theme scopes.
+  [data-aui-density='compact'],
+  [data-aui-density='compact'] [data-aui-theme] {
+    @include _density('compact');
+  }
+
+  [data-aui-density='spacious'],
+  [data-aui-density='spacious'] [data-aui-theme] {
+    @include _density('spacious');
+  }
+}
+
+@layer aui.base {
+  // Optional scrollbar tokens (SPEC section 10.1): unset by default, so the declarations are
+  // invalid at computed-value time and native scrollbars apply.
+  :where(html) {
+    scrollbar-color: var(--aui-scrollbar-thumb) var(--aui-scrollbar-track);
+    scrollbar-width: var(--aui-scrollbar-width);
+  }
+
+  :where([class^='aui-'], [class*=' aui-']),
+  :where([class^='aui-'], [class*=' aui-'])::before,
+  :where([class^='aui-'], [class*=' aui-'])::after {
+    box-sizing: border-box;
+  }
+
+  :where(.aui-visually-hidden) {
+    @include aui.visually-hidden;
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "component": "schedule-picker",
+  "pattern": "A fieldset composing labelled pickers (APG date picker dialogs), a native checkbox and select, and an optional Recurrence Picker fieldset.",
+  "roles": [
+    {
+      "element": "fieldset",
+      "role": "group (native)"
+    },
+    {
+      "element": "start/end",
+      "role": "DateTime Picker or Date Picker groups"
+    },
+    {
+      "element": "all day",
+      "role": "checkbox (native)"
+    },
+    {
+      "element": "timezone",
+      "role": "combobox (native select)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-describedby",
+      "element": "fieldset",
+      "value": "Help text, error message, and the duration text"
+    },
+    {
+      "attribute": "label",
+      "element": "inner pickers",
+      "value": "\"Starts\" / \"Ends\" (timed), \"Start date\" / \"End date\" (all-day)"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Picker",
+      "action": "Start, end (with their calendar buttons), all day, timezone, then the recurrence controls."
+    },
+    {
+      "key": "Picker keys",
+      "context": "Start / end",
+      "action": "As DateTime Picker and Date Picker (segments, ArrowUp/ArrowDown, calendar popup)."
+    },
+    {
+      "key": "Space",
+      "context": "All day",
+      "action": "Toggles all-day; the pickers switch between times and dates."
+    }
+  ],
+  "focus": "Hidden pickers (timed or all-day) are not focusable. Toggling all-day keeps focus on the checkbox.",
+  "wcag": [
+    "1.3.1",
+    "1.4.3",
+    "1.4.11",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "3.2.2",
+    "3.3.1",
+    "3.3.2",
+    "4.1.2"
+  ],
+  "notes": [
+    "Moving the start moves the end by the same amount, so the duration is kept; the duration text is part of the description."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

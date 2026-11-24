@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "name": "multi-select",
+  "displayName": "Multi Select",
+  "category": "Selection",
+  "package": "@absoluteui/components",
+  "import": "import { MultiSelect } from '@absoluteui/components/multi-select';",
+  "styleImport": "@absoluteui/components/multi-select/style.css",
+  "purpose": "Editable combobox with a multi-selectable listbox (WAI-ARIA 1.2): selected values appear as chips with remove buttons, typing filters (or loads) options, activating an option toggles it, and an optional Select all and maximum help larger choices.",
+  "whenToUse": [
+    "Choosing several values from a list long enough to benefit from filtering (roughly 7+ options).",
+    "Tags, skills, recipients, or teams from a known (or searchable) set."
+  ],
+  "whenNotToUse": [
+    "A few options that fit on screen: use Checkbox Group.",
+    "One value: use Combobox or Select.",
+    "Free-text tags that are not in a list (custom values are not supported)."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "closed",
+    "open",
+    "filtering",
+    "loading",
+    "load error",
+    "empty results",
+    "option active",
+    "option selected",
+    "option disabled",
+    "maximum reached",
+    "disabled",
+    "read-only",
+    "invalid",
+    "required"
+  ],
+  "responsive": "The control is full width of its container and wraps chips onto new lines; the listbox matches the control width, flips above when space below is insufficient, and caps its height to the available space and the popover-max-height token.",
+  "rtl": "Logical properties; popup alignment honours the `direction` option/configuration.",
+  "theme": "Control surface, chip, selected, hover, and focus tokens. Selection is shown with a check mark and aria-selected, not color alone; the active option uses an outline. Forced-colors mode uses Highlight/HighlightText and CanvasText boundaries.",
+  "timezone": "Not applicable.",
+  "security": "Option and chip labels are rendered with textContent; loaded options are validated as untrusted data. CSP-safe.",
+  "dataHandling": "No persistence or telemetry. With loadOptions the consumer performs requests. With `name`, one hidden input per selected value carries it for form submission.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "MultiSelect.create with 1,000 options",
+        "budget": "< 100 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "1,000 options; larger lists should use loadOptions (no virtualization)."
+  },
+  "limitations": [
+    "Strict selection: values are always options; free text is never a value and is cleared when focus leaves.",
+    "No virtualization: all filtered options are rendered.",
+    "No option groups.",
+    "Chip remove buttons are in the tab order (one stop per selected value); Backspace in the empty input removes the last value.",
+    "Select all acts on the options shown (after filtering or loading), up to maxSelected."
+  ],
+  "unsupported": [
+    "Option values that are not strings.",
+    "Duplicate option values (construction throws MULTI_SELECT_OPTIONS).",
+    "Reordering chips."
+  ],
+  "antiPatterns": [
+    "Hiding the visible label.",
+    "Using it for navigation.",
+    "Very small option sets better served by checkboxes."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/multi-select: <aui-multi-select> with ControlValueAccessor and Validator (value string[]).",
+    "react": "@absoluteui/react/multi-select: AuiMultiSelect; controlled (value + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/multi-select: AuiMultiSelect with v-model."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

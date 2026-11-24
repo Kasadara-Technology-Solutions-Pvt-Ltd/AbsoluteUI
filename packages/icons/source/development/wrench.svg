@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="wrench" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M17.6 3.4A4.2 4.2 0 1 0 20.6 6.4"/>
+      <path d="M17.6 3.4L15.5 5.5l.5 2 2 .5 2.6-1.6"/>
+      <path d="M13.5 10.5L4.5 19.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M17.6 3.4A4.2 4.2 0 1 0 20.6 6.4L18.5 8.5 15.5 5.5z" transform="translate(16.5 7.5) scale(1.15) translate(-16.5 -7.5)"/>
+      <line x1="13.5" y1="10.5" x2="4.5" y2="19.5" data-outline-width="3"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M17.6 3.4A4.2 4.2 0 1 0 20.6 6.4L18.5 8.5 15.5 5.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M17.6 3.4A4.2 4.2 0 1 0 20.6 6.4"/>
+      <path d="M17.6 3.4L15.5 5.5l.5 2 2 .5 2.6-1.6"/>
+      <path d="M13.5 10.5L4.5 19.5"/>
+    </g>
+  </g>
+</svg>

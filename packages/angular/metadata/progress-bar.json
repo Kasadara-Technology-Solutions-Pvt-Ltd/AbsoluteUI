@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/progress-bar",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiProgressBar",
+      "description": "AbsoluteUI ProgressBar: `<aui-progress-bar>`.",
+      "selector": "aui-progress-bar",
+      "exportAs": [
+        "auiProgressBar"
+      ],
+      "source": "generated",
+      "component": "progress-bar",
+      "configKey": "progressBar",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name (aria-labelledby)."
+        },
+        {
+          "name": "value",
+          "type": "number | null",
+          "required": false,
+          "default": "null",
+          "description": "Current value, clamped to [min, max]. null renders an indeterminate bar without aria-valuenow."
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Minimum value."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": "Maximum value; must be greater than min."
+        },
+        {
+          "name": "valueText",
+          "type": "((value: number, max: number) => string)",
+          "required": false,
+          "description": "Custom value text for aria-valuetext and the visible value. Default: localized percentage."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "tone",
+          "type": "ProgressBarTone",
+          "required": false,
+          "default": "default",
+          "description": "Semantic tone; non-default tones add a labelled icon."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<ProgressBarIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "showValue",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Render the value text next to the label."
+        },
+        {
+          "name": "announceComplete",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Announce \"{label} complete\" politely once when the value reaches max."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Percentage formatting and message locale."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA progressbar role (ARIA 1.2) with a visible label.",
+        "source": "packages/components/metadata/progress-bar/accessibility.json"
+      },
+      "limitations": [
+        "Completion is announced once per transition to max; values that stay at max do not re-announce. A bar created at max does not announce.",
+        "Values outside [min, max] are clamped.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { AuiProgressBar } from '@absoluteui/angular/progress-bar';\n\n@Component({\n  selector: 'app-upload',\n  imports: [AuiProgressBar],\n  template: `<aui-progress-bar label=\"Uploading\" [value]=\"progress()\" [tone]=\"progress() === 100 ? 'success' : 'default'\"></aui-progress-bar>`,\n})\nexport class UploadComponent {\n  readonly progress = signal<number | null>(null);\n}"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+[
+  { "title": "Cascading levels", "text": "One named listbox per level, from country to state to city." },
+  { "title": "Lazy children", "text": "Load a level when it opens, with a loading state, abort on close, and retry." },
+  { "title": "Search across levels", "text": "Type to list matching paths such as India / Karnataka / Bengaluru." },
+  { "title": "Single or multiple", "text": "One path in the trigger, or several as removable chips; any level with changeOnSelect." },
+  { "title": "Keyboard complete", "text": "Arrows within and between levels, reading-direction aware, Escape to close." }
+]

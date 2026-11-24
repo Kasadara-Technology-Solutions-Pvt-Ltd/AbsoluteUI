@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/pie-chart",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiPieChart",
+      "description": "AbsoluteUI PieChart: `<aui-pie-chart>`.\nTwo-way: `[(hiddenSeries)]`.",
+      "selector": "aui-pie-chart",
+      "exportAs": [
+        "auiPieChart"
+      ],
+      "source": "generated",
+      "component": "pie-chart",
+      "configKey": "pieChart",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (aria-describedby)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for values in tooltips, labels, the data table, the summary, and axis ticks (ticks use fixed fraction digits)."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat everywhere except axis ticks."
+        },
+        {
+          "name": "slices",
+          "type": "readonly PieChartSlice[]",
+          "required": true,
+          "description": "Slices: { id, label, value: number | null, color?: 1-8 }. Negative, null, and non-finite values are not plotted; they are listed in the summary and the table."
+        },
+        {
+          "name": "donut",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Render a ring (inner radius 60%)."
+        },
+        {
+          "name": "centerLabel",
+          "type": "string",
+          "required": false,
+          "description": "Donut center text. Default: the formatted total of visible slices; empty string: none. aria-hidden (the summary states the total)."
+        },
+        {
+          "name": "valueLabel",
+          "type": "string",
+          "required": false,
+          "description": "Data table header of the value column. Default: localized \"Value\"."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "auto: legend when there is more than one series (pie charts: always)."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table fallback with the exact data: behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Dash patterns and texture fills so series never differ by color alone. Off by default (plain colors); always on in forced colors. Turn it on when series are told apart by color alone (grouped or stacked series, multi-slice pies) and no labels carry the distinction (WCAG 1.4.1)."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+        },
+        {
+          "name": "sliceLabels",
+          "type": "PieChartSliceLabels",
+          "required": false,
+          "default": "percent",
+          "configurable": true,
+          "description": "Text printed on slices large enough to hold it."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number, date, and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors the category/x axis, the value axis side, and Left/Right arrow keys."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Ids of series (or slices) hidden initially; update() replaces the hidden set."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "seriesToggled",
+          "payload": "PieChartSeriesToggleDetail",
+          "event": "aui-series-toggle",
+          "description": "The user toggled a legend entry (pointer or keyboard). Not emitted for update() or setSeriesVisible()."
+        },
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Show or hide a series (slice) programmatically; emits no event."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG part-to-whole chart as a named, described group (role=\"group\" with aria-roledescription \"pie chart\" or \"donut chart\") of role=\"img\" slices with roving focus; legend of toggle buttons with each share; data table fallback with value and percent columns.",
+        "source": "packages/components/metadata/pie-chart/accessibility.json"
+      },
+      "limitations": [
+        "Negative values cannot be drawn and are excluded from the pie (listed as not plotted).",
+        "Slices start at 12 o'clock in data order; sorting is the consumer's choice.",
+        "Slice labels are hidden for slices narrower than about 17 degrees.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiPieChart } from '@absoluteui/angular/pie-chart';\nimport type { PieChartSlice } from '@absoluteui/components/pie-chart';\n\n@Component({\n  selector: 'app-plans',\n  imports: [AuiPieChart],\n  template: `<aui-pie-chart label=\"Plan mix\" [slices]=\"slices\" [donut]=\"true\"></aui-pie-chart>`,\n})\nexport class PlansComponent {\n  readonly slices: PieChartSlice[] = [{ id: 'free', label: 'Free', value: 62 }, { id: 'pro', label: 'Pro', value: 38 }];\n}"
+    }
+  ]
+}

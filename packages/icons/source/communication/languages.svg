@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="languages">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 4.5h9a1 1 0 0 1 1 1V13H6.5L4 15.5z"/>
+      <path d="M11 10.5h8a1.5 1.5 0 0 1 1.5 1.5v8L18 17.5h-5.5A1.5 1.5 0 0 1 11 16z"/>
+      <path d="M6.5 8h5"/>
+      <path d="M6.5 10.5h3"/>
+      <path d="M13.5 13h4.5"/>
+      <path d="M13.5 15.5h3"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M11 10.5h8a1.5 1.5 0 0 1 1.5 1.5v8L18 17.5h-5.5A1.5 1.5 0 0 1 11 16z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 4.5h9a1 1 0 0 1 1 1V13H6.5L4 15.5z"/>
+      <path d="M11 10.5h8a1.5 1.5 0 0 1 1.5 1.5v8L18 17.5h-5.5A1.5 1.5 0 0 1 11 16z"/>
+      <path d="M6.5 8h5"/>
+      <path d="M6.5 10.5h3"/>
+      <path d="M13.5 13h4.5"/>
+      <path d="M13.5 15.5h3"/>
+    </g>
+  </g>
+</svg>

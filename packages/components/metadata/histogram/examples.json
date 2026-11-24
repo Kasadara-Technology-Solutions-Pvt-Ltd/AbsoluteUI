@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "histogram",
+  "examples": [
+    {
+      "id": "latency",
+      "title": "Response-time distribution with automatic bins",
+      "language": "ts",
+      "code": "import { Histogram } from '@absoluteui/components/histogram';\n\nconst values = Array.from({ length: 500 }, (_, i) => 80 + ((i * 37) % 200));\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chart = Histogram.create(host, {\n  label: 'Response times',\n  values,\n  binFormat: { style: 'unit', unit: 'millisecond' },\n  xAxis: { label: 'Response time' },\n});\nhost.dataset.bins = String(chart.bins.length);"
+    },
+    {
+      "id": "thresholds",
+      "title": "Explicit thresholds and computeBins for a custom table",
+      "language": "ts",
+      "code": "import { Histogram, computeBins } from '@absoluteui/components/histogram';\n\nconst scores = [12, 45, 67, 68, 71, 88, 90, 95, null, 102];\nconst thresholds = [0, 50, 70, 90, 100];\nconst { bins, outside, missing } = computeBins(scores, { bins: thresholds });\nconst host = document.querySelector<HTMLElement>('#scores');\nif (host) {\n  Histogram.create(host, { label: 'Exam scores', values: scores, bins: thresholds, color: 3, dataTable: 'visible' });\n  host.dataset.counts = bins.map((b) => String(b.count)).join(',');\n  host.dataset.outside = String(outside + missing);\n}"
+    }
+  ]
+}

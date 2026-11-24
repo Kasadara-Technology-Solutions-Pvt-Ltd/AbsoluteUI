@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="calendar-week" data-outline-fills="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2"/>
+      <path d="M3.5 9.5h17"/>
+      <path d="M8 3v4"/>
+      <path d="M16 3v4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <rect x="6" y="12.75" width="12" height="4" rx="1"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="2.5" y="4" width="19" height="17.5" rx="2.5"/>
+      <rect x="6" y="12.75" width="12" height="4" rx="1"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <rect x="7" y="2" width="2" height="4" rx="1"/>
+      <rect x="15" y="2" width="2" height="4" rx="1"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3.5 9.5h17v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2"/>
+      <path d="M3.5 9.5h17"/>
+      <path d="M8 3v4"/>
+      <path d="M16 3v4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <rect x="6" y="12.75" width="12" height="4" rx="1"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.15">
+      <path d="M3.5 9.5h17v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2"/>
+      <path d="M3.5 9.5h17"/>
+      <path d="M8 3v4"/>
+      <path d="M16 3v4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <rect x="6" y="12.75" width="12" height="4" rx="1"/>
+    </g>
+  </g>
+</svg>

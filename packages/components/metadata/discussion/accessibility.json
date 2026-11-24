@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "component": "discussion",
+  "pattern": "A labelled region with nested lists of articles (one list per reply level, so the nesting is semantic at every depth); every action is a native button in the Tab order, the composers are labelled multi-line text fields with mention suggestions (Mention Input, combobox-style listbox), and thread toggles are disclosure buttons. The WAI-ARIA tree pattern was not used because comments contain interactive content (buttons, links, text fields), which tree items must not.",
+  "roles": [
+    { "element": "host", "role": "region, named by the visible title" },
+    { "element": "thread / replies", "role": "list (role=list keeps list semantics with list-style none), nested per reply level" },
+    { "element": "comment", "role": "article, named 'Comment by <name>, <time>', 'Reply by <name> to <parent>, <time>', or 'Deleted comment, <time>'" },
+    { "element": "actions", "role": "group ('Comment actions') of native buttons" },
+    { "element": "sort", "role": "Toggle Group (group of toggle buttons with aria-pressed)" },
+    { "element": "thread toggle", "role": "button with aria-expanded and aria-controls (the replies list)" },
+    { "element": "delete confirmation", "role": "group named by its question ('Delete this comment?')" },
+    { "element": "error state", "role": "alert" },
+    { "element": "replies loading row", "role": "status" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "host and thread", "value": "the title" },
+    { "attribute": "aria-label", "element": "comment article", "value": "author, parent author for replies, and relative time" },
+    { "attribute": "aria-expanded / aria-controls", "element": "Show replies / Hide replies", "value": "the replies list" },
+    { "attribute": "aria-label", "element": "Reply, Edit, Delete", "value": "'Reply to <name>', 'Edit comment by <name>', 'Delete comment by <name>'" },
+    { "attribute": "aria-invalid / aria-describedby", "element": "composer", "value": "set by Mention Input: error message and character counter" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Discussion", "action": "Sort, the new-comment box and its button, then per comment: timestamp (shows the absolute date and time), links, Reply, Edit, Delete, Show or Hide replies, Show more." },
+    { "key": "Page Down / Page Up", "context": "Focus on a comment or one of its controls (not in a text field)", "action": "Move focus to the next or previous visible comment." },
+    { "key": "Ctrl+Enter / Cmd+Enter", "context": "Any composer", "action": "Post the comment, reply, or edit." },
+    { "key": "Escape", "context": "Reply or edit box (suggestions closed)", "action": "Cancel; focus returns to Reply or Edit." },
+    { "key": "Escape", "context": "Delete confirmation", "action": "Cancel; focus returns to Delete." },
+    { "key": "Escape", "context": "Focused timestamp", "action": "Hide its tooltip." },
+    { "key": "Arrow Up / Arrow Down, Enter or Tab, Escape", "context": "Mention suggestions open", "action": "Move, insert, close (Mention Input)." },
+    { "key": "Enter / Space", "context": "Buttons", "action": "Activate." }
+  ],
+  "focus": "Posting a reply or saving an edit focuses that comment; posting a top-level comment keeps focus in the cleared box. Deleting focuses the placeholder when one stays, else the next sibling, the comment before, or the parent. Cancel returns focus to the action that opened the panel; the delete confirmation focuses Cancel (the least destructive choice). Expanding a thread or showing more focuses the first newly shown comment.",
+  "wcag": ["1.3.1", "1.4.3", "1.4.10", "1.4.11", "1.4.13", "2.1.1", "2.4.3", "2.4.6", "2.4.7", "2.5.8", "3.3.1", "3.3.2", "4.1.2", "4.1.3"],
+  "notes": [
+    "Polite announcements: 'Comment posted', 'Reply posted', 'Comment updated', 'Comment deleted', and new comments added by others through addComment ('New reply from Grace Hopper to Ada Lovelace').",
+    "Posting an empty or over-limit comment shows the error under the box and announces it assertively; the counter announces itself near the limit (Mention Input).",
+    "The absolute date and time is a tooltip on hover and keyboard focus of the timestamp, dismissible with Escape and hoverable (WCAG 1.4.13); the text is also read with the timestamp.",
+    "Indentation stops at maxIndent; the 'Replying to <name>' text and the article name keep the relationship available."
+  ],
+  "knownCaveats": [
+    "Each timestamp is a tab stop (to reach the absolute date by keyboard).",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

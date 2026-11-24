@@ -1,0 +1,42 @@
+{
+  "$comment": "Demo applications shown on /demos (docs/PLAN-R4.md section 4.6, C8). Add an entry per demo; images live in public/media/demos/<id>/ and are captured by scripts/capture.mjs. `url` is optional (https only); without it the page shows the run-locally steps.",
+  "demos": [
+    {
+      "id": "peoplehub",
+      "name": "PeopleHub HRMS",
+      "summary": "A human resources application that uses AbsoluteUI for every control: a rearrangeable dashboard, employee directory, onboarding, leave and shifts, payroll, analytics, recruitment, projects, performance reviews, and an organization chart.",
+      "stack": "Node.js HTTP server, PostgreSQL 17, AbsoluteUI components; no UI or CSS framework",
+      "url": "",
+      "recording": "recording.webm",
+      "screens": [
+        {
+          "file": "dashboard.png",
+          "title": "Dashboard",
+          "caption": "A rearrangeable dashboard, saved per user."
+        },
+        {
+          "file": "directory.png",
+          "title": "Directory",
+          "caption": "Search and browse 261 seeded employees."
+        },
+        {
+          "file": "time.png",
+          "title": "Leave and shifts",
+          "caption": "Leave requests and shift schedules."
+        },
+        {
+          "file": "organization.png",
+          "title": "Organization",
+          "caption": "The reporting hierarchy as an org chart."
+        }
+      ],
+      "runLocally": [
+        "Install Node.js 22.13 or later and PostgreSQL 17.",
+        "Copy apps/demo-hrms/.env.example to apps/demo-hrms/.env and set the database connection.",
+        "Run npm install and npm run build (AbsoluteUI packages).",
+        "Run npm run demo:db to create, migrate, and seed the database.",
+        "Run npm run demo and open http://127.0.0.1:4350."
+      ]
+    }
+  ]
+}

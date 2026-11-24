@@ -1,0 +1,218 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+$indicator: aui.token('control-height-sm');
+$pad: aui.token('space-1');
+
+/// Vertical layout: indicator beside the text, connector running down the start edge.
+@mixin vertical-layout {
+  .aui-stepper__list {
+    flex-direction: column;
+  }
+
+  .aui-stepper__step {
+    justify-content: flex-start;
+    padding-block-end: aui.token('space-4');
+
+    &:last-child {
+      padding-block-end: 0;
+    }
+
+    &:not(:last-child)::after {
+      inset-block: calc(#{$pad} * 2 + #{$indicator}) #{$pad};
+      inset-inline: calc(#{$pad} + #{$indicator} / 2 - 1px) auto;
+      border-block-start: 0;
+      border-inline-start: aui.token('border-width-strong') solid aui.token('color-border-strong');
+    }
+
+    &[data-state='complete']:not(:last-child)::after {
+      border-inline-start-color: aui.token('color-primary');
+    }
+  }
+
+  .aui-stepper__control {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: start;
+  }
+
+  .aui-stepper__text {
+    padding-block-start: calc((#{$indicator} - 1lh) / 2);
+  }
+}
+
+@layer aui.components {
+  // Size container: the layout follows the space the stepper is given, not the viewport.
+  .aui-stepper {
+    container-type: inline-size;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-tight');
+  }
+
+  .aui-stepper__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .aui-stepper__step {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    justify-content: center;
+    min-inline-size: 0;
+
+    // Connector to the next step (decorative; states are conveyed by text).
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      inset-block-start: calc(#{$pad} + #{$indicator} / 2 - 1px);
+      inset-inline: calc(50% + #{$indicator} / 2 + #{aui.token('space-2')}) calc(-50% + #{$indicator} / 2 + #{aui.token('space-2')});
+      border-block-start: aui.token('border-width-strong') solid aui.token('color-border-strong');
+    }
+
+    &[data-state='complete']:not(:last-child)::after {
+      border-block-start-color: aui.token('color-primary');
+    }
+  }
+
+  .aui-stepper__control {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    padding: $pad;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+    background: none;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+  }
+
+  a.aui-stepper__control,
+  button.aui-stepper__control {
+    cursor: pointer;
+
+    &:hover .aui-stepper__label {
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-stepper__indicator {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: $indicator;
+    block-size: $indicator;
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-semibold');
+    color: aui.token('color-text-muted');
+    background: aui.token('color-surface');
+    border: aui.token('border-width-strong') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-pill');
+
+    svg {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-stepper__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-inline-size: 0;
+  }
+
+  .aui-stepper__label {
+    overflow-wrap: anywhere;
+  }
+
+  .aui-stepper__optional,
+  .aui-stepper__description {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-stepper__status {
+    @include aui.visually-hidden;
+  }
+
+  .aui-stepper__step[data-state='current'] {
+    .aui-stepper__indicator {
+      color: aui.token('color-primary');
+      border-color: aui.token('color-primary');
+    }
+
+    .aui-stepper__label {
+      font-weight: aui.token('font-weight-semibold');
+    }
+  }
+
+  .aui-stepper__step[data-state='complete'] .aui-stepper__indicator {
+    color: aui.token('color-on-primary');
+    background: aui.token('color-primary');
+    border-color: aui.token('color-primary');
+  }
+
+  .aui-stepper__step[data-state='error'] .aui-stepper__indicator {
+    color: aui.token('color-error-fg');
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-stepper__step[data-disabled='true'] .aui-stepper__control {
+    color: aui.token('color-text-disabled');
+  }
+
+  .aui-stepper--vertical {
+    @include vertical-layout;
+  }
+
+  // Narrow containers: horizontal steppers switch to the vertical layout (SPEC section 12).
+  @container (max-width: 30rem) {
+    .aui-stepper--horizontal {
+      @include vertical-layout;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-stepper__indicator {
+      border-color: CanvasText;
+    }
+
+    .aui-stepper__step[data-state='complete'] .aui-stepper__indicator {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+      border-color: Highlight;
+    }
+
+    .aui-stepper__step:not(:last-child)::after {
+      border-color: CanvasText;
+    }
+
+    .aui-stepper__step[data-disabled='true'] .aui-stepper__control {
+      color: GrayText;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/toast",
+  "declarations": [
+    {
+      "kind": "service",
+      "name": "AuiToaster",
+      "description": "Angular service for Toast notifications:\n`inject(AuiToaster).show({ tone: 'success', message: 'Saved' })`.\nThe toaster region is created lazily in the browser; on the server `show()`\nreturns null and renders nothing.",
+      "methods": [
+        {
+          "name": "show",
+          "signature": "show(options: ToastOptions): ToastHandle | null",
+          "description": "Show a toast; returns its handle (dismiss, update), or null on the server."
+        },
+        {
+          "name": "clear",
+          "signature": "clear(): void",
+          "description": "Dismiss every toast."
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "name": "provideAuiToaster",
+      "signature": "provideAuiToaster(options: ToasterOptions): Provider",
+      "description": "Configure the application toaster (position, max, duration, hotkey)."
+    }
+  ],
+  "constants": [
+    {
+      "name": "AUI_TOASTER_OPTIONS",
+      "type": "InjectionToken<ToasterOptions>",
+      "description": "Toaster options token; set it with `provideAuiToaster`."
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "// main.ts\nimport { bootstrapApplication } from '@angular/platform-browser';\nimport { provideAbsoluteUI } from '@absoluteui/angular';\nimport { provideAuiToaster } from '@absoluteui/angular/toast';\nimport { AppComponent } from './app.component';\n\nbootstrapApplication(AppComponent, { providers: [provideAbsoluteUI(), provideAuiToaster({ position: 'top-end', max: 3 })] });"
+    },
+    {
+      "language": "ts",
+      "code": "// save-button.component.ts\nimport { Component, inject } from '@angular/core';\nimport { AuiToaster } from '@absoluteui/angular/toast';\nimport { AuiButton } from '@absoluteui/angular/button';\n\n@Component({\n  selector: 'app-save-button',\n  imports: [AuiButton],\n  template: `<button type=\"button\" auiButton variant=\"primary\" (click)=\"save()\">Save</button>`,\n})\nexport class SaveButtonComponent {\n  private readonly toaster = inject(AuiToaster);\n\n  save(): void {\n    this.toaster.show({ tone: 'success', message: 'Changes saved' });\n  }\n}"
+    }
+  ]
+}

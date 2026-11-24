@@ -1,0 +1,57 @@
+---
+import Icon from './Icon.astro';
+import { GET_STARTED, NAV, stats } from '../site';
+
+interface Props {
+  path: string;
+}
+const { path } = Astro.props;
+const current = (href: string): 'page' | undefined => (!href.startsWith('http') && href !== '/' && path.startsWith(href) ? 'page' : undefined);
+---
+
+<header class="header">
+  <div class="container">
+    <a class="brand" href="/" aria-label="AbsoluteUI home">
+      <img class="brand-light" src="/logo-light.svg" alt="" width="34" height="34" />
+      <img class="brand-dark" src="/logo-dark.svg" alt="" width="34" height="34" />
+      <span>AbsoluteUI</span>
+      <span class="version">{stats.version}</span>
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      {
+        NAV.map((item) => (
+          <a href={item.href} aria-current={current(item.href)}>
+            {item.label}
+            {item.external && <Icon name="external" />}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="tools">
+      <button class="search-btn" type="button" data-open-search aria-keyshortcuts="Control+K /">
+        <Icon name="search" />
+        <span>Search</span>
+        <kbd>Ctrl K</kbd>
+      </button>
+      <button class="icon-btn theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Dark theme">
+        <Icon name="moon" class="icon-moon" />
+        <Icon name="sun" class="icon-sun" />
+      </button>
+      <a class="btn btn-primary btn-sm" href={GET_STARTED}>Get started</a>
+      <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation">
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<dialog class="search-dialog" id="search" aria-label="Search the site">
+  <div class="search-heading">
+    <b>Find your next building block</b>
+    <button type="button" data-close>Esc</button>
+  </div>
+  <label class="visually-hidden" for="search-input">Search components, blocks, and guides</label>
+  <input id="search-input" type="search" placeholder="Search components, blocks, and guides" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results" aria-autocomplete="list" />
+  <ul class="search-results" id="search-results" role="listbox" aria-label="Results"></ul>
+  <p class="search-empty" data-search-status role="status" hidden></p>
+</dialog>

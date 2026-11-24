@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "component": "gantt",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "A project plan with dependencies and a milestone",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { Gantt, type GanttDependency, type GanttTask } from '@absoluteui/components/gantt';\n\nconst tasks: GanttTask[] = [\n  { id: 'design', parentId: null, label: 'Design', start: plainDate(2026, 9, 28), duration: 5 },\n  { id: 'build', parentId: null, label: 'Build', start: plainDate(2026, 9, 28), duration: 10, progress: 20 },\n  { id: 'launch', parentId: null, label: 'Launch', start: plainDate(2026, 9, 28), duration: 0 },\n];\nconst dependencies: GanttDependency[] = [\n  { id: 'd1', from: 'design', to: 'build' },\n  { id: 'd2', from: 'build', to: 'launch', lag: 2 },\n];\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst gantt = Gantt.create(host, { label: 'Website relaunch', tasks, dependencies, columns: ['name', 'start', 'end', 'duration', 'progress'] });\ndocument.body.dataset.finish = gantt.schedule.finish ? `${String(gantt.schedule.finish.month)}/${String(gantt.schedule.finish.day)}` : '';"
+    },
+    {
+      "id": "editing",
+      "title": "Editing with a holiday calendar, saving every change",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { Gantt, type GanttTask, type GanttTaskChangeDetail } from '@absoluteui/components/gantt';\n\nlet saved: GanttTask[] = [\n  { id: 'phase', parentId: null, label: 'Phase 1', start: plainDate(2026, 10, 1), duration: 0 },\n  { id: 'a', parentId: 'phase', label: 'Research', start: plainDate(2026, 10, 1), duration: 3 },\n  { id: 'b', parentId: 'phase', label: 'Prototype', start: plainDate(2026, 10, 1), duration: 4, manual: true },\n];\n\nconst host = document.querySelector<HTMLElement>('#plan');\nif (host) {\n  Gantt.create(host, {\n    label: 'Phase plan',\n    tasks: saved,\n    dependencies: [{ id: 'ab', from: 'a', to: 'b' }],\n    editable: true,\n    scale: 'day',\n    calendar: { workingDays: [1, 2, 3, 4, 5], holidays: [{ date: plainDate(2026, 10, 5), name: 'Company day' }] },\n    // Prototype dates are owned by another team.\n    canEdit: (task) => task.id !== 'b',\n  });\n  host.addEventListener('aui-task-change', (event) => {\n    const detail = (event as CustomEvent<GanttTaskChangeDetail>).detail;\n    if (detail.schedule.finish && detail.schedule.finish.month > 11) event.preventDefault();\n    else saved = detail.tasks;\n  });\n}"
+    },
+    {
+      "id": "resources",
+      "title": "Baselines, resources, and the load histogram",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { Gantt } from '@absoluteui/components/gantt';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst gantt = Gantt.create(host, {\n  label: 'Migration',\n  tasks: [\n    { id: 'plan', parentId: null, label: 'Plan', start: plainDate(2026, 10, 5), duration: 3, assignments: [{ resourceId: 'ana' }], baseline: { start: plainDate(2026, 10, 5), end: plainDate(2026, 10, 6) } },\n    { id: 'move', parentId: null, label: 'Move data', start: plainDate(2026, 10, 6), duration: 4, assignments: [{ resourceId: 'ana', units: 50 }, { resourceId: 'ben' }] },\n  ],\n  resources: [{ id: 'ana', label: 'Ana' }, { id: 'ben', label: 'Ben', capacity: 80 }],\n  columns: ['name', 'start', 'end', 'resources', 'float'],\n  showHistogram: true,\n});\nconst overloaded = gantt.resourceLoad().filter((r) => r.overDays > 0).map((r) => r.resourceId);\nhost.dataset.overloaded = overloaded.join(',');"
+    },
+    {
+      "id": "engine",
+      "title": "Schedule on a server or in a worker (no DOM)",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { createBusinessCalendar } from '@absoluteui/components/business-calendar';\nimport { assertGantt, scheduleGantt, type GanttDependency, type GanttTask } from '@absoluteui/components/gantt';\n\nconst tasks: GanttTask[] = [\n  { id: 'a', parentId: null, label: 'Pour foundation', start: plainDate(2026, 10, 1), duration: 2 },\n  { id: 'b', parentId: null, label: 'Cure', start: plainDate(2026, 10, 1), duration: 5 },\n];\nconst dependencies: GanttDependency[] = [{ id: 'ab', from: 'a', to: 'b', type: 'FS', lag: 1 }];\nassertGantt(tasks, dependencies, undefined);\nconst schedule = scheduleGantt(tasks, dependencies, createBusinessCalendar({ workingDays: [1, 2, 3, 4, 5, 6] }));\nconst cure = schedule.tasks.get('b');\ndocument.body.dataset.cure = cure ? `${String(cure.start.day)}-${String(cure.end.day)}, critical ${String(cure.critical)}` : '';"
+    },
+    {
+      "id": "global-config",
+      "title": "Day scale and taller rows everywhere",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { gantt: { scale: 'day', rowHeight: 44, historyLimit: 100 } } });"
+    }
+  ]
+}

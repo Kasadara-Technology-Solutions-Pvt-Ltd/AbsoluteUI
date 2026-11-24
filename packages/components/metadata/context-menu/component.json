@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "name": "context-menu",
+  "displayName": "Context Menu",
+  "category": "Navigation",
+  "package": "@absoluteui/components",
+  "import": "import { ContextMenu } from '@absoluteui/components/context-menu';",
+  "styleImport": "@absoluteui/components/context-menu/style.css",
+  "purpose": "A Menu (WAI-ARIA APG Menu, same engine as Menu: submenus, checkbox and radio items, typeahead, overlay stack) opened on the contextmenu event at the pointer position, or from the keyboard with Shift+F10 or the ContextMenu key at the focused element inside the target. The native browser menu stays reachable with Shift+right-click (nativeModifier 'shift') or while disabled. The popup is a Menu popup and needs @absoluteui/components/menu/style.css as well.",
+  "whenToUse": [
+    "Shortcuts to commands for an object under the pointer (rows, files, canvas objects) that are also available elsewhere in the UI.",
+    "Per-row commands in a list or table, using the origin in the select detail to find the row."
+  ],
+  "whenNotToUse": [
+    "As the only way to reach an action: context menus are hard to discover and unavailable on many touch devices; always provide a visible control (for example a Menu button) too.",
+    "Replacing the browser menu on text content where users expect copy, paste, spell check, or 'open link in new tab'.",
+    "Choosing a form value: use Select, Combobox, or Radio Group.",
+    "Rich interactive content: use Popover or Dialog."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "@absoluteui/components/menu"],
+  "states": ["closed", "open at the pointer", "open at an element (keyboard or open() without a point)", "submenu open", "disabled (native menu kept)", "item focused (focus-visible)", "item disabled", "item checked"],
+  "responsive": "Popup width at least 12rem (Menu maximum min(22rem, 100vw - 1rem)); height capped by popover-max-height and the available viewport space, then scrolls. The positioning engine flips and shifts every level to stay in the viewport; the pointer anchor follows the target when the page scrolls.",
+  "rtl": "direction 'rtl' (option or global direction) aligns the popup with bottom-start mirrored, opens submenus to the left, swaps ArrowLeft/ArrowRight for submenus, and mirrors the submenu chevron via [data-direction='rtl']. An inherited dir=rtl alone does not switch it.",
+  "theme": "Uses the Menu styles and tokens; the context-menu stylesheet only adds a minimum inline size and uses no tokens.",
+  "timezone": "Not applicable.",
+  "security": "Labels, descriptions, shortcuts, and group labels are rendered with textContent; never parsed as HTML. Styles only through compiled CSS and the CSSOM. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Checkbox and radio state lives in memory and is reset by update({ items }).",
+  "performance": {
+    "budgets": [
+      { "metric": "ContextMenu.create plus open() with 200 items", "budget": "< 100 ms in headless Chromium" }
+    ],
+    "testedScale": "200 items in one level; three nested levels; one context menu per target."
+  },
+  "limitations": [
+    "The target gets no ARIA attributes: nothing announces that a context menu exists. Add a visible or described hint (for example aria-describedby text such as 'Press Shift+F10 for actions') and provide every action elsewhere.",
+    "nativeModifier applies to pointer right-clicks only: inside an enabled target Shift+F10 and the ContextMenu key always open the component menu, so the native menu is not reachable from the keyboard there.",
+    "One item list per instance; vary items per origin with update({ items }) from a capture-phase contextmenu listener on the target.",
+    "The pointer anchor is fixed relative to the target's box; when the target itself is a scroll container, scrolling its content does not move the menu.",
+    "Keyboard-generated contextmenu events are recognized heuristically (button other than 2 at client point 0,0); browsers that report other coordinates open at that point instead of the focused element.",
+    "Popups are appended to the target's enclosing <dialog> or to <body> at construction; moving the target into or out of a dialog afterwards needs destroy() and create()."
+  ],
+  "unsupported": [
+    "Touch long-press opening (only the browser's contextmenu event, which some touch browsers fire on long press).",
+    "Rendering HTML or custom nodes inside items.",
+    "Link items (href); handle navigation in the aui-select listener.",
+    "Context menus on nested targets: the event bubbles to the outer target, which opens its own menu too (the outer menu ends up open) unless a listener on the inner target stops propagation."
+  ],
+  "antiPatterns": [
+    "Actions that exist only in a context menu.",
+    "Suppressing the native menu on large text areas or whole pages.",
+    "Deeply nested submenus (more than two levels)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/context-menu: AuiContextMenu directive on the target ([auiContextMenu]=\"items\", contextMenuLabel, contextMenuDisabled); outputs auiSelect, auiOpen, auiClose.",
+    "react": "@absoluteui/react/context-menu: AuiContextMenu component.",
+    "vue": "@absoluteui/vue/context-menu: AuiContextMenu component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

@@ -1,0 +1,44 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-fieldset {
+    display: grid;
+    gap: aui.token('space-3');
+    min-inline-size: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // A rendered legend is not a grid item, so it needs its own spacing.
+  .aui-fieldset > .aui-field__label {
+    margin-block-end: aui.token('space-3');
+    font-size: aui.token('font-size-md');
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-fieldset > .aui-field__description,
+  .aui-fieldset > .aui-field__error {
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // The group error is marked by a bar at the inline start, as in the GOV.UK pattern.
+  .aui-fieldset--invalid {
+    padding-inline-start: aui.token('space-3');
+    border-inline-start: 3px solid aui.token('color-error-fg');
+  }
+
+  .aui-fieldset:disabled > .aui-field__label {
+    color: aui.token('color-text-disabled');
+  }
+}

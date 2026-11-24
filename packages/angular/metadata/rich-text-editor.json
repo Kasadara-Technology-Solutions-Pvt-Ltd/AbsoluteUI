@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/rich-text-editor",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiRichTextEditor",
+      "description": "AbsoluteUI RichTextEditor: `<aui-rich-text-editor>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-rich-text-editor",
+      "exportAs": [
+        "auiRichTextEditor"
+      ],
+      "source": "generated",
+      "component": "rich-text-editor",
+      "configKey": "richTextEditor",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "string"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name of the textbox (aria-labelledby)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "valueFormat",
+          "type": "RichTextValueFormat",
+          "required": false,
+          "default": "html",
+          "description": "Format of `value`, getFormValue(), and event details. Default 'html' in rich mode and 'text' in plain mode."
+        },
+        {
+          "name": "mode",
+          "type": "RichTextMode",
+          "required": false,
+          "default": "rich",
+          "description": "'plain': no formatting and no toolbar; paragraphs and line breaks only. Switching to 'plain' converts the content to plain text."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name; a hidden input carries the value for native form submission."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Shown while the editor is empty (also aria-placeholder); never replaces the label."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Empty (or whitespace-only) text is invalid; shows the required indicator and sets aria-required."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Not editable and not focusable; toolbar tools are aria-disabled."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Focusable and submitted but not editable (aria-readonly)."
+        },
+        {
+          "name": "minLength",
+          "type": "number",
+          "required": false,
+          "description": "Minimum length of the plain text in code points (integer >= 0, <= maxLength)."
+        },
+        {
+          "name": "maxLength",
+          "type": "number",
+          "required": false,
+          "description": "Maximum length of the plain text in code points (validated, not truncated)."
+        },
+        {
+          "name": "showCounter",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show remaining/over characters; requires maxLength."
+        },
+        {
+          "name": "toolbar",
+          "type": "readonly RichTextToolbarItem[]",
+          "required": false,
+          "default": "paragraph,heading1,heading2,heading3,|,bold,italic,underline,strike,code,link,|,bulletList,orderedList,quote,codeBlock,|,alignStart,alignCenter,alignEnd,alignJustify,|,undo,redo,clearFormatting",
+          "description": "Toolbar items in order; '|' is a separator. Heading items for levels not in `headings` are omitted. Hotkeys and Markdown shortcuts work regardless of the items shown."
+        },
+        {
+          "name": "headings",
+          "type": "readonly RteHeadingLevel[]",
+          "required": false,
+          "default": "1,2,3",
+          "description": "Heading levels offered and accepted from HTML/Markdown (non-empty); other levels map to the nearest allowed lower level."
+        },
+        {
+          "name": "linkSchemes",
+          "type": "readonly string[]",
+          "required": false,
+          "default": "http,https,mailto,tel",
+          "description": "URL schemes allowed in links besides relative URLs (lowercase, without ':'). javascript, data, and vbscript are never allowed and throw."
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "required": false,
+          "default": "6",
+          "description": "Minimum visible height in text rows, integer 1..100."
+        },
+        {
+          "name": "maxRows",
+          "type": "number",
+          "required": false,
+          "description": "Maximum height in rows (integer >= rows, <= 100); the content scrolls beyond it."
+        },
+        {
+          "name": "spellcheck",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Native spellcheck on the content element."
+        },
+        {
+          "name": "validate",
+          "type": "((value: string) => string | null)",
+          "required": false,
+          "description": "Consumer validation of the value in `valueFormat`; return a message to mark it invalid. Runs after the built-in constraints pass."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<RichTextEditorIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "markdownShortcuts",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Markdown typing shortcuts: '# ', '- ', '1. ', '> ', '```' + Enter, **bold**, *italic*, `code`, ~~strike~~ (rich mode only)."
+        },
+        {
+          "name": "historyLimit",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "configurable": true,
+          "description": "Undo depth, integer 0..1000. Typing (or deleting) within 1 s is one undo step."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Toolbar, link panel, announcement, and validation message locale; word and grapheme boundaries for deletion."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "'rtl' sets dir=\"rtl\" on the content element ('ltr' leaves dir=\"auto\") and maps formatJustifyLeft/Right to end/start."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valueInput",
+          "payload": "RichTextEditorValueDetail",
+          "event": "aui-input",
+          "description": "The user edited the content (typing, deletion, formatting, paste, drop, cut, undo, redo)."
+        },
+        {
+          "name": "changed",
+          "payload": "RichTextEditorValueDetail",
+          "event": "aui-change",
+          "description": "Focus left the component (host) and the content differs from when it was focused."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "getHTML",
+          "signature": "getHTML(): string | undefined",
+          "description": "Content as sanitized HTML ('' when empty; plain text in plain mode)."
+        },
+        {
+          "name": "setHTML",
+          "signature": "setHTML(html: string): void",
+          "description": "Replace the content from HTML (sanitized); no events; clears history and an external custom error."
+        },
+        {
+          "name": "getMarkdown",
+          "signature": "getMarkdown(): string | undefined",
+          "description": "Content as Markdown ('' when empty; plain text in plain mode)."
+        },
+        {
+          "name": "setMarkdown",
+          "signature": "setMarkdown(markdown: string): void",
+          "description": "Replace the content from Markdown; no events; clears history and an external custom error."
+        },
+        {
+          "name": "getText",
+          "signature": "getText(): string | undefined",
+          "description": "Plain text; blocks are separated by a line break."
+        },
+        {
+          "name": "setText",
+          "signature": "setText(text: string): void",
+          "description": "Replace the content from plain text (one paragraph per line); no events; clears history."
+        },
+        {
+          "name": "command",
+          "signature": "command(item: \"code\" | \"undo\" | \"redo\" | \"paragraph\" | \"heading1\" | \"heading2\" | \"heading3\" | \"bold\" | \"italic\" | \"underline\" | \"strike\" | \"link\" | \"bulletList\" | \"orderedList\" | \"quote\" | \"codeBlock\" | \"alignStart\" | \"alignCenter\" | \"alignEnd\" | \"alignJustify\" | \"clearFormatting\"): void",
+          "description": "Run a toolbar command at the selection (for custom toolbars). No-op when disabled or read-only; formatting commands are no-ops in plain mode."
+        },
+        {
+          "name": "undo",
+          "signature": "undo(): boolean | undefined",
+          "description": "Undo one step; returns false when there is nothing to undo. Emits aui-input."
+        },
+        {
+          "name": "redo",
+          "signature": "redo(): boolean | undefined",
+          "description": "Redo one step; returns false when there is nothing to redo. Emits aui-input."
+        },
+        {
+          "name": "insertText",
+          "signature": "insertText(text: string): void",
+          "description": "Insert text at the selection (replacing it) with the current style, as an edit (emits aui-input)."
+        },
+        {
+          "name": "openLinkEditor",
+          "signature": "openLinkEditor(): void",
+          "description": "Open the link panel for the selection or the link around the caret (Mod+K); focuses the address field."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user edits. null or '' clears it."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | undefined",
+          "description": "Value for form serialization (same as `value`)."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the content and restore the last selection."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value; clear history and dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "browser",
+      "serverRenderingNote": "ReferenceError: DOMParser is not defined",
+      "accessibility": {
+        "pattern": "Multi-line textbox (contenteditable, role=textbox, aria-multiline) with an associated WAI-ARIA toolbar (roving tabindex) and a labelled link editor group.",
+        "source": "packages/components/metadata/rich-text-editor/accessibility.json"
+      },
+      "limitations": [
+        "No tables, images, colors, fonts, font sizes, or embedded media; such content is dropped on paste.",
+        "Headings are limited to levels 1-3; deeper headings from HTML or Markdown map to the nearest allowed lower level. Lists nest to depth 4 (five levels).",
+        "Moving text by dragging inside the editor is disabled (it would bypass the model); dropping external text or HTML is supported.",
+        "Markdown output has no alignment (dropped) and writes underline as <u>...</u>.",
+        "Switching mode from 'rich' to 'plain' converts the content to plain text; formatting is lost.",
+        "IME composition and mobile virtual keyboards have been tested only in Chromium.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver.",
+        "Only the error icon is customizable; toolbar icons are fixed."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { AuiRichTextEditor } from '@absoluteui/angular/rich-text-editor';\n\n@Component({\n  selector: 'app-release-notes',\n  imports: [ReactiveFormsModule, AuiRichTextEditor],\n  template: `<aui-rich-text-editor label=\"Release notes\" valueFormat=\"markdown\" [maxLength]=\"5000\" [showCounter]=\"true\" [formControl]=\"notes\"></aui-rich-text-editor>`,\n})\nexport class ReleaseNotesComponent {\n  readonly notes = new FormControl('', { nonNullable: true, validators: [Validators.required] });\n}"
+    }
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "component": "otp-input",
+  "factory": {
+    "name": "OtpInput.create",
+    "signature": "OtpInput.create(host: HTMLElement, options: OtpInputOptions): OtpInput"
+  },
+  "configKey": "otpInput",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Visible label (required accessible name)."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visually hide the label."
+    },
+    {
+      "name": "length",
+      "type": "number",
+      "default": 6,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Number of characters (1..32)."
+    },
+    {
+      "name": "type",
+      "type": "'numeric' | 'alphanumeric'",
+      "default": "numeric",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Allowed characters."
+    },
+    {
+      "name": "mask",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Show dots instead of characters (PINs); the input becomes type=password."
+    },
+    {
+      "name": "uppercase",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Alphanumeric only: convert letters to upper case."
+    },
+    {
+      "name": "groupSize",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visual group size (separators are presentation only)."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Initial value (normalized); reset() restores it."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Form field name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Help text, referenced by aria-describedby."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A code is required."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Disabled."
+    },
+    {
+      "name": "readOnly",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Read-only."
+    },
+    {
+      "name": "autocomplete",
+      "type": "'one-time-code' | 'off'",
+      "default": "one-time-code",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Autofill hint."
+    },
+    {
+      "name": "validate",
+      "type": "(value: string) => string | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Consumer validation of a complete code."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ error: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    },
+    {
+      "name": "validationTiming",
+      "type": "'blur' | 'input' | 'submit'",
+      "default": "blur",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "When validation messages first appear; afterwards they update live."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Message and number-formatting locale."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "Host element."
+    },
+    {
+      "name": "input",
+      "type": "HTMLInputElement",
+      "description": "The native input."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Current code."
+    },
+    {
+      "name": "complete",
+      "type": "boolean",
+      "description": "Every cell filled."
+    },
+    {
+      "name": "validity",
+      "type": "FieldValidity",
+      "description": "Current validity."
+    },
+    {
+      "name": "name",
+      "type": "string | null",
+      "description": "Form field name."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Accessible label (used by the error summary)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Whether the control is disabled."
+    },
+    {
+      "name": "dirty",
+      "type": "boolean",
+      "description": "Value differs from the initial value."
+    },
+    {
+      "name": "touched",
+      "type": "boolean",
+      "description": "Focus has left the control at least once."
+    },
+    {
+      "name": "options",
+      "type": "Readonly<OtpInputOptions>",
+      "description": "Current options."
+    }
+  ],
+  "methods": [
+    {
+      "name": "getFormValue",
+      "signature": "getFormValue(): string",
+      "description": "The code."
+    },
+    {
+      "name": "setValue",
+      "signature": "setValue(value: string): void",
+      "description": "Set the code (normalized, no events)."
+    },
+    {
+      "name": "clear",
+      "signature": "clear(): void",
+      "description": "Empty the code and focus the field (after a rejected code)."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<OtpInputOptions>): void",
+      "description": "Merge and apply options."
+    },
+    {
+      "name": "reportValidity",
+      "signature": "reportValidity(): boolean",
+      "description": "Show messages now (marks the control submitted) and return validity."
+    },
+    {
+      "name": "setCustomError",
+      "signature": "setCustomError(message: string | null): void",
+      "description": "External error (server, cross-field rule); null clears it."
+    },
+    {
+      "name": "focus",
+      "signature": "focus(): void",
+      "description": "Move focus to the primary focusable element."
+    },
+    {
+      "name": "reset",
+      "signature": "reset(): void",
+      "description": "Restore the initial value and clear dirty/touched/submitted state."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, registration, listeners, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-input",
+      "detail": "{ validity: FieldValidity; complete: boolean }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "User edited the code (the code is not in the detail)."
+    },
+    {
+      "name": "aui-change",
+      "detail": "{ validity: FieldValidity; complete: boolean }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "User committed the value (native change)."
+    },
+    {
+      "name": "aui-complete",
+      "detail": "{ validity: FieldValidity }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The code became complete through user input (typing, paste, or autofill)."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-otp-input",
+      "description": "Host (also aui-field)."
+    },
+    {
+      "name": "aui-otp-input--focused | --invalid | --disabled",
+      "description": "State modifiers."
+    },
+    {
+      "name": "aui-otp-input__control",
+      "description": "Positioning container (dir=ltr); --aui-otp-length holds the length."
+    },
+    {
+      "name": "aui-otp-input__input",
+      "description": "The native input (transparent text, under the cells)."
+    },
+    {
+      "name": "aui-otp-input__cells",
+      "description": "aria-hidden cell row."
+    },
+    {
+      "name": "aui-otp-input__cell",
+      "description": "One cell (--filled, --active)."
+    },
+    {
+      "name": "aui-otp-input__separator",
+      "description": "Group separator."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "error",
+      "default": "alert-circle"
+    }
+  ]
+}

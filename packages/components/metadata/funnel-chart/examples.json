@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "funnel-chart",
+  "examples": [
+    {
+      "id": "checkout",
+      "title": "Checkout funnel with conversions",
+      "language": "ts",
+      "code": "import { FunnelChart } from '@absoluteui/components/funnel-chart';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nFunnelChart.create(host, {\n  label: 'Checkout funnel',\n  description: 'Last 30 days',\n  stages: [\n    { id: 'visits', label: 'Visits', value: 12000 },\n    { id: 'cart', label: 'Added to cart', value: 4100 },\n    { id: 'checkout', label: 'Checkout', value: 1900 },\n    { id: 'paid', label: 'Paid', value: 1350 },\n  ],\n  color: 3,\n});"
+    },
+    {
+      "id": "update",
+      "title": "Compact numbers, no printed conversion, live update",
+      "language": "ts",
+      "code": "import { FunnelChart, type FunnelStage } from '@absoluteui/components/funnel-chart';\n\nconst host = document.querySelector<HTMLElement>('#pipeline');\nif (host) {\n  const stages: FunnelStage[] = [\n    { id: 'leads', label: 'Leads', value: 5400 },\n    { id: 'qualified', label: 'Qualified', value: 2100 },\n    { id: 'won', label: 'Won', value: null },\n  ];\n  const chart = FunnelChart.create(host, {\n    label: 'Sales pipeline',\n    stages,\n    showConversion: false,\n    valueFormat: { notation: 'compact' },\n  });\n  chart.update({ stages: stages.map((s) => (s.id === 'won' ? { ...s, value: 640 } : s)) });\n}"
+    }
+  ]
+}

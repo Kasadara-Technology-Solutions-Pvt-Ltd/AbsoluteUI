@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/code-viewer",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCodeViewer",
+      "description": "AbsoluteUI CodeViewer: `<aui-code-viewer>`.",
+      "selector": "aui-code-viewer",
+      "exportAs": [
+        "auiCodeViewer"
+      ],
+      "source": "generated",
+      "component": "code-viewer",
+      "configKey": "codeViewer",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the code region."
+        },
+        {
+          "name": "code",
+          "type": "string",
+          "required": false,
+          "default": "''",
+          "description": "Source text (ignored when diff is set)."
+        },
+        {
+          "name": "diff",
+          "type": "CodeViewerDiff | null",
+          "required": false,
+          "default": "null",
+          "description": "Show a diff: { original, modified, mode?: 'unified' | 'split', originalLabel?, modifiedLabel?, ignoreWhitespace? }."
+        },
+        {
+          "name": "language",
+          "type": "CodeLanguage",
+          "required": false,
+          "default": "plain",
+          "description": "'typescript' | 'javascript' | 'json' | 'html' | 'css' | 'sql' | 'bash' | 'markdown' | 'plain'."
+        },
+        {
+          "name": "filename",
+          "type": "string",
+          "required": false,
+          "description": "File name shown in the toolbar."
+        },
+        {
+          "name": "startLine",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "Number of the first line (code view)."
+        },
+        {
+          "name": "highlightLines",
+          "type": "readonly CodeViewerLineRange[]",
+          "required": false,
+          "default": "[]",
+          "description": "Line numbers or [from, to] ranges to highlight (modified line numbers in a diff)."
+        },
+        {
+          "name": "toolbar",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show the toolbar (file name, language, actions)."
+        },
+        {
+          "name": "copyable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show the copy button."
+        },
+        {
+          "name": "wrapToggle",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show the wrap toggle."
+        },
+        {
+          "name": "maxHeight",
+          "type": "string | null",
+          "required": false,
+          "default": "30rem",
+          "description": "Maximum block size of the scroll area (CSS length), or null to grow with the content (no virtualization)."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<CodeViewerIcons>",
+          "required": false,
+          "description": "Toolbar icons: copy, copied, unified, split."
+        },
+        {
+          "name": "lineNumbers",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show line numbers."
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Wrap long lines (the side-by-side diff always wraps)."
+        },
+        {
+          "name": "tabSize",
+          "type": "number",
+          "required": false,
+          "default": "2",
+          "configurable": true,
+          "description": "Width of a tab character in spaces (1 to 16)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of messages and counts."
+        },
+        {
+          "name": "density",
+          "type": "Density",
+          "required": false,
+          "default": "comfortable",
+          "configurable": true,
+          "description": "Line and toolbar spacing."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "copied",
+          "payload": "CodeViewerCopyDetail",
+          "event": "aui-copy",
+          "description": "The text was written to the clipboard: { text }."
+        },
+        {
+          "name": "changed",
+          "payload": "CodeViewerChangeDetail",
+          "event": "aui-change",
+          "description": "The user toggled wrapping or the diff mode: { wrap, mode, reason }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "scrollToLine",
+          "signature": "scrollToLine(line: number, align?: \"auto\" | \"start\" | \"end\" | \"center\" | undefined): void",
+          "description": "Scroll a displayed line number (modified side in a diff) into view."
+        },
+        {
+          "name": "copy",
+          "signature": "copy(): Promise<boolean> | undefined",
+          "description": "Copy the text to the clipboard; resolves false when the clipboard refused."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "A focusable, named scroll region (role=region) containing the code as text; toolbar actions are native toggle and push buttons.",
+        "source": "packages/components/metadata/code-viewer/accessibility.json"
+      },
+      "limitations": [
+        "A fixed set of languages; embedded scripts and styles inside HTML are shown as plain text.",
+        "Regular expression literals in JavaScript are not highlighted.",
+        "The side-by-side diff always wraps long lines."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { CodeViewerCopyDetail } from '@absoluteui/components/code-viewer';\nimport { AuiCodeViewer } from '@absoluteui/angular/code-viewer';\n\n@Component({\n  selector: 'app-snippet',\n  imports: [AuiCodeViewer],\n  template: `<aui-code-viewer label=\"Install\" language=\"bash\" [code]=\"code\" (copied)=\"onCopy($event)\"></aui-code-viewer>`,\n})\nexport class SnippetComponent {\n  readonly code = 'npm install @absoluteui/components';\n  copiedText = '';\n  onCopy(detail: CodeViewerCopyDetail): void {\n    this.copiedText = detail.text;\n  }\n}"
+    }
+  ]
+}

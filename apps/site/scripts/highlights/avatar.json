@@ -1,0 +1,6 @@
+[
+  { "title": "Image with fallback", "text": "Shows the photo, then initials, then an icon if the image fails." },
+  { "title": "Presence status", "text": "Online, away, busy, and offline indicators with accessible text." },
+  { "title": "Sizes and shapes", "text": "Five sizes in circle or square shape." },
+  { "title": "Decorative mode", "text": "Hide it from assistive technology when the name is already shown." }
+]

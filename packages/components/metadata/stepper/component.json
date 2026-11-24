@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "name": "stepper",
+  "displayName": "Stepper",
+  "category": "Navigation",
+  "package": "@absoluteui/components",
+  "import": "import { Stepper } from '@absoluteui/components/stepper';",
+  "styleImport": "@absoluteui/components/stepper/style.css",
+  "purpose": "Progress indicator for multi-step flows rendered as navigation: a labelled <nav> with an ordered list of steps. Reachable steps are links (with an href) or buttons; the current step carries aria-current=\"step\"; unreachable steps are text. Linear mode gates forward steps on consumer-owned completion status. Activation emits a cancelable aui-navigate, then aui-change.",
+  "whenToUse": [
+    "Multi-step flows with a known, short sequence of steps, such as checkout, onboarding, or a setup wizard.",
+    "Showing which steps are complete, which step is current, and which are still ahead.",
+    "Letting users return to earlier steps (and, in non-linear flows, jump ahead)."
+  ],
+  "whenNotToUse": [
+    "Switching between peer views that have no order: use Tabs.",
+    "Showing where a page sits in a hierarchy: use Breadcrumb.",
+    "Reporting progress of a single task: use Progress Bar.",
+    "Flows with more than about 7 steps or with branching paths: split the flow or use a list of sections."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["upcoming", "current", "complete", "error", "optional", "disabled", "reachable", "unreachable", "hover", "focus-visible", "horizontal", "vertical"],
+  "responsive": "The host is an inline-size container. A horizontal stepper switches to the vertical layout when its own container is 30rem wide or narrower (container query, not the viewport). Labels and descriptions wrap and break anywhere; they never overflow the step.",
+  "rtl": "Logical properties throughout: the horizontal step order and connectors follow the inline direction, and the vertical connector runs along the inline-start edge. direction: 'rtl' sets dir=\"rtl\" on the <nav>; otherwise the document direction is inherited.",
+  "theme": "Current step: color-primary indicator border and number plus semibold label. Complete: filled color-primary indicator with a check icon and a color-primary connector to the next step. Error: color-error-fg indicator with an alert icon. States are also conveyed as text. Forced-colors mode draws indicators and connectors in CanvasText, the complete indicator in Highlight, and disabled steps in GrayText.",
+  "timezone": "Not applicable.",
+  "security": "Labels and descriptions are rendered with textContent, never parsed as HTML. Each href is parsed with the URL standard against document.baseURI; only http(s) and scheme-less URLs are accepted, otherwise STEPPER_OPTIONS is thrown without echoing the value. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Step status is consumer-owned data; the stepper never infers completion.",
+  "performance": {
+    "budgets": [
+      { "metric": "Stepper.create with 10 steps", "budget": "< 5 ms (headless Chromium)" }
+    ],
+    "testedScale": "4-step flows in the unit tests."
+  },
+  "limitations": [
+    "Every change (activation, select, update, global configuration) rebuilds the step list; a step that had focus during update() or a configuration change loses focus.",
+    "After a link step is activated without preventDefault, focus is not moved; the page is expected to navigate.",
+    "The layout switch from horizontal to vertical is fixed at a 30rem container width.",
+    "No arrow-key navigation between steps; steps are separate Tab stops.",
+    "Step content (panels) is not rendered by the stepper; drive it from aui-change."
+  ],
+  "unsupported": [
+    "Rendering HTML strings or custom nodes in labels or descriptions.",
+    "Hrefs with schemes other than http and https.",
+    "Branching or nested steps.",
+    "Automatic completion tracking (status is consumer data)."
+  ],
+  "antiPatterns": [
+    "Using a stepper as tabs for unordered content.",
+    "Marking steps complete before the user finished them, to unlock linear navigation.",
+    "Relying on color alone to show step status in custom styles (the built-in hidden status text must stay).",
+    "Ignoring aui-navigate when unsaved input on the current step must be validated first."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/stepper: generated AuiStepper directive ([auiStepper] on an empty host); inputs mirror the options, outputs auiNavigate and auiChange.",
+    "react": "@absoluteui/react/stepper: AuiStepper component.",
+    "vue": "@absoluteui/vue/stepper: AuiStepper component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

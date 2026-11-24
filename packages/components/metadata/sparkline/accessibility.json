@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "component": "sparkline",
+  "pattern": "Static informative image: svg role=\"img\" with a generated accessible name (WAI Images tutorial, informative images).",
+  "roles": [
+    {
+      "element": "svg.aui-sparkline__svg",
+      "role": "img"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-label",
+      "element": "svg",
+      "value": "Localized \"{label}: {count} values, from {first} to {last}, minimum {min}, maximum {max}.\" (or valueText)"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "None",
+      "context": "Any",
+      "action": "Not focusable; the accessible name carries the summary. Use Line Chart for keyboard exploration."
+    }
+  ],
+  "focus": "Not focusable.",
+  "wcag": [
+    "1.1.1",
+    "1.4.1",
+    "1.4.11",
+    "4.1.2"
+  ],
+  "notes": [
+    "Meaning is carried by the accessible name and the surrounding text, not by color.",
+    "Forced colors draw the sparkline in CanvasText.",
+    "No animation."
+  ],
+  "knownCaveats": [
+    "Individual values are not exposed; keep the key value in visible text next to the sparkline.",
+    "Manual screen-reader verification is pending."
+  ]
+}

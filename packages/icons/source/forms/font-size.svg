@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="font-size">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 19l5-13 5 13"/>
+      <path d="M4.9 14.5h6.2"/>
+      <path d="M14 19l3-8 3 8"/>
+      <path d="M15.1 16.25h3.8"/>
+    </g>
+  </g>
+</svg>

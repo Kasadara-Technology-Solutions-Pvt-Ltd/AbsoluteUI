@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "progress-bar",
+  "examples": [
+    {
+      "id": "upload",
+      "title": "Upload progress with completion tone",
+      "language": "ts",
+      "code": "import { ProgressBar } from '@absoluteui/components/progress-bar';\n\nconst host = document.querySelector<HTMLElement>('#upload');\nif (host) {\n  const bar = ProgressBar.create(host, { label: 'Uploading report.pdf', value: 0 });\n  const onProgress = (loaded: number, total: number): void => {\n    bar.setValue((loaded / total) * 100);\n    if (loaded >= total) bar.update({ tone: 'success' });\n  };\n  onProgress(5, 10);\n}"
+    },
+    {
+      "id": "indeterminate-steps",
+      "title": "Indeterminate, then counted steps",
+      "language": "ts",
+      "code": "import { ProgressBar } from '@absoluteui/components/progress-bar';\n\nconst host = document.querySelector<HTMLElement>('#import');\nif (host) {\n  const bar = ProgressBar.create(host, { label: 'Importing contacts', value: null, description: 'Preparing file' });\n  bar.update({ max: 250, value: 40, description: 'Processing rows', valueText: (value, max) => `${String(value)} of ${String(max)} rows` });\n}"
+    }
+  ]
+}

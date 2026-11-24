@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="scan-face">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 8V6a2 2 0 0 1 2-2h2"/>
+      <path d="M16 4h2a2 2 0 0 1 2 2v2"/>
+      <path d="M20 16v2a2 2 0 0 1-2 2h-2"/>
+      <path d="M8 20H6a2 2 0 0 1-2-2v-2"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M9 10v1"/>
+      <path d="M15 10v1"/>
+      <path d="M9 15a4 4 0 0 0 6 0"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="4" y="4" width="16" height="16" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 8V6a2 2 0 0 1 2-2h2"/>
+      <path d="M16 4h2a2 2 0 0 1 2 2v2"/>
+      <path d="M20 16v2a2 2 0 0 1-2 2h-2"/>
+      <path d="M8 20H6a2 2 0 0 1-2-2v-2"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M9 10v1"/>
+      <path d="M15 10v1"/>
+      <path d="M9 15a4 4 0 0 0 6 0"/>
+    </g>
+  </g>
+</svg>

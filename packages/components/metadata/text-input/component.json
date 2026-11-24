@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "name": "text-input",
+  "displayName": "Text Input",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { TextInput } from '@absoluteui/components/text-input';",
+  "styleImport": "@absoluteui/components/text-input/style.css",
+  "purpose": "Single-line text entry built on a native <input>, with label, required indicator, help text, localized constraint validation, optional character counter, text addons, and sensitive-input support (password reveal, clipboard policy).",
+  "whenToUse": [
+    "Short free-text values: names, email addresses, URLs, phone numbers, passwords, search terms.",
+    "Fields that need consistent, localized validation messages across browsers.",
+    "Values with a fixed prefix or suffix, such as a URL scheme or a unit."
+  ],
+  "whenNotToUse": [
+    "Multi-line text: use Textarea.",
+    "Numbers users may step or that need locale-aware parsing: use Number Input.",
+    "Choosing from a known list: use Select, Combobox, or Radio Group.",
+    "Dates and times: use Date Input or Date Picker."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["default", "focus-visible", "filled", "disabled", "read-only", "required", "invalid", "over limit", "password revealed"],
+  "responsive": "Full width of its container; addons do not wrap and the input shrinks (min-inline-size 0). Density tokens adjust the control height.",
+  "rtl": "Logical properties: prefix sits at the inline start and suffix at the inline end in both directions.",
+  "theme": "Control surface, border, focus, error, and sunken-surface role tokens. Focus is shown on the control boundary with a 1px ring plus border color. Forced-colors mode draws a Highlight outline on focus.",
+  "timezone": "Not applicable.",
+  "security": "Label, help text, addons, and messages are rendered with textContent. Validation messages never include the entered value. Password inputs default to autocomplete=current-password and spellcheck off; the clipboard policy can block copy/cut or all clipboard access. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. The native input carries the value for form submission when `name` is set.",
+  "performance": {
+    "budgets": [
+      { "metric": "TextInput.create, per instance (1,000 instances)", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "1,000 inputs on one page in the performance test."
+  },
+  "limitations": [
+    "`maxLength` is validated, not enforced by truncation: users can paste long text and correct it (GOV.UK character-count pattern).",
+    "Lengths are counted in Unicode code points; grapheme clusters such as flag emoji count as more than one.",
+    "The clipboard policy is a deterrent, not a security boundary: browser extensions and developer tools can still read the value.",
+    "Input masking (phone, card numbers) is not available."
+  ],
+  "unsupported": [
+    "Rendering HTML in the label, help text, addons, or messages.",
+    "Native `maxlength` truncation (use `maxLength` validation instead)."
+  ],
+  "antiPatterns": [
+    "Using the placeholder as the only label.",
+    "Showing errors while the user is still typing the first time (keep validationTiming 'blur').",
+    "Blocking paste into password fields; it prevents password managers."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/text-input: AuiTextInput directive ([auiTextInput]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/text-input: AuiTextInput component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/text-input: AuiTextInput component with v-model."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

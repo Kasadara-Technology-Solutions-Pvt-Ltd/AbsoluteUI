@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "inline-message",
+  "examples": [
+    {
+      "id": "save-state",
+      "title": "Save state next to a document title",
+      "language": "ts",
+      "code": "import { InlineMessage } from '@absoluteui/components/inline-message';\n\nconst host = document.createElement('span');\ndocument.body.append(host);\nconst status = InlineMessage.create(host, { tone: 'info', message: 'Saving', live: 'polite' });\nstatus.update({ tone: 'success', message: 'Saved just now' });"
+    },
+    {
+      "id": "connection",
+      "title": "Connection state",
+      "language": "ts",
+      "code": "import { InlineMessage } from '@absoluteui/components/inline-message';\n\nconst host = document.createElement('span');\ndocument.body.append(host);\nconst connection = InlineMessage.create(host, { tone: 'success', message: 'Online', live: 'polite' });\nwindow.addEventListener('offline', () => {\n  connection.update({ tone: 'warning', message: 'Offline' });\n});\nwindow.addEventListener('online', () => {\n  connection.update({ tone: 'success', message: 'Online' });\n});"
+    }
+  ]
+}

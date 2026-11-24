@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/card",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCard",
+      "description": "AbsoluteUI Card: `<aui-card>`.",
+      "selector": "aui-card",
+      "exportAs": [
+        "auiCard"
+      ],
+      "source": "generated",
+      "component": "card",
+      "configKey": "card",
+      "inputs": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Card heading and the <article>'s accessible name (aria-labelledby). Without a title the card is a <div>."
+        },
+        {
+          "name": "subtitle",
+          "type": "string",
+          "required": false,
+          "description": "Supporting line under the title (text only)."
+        },
+        {
+          "name": "content",
+          "type": "string | Node",
+          "required": false,
+          "description": "Body content; strings render as text. Omit to fill card.body directly."
+        },
+        {
+          "name": "footer",
+          "type": "Node",
+          "required": false,
+          "description": "Footer content such as actions or metadata."
+        },
+        {
+          "name": "media",
+          "type": "Node",
+          "required": false,
+          "description": "Image or illustration, shown above the header while the header stays first in source order."
+        },
+        {
+          "name": "interactive",
+          "type": "CardInteractive",
+          "required": false,
+          "description": "Block-link mode: the title becomes the only link and its ::after covers the card. Requires title; href must be http(s) or relative."
+        },
+        {
+          "name": "variant",
+          "type": "SurfaceVariant",
+          "required": false,
+          "default": "flat",
+          "description": "Surface treatment (Card and Surface.apply)."
+        },
+        {
+          "name": "headingLevel",
+          "type": "CardHeadingLevel",
+          "required": false,
+          "default": "3",
+          "configurable": true,
+          "description": "Heading level of the card title; match it to the surrounding outline."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "projection": {
+        "parts": {
+          "content": "AuiCardContent",
+          "footer": "AuiCardFooter",
+          "media": "AuiCardMedia"
+        },
+        "from": "./parts.js"
+      },
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "HTML <article> named by its heading; interactive cards use the block-link pattern (Inclusive Components 'Cards'): one real link on the title, stretched over the card with a pseudo-element.",
+        "source": "packages/components/metadata/card/accessibility.json"
+      },
+      "limitations": [
+        "In interactive cards, the link overlay makes body text hard to select with the mouse (a known trade-off of the block-link pattern).",
+        "Other controls inside an interactive card are lifted above the overlay and remain separate tab stops.",
+        "The card root element is replaced when a title is added or removed, because the tag changes between <article> and <div>.",
+        "Surface and Card do not manage elevation stacking contexts."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiCardContent",
+      "selector": "aui-card-content",
+      "exportAs": [],
+      "source": "generated",
+      "component": "card",
+      "configKey": "card",
+      "inputs": [],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "projection": {
+        "parts": {
+          "content": "AuiCardContent",
+          "footer": "AuiCardFooter",
+          "media": "AuiCardMedia"
+        },
+        "from": "./parts.js"
+      },
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "HTML <article> named by its heading; interactive cards use the block-link pattern (Inclusive Components 'Cards'): one real link on the title, stretched over the card with a pseudo-element.",
+        "source": "packages/components/metadata/card/accessibility.json"
+      },
+      "limitations": [
+        "In interactive cards, the link overlay makes body text hard to select with the mouse (a known trade-off of the block-link pattern).",
+        "Other controls inside an interactive card are lifted above the overlay and remain separate tab stops.",
+        "The card root element is replaced when a title is added or removed, because the tag changes between <article> and <div>.",
+        "Surface and Card do not manage elevation stacking contexts."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiCardFooter",
+      "selector": "aui-card-footer",
+      "exportAs": [],
+      "source": "generated",
+      "component": "card",
+      "configKey": "card",
+      "inputs": [],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "projection": {
+        "parts": {
+          "content": "AuiCardContent",
+          "footer": "AuiCardFooter",
+          "media": "AuiCardMedia"
+        },
+        "from": "./parts.js"
+      },
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "HTML <article> named by its heading; interactive cards use the block-link pattern (Inclusive Components 'Cards'): one real link on the title, stretched over the card with a pseudo-element.",
+        "source": "packages/components/metadata/card/accessibility.json"
+      },
+      "limitations": [
+        "In interactive cards, the link overlay makes body text hard to select with the mouse (a known trade-off of the block-link pattern).",
+        "Other controls inside an interactive card are lifted above the overlay and remain separate tab stops.",
+        "The card root element is replaced when a title is added or removed, because the tag changes between <article> and <div>.",
+        "Surface and Card do not manage elevation stacking contexts."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiCardMedia",
+      "selector": "aui-card-media",
+      "exportAs": [],
+      "source": "generated",
+      "component": "card",
+      "configKey": "card",
+      "inputs": [],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "projection": {
+        "parts": {
+          "content": "AuiCardContent",
+          "footer": "AuiCardFooter",
+          "media": "AuiCardMedia"
+        },
+        "from": "./parts.js"
+      },
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "HTML <article> named by its heading; interactive cards use the block-link pattern (Inclusive Components 'Cards'): one real link on the title, stretched over the card with a pseudo-element.",
+        "source": "packages/components/metadata/card/accessibility.json"
+      },
+      "limitations": [
+        "In interactive cards, the link overlay makes body text hard to select with the mouse (a known trade-off of the block-link pattern).",
+        "Other controls inside an interactive card are lifted above the overlay and remain separate tab stops.",
+        "The card root element is replaced when a title is added or removed, because the tag changes between <article> and <div>.",
+        "Surface and Card do not manage elevation stacking contexts."
+      ]
+    }
+  ],
+  "constants": [
+    {
+      "name": "AUI_CARD",
+      "type": "readonly [typeof AuiCard, typeof AuiCardContent, typeof AuiCardFooter, typeof AuiCardMedia]",
+      "description": "The card and its projected parts, for `imports`."
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiCard } from '@absoluteui/angular/card';\n\n@Component({\n  selector: 'app-project-card',\n  imports: [AuiCard],\n  template: `<aui-card title=\"Project Alpha\" subtitle=\"Owner: Ada\" content=\"Launch planned for Q4.\" [interactive]=\"{ href: '/projects/alpha' }\" [headingLevel]=\"2\"></aui-card>`,\n})\nexport class ProjectCardComponent {}"
+    }
+  ]
+}

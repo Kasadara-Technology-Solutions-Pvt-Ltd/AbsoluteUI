@@ -1,0 +1,6 @@
+[
+  { "title": "Grouped choices", "text": "Related checkboxes in a fieldset and legend that share one field name." },
+  { "title": "Selection limits", "text": "Required, minimum, and maximum selection rules with one group message." },
+  { "title": "Option details", "text": "Each option can have a description or be disabled." },
+  { "title": "Flexible layout", "text": "Vertical or horizontal orientation." }
+]

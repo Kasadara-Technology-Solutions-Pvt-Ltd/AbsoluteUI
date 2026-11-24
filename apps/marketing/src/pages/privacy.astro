@@ -1,0 +1,16 @@
+---
+// Privacy Policy, shared by the product site, the docs, and the Theme Designer (PRIVACY.md at the
+// repository root). One analytics choice covers the whole website (docs/PLAN-ONE-SITE.md OS-10); this page offers its control.
+import Base from '../layouts/Base.astro';
+import Document from '../components/Document.astro';
+import { Content } from '../generated/privacy.md';
+---
+
+<Base title="Privacy Policy" description="What the AbsoluteUI website collects: Microsoft Clarity analytics only after you accept, theme preferences stored in your browser, and messages you send us." path="/privacy/">
+  <Document eyebrow="Legal" title="Privacy Policy" lead="What the AbsoluteUI website collects, why, and the choices you have. One policy covers the whole website: the product pages, the documentation, and the Theme Designer.">
+    <div class="notice">
+      <p>Your analytics choice for the whole website: <button class="btn btn-secondary btn-sm" type="button" data-consent-reset>Change analytics choice</button></p>
+    </div>
+    <Content />
+  </Document>
+</Base>

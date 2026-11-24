@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "pagination",
+  "examples": [
+    {
+      "id": "table",
+      "title": "Server-paged table with rows per page",
+      "language": "ts",
+      "code": "import { Pagination, type PaginationChangeDetail } from '@absoluteui/components/pagination';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst load = (page: number, pageSize: number | null): void => {\n  host.dataset.request = `${String(page)}:${String(pageSize)}`;\n};\nconst pager = Pagination.create(host, { total: 57, pageSize: 10, pageSizes: [10, 25, 50] });\nhost.addEventListener('aui-change', (event) => {\n  const { page, pageSize } = (event as CustomEvent<PaginationChangeDetail>).detail;\n  load(page, pageSize);\n});\npager.update({ total: 64 });"
+    },
+    {
+      "id": "page-count",
+      "title": "Known page count with first/last buttons",
+      "language": "ts",
+      "code": "import { Pagination } from '@absoluteui/components/pagination';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst pager = Pagination.create(host, { pageCount: 40, page: 12, showFirstLast: true, siblingCount: 2 });\npager.setPage(20);"
+    },
+    {
+      "id": "helper",
+      "title": "Page items for a custom renderer",
+      "language": "ts",
+      "code": "import { getPageItems } from '@absoluteui/components/pagination';\n\nconst items = getPageItems(5, 10);\nconst text = items.map((item) => (item === 'ellipsis' ? '…' : String(item))).join(' ');\ndocument.title = text;"
+    }
+  ]
+}

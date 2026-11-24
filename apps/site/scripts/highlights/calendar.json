@@ -1,0 +1,7 @@
+[
+  { "title": "Single day or range", "text": "Select one day, or a range with minimum and maximum lengths." },
+  { "title": "Business calendar", "text": "Weekends and holidays are marked and can be made unselectable." },
+  { "title": "Several months", "text": "Shows up to three months side by side." },
+  { "title": "Week numbers", "text": "Optional ISO week numbers and a configurable first day of the week." },
+  { "title": "Full keyboard support", "text": "Arrow keys, Page Up and Page Down, Home and End move through the grid." }
+]

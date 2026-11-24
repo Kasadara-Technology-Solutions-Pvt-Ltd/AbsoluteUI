@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "name": "toast",
+  "displayName": "Toast",
+  "category": "Feedback",
+  "package": "@absoluteui/components",
+  "import": "import { Toaster, toast } from '@absoluteui/components/toast';",
+  "styleImport": "@absoluteui/components/toast/style.css",
+  "purpose": "Transient notifications stacked in a labelled region (section aria-label 'Notifications') rendered in the top layer with popover=manual. Each toast is announced once through the shared live regions (polite for info/success, assertive for warning/error), never steals focus, pauses while hovered or focused, and can be reached with a hotkey (default Alt+T) and dismissed with Escape.",
+  "whenToUse": [
+    "Confirmation of a completed background action (saved, sent, copied).",
+    "Non-blocking notices with at most one follow-up action, such as Undo.",
+    "Errors from background work, which persist until dismissed by default."
+  ],
+  "whenNotToUse": [
+    "Information the user must not miss or must act on: use Alert or Dialog.",
+    "Field validation errors: show them at the field and in the Error Summary.",
+    "Status tied to a specific place on the page: use Inline Message.",
+    "Long or rich content: toasts are text only with one action."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "@absoluteui/components/button"],
+  "states": ["region hidden (no toasts)", "region open", "toast queued", "toast visible", "timer running", "timer paused (hover or focus)", "persistent (duration 0 or error tone)"],
+  "responsive": "Region width min(toast-width, 100vw - 2rem), pinned to the configured corner or centred; toast text wraps.",
+  "rtl": "Positions use logical insets: 'end' is the right edge in LTR and the left edge in RTL.",
+  "theme": "Opaque color-surface under the tone's color-{tone}-subtle tint, color-{tone}-fg icon and border, color-text body text, shadow-md. Forced-colors mode removes the tint and uses CanvasText borders.",
+  "timezone": "Not applicable.",
+  "security": "Title, message, and action label are rendered with textContent; never parsed as HTML. CSP-safe (styles only from the stylesheet and CSSOM).",
+  "dataHandling": "No persistence, network access, or telemetry. Messages are copied into the shared live regions for announcement.",
+  "performance": {
+    "budgets": [
+      { "metric": "Toaster.show, per toast", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "Queueing tested with more toasts than max; at most max (default 3, limit 20) toasts are in the DOM at once."
+  },
+  "limitations": [
+    "Toasts already visible when a modal dialog opens stay beneath it until the next toast is shown, which moves the region into the dialog.",
+    "The shared announce() live regions live in document.body; while a modal dialog is open they are outside the dialog and screen readers may not announce toasts (to be addressed in the utilities package).",
+    "There is no exit animation; toasts are removed immediately. The entry slide/fade is removed under reduced motion or animation 'none'.",
+    "matchesHotkey compares event.key, so Alt+letter hotkeys may not match on macOS where Option changes the produced character; configure a different hotkey there.",
+    "Queued toasts that are dismissed before they appear emit no events."
+  ],
+  "unsupported": [
+    "HTML or Node content in toasts.",
+    "More than one action per toast.",
+    "Swipe-to-dismiss gestures."
+  ],
+  "antiPatterns": [
+    "Putting the only copy of important information or the only path to an action in a toast.",
+    "Short durations for long messages; keep at least 5 s and let errors persist.",
+    "Showing a toast for every keystroke or poll result."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/toast: AuiToaster service (inject(AuiToaster).show()) configured with provideAuiToaster(); no directive.",
+    "react": "@absoluteui/react/toast: `useToaster()` hook (show, clear).",
+    "vue": "@absoluteui/vue/toast: `useToaster()` composable (show, clear)."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

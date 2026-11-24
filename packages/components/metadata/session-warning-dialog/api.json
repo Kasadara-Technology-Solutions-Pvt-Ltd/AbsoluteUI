@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "component": "session-warning-dialog",
+  "factory": {
+    "name": "SessionWarningDialog.create",
+    "signature": "SessionWarningDialog.create(options: SessionWarningDialogOptions, doc?: Document): SessionWarningDialog"
+  },
+  "configKey": "sessionWarningDialog",
+  "options": [
+    {
+      "name": "expiresAt",
+      "type": "Instant",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "When the session ends."
+    },
+    {
+      "name": "warnBefore",
+      "type": "Duration",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Open automatically this long before expiresAt (at least 20 s)."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Default: localized \"Your session is about to expire\"."
+    },
+    {
+      "name": "message",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Default: localized inactivity message."
+    },
+    {
+      "name": "content",
+      "type": "Node | string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Additional body content below the countdown."
+    },
+    {
+      "name": "extendLabel",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Default: localized \"Stay signed in\"."
+    },
+    {
+      "name": "signOutLabel",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Default: localized \"Sign out\"."
+    },
+    {
+      "name": "expiredTitle",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Default: localized \"Your session has expired\"."
+    },
+    {
+      "name": "expiredMessage",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Default: localized \"You have been signed out. Sign in again to continue.\""
+    },
+    {
+      "name": "signInLabel",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "The single action after expiry. Default: localized \"Sign in again\"."
+    },
+    {
+      "name": "announceInterval",
+      "type": "number",
+      "default": 60,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Announce the remaining time each time it crosses a multiple of this many seconds (15..3600), and at 60, 30, and 10 seconds."
+    },
+    {
+      "name": "escapeExtends",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Escape means \"Stay signed in\"; when false, Escape does nothing."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Message and unit-formatting locale."
+    }
+  ],
+  "properties": [
+    {
+      "name": "dialog",
+      "type": "Dialog",
+      "description": "The underlying Dialog."
+    },
+    {
+      "name": "element",
+      "type": "HTMLDialogElement",
+      "description": "The <dialog>; events are dispatched on it."
+    },
+    {
+      "name": "isOpen",
+      "type": "boolean",
+      "description": "Whether the dialog is open."
+    },
+    {
+      "name": "remaining",
+      "type": "Duration",
+      "description": "Time left (never negative)."
+    },
+    {
+      "name": "expired",
+      "type": "boolean",
+      "description": "The deadline has passed."
+    },
+    {
+      "name": "options",
+      "type": "Readonly<SessionWarningDialogOptions>",
+      "description": "Current options."
+    }
+  ],
+  "methods": [
+    {
+      "name": "open",
+      "signature": "open(): void",
+      "description": "Open now; focus moves to \"Stay signed in\"."
+    },
+    {
+      "name": "close",
+      "signature": "close(): void",
+      "description": "Close programmatically (no events besides aui-close)."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<SessionWarningDialogOptions>): void",
+      "description": "Merge options; a new expiresAt re-arms auto-open and expiry."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Stop timers and remove the dialog."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-open",
+      "detail": "null",
+      "bubbles": false,
+      "cancelable": false,
+      "description": "The dialog opened (from Dialog)."
+    },
+    {
+      "name": "aui-close",
+      "detail": "{ returnValue: string; reason: DialogCloseReason }",
+      "bubbles": false,
+      "cancelable": false,
+      "description": "The dialog closed (from Dialog)."
+    },
+    {
+      "name": "aui-extend",
+      "detail": "{ reason: 'action' | 'escape' }",
+      "bubbles": false,
+      "cancelable": false,
+      "description": "The user chose to stay signed in: extend the session, then call update({ expiresAt })."
+    },
+    {
+      "name": "aui-sign-out",
+      "detail": "{ reason: 'action' | 'expired' }",
+      "bubbles": false,
+      "cancelable": false,
+      "description": "The user chose to sign out, or acknowledged expiry (\"Sign in again\")."
+    },
+    {
+      "name": "aui-expire",
+      "detail": "null",
+      "bubbles": false,
+      "cancelable": false,
+      "description": "The deadline passed (once per deadline, open or closed)."
+    }
+  ],
+  "contentAreas": [
+    {
+      "name": "content",
+      "description": "Optional Node or text below the countdown (Angular: the template content)."
+    }
+  ],
+  "cssClasses": [
+    {
+      "name": "aui-session-warning-dialog",
+      "description": "The <dialog> (also aui-dialog)."
+    },
+    {
+      "name": "aui-session-warning",
+      "description": "Body wrapper."
+    },
+    {
+      "name": "aui-session-warning__message",
+      "description": "Message."
+    },
+    {
+      "name": "aui-session-warning__countdown",
+      "description": "Countdown text."
+    },
+    {
+      "name": "aui-session-warning__content",
+      "description": "Consumer content."
+    }
+  ],
+  "iconSlots": []
+}

@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "component": "gantt",
+  "factory": { "name": "Gantt.create", "signature": "Gantt.create(host: HTMLElement, options: GanttOptions): Gantt; scheduleGantt(tasks, dependencies, calendar: BusinessCalendarEngine, index?: WorkIndex): GanttSchedule; resourceLoad(tasks, schedule, resources, calendar, range: { start: PlainDate; end: PlainDate }): GanttResourceLoad[]; createsCycle(dependencies, from, to): boolean; assertGantt(tasks, dependencies, resources): void" },
+  "configKey": "gantt",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Accessible name of the tree grid; the toolbar is named '{label} controls'. Non-empty." },
+    { "name": "tasks", "type": "readonly GanttTask[]", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Tasks: { id, parentId (summary task id or null), label, start (requested start, PlainDate), duration (working days, 0 = milestone), progress? (0..100), manual?, assignments? ({ resourceId, units? percent }), baseline? ({ start, end } inclusive), color? (1..8), readOnly?, collapsed? }. Tasks with children are summary tasks (their start and duration are ignored). Order within a parent is the array order. Validated (GANTT_OPTIONS). Replacing it clears the undo history." },
+    { "name": "dependencies", "type": "readonly GanttDependency[]", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "{ id, from (predecessor), to (successor), type? ('FS' default, 'SS', 'FF', 'SF'), lag? (working days, negative = lead) }. Leaf tasks only, one per pair, no cycles (the error names the cycle)." },
+    { "name": "resources", "type": "readonly GanttResource[]", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "{ id, label, capacity? (percent per working day, default 100) }; assignments must reference them." },
+    { "name": "calendar", "type": "BusinessCalendarDefinition", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Working days, holidays, and exceptions (default Monday to Friday). Durations and lags count its working days; non-working days are shaded." },
+    { "name": "editable", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Pointer, keyboard, and toolbar editing (move, resize, link)." },
+    { "name": "columns", "type": "readonly GanttColumnKey[]", "default": "['name', 'start', 'end', 'duration']", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Grid columns: 'name' first, then any of 'start', 'end', 'duration', 'progress', 'resources', 'float' (unique)." },
+    { "name": "showCritical", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Mark critical tasks (badge, hatched bar, red connectors)." },
+    { "name": "showBaselines", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Draw baselines and describe baseline variance in the grid." },
+    { "name": "showHistogram", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Show the resource load histogram below the chart (needs resources): daily load per resource with peak and over-capacity days as text." },
+    { "name": "today", "type": "PlainDate", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Date of the today line and the Go to today button (default: the device's local date)." },
+    { "name": "canEdit", "type": "(task: Readonly<GanttTask>) => boolean", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Veto edits of a task (also as a link successor). Summary and read-only tasks are never edited." },
+    { "name": "scale", "type": "'day' | 'week' | 'month'", "default": "week", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Timeline scale (32, 16, or 5 CSS px per day); also changed by the zoom buttons and setScale()." },
+    { "name": "rowHeight", "type": "number", "default": 36, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Row height in CSS px (24..96). Rows have a fixed height (virtual rows)." },
+    { "name": "historyLimit", "type": "number", "default": 50, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Undo depth (0..500)." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Dates, numbers, the first day of the week (week scale), plural forms, and messages." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Mirrors the timeline and swaps ArrowLeft/ArrowRight." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host." },
+    { "name": "element", "type": "HTMLDivElement", "description": "The tree grid (role=treegrid)." },
+    { "name": "tasks", "type": "GanttTask[]", "description": "Every task (copies) with requested starts." },
+    { "name": "dependencies", "type": "GanttDependency[]", "description": "Every dependency (copies)." },
+    { "name": "schedule", "type": "GanttSchedule", "description": "Scheduled dates, float, critical flags, violations, and variance per task; project start and finish; critical ids." },
+    { "name": "businessCalendar", "type": "BusinessCalendarEngine", "description": "The working-day engine in use." },
+    { "name": "scale", "type": "GanttScale", "description": "Current scale." },
+    { "name": "editable", "type": "boolean", "description": "Whether editing is on." },
+    { "name": "expanded", "type": "string[]", "description": "Expanded summary task ids." },
+    { "name": "canUndo", "type": "boolean", "description": "A change can be undone." },
+    { "name": "canRedo", "type": "boolean", "description": "An undone change can be redone." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<GanttOptions>): void", "description": "Merge and apply options; new tasks or dependencies clear the history (expansion of known summaries is kept)." },
+    { "name": "setScale", "signature": "setScale(scale: GanttScale): void", "description": "Change the scale, keeping the first visible date; emits aui-scale-change." },
+    { "name": "setExpanded", "signature": "setExpanded(id: string, expanded: boolean): void", "description": "Expand or collapse a summary task (emits aui-expand-change)." },
+    { "name": "expandAll", "signature": "expandAll(): void", "description": "Expand every summary task." },
+    { "name": "collapseAll", "signature": "collapseAll(): void", "description": "Collapse every summary task." },
+    { "name": "scrollToTask", "signature": "scrollToTask(id: string, options?: { focus?: boolean }): void", "description": "Expand the ancestors, scroll the row and bar into view, and focus the row (unless focus is false)." },
+    { "name": "scrollToDate", "signature": "scrollToDate(date: PlainDate): void", "description": "Center the timeline on a date." },
+    { "name": "focusTask", "signature": "focusTask(id: string): void", "description": "scrollToTask with focus." },
+    { "name": "moveTask", "signature": "moveTask(id: string, start: PlainDate): boolean", "description": "Change the requested start (next working day). Emits aui-task-change; false when refused or cancelled." },
+    { "name": "setDuration", "signature": "setDuration(id: string, duration: number): boolean", "description": "Change the duration in working days (0 = milestone)." },
+    { "name": "addDependency", "signature": "addDependency(dependency: GanttDependency): boolean", "description": "Add a dependency (validated; throws GANTT_OPTIONS for cycles or summary tasks); false when the event is cancelled." },
+    { "name": "removeDependency", "signature": "removeDependency(id: string): boolean", "description": "Remove a dependency." },
+    { "name": "resourceLoad", "signature": "resourceLoad(range?: { start: PlainDate; end: PlainDate }): GanttResourceLoad[]", "description": "Daily load per resource (default: the timeline range)." },
+    { "name": "undo", "signature": "undo(): boolean", "description": "Undo the last change (emits aui-task-change with reason 'undo')." },
+    { "name": "redo", "signature": "redo(): boolean", "description": "Redo the last undone change." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove listeners and the rendered chart." }
+  ],
+  "events": [
+    { "name": "aui-task-change", "detail": "{ reason: 'move' | 'resize' | 'link' | 'unlink' | 'undo' | 'redo'; changes: GanttTaskChange[]; dependency: GanttDependency | null; tasks: GanttTask[]; dependencies: GanttDependency[]; schedule: GanttSchedule }", "bubbles": true, "cancelable": true, "description": "Before a change is applied; preventDefault() keeps the previous state." },
+    { "name": "aui-task-activate", "detail": "{ id: string; task: GanttTask }", "bubbles": true, "cancelable": false, "description": "Enter on a row." },
+    { "name": "aui-expand-change", "detail": "{ id: string; expanded: boolean }", "bubbles": true, "cancelable": false, "description": "A summary task was expanded or collapsed." },
+    { "name": "aui-scale-change", "detail": "{ scale: GanttScale }", "bubbles": true, "cancelable": false, "description": "The scale changed (zoom buttons or setScale)." }
+  ],
+  "contentAreas": [
+    { "name": "none", "description": "Rows and bars render task data; no custom content slots." }
+  ],
+  "cssClasses": [
+    { "name": "aui-gantt | --editable | --linking | --day | --week | --month | --rtl", "description": "Host and modifiers; --aui-gantt-table-width, --aui-gantt-height, --aui-gantt-tier size the chart (--aui-gantt-row and --aui-gantt-day are set by the component)." },
+    { "name": "aui-gantt__toolbar | __tool", "description": "Toolbar." },
+    { "name": "aui-gantt__body | __table | __head-group | __head | __rows | __row (--summary, --critical, --link-source) | __cell (--name, --start, --end, --duration, --progress, --resources, --float) | __toggle | __name | __badge (--milestone, --critical)", "description": "Tree grid." },
+    { "name": "aui-gantt__chart | __scale | __tier | __tick (--off) | __canvas | __shade | __off | __today | __links | __dependency (--critical, --violated) | __arrow", "description": "Timeline." },
+    { "name": "aui-gantt__bars | __bar (--c1..--c8, --summary, --milestone, --critical, --manual, --editable, --focus, --link-source, --dragging, --drop, --no-drop) | __fill | __progress | __bar-label | __baseline | __resize | __link-handle", "description": "Bars." },
+    { "name": "aui-gantt__histogram | __histogram-title | __load-row | __load-label | __load-name | __load-summary | __load-track | __load (--over)", "description": "Resource histogram." }
+  ],
+  "iconSlots": [
+    { "name": "zoom out / zoom in", "default": "zoom-out / zoom-in" },
+    { "name": "today", "default": "locate" },
+    { "name": "earlier / later", "default": "chevron-left / chevron-right" },
+    { "name": "shorten / lengthen", "default": "minus / plus" },
+    { "name": "link", "default": "link" },
+    { "name": "undo / redo", "default": "undo / redo" },
+    { "name": "expand", "default": "chevron-right / chevron-down" }
+  ]
+}

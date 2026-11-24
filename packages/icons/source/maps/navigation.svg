@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="navigation" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3.5 11L20.5 3.5 13 20.5l-2-7.5z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M3.5 11L20.5 3.5 13 20.5l-2-7.5z" transform="translate(12 12) scale(1.06) translate(-12 -12)"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3.5 11L20.5 3.5 13 20.5l-2-7.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3.5 11L20.5 3.5 13 20.5l-2-7.5z"/>
+    </g>
+  </g>
+</svg>

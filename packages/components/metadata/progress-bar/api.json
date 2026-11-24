@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "component": "progress-bar",
+  "factory": {
+    "name": "ProgressBar.create",
+    "signature": "ProgressBar.create(host: HTMLElement, options: ProgressBarOptions): ProgressBar"
+  },
+  "configKey": "progressBar",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Visible label and accessible name (aria-labelledby)."
+    },
+    {
+      "name": "value",
+      "type": "number | null",
+      "default": "null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Current value, clamped to [min, max]. null renders an indeterminate bar without aria-valuenow."
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "default": 0,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Minimum value."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": 100,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Maximum value; must be greater than min."
+    },
+    {
+      "name": "valueText",
+      "type": "(value: number, max: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Custom value text for aria-valuetext and the visible value. Default: localized percentage."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Help text referenced by aria-describedby."
+    },
+    {
+      "name": "tone",
+      "type": "'default' | 'success' | 'warning' | 'error'",
+      "default": "default",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Semantic tone; non-default tones add a labelled icon."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ success: IconRef; warning: IconRef; error: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    },
+    {
+      "name": "showValue",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Render the value text next to the label."
+    },
+    {
+      "name": "announceComplete",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Announce \"{label} complete\" politely once when the value reaches max."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Percentage formatting and message locale."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "track",
+      "type": "HTMLDivElement",
+      "description": "The role=\"progressbar\" element."
+    },
+    {
+      "name": "value",
+      "type": "number | null",
+      "description": "Current clamped value, or null when indeterminate."
+    },
+    {
+      "name": "indeterminate",
+      "type": "boolean",
+      "description": "Whether the value is null."
+    }
+  ],
+  "methods": [
+    {
+      "name": "setValue",
+      "signature": "setValue(value: number | null): void",
+      "description": "Set the value (null for indeterminate)."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<ProgressBarOptions>): void",
+      "description": "Merge and apply options."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering and config subscriptions."
+    }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-progress-bar",
+      "description": "Host."
+    },
+    {
+      "name": "aui-progress-bar--default | --success | --warning | --error",
+      "description": "Tone modifiers."
+    },
+    {
+      "name": "aui-progress-bar--indeterminate",
+      "description": "Value is null."
+    },
+    {
+      "name": "aui-progress-bar__header",
+      "description": "Label, tone icon, and value row."
+    },
+    {
+      "name": "aui-progress-bar__label",
+      "description": "Visible label."
+    },
+    {
+      "name": "aui-progress-bar__icon",
+      "description": "Tone icon (role=\"img\" with a localized label)."
+    },
+    {
+      "name": "aui-progress-bar__value",
+      "description": "Visible value text (aria-hidden; duplicated in aria-valuetext)."
+    },
+    {
+      "name": "aui-progress-bar__track",
+      "description": "role=\"progressbar\" track."
+    },
+    {
+      "name": "aui-progress-bar__fill",
+      "description": "Fill; inline size from --aui-progress."
+    },
+    {
+      "name": "aui-progress-bar__description",
+      "description": "Help text."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "success",
+      "default": "check-circle"
+    },
+    {
+      "name": "warning",
+      "default": "alert-triangle"
+    },
+    {
+      "name": "error",
+      "default": "alert-circle"
+    }
+  ]
+}

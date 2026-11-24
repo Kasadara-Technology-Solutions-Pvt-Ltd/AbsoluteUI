@@ -1,0 +1,6 @@
+{
+  "//": "No path aliases: the harness must resolve @absoluteui/* through package exports to the built dist.",
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": { "noEmit": true },
+  "include": ["*.ts"]
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "component": "tag-group",
+  "factory": { "name": "TagGroup.create", "signature": "TagGroup.create(host: HTMLElement, options: TagGroupOptions): TagGroup" },
+  "configKey": "tagGroup",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the group." },
+    { "name": "items", "type": "readonly TagGroupItem[]", "required": true, "globallyConfigurable": false, "description": "Tags: { value, label, disabled? } (unique values, at most 1,000)." },
+    { "name": "removable", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Remove button per tag; Delete and Backspace remove the focused tag." },
+    { "name": "selection", "type": "'none' | 'single' | 'multiple'", "default": "none", "required": false, "globallyConfigurable": false, "description": "Selection mode." },
+    { "name": "value", "type": "readonly string[]", "required": false, "globallyConfigurable": false, "description": "Selected values." },
+    { "name": "size", "type": "'sm' | 'md'", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Tag size." },
+    { "name": "icons", "type": "Partial<TagGroupIcons>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the remove label and announcement." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (role=grid while it has tags)." },
+    { "name": "items", "type": "readonly TagGroupItem[]", "description": "The tags shown, after removals." },
+    { "name": "value", "type": "readonly string[]", "description": "Selected values, in tag order." },
+    { "name": "options", "type": "Readonly<TagGroupOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: readonly string[]): void", "description": "Set the selected values (no event)." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the tag in the tab sequence." },
+    { "name": "update", "signature": "update(options: Partial<TagGroupOptions>): void", "description": "Merge and apply options; focus stays on the same tag." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, attributes, and listeners." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "TagGroupChangeDetail", "bubbles": true, "cancelable": false, "description": "The user changed the selection (or removed a selected tag): { value }." },
+    { "name": "aui-remove", "detail": "TagGroupRemoveDetail", "bubbles": true, "cancelable": true, "description": "The user removes a tag: { value, item }. Prevent it to keep the tag." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-tag-group", "description": "Host." },
+    { "name": "aui-tag-group--sm | --md", "description": "Size modifiers." },
+    { "name": "aui-tag-group__tag", "description": "A tag (role=row)." },
+    { "name": "aui-tag-group__tag--selected", "description": "A selected tag." },
+    { "name": "aui-tag-group__cell", "description": "The tag's gridcell." },
+    { "name": "aui-tag-group__label", "description": "Tag text." },
+    { "name": "aui-tag-group__remove", "description": "Remove button." }
+  ],
+  "iconSlots": [
+    { "name": "remove", "default": "close" }
+  ]
+}

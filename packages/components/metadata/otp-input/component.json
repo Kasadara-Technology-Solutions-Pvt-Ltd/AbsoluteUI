@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "name": "otp-input",
+  "displayName": "OTP Input",
+  "category": "Authentication UI",
+  "package": "@absoluteui/components",
+  "import": "import { OtpInput } from '@absoluteui/components/otp-input';",
+  "styleImport": "@absoluteui/components/otp-input/style.css",
+  "purpose": "Entry for one-time passcodes, PINs, MFA codes, and recovery codes: one native <input> holds the code and N aria-hidden visual cells mirror it. Numeric or alphanumeric, paste distribution (spaces and dashes are dropped), autocomplete=\"one-time-code\", overwrite typing, masking, grouping, and a complete event.",
+  "whenToUse": [
+    "SMS, email, or authenticator codes.",
+    "Numeric PINs (with mask).",
+    "Recovery codes (alphanumeric with groupSize)."
+  ],
+  "whenNotToUse": [
+    "Passwords: use Password Input.",
+    "Free-form identifiers of varying length: use Text Input."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "empty",
+    "partially filled",
+    "complete",
+    "focused (active cell highlighted)",
+    "masked",
+    "disabled",
+    "read-only",
+    "required",
+    "invalid"
+  ],
+  "responsive": "Cells share the available width (up to 3rem each); 6 cells fit a 320 px viewport. The input font size is at least 16 px so mobile browsers do not zoom.",
+  "rtl": "Codes are left-to-right in every locale: the input and cells use dir=\"ltr\"; the label and messages follow the page direction.",
+  "theme": "Cells use the control surface tokens; the active cell uses color-focus-ring; invalid cells use color-error-fg. Forced-colors mode uses CanvasText borders and a Highlight outline for the active cell.",
+  "timezone": "Not applicable.",
+  "security": "Characters are filtered to the allowed set (after NFKC normalization) and rendered with textContent. Events never include the code. mask renders dots and switches the input to type=password. autocomplete=one-time-code enables OS autofill; use off for recovery codes. CSP-safe.",
+  "dataHandling": "The code lives only in the native input. No persistence, logging, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "OtpInput.create, per instance (1,000 instances)",
+        "budget": "< 1 ms average in headless Chromium"
+      }
+    ],
+    "testedScale": "1,000 inputs on one page in the performance test."
+  },
+  "limitations": [
+    "Only ASCII letters and digits are accepted (after NFKC, so full-width digits work).",
+    "Lengths from 1 to 32.",
+    "The active-cell highlight follows the caret on keyup, click, and selection; selection by pointer drag is not mirrored cell by cell.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "N separate inputs (deliberately: see the accessibility notes).",
+    "Custom character sets."
+  ],
+  "antiPatterns": [
+    "Auto-submitting without letting the user correct a mistyped code (keep a submit button).",
+    "Blocking paste.",
+    "Splitting a code into several inputs."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/otp-input: AuiOtpInput directive ([auiOtpInput]) with ControlValueAccessor (string) and Validator.",
+    "react": "@absoluteui/react/otp-input: AuiOtpInput component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/otp-input: AuiOtpInput component with v-model."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

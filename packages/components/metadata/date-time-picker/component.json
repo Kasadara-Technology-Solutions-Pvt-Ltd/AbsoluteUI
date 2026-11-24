@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "name": "date-time-picker",
+  "displayName": "DateTime Picker",
+  "category": "Form Inputs / Date and Time",
+  "package": "@absoluteui/components",
+  "import": "import { DateTimePicker } from '@absoluteui/components/date-time-picker';",
+  "styleImport": "@absoluteui/components/date-time-picker/style.css",
+  "purpose": "Exact-moment field that combines a segmented Date Input (minute granularity) with a button opening a non-modal dialog popup containing a Calendar and a listbox of suggested times. Typed and picked wall-clock times are resolved in the configured timezone with the DST disambiguation policy into the same Instant value; the picker is the form control Form discovers.",
+  "whenToUse": [
+    "Exact moments users may type or look up: appointments, departures, deadlines with a time.",
+    "Scheduling forms that need min/max instants, unavailable days, and explicit timezone handling."
+  ],
+  "whenNotToUse": [
+    "A date without a time: use Date Picker.",
+    "A time of day without a date or timezone (opening hours): use Time Picker.",
+    "Moments whose timezone the user chooses per value: pair this picker with a timezone select and update `timezone`.",
+    "Date-time ranges: not supported yet (use a Date Range Picker with Time Pickers)."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["empty", "partial (incomplete)", "valid", "valid with DST hint (adjusted or ambiguous)", "invalid (Date Input errors incl. nonexistent/ambiguous time under 'reject', unavailable day, custom)", "open", "disabled", "read-only"],
+  "responsive": "The field fits its content like Date Input. The popup is positioned under the field by the positioning engine, flips above when there is no room, scrolls when taller than the available height, and wraps the time column below the calendar on narrow viewports.",
+  "rtl": "Segment order follows the locale; the trigger sits at the inline end of the field. The popup aligns to the field's inline start; the calendar mirrors arrows and chevrons; the time column follows the calendar in inline order.",
+  "theme": "Date Input and Calendar tokens plus surface, border, shadow, hover, selected, and focus tokens for the popup, listbox, and buttons. Forced-colors mode uses CanvasText borders and Highlight for the selected and active time.",
+  "timezone": "Values are Instant. Wall-clock input (typed or picked) is resolved in the configured timezone (default UTC, never the host zone) with `disambiguation` (default 'compatible'): a time in a spring-forward gap is shifted with a hint (or rejected with 'reject'); a repeated fall-back time uses the earlier (or later) offset with a hint. The time-zone hint is always shown. min/max are Instants; the calendar bounds are their local dates.",
+  "security": "All text via textContent and Intl formatting; no HTML parsing. The popup uses the Popover API (top layer), no inline styles or handlers. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. The inner Date Input's hidden input carries the ISO 8601 instant with Z when `name` is set.",
+  "performance": {
+    "budgets": [
+      { "metric": "DateTimePicker.create, per instance (100 instances)", "budget": "< 15 ms average in headless Chromium" }
+    ],
+    "testedScale": "One calendar and one listbox (1440 / step options, 48 by default) per picker, created once and reused on every open."
+  },
+  "limitations": [
+    "Gregorian calendar only; years 1-9999 (Date Input range).",
+    "Minute precision; suggested times start at midnight every `step` minutes and are not offset by min.",
+    "Validation messages follow Date Input timing; validationTiming is not supported.",
+    "A typed day rejected by isDateDisabled is reported as error 'custom' with the message 'This date is not available.'; a consumer custom error takes precedence.",
+    "Suggested times in a DST gap stay listed; picking one follows `disambiguation` like typing it.",
+    "The popup has no Cancel button: picking commits; Done only closes."
+  ],
+  "unsupported": [
+    "Seconds or milliseconds.",
+    "Per-value timezone selection inside the picker.",
+    "Rendering HTML in the label, help text, or messages."
+  ],
+  "antiPatterns": [
+    "Making the popup the only way to enter a value; the segments stay available for keyboard and screen-reader users.",
+    "Relying on the host timezone; configure `timezone` explicitly.",
+    "Storing the displayed wall-clock text instead of the Instant (use getFormValue or value)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/date-time-picker: AuiDateTimePicker directive ([auiDateTimePicker]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/date-time-picker: AuiDateTimePicker component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/date-time-picker: AuiDateTimePicker component with v-model."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

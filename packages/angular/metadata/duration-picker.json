@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/duration-picker",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDurationPicker",
+      "description": "AbsoluteUI DurationPicker: `<aui-duration-picker>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-duration-picker",
+      "exportAs": [
+        "auiDurationPicker"
+      ],
+      "source": "generated",
+      "component": "duration-picker",
+      "configKey": "durationPicker",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "Duration | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name of the group (via aria-labelledby)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "min",
+          "type": "Duration | null",
+          "required": false,
+          "default": "null",
+          "description": "Inclusive lower bound for validation and stepping (non-negative). Stepping stops at zero when unset. Must not exceed max."
+        },
+        {
+          "name": "max",
+          "type": "Duration | null",
+          "required": false,
+          "default": "null",
+          "description": "Inclusive upper bound for validation and stepping (non-negative); also sets the digits and aria-valuemax of the largest segment."
+        },
+        {
+          "name": "step",
+          "type": "Duration",
+          "required": false,
+          "default": "one of the smallest unit",
+          "description": "Increment of the smallest segment and the valid-value grid from zero. Positive and a whole number of the smallest unit."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name for the hidden input (ISO 8601 duration, for example PT1H30M)."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by the group's aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "An empty entry is invalid; segments are required and the required indicator is shown."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the segments; not submitted."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Focusable and submitted; not editable, and stepping, Home/End, and separators are ignored."
+        },
+        {
+          "name": "validate",
+          "type": "((value: Duration | null) => string | null)",
+          "required": false,
+          "description": "Consumer validation after built-in checks; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<DurationPickerIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "fields",
+          "type": "readonly DurationField[]",
+          "required": false,
+          "default": "hours,minutes",
+          "configurable": true,
+          "description": "Unit segments, largest first, as a contiguous non-empty run of 'days' | 'hours' | 'minutes' | 'seconds'."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Segment names, unit text and its position, aria-valuetext, durations in messages, and messages."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Direction of the group; ArrowLeft/ArrowRight follow it."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "Duration | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "DurationPickerChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the value or its validity error (typing, stepping, Home/End, or a separator)."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user edits."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "ISO 8601 duration in hours, minutes, and seconds (PT1H30M), or null when empty or invalid."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the first (largest) segment."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear dirty/touched/submitted state (no events)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Labelled group of WAI-ARIA APG Spinbutton segments (one text input per unit) with no popup; each segment exposes its unit value and a localized value text.",
+        "source": "packages/components/metadata/duration-picker/accessibility.json"
+      },
+      "limitations": [
+        "Negative durations are not supported; value, min, and max must be non-negative.",
+        "Calendar durations (years, months, weeks) are not supported; a day is always 24 hours.",
+        "The value and step must be whole numbers of the smallest unit in fields; milliseconds cannot be entered.",
+        "Without max, the largest segment is limited by its digits (999 days, 999 hours, 9,999 minutes, or 99,999 seconds).",
+        "Only ASCII digits are accepted in segments; locale digits (for example Arabic-Indic) are not parsed.",
+        "No popup or preset list; values are typed or stepped.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { duration, type Duration } from '@absoluteui/core';\nimport { AuiDurationPicker } from '@absoluteui/angular/duration-picker';\n\n@Component({\n  selector: 'app-task-estimate',\n  imports: [ReactiveFormsModule, AuiDurationPicker],\n  template: `<aui-duration-picker label=\"Estimate\" [max]=\"max\" [step]=\"step\" [required]=\"true\" [formControl]=\"estimate\"></aui-duration-picker>`,\n})\nexport class TaskEstimateComponent {\n  readonly max = duration(8 * 3_600_000);\n  readonly step = duration(15 * 60_000);\n  readonly estimate = new FormControl<Duration | null>(null, { validators: [Validators.required] });\n}"
+    }
+  ]
+}

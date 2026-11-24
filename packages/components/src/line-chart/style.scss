@@ -1,0 +1,66 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-interaction;
+
+  .aui-line-chart__line {
+    fill: none;
+    stroke: var(--aui-chart-color);
+    stroke-width: var(--aui-chart-series-line-width, #{aui.ctoken('chart', 'line-width')});
+    stroke-linejoin: var(--aui-chart-line-join, round);
+    stroke-linecap: round;
+  }
+
+  // Decorative: the line carries the data, so the translucent fill has no contrast requirement.
+  .aui-line-chart__area {
+    fill: var(--aui-chart-color);
+    fill-opacity: var(--aui-chart-series-fill-opacity, var(--aui-chart-area-opacity, 0.12));
+    stroke: none;
+  }
+
+  // Dense series: all visible markers (and isolated points) in one decorative path.
+  .aui-line-chart__markers {
+    fill: var(--aui-chart-color);
+    stroke: aui.token('color-surface');
+    stroke-width: 1;
+  }
+
+  .aui-line-chart__point {
+    fill: var(--aui-chart-color);
+    stroke: aui.token('color-surface');
+    stroke-width: 1;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  // Markers are shown when points are far enough apart, for isolated points (no line),
+  // and for the hovered or focused point.
+  .aui-line-chart--markers .aui-line-chart__point,
+  .aui-line-chart__point--isolated,
+  .aui-line-chart__point.aui-chart__mark--hover,
+  .aui-line-chart__point.aui-chart__mark--active,
+  .aui-line-chart__point:focus-visible {
+    opacity: 1;
+  }
+
+  .aui-line-chart__point.aui-chart__mark--hover,
+  .aui-line-chart__point.aui-chart__mark--active {
+    transform: scale(1.5);
+  }
+
+  // Series with `style.marker: "none"`: points appear only while hovered or focused.
+  .aui-line-chart--markers .aui-line-chart__point--unmarked:not(.aui-chart__mark--hover, .aui-chart__mark--active, :focus-visible) {
+    opacity: 0;
+  }
+
+  @include aui.forced-colors {
+    .aui-line-chart__point,
+    .aui-line-chart__markers {
+      stroke: Canvas;
+    }
+  }
+}

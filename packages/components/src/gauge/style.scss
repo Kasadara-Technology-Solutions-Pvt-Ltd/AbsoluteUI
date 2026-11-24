@@ -1,0 +1,235 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Scales with its inline size (default 12rem) through the viewBox.
+  .aui-gauge {
+    display: inline-grid;
+    gap: aui.token('space-1');
+    inline-size: 12rem;
+    max-inline-size: 100%;
+    font-family: aui.ctoken('chart', 'font-family');
+    color: aui.token('color-text');
+    text-align: center;
+  }
+
+  .aui-gauge__title {
+    font-size: aui.token('font-size-md');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-gauge__title--hidden {
+    @include aui.visually-hidden;
+  }
+
+  .aui-gauge__description {
+    margin: 0;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-gauge__description[hidden] {
+    display: none;
+  }
+
+  .aui-gauge__svg {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    overflow: visible;
+  }
+
+  .aui-gauge--c1 {
+    --aui-gauge-color: #{aui.ctoken('chart', '1')};
+  }
+
+  .aui-gauge__band--c1 {
+    stroke: aui.ctoken('chart', '1');
+  }
+
+  .aui-gauge--c2 {
+    --aui-gauge-color: #{aui.ctoken('chart', '2')};
+  }
+
+  .aui-gauge__band--c2 {
+    stroke: aui.ctoken('chart', '2');
+  }
+
+  .aui-gauge--c3 {
+    --aui-gauge-color: #{aui.ctoken('chart', '3')};
+  }
+
+  .aui-gauge__band--c3 {
+    stroke: aui.ctoken('chart', '3');
+  }
+
+  .aui-gauge--c4 {
+    --aui-gauge-color: #{aui.ctoken('chart', '4')};
+  }
+
+  .aui-gauge__band--c4 {
+    stroke: aui.ctoken('chart', '4');
+  }
+
+  .aui-gauge--c5 {
+    --aui-gauge-color: #{aui.ctoken('chart', '5')};
+  }
+
+  .aui-gauge__band--c5 {
+    stroke: aui.ctoken('chart', '5');
+  }
+
+  .aui-gauge--c6 {
+    --aui-gauge-color: #{aui.ctoken('chart', '6')};
+  }
+
+  .aui-gauge__band--c6 {
+    stroke: aui.ctoken('chart', '6');
+  }
+
+  .aui-gauge--c7 {
+    --aui-gauge-color: #{aui.ctoken('chart', '7')};
+  }
+
+  .aui-gauge__band--c7 {
+    stroke: aui.ctoken('chart', '7');
+  }
+
+  .aui-gauge--c8 {
+    --aui-gauge-color: #{aui.ctoken('chart', '8')};
+  }
+
+  .aui-gauge__band--c8 {
+    stroke: aui.ctoken('chart', '8');
+  }
+
+  .aui-gauge__track,
+  .aui-gauge__value,
+  .aui-gauge__band {
+    fill: none;
+    stroke-linecap: butt;
+  }
+
+  // The track only frames the arc; the value arc carries the reading (3:1 on surfaces).
+  .aui-gauge__track {
+    stroke: aui.ctoken('chart', 'grid-color');
+    stroke-width: 16;
+  }
+
+  .aui-gauge__value {
+    stroke: var(--aui-gauge-color);
+    stroke-width: 16;
+  }
+
+  // `theme.animation` (opt-in): the value arc fades in when the gauge renders.
+  @keyframes aui-gauge-enter {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .aui-gauge.aui-chart--animate .aui-gauge__value {
+    animation: aui-gauge-enter var(--aui-chart-animation-duration, 400ms) #{aui.token('easing-standard')} both;
+  }
+
+  @include aui.reduced-motion {
+    .aui-gauge.aui-chart--animate .aui-gauge__value {
+      animation: none;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-gauge.aui-chart--animate .aui-gauge__value {
+    animation: none;
+  }
+
+  .aui-gauge__band {
+    stroke-width: 5;
+  }
+
+  // R20-22: with `sliceRadius` / `cornerRadius` the arcs are filled ring sectors with rounded corners.
+  .aui-gauge__arc--filled {
+    stroke: none;
+  }
+
+  .aui-gauge__track.aui-gauge__arc--filled {
+    fill: aui.ctoken('chart', 'grid-color');
+  }
+
+  .aui-gauge__value.aui-gauge__arc--filled {
+    fill: var(--aui-gauge-color);
+  }
+
+  @for $i from 1 through 8 {
+    .aui-gauge__band--c#{$i}.aui-gauge__arc--filled {
+      fill: aui.ctoken('chart', '#{$i}');
+    }
+  }
+
+  .aui-gauge__target {
+    stroke: aui.token('color-text');
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+
+  .aui-gauge__reading {
+    fill: aui.token('color-text');
+    font-size: 28px;
+    font-weight: aui.token('font-weight-semibold');
+    font-variant-numeric: tabular-nums;
+  }
+
+  .aui-gauge__band-label,
+  .aui-gauge__range {
+    fill: aui.ctoken('chart', 'text-color');
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @include aui.forced-colors {
+    .aui-gauge {
+      --aui-gauge-color: Highlight;
+    }
+
+    .aui-gauge__track {
+      stroke: GrayText;
+    }
+
+    .aui-gauge__band {
+      stroke: CanvasText;
+    }
+
+    .aui-gauge__arc--filled {
+      stroke: none;
+    }
+
+    .aui-gauge__track.aui-gauge__arc--filled {
+      fill: GrayText;
+    }
+
+    .aui-gauge__value.aui-gauge__arc--filled {
+      fill: Highlight;
+    }
+
+    .aui-gauge__band.aui-gauge__arc--filled {
+      fill: CanvasText;
+    }
+
+    .aui-gauge__target,
+    .aui-gauge__reading {
+      stroke: none;
+      fill: CanvasText;
+    }
+
+    .aui-gauge__target {
+      stroke: CanvasText;
+    }
+
+    .aui-gauge__band-label,
+    .aui-gauge__range {
+      fill: CanvasText;
+    }
+  }
+}

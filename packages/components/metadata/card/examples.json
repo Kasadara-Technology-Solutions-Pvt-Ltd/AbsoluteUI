@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "card",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Titled card with footer actions",
+      "language": "ts",
+      "code": "import { Card } from '@absoluteui/components/card';\nimport { Button } from '@absoluteui/components/button';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst archive = document.createElement('button');\narchive.type = 'button';\narchive.textContent = 'Archive';\nButton.enhance(archive);\nCard.create(host, {\n  title: 'Quarterly report',\n  subtitle: 'Updated today',\n  content: 'Revenue grew 4% compared to last quarter.',\n  footer: archive,\n  variant: 'raised',\n});"
+    },
+    {
+      "id": "interactive",
+      "title": "Whole-card link (block-link pattern)",
+      "language": "ts",
+      "code": "import { Card } from '@absoluteui/components/card';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst img = document.createElement('img');\nimg.src = '/images/alpha.png';\nimg.alt = '';\nCard.create(host, {\n  title: 'Project Alpha',\n  subtitle: 'Owner: Ada Lovelace',\n  media: img,\n  interactive: { href: '/projects/alpha' },\n  headingLevel: 2,\n});"
+    },
+    {
+      "id": "surface",
+      "title": "Padded sunken panel",
+      "language": "ts",
+      "code": "import { Surface } from '@absoluteui/components/card';\n\nconst panel = document.createElement('section');\ndocument.body.append(panel);\nconst surface = Surface.apply(panel, { variant: 'sunken', padded: true });\nsurface.update({ variant: 'raised' });"
+    },
+    {
+      "id": "global-config",
+      "title": "Card titles are h2 on this page",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { card: { headingLevel: 2 } } });"
+    }
+  ]
+}

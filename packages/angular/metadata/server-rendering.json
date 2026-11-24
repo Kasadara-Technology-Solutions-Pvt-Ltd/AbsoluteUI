@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/angular-ssr-sweep.mjs",
+  "components": {
+    "accordion": {
+      "mode": "server"
+    },
+    "alert": {
+      "mode": "server"
+    },
+    "avatar": {
+      "mode": "server"
+    },
+    "avatar-group": {
+      "mode": "server"
+    },
+    "badge": {
+      "mode": "server"
+    },
+    "bar-chart": {
+      "mode": "server"
+    },
+    "box-plot": {
+      "mode": "server"
+    },
+    "breadcrumb": {
+      "mode": "server"
+    },
+    "bullet-chart": {
+      "mode": "server"
+    },
+    "business-calendar": {
+      "mode": "server"
+    },
+    "button-group": {
+      "mode": "server"
+    },
+    "calendar": {
+      "mode": "server"
+    },
+    "calendar-heatmap": {
+      "mode": "server"
+    },
+    "candlestick-chart": {
+      "mode": "server"
+    },
+    "card": {
+      "mode": "server"
+    },
+    "carousel": {
+      "mode": "server"
+    },
+    "cascader": {
+      "mode": "server"
+    },
+    "chat": {
+      "mode": "server"
+    },
+    "checkbox": {
+      "mode": "server"
+    },
+    "checkbox-group": {
+      "mode": "server"
+    },
+    "code-viewer": {
+      "mode": "server"
+    },
+    "collapsible": {
+      "mode": "server"
+    },
+    "color-picker": {
+      "mode": "server"
+    },
+    "combo-chart": {
+      "mode": "server"
+    },
+    "combobox": {
+      "mode": "server"
+    },
+    "command-palette": {
+      "mode": "server"
+    },
+    "data-grid": {
+      "mode": "server"
+    },
+    "data-table": {
+      "mode": "server"
+    },
+    "date-input": {
+      "mode": "server"
+    },
+    "date-picker": {
+      "mode": "server"
+    },
+    "date-range-picker": {
+      "mode": "server"
+    },
+    "date-time-picker": {
+      "mode": "server"
+    },
+    "diagram": {
+      "mode": "server"
+    },
+    "discussion": {
+      "mode": "server"
+    },
+    "duration-picker": {
+      "mode": "server"
+    },
+    "empty-state": {
+      "mode": "server"
+    },
+    "error-summary": {
+      "mode": "server"
+    },
+    "file-manager": {
+      "mode": "server"
+    },
+    "file-upload": {
+      "mode": "server"
+    },
+    "form-builder": {
+      "mode": "server"
+    },
+    "funnel-chart": {
+      "mode": "server"
+    },
+    "gantt": {
+      "mode": "server"
+    },
+    "gauge": {
+      "mode": "server"
+    },
+    "heatmap": {
+      "mode": "server"
+    },
+    "histogram": {
+      "mode": "server"
+    },
+    "image-viewer": {
+      "mode": "server"
+    },
+    "inline-message": {
+      "mode": "server"
+    },
+    "kanban": {
+      "mode": "server"
+    },
+    "kbd": {
+      "mode": "server"
+    },
+    "line-chart": {
+      "mode": "server"
+    },
+    "masked-input": {
+      "mode": "server"
+    },
+    "mention-input": {
+      "mode": "server"
+    },
+    "menu-bar": {
+      "mode": "server"
+    },
+    "month-picker": {
+      "mode": "server"
+    },
+    "multi-select": {
+      "mode": "server"
+    },
+    "network-graph": {
+      "mode": "server"
+    },
+    "number-input": {
+      "mode": "server"
+    },
+    "org-chart": {
+      "mode": "server"
+    },
+    "otp-input": {
+      "mode": "server"
+    },
+    "pagination": {
+      "mode": "server"
+    },
+    "password-input": {
+      "mode": "server"
+    },
+    "password-strength-meter": {
+      "mode": "server"
+    },
+    "pie-chart": {
+      "mode": "server"
+    },
+    "pivot-grid": {
+      "mode": "server"
+    },
+    "progress-bar": {
+      "mode": "server"
+    },
+    "prompt-input": {
+      "mode": "server"
+    },
+    "quarter-picker": {
+      "mode": "server"
+    },
+    "radar-chart": {
+      "mode": "server"
+    },
+    "radio-group": {
+      "mode": "server"
+    },
+    "rating": {
+      "mode": "server"
+    },
+    "recurrence-picker": {
+      "mode": "server"
+    },
+    "rich-text-editor": {
+      "mode": "browser",
+      "reason": "ReferenceError: DOMParser is not defined"
+    },
+    "scatter-chart": {
+      "mode": "server"
+    },
+    "schedule-picker": {
+      "mode": "server"
+    },
+    "scheduler": {
+      "mode": "server"
+    },
+    "schema-form": {
+      "mode": "server"
+    },
+    "select": {
+      "mode": "server"
+    },
+    "sidebar": {
+      "mode": "server"
+    },
+    "signature-pad": {
+      "mode": "server"
+    },
+    "skeleton": {
+      "mode": "server"
+    },
+    "slider": {
+      "mode": "server"
+    },
+    "sortable-list": {
+      "mode": "server"
+    },
+    "sparkline": {
+      "mode": "server"
+    },
+    "spinner": {
+      "mode": "server",
+      "note": "renders nothing on the server by design (for example until a delay elapses)"
+    },
+    "splitter": {
+      "mode": "server"
+    },
+    "stat-card": {
+      "mode": "server"
+    },
+    "stepper": {
+      "mode": "server"
+    },
+    "switch": {
+      "mode": "server"
+    },
+    "tabs": {
+      "mode": "server"
+    },
+    "tag-group": {
+      "mode": "server"
+    },
+    "text-input": {
+      "mode": "server"
+    },
+    "textarea": {
+      "mode": "server"
+    },
+    "time-picker": {
+      "mode": "server"
+    },
+    "timeline": {
+      "mode": "server"
+    },
+    "toggle-group": {
+      "mode": "server"
+    },
+    "tour": {
+      "mode": "server"
+    },
+    "transfer-list": {
+      "mode": "server"
+    },
+    "tree-select": {
+      "mode": "server"
+    },
+    "tree-view": {
+      "mode": "server"
+    },
+    "treemap": {
+      "mode": "server"
+    },
+    "upload-queue": {
+      "mode": "server"
+    },
+    "validation-message": {
+      "mode": "server"
+    },
+    "virtual-list": {
+      "mode": "server"
+    },
+    "waterfall-chart": {
+      "mode": "server"
+    },
+    "year-picker": {
+      "mode": "server"
+    }
+  }
+}

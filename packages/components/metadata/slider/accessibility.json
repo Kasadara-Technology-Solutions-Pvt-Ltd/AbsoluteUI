@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "component": "slider",
+  "pattern": "WAI-ARIA APG Slider and Multi-Thumb Slider: each thumb is role=slider with aria-valuenow, aria-valuemin, aria-valuemax, and aria-valuetext.",
+  "roles": [
+    { "element": "thumb", "role": "slider" },
+    { "element": "marks and visible value", "role": "none (aria-hidden; the thumbs announce values)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "thumb", "value": "the label, plus 'Minimum' or 'Maximum' for range thumbs" },
+    { "attribute": "aria-valuemin / aria-valuemax", "element": "thumb", "value": "bounds; range thumbs are limited by the other thumb" },
+    { "attribute": "aria-valuenow / aria-valuetext", "element": "thumb", "value": "the value and its formatted text" },
+    { "attribute": "aria-orientation", "element": "thumb", "value": "vertical when vertical" },
+    { "attribute": "aria-describedby", "element": "thumb", "value": "help text and error" },
+    { "attribute": "aria-invalid", "element": "thumb", "value": "true with a custom error" },
+    { "attribute": "aria-disabled", "element": "thumb", "value": "true when disabled (also removed from the tab order)" }
+  ],
+  "keyboard": [
+    { "key": "ArrowRight / ArrowUp", "context": "Thumb", "action": "Increase by one step (ArrowLeft increases in right-to-left)." },
+    { "key": "ArrowLeft / ArrowDown", "context": "Thumb", "action": "Decrease by one step (ArrowRight decreases in right-to-left)." },
+    { "key": "Page Up / Page Down", "context": "Thumb", "action": "Increase or decrease by the large step." },
+    { "key": "Home / End", "context": "Thumb", "action": "Set to the minimum or maximum (within the other thumb's limit for range)." },
+    { "key": "Tab", "context": "Range", "action": "Moves between the two thumbs." }
+  ],
+  "focus": "Each thumb is in the tab sequence; pressing the track focuses the moved thumb.",
+  "wcag": ["1.3.1", "1.4.11", "2.1.1", "2.5.7", "4.1.2"],
+  "notes": [
+    "Dragging has a single-pointer alternative (press on the track) and a keyboard alternative (WCAG 2.5.7).",
+    "Value text uses valueText or the number format, so screen readers hear '€20', '3 stars', or '09:00' rather than raw numbers."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

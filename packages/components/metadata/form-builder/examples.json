@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "form-builder",
+  "examples": [
+    {
+      "id": "live-form",
+      "title": "Builder with a live Schema Form",
+      "language": "ts",
+      "code": "import { FormBuilder, type FormBuilderChangeDetail } from '@absoluteui/components/form-builder';\nimport { SchemaForm } from '@absoluteui/components/schema-form';\n\nconst builderHost = document.createElement('div');\nconst formHost = document.createElement('div');\ndocument.body.append(builderHost, formHost);\nconst builder = FormBuilder.create(builderHost, { label: 'Onboarding questionnaire' });\nbuilder.addField('text');\nbuilder.addField('date');\nconst form = SchemaForm.create(formHost, builder.getValue());\nbuilderHost.addEventListener('aui-change', (event) => {\n  const { schema, uiSchema } = (event as CustomEvent<FormBuilderChangeDetail>).detail;\n  form.update({ schema, uiSchema });\n});"
+    },
+    {
+      "id": "stored-document",
+      "title": "Edit a stored document with a reduced palette",
+      "language": "ts",
+      "code": "import { FormBuilder } from '@absoluteui/components/form-builder';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\n// Start from a stored document and offer a reduced palette.\nconst builder = FormBuilder.create(host, {\n  label: 'Leave request form',\n  schema: { type: 'object', title: 'Leave request', properties: { from: { type: 'string', title: 'First day', format: 'date' } } },\n  fieldTypes: ['text', 'textarea', 'select', 'radio', 'date', 'integer', 'checkbox'],\n});\nbuilder.undo();"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="tag" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 4v7.2a2 2 0 0 0 .6 1.4l7.8 7.8a2 2 0 0 0 2.8 0l6.2-6.2a2 2 0 0 0 0-2.8L12.6 3.6A2 2 0 0 0 11.2 3H4a1 1 0 0 0-1 1z"/>
+      <circle cx="7.5" cy="7.5" r="1.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M3 4v7.2a2 2 0 0 0 .6 1.4l7.8 7.8a2 2 0 0 0 2.8 0l6.2-6.2a2 2 0 0 0 0-2.8L12.6 3.6A2 2 0 0 0 11.2 3H4a1 1 0 0 0-1 1z" transform="translate(12 12) scale(1.05) translate(-12 -12)"/>
+      <circle cx="7.5" cy="7.5" r="1.75"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3 4v7.2a2 2 0 0 0 .6 1.4l7.8 7.8a2 2 0 0 0 2.8 0l6.2-6.2a2 2 0 0 0 0-2.8L12.6 3.6A2 2 0 0 0 11.2 3H4a1 1 0 0 0-1 1z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 4v7.2a2 2 0 0 0 .6 1.4l7.8 7.8a2 2 0 0 0 2.8 0l6.2-6.2a2 2 0 0 0 0-2.8L12.6 3.6A2 2 0 0 0 11.2 3H4a1 1 0 0 0-1 1z"/>
+      <circle cx="7.5" cy="7.5" r="1.5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.3">
+      <path d="M3 4v7.2a2 2 0 0 0 .6 1.4l7.8 7.8a2 2 0 0 0 2.8 0l6.2-6.2a2 2 0 0 0 0-2.8L12.6 3.6A2 2 0 0 0 11.2 3H4a1 1 0 0 0-1 1z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 4v7.2a2 2 0 0 0 .6 1.4l7.8 7.8a2 2 0 0 0 2.8 0l6.2-6.2a2 2 0 0 0 0-2.8L12.6 3.6A2 2 0 0 0 11.2 3H4a1 1 0 0 0-1 1z"/>
+      <circle cx="7.5" cy="7.5" r="1.5"/>
+    </g>
+  </g>
+</svg>

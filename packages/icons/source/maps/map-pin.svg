@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="map-pin" data-animations="bounce:on-change">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="12" cy="9.5" r="2.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z" transform="translate(12 12) scale(1.05) translate(-12 -12)"/>
+      <circle cx="12" cy="9.5" r="2.75"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="12" cy="9.5" r="2.5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="error" data-paint="fill" data-opacity="0.3">
+      <path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/>
+    </g>
+    <g data-layer="base" data-role="error" data-paint="stroke">
+      <path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/>
+    </g>
+    <g data-layer="accent" data-role="error" data-paint="fill">
+      <circle cx="12" cy="9.5" r="2.5"/>
+    </g>
+  </g>
+</svg>

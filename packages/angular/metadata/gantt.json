@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/gantt",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiGantt",
+      "description": "AbsoluteUI Gantt: `<aui-gantt>`.\nTwo-way: `[(scale)]`, `[(tasks)]`, `[(dependencies)]`.",
+      "selector": "aui-gantt",
+      "exportAs": [
+        "auiGantt"
+      ],
+      "source": "generated",
+      "component": "gantt",
+      "configKey": "gantt",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the tree grid; the toolbar is named '{label} controls'. Non-empty."
+        },
+        {
+          "name": "resources",
+          "type": "readonly GanttResource[]",
+          "required": false,
+          "description": "{ id, label, capacity? (percent per working day, default 100) }; assignments must reference them."
+        },
+        {
+          "name": "calendar",
+          "type": "BusinessCalendarDefinition",
+          "required": false,
+          "description": "Working days, holidays, and exceptions (default Monday to Friday). Durations and lags count its working days; non-working days are shaded."
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Pointer, keyboard, and toolbar editing (move, resize, link)."
+        },
+        {
+          "name": "columns",
+          "type": "readonly GanttColumnKey[]",
+          "required": false,
+          "default": "['name', 'start', 'end', 'duration']",
+          "description": "Grid columns: 'name' first, then any of 'start', 'end', 'duration', 'progress', 'resources', 'float' (unique)."
+        },
+        {
+          "name": "showCritical",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Mark critical tasks (badge, hatched bar, red connectors)."
+        },
+        {
+          "name": "showBaselines",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Draw baselines and describe baseline variance in the grid."
+        },
+        {
+          "name": "showHistogram",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the resource load histogram below the chart (needs resources): daily load per resource with peak and over-capacity days as text."
+        },
+        {
+          "name": "today",
+          "type": "PlainDate",
+          "required": false,
+          "description": "Date of the today line and the Go to today button (default: the device's local date)."
+        },
+        {
+          "name": "canEdit",
+          "type": "((task: Readonly<GanttTask>) => boolean)",
+          "required": false,
+          "description": "Veto edits of a task (also as a link successor). Summary and read-only tasks are never edited."
+        },
+        {
+          "name": "rowHeight",
+          "type": "number",
+          "required": false,
+          "default": "36",
+          "configurable": true,
+          "description": "Row height in CSS px (24..96). Rows have a fixed height (virtual rows)."
+        },
+        {
+          "name": "historyLimit",
+          "type": "number",
+          "required": false,
+          "default": "50",
+          "configurable": true,
+          "description": "Undo depth (0..500)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Dates, numbers, the first day of the week (week scale), plural forms, and messages."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Mirrors the timeline and swaps ArrowLeft/ArrowRight."
+        }
+      ],
+      "models": [
+        {
+          "name": "tasks",
+          "type": "readonly GanttTask[]",
+          "change": "tasksChange",
+          "description": "Tasks: { id, parentId (summary task id or null), label, start (requested start, PlainDate), duration (working days, 0 = milestone), progress? (0..100), manual?, assignments? ({ resourceId, units? percent }), baseline? ({ start, end } inclusive), color? (1..8), readOnly?, collapsed? }. Tasks with children are summary tasks (their start and duration are ignored). Order within a parent is the array order. Validated (GANTT_OPTIONS). Replacing it clears the undo history."
+        },
+        {
+          "name": "dependencies",
+          "type": "readonly GanttDependency[]",
+          "change": "dependenciesChange",
+          "description": "{ id, from (predecessor), to (successor), type? ('FS' default, 'SS', 'FF', 'SF'), lag? (working days, negative = lead) }. Leaf tasks only, one per pair, no cycles (the error names the cycle)."
+        },
+        {
+          "name": "scale",
+          "type": "GanttScale",
+          "change": "scaleChange",
+          "description": "Timeline scale (32, 16, or 5 CSS px per day); also changed by the zoom buttons and setScale()."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "taskChange",
+          "payload": "GanttTaskChangeDetail",
+          "event": "aui-task-change",
+          "description": "Before a change is applied; preventDefault() keeps the previous state."
+        },
+        {
+          "name": "taskActivated",
+          "payload": "GanttTaskActivateDetail",
+          "event": "aui-task-activate",
+          "description": "Enter on a row."
+        },
+        {
+          "name": "expandChange",
+          "payload": "GanttExpandChangeDetail",
+          "event": "aui-expand-change",
+          "description": "A summary task was expanded or collapsed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "canUndo",
+          "type": "Signal<boolean>",
+          "description": "Read-only: A change can be undone."
+        },
+        {
+          "name": "canRedo",
+          "type": "Signal<boolean>",
+          "description": "Read-only: An undone change can be redone."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setScale",
+          "signature": "setScale(scale: GanttScale): void",
+          "description": "Change the scale, keeping the first visible date; emits aui-scale-change."
+        },
+        {
+          "name": "setExpanded",
+          "signature": "setExpanded(id: string, expanded: boolean): void",
+          "description": "Expand or collapse a summary task (emits aui-expand-change)."
+        },
+        {
+          "name": "expandAll",
+          "signature": "expandAll(): void",
+          "description": "Expand every summary task."
+        },
+        {
+          "name": "collapseAll",
+          "signature": "collapseAll(): void",
+          "description": "Collapse every summary task."
+        },
+        {
+          "name": "scrollToTask",
+          "signature": "scrollToTask(id: string, options?: { focus?: boolean; } | undefined): void",
+          "description": "Expand the ancestors, scroll the row and bar into view, and focus the row (unless focus is false)."
+        },
+        {
+          "name": "scrollToDate",
+          "signature": "scrollToDate(date: PlainDate): void",
+          "description": "Center the timeline on a date."
+        },
+        {
+          "name": "focusTask",
+          "signature": "focusTask(id: string): void",
+          "description": "scrollToTask with focus."
+        },
+        {
+          "name": "moveTask",
+          "signature": "moveTask(id: string, start: PlainDate): boolean | undefined",
+          "description": "Change the requested start (next working day). Emits aui-task-change; false when refused or cancelled."
+        },
+        {
+          "name": "setDuration",
+          "signature": "setDuration(id: string, duration: number): boolean | undefined",
+          "description": "Change the duration in working days (0 = milestone)."
+        },
+        {
+          "name": "addDependency",
+          "signature": "addDependency(dependency: GanttDependency): boolean | undefined",
+          "description": "Add a dependency (validated; throws GANTT_OPTIONS for cycles or summary tasks); false when the event is cancelled."
+        },
+        {
+          "name": "removeDependency",
+          "signature": "removeDependency(id: string): boolean | undefined",
+          "description": "Remove a dependency."
+        },
+        {
+          "name": "resourceLoad",
+          "signature": "resourceLoad(range?: { start: PlainDate; end: PlainDate; } | undefined): GanttResourceLoad[] | undefined",
+          "description": "Daily load per resource (default: the timeline range)."
+        },
+        {
+          "name": "undo",
+          "signature": "undo(): boolean | undefined",
+          "description": "Undo the last change (emits aui-task-change with reason 'undo')."
+        },
+        {
+          "name": "redo",
+          "signature": "redo(): boolean | undefined",
+          "description": "Redo the last undone change."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Treegrid with row focus: rows carry aria-level, aria-setsize, aria-posinset, aria-expanded (summary tasks), and aria-rowindex (virtual rows); one roving tab stop. The grid is the accessible surface: every value a bar shows (dates, duration, milestone, critical, dependencies, violations, baseline variance) is text in its row. The timeline and histogram tracks are aria-hidden pointer surfaces with keyboard and toolbar equivalents for every action (WCAG 2.5.7).",
+        "source": "packages/components/metadata/gantt/accessibility.json"
+      },
+      "limitations": [
+        "Scheduling is in whole working days (PlainDate); hours within a day are not modeled.",
+        "Dependencies connect leaf tasks only; summary tasks follow their children.",
+        "Auto-scheduled tasks start at their requested start or later (as soon as dependencies allow); there are no other constraint types (must finish on, as late as possible).",
+        "Resource load is reported, not leveled: over-allocations are shown but not resolved.",
+        "Progress is displayed but not edited in the chart.",
+        "Pointer drags are not announced step by step (keyboard and toolbar changes are).",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { plainDate } from '@absoluteui/core';\nimport type { GanttTask, GanttTaskChangeDetail } from '@absoluteui/components/gantt';\nimport { AuiGantt } from '@absoluteui/angular/gantt';\n\n@Component({\n  selector: 'app-plan',\n  imports: [AuiGantt],\n  template: `<aui-gantt label=\"Plan\" [tasks]=\"tasks\" [editable]=\"true\" scale=\"day\" (taskChange)=\"changed($event)\"></aui-gantt>`,\n})\nexport class PlanComponent {\n  tasks: GanttTask[] = [{ id: 'a', parentId: null, label: 'Kick-off', start: plainDate(2026, 10, 5), duration: 1 }];\n\n  changed(detail: GanttTaskChangeDetail): void {\n    this.tasks = detail.tasks;\n  }\n}"
+    }
+  ]
+}

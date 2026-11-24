@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "select",
+  "displayName": "Select",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { Select } from '@absoluteui/components/select';",
+  "styleImport": "@absoluteui/components/select/style.css",
+  "purpose": "Single choice from a known, flat list of options, following the WAI-ARIA APG select-only combobox pattern: a focusable combobox shows the selected label and opens a top-layer listbox, with typeahead, localized required validation, and native form submission through a hidden input.",
+  "whenToUse": [
+    "Choosing exactly one value from a known list of roughly 5 to 1,000 options.",
+    "Space is limited and the options do not need to be visible all the time.",
+    "A consistent, styleable alternative to the native <select> with option descriptions and localized validation."
+  ],
+  "whenNotToUse": [
+    "Two to five options that should stay visible: use Radio Group.",
+    "Users need to type to filter or search a long list: use Combobox.",
+    "Multiple selection: use Checkbox Group or a multi-select pattern.",
+    "Actions rather than values: use Menu."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["default", "focus-visible", "open", "option active", "option selected", "option disabled", "placeholder", "disabled", "read-only", "required", "invalid"],
+  "responsive": "Full width of its container; the selected label truncates with an ellipsis. The listbox is at least as wide as the combobox, flips above when space below is insufficient, and caps its height to the available space. Density tokens adjust the control height.",
+  "rtl": "Logical properties: the chevron sits at the inline end, and the listbox aligns to the inline start of the combobox in both directions (direction option or inherited global direction).",
+  "theme": "Control surface, border, focus, error, selected, hover, and sunken-surface role tokens. The active option has a focus-ring outline, so it is not conveyed by color alone. Forced-colors mode uses Highlight for the active and selected options.",
+  "timezone": "Not applicable.",
+  "security": "Label, option labels, descriptions, placeholder, help text, and messages are rendered with textContent. Validation messages never include the selected value. CSP-safe: positioning writes styles through the CSSOM.",
+  "dataHandling": "No persistence, network access, or telemetry. A hidden input carries the selected value for native form submission when `name` is set; it is disabled (not submitted) while the select is disabled.",
+  "performance": {
+    "budgets": [
+      { "metric": "Select.create with 1,000 options", "budget": "< 100 ms in headless Chromium" }
+    ],
+    "testedScale": "1,000 options in one select in the unit test."
+  },
+  "limitations": [
+    "Options are a flat list; option groups are not available.",
+    "All options are rendered (no virtualization); lists above 1,000 options are untested.",
+    "Single selection only.",
+    "Typeahead matches label prefixes only (case- and accent-insensitive per Intl.Collator base sensitivity)."
+  ],
+  "unsupported": [
+    "Rendering HTML or custom content in options, the label, or messages.",
+    "Free-text entry (use Combobox).",
+    "Multiple selection."
+  ],
+  "antiPatterns": [
+    "Using the placeholder as the only label.",
+    "Using a select for two or three options that fit on screen (use Radio Group).",
+    "Navigating or submitting on selection; selection should only set a value."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/select: AuiSelect directive ([auiSelect]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/select: AuiSelect component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/select: AuiSelect component with v-model."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

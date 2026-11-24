@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "component": "data-table",
+  "pattern": "WAI-ARIA APG Table pattern using a native HTML <table> (not the Grid pattern) with sortable column headers (APG 'Sortable Table' example): header buttons plus aria-sort on the primary sorted column. Since 0.3.0: column resize handles follow the APG Window Splitter pattern (focusable separator with value); row expansion follows the APG Disclosure pattern; the column chooser is an APG Menu Button with menuitemcheckbox items; virtual rows use aria-rowcount/aria-rowindex.",
+  "roles": [
+    {
+      "element": "<div class=aui-data-table__region>",
+      "role": "region, named by the caption; tabindex=0 so keyboard users can scroll"
+    },
+    {
+      "element": "<table>",
+      "role": "table (native)"
+    },
+    {
+      "element": "<caption>",
+      "role": "table caption (native accessible name)"
+    },
+    {
+      "element": "<th scope=col>",
+      "role": "columnheader (native)"
+    },
+    {
+      "element": "<th scope=row>",
+      "role": "rowheader (native)"
+    },
+    {
+      "element": "<button> in a header",
+      "role": "button (native) that changes the sort"
+    },
+    {
+      "element": "<input type=checkbox | radio>",
+      "role": "checkbox / radio (native) for row selection"
+    },
+    {
+      "element": "<div class=aui-data-table__status>",
+      "role": "status (announces 'Loading')"
+    },
+    {
+      "element": "composed Pagination",
+      "role": "navigation landmark named '{caption}, pagination'"
+    },
+    {
+      "element": "<div class=aui-data-table__toolbar>",
+      "role": "search landmark named by the caption (searchable only)"
+    },
+    {
+      "element": "<input type=search> in the toolbar",
+      "role": "searchbox (native), labelled by a visible 'Search' label"
+    },
+    {
+      "element": "filter row <input>/<select>",
+      "role": "searchbox, spinbutton, date input, or combobox (native), each with an aria-label naming the column"
+    },
+    {
+      "element": "<span class=aui-data-table__resizer>",
+      "role": "separator (focusable, aria-orientation=vertical)"
+    },
+    {
+      "element": "<button class=aui-data-table__expander>",
+      "role": "button (native) with aria-expanded (disclosure)"
+    },
+    {
+      "element": "<tr class=aui-data-table__detail-row>",
+      "role": "row with one full-width cell holding the detail content"
+    },
+    {
+      "element": "DataTableColumnChooser",
+      "role": "Menu button (aria-haspopup=menu, aria-expanded) with role=menu and menuitemcheckbox items"
+    },
+    {
+      "element": "Editable cell",
+      "role": "button inside the cell (td/th), named by the cell value plus \", edit {column}\" (visually hidden); checkbox columns use aria-pressed"
+    },
+    {
+      "element": "Group header row",
+      "role": "row with a cell spanning all columns; the toggle is a button with aria-expanded, named \"{column}: {value} ({count})\""
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "scroll region",
+      "value": "The caption id"
+    },
+    {
+      "attribute": "aria-sort",
+      "element": "the primary sorted column header only",
+      "value": "ascending | descending (absent on other columns, including secondary sort columns)"
+    },
+    {
+      "attribute": "button text (visually hidden)",
+      "element": "sort buttons of sort columns while sorting by several columns",
+      "value": "'sort priority {n}, ascending | descending' appended to the header text; the visible number is aria-hidden"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "column headers (resizable only)",
+      "value": "The header text, so the resize handle's name is not part of the column header name"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "sort buttons (multiSort only)",
+      "value": "A hidden hint: 'Hold Shift while activating to sort by more than one column.'"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "select-all checkbox",
+      "value": "Localized 'Select all rows'; indeterminate property exposes mixed state natively"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "row checkbox / radio",
+      "value": "Localized 'Select row {row header text}' (row id when there is no row header)"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "filter controls",
+      "value": "'Filter {column}', 'Minimum/Maximum {column}', '{column} from/to'"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "resize handle",
+      "value": "'Resize {column}'"
+    },
+    {
+      "attribute": "aria-valuenow / aria-valuemin / aria-valuemax / aria-valuetext",
+      "element": "resize handle",
+      "value": "Width in CSS pixels, the column's minWidth/maxWidth, and '{width} pixels' (measured when the handle receives focus)"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "disclosure button",
+      "value": "true | false; aria-controls points at the detail row while it is shown"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "disclosure button",
+      "value": "Localized 'Details for {row header text}'"
+    },
+    {
+      "attribute": "aria-rowcount / aria-rowindex",
+      "element": "table / header rows and rendered body rows (virtual mode only)",
+      "value": "Header rows plus all rows of the filtered set; 1-based positions including header rows and the page offset"
+    },
+    {
+      "attribute": "aria-busy",
+      "element": "scroll region",
+      "value": "true while loading"
+    },
+    {
+      "attribute": "aria-hidden",
+      "element": "skeleton rows, virtual spacer rows, sort, mark, and disclosure icons, sort priority number",
+      "value": "true (decorative)"
+    },
+    {
+      "attribute": "disabled",
+      "element": "selection inputs of unselectable rows",
+      "value": "Native disabled"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "Moves through the search field, the scroll region, sort buttons, resize handles, filter controls, select all, row selection inputs, disclosure buttons, interactive cell and detail content, and pagination controls (native order)."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Sort button focused",
+      "action": "Sorts by this column only (ascending, descending, then unsorted in tri-state)."
+    },
+    {
+      "key": "Shift+Enter / Shift+Space / Shift+click",
+      "context": "Sort button, multiSort enabled",
+      "action": "Adds the column to the sort as the lowest priority, or cycles it in place (removed after descending in tri-state)."
+    },
+    {
+      "key": "ArrowRight / ArrowLeft",
+      "context": "Resize handle focused",
+      "action": "Widens / narrows the column by 10 px in ltr (mirrored in rtl); with Shift by 50 px. Emits aui-columns-change."
+    },
+    {
+      "key": "Home / End",
+      "context": "Resize handle focused",
+      "action": "Sets the column to its minimum / maximum width."
+    },
+    {
+      "key": "Typing",
+      "context": "Text or number filter, search field",
+      "action": "Filters after filterDelay (default 250 ms); Enter applies immediately."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Disclosure button focused",
+      "action": "Expands or collapses the row's detail row; focus stays on the button."
+    },
+    {
+      "key": "Space",
+      "context": "Checkbox focused",
+      "action": "Toggles the row, or all selectable rows on the page (native)."
+    },
+    {
+      "key": "Arrow keys",
+      "context": "Row radio focused (single selection)",
+      "action": "Selects the previous/next row (native radio group)."
+    },
+    {
+      "key": "Arrow keys",
+      "context": "Scroll region focused",
+      "action": "Scrolls the table (native); in virtual mode rows render as they scroll into view."
+    },
+    {
+      "key": "Shift+click",
+      "context": "Row checkbox",
+      "action": "Sets every selectable row between the last clicked row and this one (current page) to this row's new state."
+    },
+    {
+      "key": "Enter / Space / ArrowDown",
+      "context": "Column chooser button",
+      "action": "Opens the menu (APG Menu Button); Space on an item toggles the column; Escape closes and returns focus."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Editable cell button",
+      "action": "Opens the cell editor (checkbox columns toggle the value in one step); focus moves into the editor."
+    },
+    {
+      "key": "Enter / Tab (leaving the cell)",
+      "context": "Cell editor",
+      "action": "Commits the value; a validation message keeps the editor open with aria-invalid and the message."
+    },
+    {
+      "key": "Escape",
+      "context": "Cell editor",
+      "action": "Cancels the edit and returns focus to the cell button."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Group header toggle",
+      "action": "Collapses or expands the group (aria-expanded)."
+    }
+  ],
+  "focus": "Header buttons persist across sorts, so focus stays on the activated button. Row elements are reused by row id and unchanged rows are not moved, so focus inside them survives selection changes, expansion, and data refreshes. Filter fields are not overwritten while focused. In virtual mode the row that holds focus stays rendered while it scrolls out of the window, so focus is never lost to the document. Pagination keeps focus on its own controls after a page change.",
+  "wcag": [
+    "1.3.1",
+    "1.3.2",
+    "1.3.5",
+    "1.4.1",
+    "1.4.10",
+    "1.4.11",
+    "2.1.1",
+    "2.4.3",
+    "2.4.6",
+    "2.4.7",
+    "2.5.7",
+    "2.5.8",
+    "3.3.2",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "Sort changes are announced politely: 'Sorted by {column}, ascending' / 'descending', 'Sorted by A, ascending, then by B, descending' for several columns, or 'Sorting cleared'. Programmatic sorts are silent.",
+    "Filter and search changes are announced politely in client mode: 'Results: {count}'. In server mode the consumer's new rows update the pagination summary.",
+    "Selected rows use the checked input plus a row class (aui-data-table__row--selected); aria-selected is not used because this is a plain table, not a grid.",
+    "The loading status lives outside the busy region so its 'Loading' text is announced.",
+    "Select all applies to the current page; its checked/indeterminate state reflects only that page.",
+    "Resize handles are 1rem wide, centered on the column edge; the pointer path needs a drag (WCAG 2.5.7): keyboard resizing and columnWidths/setState are the alternatives."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "The scroll region is always a tab stop, even when the table does not overflow.",
+    "Each resize handle is a tab stop, which doubles header tab stops with resizable: true.",
+    "Virtual mode exposes only rendered rows to assistive technology; aria-rowcount and aria-rowindex convey the full size and positions."
+  ]
+}

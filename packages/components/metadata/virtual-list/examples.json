@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "virtual-list",
+  "examples": [
+    {
+      "id": "selectable",
+      "title": "100,000 selectable items",
+      "language": "ts",
+      "code": "import { VirtualList, type VirtualListChangeDetail } from '@absoluteui/components/virtual-list';\n\ninterface Person { id: string; name: string }\nconst people: Person[] = Array.from({ length: 100_000 }, (_, i) => ({ id: `p${String(i)}`, name: `Person ${String(i + 1)}` }));\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst list = VirtualList.create<Person>(host, {\n  label: 'People',\n  items: people,\n  selection: 'multiple',\n  itemKey: (p) => p.id,\n  itemText: (p) => p.name,\n  renderItem: (p) => document.createTextNode(p.name),\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<VirtualListChangeDetail>).detail;\n  host.dataset.selected = String(value.length);\n});\nlist.scrollToIndex(5000, 'center');"
+    },
+    {
+      "id": "infinite",
+      "title": "Infinite scroll with variable heights",
+      "language": "ts",
+      "code": "import { VirtualList } from '@absoluteui/components/virtual-list';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nlet items: string[] = [];\nconst list = VirtualList.create<string>(host, {\n  label: 'Activity',\n  items,\n  variableHeight: true,\n  renderItem: (text) => {\n    const p = document.createElement('p');\n    p.textContent = text;\n    return p;\n  },\n  loadMore: async () => {\n    const page = await Promise.resolve(Array.from({ length: 50 }, (_, i) => `Event ${String(items.length + i + 1)}`));\n    items = [...items, ...page];\n    list.update({ items, hasMore: items.length < 500 });\n  },\n});"
+    }
+  ]
+}

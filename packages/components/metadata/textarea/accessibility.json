@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "component": "textarea",
+  "pattern": "Native <textarea> with a <label for> association (HTML).",
+  "roles": [
+    { "element": "textarea", "role": "textbox (native, multi-line)" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-describedby", "element": "textarea", "value": "Help text, counter, and visible error message ids" },
+    { "attribute": "aria-invalid", "element": "textarea", "value": "\"true\" only while an error message is shown" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Moves focus to and from the textarea." },
+    { "key": "Enter", "context": "Textarea focused", "action": "Inserts a line break (native)." },
+    { "key": "All editing keys", "context": "Textarea focused", "action": "Native text editing." }
+  ],
+  "focus": "The textarea shows the focus indicator (focus-ring-width outline in color-focus-ring, border color, and a 1px ring).",
+  "wcag": ["1.3.1", "1.3.5", "1.4.3", "1.4.11", "2.1.1", "2.4.7", "2.5.3", "3.3.1", "3.3.2", "3.3.3", "4.1.2", "4.1.3"],
+  "notes": [
+    "The required asterisk is aria-hidden; required state is conveyed by the native required attribute.",
+    "Errors appear after the first blur by default so users are not interrupted while typing.",
+    "The character count is announced through a polite live region only near or over the limit, 750 ms after typing stops.",
+    "Auto-grow keeps the whole value visible up to maxRows, which helps users review what they wrote."
+  ],
+  "knownCaveats": [
+    "Screen-reader announcement of the counter has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

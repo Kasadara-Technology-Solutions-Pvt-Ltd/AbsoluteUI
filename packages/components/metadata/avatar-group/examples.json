@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "component": "avatar-group",
+  "examples": [
+    {
+      "id": "members",
+      "title": "Project members with overflow",
+      "language": "ts",
+      "code": "import { AvatarGroup } from '@absoluteui/components/avatar-group';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nAvatarGroup.create(host, {\n  label: 'Project members',\n  items: [\n    { name: 'Ada Lovelace', status: 'online' },\n    { name: 'Grace Hopper' },\n    { name: 'Alan Turing', status: 'away' },\n    { name: 'Barbara Liskov' },\n    { name: 'Edsger Dijkstra' },\n    { name: 'Donald Knuth' },\n  ],\n  max: 4,\n});"
+    }
+  ]
+}

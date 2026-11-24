@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/typography",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiHeading",
+      "description": "`<h2 auiHeading size=\"4\">`: the level comes from the tag, `size` (1 largest to 6) sets the visual size.",
+      "selector": "h1[auiHeading], h2[auiHeading], h3[auiHeading], h4[auiHeading], h5[auiHeading], h6[auiHeading]",
+      "exportAs": [
+        "auiHeading"
+      ],
+      "source": "hand-written",
+      "component": "typography",
+      "configKey": "typography",
+      "inputs": [
+        {
+          "name": "size",
+          "type": "HeadingLevel",
+          "required": false,
+          "description": "Heading: visual size, default the level. Text: font size, default md."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Native HTML text semantics: <h1>-<h6>, <p>, <a href>, <code>. Visual size is decoupled from heading level.",
+        "source": "packages/components/metadata/typography/accessibility.json"
+      },
+      "limitations": [
+        "The external-link hint is resolved at creation time; later locale changes do not update existing links.",
+        "aui-line-clamp relies on -webkit-line-clamp (supported by all current engines); the standard line-clamp property is declared for forward compatibility.",
+        "aui-prose styles only p, ul, ol, li, h2 to h4, a, code, pre, and blockquote.",
+        "No external-link icon; the hint is text for assistive technology only."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiText",
+      "description": "`<p auiText tone=\"muted\" size=\"sm\">`, `<span auiText strong>`.",
+      "selector": "[auiText]",
+      "exportAs": [
+        "auiText"
+      ],
+      "source": "hand-written",
+      "component": "typography",
+      "configKey": "typography",
+      "inputs": [
+        {
+          "name": "tone",
+          "type": "TextTone",
+          "required": false,
+          "default": "default",
+          "description": "Text: muted uses color-text-muted."
+        },
+        {
+          "name": "size",
+          "type": "TextSize",
+          "required": false,
+          "description": "Heading: visual size, default the level. Text: font size, default md."
+        },
+        {
+          "name": "strong",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Text: semibold weight."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Native HTML text semantics: <h1>-<h6>, <p>, <a href>, <code>. Visual size is decoupled from heading level.",
+        "source": "packages/components/metadata/typography/accessibility.json"
+      },
+      "limitations": [
+        "The external-link hint is resolved at creation time; later locale changes do not update existing links.",
+        "aui-line-clamp relies on -webkit-line-clamp (supported by all current engines); the standard line-clamp property is declared for forward compatibility.",
+        "aui-prose styles only p, ul, ol, li, h2 to h4, a, code, pre, and blockquote.",
+        "No external-link icon; the hint is text for assistive technology only."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiLink",
+      "description": "`<a auiLink href=\"https://example.com\" external>Docs</a>` or with `routerLink`. The href is\nvalidated like `Link.create` (http(s) or relative); `external` opens a new tab and says so to\nassistive technology in the scope's locale.",
+      "selector": "a[auiLink]",
+      "exportAs": [
+        "auiLink"
+      ],
+      "source": "hand-written",
+      "component": "typography",
+      "configKey": "typography",
+      "inputs": [
+        {
+          "name": "external",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Link: target=_blank, rel=\"noopener noreferrer\", and a visually hidden localized \"(opens in a new tab)\"."
+        },
+        {
+          "name": "muted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Link: muted color; the underline remains."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Native HTML text semantics: <h1>-<h6>, <p>, <a href>, <code>. Visual size is decoupled from heading level.",
+        "source": "packages/components/metadata/typography/accessibility.json"
+      },
+      "limitations": [
+        "The external-link hint is resolved at creation time; later locale changes do not update existing links.",
+        "aui-line-clamp relies on -webkit-line-clamp (supported by all current engines); the standard line-clamp property is declared for forward compatibility.",
+        "aui-prose styles only p, ul, ol, li, h2 to h4, a, code, pre, and blockquote.",
+        "No external-link icon; the hint is text for assistive technology only."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiLineClamp",
+      "description": "`<p auiText [auiLineClamp]=\"3\">`: clamp to 1..20 lines with an ellipsis.",
+      "selector": "[auiLineClamp]",
+      "exportAs": [
+        "auiLineClamp"
+      ],
+      "source": "hand-written",
+      "component": "typography",
+      "configKey": "typography",
+      "inputs": [
+        {
+          "name": "auiLineClamp",
+          "type": "number",
+          "required": true,
+          "description": "setLineClamp: integer 1..20, written to --aui-lines."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Native HTML text semantics: <h1>-<h6>, <p>, <a href>, <code>. Visual size is decoupled from heading level.",
+        "source": "packages/components/metadata/typography/accessibility.json"
+      },
+      "limitations": [
+        "The external-link hint is resolved at creation time; later locale changes do not update existing links.",
+        "aui-line-clamp relies on -webkit-line-clamp (supported by all current engines); the standard line-clamp property is declared for forward compatibility.",
+        "aui-prose styles only p, ul, ol, li, h2 to h4, a, code, pre, and blockquote.",
+        "No external-link icon; the hint is text for assistive technology only."
+      ]
+    }
+  ],
+  "constants": [
+    {
+      "name": "AUI_TYPOGRAPHY",
+      "type": "readonly [typeof AuiHeading, typeof AuiText, typeof AuiLink, typeof AuiLineClamp]",
+      "description": "The typography directives, for `imports`."
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, input } from '@angular/core';\nimport { AUI_TYPOGRAPHY } from '@absoluteui/angular/typography';\n\n@Component({\n  selector: 'app-help',\n  imports: [...AUI_TYPOGRAPHY],\n  template: `\n    <h2 auiHeading size=\"4\">Need help?</h2>\n    <p auiText tone=\"muted\" [auiLineClamp]=\"2\">We answer within one business day.</p>\n    <a auiLink [href]=\"supportUrl()\" external>Contact support</a>`,\n})\nexport class HelpComponent {\n  readonly supportUrl = input('https://example.com/support');\n}"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "business-calendar",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Office calendar with holidays, editable",
+      "language": "ts",
+      "code": "import { plainDate, plainYearMonth } from '@absoluteui/core';\nimport { BusinessCalendar, type BusinessCalendarChangeDetail } from '@absoluteui/components/business-calendar';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nBusinessCalendar.create(host, {\n  label: 'London office',\n  month: plainYearMonth(2026, 12),\n  months: 2,\n  editable: true,\n  definition: {\n    holidays: [\n      { date: plainDate(2026, 12, 25), name: 'Christmas Day', yearly: true },\n      { date: plainDate(2026, 12, 28), name: 'Boxing Day (substitute)' },\n    ],\n  },\n});\nhost.addEventListener('aui-change', (event) => {\n  const { definition } = (event as CustomEvent<BusinessCalendarChangeDetail>).detail;\n  host.dataset.exceptions = String(definition.exceptions?.length ?? 0);\n});"
+    },
+    {
+      "id": "engine",
+      "title": "Working-day arithmetic without UI",
+      "language": "ts",
+      "code": "import { plainDate, plainTime } from '@absoluteui/core';\nimport { createBusinessCalendar } from '@absoluteui/components/business-calendar';\n\nconst calendar = createBusinessCalendar({\n  workingDays: [1, 2, 3, 4, 5],\n  weekdayHours: { '5': [{ start: plainTime(9), end: plainTime(13) }] },\n  holidays: [{ date: plainDate(2026, 1, 1), name: \"New Year's Day\", yearly: true }],\n});\nconst due = calendar.addWorkingDays(plainDate(2025, 12, 30), 3);\nconst days = calendar.workingDaysBetween(plainDate(2026, 1, 1), plainDate(2026, 2, 1));\nconst hours = calendar.workingIntervals(plainDate(2026, 1, 2), 'Europe/London');\nexport const summary = { due, days, hours };"
+    },
+    {
+      "id": "global-config",
+      "title": "Show a year by default",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { businessCalendar: { months: 12, showHolidays: false } } });"
+    }
+  ]
+}

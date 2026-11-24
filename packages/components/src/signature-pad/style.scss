@@ -1,0 +1,193 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-signature-pad {
+    display: grid;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-signature-pad__box {
+    display: grid;
+    gap: aui.token('space-2');
+  }
+
+  .aui-signature-pad__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: aui.token('space-2');
+  }
+
+  .aui-signature-pad__modes,
+  .aui-signature-pad__actions {
+    display: inline-flex;
+    gap: aui.token('space-1');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-signature-pad__mode,
+  .aui-signature-pad__action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: aui.token('touch-target-min');
+    min-block-size: aui.token('control-height-sm');
+    padding-inline: aui.token('space-3');
+    font: inherit;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+    @include aui.transition(background-color, border-color);
+
+    &:hover:not(:disabled) {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-signature-pad__action {
+    padding-inline: 0;
+  }
+
+  .aui-signature-pad__mode[aria-pressed='true'] {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    border-color: aui.token('color-selected-indicator');
+  }
+
+  .aui-signature-pad__pad {
+    position: relative;
+    box-sizing: border-box;
+    block-size: var(--_aui-signature-pad-height, 10rem);
+    overflow: hidden;
+    background: aui.ctoken('signature-pad', 'bg');
+    border: aui.token('border-width') solid aui.ctoken('signature-pad', 'guide');
+    border-radius: aui.token('radius-md');
+  }
+
+  .aui-signature-pad__pad--drawable {
+    touch-action: none;
+    cursor: crosshair;
+  }
+
+  .aui-signature-pad__canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    // The default pen color: read by the component through the canvas color.
+    color: aui.ctoken('signature-pad', 'ink');
+  }
+
+  .aui-signature-pad__baseline {
+    position: absolute;
+    inset-inline: aui.token('space-4');
+    inset-block-end: 28%;
+    border-block-end: aui.token('border-width') dashed aui.ctoken('signature-pad', 'guide');
+    pointer-events: none;
+  }
+
+  .aui-signature-pad__placeholder {
+    position: absolute;
+    inset-inline-start: aui.token('space-4');
+    inset-block-end: calc(28% + #{aui.token('space-1')});
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+    pointer-events: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-signature-pad__typed {
+    display: grid;
+    gap: aui.token('space-1');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-signature-pad__typed-label {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text');
+  }
+
+  .aui-signature-pad__typed-input {
+    box-sizing: border-box;
+    min-block-size: aui.token('control-height-md');
+    padding-inline: aui.token('control-padding-x');
+    font: inherit;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-md');
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+
+    &[aria-invalid='true'] {
+      border-color: aui.token('color-error-fg');
+    }
+  }
+
+  .aui-signature-pad--invalid .aui-signature-pad__pad {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-signature-pad--disabled .aui-signature-pad__pad {
+    opacity: 0.6;
+  }
+
+  @include aui.forced-colors {
+    .aui-signature-pad__pad {
+      border-color: CanvasText;
+    }
+
+    .aui-signature-pad__canvas {
+      color: CanvasText;
+    }
+
+    .aui-signature-pad__mode[aria-pressed='true'] {
+      color: HighlightText;
+      background: Highlight;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "component": "validation-message",
+  "pattern": "Field description referenced by aria-describedby, with aria-invalid on the target for errors (HTML/ARIA).",
+  "roles": [
+    { "element": "host", "role": "none (generic container)" },
+    { "element": "icon", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-describedby", "element": "target", "value": "Host id added while a message is shown; other ids are kept" },
+    { "attribute": "aria-invalid", "element": "target", "value": "\"true\" while an error-tone message is shown; removed when the tone changes, the message clears, or the target changes, but only if this message set it. An aria-invalid=\"true\" the consumer set beforehand is never removed" }
+  ],
+  "keyboard": [
+    { "key": "None", "context": "Any", "action": "Not focusable; the message is read with the target when the target is focused." }
+  ],
+  "focus": "Not focusable and never moves focus.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "3.3.1", "3.3.3", "4.1.2"],
+  "notes": [
+    "Tones pair color with a distinct icon; the message text must still state the problem.",
+    "Only the error tone marks the target invalid; warning, success, and info are descriptive only.",
+    "The message is not a live region; announce important changes separately if the user is not on the target."
+  ],
+  "knownCaveats": [
+    "Screen-reader reading of the description has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

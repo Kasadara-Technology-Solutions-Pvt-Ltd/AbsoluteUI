@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 1,
+  "component": "file-upload",
+  "factory": {
+    "name": "FileUpload.create",
+    "signature": "FileUpload.create(host: HTMLElement, options: FileUploadOptions): FileUpload"
+  },
+  "configKey": "fileUpload",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Visible label and accessible name (part of the button name)."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visually hide the label (it stays in the accessible name)."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Help text, referenced by aria-describedby."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Form field name; also set on the native input for native submission."
+    },
+    {
+      "name": "multiple",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Allow several files; a new selection appends. Single mode replaces the file."
+    },
+    {
+      "name": "value",
+      "type": "readonly File[]",
+      "default": "[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Initial files; reset() restores them."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "At least one file is required."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Disable the button, drop zone, and remove buttons."
+    },
+    {
+      "name": "acceptTypes",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Accepted MIME types (\"image/png\", \"image/*\"). Every file is checked."
+    },
+    {
+      "name": "acceptExtensions",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Accepted extensions including the dot (\".pdf\"). When both lists are set, a file must match both."
+    },
+    {
+      "name": "maxFileSize",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Maximum size of each file, in bytes."
+    },
+    {
+      "name": "maxTotalSize",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Maximum combined size, in bytes."
+    },
+    {
+      "name": "maxFiles",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Maximum number of files (requires multiple)."
+    },
+    {
+      "name": "buttonText",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Button text. Default: localized \"Choose file\" / \"Choose files\"."
+    },
+    {
+      "name": "validate",
+      "type": "(files: readonly File[]) => string | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Consumer validation; return a message to mark the value invalid."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ upload: IconRef; file: IconRef; remove: IconRef; error: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    },
+    {
+      "name": "validationTiming",
+      "type": "'blur' | 'input' | 'submit'",
+      "default": "blur",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "When validation messages first appear; afterwards they update live."
+    },
+    {
+      "name": "dropZone",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Render the drag-and-drop zone around the button."
+    },
+    {
+      "name": "showConstraints",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Render a hint listing the type, size, and count limits."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Message and size-formatting locale."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "Host element."
+    },
+    {
+      "name": "input",
+      "type": "HTMLInputElement",
+      "description": "The native file input (hidden; the button opens it)."
+    },
+    {
+      "name": "button",
+      "type": "HTMLButtonElement",
+      "description": "The chooser button."
+    },
+    {
+      "name": "value",
+      "type": "readonly File[]",
+      "description": "Selected files in selection order."
+    },
+    {
+      "name": "validity",
+      "type": "FileUploadValidity",
+      "description": "Current validity."
+    },
+    {
+      "name": "rejections",
+      "type": "readonly FileRejection[]",
+      "description": "Files not added by the last selection, with reasons."
+    },
+    {
+      "name": "name",
+      "type": "string | null",
+      "description": "Form field name."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Accessible label (used by the error summary)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Whether the control is disabled."
+    },
+    {
+      "name": "dirty",
+      "type": "boolean",
+      "description": "Value differs from the initial value."
+    },
+    {
+      "name": "touched",
+      "type": "boolean",
+      "description": "Focus has left the control at least once."
+    },
+    {
+      "name": "options",
+      "type": "Readonly<FileUploadOptions>",
+      "description": "Current options."
+    }
+  ],
+  "methods": [
+    {
+      "name": "getFormValue",
+      "signature": "getFormValue(): File[]",
+      "description": "A copy of the selected files."
+    },
+    {
+      "name": "setValue",
+      "signature": "setValue(files: readonly File[]): void",
+      "description": "Replace the selection (no events, no filtering; violations make the value invalid)."
+    },
+    {
+      "name": "removeFile",
+      "signature": "removeFile(file: File): void",
+      "description": "Remove one file (no events)."
+    },
+    {
+      "name": "openPicker",
+      "signature": "openPicker(): void",
+      "description": "Open the native chooser (needs user activation)."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<FileUploadOptions>): void",
+      "description": "Merge and apply options."
+    },
+    {
+      "name": "reportValidity",
+      "signature": "reportValidity(): boolean",
+      "description": "Show messages now (marks the control submitted) and return validity."
+    },
+    {
+      "name": "setCustomError",
+      "signature": "setCustomError(message: string | null): void",
+      "description": "External error (server, cross-field rule); null clears it."
+    },
+    {
+      "name": "focus",
+      "signature": "focus(): void",
+      "description": "Move focus to the primary focusable element."
+    },
+    {
+      "name": "reset",
+      "signature": "reset(): void",
+      "description": "Restore the initial value and clear dirty/touched/submitted state."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, registration, listeners, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-change",
+      "detail": "{ files: readonly File[]; added: readonly File[]; removed: readonly File[]; validity: FileUploadValidity }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user added (chooser or drop) or removed files."
+    },
+    {
+      "name": "aui-reject",
+      "detail": "{ rejected: readonly { file: File; reason: FileRejectionReason; message: string }[] }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A selection contained files that were not added."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-file-upload",
+      "description": "Host (also aui-field)."
+    },
+    {
+      "name": "aui-file-upload--dragover | --invalid | --disabled | --no-zone",
+      "description": "State modifiers."
+    },
+    {
+      "name": "aui-file-upload__zone",
+      "description": "Drop zone around the button."
+    },
+    {
+      "name": "aui-file-upload__zone-icon",
+      "description": "Upload icon."
+    },
+    {
+      "name": "aui-file-upload__prompt",
+      "description": "\"Drag files here or\" text."
+    },
+    {
+      "name": "aui-file-upload__button",
+      "description": "Chooser button."
+    },
+    {
+      "name": "aui-file-upload__hint",
+      "description": "Constraint hint."
+    },
+    {
+      "name": "aui-file-upload__rejections",
+      "description": "Rejected files and reasons."
+    },
+    {
+      "name": "aui-file-upload__list",
+      "description": "Selected files."
+    },
+    {
+      "name": "aui-file-upload__item",
+      "description": "One file row (--invalid when it breaks a rule)."
+    },
+    {
+      "name": "aui-file-upload__name | __size | __issue",
+      "description": "Row text parts."
+    },
+    {
+      "name": "aui-file-upload__remove",
+      "description": "Remove button."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "upload",
+      "default": "upload"
+    },
+    {
+      "name": "file",
+      "default": "file"
+    },
+    {
+      "name": "remove",
+      "default": "close"
+    },
+    {
+      "name": "error",
+      "default": "alert-circle"
+    }
+  ]
+}

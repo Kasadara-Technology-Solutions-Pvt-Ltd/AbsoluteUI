@@ -1,0 +1,7 @@
+[
+  { "title": "Five variants", "text": "Primary, secondary, outline, ghost, and danger emphasis in three sizes." },
+  { "title": "Icons either side", "text": "An icon at the start or end, or an icon-only button with an accessible name." },
+  { "title": "Loading state", "text": "A busy button shows a spinner, blocks activation, and announces that it is loading." },
+  { "title": "Toggle buttons", "text": "Set pressed to make a toggle that reports its new state on every press." },
+  { "title": "Enhance or create", "text": "Upgrade an existing button or link, or create a new button in code." }
+]

@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "component": "funnel-chart",
+  "pattern": "SVG funnel chart as a named, described group (role=\"group\" with aria-roledescription \"funnel chart\") of role=\"img\" stage bars with roving focus; data table fallback (native table: Stage, Value, Of first stage, Of previous stage).",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription (localized \"funnel chart\"), named by the title"
+    },
+    {
+      "element": "stage bars",
+      "role": "img with an aria-label: stage name, formatted value, and conversion from the first and previous stage"
+    },
+    {
+      "element": "data table",
+      "role": "table (native) with caption, column headers, and row headers; wide tables scroll in a focusable region"
+    },
+    {
+      "element": "connectors, stage names and values beside the funnel, tooltip",
+      "role": "aria-hidden (decorative duplicates of the accessible data)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized chart type, \"funnel chart\""
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each stage bar",
+      "value": "First stage: \"{label}: {value}\"; later stages: \"{label}: {value}, {ofFirst} of {first}, {ofPrevious} of previous stage\" (for example \"Cart: 400, 40% of Visits, 40% of previous stage\"); missing: \"{label}: No value\""
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active stage bar",
+      "value": "0 on exactly one stage (roving); other stages have none"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowDown / ArrowRight",
+      "context": "Stage focused",
+      "action": "Next stage (ArrowLeft in RTL)."
+    },
+    {
+      "key": "ArrowUp / ArrowLeft",
+      "context": "Stage focused",
+      "action": "Previous stage (ArrowRight in RTL)."
+    },
+    {
+      "key": "Home / End",
+      "context": "Stage focused",
+      "action": "First / last stage."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Stage focused",
+      "action": "Ten stages back / forward (clamped to the first / last)."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "One tab stop for the plot (the active stage), then the Show data table button and table region."
+    }
+  ],
+  "focus": "Roving focus: one stage is in the tab sequence and remembers the last visited stage (by id), also across re-renders (resize, update). Toggling the table keeps focus on the table button.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "4.1.2"
+  ],
+  "notes": [
+    "Each stage name reads its value and its conversion from the first and the previous stage; the data table lists the same conversions.",
+    "The generated summary names the stage count, the first and last stage with values, the overall conversion, and the largest drop between consecutive stages (for example \"Largest drop: Cart to Paid (25% kept).\").",
+    "Meaning never depends on color: bar width, position, and printed names and values carry the data; per-stage colors are optional decoration.",
+    "Forced colors: bars keep a Canvas separator, connectors use GrayText, names CanvasText; focus and hover use Highlight.",
+    "No animation: nothing moves on render; hover and focus emphasis transitions are removed under prefers-reduced-motion and animation: none."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "aria-roledescription support varies; screen readers without it announce \"group\"."
+  ]
+}

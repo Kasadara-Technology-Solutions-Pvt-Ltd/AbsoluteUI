@@ -1,0 +1,358 @@
+{
+  "schemaVersion": 1,
+  "component": "heatmap",
+  "factory": {
+    "name": "Heatmap.create",
+    "signature": "Heatmap.create(host: HTMLElement, options: HeatmapOptions): Heatmap"
+  },
+  "configKey": "heatmap",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby); also the data table caption."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visually hide the title; it stays the accessible name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Replaces the generated accessible summary (matrix size, lowest and highest value with their cells)."
+    },
+    {
+      "name": "valueFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Number format for cell labels, legend step ranges, tooltips, the data table, and the summary."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom value text; overrides valueFormat everywhere."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Shared chart option; a heatmap has no series, so it has no effect."
+    },
+    {
+      "name": "columns",
+      "type": "readonly string[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Column labels (x axis), in order (mirrored in RTL)."
+    },
+    {
+      "name": "rows",
+      "type": "readonly string[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Row labels (y axis), top to bottom."
+    },
+    {
+      "name": "values",
+      "type": "readonly (readonly (number | null)[])[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "values[row][column]: exactly one array per row and one value per column. null, NaN, and infinities are empty cells (\"No value\")."
+    },
+    {
+      "name": "colorScale",
+      "type": "HeatmapColorScale",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "{ type?: 'sequential' | 'diverging' (default sequential), color?: 1-8 (sequential slot, default 1), negative?: 1-8 (default 2), positive?: 1-8 (default 1), midpoint?: number (diverging center, default 0), min?, max? (fixed domain; default the nice-rounded data extent), steps?: 3-9 (per side for diverging, default 5) }. Values outside a fixed domain use the first or last step."
+    },
+    {
+      "name": "xAxis",
+      "type": "{ label?: string }",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Column axis title (drawn below the plot)."
+    },
+    {
+      "name": "yAxis",
+      "type": "{ label?: string }",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Row axis title (drawn beside the row labels); also the header of the data table's first column (default \"Row\")."
+    },
+    {
+      "name": "theme",
+      "type": "ChartTheme",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+    },
+    {
+      "name": "renderTooltip",
+      "type": "(context: ChartTooltipContext) => Node | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+    },
+    {
+      "name": "syncGroup",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+    },
+    {
+      "name": "legend",
+      "type": "'auto' | 'show' | 'hide'",
+      "default": "auto",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Legend listing every color step with its value range; auto and show both show it, hide removes it. Entries are not toggle buttons."
+    },
+    {
+      "name": "dataTable",
+      "type": "'toggle' | 'visible' | 'hidden' | 'none'",
+      "default": "toggle",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Data table fallback with the exact matrix: behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+    },
+    {
+      "name": "tooltip",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Tooltip on pointer hover and keyboard focus (cell name and value)."
+    },
+    {
+      "name": "patterns",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Shared chart option (toggles aui-chart--patterns); heatmap cells and step swatches are not textured, so it has no visible effect."
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "default": 300,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Plot height in CSS px (integer 120-2000); the width follows the container. Cells share the plot evenly."
+    },
+    {
+      "name": "cellLabels",
+      "type": "'auto' | 'always' | 'none'",
+      "default": "auto",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Values printed inside cells: auto and always print them where the formatted value fits (always skips cells that are too small); none prints no values."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Number and message locale."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "rtl mirrors the columns (first column at the right), puts the row labels on the right, and swaps ArrowLeft/ArrowRight."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "SVGSVGElement",
+      "description": "The plot (svg role=\"group\"), named by the title and described by the summary."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "description": "The generated (or custom) accessible summary."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "string[]",
+      "description": "Shared chart property; always empty for a heatmap."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<HeatmapOptions>): void",
+      "description": "Merge, validate, and re-render. Invalid options throw and keep the previous state. Keyboard focus stays on the same cell."
+    },
+    {
+      "name": "setSeriesVisible",
+      "signature": "setSeriesVisible(id: string, visible: boolean): void",
+      "description": "Shared chart method; a heatmap has no series, so it only re-renders."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, host classes, listeners, the resize observer, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-point-click",
+      "detail": "HeatmapPointClickDetail = ChartPointClickDetail: { seriesId: string | null; column: number; row: number; label: string; series: string; value: string; source: 'pointer' | 'keyboard' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-chart",
+      "description": "Host (shared chart chrome)."
+    },
+    {
+      "name": "aui-heatmap",
+      "description": "Host modifier for this chart type."
+    },
+    {
+      "name": "aui-chart--patterns",
+      "description": "patterns option on (no visible effect on heatmap cells)."
+    },
+    {
+      "name": "aui-chart__header / __title / __title--hidden / __description",
+      "description": "Title and description."
+    },
+    {
+      "name": "aui-chart__legend / __legend-entry / __legend-item / __legend-label",
+      "description": "Legend of color steps (static entries, not buttons)."
+    },
+    {
+      "name": "aui-chart__swatch",
+      "description": "aria-hidden legend and tooltip key (step fill)."
+    },
+    {
+      "name": "aui-chart__body / __svg / __layer",
+      "description": "Plot container (height from --aui-chart-height), SVG, and drawing layer."
+    },
+    {
+      "name": "aui-chart__axis / __tick-label / __axis-title",
+      "description": "Column and row labels and axis titles (aria-hidden)."
+    },
+    {
+      "name": "aui-chart__series--c1 ... --c8",
+      "description": "Palette slot classes; set --aui-chart-color from color-chart-<n>."
+    },
+    {
+      "name": "aui-heatmap__level--15 ... --100",
+      "description": "Fill strength in steps of 5: the palette color mixed into color-surface at that percentage (sets --aui-heatmap-fill)."
+    },
+    {
+      "name": "aui-heatmap__cells / __cell / __cell--empty",
+      "description": "Cell group, focusable cells (also aui-chart__mark), and empty (null) cells."
+    },
+    {
+      "name": "aui-heatmap__labels",
+      "description": "aria-hidden group of printed cell values (aui-chart__value-label)."
+    },
+    {
+      "name": "aui-chart__mark / __mark--active / __mark--hover",
+      "description": "Focusable cell and its states (thicker color-text outline)."
+    },
+    {
+      "name": "aui-chart__value-label",
+      "description": "Printed values with a surface-colored halo."
+    },
+    {
+      "name": "aui-chart__tooltip / __tooltip-title / __tooltip-rows / __tooltip-row / __tooltip-label / __tooltip-value",
+      "description": "Tooltip (aria-hidden; the focused cell carries the same text)."
+    },
+    {
+      "name": "aui-chart__empty",
+      "description": "Empty state text (No data)."
+    },
+    {
+      "name": "aui-chart__summary",
+      "description": "Hidden summary referenced by aria-describedby."
+    },
+    {
+      "name": "aui-chart__data / __data--hidden / __table-toggle / __table-scroll / __table / __cell--numeric",
+      "description": "Data table fallback."
+    },
+    {
+      "name": "aui-chart--legend-bottom / --legend-start / --legend-end",
+      "description": "theme.legendPosition (top is the default layout)."
+    },
+    {
+      "name": "aui-chart--no-grid / --gradient / --animate / --entering",
+      "description": "theme.gridLines: false, theme.gradient, theme.animation (entering: the render that animates)."
+    },
+    {
+      "name": "aui-chart__annotations / __annotation-line / __annotation-band / __annotation-label / __annotation--<tone>",
+      "description": "Annotations (aria-hidden), drawn under the marks."
+    },
+    {
+      "name": "aui-chart__gradient / __gradient-stop",
+      "description": "Gradient fills (theme.gradient)."
+    },
+    {
+      "name": "aui-chart__tooltip--custom",
+      "description": "Tooltip content comes from renderTooltip."
+    }
+  ],
+  "iconSlots": []
+}

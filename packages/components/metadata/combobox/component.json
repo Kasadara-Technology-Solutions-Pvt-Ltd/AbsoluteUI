@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "combobox",
+  "displayName": "Combobox",
+  "category": "Selection",
+  "package": "@absoluteui/components",
+  "import": "import { Combobox } from '@absoluteui/components/combobox';",
+  "styleImport": "@absoluteui/components/combobox/style.css",
+  "purpose": "Editable single-select combobox with list autocomplete (WAI-ARIA 1.2). Focus stays on the input; the active option is conveyed with aria-activedescendant. The listbox renders in the top layer and is positioned by the positioning engine.",
+  "whenToUse": [
+    "Choosing one value from a list long enough to benefit from filtering (roughly 7+ options).",
+    "Forms that submit a single option value."
+  ],
+  "whenNotToUse": [
+    "Fewer than ~7 options: use a radio group or native select.",
+    "Free-text entry with suggestions (custom values are not supported).",
+    "Multiple selection: use Multi Select (or Checkbox Group for a few options)."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["closed", "open", "filtering", "empty results", "option active", "option selected", "option disabled", "disabled", "read-only", "invalid", "required"],
+  "responsive": "Input is full width of its container; the listbox matches the input width, flips above when space below is insufficient, and caps its height to the available space and the popover-max-height token.",
+  "rtl": "Logical properties; popup alignment honours the `direction` option/configuration.",
+  "theme": "Control surface, selected, hover and focus tokens. Active option uses an outline (not color alone). Forced-colors mode uses Highlight/HighlightText.",
+  "timezone": "Not applicable.",
+  "security": "Option labels and descriptions are rendered with textContent. CSP-safe (popover positioning uses the CSSOM).",
+  "dataHandling": "No persistence, network access, or telemetry. A hidden input carries the selected value for form submission when `name` is set.",
+  "performance": {
+    "budgets": [
+      { "metric": "Combobox.create with 1,000 options", "budget": "< 100 ms in headless Chromium" },
+      { "metric": "Filter keystroke with 1,000 options (open)", "budget": "< 50 ms in headless Chromium" }
+    ],
+    "testedScale": "1,000 options. Larger lists require virtualization, which is not available; use loadOptions instead."
+  },
+  "limitations": [
+    "Strict selection: the value is always one of the options; free text reverts to the selected label on blur.",
+    "No virtualization: all filtered options are rendered.",
+    "No option groups; one value only (use Multi Select for several).",
+    "Filtering is diacritic- and case-insensitive substring or prefix matching; no fuzzy matching.",
+    "Result counts are announced through a shared polite live region 400 ms after typing stops."
+  ],
+  "unsupported": [
+    "Custom option templates.",
+    "Option values that are not strings.",
+    "Duplicate option values (construction throws COMBOBOX_OPTIONS)."
+  ],
+  "antiPatterns": [
+    "Using a combobox for navigation menus.",
+    "Hiding the visible label.",
+    "Auto-selecting the first match on typing (not supported by design)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/combobox: AuiCombobox directive ([auiCombobox]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/combobox: AuiCombobox component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/combobox: AuiCombobox component with v-model."
+  },
+  "versionIntroduced": "0.1.0",
+  "deprecated": null
+}

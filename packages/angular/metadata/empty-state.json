@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/empty-state",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiEmptyState",
+      "description": "AbsoluteUI EmptyState: `<aui-empty-state>`.",
+      "selector": "aui-empty-state",
+      "exportAs": [
+        "auiEmptyState"
+      ],
+      "source": "generated",
+      "component": "empty-state",
+      "configKey": "emptyState",
+      "inputs": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Short statement of the state, such as 'No employees match your filters'."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "What to do next or why the area is empty (text)."
+        },
+        {
+          "name": "icon",
+          "type": "IconRef | null",
+          "required": false,
+          "default": "null",
+          "description": "Decorative icon above the title."
+        },
+        {
+          "name": "illustration",
+          "type": "Node | null",
+          "required": false,
+          "default": "null",
+          "description": "Decorative illustration (image or SVG Node) instead of the icon."
+        },
+        {
+          "name": "headingLevel",
+          "type": "EmptyStateHeadingLevel | null",
+          "required": false,
+          "default": "3",
+          "description": "Heading level of the title, or null for plain text (inside tables and lists)."
+        },
+        {
+          "name": "primaryAction",
+          "type": "EmptyStateAction | null",
+          "required": false,
+          "default": "null",
+          "description": "Primary button { label, icon?, href? }."
+        },
+        {
+          "name": "secondaryAction",
+          "type": "EmptyStateAction | null",
+          "required": false,
+          "default": "null",
+          "description": "Secondary button { label, icon?, href? }."
+        },
+        {
+          "name": "live",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Announce the empty state when it appears (role=status)."
+        },
+        {
+          "name": "size",
+          "type": "EmptyStateSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "sm inside tables and lists, md in panels, lg for whole pages."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "action",
+          "payload": "EmptyStateActionDetail",
+          "event": "aui-action",
+          "description": "The user activated an action: { action: 'primary' | 'secondary' }."
+        }
+      ],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Static content: a heading (or paragraph) with description and native buttons or links; optionally a polite status region so its appearance is announced.",
+        "source": "packages/components/metadata/empty-state/accessibility.json"
+      },
+      "limitations": [
+        "At most two actions.",
+        "The icon and illustration are decorative; put meaning in the title and description."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { EmptyStateActionDetail } from '@absoluteui/components/empty-state';\nimport { AuiEmptyState } from '@absoluteui/angular/empty-state';\n\n@Component({\n  selector: 'app-no-results',\n  imports: [AuiEmptyState],\n  template: `<aui-empty-state title=\"No results\" description=\"Try another search.\" icon=\"search\" [live]=\"true\" [primaryAction]=\"{ label: 'Clear search' }\" (action)=\"onAction($event)\"></aui-empty-state>`,\n})\nexport class NoResultsComponent {\n  cleared = false;\n  onAction(detail: EmptyStateActionDetail): void {\n    this.cleared = detail.action === 'primary';\n  }\n}"
+    }
+  ]
+}

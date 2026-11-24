@@ -1,0 +1,44 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the Avatar stylesheet (@absoluteui/components/avatar/style.css).
+@layer aui.components {
+  .aui-avatar-group {
+    display: inline-flex;
+    align-items: center;
+    // Room for the first avatar's ring.
+    padding-inline-start: 2px;
+    vertical-align: middle;
+
+    &[hidden] {
+      display: none;
+    }
+
+    // Overlapping avatars, each ringed in the surface color so the edges stay visible.
+    > .aui-avatar {
+      margin-inline-start: calc(var(--_aui-avatar-size) * -0.25);
+    }
+
+    > .aui-avatar:first-child {
+      margin-inline-start: 0;
+    }
+
+    > .aui-avatar > .aui-avatar__visual {
+      box-shadow: 0 0 0 2px aui.token('color-surface');
+    }
+  }
+
+  .aui-avatar-group__more > .aui-avatar__visual {
+    font-size: calc(var(--_aui-avatar-size) * 0.34);
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+  }
+
+  @include aui.forced-colors {
+    .aui-avatar-group > .aui-avatar > .aui-avatar__visual {
+      box-shadow: none;
+    }
+  }
+}

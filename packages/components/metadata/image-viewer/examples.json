@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "image-viewer",
+  "examples": [
+    {
+      "id": "inline",
+      "title": "Inline viewer with thumbnails",
+      "language": "ts",
+      "code": "import { ImageViewer, type ImageViewerChangeDetail } from '@absoluteui/components/image-viewer';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst viewer = ImageViewer.create(host, {\n  label: 'Expense receipts',\n  images: [\n    { src: '/images/receipts-taxi.png', alt: 'Taxi receipt, 42 euros, 3 March', caption: 'Taxi to the airport' },\n    { src: '/images/receipts-hotel.png', alt: 'Hotel invoice, two nights', downloadName: 'hotel-invoice.jpg' },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  host.dataset.shown = String((event as CustomEvent<ImageViewerChangeDetail>).detail.index);\n});\nviewer.zoomIn();"
+    },
+    {
+      "id": "lightbox-crop",
+      "title": "Lightbox with crop to a square",
+      "language": "ts",
+      "code": "import { ImageViewer, type ImageViewerCropDetail } from '@absoluteui/components/image-viewer';\n\nconst trigger = document.createElement('button');\ntrigger.textContent = 'Edit photo';\nconst host = document.createElement('div');\ndocument.body.append(trigger, host);\nconst viewer = ImageViewer.create(host, {\n  label: 'Profile photo',\n  mode: 'lightbox',\n  croppable: true,\n  images: [{ src: '/images/people-ada.png', alt: 'Ada Lovelace smiling' }],\n  crossOrigin: 'anonymous',\n  cropType: 'image/jpeg',\n  cropQuality: 0.9,\n});\ntrigger.addEventListener('click', () => {\n  viewer.open(0);\n});\nhost.addEventListener('aui-crop', (event) => {\n  const { blob, rect } = (event as CustomEvent<ImageViewerCropDetail>).detail;\n  host.dataset.size = `${String(rect.width)}x${String(rect.height)} ${String(blob.size)} bytes`;\n  viewer.close();\n});"
+    }
+  ]
+}

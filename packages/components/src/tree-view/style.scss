@@ -1,0 +1,353 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-tree-view {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-tree-view--fill {
+    block-size: 100%;
+    min-block-size: 0;
+  }
+
+  // The scroll container (role=tree); its block size comes from the `height` option (CSSOM).
+  .aui-tree-view__viewport {
+    position: relative;
+    block-size: var(--_aui-tree-view-height, 20rem);
+    overflow: auto;
+    overflow-anchor: none;
+    overscroll-behavior: contain;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.ctoken('tree-view', 'border-color');
+    border-radius: aui.ctoken('tree-view', 'radius');
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-tree-view--fill > & {
+      flex: 1 1 auto;
+      block-size: auto;
+      min-block-size: 0;
+    }
+  }
+
+  .aui-tree-view__canvas {
+    position: relative;
+    block-size: var(--_aui-tree-view-total, 0px);
+    min-inline-size: 100%;
+  }
+
+  // One visible node; nesting is shown by the indent (aria-level carries it for assistive technology).
+  .aui-tree-view__item {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 0;
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    box-sizing: border-box;
+    block-size: var(--_aui-tree-view-item, 2.5rem);
+    padding-inline: calc(#{aui.token('space-2')} + var(--_aui-tree-view-level, 0) * #{aui.ctoken('tree-view', 'indent')}) aui.token('space-2');
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: default;
+    user-select: none;
+    translate: 0 var(--_aui-tree-view-y, 0px);
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      z-index: 1;
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+    }
+  }
+
+  // Selection is shown by a bar at the start edge as well as the fill (not color alone).
+  .aui-tree-view__item--selected {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-block: aui.token('space-1');
+      inset-inline-start: 0;
+      inline-size: 3px;
+      background: aui.token('color-selected-indicator');
+      border-radius: aui.token('radius-pill');
+    }
+
+    &:hover {
+      background: aui.token('color-selected');
+    }
+  }
+
+  .aui-tree-view__twisty,
+  .aui-tree-view__icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  // The twisty is a 24 px pointer target (WCAG 2.5.8); it is aria-hidden (aria-expanded carries the state).
+  .aui-tree-view__twisty {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    color: aui.token('color-text-muted');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    .aui-icon {
+      @include aui.transition(transform);
+    }
+
+    &:empty {
+      cursor: default;
+    }
+
+    &:dir(rtl) .aui-icon {
+      transform: scaleX(-1);
+    }
+  }
+
+  .aui-tree-view__item--open > .aui-tree-view__twisty .aui-icon {
+    transform: rotate(90deg);
+  }
+
+  .aui-tree-view__item--error > .aui-tree-view__twisty {
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-tree-view__spinner {
+    animation: aui-tree-view-rotate 0.8s linear infinite;
+  }
+
+  .aui-tree-view__icon {
+    color: aui.token('color-text-muted');
+
+    .aui-tree-view__item--selected > & {
+      color: inherit;
+    }
+  }
+
+  // Decorative checkbox; the treeitem's aria-checked carries the state.
+  .aui-tree-view__check {
+    position: relative;
+    flex: none;
+    box-sizing: border-box;
+    inline-size: 1rem;
+    block-size: 1rem;
+    background: aui.token('color-surface');
+    border: aui.token('border-width-strong') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    .aui-tree-view__item--checked > &,
+    .aui-tree-view__item--mixed > & {
+      background: aui.token('color-primary');
+      border-color: aui.token('color-primary');
+    }
+
+    // Check mark and dash are drawn with borders (no icon fonts or images).
+    .aui-tree-view__item--checked > &::after {
+      content: '';
+      position: absolute;
+      inset-block-start: 1px;
+      inset-inline-start: 4px;
+      inline-size: 4px;
+      block-size: 8px;
+      border: solid aui.token('color-on-primary');
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .aui-tree-view__item--mixed > &::after {
+      content: '';
+      position: absolute;
+      inset-block-start: calc(50% - 1px);
+      inset-inline: 2px;
+      block-size: 2px;
+      background: aui.token('color-on-primary');
+    }
+
+    .aui-tree-view__item[aria-disabled='true'] > & {
+      background: aui.token('color-disabled-bg');
+      border-color: aui.token('color-border');
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-tree-view__label {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // Matches are bold and underlined (no color dependence; legible on selected rows too).
+  .aui-tree-view__match {
+    font-weight: aui.token('font-weight-semibold');
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    background: transparent;
+  }
+
+  .aui-tree-view__error {
+    flex: none;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-tree-view__input {
+    flex: 1 1 auto;
+    min-inline-size: 4rem;
+    block-size: calc(100% - #{aui.token('space-2')});
+    padding: 0 aui.token('space-1');
+    font: inherit;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    user-select: text;
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+  }
+
+  // Cut (keyboard move pending) and dragged nodes are dimmed and outlined dashed (not color alone).
+  .aui-tree-view__item--cut,
+  .aui-tree-view__item--dragging {
+    opacity: 0.6;
+    outline: aui.token('border-width') dashed aui.token('color-border-strong');
+    outline-offset: calc(-1 * #{aui.token('border-width')} - 2px);
+  }
+
+  .aui-tree-view__item--drop-inside {
+    background: aui.token('color-hover');
+    outline: 2px solid aui.token('color-focus-ring');
+    outline-offset: -2px;
+  }
+
+  .aui-tree-view--dragging .aui-tree-view__viewport {
+    cursor: grabbing;
+  }
+
+  // Drop line between nodes, indented to the drop level.
+  .aui-tree-view__drop {
+    position: absolute;
+    inset-inline: calc(#{aui.token('space-2')} + var(--_aui-tree-view-level, 0) * #{aui.ctoken('tree-view', 'indent')}) aui.token('space-2');
+    inset-block-start: -1px;
+    z-index: 2;
+    block-size: 2px;
+    pointer-events: none;
+    background: aui.token('color-focus-ring');
+    translate: 0 var(--_aui-tree-view-y, 0px);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Touch drags start on the node icon; elsewhere touch scrolls the tree.
+  .aui-tree-view--draggable .aui-tree-view__icon {
+    touch-action: none;
+  }
+
+  .aui-tree-view__empty {
+    display: grid;
+    place-items: center;
+    min-block-size: 6rem;
+    padding: aui.token('space-4');
+    color: aui.token('color-text-muted');
+    text-align: center;
+    border: aui.token('border-width') dashed aui.ctoken('tree-view', 'border-color');
+    border-radius: aui.ctoken('tree-view', 'radius');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  @keyframes aui-tree-view-rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @include aui.reduced-motion {
+    .aui-tree-view__spinner {
+      animation-duration: 2.4s;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-tree-view__spinner {
+    animation: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-tree-view__item--selected {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+
+      &::before {
+        background: HighlightText;
+      }
+    }
+
+    .aui-tree-view__item[aria-disabled='true'] {
+      color: GrayText;
+    }
+
+    .aui-tree-view__check {
+      border-color: CanvasText;
+
+      .aui-tree-view__item--checked > &,
+      .aui-tree-view__item--mixed > & {
+        forced-color-adjust: none;
+        background: Highlight;
+        border-color: Highlight;
+      }
+
+      .aui-tree-view__item--checked > &::after {
+        border-color: HighlightText;
+      }
+
+      .aui-tree-view__item--mixed > &::after {
+        background: HighlightText;
+      }
+    }
+
+
+    .aui-tree-view__drop {
+      background: Highlight;
+    }
+  }
+}

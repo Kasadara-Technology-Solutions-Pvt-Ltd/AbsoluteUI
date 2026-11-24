@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "emitDeclarationOnly": true,
+    "tsBuildInfoFile": "../../.cache/tsbuildinfo/helpers.tsbuildinfo"
+  },
+  "include": [
+    "src"
+  ],
+  "references": []
+}

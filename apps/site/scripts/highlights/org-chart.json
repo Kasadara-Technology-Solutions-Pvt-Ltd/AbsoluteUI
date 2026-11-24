@@ -1,0 +1,7 @@
+[
+  { "title": "Lazy branches", "text": "Load teams on demand when a manager is expanded, with cancellation and timeouts." },
+  { "title": "Search and reveal", "text": "Find people by name or title and scroll them into view." },
+  { "title": "Zoom and fit", "text": "Pan, zoom, and fit the whole chart in vertical or horizontal layout." },
+  { "title": "Edit by moving", "text": "Move people to another manager with drag or keyboard, with undo and redo." },
+  { "title": "SVG and PNG export", "text": "Download the chart as an SVG or PNG image." }
+]

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "chat",
+  "displayName": "Chat",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { Chat } from '@absoluteui/components/chat';",
+  "styleImport": "@absoluteui/components/chat/style.css",
+  "purpose": "A conversation view for an AI assistant or for people: user, assistant, system, and tool messages with avatars and timestamps (day separators name holidays and non-working days from a business calendar), assistant replies streamed from a host-supplied AsyncIterable<string> or ReadableStream<string> with Stop and Retry, a typing indicator, per-message errors, attachments as file chips, suggestion chips, copy and feedback actions, and auto-scroll that pauses while the user reads earlier messages (with a Jump to latest button). Text renders as plain text or as a safe Markdown subset, never as HTML from the model. The composer is a Prompt Input.",
+  "whenToUse": [
+    "An assistant or copilot panel that streams answers from a language model.",
+    "Support or team conversations with people (typing indicator, attachments).",
+    "Showing a transcript of a conversation, read-only (composer off)."
+  ],
+  "whenNotToUse": [
+    "A single question and answer: use a form with Prompt Input or Textarea and show the result.",
+    "Notifications or activity feeds: use a list or Toast.",
+    "Comments attached to records with threading: build on a list; Chat is linear."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/helpers", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["empty", "messages", "streaming (typing dots, then text)", "stopped", "error with Retry", "someone typing", "following new content", "reading earlier messages (Jump to latest shown)", "earlier messages collapsed", "composer off"],
+  "responsive": "Fills the height the host gives it: the log scrolls and the composer stays at the bottom. Bubbles take at most 48rem; on narrow screens they use the full width. Actions are always visible on touch screens.",
+  "rtl": "User messages sit on the left in right-to-left layouts; logical properties throughout. Code blocks keep left-to-right order.",
+  "theme": "Component tokens chat-user-bg/-fg (color-selected roles), chat-assistant-bg/-fg (sunken surface and text), chat-code-bg, and chat-bubble-radius, all in the contrast gate. Forced-colors mode outlines bubbles with CanvasText. The typing dots stop animating for reduced motion and animation 'none'.",
+  "timezone": "Times and day separators use the configured timezone (common config or the timezone option), never the machine's zone; messages carry Instants.",
+  "security": "Message text is never parsed as HTML: plain text uses textContent, and Markdown is parsed into a fixed set of elements whose text is set with textContent. Links render only for http(s) and scheme-less URLs (isSafeHref) and open with rel=noopener noreferrer nofollow; unsafe links keep only their label. Avatar images go through the Avatar URL policy. Error details from the stream are not shown (a generic or host-supplied message is).",
+  "dataHandling": "No persistence, network access, or telemetry. Streams are read only while a message is streaming and are cancelled on Stop or destroy. Copy writes to the clipboard only when the user activates a copy button.",
+  "performance": {
+    "budgets": [
+      { "metric": "Chat.create with 200 messages", "budget": "< 60 ms in headless Chromium" },
+      { "metric": "Streaming repaint of a 5,000-character Markdown reply", "budget": "< 8 ms per repaint (repaints are batched to at most one per 40 ms)" }
+    ],
+    "testedScale": "10,000 messages in the model with 200 in the DOM (maxRenderedMessages); replies up to 200,000 characters as Markdown, longer as plain text."
+  },
+  "limitations": [
+    "The DOM keeps at most maxRenderedMessages messages (default 200); earlier ones are added back in steps by 'Show earlier messages'. The list is not virtualized.",
+    "The Markdown subset has no tables, images, task lists, or HTML; nested lists follow indentation of two or more spaces.",
+    "Code blocks are shown as text without syntax highlighting.",
+    "Announcements read the first 300 characters of a finished reply."
+  ],
+  "unsupported": [
+    "Rendering HTML from messages.",
+    "Threaded replies or message editing (the host can replace messages with addMessage or update).",
+    "Reading attachments: the host opens them on aui-attachment-open."
+  ],
+  "antiPatterns": [
+    "Passing model output as HTML into a custom renderer next to the chat: use the Markdown format.",
+    "Announcing every streamed token through your own live region.",
+    "Giving the host element no height: the log then grows with the page and auto-scroll has nothing to scroll."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/chat: AuiChat component (<aui-chat>).",
+    "react": "@absoluteui/react/chat: AuiChat component.",
+    "vue": "@absoluteui/vue/chat: AuiChat component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

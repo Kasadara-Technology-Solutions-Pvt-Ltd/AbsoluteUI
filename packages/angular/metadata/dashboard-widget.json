@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/dashboard-widget",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDashboardWidget",
+      "description": "AbsoluteUI Dashboard Widget; the projected content is the body:\n`<aui-dashboard-widget title=\"Revenue\" [removable]=\"true\" (removed)=\"remove(id)\">...</aui-dashboard-widget>`.\nThe header is inserted before the Angular-managed body. `[(collapsed)]` is two-way.",
+      "selector": "aui-dashboard-widget",
+      "exportAs": [
+        "auiDashboardWidget"
+      ],
+      "source": "hand-written",
+      "component": "dashboard-widget",
+      "configKey": "dashboardWidget",
+      "inputs": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Heading text; names the region and the action buttons. Non-empty."
+        },
+        {
+          "name": "headingLevel",
+          "type": "2 | 3 | 4 | 5 | 6",
+          "required": false,
+          "default": "3",
+          "description": "Heading element level; changing it with update() throws."
+        },
+        {
+          "name": "subtitle",
+          "type": "string",
+          "required": false,
+          "description": "Supporting text under the heading (hidden when empty)."
+        },
+        {
+          "name": "actions",
+          "type": "readonly DashboardWidgetAction[]",
+          "required": false,
+          "description": "Extra header icon buttons { id, label, icon } (unique ids, non-empty labels); activation emits aui-action."
+        },
+        {
+          "name": "removable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show a remove button that emits the cancelable aui-remove."
+        },
+        {
+          "name": "busy",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Set aria-busy=true on the host while content loads."
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the collapse/expand button."
+        },
+        {
+          "name": "maximizable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the maximize/restore button."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the action button names."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Resolved with the other options; the layout itself follows the document direction (logical CSS)."
+        }
+      ],
+      "models": [
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "change": "collapsedChange",
+          "description": "Initial and controlled collapsed state (update() sets it without an event)."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "toggled",
+          "payload": "DashboardWidgetToggleDetail",
+          "event": "aui-toggle",
+          "description": "The user activated the collapse/expand button."
+        },
+        {
+          "name": "maximized",
+          "payload": "DashboardWidgetMaximizeDetail",
+          "event": "aui-maximize",
+          "description": "The widget was maximized or restored (button, Escape, or setMaximized)."
+        },
+        {
+          "name": "action",
+          "payload": "DashboardWidgetActionDetail",
+          "event": "aui-action",
+          "description": "The user activated a custom header action."
+        },
+        {
+          "name": "removed",
+          "payload": "DashboardWidgetRemoveDetail",
+          "event": "aui-remove",
+          "description": "The user activated the remove button; id is the host's data-aui-item (its Dashboard Grid item) or null. The widget takes no default action: remove the element or call grid.removeItem(id)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setMaximized",
+          "signature": "setMaximized(maximized: boolean): void",
+          "description": "Maximize the widget into a modal view, or restore it (emits `maximized`)."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Labelled region with a heading and header buttons; collapse follows the WAI-ARIA APG Disclosure pattern; maximize follows the APG modal Dialog pattern (top layer through the Popover API).",
+        "source": "packages/components/metadata/dashboard-widget/accessibility.json"
+      },
+      "limitations": [
+        "Maximize relies on the Popover API for the top layer; without HTMLElement.showPopover the widget is only fixed-positioned (it may sit under other stacked content).",
+        "The collapse button has no aria-controls: the body is every host child except the header.",
+        "headingLevel cannot change after create (recreate the widget).",
+        "The remove event has no default action: the widget stays until the application removes it.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiDashboardWidget } from '@absoluteui/angular/dashboard-widget';\n\n@Component({\n  selector: 'app-sales-widget',\n  imports: [AuiDashboardWidget],\n  template: `\n    <aui-dashboard-widget [title]=\"'Sales'\" subtitle=\"Last 30 days\" [removable]=\"true\" (removed)=\"removed = true\">\n      <p>$48,200</p>\n    </aui-dashboard-widget>`,\n})\nexport class SalesWidgetComponent {\n  removed = false;\n}"
+    }
+  ]
+}

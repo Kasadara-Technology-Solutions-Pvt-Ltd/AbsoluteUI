@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "component": "carousel",
+  "factory": { "name": "Carousel.create", "signature": "Carousel.create(host: HTMLElement, options: CarouselOptions): Carousel" },
+  "configKey": "carousel",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the carousel." },
+    { "name": "slides", "type": "readonly CarouselSlide[]", "required": true, "globallyConfigurable": false, "description": "Slides: { content: Node | string, label? } (1 to 100)." },
+    { "name": "index", "type": "number", "default": "0", "required": false, "globallyConfigurable": false, "description": "Current slide (0-based)." },
+    { "name": "loop", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Wrap from the last slide to the first and back." },
+    { "name": "autoplay", "type": "number | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Rotation interval in milliseconds (at least 2000), or null." },
+    { "name": "showPicker", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show the slide picker buttons." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the control labels and slide positions." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (role=region)." },
+    { "name": "index", "type": "number", "description": "Current slide (0-based)." },
+    { "name": "rotating", "type": "boolean", "description": "Whether automatic rotation is running now." },
+    { "name": "options", "type": "Readonly<CarouselOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "goTo", "signature": "goTo(index: number): void", "description": "Show a slide (no event); clamped, or wrapped with loop." },
+    { "name": "next", "signature": "next(): void", "description": "Show the next slide (no event)." },
+    { "name": "previous", "signature": "previous(): void", "description": "Show the previous slide (no event)." },
+    { "name": "update", "signature": "update(options: Partial<CarouselOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Stop rotation and remove rendering, attributes, and listeners." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "CarouselChangeDetail", "bubbles": true, "cancelable": false, "description": "The user moved to another slide: { index }." }
+  ],
+  "contentAreas": [
+    { "name": "slides", "description": "Each slide's content (Node or text)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-carousel", "description": "Host (role=region, roledescription carousel)." },
+    { "name": "aui-carousel--autoplay | --animated", "description": "Autoplay configured; transitions enabled after the first move." },
+    { "name": "aui-carousel__pause", "description": "Pause/play button (first; autoplay only)." },
+    { "name": "aui-carousel__viewport", "description": "Clips the track; the live region." },
+    { "name": "aui-carousel__track", "description": "Slides side by side." },
+    { "name": "aui-carousel__slide | __slide--current", "description": "A slide (role=group, roledescription slide) and the current one." },
+    { "name": "aui-carousel__controls", "description": "Previous, picker, next." },
+    { "name": "aui-carousel__prev | __next", "description": "Previous and next buttons." },
+    { "name": "aui-carousel__picker", "description": "Slide picker group." },
+    { "name": "aui-carousel__dot | __dot--current", "description": "A picker button and the current one." }
+  ],
+  "iconSlots": []
+}

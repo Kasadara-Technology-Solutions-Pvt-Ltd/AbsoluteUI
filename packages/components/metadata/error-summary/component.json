@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "error-summary",
+  "displayName": "Error Summary",
+  "category": "Form Infrastructure",
+  "package": "@absoluteui/components",
+  "import": "import { ErrorSummary } from '@absoluteui/components/error-summary';",
+  "styleImport": "@absoluteui/components/error-summary/style.css",
+  "purpose": "Lists every error after a failed submission as links that move focus to the offending field (GOV.UK error summary pattern). The summary is a labelled region that receives focus when shown, so screen readers announce its heading and contents once without a live region. Form uses it automatically; it can also be used on its own.",
+  "whenToUse": [
+    "After a failed form submission, to list all errors at the top of the form with links to each field.",
+    "Showing server-side errors after a full page load, including errors that belong to no field."
+  ],
+  "whenNotToUse": [
+    "Inline messages next to a field: controls render those; for other controls use Validation Message.",
+    "Non-error notices or confirmations: use an alert or toast.",
+    "Forms managed by Form: it creates and fills the summary itself (use Form's summaryHost to place it)."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["hidden", "visible", "focused (focus-visible)", "link hover", "link focus-visible"],
+  "responsive": "Block-level grid that fills its container; messages wrap.",
+  "rtl": "Logical properties: the thick border is on the inline-start side and list indentation is inline-start in both directions.",
+  "theme": "Error subtle background, error foreground border, heading, and links, with a thicker inline-start border. Links are underlined so color is not the only cue. Forced-colors mode uses CanvasText for the border and LinkText for links.",
+  "timezone": "Not applicable.",
+  "security": "Heading, description, and messages are rendered with textContent; messages are never parsed as HTML. Link hrefs are only #<id> fragments of the targets. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "ErrorSummary.show", "budget": "No dedicated performance test; renders one list item per error" }
+    ],
+    "testedScale": "Unit tests cover summaries with up to four items."
+  },
+  "limitations": [
+    "A target without an id receives a generated id (the consumer element is modified).",
+    "Link activation is handled in script; without script the #id link only scrolls, and focus lands on the target only if it is focusable.",
+    "Heading levels are limited to 2, 3, and 4."
+  ],
+  "unsupported": [
+    "Rendering HTML or custom content in items.",
+    "Items with actions other than navigation."
+  ],
+  "antiPatterns": [
+    "Showing the summary while the user is typing; show it after submission.",
+    "Using different wording in the summary and the inline message for the same field.",
+    "Adding a live region around the summary: it is announced by moving focus."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/error-summary: AuiErrorSummary directive ([auiErrorSummary]); call show() on its controller.",
+    "react": "@absoluteui/react/error-summary: AuiErrorSummary component.",
+    "vue": "@absoluteui/vue/error-summary: AuiErrorSummary component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

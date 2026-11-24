@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="hourglass" data-animations="spin:loading">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 3.5h14"/>
+      <path d="M5 20.5h14"/>
+      <path d="M7 3.5h10v1.8c0 2.4-2.2 4-5 6.7-2.8-2.7-5-4.3-5-6.7z"/>
+      <path d="M7 20.5h10v-1.8c0-2.4-2.2-4-5-6.7-2.8 2.7-5 4.3-5 6.7z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <rect x="4" y="2" width="16" height="2.5" rx="1.25"/>
+      <rect x="4" y="19.5" width="16" height="2.5" rx="1.25"/>
+      <path d="M7 3.5h10v1.8c0 2.4-2.2 4-5 6.7-2.8-2.7-5-4.3-5-6.7z"/>
+      <path d="M7 20.5h10v-1.8c0-2.4-2.2-4-5-6.7-2.8 2.7-5 4.3-5 6.7z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M7 20.5h10v-1.8c0-2.4-2.2-4-5-6.7-2.8 2.7-5 4.3-5 6.7z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 3.5h14"/>
+      <path d="M5 20.5h14"/>
+      <path d="M7 3.5h10v1.8c0 2.4-2.2 4-5 6.7-2.8-2.7-5-4.3-5-6.7z"/>
+      <path d="M7 20.5h10v-1.8c0-2.4-2.2-4-5-6.7-2.8 2.7-5 4.3-5 6.7z"/>
+    </g>
+  </g>
+</svg>

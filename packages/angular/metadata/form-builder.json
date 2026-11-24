@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/form-builder",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiFormBuilder",
+      "description": "AbsoluteUI FormBuilder: `<aui-form-builder>`.",
+      "selector": "aui-form-builder",
+      "exportAs": [
+        "auiFormBuilder"
+      ],
+      "source": "generated",
+      "component": "form-builder",
+      "configKey": "formBuilder",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the builder (toolbar)."
+        },
+        {
+          "name": "schema",
+          "type": "FormSchema",
+          "required": false,
+          "description": "Initial schema (root type object). Default: an empty form."
+        },
+        {
+          "name": "uiSchema",
+          "type": "UiField",
+          "required": false,
+          "description": "Initial UI schema."
+        },
+        {
+          "name": "fieldTypes",
+          "type": "readonly FormBuilderFieldType[]",
+          "required": false,
+          "description": "Field types offered in the palette, in order. Default: all 18."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<FormBuilderIcons>",
+          "required": false,
+          "description": "Icon overrides: undo, redo, remove, handle."
+        },
+        {
+          "name": "historyLimit",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "configurable": true,
+          "description": "Undo steps kept (1 to 1000)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the builder's messages and controls."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "FormBuilderChangeDetail",
+          "event": "aui-change",
+          "description": "The document changed (edit, reorder, import, undo, redo): { schema, uiSchema }, always valid for Schema Form."
+        }
+      ],
+      "methods": [
+        {
+          "name": "getValue",
+          "signature": "getValue(): FormBuilderChangeDetail | undefined",
+          "description": "The current { schema, uiSchema } (a copy)."
+        },
+        {
+          "name": "addField",
+          "signature": "addField(type: FormBuilderFieldType, index?: number | undefined): string | undefined",
+          "description": "Add a field after the selection or at index; returns its name."
+        },
+        {
+          "name": "removeField",
+          "signature": "removeField(name: string): void",
+          "description": "Remove a field and the conditions that use it."
+        },
+        {
+          "name": "selectField",
+          "signature": "selectField(name: string | null): void",
+          "description": "Select a field, or null for the form settings."
+        },
+        {
+          "name": "undo",
+          "signature": "undo(): void | undefined",
+          "description": "Step through the history (also Ctrl+Z, Ctrl+Y, Ctrl+Shift+Z outside text fields)."
+        },
+        {
+          "name": "redo",
+          "signature": "redo(): void",
+          "description": "Step through the history (also Ctrl+Z, Ctrl+Y, Ctrl+Shift+Z outside text fields)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Toolbar plus Tabs (Design, Preview, JSON); the canvas is a Sortable List (keyboard grab, move, drop with announcements); the palette and properties are labelled regions of native buttons and AbsoluteUI form controls.",
+        "source": "packages/components/metadata/form-builder/accessibility.json"
+      },
+      "limitations": [
+        "The builder edits top-level fields; nested groups and lists from imported JSON are kept and can be reordered, renamed, and removed, but their inner fields are edited in the JSON view.",
+        "The visibility editor writes one condition per field (equals, does not equal, is filled, is empty); combined conditions are kept and edited in the JSON view."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport type { FormBuilderChangeDetail } from '@absoluteui/components/form-builder';\nimport type { FormSchema, UiField } from '@absoluteui/components/schema-form';\nimport { AuiFormBuilder } from '@absoluteui/angular/form-builder';\nimport { AuiSchemaForm } from '@absoluteui/angular/schema-form';\n\n@Component({\n  selector: 'app-form-designer',\n  imports: [AuiFormBuilder, AuiSchemaForm],\n  template: `\n    <aui-form-builder label=\"Onboarding questionnaire\" (changed)=\"onChange($event)\"></aui-form-builder>\n    <aui-schema-form [schema]=\"schema()\" [uiSchema]=\"uiSchema()\"></aui-schema-form>\n  `,\n})\nexport class FormDesignerComponent {\n  readonly schema = signal<FormSchema>({ type: 'object', properties: {} });\n  readonly uiSchema = signal<UiField>({});\n  onChange(detail: FormBuilderChangeDetail): void {\n    this.schema.set(detail.schema);\n    this.uiSchema.set(detail.uiSchema);\n  }\n}"
+    }
+  ]
+}

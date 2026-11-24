@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "component": "stepper",
+  "factory": { "name": "Stepper.create", "signature": "Stepper.create(host: HTMLElement, options: StepperOptions): Stepper" },
+  "configKey": "stepper",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Accessible name of the <nav> (aria-label), e.g. \"Checkout progress\". Must not be empty." },
+    { "name": "steps", "type": "readonly { id: string; label: string; description?: string; href?: string; status?: 'complete' | 'error'; optional?: boolean; disabled?: boolean }[]", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Steps in order (at least one). Ids must be unique and non-empty; labels must be non-empty. status is consumer-owned; href renders a reachable step as a link." },
+    { "name": "value", "type": "string", "default": "id of the first step", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Current step id. Must be the id of an existing step." },
+    { "name": "orientation", "type": "'horizontal' | 'vertical'", "default": "horizontal", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Layout. A horizontal stepper renders vertically when its container is 30rem wide or narrower." },
+    { "name": "linear", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When true, a step after the current one is reachable only when every step before it has status 'complete'. Earlier steps are always reachable unless disabled." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "'rtl' sets dir=\"rtl\" on the <nav>; 'ltr' leaves the document direction in effect." },
+    { "name": "icons", "type": "Partial<{ complete: IconRef; error: IconRef }>", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Icon slot overrides for the step indicator." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "nav", "type": "HTMLElement", "description": "The <nav> landmark." },
+    { "name": "value", "type": "string", "description": "Current step id." },
+    { "name": "options", "type": "Readonly<StepperOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "state", "signature": "state(id: string): StepperStepState | null", "description": "Resolved state ('current' | 'complete' | 'error' | 'upcoming') of a step, or null for an unknown id." },
+    { "name": "isReachable", "signature": "isReachable(id: string): boolean", "description": "Whether the user can activate the step in the current state. False for the current step, disabled steps, and unknown ids." },
+    { "name": "select", "signature": "select(id: string): void", "description": "Make a step current programmatically. No events and no reachability check. Throws STEPPER_OPTIONS for an unknown id." },
+    { "name": "update", "signature": "update(options: Partial<StepperOptions>): void", "description": "Merge, validate, and apply options. When the current id no longer exists and no value is given, the first step becomes current. No events." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, host classes, listeners, and the configuration subscription." }
+  ],
+  "events": [
+    { "name": "aui-navigate", "detail": "{ id: string; index: number; step: StepperStep; previous: string }", "bubbles": true, "cancelable": true, "description": "The user activated a reachable step (unmodified primary click, Enter, or Space on a button). preventDefault keeps the current step and stops link navigation." },
+    { "name": "aui-change", "detail": "{ value: string; previous: string }", "bubbles": true, "cancelable": false, "description": "The current step changed after an uncanceled aui-navigate." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-stepper", "description": "Host; an inline-size container." },
+    { "name": "aui-stepper--horizontal | --vertical", "description": "Orientation modifiers on the host (the configured orientation)." },
+    { "name": "aui-stepper__nav", "description": "The <nav> landmark." },
+    { "name": "aui-stepper__list", "description": "The <ol>." },
+    { "name": "aui-stepper__step", "description": "An <li>; data-state=current|complete|error|upcoming, data-reachable=true, data-disabled=true." },
+    { "name": "aui-stepper__control", "description": "<a>, <button>, or <span> for the step." },
+    { "name": "aui-stepper__indicator", "description": "Decorative number or icon circle (aria-hidden)." },
+    { "name": "aui-stepper__text | __label | __optional | __description", "description": "Step text parts." },
+    { "name": "aui-stepper__status", "description": "Visually hidden status text (\"Completed\", \"Error\")." }
+  ],
+  "iconSlots": [
+    { "name": "complete", "default": "check" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

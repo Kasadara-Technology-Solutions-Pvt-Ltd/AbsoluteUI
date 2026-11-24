@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="data-center">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="3" width="16" height="18" rx="1.5"/>
+      <path d="M8 7h8"/>
+      <path d="M8 11h8"/>
+      <path d="M8 15h8"/>
+      <path d="M10.5 21v-2.5h3V21"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="3.5" y="2.5" width="17" height="19" rx="2"/>
+      <line x1="8" y1="7" x2="16" y2="7" data-outline-width="1.75"/>
+      <line x1="8" y1="11" x2="16" y2="11" data-outline-width="1.75"/>
+      <line x1="8" y1="15" x2="16" y2="15" data-outline-width="1.75"/>
+      <rect x="10.5" y="18.5" width="3" height="3" rx="0"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="4" y="3" width="16" height="18" rx="1.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="3" width="16" height="18" rx="1.5"/>
+      <path d="M8 7h8"/>
+      <path d="M8 11h8"/>
+      <path d="M8 15h8"/>
+      <path d="M10.5 21v-2.5h3V21"/>
+    </g>
+  </g>
+</svg>

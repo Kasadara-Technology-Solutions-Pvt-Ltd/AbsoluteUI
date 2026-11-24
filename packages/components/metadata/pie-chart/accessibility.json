@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "component": "pie-chart",
+  "pattern": "SVG part-to-whole chart as a named, described group (role=\"group\" with aria-roledescription \"pie chart\" or \"donut chart\") of role=\"img\" slices with roving focus; legend of toggle buttons with each share; data table fallback with value and percent columns.",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription (localized chart type), named by the title"
+    },
+    {
+      "element": "data marks (points, bars, slices)",
+      "role": "img with an aria-label: category/x, series, formatted value"
+    },
+    {
+      "element": "legend",
+      "role": "list (ul) named \"Legend\"; entries are toggle buttons (aria-pressed)"
+    },
+    {
+      "element": "data table",
+      "role": "table (native) with caption, column headers, and row headers; wide tables scroll in a focusable region"
+    },
+    {
+      "element": "axes, lines, textures, value labels, tooltip",
+      "role": "aria-hidden (decorative duplicates of the accessible data)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized chart type, for example \"line chart\""
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each mark",
+      "value": "Localized \"{x}, {series}: {value}\" (pie: \"{label}: {value} ({percent})\")"
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active mark",
+      "value": "0 on exactly one mark (roving); other marks have none"
+    },
+    {
+      "attribute": "aria-pressed",
+      "element": "legend button",
+      "value": "true while the series is visible"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowRight / ArrowDown",
+      "context": "Slice focused",
+      "action": "Next slice (clockwise); ArrowLeft/ArrowRight are swapped in RTL."
+    },
+    {
+      "key": "ArrowLeft / ArrowUp",
+      "context": "Slice focused",
+      "action": "Previous slice."
+    },
+    {
+      "key": "Home / End",
+      "context": "Slice focused",
+      "action": "First / last slice."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Slice focused",
+      "action": "Ten slices back / forward."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "Legend buttons, then one tab stop for the plot (the active mark), then the Show data table button and table region."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Legend button",
+      "action": "Shows or hides the series (native button)."
+    }
+  ],
+  "focus": "Roving focus: one mark is in the tab sequence and remembers the last visited data point, also across re-renders (resize, update). Toggling a legend entry keeps focus on its button; toggling the table keeps focus on the table button.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "4.1.2"
+  ],
+  "notes": [
+    "The generated summary lists the chart type, series and point counts, axis ranges, per-series minimum and maximum with their positions, the overall trend, missing values, and hidden series.",
+    "Meaning never depends on color alone: marker shapes, dash patterns, and textures (patterns option), plus legend keys that repeat them.",
+    "Forced colors: series use CanvasText and keep shapes, dashes, and textures; focus uses Highlight.",
+    "No animation: nothing moves on render; hover and focus emphasis transitions are removed under prefers-reduced-motion and animation: none.",
+    "Slices are separated by a surface-colored stroke, so adjacent slices never depend on the contrast between two series colors.",
+    "Percentages are recomputed over visible slices when slices are hidden."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "aria-roledescription support varies; screen readers without it announce \"group\"."
+  ]
+}

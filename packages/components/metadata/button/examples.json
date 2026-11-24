@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "button",
+  "examples": [
+    {
+      "id": "enhance",
+      "title": "Enhance an existing native button",
+      "language": "ts",
+      "code": "import { Button } from '@absoluteui/components/button';\n\nconst el = document.querySelector<HTMLButtonElement>('#save');\nif (el) {\n  const save = Button.enhance(el, { variant: 'primary' });\n  el.addEventListener('click', () => {\n    save.setLoading(true);\n  });\n}"
+    },
+    {
+      "id": "icon-only",
+      "title": "Icon-only button with an accessible name",
+      "language": "ts",
+      "code": "import { Button } from '@absoluteui/components/button';\n\nconst search = Button.create({ icon: 'search', label: 'Search', variant: 'ghost' });\ndocument.body.append(search.element);"
+    },
+    {
+      "id": "global-config",
+      "title": "Global component defaults (SPEC section 6.1 Mode B)",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\nimport { Button } from '@absoluteui/components/button';\n\nconfigureAbsoluteUI({ common: { density: 'compact' }, components: { button: { size: 'sm' } } });\nconst b = Button.create({ text: 'Apply' });\ndocument.body.append(b.element);"
+    }
+  ]
+}

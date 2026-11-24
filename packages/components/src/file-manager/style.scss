@@ -1,0 +1,374 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the stylesheets of the composed components: button, breadcrumb, tree-view, splitter,
+// menu, context-menu, dialog, text-input, empty-state, spinner, inline-message, progress-bar,
+// image-viewer, and code-viewer.
+@layer aui.components {
+  .aui-file-manager {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    block-size: var(--_aui-file-manager-height, 32rem);
+    min-inline-size: 0;
+    overflow: hidden;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.ctoken('file-manager', 'border-color');
+    border-radius: aui.token('radius-md');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-file-manager--fill {
+    block-size: 100%;
+  }
+
+  .aui-file-manager__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-2');
+    padding: aui.token('space-2');
+    border-block-end: aui.token('border-width') solid aui.ctoken('file-manager', 'border-color');
+  }
+
+  .aui-file-manager__tools {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-1');
+
+    & + & {
+      padding-inline-start: aui.token('space-2');
+      border-inline-start: aui.token('border-width') solid aui.ctoken('file-manager', 'border-color');
+    }
+
+    &:last-child {
+      margin-inline-start: auto;
+    }
+  }
+
+  .aui-file-manager__path {
+    padding: aui.token('space-2') aui.token('space-3');
+  }
+
+  .aui-file-manager__message {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    padding: 0 aui.token('space-3') aui.token('space-2');
+
+    > :first-child {
+      flex: 1 1 auto;
+      min-inline-size: 0;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-file-manager__body {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    border-block-start: aui.token('border-width') solid aui.ctoken('file-manager', 'border-color');
+  }
+
+  .aui-file-manager__folders {
+    box-sizing: border-box;
+    block-size: 100%;
+    min-block-size: 0;
+    padding: aui.token('space-1');
+    overflow: hidden;
+  }
+
+  .aui-file-manager__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    block-size: 100%;
+    min-block-size: 0;
+    outline: none;
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+  }
+
+  .aui-file-manager__content--drop .aui-file-manager__viewport,
+  .aui-file-manager__content--drop .aui-file-manager__state {
+    background: aui.ctoken('file-manager', 'drop-bg');
+    outline: 2px dashed aui.ctoken('file-manager', 'drop-border');
+    outline-offset: -4px;
+  }
+
+  // List view: the same column template for the header buttons and the rows.
+  .aui-file-manager__columns,
+  .aui-file-manager--list .aui-file-manager__item {
+    display: grid;
+    grid-template-columns: aui.icon-size('md') minmax(0, 1fr) minmax(4rem, 7rem) minmax(7rem, 12rem) minmax(5rem, 8rem);
+    column-gap: aui.token('space-3');
+    align-items: center;
+  }
+
+  .aui-file-manager__columns {
+    padding: aui.token('space-1') aui.token('space-3');
+    border-block-end: aui.token('border-width') solid aui.ctoken('file-manager', 'border-color');
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-file-manager__column {
+      justify-content: flex-start;
+      min-inline-size: 0;
+      color: aui.token('color-text-muted');
+      font-weight: aui.token('font-weight-semibold');
+    }
+
+    .aui-file-manager__column--name {
+      grid-column: 1 / 3;
+    }
+  }
+
+  .aui-file-manager__sort-arrow {
+    margin-inline-start: aui.token('space-1');
+  }
+
+  .aui-file-manager__viewport {
+    position: relative;
+    flex: 1 1 auto;
+    min-block-size: 0;
+    overflow: auto;
+    overflow-anchor: none;
+    overscroll-behavior: contain;
+    outline: none;
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-file-manager__canvas {
+    position: relative;
+    block-size: var(--_aui-file-manager-total, 0px);
+    min-inline-size: 100%;
+  }
+
+  .aui-file-manager__row {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 0;
+    box-sizing: border-box;
+    block-size: var(--_aui-file-manager-row, 2.5rem);
+    translate: 0 var(--_aui-file-manager-y, 0px);
+
+    .aui-file-manager--grid & {
+      display: flex;
+      gap: 8px;
+      block-size: calc(var(--_aui-file-manager-tile-h, 7rem) + 8px);
+      padding: 4px 8px;
+    }
+  }
+
+  .aui-file-manager__item {
+    position: relative;
+    box-sizing: border-box;
+    cursor: default;
+    user-select: none;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+  }
+
+  .aui-file-manager--list .aui-file-manager__item {
+    block-size: 100%;
+    padding-inline: aui.token('space-3');
+  }
+
+  .aui-file-manager--grid .aui-file-manager__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: aui.token('space-1');
+    inline-size: var(--_aui-file-manager-tile-w, 7.5rem);
+    block-size: var(--_aui-file-manager-tile-h, 7rem);
+    padding: aui.token('space-2');
+    text-align: center;
+    border-radius: aui.ctoken('file-manager', 'tile-radius');
+
+    .aui-file-manager__icon {
+      --aui-icon-size: #{aui.icon-size('xl')};
+      inline-size: var(--aui-icon-size);
+      block-size: var(--aui-icon-size);
+    }
+
+    .aui-file-manager__name {
+      display: -webkit-box;
+      max-inline-size: 100%;
+      overflow: hidden;
+      font-size: aui.token('font-size-sm');
+      overflow-wrap: anywhere;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+  }
+
+  .aui-file-manager__icon {
+    flex: none;
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-file-manager__item--folder .aui-file-manager__icon {
+    color: aui.token('color-text');
+  }
+
+  .aui-file-manager__name {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-file-manager__cell {
+    min-inline-size: 0;
+    overflow: hidden;
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-file-manager__cell--size {
+    text-align: end;
+  }
+
+  // Selection is shown by a bar (list) or a ring (grid) as well as the fill, never by color alone.
+  .aui-file-manager__item--selected {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+
+    &:hover {
+      background: aui.token('color-selected');
+    }
+
+    .aui-file-manager__cell,
+    .aui-file-manager__icon {
+      color: inherit;
+    }
+
+    .aui-file-manager--list &::before {
+      content: '';
+      position: absolute;
+      inset-block: aui.token('space-1');
+      inset-inline-start: 0;
+      inline-size: 3px;
+      background: aui.token('color-selected-indicator');
+      border-radius: aui.token('radius-pill');
+    }
+
+    .aui-file-manager--grid & {
+      box-shadow: inset 0 0 0 2px aui.token('color-selected-indicator');
+    }
+  }
+
+  // The active option (aria-activedescendant) shows the focus ring while the list has focus.
+  .aui-file-manager__viewport:focus-visible .aui-file-manager__item--active {
+    z-index: 1;
+    @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+  }
+
+  .aui-file-manager__item--cut {
+    opacity: 0.55;
+  }
+
+  .aui-file-manager__drop-target {
+    background: aui.ctoken('file-manager', 'drop-bg');
+    outline: 2px dashed aui.ctoken('file-manager', 'drop-border');
+    outline-offset: -2px;
+  }
+
+  .aui-file-manager__state {
+    display: grid;
+    flex: 1 1 auto;
+    place-items: center;
+    min-block-size: 0;
+    overflow: auto;
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-file-manager__viewport:not([hidden]) ~ & {
+      position: absolute;
+      inset: 0;
+      background: aui.token('color-surface');
+    }
+  }
+
+  .aui-file-manager__uploads {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-2');
+    max-block-size: 10rem;
+    margin: 0;
+    padding: aui.token('space-2') aui.token('space-3');
+    overflow: auto;
+    list-style: none;
+    border-block-start: aui.token('border-width') solid aui.ctoken('file-manager', 'border-color');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-file-manager__upload {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+  }
+
+  .aui-file-manager__upload-bar {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+  }
+
+  .aui-file-manager__status {
+    min-block-size: 1lh;
+    padding: aui.token('space-1') aui.token('space-3');
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+    border-block-start: aui.token('border-width') solid aui.ctoken('file-manager', 'border-color');
+  }
+
+  .aui-file-manager__lightbox {
+    display: contents;
+  }
+
+  @include aui.forced-colors {
+    .aui-file-manager__item--selected {
+      color: HighlightText;
+      background: Highlight;
+      forced-color-adjust: none;
+    }
+
+    .aui-file-manager__drop-target,
+    .aui-file-manager__content--drop .aui-file-manager__viewport {
+      outline-color: Highlight;
+    }
+  }
+}

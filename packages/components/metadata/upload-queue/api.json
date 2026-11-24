@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "component": "upload-queue",
+  "factory": {
+    "name": "UploadQueue.create",
+    "signature": "UploadQueue.create(host: HTMLElement, options: UploadQueueOptions): UploadQueue"
+  },
+  "configKey": "uploadQueue",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Visible label and accessible name of the list."
+    },
+    {
+      "name": "upload",
+      "type": "(file: File, context: { signal: AbortSignal; onProgress: (loaded: number, total?: number) => void; attempt: number; id: string }) => Promise<unknown>",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Transport: performs one attempt. Resolve on success (the value becomes item.response), reject on failure, honour signal."
+    },
+    {
+      "name": "preview",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Image previews via object URLs for image/* files (needs img-src blob:)."
+    },
+    {
+      "name": "errorMessage",
+      "type": "(error: unknown, file: File) => string | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Map a rejection to a user-facing message. Default: generic localized message."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ file: IconRef; cancel: IconRef; retry: IconRef; remove: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    },
+    {
+      "name": "concurrency",
+      "type": "number",
+      "default": 2,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Uploads running at the same time (1..16)."
+    },
+    {
+      "name": "retries",
+      "type": "number",
+      "default": 0,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Automatic retries after a failed attempt (0..10)."
+    },
+    {
+      "name": "retryDelay",
+      "type": "number",
+      "default": 1000,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Delay before the first automatic retry in ms (0..60000); doubles for each further retry."
+    },
+    {
+      "name": "autoStart",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Start uploading as soon as files are added; when false, call start()."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Message and size-formatting locale."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "Host element."
+    },
+    {
+      "name": "list",
+      "type": "HTMLUListElement",
+      "description": "The list element."
+    },
+    {
+      "name": "items",
+      "type": "readonly UploadItem[]",
+      "description": "Snapshots of all items in queue order."
+    },
+    {
+      "name": "busy",
+      "type": "boolean",
+      "description": "Any item queued or uploading."
+    },
+    {
+      "name": "options",
+      "type": "Readonly<UploadQueueOptions>",
+      "description": "Current options."
+    }
+  ],
+  "methods": [
+    {
+      "name": "add",
+      "signature": "add(files: Iterable<File>): string[]",
+      "description": "Queue files; returns item ids."
+    },
+    {
+      "name": "start",
+      "signature": "start(): void",
+      "description": "Start queued items (autoStart: false)."
+    },
+    {
+      "name": "cancel",
+      "signature": "cancel(id: string): void",
+      "description": "Cancel a queued or uploading item (aborts its signal)."
+    },
+    {
+      "name": "cancelAll",
+      "signature": "cancelAll(): void",
+      "description": "Cancel every active item."
+    },
+    {
+      "name": "retry",
+      "signature": "retry(id: string): void",
+      "description": "Queue a failed or cancelled item again."
+    },
+    {
+      "name": "remove",
+      "signature": "remove(id: string): void",
+      "description": "Remove an item (aborts it; revokes its preview URL)."
+    },
+    {
+      "name": "clear",
+      "signature": "clear(): void",
+      "description": "Remove every item."
+    },
+    {
+      "name": "clearCompleted",
+      "signature": "clearCompleted(): void",
+      "description": "Remove finished items."
+    },
+    {
+      "name": "getItem",
+      "signature": "getItem(id: string): UploadItem | null",
+      "description": "One item snapshot."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<UploadQueueOptions>): void",
+      "description": "Merge and apply options."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Abort all uploads, revoke preview URLs, remove rendering. Late results are ignored."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-change",
+      "detail": "{ items: readonly UploadItem[]; reason: 'added' | 'started' | 'succeeded' | 'failed' | 'cancelled' | 'retried' | 'removed'; item: UploadItem | null }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "Items were added or removed, or an item changed status (not emitted for progress)."
+    },
+    {
+      "name": "aui-complete",
+      "detail": "{ succeeded: number; failed: number; cancelled: number }",
+      "bubbles": false,
+      "cancelable": false,
+      "description": "Nothing is queued or uploading any more (once per batch)."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-upload-queue",
+      "description": "Host."
+    },
+    {
+      "name": "aui-upload-queue__label",
+      "description": "Visible label."
+    },
+    {
+      "name": "aui-upload-queue__summary",
+      "description": "\"{done} of {total} uploaded\" or the empty text."
+    },
+    {
+      "name": "aui-upload-queue__list",
+      "description": "List (focus fallback, tabindex -1)."
+    },
+    {
+      "name": "aui-upload-queue__item",
+      "description": "Row; data-status holds the status."
+    },
+    {
+      "name": "aui-upload-queue__media",
+      "description": "File icon or preview."
+    },
+    {
+      "name": "aui-upload-queue__preview",
+      "description": "Preview image."
+    },
+    {
+      "name": "aui-upload-queue__progress",
+      "description": "Progress Bar host."
+    },
+    {
+      "name": "aui-upload-queue__actions",
+      "description": "Row actions."
+    },
+    {
+      "name": "aui-upload-queue__action | __cancel | __retry | __remove",
+      "description": "Action buttons."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "file",
+      "default": "file"
+    },
+    {
+      "name": "cancel",
+      "default": "close"
+    },
+    {
+      "name": "retry",
+      "default": "refresh"
+    },
+    {
+      "name": "remove",
+      "default": "close"
+    }
+  ]
+}

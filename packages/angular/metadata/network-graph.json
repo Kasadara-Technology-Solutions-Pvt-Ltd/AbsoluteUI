@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/network-graph",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiNetworkGraph",
+      "description": "AbsoluteUI NetworkGraph: `<aui-network-graph>`.\nTwo-way: `[(hiddenSeries)]`.",
+      "selector": "aui-network-graph",
+      "exportAs": [
+        "auiNetworkGraph"
+      ],
+      "source": "generated",
+      "component": "network-graph",
+      "configKey": "networkGraph",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby); also the data table caption."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (node, edge, and group counts, the most connected node, nodes without connections, hidden groups)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for values in the tooltip and table."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat everywhere."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash?; axisColor?; lineWidth?; markerSize?; cornerRadius?; barRadius?; cellRadius?; sliceRadius?; boxRadius?; swatchRadius?; tooltipRadius?; controlRadius?; lineJoin?; areaOpacity?; gradient?; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Shared chart option; a network graph has no column concept, so it has no effect."
+        },
+        {
+          "name": "nodes",
+          "type": "readonly NetworkNode[]",
+          "required": true,
+          "description": "Nodes: { id: string (unique, non-empty); label: string; group?: string (color, shape, legend); value?: number >= 0 (radius grows with its square root) }. At most 1,000."
+        },
+        {
+          "name": "edges",
+          "type": "readonly NetworkEdge[]",
+          "required": true,
+          "description": "Edges: { source: node id; target: node id (not the source); weight?: positive number (line thickness, table) }. At most 5,000."
+        },
+        {
+          "name": "groups",
+          "type": "readonly NetworkGroup[]",
+          "required": false,
+          "description": "Group labels, colors, and legend order: { id; label; color?: 1-8; colorValue?: CSS color }. Default: groups in order of first appearance, labelled by id; nodes without a group share one labelled \"Other\"."
+        },
+        {
+          "name": "directed",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Draw arrowheads at edge targets."
+        },
+        {
+          "name": "seed",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "Layout seed (integer 0-4294967295): the same data and seed always give the same layout."
+        },
+        {
+          "name": "linkDistance",
+          "type": "number",
+          "required": false,
+          "default": "60",
+          "description": "Preferred edge length in layout units (10-400)."
+        },
+        {
+          "name": "charge",
+          "type": "number",
+          "required": false,
+          "default": "120",
+          "description": "Node repulsion (1-2000)."
+        },
+        {
+          "name": "pinned",
+          "type": "readonly NetworkPin[]",
+          "required": false,
+          "description": "Nodes fixed at a position in layout units: { id; x; y } (the coordinate space of positions). Dragging and Shift+Arrow add pins."
+        },
+        {
+          "name": "zoom",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Zoom and pan: toolbar buttons, + / - / 0 keys, Ctrl/Cmd + wheel, drag on the background to pan, Shift + drag to select."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Legend of node groups (toggle buttons): auto shows it with more than one group, show always, hide never."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table fallback (an adjacency list: node, group, connection count, connected nodes with weights): behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Shared chart option; groups already differ by marker shape, so it has no extra effect."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "400",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+        },
+        {
+          "name": "nodeLabels",
+          "type": "NetworkGraphNodeLabels",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Node labels: auto (graphs up to 50 visible nodes), always, or none."
+        },
+        {
+          "name": "animate",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Animate the layout settling; never with prefers-reduced-motion: reduce or animation: 'none' (the final layout is then computed before the first paint)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number, date, and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl puts node labels on the left; the layout is not mirrored."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Ids of hidden groups (legend toggles): their nodes and edges are not drawn and not reachable."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A node was activated: pointer click or tap, or Enter / Space on the focused node. seriesId is the node id, series its group, value its connection count."
+        },
+        {
+          "name": "nodePinned",
+          "payload": "NetworkGraphNodePinDetail",
+          "event": "aui-node-pin",
+          "description": "A node was pinned (drag end or Shift+Arrow) or unpinned (U); also announced politely."
+        },
+        {
+          "name": "seriesToggled",
+          "payload": "ChartSeriesToggleDetail",
+          "event": "aui-series-toggle",
+          "description": "A group was shown or hidden from the legend."
+        },
+        {
+          "name": "zoomed",
+          "payload": "ChartZoomDetail",
+          "event": "aui-zoom",
+          "description": "The visible window changed (fractions 0-1 of the layout bounds)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Show or hide an item programmatically (no event)."
+        },
+        {
+          "name": "relayout",
+          "signature": "relayout(): void",
+          "description": "Run the layout again from the current positions; pinned nodes stay."
+        },
+        {
+          "name": "unpinAll",
+          "signature": "unpinAll(): void",
+          "description": "Remove every pin (no event); call relayout() to let the nodes move."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG node-link diagram as a named, described group (role=\"group\" with aria-roledescription \"network graph\") of role=\"img\" nodes with roving focus and neighbor navigation; legend of group toggle buttons; zoom toolbar; adjacency-list data table.",
+        "source": "packages/components/metadata/network-graph/accessibility.json"
+      },
+      "limitations": [
+        "Pairwise repulsion is O(n^2) per step; very large graphs lay out slowly.",
+        "Dragging pins a node where it is dropped; other nodes keep their positions until the layout runs again (relayout() or new data).",
+        "Straight edges only; parallel edges overlap.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiNetworkGraph } from '@absoluteui/angular/network-graph';\nimport type { NetworkEdge, NetworkNode } from '@absoluteui/components/network-graph';\n\n@Component({\n  selector: 'app-team',\n  imports: [AuiNetworkGraph],\n  template: `<aui-network-graph label=\"Team collaboration\" [nodes]=\"nodes\" [edges]=\"edges\"></aui-network-graph>`,\n})\nexport class TeamComponent {\n  readonly nodes: NetworkNode[] = [{ id: 'a', label: 'Ana' }, { id: 'b', label: 'Ben' }];\n  readonly edges: NetworkEdge[] = [{ source: 'a', target: 'b' }];\n}"
+    }
+  ]
+}

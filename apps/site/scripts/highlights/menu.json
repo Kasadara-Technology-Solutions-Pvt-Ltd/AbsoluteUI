@@ -1,0 +1,6 @@
+[
+  { "title": "Rich items", "text": "Actions with icons, descriptions, shortcut hints, danger tone, and nested submenus." },
+  { "title": "Checkbox and radio", "text": "Toggle and choice items keep their state and report it on selection." },
+  { "title": "Keyboard and typeahead", "text": "Arrow keys, Home, End, and typed letters move focus as users expect." },
+  { "title": "Smart placement", "text": "Opens next to its trigger and flips or shifts to stay inside the viewport." }
+]

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="variable">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 7.5l6 9"/>
+      <path d="M10 7.5l-6 9"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M14 10h6"/>
+      <path d="M14 14h6"/>
+    </g>
+  </g>
+</svg>

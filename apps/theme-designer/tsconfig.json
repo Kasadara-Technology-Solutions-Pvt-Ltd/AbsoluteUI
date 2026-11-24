@@ -1,0 +1,6 @@
+{
+  "//": "No path aliases: the designer resolves @absoluteui/* through package exports to the built dist.",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "noEmit": true },
+  "include": ["app.ts", "frame.ts", "src/**/*.ts"]
+}

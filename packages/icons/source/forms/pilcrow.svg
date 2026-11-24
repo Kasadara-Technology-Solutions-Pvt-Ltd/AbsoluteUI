@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="pilcrow">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M10.5 4v16"/>
+      <path d="M14.5 4v16"/>
+      <path d="M17.5 4H9.5a4 4 0 0 0 0 8h1"/>
+    </g>
+  </g>
+</svg>

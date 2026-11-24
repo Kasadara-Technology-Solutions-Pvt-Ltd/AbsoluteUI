@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "name": "year-picker",
+  "displayName": "Year Picker",
+  "category": "Form Inputs / Date and Time",
+  "package": "@absoluteui/components",
+  "import": "import { YearPicker } from '@absoluteui/components/year-picker';",
+  "styleImport": "@absoluteui/components/year-picker/style.css",
+  "purpose": "Enter a calendar year (an integer 1-9999) in one four-digit segment inside a labelled group, or pick one from a non-modal dialog popup with a grid of the ten years of a decade (paged by decade), with min/max bounds, unavailable years, localized validation, and native form submission as a zero-padded YYYY.",
+  "whenToUse": [
+    "A calendar year on its own: a model year, a graduation year, a tax or reporting year.",
+    "Users should be able to type a year quickly and also browse nearby years.",
+    "Year fields with bounds or unavailable years."
+  ],
+  "whenNotToUse": [
+    "A month or a specific day: use Month Picker, Date Picker, or Date Input.",
+    "A calendar quarter: use Quarter Picker.",
+    "A fiscal year that does not start in January: the value is a calendar year; label the field accordingly or store the fiscal mapping yourself.",
+    "An arbitrary number that is not a year: use Number Input."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["empty", "segment focused", "partial (incomplete)", "valid", "invalid (message shown)", "open", "cell focused", "cell selected", "current year", "cell disabled", "disabled", "read-only", "required"],
+  "responsive": "The group hugs its segment and the button, up to 100% of the container. The popup is positioned under the group (bottom-start) by the positioning engine, is at most the viewport width minus a gutter, caps its height to the available space, and scrolls when taller. Density tokens adjust the control height.",
+  "rtl": "The year segment renders as an LTR-isolated run in every direction. The button sits at the inline end of the group. The popup and grid take the resolved direction: ArrowLeft/ArrowRight in the grid are mirrored, the page chevrons are flipped, and the popup aligns to the inline start of the group.",
+  "theme": "Control surface, border, focus, error, hover, selected, primary, and sunken-surface role tokens. The focused segment uses the selected pair; the selected year uses color-primary / color-on-primary; the current year is bold with an inset strong border; unavailable years are muted and struck through, so no state relies on color alone. Forced-colors mode uses Highlight for the focused segment and the selected year, a CanvasText outline for the current year, GrayText for disabled cells and buttons, and a CanvasText popup border.",
+  "timezone": "Values are plain year numbers (no timezone) and never shift. The configured timezone (default UTC, never the host zone) only decides the current year: the cell marked aria-current, the year focused when the popup opens on an empty field, and the start of ArrowUp/ArrowDown in an empty segment. The advanced `today` option pins it to a fixed PlainDate.",
+  "security": "Label, help text, segment name, cell text, headings, and messages are rendered with textContent and Intl formatting; no HTML parsing. Validation messages never include the entered value; range messages include only the formatted bounds. The popup uses the Popover API; no inline handlers. CSP-safe: positioning writes styles through the CSSOM.",
+  "dataHandling": "No persistence, network access, or telemetry. When `name` is set, a hidden input carries the year as four zero-padded digits (YYYY, for example 0005); it is empty while the entry is empty or fails a built-in check, and disabled (not submitted) while the picker is disabled. A read-only picker is submitted.",
+  "performance": {
+    "budgets": [
+      { "metric": "YearPicker.create, per instance (100 instances)", "budget": "< 5 ms average in headless Chromium" }
+    ],
+    "testedScale": "100 instances per page in the performance test; the popup grid (10 cells) is created once per picker and re-rendered per page."
+  },
+  "limitations": [
+    "Gregorian (proleptic) years 1 to 9999 only; year 0 and negative years are not supported.",
+    "The year must be typed with four digits (0005 for year 5).",
+    "Only ASCII digits are accepted; other characters are removed.",
+    "Single years only; year ranges need two pickers.",
+    "The popup has no Cancel/OK buttons: picking a year commits it.",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ],
+  "unsupported": [
+    "Rendering HTML in the label, help text, cells, or messages.",
+    "Fiscal years with a non-January start, eras, or non-Gregorian calendars.",
+    "Custom cell content or a custom grid layout."
+  ],
+  "antiPatterns": [
+    "Using a Year Picker for an arbitrary integer; use Number Input.",
+    "Storing the displayed year text instead of the number or its YYYY form value.",
+    "Making the grid the only entry path; the segment stays available for keyboard and screen-reader users.",
+    "Relying on the host timezone for the current year; configure `timezone`."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/year-picker: AuiYearPicker directive ([auiYearPicker]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/year-picker: AuiYearPicker component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/year-picker: AuiYearPicker component with v-model."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="speaker">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="5" y="2.5" width="14" height="19" rx="2"/>
+      <circle cx="12" cy="14.5" r="3.5"/>
+      <path d="M12 7h.01"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="4" y="2" width="16" height="20" rx="2.5"/>
+      <circle cx="12" cy="14.5" r="4"/>
+      <circle cx="12" cy="14.5" r="1.5"/>
+      <circle cx="12" cy="7" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="5" y="2.5" width="14" height="19" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="5" y="2.5" width="14" height="19" rx="2"/>
+      <circle cx="12" cy="14.5" r="3.5"/>
+      <path d="M12 7h.01"/>
+    </g>
+  </g>
+</svg>

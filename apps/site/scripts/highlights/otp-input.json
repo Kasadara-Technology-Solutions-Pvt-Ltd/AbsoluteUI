@@ -1,0 +1,7 @@
+[
+  { "title": "One field, many cells", "text": "A single native input drawn as cells, so paste and autofill just work." },
+  { "title": "SMS autofill", "text": "The one-time-code hint lets phones fill codes from messages." },
+  { "title": "Numeric or alphanumeric", "text": "Choose the character set, uppercase letters, and the code length." },
+  { "title": "Grouped and masked", "text": "Split long codes into groups and mask them like a password." },
+  { "title": "Complete event", "text": "Fires once every cell is filled, ready to verify the code." }
+]

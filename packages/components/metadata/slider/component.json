@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "slider",
+  "displayName": "Slider",
+  "category": "Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { Slider } from '@absoluteui/components/slider';",
+  "styleImport": "@absoluteui/components/slider/style.css",
+  "purpose": "Picks a number, or a range with two thumbs, from a bounded scale such as volume, a price range, or working hours. Each thumb is a WAI-ARIA slider; range thumbs limit each other. Keyboard by step, large step, and ends; pointer press and drag. A Form control with hidden inputs for native submission.",
+  "whenToUse": [
+    "Approximate values where the position on a scale matters more than the exact number: volume, opacity, rating thresholds.",
+    "A range filter such as a price or a working-hours window."
+  ],
+  "whenNotToUse": [
+    "Exact numbers the user types: use Number Input.",
+    "Scales with more than a few hundred steps where precision matters (pair the slider with a Number Input or use one).",
+    "Choosing among named options: use Radio Group or Toggle Group."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities"],
+  "states": ["single", "range", "horizontal", "vertical", "marks", "value shown", "disabled", "invalid (custom error)", "dragging"],
+  "responsive": "Horizontal sliders fill their container; vertical sliders are 12rem tall. Thumbs never overflow the field.",
+  "rtl": "Horizontal sliders run right to left and the arrow keys follow the reading direction (ArrowLeft increases).",
+  "theme": "Component tokens slider-fill (filled track and thumb boundary, falls back to color-primary) and slider-track (color-border-strong), both 3:1 against color-surface in the contrast gate; focus ring color-focus-ring. Forced colors use Highlight and GrayText.",
+  "timezone": "Not applicable. For times of day, map minutes to the scale and format them with valueText.",
+  "security": "Labels and value text are rendered with textContent. Positions are set through the CSSOM (CSP-safe, no style attributes).",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Slider.create, per instance", "budget": "< 2 ms average in headless Chromium" }
+    ],
+    "testedScale": "Any finite min, max, and step; tick marks are limited to 100 (otherwise only the ends)."
+  },
+  "limitations": [
+    "Always has a value, so it is never 'missing'; use setCustomError (or Form rules) for range rules.",
+    "Vertical sliders hide marks."
+  ],
+  "unsupported": [
+    "More than two thumbs.",
+    "Non-linear (logarithmic) scales; map the value yourself with valueText."
+  ],
+  "antiPatterns": [
+    "Sliders as the only way to enter an exact value.",
+    "Showing the value only by thumb position (keep showValue or a value text)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/slider: AuiSlider component (<aui-slider>, [(value)], formControl).",
+    "react": "@absoluteui/react/slider: AuiSlider component (value, onValueChange).",
+    "vue": "@absoluteui/vue/slider: AuiSlider component (v-model)."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

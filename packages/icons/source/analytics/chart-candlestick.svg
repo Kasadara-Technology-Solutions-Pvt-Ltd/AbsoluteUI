@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="chart-candlestick">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4.5" y="9" width="3" height="6" rx="0.75"/>
+      <rect x="10.5" y="6.5" width="3" height="7" rx="0.75"/>
+      <rect x="16.5" y="11.5" width="3" height="6" rx="0.75"/>
+      <path d="M6 5v4"/>
+      <path d="M6 15v4"/>
+      <path d="M12 3v3.5"/>
+      <path d="M12 13.5V17"/>
+      <path d="M18 8v3.5"/>
+      <path d="M18 17.5V21"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="4.5" y="9" width="3" height="6" rx="0.75"/>
+      <rect x="10.5" y="6.5" width="3" height="7" rx="0.75"/>
+      <rect x="16.5" y="11.5" width="3" height="6" rx="0.75"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4.5" y="9" width="3" height="6" rx="0.75"/>
+      <rect x="10.5" y="6.5" width="3" height="7" rx="0.75"/>
+      <rect x="16.5" y="11.5" width="3" height="6" rx="0.75"/>
+      <path d="M6 5v4"/>
+      <path d="M6 15v4"/>
+      <path d="M12 3v3.5"/>
+      <path d="M12 13.5V17"/>
+      <path d="M18 8v3.5"/>
+      <path d="M18 17.5V21"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="success" data-paint="fill">
+      <rect x="4.5" y="9" width="3" height="6" rx="0.75"/>
+      <rect x="10.5" y="6.5" width="3" height="7" rx="0.75"/>
+    </g>
+    <g data-layer="accent" data-role="error" data-paint="fill">
+      <rect x="16.5" y="11.5" width="3" height="6" rx="0.75"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4.5" y="9" width="3" height="6" rx="0.75"/>
+      <rect x="10.5" y="6.5" width="3" height="7" rx="0.75"/>
+      <rect x="16.5" y="11.5" width="3" height="6" rx="0.75"/>
+      <path d="M6 5v4"/>
+      <path d="M6 15v4"/>
+      <path d="M12 3v3.5"/>
+      <path d="M12 13.5V17"/>
+      <path d="M18 8v3.5"/>
+      <path d="M18 17.5V21"/>
+    </g>
+  </g>
+</svg>

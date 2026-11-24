@@ -1,0 +1,69 @@
+---
+// Components gallery (docs/PLAN-MARKETING-REDESIGN.md section 3, P2): category sidebar (a scrolling
+// row on small screens), search, large cards with captured previews (C7), all linking to the docs.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import gallery from '../generated/components.json';
+import { docs } from '../site';
+
+const tabsOf = (c: (typeof gallery.components)[number]): string => [c.tab, c.featured ? 'enterprise' : ''].filter(Boolean).join(' ');
+const count = (id: string): number => gallery.components.filter((c) => c.tab === id || (id === 'enterprise' && c.featured)).length;
+// Featured components first, so the large cards lead the gallery.
+const ordered = [...gallery.components.filter((c) => c.featured), ...gallery.components.filter((c) => !c.featured)];
+---
+
+<Base title="Components" description={`${gallery.components.length} accessible, framework-neutral components: inputs, forms, data, navigation, overlays, charts, and scheduling.`} path="/components/">
+  <PageHero eyebrow="Components" title={`${gallery.components.length} components, one standard`} lead="Every component is keyboard operable, tested against WCAG 2.2 AA, themeable by tokens, and free of third-party runtime dependencies. Each card opens the component's documentation with live examples." />
+
+  <section class="section-tight" aria-label="Component gallery">
+    <div class="container gallery-layout" data-gallery>
+      <nav class="gallery-side" aria-label="Categories">
+        <button type="button" data-tab="all" aria-pressed="true"><span>All</span><span class="count">{gallery.components.length}</span></button>
+        {
+          gallery.tabs.map((t) => (
+            <button type="button" data-tab={t.id} aria-pressed="false">
+              <span>{t.label}</span>
+              <span class="count">{count(t.id)}</span>
+            </button>
+          ))
+        }
+      </nav>
+      <div>
+        <div class="gallery-tools">
+          <div class="search-field">
+            <Icon name="search" />
+            <label class="visually-hidden" for="component-search">Search components</label>
+            <input id="component-search" type="search" placeholder="Search components" autocomplete="off" />
+          </div>
+          <p class="muted small" data-status role="status" aria-live="polite"></p>
+        </div>
+        <ul class="gallery" role="list">
+          {
+            ordered.map((c) => (
+              <li class:list={['gallery-card', c.featured && 'gallery-card-featured']} data-card data-tabs={tabsOf(c)} data-text={`${c.displayName} ${c.name} ${c.blurb}`.toLowerCase()}>
+                <div class="gallery-preview">
+                  {c.preview ? <img src={c.preview} alt="" width="1280" height="800" loading="lazy" decoding="async" /> : <div class="gallery-placeholder">Preview</div>}
+                </div>
+                <div class="gallery-body">
+                  <h3>
+                    <a href={docs(c.docsPath)}>{c.displayName}</a>
+                  </h3>
+                  <p>{c.blurb}</p>
+                  <span class="link-arrow" aria-hidden="true">
+                    View component <span>&rarr;</span>
+                  </span>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="gallery-empty" data-empty hidden>No components match. Try another word or category.</p>
+      </div>
+    </div>
+  </section>
+  <script>
+    import { initGallery } from '../lib/gallery';
+    initGallery();
+  </script>
+</Base>

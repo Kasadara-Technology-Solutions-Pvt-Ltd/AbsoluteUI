@@ -1,0 +1,6 @@
+[
+  { "title": "Five tones", "text": "Neutral, info, success, warning, and error, in subtle or outline style." },
+  { "title": "Dot or icon", "text": "A status dot or any icon in front of the label." },
+  { "title": "Two sizes", "text": "Small and medium sizes for tables, lists, and headers." },
+  { "title": "Plain text label", "text": "The label is real text, so screen readers read it in context." }
+]

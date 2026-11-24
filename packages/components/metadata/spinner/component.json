@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "name": "spinner",
+  "displayName": "Spinner",
+  "category": "Feedback",
+  "package": "@absoluteui/components",
+  "import": "import { Spinner } from '@absoluteui/components/spinner';",
+  "styleImport": "@absoluteui/components/spinner/style.css",
+  "purpose": "Indeterminate loading indicator: a role=\"status\" region with a decorative rotating icon and a localized label that is announced politely when it appears. An optional delay avoids flicker for fast operations.",
+  "whenToUse": [
+    "Short waits of unknown duration (loading a panel, saving).",
+    "Inside a busy region (aria-busy) as the announced status next to Skeleton placeholders."
+  ],
+  "whenNotToUse": [
+    "Measurable progress: use ProgressBar.",
+    "Blocking the whole page: prefer skeletons or inline progress.",
+    "Inside buttons as the only feedback without a label."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons"
+  ],
+  "states": [
+    "pending (delay not yet elapsed; region empty)",
+    "visible"
+  ],
+  "responsive": "Inline-level; the icon uses icon-size tokens by size (sm/md/lg).",
+  "rtl": "Logical gap between icon and label; rotation direction is not mirrored.",
+  "theme": "Icon uses color-primary; label uses color-text. Forced-colors mode uses CanvasText.",
+  "timezone": "Not applicable.",
+  "security": "The label is rendered with textContent. No inline styles.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "Spinner.create()",
+        "budget": "< 1 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "Tested with one spinner per region; many simultaneous spinners are an anti-pattern."
+  },
+  "limitations": [
+    "The label is announced when content is inserted into the pre-existing status region; with delay 0 the region and content appear in the same task, so some screen readers may not announce it. Use a delay, or create the spinner on an empty host before the operation starts.",
+    "delay is init-only.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Determinate progress.",
+    "Rendering HTML in the label."
+  ],
+  "antiPatterns": [
+    "Several spinners announcing at once.",
+    "Spinners without a meaningful label for long operations.",
+    "Showing a spinner for operations that complete in under the delay (set delay instead)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/spinner: AuiSpinner directive ([auiSpinner]).",
+    "react": "@absoluteui/react/spinner: AuiSpinner component.",
+    "vue": "@absoluteui/vue/spinner: AuiSpinner component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

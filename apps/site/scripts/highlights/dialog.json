@@ -1,0 +1,7 @@
+[
+  { "title": "Native modal", "text": "Built on the native dialog element, with an inert page and contained focus." },
+  { "title": "Cancelable close", "text": "Escape and backdrop clicks follow a set policy and raise a cancel event you can veto." },
+  { "title": "Focus restored", "text": "Focus returns to where it was before the dialog opened." },
+  { "title": "Footer actions", "text": "Action buttons close the dialog and report which one was pressed." },
+  { "title": "Alert dialogs", "text": "An alert dialog role for confirmations of destructive actions." }
+]

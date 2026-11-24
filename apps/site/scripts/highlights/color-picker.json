@@ -1,0 +1,8 @@
+[
+  { "title": "Area, hue, and opacity", "text": "A keyboard-operable 2D area with hue and optional opacity sliders that follow the reading direction." },
+  { "title": "Typed values", "text": "Hex, rgb(), and hsl() text with validation; the value is always normalized hex." },
+  { "title": "Swatches with names", "text": "App-supplied presets and recent colors, each with a spoken name." },
+  { "title": "Contrast hint", "text": "The WCAG contrast ratio against a background with an AA and AAA verdict." },
+  { "title": "Eyedropper where available", "text": "Feature-detected screen color picking; the button is hidden where the browser lacks it." },
+  { "title": "Popup or inline", "text": "A trigger with the current color opens a dialog, or the panel sits in the page." }
+]

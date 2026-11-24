@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "component": "timeline",
+  "pattern": "Structured content: an ordered list of events (day groups as list items with a heading and a nested ordered list); native links and buttons for actions; a horizontal timeline is a focusable, labelled scroll region.",
+  "roles": [
+    { "element": "list", "role": "list (ol) named by label" },
+    { "element": "day group", "role": "listitem with a heading (h2 to h6) and a nested list named by the heading" },
+    { "element": "item", "role": "listitem" },
+    { "element": "scroller (horizontal)", "role": "region named by label, tabindex=0" },
+    { "element": "item actions", "role": "group named by the item title, containing native buttons" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "list", "value": "label" },
+    { "attribute": "aria-labelledby", "element": "nested list", "value": "the day heading" },
+    { "attribute": "aria-hidden", "element": "marker", "value": "true (the tone is also a status word)" },
+    { "attribute": "aria-expanded / aria-controls", "element": "'Show older' button", "value": "older items shown; controls the list" },
+    { "attribute": "datetime / title", "element": "time", "value": "ISO date-time and the full localized date" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Timeline", "action": "Item links and action buttons in order, then 'Show older' or 'Load older'." },
+    { "key": "Enter / Space", "context": "Action or footer button", "action": "Activate (Enter for links)." },
+    { "key": "Arrow keys / Home / End", "context": "Horizontal scroll region (focused)", "action": "Scroll the timeline." }
+  ],
+  "focus": "After 'Show older' or a successful load, focus moves to the first newly shown item (tabindex=-1, removed on blur); while loading and on error, focus stays on the rebuilt footer button.",
+  "wcag": ["1.1.1", "1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.4.3", "2.4.6", "4.1.2", "4.1.3"],
+  "notes": [
+    "Tone is never color only: the marker icon differs per tone and a status word is shown (override it with status).",
+    "Loading, results, and errors are announced politely (errors assertively).",
+    "Day headings say 'Today', 'Yesterday', a weekday, or a date, and name holidays and non-working days with a business calendar."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

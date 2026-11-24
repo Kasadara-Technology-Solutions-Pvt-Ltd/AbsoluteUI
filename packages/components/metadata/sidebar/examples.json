@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "sidebar",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Application navigation with a nested group",
+      "language": "ts",
+      "code": "import { Sidebar, type SidebarItem } from '@absoluteui/components/sidebar';\n\nconst host = document.createElement('aside');\ndocument.body.append(host);\nconst items: SidebarItem[] = [\n  { id: 'dashboard', label: 'Dashboard', href: '/', icon: 'menu' },\n  {\n    type: 'group',\n    id: 'reports',\n    label: 'Reports',\n    icon: 'calendar',\n    items: [\n      { id: 'sales', label: 'Sales', href: '/reports/sales' },\n      { id: 'usage', label: 'Usage', href: '/reports/usage' },\n    ],\n  },\n  { id: 'search', label: 'Search', href: '/search', icon: 'search' },\n  { id: 'billing', label: 'Billing', href: '/billing', icon: 'info', disabled: true },\n];\nSidebar.create(host, { label: 'Main', items, value: 'sales' });"
+    },
+    {
+      "id": "router-drawer",
+      "title": "Client-side routing and a menu button for drawer mode",
+      "language": "ts",
+      "code": "import { Sidebar, type SidebarModeChangeDetail, type SidebarNavigateDetail } from '@absoluteui/components/sidebar';\n\nconst host = document.querySelector<HTMLElement>('#app-sidebar');\nconst menuButton = document.querySelector<HTMLButtonElement>('#app-menu');\nif (host && menuButton) {\n  const sidebar = Sidebar.create(host, {\n    label: 'Main',\n    breakpoint: 1024,\n    items: [\n      { id: 'inbox', label: 'Inbox', href: '/inbox' },\n      { id: 'archive', label: 'Archive', href: '/archive' },\n      { id: 'settings', label: 'Settings', href: '/settings' },\n    ],\n    value: 'inbox',\n  });\n  // The application owns the menu button; it is needed only in drawer mode.\n  menuButton.hidden = sidebar.mode === 'inline';\n  menuButton.addEventListener('click', () => {\n    sidebar.toggle();\n  });\n  host.addEventListener('aui-mode-change', (event) => {\n    menuButton.hidden = (event as CustomEvent<SidebarModeChangeDetail>).detail.mode === 'inline';\n  });\n  // SPA routing: cancel native navigation, route, then mark the item active and close the drawer.\n  host.addEventListener('aui-navigate', (event) => {\n    const { id, item } = (event as CustomEvent<SidebarNavigateDetail>).detail;\n    if (item.href === undefined) return;\n    event.preventDefault();\n    history.pushState(null, '', item.href);\n    sidebar.select(id);\n    sidebar.close();\n  });\n}"
+    },
+    {
+      "id": "rail",
+      "title": "Icon rail with a remembered collapsed state",
+      "language": "ts",
+      "code": "import { Sidebar, type SidebarChangeDetail, type SidebarCollapsedChangeDetail } from '@absoluteui/components/sidebar';\n\nconst host = document.querySelector<HTMLElement>('#workspace-nav');\nif (host) {\n  // The sidebar persists nothing; the application may remember the rail state itself.\n  let stored: string | null = null;\n  try {\n    stored = localStorage.getItem('workspace-nav-collapsed');\n  } catch {\n    stored = null;\n  }\n  Sidebar.create(host, {\n    label: 'Workspace',\n    collapsed: stored === 'true',\n    items: [\n      { id: 'calendar', label: 'Calendar', icon: 'calendar' },\n      { id: 'tasks', label: 'Tasks', icon: 'check' },\n      { id: 'activity', label: 'Activity', icon: 'clock' },\n    ],\n    value: 'calendar',\n  });\n  host.addEventListener('aui-collapsed-change', (event) => {\n    const { collapsed } = (event as CustomEvent<SidebarCollapsedChangeDetail>).detail;\n    try {\n      localStorage.setItem('workspace-nav-collapsed', String(collapsed));\n    } catch {\n      // Storage unavailable (private mode, blocked): keep the in-memory state only.\n    }\n  });\n  // Items without href are buttons: switch views in place.\n  host.addEventListener('aui-change', (event) => {\n    document.body.dataset.view = (event as CustomEvent<SidebarChangeDetail>).detail.value;\n  });\n}"
+    }
+  ]
+}

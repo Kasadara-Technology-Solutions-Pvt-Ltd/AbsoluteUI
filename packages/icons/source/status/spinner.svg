@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="spinner" data-animations="spin:loading">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3a9 9 0 1 1-9 9"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="12" cy="12" r="8"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3a9 9 0 1 1-9 9"/>
+    </g>
+  </g>
+</svg>

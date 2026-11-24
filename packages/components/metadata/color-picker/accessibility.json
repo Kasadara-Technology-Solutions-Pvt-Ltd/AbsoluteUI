@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "component": "color-picker",
+  "pattern": "WAI-ARIA APG Slider for hue and opacity; the saturation and brightness area is one role=slider thumb whose aria-valuetext names both values; the popup is a non-modal dialog opened by a button with aria-haspopup=dialog and aria-expanded.",
+  "roles": [
+    { "element": "trigger (popup mode)", "role": "button (aria-haspopup=dialog, aria-expanded)" },
+    { "element": "panel", "role": "dialog (popup) or group (inline), labelled by the field label" },
+    { "element": "area thumb", "role": "slider" },
+    { "element": "hue and opacity thumbs", "role": "slider" },
+    { "element": "format buttons and swatches", "role": "button (aria-pressed) inside role=group" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "trigger", "value": "the label and the current value text" },
+    { "attribute": "aria-valuetext", "element": "area thumb", "value": "'Saturation 80%, brightness 60%'" },
+    { "attribute": "aria-valuenow / aria-valuemin / aria-valuemax", "element": "thumbs", "value": "saturation 0-100, hue 0-359, opacity 0-100" },
+    { "attribute": "aria-readonly", "element": "thumbs", "value": "true when readOnly" },
+    { "attribute": "aria-disabled", "element": "thumbs", "value": "true when disabled (also removed from the tab order)" },
+    { "attribute": "aria-pressed", "element": "format buttons and swatches", "value": "the active format; the swatch matching the value" },
+    { "attribute": "aria-label", "element": "swatches", "value": "the app's name for the color, or its hex value" },
+    { "attribute": "aria-describedby", "element": "trigger (popup) or value field (inline)", "value": "help text, contrast hint, and error" },
+    { "attribute": "aria-invalid", "element": "trigger or value field", "value": "true while an error is shown" }
+  ],
+  "keyboard": [
+    { "key": "Enter / Space", "context": "Trigger", "action": "Open or close the popup; focus moves to the area." },
+    { "key": "Escape", "context": "Popup", "action": "Close the popup and return focus to the trigger." },
+    { "key": "ArrowRight / ArrowLeft", "context": "Area", "action": "Saturation up or down by 1% (mirrored in right-to-left); Shift moves 10%." },
+    { "key": "ArrowUp / ArrowDown", "context": "Area", "action": "Brightness up or down by 1%; Shift moves 10%." },
+    { "key": "Page Up / Page Down", "context": "Area", "action": "Brightness up or down by 10%." },
+    { "key": "Home / End", "context": "Area", "action": "Saturation 0% or 100%." },
+    { "key": "Arrow keys", "context": "Hue or opacity slider", "action": "One degree or 1% (Shift: 10); horizontal arrows follow the reading direction." },
+    { "key": "Page Up / Page Down", "context": "Hue or opacity slider", "action": "Ten degrees or 10%." },
+    { "key": "Home / End", "context": "Hue or opacity slider", "action": "Minimum or maximum." },
+    { "key": "Enter", "context": "Value field", "action": "Apply the typed color (invalid text shows an error and keeps the value)." },
+    { "key": "Tab", "context": "Panel", "action": "Moves through area, sliders, formats, value field, eyedropper, clear, and swatches; leaving the popup closes it." }
+  ],
+  "focus": "Opening the popup focuses the area thumb; Escape and the trigger return focus to the trigger; pressing the area or a slider focuses its thumb.",
+  "wcag": ["1.1.1", "1.3.1", "1.4.1", "1.4.11", "2.1.1", "2.5.7", "2.5.8", "3.3.1", "4.1.2"],
+  "notes": [
+    "Every pointer action has a keyboard alternative, and the typed value field is a non-dragging alternative (WCAG 2.5.7).",
+    "Swatches carry spoken names (aria-label), so the color is not conveyed by color alone (WCAG 1.4.1).",
+    "Clearing the color is announced through the shared live region."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "The browser's eyedropper overlay is outside the component's control; it is optional and the typed field is an alternative."
+  ]
+}

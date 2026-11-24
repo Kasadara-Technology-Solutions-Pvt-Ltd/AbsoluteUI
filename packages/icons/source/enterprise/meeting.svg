@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="meeting">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="6" cy="7" r="2"/>
+      <circle cx="12" cy="5.5" r="2"/>
+      <circle cx="18" cy="7" r="2"/>
+      <rect x="3" y="12" width="18" height="4" rx="2"/>
+      <path d="M6 16v4"/>
+      <path d="M18 16v4"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <circle cx="6" cy="7" r="2.5"/>
+      <circle cx="12" cy="5.5" r="2.5"/>
+      <circle cx="18" cy="7" r="2.5"/>
+      <rect x="2.5" y="11.5" width="19" height="5" rx="2.5"/>
+      <line x1="6" y1="17" x2="6" y2="20.5" data-outline-width="2"/>
+      <line x1="18" y1="17" x2="18" y2="20.5" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="3" y="12" width="18" height="4" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="6" cy="7" r="2"/>
+      <circle cx="12" cy="5.5" r="2"/>
+      <circle cx="18" cy="7" r="2"/>
+      <rect x="3" y="12" width="18" height="4" rx="2"/>
+      <path d="M6 16v4"/>
+      <path d="M18 16v4"/>
+    </g>
+  </g>
+</svg>

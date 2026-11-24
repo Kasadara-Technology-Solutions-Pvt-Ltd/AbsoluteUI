@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="overtime">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="10" cy="10" r="6.75"/>
+      <path d="M10 6.75V10l2.25 1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M18.5 16v5"/>
+      <path d="M16 18.5h5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="10" cy="10" r="6.75"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="10" cy="10" r="6.75"/>
+      <path d="M10 6.75V10l2.25 1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M18.5 16v5"/>
+      <path d="M16 18.5h5"/>
+    </g>
+  </g>
+</svg>

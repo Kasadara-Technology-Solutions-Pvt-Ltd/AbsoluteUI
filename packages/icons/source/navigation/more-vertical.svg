@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="more-vertical">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 5v.01"/>
+      <path d="M12 12v.01"/>
+      <path d="M12 19v.01"/>
+    </g>
+  </g>
+</svg>

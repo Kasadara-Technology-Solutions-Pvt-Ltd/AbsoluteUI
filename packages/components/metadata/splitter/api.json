@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "component": "splitter",
+  "factory": { "name": "Splitter.create", "signature": "Splitter.create(host: HTMLElement, options: SplitterOptions): Splitter" },
+  "configKey": "splitter",
+  "options": [
+    { "name": "panes", "type": "readonly SplitterPane[]", "required": true, "globallyConfigurable": false, "description": "Two to ten panes: { content: Node, label, size?, min?, max?, collapsible?, collapsed? }; lengths in px (number or '240px') or '%'." },
+    { "name": "orientation", "type": "'horizontal' | 'vertical'", "default": "horizontal", "required": false, "globallyConfigurable": false, "description": "horizontal: panes side by side (vertical separators); vertical: stacked panes." },
+    { "name": "sizes", "type": "readonly number[] | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Restored sizes in percent per pane (from aui-change); overrides the panes' size." },
+    { "name": "step", "type": "number", "default": "16", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Pixels a separator moves per arrow key press." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the collapsed-state text." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "sizes", "type": "number[]", "description": "Every pane's size in percent of the space between separators." },
+    { "name": "collapsed", "type": "boolean[]", "description": "Which panes are collapsed." },
+    { "name": "paneElements", "type": "readonly HTMLElement[]", "description": "The pane elements, in order." },
+    { "name": "options", "type": "Readonly<SplitterOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "collapse", "signature": "collapse(index: number): void", "description": "Collapse a collapsible pane (no event)." },
+    { "name": "expand", "signature": "expand(index: number): void", "description": "Restore a collapsed pane (no event)." },
+    { "name": "reset", "signature": "reset(): void", "description": "Back to the initial sizes and collapsed states (no event)." },
+    { "name": "update", "signature": "update(options: Partial<SplitterOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove the panes, separators, observers, and listeners." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "SplitterChangeDetail", "bubbles": true, "cancelable": false, "description": "The user resized, collapsed, expanded, or reset: { sizes, collapsed, index, reason }; persist sizes and pass them back as sizes." }
+  ],
+  "contentAreas": [
+    { "name": "panes", "description": "Each pane's content (a Node, which may be another splitter's host)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-splitter", "description": "Host." },
+    { "name": "aui-splitter--horizontal | --vertical", "description": "Orientation." },
+    { "name": "aui-splitter--dragging", "description": "A separator is being dragged." },
+    { "name": "aui-splitter__pane | __pane--collapsed", "description": "A pane and a collapsed pane (hidden)." },
+    { "name": "aui-splitter__separator | __separator--collapsed", "description": "A separator (role=separator) and one next to a collapsed pane." }
+  ],
+  "iconSlots": []
+}

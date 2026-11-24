@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "component": "discussion",
+  "examples": [
+    {
+      "id": "comments",
+      "title": "Comments with replies, mentions, and a character limit",
+      "language": "ts",
+      "code": "import { instant } from '@absoluteui/core';\nimport { Discussion, type DiscussionPostDetail, type DiscussionReplyDetail, type DiscussionDeleteDetail } from '@absoluteui/components/discussion';\n\nconst ada = { id: 'ada', name: 'Ada Lovelace' };\nconst grace = { id: 'grace', name: 'Grace Hopper' };\nconst host = document.createElement('div');\ndocument.body.append(host);\nDiscussion.create(host, {\n  label: 'Comments',\n  currentUser: ada,\n  maxLength: 500,\n  comments: [\n    { id: '1', parentId: null, author: grace, text: 'The new leave policy starts in January.', createdAt: instant(Date.UTC(2026, 10, 20, 9, 30)) },\n    { id: '2', parentId: '1', author: ada, text: 'Thanks @Grace Hopper!', mentions: [{ id: 'grace', label: 'Grace Hopper', trigger: '@', start: 7, end: 20 }], createdAt: instant(Date.UTC(2026, 10, 20, 10)) },\n  ],\n});\n\n// The host persists; the component has already added the comment optimistically.\nhost.addEventListener('aui-post', (event) => {\n  const { comment } = (event as CustomEvent<DiscussionPostDetail>).detail;\n  void fetch('/api/comments', { method: 'POST', body: JSON.stringify(comment) });\n});\nhost.addEventListener('aui-reply', (event) => {\n  const { comment } = (event as CustomEvent<DiscussionReplyDetail>).detail;\n  void fetch('/api/comments', { method: 'POST', body: JSON.stringify(comment) });\n});\nhost.addEventListener('aui-delete', (event) => {\n  const { comment } = (event as CustomEvent<DiscussionDeleteDetail>).detail;\n  void fetch(`/api/comments/${encodeURIComponent(comment.id)}`, { method: 'DELETE' });\n});"
+    },
+    {
+      "id": "server-first",
+      "title": "Wait for the server before showing a comment",
+      "language": "ts",
+      "code": "import { instant } from '@absoluteui/core';\nimport { Discussion, type DiscussionPostDetail, type DiscussionComment } from '@absoluteui/components/discussion';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst discussion = Discussion.create(host, { label: 'Ticket discussion', currentUser: { id: 'u1', name: 'Ana' } });\n\nhost.addEventListener('aui-post', (event) => {\n  const { comment } = (event as CustomEvent<DiscussionPostDetail>).detail;\n  // Prevented: nothing is added and the text stays in the box until the server answers.\n  event.preventDefault();\n  void fetch('/api/comments', { method: 'POST', body: JSON.stringify({ text: comment.text, mentions: comment.mentions }) })\n    .then((response) => response.json() as Promise<{ id: string; createdAt: number }>)\n    .then((saved) => {\n      const stored: DiscussionComment = { ...comment, id: saved.id, createdAt: instant(saved.createdAt) };\n      discussion.addComment(stored);\n      discussion.composer?.reset();\n    });\n});"
+    },
+    {
+      "id": "lazy-replies",
+      "title": "Load replies when a thread is expanded",
+      "language": "ts",
+      "code": "import { instant } from '@absoluteui/core';\nimport { Discussion, type DiscussionComment } from '@absoluteui/components/discussion';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDiscussion.create(host, {\n  label: 'Forum thread',\n  currentUser: { id: 'u1', name: 'Ana' },\n  comments: [{ id: 't1', parentId: null, author: { id: 'u2', name: 'Ben' }, text: 'How do I export payslips?', createdAt: instant(Date.UTC(2026, 10, 18, 8)), replyCount: 42 }],\n  loadReplies: async (comment, { signal, loaded }) => {\n    const response = await fetch(`/api/comments/${encodeURIComponent(comment.id)}/replies?offset=${String(loaded)}&limit=20`, { signal });\n    const rows = (await response.json()) as { id: string; author: { id: string; name: string }; text: string; createdAt: number }[];\n    return rows.map((r): DiscussionComment => ({ id: r.id, parentId: comment.id, author: r.author, text: r.text, createdAt: instant(r.createdAt) }));\n  },\n});"
+    },
+    {
+      "id": "people-and-calendar",
+      "title": "People from the directory and holiday-aware dates",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { createBusinessCalendar } from '@absoluteui/components/business-calendar';\nimport { Discussion } from '@absoluteui/components/discussion';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDiscussion.create(host, {\n  label: 'Leave request discussion',\n  currentUser: { id: 'u1', name: 'Ana' },\n  timezone: 'Europe/Berlin',\n  businessCalendar: createBusinessCalendar({ holidays: [{ date: plainDate(2026, 12, 25), name: 'Christmas Day', yearly: true }] }),\n  triggers: [{\n    char: '@',\n    label: '@ for people',\n    provider: async (query, { signal }) => {\n      const response = await fetch(`/api/people?q=${encodeURIComponent(query)}`, { signal });\n      return (await response.json()) as { id: string; label: string }[];\n    },\n  }],\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Newest first and deeper indentation everywhere",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { discussion: { sort: 'newest', maxIndent: 5, collapseDepth: 4 } } });"
+    }
+  ]
+}

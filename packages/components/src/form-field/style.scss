@@ -1,0 +1,29 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  // Native text-like controls get the AbsoluteUI control surface. <select> keeps its
+  // native picker; only the closed control is styled.
+  .aui-form-field__control {
+    @include aui.control-surface;
+    inline-size: 100%;
+    min-inline-size: 0;
+    margin: 0;
+    @include aui.text-control-states;
+    @include aui.transition(border-color, box-shadow);
+  }
+
+  textarea.aui-form-field__control {
+    padding-block: aui.token('space-2');
+    resize: vertical;
+  }
+
+  @include aui.forced-colors {
+    .aui-form-field__control:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

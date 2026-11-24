@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "name": "dashboard-grid",
+  "displayName": "Dashboard Grid",
+  "category": "Dashboard",
+  "package": "@absoluteui/components",
+  "import": "import { DashboardGrid, DashboardCatalog, type DashboardItem } from '@absoluteui/components/dashboard-grid';",
+  "styleImport": "@absoluteui/components/dashboard-grid/style.css",
+  "purpose": "Enhances a host whose children carry data-aui-item=\"<id>\" into a responsive column grid (a labelled region). Items are placed with CSS grid placement written through the CSSOM. In edit mode each item gets a move handle button (pointer drag, or press it and use the arrow keys; Shift+arrows resize) and a pointer-only corner resize grip; other items are pushed down and float up (vertical compaction); locked items never move. Layouts are stored per breakpoint (default lg 1024 px / 12 columns, md 640 px / 6, sm 0 / 1), derived for narrower breakpoints when not saved, serializable through `layouts` and aui-layout-change, and undoable (moves and resizes). The DOM is reordered to the visual reading order after every change, keeping focus. The same subpath exports DashboardCatalog (an add-widget list of templates, by click, Enter, Space, or drag onto the grid) and the pure layout functions (collides, clampItem, sortLayout, compactLayout, resolveLayout, findFreeSpot, adaptLayout).",
+  "whenToUse": [
+    "User-arrangeable dashboards of widgets (KPI cards, charts, tables) whose layout is saved per user.",
+    "Fixed, responsive dashboard layouts defined in column/row units that must adapt to narrower screens.",
+    "Letting users add widgets from a catalog of templates (DashboardCatalog)."
+  ],
+  "whenNotToUse": [
+    "Simple responsive page layout without user rearrangement: use CSS grid or the Layout component.",
+    "Reordering a single vertical list: use Sortable List.",
+    "Free-form canvases with pixel positioning, overlapping items, or rotation."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["view", "edit mode", "item grabbed (keyboard)", "item dragging (pointer)", "item resizing (pointer)", "item locked", "drop preview (catalog drag)", "breakpoint lg / md / sm (or custom)"],
+  "responsive": "A ResizeObserver on the host picks the breakpoint with the largest minWidth not above the host content width (default lg 1024 px / 12 columns, md 640 px / 6, sm 0 / 1). A breakpoint without a stored layout derives one from the widest: positions and widths scale proportionally and a single column stacks items in reading order. Changing breakpoint cancels a grab and emits aui-breakpoint-change. Row height (default 80 px) and gap (default 16 px) are fixed CSS px values. Handles and grips are touch-target-min squares.",
+  "rtl": "Columns run from the inline start. With direction 'rtl', ArrowLeft/ArrowRight moves are mirrored and pointer coordinates are measured from the right edge; the resize grip is mirrored (nesw-resize cursor). Shift+ArrowRight widens and Shift+ArrowLeft narrows an item in both directions.",
+  "theme": "Handles use color-surface, color-border-strong and radius-sm; a grabbed handle (aria-pressed=true) uses color-selected with color-selected-text and a border, not color alone. The drop placeholder is color-selected with a dashed color-focus-ring border. The dragged item gets shadow-lg. Forced-colors mode uses Canvas/Highlight for the placeholder and grabbed handle and CanvasText for the grip. Item transitions are removed under reduced motion and data-aui-animation='none'.",
+  "timezone": "Not applicable.",
+  "security": "Positions are written with style.setProperty (grid-column, grid-row, translate, custom properties), never style attributes or HTML; CSP-safe. Labels and announcements use textContent/attributes only. Items, layouts, and breakpoints are validated (DASHBOARD_GRID_OPTIONS) before use, so saved layouts from storage can be passed back safely; malformed input throws instead of rendering. Catalog template labels and descriptions render as text.",
+  "dataHandling": "No persistence, network access, or telemetry. The grid reports layouts (aui-layout-change detail.layouts, or the layouts getter); the application stores them. Item content is owned by the page or framework and never moved into or out of the host except for DOM reordering within the host.",
+  "performance": {
+    "budgets": [
+      { "metric": "DashboardGrid.create with 50 items", "budget": "< 40 ms in headless Chromium (e2e performance test)" },
+      { "metric": "One keyboard move step with 50 items", "budget": "< 16 ms in headless Chromium (e2e performance test)" }
+    ],
+    "testedScale": "50 items for the performance budgets; 3 to 4 items in the behavior unit tests."
+  },
+  "limitations": [
+    "Vertical compaction: an item cannot rest below empty space, and a full-width item cannot pass a half-width neighbor (it floats back); use compaction 'none' for free placement.",
+    "Collisions push items down only, never sideways.",
+    "Undo and redo cover geometry (moves, resizes, setLayout); they do not add back removed items or remove added ones.",
+    "In edit mode Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z, and Ctrl/Cmd+Y are handled on the whole host, including text fields inside widgets.",
+    "Pointer grabs and drops are not announced; keyboard grabs, moves, resizes, drops, and cancels are (assertive).",
+    "The resize grip is pointer-only (aria-hidden); keyboard users resize with Shift+arrow keys on the move handle.",
+    "No auto-scroll while dragging near the viewport edge.",
+    "The breakpoint at create time uses host.clientWidth; a host that is not laid out yet starts at the narrowest breakpoint until the ResizeObserver reports its width.",
+    "update() with items, layouts, or breakpoints replaces all stored layouts.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Overlapping items, pixel positioning, or nesting grids inside items as linked layouts.",
+    "Dragging items between two grids.",
+    "HTML5 drag and drop (the catalog uses pointer events; files cannot be dropped).",
+    "Horizontal compaction."
+  ],
+  "antiPatterns": [
+    "Setting reorderDom: false without another way to keep focus order equal to visual order (WCAG 1.3.2, 2.4.3).",
+    "Re-passing a new items array on every render in a framework: update({ items }) replaces the stored layouts; keep items stable or feed back detail.layouts.",
+    "Duplicate or index-based item ids.",
+    "Relying on drag alone: the move handle's keyboard path must stay available."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/dashboard-grid: hand-written AuiDashboardGrid directive ([auiDashboardGrid], enhances the host in place; outputs auiLayoutChange, auiBreakpointChange) and AuiDashboardCatalog directive ([auiDashboardCatalog], input grid).",
+    "react": "@absoluteui/react/dashboard-grid: hand-written AuiDashboardGrid (renders a <div>; props = DashboardGridOptions + children with data-aui-item + onLayoutChange/onBreakpointChange; ref receives the DashboardGrid). Catalog: @absoluteui/react/dashboard-catalog AuiDashboardCatalog (grid, label, templates, create, onCatalogAdd).",
+    "vue": "@absoluteui/vue/dashboard-grid: AuiDashboardGrid (default slot; emits layoutChange, breakpointChange; template ref exposes controller). Catalog: @absoluteui/vue/dashboard-catalog AuiDashboardCatalog (emits catalogAdd with the DOM event)."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

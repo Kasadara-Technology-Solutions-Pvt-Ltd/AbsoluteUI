@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "component": "calendar",
+  "pattern": "WAI-ARIA APG Date Picker Dialog grid: table role=grid whose day cells (td) are the focusable gridcells with a roving tabindex. Since 0.3.0: one grid per visible month with a single roving tab stop across all grids, and range selection (aria-multiselectable grids).",
+  "roles": [
+    { "element": "table", "role": "grid (one per visible month)" },
+    { "element": "day td", "role": "gridcell (implicit), focusable via tabindex" },
+    { "element": "weekday th", "role": "columnheader (scope=col)" },
+    { "element": "week-number th", "role": "rowheader (scope=row)" },
+    { "element": "month buttons", "role": "button (native)" },
+    { "element": "heading", "role": "none; the first month heading is a polite live region" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby | aria-label", "element": "grid", "value": "Month-year heading id, or the label option; with several months and a label, '{label}, {month}' so each grid has a distinct name" },
+    { "attribute": "aria-multiselectable", "element": "grid", "value": "\"true\" in range mode (since 0.3.0)" },
+    { "attribute": "aria-live", "element": "heading", "value": "\"polite\" on the first visible month heading: month changes are announced once" },
+    { "attribute": "aria-label", "element": "day cell", "value": "Localized full date (dateStyle full); in a committed range the first and last day add ', start of range', ', end of range', or ', start and end of range'" },
+    { "attribute": "aria-selected", "element": "day cell", "value": "\"true\" on the selected day (single mode), on every day of a committed range, or on the pending first day (range mode)" },
+    { "attribute": "aria-current", "element": "day cell", "value": "\"date\" on today" },
+    { "attribute": "aria-disabled", "element": "day cell", "value": "\"true\" for out-of-range and consumer-disabled days, and, while a first day is pending, for days that would break minDays/maxDays (still focusable)" },
+    { "attribute": "abbr", "element": "weekday th", "value": "Full weekday name; the visible text is abbreviated" },
+    { "attribute": "aria-disabled", "element": "month buttons", "value": "\"true\" when the adjacent month is entirely out of range (stays focusable)" }
+  ],
+  "keyboard": [
+    { "key": "ArrowRight / ArrowLeft", "context": "Day focused", "action": "Next / previous day (mirrored in RTL); crosses months and moves between visible grids." },
+    { "key": "ArrowDown / ArrowUp", "context": "Day focused", "action": "Same weekday next / previous week." },
+    { "key": "Home / End", "context": "Day focused", "action": "First / last day of the week, respecting firstDayOfWeek." },
+    { "key": "PageDown / PageUp", "context": "Day focused", "action": "Same day next / previous month (clamped to the month length); all visible months scroll by one." },
+    { "key": "Shift+PageDown / Shift+PageUp", "context": "Day focused", "action": "Same day next / previous year (29 February clamps to 28)." },
+    { "key": "Enter / Space", "context": "Day focused, single mode", "action": "Select the day (ignored for disabled days)." },
+    { "key": "Enter / Space", "context": "Day focused, range mode", "action": "First pick: set the pending first day (announced politely). Second pick: complete the range in either order and emit aui-change." },
+    { "key": "Escape", "context": "Day focused, first day pending", "action": "Discard the pending first day (otherwise Escape is not handled by the Calendar)." },
+    { "key": "Enter / Space", "context": "Month button focused", "action": "Show the previous / next month; focus stays on the button." },
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Previous month, next month, then the one tabbable day (one tab stop across all visible months)." }
+  ],
+  "focus": "Exactly one day is tabbable across all visible months: the focused day (the selected day or range start, else today, clamped to min/max). Focus never moves outside min/max, and with several months the view stops at min and max so no month is entirely disabled. Days show a focus-visible outline in color-focus-ring (drawn inside the cell for days in a range).",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.4.3", "2.4.7", "4.1.2", "4.1.3"],
+  "notes": [
+    "Selected and today states are conveyed by aria-selected and aria-current, not by color alone (today also has a ring and bold text).",
+    "Disabled days remain focusable so keyboard users can move through them, as the APG recommends.",
+    "Outside days (one visible month only) are rendered with muted text and remain selectable; selecting one shows its month.",
+    "Range mode: the preview between the pending first day and the hovered or focused day is not a selection (no aria-selected) and is marked by an inner edge in addition to the fill, not by color alone.",
+    "Range mode: the pending first day is announced through the shared live region (\"{date} selected as the first day. Choose the last day.\")."
+  ],
+  "knownCaveats": [
+    "Screen-reader announcement of the full-date cell names, range day names, column headers, month changes, and the pending first day has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

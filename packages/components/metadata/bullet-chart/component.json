@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "name": "bullet-chart",
+  "displayName": "Bullet Chart",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { BulletChart } from '@absoluteui/components/bullet-chart';",
+  "styleImport": "@absoluteui/components/bullet-chart/style.css",
+  "purpose": "Accessible SVG bullet chart: compact horizontal measures against a target and up to three qualitative ranges (for example poor / satisfactory / good) on a shared value axis. Each row has shaded range bands in neutral shades, a measure bar, and a target tick; each measure bar is keyboard-reachable (Up/Down) and its name reads the value, the target, and the named range, so meaning never depends on shading. A generated summary counts measures at or above target, and a data table lists value, target, and range per measure.",
+  "whenToUse": [
+    "Key performance indicators against targets in a dashboard, with a qualitative scale.",
+    "Replacing gauges and meters with a compact, comparable row layout."
+  ],
+  "whenNotToUse": [
+    "Measures on very different scales (all rows share one value axis): use one chart per scale or Stat Card.",
+    "Trends over time: use Line Chart or Sparkline.",
+    "A single value against a maximum without target or ranges: use Progress Bar or Gauge."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "empty (no measures)",
+    "measure missing (null value)",
+    "measure focused (tooltip)",
+    "row hovered",
+    "table open"
+  ],
+  "responsive": "Width follows the container (ResizeObserver); height is the height option, divided evenly between rows (bands at most 40 px tall). Measure labels take up to 35% of the width and are truncated with an ellipsis; the full text stays in the accessible names, tooltip, and table. Reflows at 320 CSS px.",
+  "rtl": "direction rtl mirrors the value axis (bars grow leftward from zero), moves measure labels to the right, and swaps ArrowLeft/ArrowRight.",
+  "theme": "Ranges are three neutral shades mixed from color-text over color-surface (22%, 13%, 6%; darkest first), not palette colors. Measure bars use one palette slot (color option, default color-chart-1) with a color-surface separator; the target tick is color-text. Gridlines color-chart-grid, axes color-chart-axis, measure labels color-text (medium weight). Forced colors use Canvas with GrayText outlines for ranges, CanvasText for targets and labels, and Highlight for focus.",
+  "timezone": "Not applicable (measures are text and numbers).",
+  "security": "All text (title, description, labels, values, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; the height and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "BulletChart.create, 30 measures with targets and ranges, including the first render",
+        "budget": "< 30 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Up to about 30 measures per chart (each row is one focusable bar, up to three range bands, a target tick, and a label); increase height with the number of rows."
+  },
+  "limitations": [
+    "Horizontal rows only; all measures share one value axis.",
+    "At most three qualitative ranges per measure; the first starts at the axis minimum.",
+    "One color for all measure bars; no legend.",
+    "A value above the last range end reads as the last range.",
+    "The legend, patterns, and hiddenSeries options are accepted (shared chart options) but have no visible effect.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Vertical bullet charts, per-measure axes, or a comparative (second) measure bar.",
+    "More than three ranges.",
+    "HTML content in labels."
+  ],
+  "antiPatterns": [
+    "Mixing measures of different units or magnitudes in one chart.",
+    "Unnamed ranges: pass rangeLabels so each row reads \"Good\" instead of \"Range 3\".",
+    "Using palette colors to signal good and bad (ranges are deliberately neutral)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/bullet-chart: AuiBulletChart directive ([auiBulletChart]).",
+    "react": "@absoluteui/react/bullet-chart: AuiBulletChart component.",
+    "vue": "@absoluteui/vue/bullet-chart: AuiBulletChart component."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

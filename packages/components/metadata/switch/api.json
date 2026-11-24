@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "component": "switch",
+  "factory": { "name": "Switch.create", "signature": "Switch.create(host: HTMLElement, options: SwitchOptions): Switch" },
+  "configKey": "switch",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name; clicking it toggles the switch." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "checked", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Initial on/off state; also restored by reset()." },
+    { "name": "value", "type": "string", "default": "on", "required": false, "globallyConfigurable": false, "description": "Submitted value when on." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the switch." },
+    { "name": "icons", "type": "Partial<{ error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When a custom error message first appears; afterwards it updates live." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message locale." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "input", "type": "HTMLInputElement", "description": "The native checkbox with role=switch." },
+    { "name": "checked", "type": "boolean", "description": "Current on/off state." },
+    { "name": "value", "type": "string", "description": "Submitted value when on." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "Always valid unless a custom error is set." },
+    { "name": "dirty", "type": "boolean", "description": "State differs from the initial state." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<SwitchOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setChecked", "signature": "setChecked(checked: boolean): void", "description": "Programmatic state (no events); clears an external custom error." },
+    { "name": "update", "signature": "update(options: Partial<SwitchOptions>): void", "description": "Merge and apply options." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show a custom error now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error, for example a failed save; cleared when the user toggles." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | null", "description": "`value` when on, otherwise null." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the switch." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial state and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ checked: boolean; value: string }", "bubbles": true, "cancelable": false, "description": "The user toggled the switch." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-switch", "description": "Host." },
+    { "name": "aui-switch--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __description | __error", "description": "Shared field chrome." },
+    { "name": "aui-switch__row", "description": "Track and label row." },
+    { "name": "aui-switch__control", "description": "Positioning wrapper for the track and thumb." },
+    { "name": "aui-switch__input", "description": "Native input, restyled as the track." },
+    { "name": "aui-switch__thumb", "description": "Decorative thumb; its position shows the state." },
+    { "name": "aui-switch__label", "description": "The label (also aui-field__label)." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

@@ -1,0 +1,6 @@
+[
+  { "title": "Business calendar", "text": "Weekends get a dashed outline and holidays a dot and their name." },
+  { "title": "Locale week start", "text": "Rows start on the locale's first day of the week, or one you choose." },
+  { "title": "Day and week keys", "text": "Up and Down move by day, Left and Right by week, Page keys by month." },
+  { "title": "Color steps", "text": "Discrete steps listed in the legend, with exact values in tooltips and the table." }
+]

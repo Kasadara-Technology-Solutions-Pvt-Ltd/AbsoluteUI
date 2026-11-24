@@ -1,0 +1,8 @@
+[
+  { "title": "Enter to send", "text": "Enter sends and Shift+Enter adds a line, or switch to Ctrl/Cmd+Enter; IME composition never sends by accident." },
+  { "title": "Grows with the text", "text": "The field grows from one row up to maxRows, then scrolls, without layout jumps." },
+  { "title": "Attachments", "text": "Attach by button, paste, or drop, with type, size, and count limits, removable chips, and announcements." },
+  { "title": "Send becomes Stop", "text": "While a reply streams, the Send button turns into Stop and the field stays editable for the next message." },
+  { "title": "Commands and mentions", "text": "Trigger characters such as / and @ open a keyboard-driven suggestions list from your own data." },
+  { "title": "A real form control", "text": "Label, help text, validation, a character or token counter hook, and Form integration like every other field." }
+]

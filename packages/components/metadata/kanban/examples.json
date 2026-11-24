@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "component": "kanban",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "A board with WIP limits",
+      "language": "ts",
+      "code": "import { Kanban, type KanbanCard, type KanbanCardActivateDetail, type KanbanColumn } from '@absoluteui/components/kanban';\n\nconst columns: KanbanColumn[] = [\n  { id: 'todo', label: 'To do' },\n  { id: 'doing', label: 'In progress', wipLimit: 3 },\n  { id: 'done', label: 'Done' },\n];\nconst cards: KanbanCard[] = [\n  { id: 'a', columnId: 'todo', title: 'Write the spec', tags: ['docs'] },\n  { id: 'b', columnId: 'doing', title: 'Fix login', description: 'Safari only', color: 3 },\n];\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nKanban.create(host, { label: 'Sprint 12', columns, cards });\nhost.addEventListener('aui-card-activate', (event) => {\n  host.dataset.open = (event as CustomEvent<KanbanCardActivateDetail>).detail.card.title;\n});"
+    },
+    {
+      "id": "server",
+      "title": "Save moves on a server (rollback on failure)",
+      "language": "ts",
+      "code": "import { Kanban, type KanbanCard, type KanbanMoveErrorDetail } from '@absoluteui/components/kanban';\n\nconst host = document.querySelector<HTMLElement>('#board');\nif (host) {\n  const cards: KanbanCard[] = [{ id: '42', columnId: 'new', title: 'Refund request' }];\n  Kanban.create(host, {\n    label: 'Support tickets',\n    columns: [{ id: 'new', label: 'New' }, { id: 'open', label: 'Open', wipLimit: 10 }, { id: 'closed', label: 'Closed' }],\n    cards,\n    wipPolicy: 'block',\n    requestTimeoutMs: 10_000,\n    moveCard: async (move, signal) => {\n      const response = await fetch(`/api/tickets/${encodeURIComponent(move.id)}/position`, {\n        method: 'PUT',\n        headers: { 'content-type': 'application/json' },\n        body: JSON.stringify({ column: move.to.columnId, index: move.to.index }),\n        signal,\n      });\n      if (!response.ok) throw new Error(`Move failed: ${String(response.status)}`);\n    },\n  });\n  host.addEventListener('aui-move-error', (event) => {\n    host.dataset.failed = (event as CustomEvent<KanbanMoveErrorDetail>).detail.id;\n  });\n}"
+    },
+    {
+      "id": "swimlanes",
+      "title": "Swimlanes, locked columns, and a move veto",
+      "language": "ts",
+      "code": "import { Kanban, type KanbanCardMoveDetail } from '@absoluteui/components/kanban';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst board = Kanban.create(host, {\n  label: 'Releases',\n  columns: [{ id: 'dev', label: 'Development' }, { id: 'qa', label: 'QA' }, { id: 'live', label: 'Live', locked: true }],\n  lanes: [{ id: 'web', label: 'Web' }, { id: 'app', label: 'Mobile app' }],\n  cards: [\n    { id: 'w1', columnId: 'dev', laneId: 'web', title: 'New header' },\n    { id: 'm1', columnId: 'qa', laneId: 'app', title: 'Push notifications' },\n  ],\n  // Cards stay in their swimlane.\n  canMove: (card, to) => to.laneId === card.laneId,\n});\nhost.addEventListener('aui-card-move', (event) => {\n  const { to } = (event as CustomEvent<KanbanCardMoveDetail>).detail;\n  if (to.columnId === 'qa' && !window.confirm('Send to QA?')) event.preventDefault();\n});\nboard.setCollapsed('lane', 'app', true);"
+    },
+    {
+      "id": "custom-card",
+      "title": "Custom card content",
+      "language": "ts",
+      "code": "import { Kanban } from '@absoluteui/components/kanban';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nKanban.create(host, {\n  label: 'Hiring',\n  columns: [{ id: 'applied', label: 'Applied' }, { id: 'interview', label: 'Interview' }],\n  cards: [{ id: 'c1', columnId: 'applied', title: 'Jordan Blake', description: 'Frontend engineer' }],\n  // Non-interactive content only: the card itself is the focusable item.\n  renderCard: (card, { column, doc }) => {\n    const name = doc.createElement('strong');\n    name.textContent = card.title;\n    const meta = doc.createElement('span');\n    meta.textContent = `, ${card.description ?? ''} (${column.label})`;\n    const box = doc.createElement('span');\n    box.append(name, meta);\n    return box;\n  },\n});"
+    },
+    {
+      "id": "model",
+      "title": "Pure model helpers (no DOM)",
+      "language": "ts",
+      "code": "import { columnCounts, moveKanbanCard, positionOf, type KanbanCard } from '@absoluteui/components/kanban';\n\nconst cards: KanbanCard[] = [\n  { id: 'a', columnId: 'todo', title: 'A' },\n  { id: 'b', columnId: 'todo', title: 'B' },\n];\nconst next = moveKanbanCard(cards, 'b', { columnId: 'done', laneId: null, index: 0 });\nconst where = positionOf(next, 'b', false);\ndocument.body.dataset.done = String(columnCounts(next).get('done') ?? 0) + (where ? ` at ${String(where.index)}` : '');"
+    },
+    {
+      "id": "global-config",
+      "title": "Block full columns everywhere",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { kanban: { wipPolicy: 'block', headingLevel: 2, virtualThreshold: 200 } } });"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "stat-card",
+  "displayName": "Stat Card",
+  "category": "Dashboard",
+  "package": "@absoluteui/components",
+  "import": "import { StatCard } from '@absoluteui/components/stat-card';",
+  "styleImport": "@absoluteui/components/stat-card/style.css",
+  "purpose": "A KPI / metric card: a headline value (a number formatted with Intl.NumberFormat or formatValue, preformatted text, or 'No value') with its label and optional icon; an optional change against a previous value (arrow icon, signed amount, and a visually hidden spelled-out text such as 'increase of 20%, favorable', so the meaning never depends on color or the arrow); a comparison caption; an optional trend Sparkline; and supporting text. Sentiment (higher-is-better, lower-is-better, neutral) decides whether a change reads and is colored as favorable. A role=group named by the label; with href the whole card is a single link (URL policy: http(s) and relative only).",
+  "whenToUse": [
+    "Headline metrics on dashboards: revenue, active users, error rate, with the change since the previous period.",
+    "KPI tiles that link to a detail page (href)."
+  ],
+  "whenNotToUse": [
+    "Comparing many values or showing a series in detail: use a chart or Data Table.",
+    "Progress toward a goal: use Progress Bar (or a gauge chart).",
+    "Cards with several interactive controls: use Card."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/components/sparkline (trend only)"],
+  "states": ["default", "busy (Loading)", "no value", "increase favorable", "increase unfavorable", "decrease favorable", "decrease unfavorable", "no change / neutral", "link hover", "link focus-visible"],
+  "responsive": "Fills its container (block-size 100% so it fills a Dashboard Grid cell). Text wraps (overflow-wrap: anywhere); the value uses tabular numerals. The trend sparkline is the full card width and 2rem tall.",
+  "rtl": "Logical properties throughout; the sparkline receives the resolved direction. Numbers and signs are formatted by Intl for the locale.",
+  "theme": "color-surface, color-border, and radius-lg for the card; a favorable change uses color-success-fg, an unfavorable one color-error-fg, neutral color-text; the arrow and the spelled-out text carry the same meaning without color. Link hover uses color-hover and color-border-strong. Forced-colors mode uses CanvasText for the border and all change colors.",
+  "timezone": "Not applicable.",
+  "security": "All text (label, value, comparison, description, spoken change) is rendered with textContent. href is validated with the URL policy (http, https, or scheme-less relative URLs; javascript:, data:, and other schemes throw STAT_CARD_OPTIONS). No HTML sinks; CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Values are formatted locally; the change is computed from value and previous (or taken from delta).",
+  "performance": {
+    "budgets": [
+      { "metric": "StatCard.create", "budget": "< 2 ms in headless Chromium (e2e performance test)" }
+    ],
+    "testedScale": "Dashboards of tens of cards; trend arrays are passed to Sparkline (see its limits)."
+  },
+  "limitations": [
+    "The trend sparkline needs the Sparkline stylesheet (@absoluteui/components/sparkline/style.css) in addition to the Stat Card stylesheet.",
+    "A percent change from a previous value of 0 is not shown (division by zero); pass delta explicitly if needed.",
+    "The change is computed only when value is a number; with a preformatted string value pass delta.",
+    "href cannot be added or removed after create (recreate the card).",
+    "With formatValue and deltaFormat 'absolute', a positive change is prefixed with '+' and a negative one relies on formatValue to print the minus sign.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "HTML in the label, value, comparison, or description.",
+    "Buttons or other controls inside the card.",
+    "Multiple values per card."
+  ],
+  "antiPatterns": [
+    "Encoding favorable/unfavorable only with color: set sentiment so the spelled-out text is correct.",
+    "Using lower-is-better metrics (error rate, cost) with the default higher-is-better sentiment.",
+    "Wrapping the card in another link instead of using href."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/stat-card: generated AuiStatCard directive ([auiStatCard] on an empty host); inputs mirror the options.",
+    "react": "@absoluteui/react/stat-card: generated AuiStatCard component; props mirror the options.",
+    "vue": "@absoluteui/vue/stat-card: generated AuiStatCard component; props mirror the options."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

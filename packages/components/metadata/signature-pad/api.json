@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "component": "signature-pad",
+  "factory": { "name": "SignaturePad.create", "signature": "SignaturePad.create(host: HTMLElement, options: SignaturePadOptions): SignaturePad" },
+  "configKey": "signaturePad",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label (required accessible name)." },
+    { "name": "hideLabel", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Visually hide the label." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text, referenced by the pad group and the typed field." },
+    { "name": "value", "type": "SignaturePadValue", "default": "null", "required": false, "globallyConfigurable": false, "description": "Drawn strokes or a typed name, or null." },
+    { "name": "penColor", "type": "string", "required": false, "globallyConfigurable": false, "description": "Pen color (CSS color); default the --aui-signature-pad-ink token." },
+    { "name": "height", "type": "string", "default": "10rem", "required": false, "globallyConfigurable": false, "description": "Pad height (CSS length)." },
+    { "name": "typedFont", "type": "string", "required": false, "globallyConfigurable": false, "description": "Font family for typed signatures (default a cursive family)." },
+    { "name": "mode", "type": "'draw' | 'type'", "default": "draw", "required": false, "globallyConfigurable": false, "description": "Initial mode." },
+    { "name": "submit", "type": "SignatureFormat", "default": "png", "required": false, "globallyConfigurable": false, "description": "Hidden input format: 'png' or 'svg' data URL." },
+    { "name": "required", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "A signature must be given." },
+    { "name": "disabled", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Disable the control." },
+    { "name": "readOnly", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Show the signature without editing controls." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name (hidden input with the data URL)." },
+    { "name": "validate", "type": "(value: SignaturePadValue) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<SignaturePadIcons>", "required": false, "globallyConfigurable": false, "description": "Undo, clear, and validation icons." },
+    { "name": "penWidth", "type": "number", "default": "2.5", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Base stroke width in CSS pixels (0.5 to 20)." },
+    { "name": "validationTiming", "type": "ValidationTiming", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages appear." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the messages." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "value", "type": "SignaturePadValue", "description": "Drawn strokes or the typed name, or null when empty." },
+    { "name": "isEmpty", "type": "boolean", "description": "True when nothing is drawn or typed in the current mode." },
+    { "name": "mode", "type": "'draw' | 'type'", "description": "Current mode." },
+    { "name": "validity", "type": "FieldValidity", "description": "Current validity." },
+    { "name": "options", "type": "Readonly<SignaturePadOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: SignaturePadValue): void", "description": "Set the value (no event)." },
+    { "name": "undo", "signature": "undo(): void", "description": "Remove the last stroke." },
+    { "name": "clear", "signature": "clear(): void", "description": "Remove the signature." },
+    { "name": "toDataURL", "signature": "toDataURL(format?: SignatureFormat): string", "description": "PNG (device pixel ratio, transparent) or SVG data URL." },
+    { "name": "toSVG", "signature": "toSVG(): string", "description": "SVG markup of the signature." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | null", "description": "The submitted data URL, or null when empty." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "Show or clear an external error." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the mode buttons (draw) or the typed field (type)." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear the validation state." },
+    { "name": "update", "signature": "update(options: Partial<SignaturePadOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, and the form registration." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "SignaturePadValueDetail", "bubbles": true, "cancelable": false, "description": "After a stroke, a typed change, undo, clear, or a mode switch: { value, validity }." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-signature-pad", "description": "Host (with aui-field)." },
+    { "name": "aui-signature-pad--type | --readonly | --disabled | --invalid", "description": "State modifiers." },
+    { "name": "aui-signature-pad__box", "description": "Group of the toolbar, pad, and typed field." },
+    { "name": "aui-signature-pad__toolbar", "description": "Mode buttons and actions." },
+    { "name": "aui-signature-pad__modes | __mode", "description": "Draw and Type toggle buttons (aria-pressed)." },
+    { "name": "aui-signature-pad__actions | __action", "description": "Undo and clear buttons." },
+    { "name": "aui-signature-pad__pad | __pad--drawable", "description": "Drawing surface." },
+    { "name": "aui-signature-pad__canvas", "description": "Canvas (role=img)." },
+    { "name": "aui-signature-pad__baseline | __placeholder", "description": "Decorative baseline and 'Sign here' hint." },
+    { "name": "aui-signature-pad__typed | __typed-label | __typed-input", "description": "Typed-name field." }
+  ],
+  "iconSlots": [
+    { "name": "undo", "default": "undo" },
+    { "name": "clear", "default": "trash" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

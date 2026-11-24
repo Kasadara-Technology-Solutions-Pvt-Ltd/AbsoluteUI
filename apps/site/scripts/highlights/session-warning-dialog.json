@@ -1,0 +1,6 @@
+[
+  { "title": "Live countdown", "text": "Counts down to the session deadline, recomputed from the clock on every tick." },
+  { "title": "Opens on time", "text": "Opens automatically a set time before expiry, at least 20 seconds ahead." },
+  { "title": "Extend or sign out", "text": "Separate events for staying signed in, signing out, and expiry." },
+  { "title": "Measured announcements", "text": "Screen readers hear the remaining time at intervals, not every second." }
+]

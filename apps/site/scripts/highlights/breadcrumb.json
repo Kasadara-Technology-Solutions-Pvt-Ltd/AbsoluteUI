@@ -1,0 +1,6 @@
+[
+  { "title": "Clear location", "text": "A navigation landmark with the current page marked for assistive technology." },
+  { "title": "Collapses long trails", "text": "A maximum item count folds the middle of long trails into an expandable item." },
+  { "title": "Cancelable navigation", "text": "Navigate events can be canceled to hand links to a client-side router." },
+  { "title": "Localized and RTL", "text": "Labels follow the locale and separators mirror in right-to-left layouts." }
+]

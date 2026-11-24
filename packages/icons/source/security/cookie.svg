@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="cookie">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M20.5 12.5A8.5 8.5 0 1 1 11.5 3.5a3 3 0 0 0 3 3.5 3 3 0 0 0 3 3 3 3 0 0 0 3 2.5z"/>
+      <path d="M8.5 10h.01"/>
+      <path d="M9.5 15.5h.01"/>
+      <path d="M14.5 15h.01"/>
+      <path d="M12 12h.01"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M20.5 12.5A8.5 8.5 0 1 1 11.5 3.5a3 3 0 0 0 3 3.5 3 3 0 0 0 3 3 3 3 0 0 0 3 2.5z" transform="translate(12 12) scale(1.06) translate(-12 -12)"/>
+      <circle cx="8.5" cy="10" r="1.25"/>
+      <circle cx="9.5" cy="15.5" r="1.25"/>
+      <circle cx="14.5" cy="15" r="1.25"/>
+      <circle cx="12" cy="12" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M20.5 12.5A8.5 8.5 0 1 1 11.5 3.5a3 3 0 0 0 3 3.5 3 3 0 0 0 3 3 3 3 0 0 0 3 2.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M20.5 12.5A8.5 8.5 0 1 1 11.5 3.5a3 3 0 0 0 3 3.5 3 3 0 0 0 3 3 3 3 0 0 0 3 2.5z"/>
+      <path d="M8.5 10h.01"/>
+      <path d="M9.5 15.5h.01"/>
+      <path d="M14.5 15h.01"/>
+      <path d="M12 12h.01"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.35">
+      <path d="M20.5 12.5A8.5 8.5 0 1 1 11.5 3.5a3 3 0 0 0 3 3.5 3 3 0 0 0 3 3 3 3 0 0 0 3 2.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M20.5 12.5A8.5 8.5 0 1 1 11.5 3.5a3 3 0 0 0 3 3.5 3 3 0 0 0 3 3 3 3 0 0 0 3 2.5z"/>
+      <path d="M8.5 10h.01"/>
+      <path d="M9.5 15.5h.01"/>
+      <path d="M14.5 15h.01"/>
+      <path d="M12 12h.01"/>
+    </g>
+  </g>
+</svg>

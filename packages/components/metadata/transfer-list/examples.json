@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "transfer-list",
+  "examples": [
+    {
+      "id": "team",
+      "title": "Team assignment",
+      "language": "ts",
+      "code": "import { TransferList, type TransferListValueDetail } from '@absoluteui/components/transfer-list';\n\nconst host = document.createElement('div');\nconst summary = document.createElement('p');\ndocument.body.append(host, summary);\nTransferList.create(host, {\n  label: 'Project team',\n  name: 'members',\n  required: true,\n  items: [\n    { value: 'e1', label: 'Asha Rao', description: 'Engineering' },\n    { value: 'e2', label: 'Ben Okafor', description: 'Design' },\n    { value: 'e3', label: 'Chen Wei', description: 'Engineering' },\n    { value: 'e4', label: 'Dana Silva', description: 'On leave', disabled: true },\n  ],\n  value: ['e2'],\n  titles: { available: 'Employees', selected: 'Team' },\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<TransferListValueDetail>).detail;\n  summary.textContent = `${String(value.length)} members`;\n});"
+    },
+    {
+      "id": "large",
+      "title": "10,000 items with a limit and drag",
+      "language": "ts",
+      "code": "import { TransferList } from '@absoluteui/components/transfer-list';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst items = Array.from({ length: 10_000 }, (_, i) => ({ value: `sku-${String(i)}`, label: `Product ${String(i + 1)}` }));\nTransferList.create(host, { label: 'Featured products', items, maxSelected: 12, draggable: true, visibleRows: 10 });"
+    },
+    {
+      "id": "read-only",
+      "title": "Read-only review",
+      "language": "ts",
+      "code": "import { TransferList } from '@absoluteui/components/transfer-list';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nTransferList.create(host, {\n  label: 'Granted permissions',\n  readOnly: true,\n  items: [\n    { value: 'read', label: 'Read' },\n    { value: 'write', label: 'Write' },\n    { value: 'admin', label: 'Administer' },\n  ],\n  value: ['read', 'write'],\n});"
+    }
+  ]
+}

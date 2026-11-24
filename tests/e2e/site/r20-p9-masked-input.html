@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AbsoluteUI R20 P9 harness: Masked Input</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/layout.css">
+    <link rel="stylesheet" href="/typography.css">
+    <link rel="stylesheet" href="/masked-input.css">
+    <link rel="stylesheet" href="/demo.css">
+    <script type="module" src="/r20-p9-masked-input.js"></script>
+  </head>
+  <body>
+    <main id="main" class="aui-container aui-container--lg">
+      <h1 class="aui-heading aui-heading--2">Masked Input</h1>
+      <section aria-labelledby="h-contact">
+        <h2 id="h-contact" class="aui-heading aui-heading--4">Contact and bank details</h2>
+        <form id="masked-form">
+          <div id="masked-phone"></div>
+          <div id="masked-iban"></div>
+          <div id="masked-zip"></div>
+        </form>
+        <p id="masked-output" role="status"></p>
+      </section>
+      <section aria-labelledby="h-states">
+        <h2 id="h-states" class="aui-heading aui-heading--4">States</h2>
+        <div id="masked-readonly"></div>
+        <div id="masked-disabled"></div>
+        <div id="masked-invalid"></div>
+      </section>
+    </main>
+  </body>
+</html>

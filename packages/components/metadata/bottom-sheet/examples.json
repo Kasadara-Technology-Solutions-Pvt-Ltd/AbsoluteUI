@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "bottom-sheet",
+  "examples": [
+    {
+      "id": "share",
+      "title": "Modal share sheet",
+      "language": "ts",
+      "code": "import { BottomSheet, type BottomSheetCloseDetail } from '@absoluteui/components/bottom-sheet';\n\nconst targets = document.createElement('ul');\nconst sheet = BottomSheet.create({ title: 'Share', description: 'Choose where to send the link.', content: targets });\nsheet.element.addEventListener('aui-close', (event) => {\n  const { reason } = (event as CustomEvent<BottomSheetCloseDetail>).detail;\n  if (reason === 'drag') {\n    // the user dragged the sheet away\n  }\n});\ndocument.querySelector('#share')?.addEventListener('click', () => {\n  sheet.open();\n});"
+    },
+    {
+      "id": "snap-points",
+      "title": "Non-modal sheet with snap points",
+      "language": "ts",
+      "code": "import { BottomSheet, type BottomSheetSnapChangeDetail } from '@absoluteui/components/bottom-sheet';\n\nconst results = BottomSheet.create({\n  title: 'Nearby places',\n  modal: false,\n  snapPoints: [0.25, 0.5, 0.9],\n  snap: 1,\n  closeOnDragDown: false,\n});\nresults.element.addEventListener('aui-snap-change', (event) => {\n  const { value } = (event as CustomEvent<BottomSheetSnapChangeDetail>).detail;\n  results.body.classList.toggle('is-expanded', value >= 0.9);\n});\nresults.open();\nresults.snapTo(2);"
+    },
+    {
+      "id": "guard-unsaved",
+      "title": "Keep the sheet open with unsaved input",
+      "language": "ts",
+      "code": "import { BottomSheet, type BottomSheetCloseDetail } from '@absoluteui/components/bottom-sheet';\n\nlet dirty = false;\nconst form = document.createElement('form');\nform.addEventListener('input', () => {\n  dirty = true;\n});\nconst sheet = BottomSheet.create({ title: 'Add note', content: form, closeOnBackdrop: false });\nsheet.element.addEventListener('aui-cancel', (event) => {\n  const { reason } = (event as CustomEvent<BottomSheetCloseDetail>).detail;\n  // Accidental dismissals (Escape, drag) are blocked; the close button still closes.\n  if (dirty && reason !== 'close-button') event.preventDefault();\n});\nsheet.open();"
+    }
+  ]
+}

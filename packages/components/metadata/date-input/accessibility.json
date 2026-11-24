@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "component": "date-input",
+  "pattern": "Labelled group of labelled text inputs (segmented date field). No APG pattern exists for segmented date fields; native text inputs are used for maximum assistive technology compatibility.",
+  "roles": [
+    { "element": "group container", "role": "group" },
+    { "element": "each segment", "role": "textbox (native input, inputmode=numeric)" },
+    { "element": "separators", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "group", "value": "id of the visible label" },
+    { "attribute": "aria-label", "element": "segment", "value": "Localized segment name (Year, Month, Day, Hour, Minute, AM/PM)" },
+    { "attribute": "aria-describedby", "element": "group", "value": "description, timezone/DST hint, and error ids as applicable" },
+    { "attribute": "aria-invalid", "element": "segment", "value": "true while an error message is shown" }
+  ],
+  "keyboard": [
+    { "key": "Digits", "context": "Segment focused", "action": "Enter value; auto-advance when complete." },
+    { "key": "ArrowUp / ArrowDown", "context": "Segment focused", "action": "Increment/decrement with wrap (year clamps); toggles AM/PM." },
+    { "key": "ArrowLeft / ArrowRight", "context": "Caret at segment edge", "action": "Move to previous/next segment (mirrored in RTL)." },
+    { "key": "Backspace", "context": "Empty segment", "action": "Move to previous segment." },
+    { "key": "/ - . : , Space", "context": "Numeric segment", "action": "Pad the current value and advance." },
+    { "key": "A / P", "context": "AM/PM segment", "action": "Set AM or PM." },
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Move between segments and out of the group." }
+  ],
+  "focus": "Each segment is a tab stop; focusing selects its content. Focused segment is highlighted with selected colors and a focus outline.",
+  "wcag": ["1.3.1", "1.3.5", "2.1.1", "2.4.7", "3.3.1", "3.3.2", "3.3.3", "4.1.2"],
+  "notes": [
+    "Error messages identify the problem and, for DST cases, the timezone.",
+    "Adjustments caused by daylight-saving rules are disclosed in the hint rather than applied silently (SPEC section 8.5)."
+  ],
+  "knownCaveats": [
+    "Each segment is a separate tab stop; some users may prefer a single field. Manual screen-reader and user testing is pending."
+  ]
+}

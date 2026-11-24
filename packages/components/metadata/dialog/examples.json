@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "dialog",
+  "examples": [
+    {
+      "id": "confirm",
+      "title": "Destructive confirmation (alertdialog)",
+      "language": "ts",
+      "code": "import { Dialog, type DialogCloseDetail } from '@absoluteui/components/dialog';\n\nconst confirm = Dialog.create({\n  title: 'Delete project?',\n  description: 'This permanently removes the project.',\n  role: 'alertdialog',\n  actions: [\n    { label: 'Cancel', value: 'cancel', autofocus: true },\n    { label: 'Delete', value: 'delete', variant: 'danger' },\n  ],\n});\nconfirm.element.addEventListener('aui-close', (event) => {\n  const { returnValue } = (event as CustomEvent<DialogCloseDetail>).detail;\n  if (returnValue === 'delete') {\n    // perform deletion\n  }\n});\nconfirm.open();"
+    },
+    {
+      "id": "guard-unsaved",
+      "title": "Prevent closing with unsaved changes",
+      "language": "ts",
+      "code": "import { Dialog } from '@absoluteui/components/dialog';\n\nlet dirty = true;\nconst editor = Dialog.create({ title: 'Edit profile', closeOnBackdrop: true });\neditor.element.addEventListener('aui-cancel', (event) => {\n  if (dirty) event.preventDefault();\n});\neditor.open();\ndirty = false;"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+[
+  { "title": "One JSON definition", "text": "Widgets, data sources, variables, and pages come from one versioned definition." },
+  { "title": "Built-in widgets", "text": "KPI, chart, list, progress, table, and text widgets ready to register." },
+  { "title": "Edit mode", "text": "Users move, resize, add, and remove widgets, with undo, redo, and reset." },
+  { "title": "Safe data loading", "text": "Data sources call only allowed origins, with retries, caching, and your own fetcher." },
+  { "title": "Variables and pages", "text": "Filters feed data source parameters, and pages split large dashboards." }
+]

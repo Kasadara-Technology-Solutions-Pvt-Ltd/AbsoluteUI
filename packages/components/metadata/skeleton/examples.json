@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "skeleton",
+  "examples": [
+    {
+      "id": "card",
+      "title": "Loading card with busy region and status",
+      "language": "ts",
+      "code": "import { Skeleton } from '@absoluteui/components/skeleton';\nimport { Spinner } from '@absoluteui/components/spinner';\n\nconst region = document.querySelector<HTMLElement>('#profile');\nif (region) {\n  const avatarHost = document.createElement('div');\n  const textHost = document.createElement('div');\n  const statusHost = document.createElement('div');\n  region.replaceChildren(statusHost, avatarHost, textHost);\n  Skeleton.markBusy(region, true);\n  const status = Spinner.create(statusHost, { label: 'Loading profile', delay: 300 });\n  const avatar = Skeleton.create(avatarHost, { shape: 'circle', width: '3rem' });\n  const text = Skeleton.create(textHost, { lines: 2 });\n  const done = (): void => {\n    status.destroy();\n    avatar.destroy();\n    text.destroy();\n    Skeleton.markBusy(region, false);\n  };\n  setTimeout(done, 1000);\n}"
+    },
+    {
+      "id": "static",
+      "title": "Static rectangle",
+      "language": "ts",
+      "code": "import { Skeleton } from '@absoluteui/components/skeleton';\n\nconst host = document.querySelector<HTMLElement>('#chart-placeholder');\nif (host) {\n  Skeleton.create(host, { shape: 'rect', height: '12rem', animation: 'none' });\n}"
+    }
+  ]
+}

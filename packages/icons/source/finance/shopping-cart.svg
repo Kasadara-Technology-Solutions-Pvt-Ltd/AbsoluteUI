@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="shopping-cart" data-mirror="true" data-animations="bounce:on-change">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M2.5 3.5h2.5l2.5 11.5h10.5l2-8H6.5"/>
+      <circle cx="9" cy="19" r="1.5"/>
+      <circle cx="17" cy="19" r="1.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M2.5 2.5h3a1 1 0 0 1 1 .8l.3 1.7h13.7a1 1 0 0 1 1 1.2l-2 8.3a1 1 0 0 1-1 .8H8.5l.3 1.2H19v2H8a1 1 0 0 1-1-.8L4.2 4.5H2.5z"/>
+      <circle cx="9" cy="19.75" r="1.75"/>
+      <circle cx="17" cy="19.75" r="1.75"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M6.5 7h14l-2 8H7.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M2.5 3.5h2.5l2.5 11.5h10.5l2-8H6.5"/>
+      <circle cx="9" cy="19" r="1.5"/>
+      <circle cx="17" cy="19" r="1.5"/>
+    </g>
+  </g>
+</svg>

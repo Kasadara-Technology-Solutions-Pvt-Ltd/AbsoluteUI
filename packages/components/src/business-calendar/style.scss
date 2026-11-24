@@ -1,0 +1,210 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-business-calendar {
+    display: grid;
+    gap: aui.token('space-3');
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+    color: aui.token('color-text');
+  }
+
+  .aui-business-calendar__header {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+  }
+
+  .aui-business-calendar__range {
+    flex: 1 1 auto;
+    font-size: aui.token('font-size-md');
+    font-weight: aui.token('font-weight-semibold');
+    text-align: center;
+  }
+
+  .aui-business-calendar__nav {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    min-inline-size: aui.token('touch-target-min');
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    color: aui.token('color-text');
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+    @include aui.transition(background-color);
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  // Months flow into as many columns as fit (one per row at 320 px).
+  .aui-business-calendar__months {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: aui.token('space-4');
+  }
+
+  .aui-business-calendar__heading {
+    margin: 0 0 aui.token('space-1');
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-semibold');
+    text-align: center;
+  }
+
+  .aui-business-calendar__grid {
+    inline-size: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+    table-layout: fixed;
+  }
+
+  .aui-business-calendar__weekday {
+    padding-block: aui.token('space-1');
+    font-size: aui.token('font-size-xs');
+    font-weight: aui.token('font-weight-medium');
+    color: aui.token('color-text-muted');
+    text-align: center;
+  }
+
+  .aui-business-calendar__day {
+    box-sizing: border-box;
+    block-size: aui.token('control-height-sm');
+    padding: 0;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    border-radius: aui.token('radius-sm');
+    user-select: none;
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-business-calendar--editable .aui-business-calendar__day:not(.aui-business-calendar__day--empty) {
+    cursor: pointer;
+  }
+
+  .aui-business-calendar__day--working {
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    box-shadow: inset 0 0 0 aui.token('border-width') aui.token('color-border');
+  }
+
+  .aui-business-calendar__day--non-working {
+    color: aui.token('color-text-muted');
+    background: aui.token('color-surface-sunken');
+  }
+
+  // Holidays: a fill plus a bar along the bottom edge (never color alone: the name is in the label and list).
+  .aui-business-calendar__day--holiday {
+    color: aui.token('color-text');
+    background: aui.token('color-warning-subtle');
+    box-shadow: inset 0 calc(-1 * #{aui.token('border-width-strong')}) 0 aui.token('color-warning-fg');
+  }
+
+  // Changed days (exceptions): a dashed inner outline.
+  .aui-business-calendar__day--changed {
+    outline: aui.token('border-width') dashed aui.token('color-info-fg');
+    outline-offset: -3px;
+
+    &:focus-visible {
+      outline-style: solid;
+    }
+  }
+
+  .aui-business-calendar__day--today .aui-business-calendar__number {
+    font-weight: aui.token('font-weight-bold');
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .aui-business-calendar__day--empty {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .aui-business-calendar__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2') aui.token('space-4');
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-business-calendar__legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+  }
+
+  .aui-business-calendar__swatch {
+    display: inline-block;
+    inline-size: aui.token('icon-size-sm');
+    block-size: aui.token('icon-size-sm');
+    border-radius: aui.token('radius-sm');
+  }
+
+  .aui-business-calendar__holidays[hidden] {
+    display: none;
+  }
+
+  .aui-business-calendar__holidays-heading {
+    margin: 0 0 aui.token('space-1');
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-business-calendar__holiday-list {
+    display: grid;
+    gap: aui.token('space-1');
+    margin: 0;
+    padding-inline-start: aui.token('space-4');
+  }
+
+  @include aui.forced-colors {
+    .aui-business-calendar__day--working {
+      box-shadow: inset 0 0 0 1px CanvasText;
+    }
+
+    .aui-business-calendar__day--non-working {
+      color: GrayText;
+    }
+
+    .aui-business-calendar__day--holiday {
+      box-shadow: inset 0 -3px 0 CanvasText;
+    }
+
+    .aui-business-calendar__day--changed {
+      outline-color: CanvasText;
+    }
+
+    .aui-business-calendar__day:focus-visible,
+    .aui-business-calendar__nav:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

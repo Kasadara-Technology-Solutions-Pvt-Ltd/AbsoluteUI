@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="image">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="4" width="19" height="16" rx="2"/>
+      <path d="M3 18.5l5.5-6 4.5 5 2.5-2.5 5 4.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="16" cy="9" r="1.75"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="2" y="3.5" width="20" height="17" rx="2.5"/>
+      <circle cx="16" cy="9" r="2"/>
+      <path d="M4.5 18.5L8.5 14l3.5 4 2.5-2.5 3 3z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="2.5" y="4" width="19" height="16" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="4" width="19" height="16" rx="2"/>
+      <path d="M3 18.5l5.5-6 4.5 5 2.5-2.5 5 4.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="16" cy="9" r="1.75"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="info" data-paint="fill" data-opacity="0.3">
+      <rect x="2.5" y="4" width="19" height="16" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="4" width="19" height="16" rx="2"/>
+      <path d="M3 18.5l5.5-6 4.5 5 2.5-2.5 5 4.5"/>
+    </g>
+    <g data-layer="accent" data-role="warning" data-paint="fill">
+      <circle cx="16" cy="9" r="1.75"/>
+    </g>
+  </g>
+</svg>

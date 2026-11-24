@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "component": "date-picker",
+  "factory": { "name": "DatePicker.create", "signature": "DatePicker.create(host: HTMLElement, options: DatePickerOptions): DatePicker" },
+  "configKey": "datePicker",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Field label and accessible name of the segment group." },
+    { "name": "value", "type": "PlainDate | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Initial value; also the value restored by reset()." },
+    { "name": "min", "type": "PlainDate | null", "required": false, "globallyConfigurable": false, "description": "Inclusive lower bound (validation and calendar)." },
+    { "name": "max", "type": "PlainDate | null", "required": false, "globallyConfigurable": false, "description": "Inclusive upper bound (validation and calendar)." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name for the ISO 8601 hidden input." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Empty value is invalid (value-missing)." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the segments and the calendar button." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Prevents editing; the calendar button is disabled." },
+    { "name": "isDateDisabled", "type": "(date: PlainDate) => boolean", "required": false, "globallyConfigurable": false, "description": "Disable days in the calendar; a typed disabled day is invalid ('This date is not available.')." },
+    { "name": "businessCalendar", "type": "BusinessCalendarEngine | null", "required": false, "globallyConfigurable": false, "description": "Business calendar (since 0.9.0): non-working days and holidays are marked and named in the calendar." },
+    { "name": "disableNonWorking", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "With businessCalendar: non-working days cannot be picked or typed (since 0.9.0)." },
+    { "name": "firstDayOfWeek", "type": "1 | 2 | 3 | 4 | 5 | 6 | 7", "required": false, "globallyConfigurable": false, "description": "First calendar column (ISO weekday). Default: the locale's first day of week." },
+    { "name": "icons", "type": "Partial<{ calendar: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "formControl", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Advanced, read at creation: false skips registration with Form, for composite controls such as Schedule Picker that register themselves (since 0.6.0)." },
+    { "name": "closeOnSelect", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Close the popup after a day is picked." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Segment order, calendar, messages, formatting; forwarded to both children." },
+    { "name": "timezone", "type": "string (IANA)", "default": "UTC", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Zone used only to determine today in the calendar." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Arrow-key mirroring, calendar direction, and popup alignment." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component. Registered with Form." },
+    { "name": "input", "type": "DateInput", "description": "The inner Date Input (date granularity); not registered with Form." },
+    { "name": "calendar", "type": "Calendar", "description": "The Calendar inside the popup." },
+    { "name": "button", "type": "HTMLButtonElement", "description": "Calendar button inside the field boundary." },
+    { "name": "popup", "type": "HTMLDivElement", "description": "role=dialog aria-modal=false popup (popover=manual)." },
+    { "name": "value", "type": "PlainDate | null", "description": "Current valid value, or null when empty or invalid." },
+    { "name": "validity", "type": "DateInputValidity", "description": "{ valid, error, message, localTimeStatus }." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the popup is open." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the initial value." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the field (segments, button, and popup) at least once." },
+    { "name": "options", "type": "Readonly<DatePickerOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(): void", "description": "Open the calendar and focus the selected day (or today). No-op when disabled or read-only." },
+    { "name": "close", "signature": "close(): void", "description": "Close the calendar; focus inside the popup returns to the calendar button." },
+    { "name": "setValue", "signature": "setValue(value: PlainDate | null): void", "description": "Programmatic value (no aui-change)." },
+    { "name": "update", "signature": "update(options: Partial<DatePickerOptions>): void", "description": "Merge and apply options to the field and calendar." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error (server, cross-field rule); cleared when the user changes the value." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | null", "description": "ISO 8601 YYYY-MM-DD, or null when empty or invalid." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the first date segment." },
+    { "name": "reset", "signature": "reset(): void", "description": "Close, restore the initial value, and clear touched/submitted state (no aui-change)." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close and remove rendering, listeners, registration, and subscriptions of the picker and its children." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: PlainDate | null; validity: DateInputValidity }", "bubbles": true, "cancelable": false, "description": "User typing or picking changed the value or validity. Dispatched from the picker host." },
+    { "name": "aui-navigate", "detail": "{ month: { year: number; month: number } }", "bubbles": true, "cancelable": false, "description": "Bubbles from the inner Calendar when the user changes the visible month." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "The popup opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "The popup closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-date-picker", "description": "Host; --disabled modifier." },
+    { "name": "aui-date-picker__field", "description": "Host of the inner Date Input (aui-date-input classes apply inside)." },
+    { "name": "aui-date-picker__trailing", "description": "Button and popup container inside the Date Input group." },
+    { "name": "aui-date-picker__button", "description": "Calendar button." },
+    { "name": "aui-date-picker__popup", "description": "Top-layer dialog popup containing the Calendar (aui-calendar classes apply inside)." }
+  ],
+  "iconSlots": [
+    { "name": "calendar", "default": "calendar" }
+  ]
+}

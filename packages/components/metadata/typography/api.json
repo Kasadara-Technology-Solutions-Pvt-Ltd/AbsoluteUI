@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "component": "typography",
+  "factory": { "name": "Heading.create | Text.create | Link.create | setLineClamp", "signature": "Heading.create(level: HeadingLevel, text: string, options?: HeadingOptions, doc?: Document): HTMLHeadingElement; Text.create(text: string, options?: TextOptions, doc?: Document): HTMLParagraphElement | HTMLSpanElement; Link.create(options: LinkOptions, doc?: Document): HTMLAnchorElement; setLineClamp(el: HTMLElement, lines: number): () => void" },
+  "configKey": "typography",
+  "options": [
+    { "name": "level", "type": "1 | 2 | 3 | 4 | 5 | 6", "required": true, "globallyConfigurable": false, "description": "Heading.create: semantic heading level (document outline)." },
+    { "name": "size", "type": "1 | 2 | 3 | 4 | 5 | 6 (Heading) | 'xs' | 'sm' | 'md' | 'lg' (Text)", "required": false, "globallyConfigurable": false, "description": "Heading: visual size, default the level. Text: font size, default md." },
+    { "name": "tone", "type": "'default' | 'muted'", "default": "default", "required": false, "globallyConfigurable": false, "description": "Text: muted uses color-text-muted." },
+    { "name": "strong", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Text: semibold weight." },
+    { "name": "as", "type": "'p' | 'span'", "default": "p", "required": false, "globallyConfigurable": false, "description": "Text: element to create." },
+    { "name": "href", "type": "string", "required": true, "globallyConfigurable": false, "description": "Link: http(s) URL or relative reference; other schemes throw TYPOGRAPHY_OPTIONS." },
+    { "name": "text", "type": "string", "required": true, "globallyConfigurable": false, "description": "Heading, Text, Link: text content (rendered with textContent)." },
+    { "name": "external", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Link: target=_blank, rel=\"noopener noreferrer\", and a visually hidden localized \"(opens in a new tab)\"." },
+    { "name": "muted", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Link: muted color; the underline remains." },
+    { "name": "lines", "type": "number", "required": true, "globallyConfigurable": false, "description": "setLineClamp: integer 1..20, written to --aui-lines." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the external-link hint (Link.create option or global)." }
+  ],
+  "properties": [],
+  "methods": [
+    { "name": "Heading.enhance", "signature": "Heading.enhance(el: HTMLHeadingElement, options?: HeadingOptions): TypographyEnhancement<HeadingOptions>", "description": "Since 0.9.0. Style an existing h1..h6 (level from the tag)." },
+    { "name": "Text.enhance", "signature": "Text.enhance(el: HTMLElement, options?: TextEnhanceOptions): TypographyEnhancement<TextEnhanceOptions>", "description": "Since 0.9.0. Add aui-text modifiers to an existing element." },
+    { "name": "Link.enhance", "signature": "Link.enhance(a: HTMLAnchorElement, options?: LinkEnhanceOptions): TypographyEnhancement<LinkEnhanceOptions> & { check(): void }", "description": "Since 0.9.0. Style and validate an existing link; destroy() restores target and rel." },
+    { "name": "isSafeHref", "signature": "isSafeHref(value: unknown): value is string", "description": "The link destination check used by Link and Card." }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-heading", "description": "Heading base: semibold, line-height-tight, color-text." },
+    { "name": "aui-heading--1 ... aui-heading--6", "description": "Visual sizes font-size-4xl, 3xl, 2xl, xl, lg, md." },
+    { "name": "aui-text", "description": "Body text: font-size-md, line-height-normal." },
+    { "name": "aui-text--muted | --lg | --sm | --xs | --strong", "description": "Text modifiers." },
+    { "name": "aui-link", "description": "Underlined color-link link with a focus ring; LinkText in forced colors." },
+    { "name": "aui-link--muted", "description": "Muted link color, still underlined." },
+    { "name": "aui-link__hint", "description": "Visually hidden new-tab hint." },
+    { "name": "aui-code", "description": "Inline code: font-family-mono on color-surface-sunken." },
+    { "name": "aui-prose", "description": "Rich text rhythm for p, lists, h2 to h4, links, code, pre, and blockquote (line-height-relaxed)." },
+    { "name": "aui-truncate", "description": "Single-line ellipsis." },
+    { "name": "aui-line-clamp", "description": "Multi-line clamp; lines from --aui-lines (default 3)." },
+    { "name": "--aui-lines", "description": "Custom property: number of lines for aui-line-clamp." }
+  ],
+  "iconSlots": []
+}

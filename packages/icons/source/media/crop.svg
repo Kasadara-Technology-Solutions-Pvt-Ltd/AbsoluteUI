@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="crop">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 2.5v13a1.5 1.5 0 0 0 1.5 1.5h13"/>
+      <path d="M17 21.5v-13A1.5 1.5 0 0 0 15.5 7h-13"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "name": "form-builder",
+  "displayName": "Form Builder",
+  "category": "Forms",
+  "package": "@absoluteui/components",
+  "import": "import { FormBuilder } from '@absoluteui/components/form-builder';",
+  "styleImport": "@absoluteui/components/form-builder/style.css",
+  "purpose": "A form designer that produces the schema and UI schema Schema Form renders. A palette of field types (click, Enter, or pointer drag onto the canvas), a canvas whose fields reorder by pointer drag or keyboard (Sortable List), a properties panel for label, name, required, validation, options, help text, width, and visibility conditions, a live Schema Form preview, a JSON view with validated import, and undo/redo. Emits aui-change with { schema, uiSchema } after every valid edit.",
+  "whenToUse": [
+    "Administrators define forms (questionnaires, request types, intake forms) without a release.",
+    "Prototyping a form and handing the JSON to developers."
+  ],
+  "whenNotToUse": [
+    "End users filling in forms: render them with Schema Form.",
+    "Nested or computed form logic beyond the supported conditions: edit the JSON or write the form by hand."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities",
+    "@absoluteui/helpers"
+  ],
+  "states": [
+    "empty",
+    "field selected",
+    "form settings",
+    "dragging a field type",
+    "keyboard reordering",
+    "invalid edit rejected",
+    "preview",
+    "JSON view",
+    "JSON invalid",
+    "undo available",
+    "redo available"
+  ],
+  "responsive": "Palette, canvas, and properties sit side by side when the builder is at least 56rem wide (container query) and stack in one column otherwise.",
+  "rtl": "Logical properties throughout; the three panes mirror and Sortable List handles RTL reordering.",
+  "theme": "Global tokens only; the selected field uses color-selected and color-selected-text, the drop line color-primary; forced colors use Highlight.",
+  "timezone": "Not applicable to the builder; date fields it creates behave as described for Schema Form (the working-days switch sets disableNonWorking).",
+  "security": "Every label, option, and help text is rendered as text. Imported JSON is parsed with safeJsonParse (1 MB limit) and validated against the supported subset before it is applied; conditions are data, never code.",
+  "dataHandling": "No persistence, network access, or telemetry: the host stores the emitted document.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "FormBuilder.create with 50 fields",
+        "budget": "< 120 ms average in headless Chromium"
+      }
+    ],
+    "testedScale": "Up to 200 fields on the canvas; 100 undo steps stored as JSON Patches."
+  },
+  "limitations": [
+    "The builder edits top-level fields; nested groups and lists from imported JSON are kept and can be reordered, renamed, and removed, but their inner fields are edited in the JSON view.",
+    "The visibility editor writes one condition per field (equals, does not equal, is filled, is empty); combined conditions are kept and edited in the JSON view."
+  ],
+  "unsupported": [
+    "Custom field types in the palette.",
+    "Collaborative editing."
+  ],
+  "antiPatterns": [
+    "Letting end users edit the schema of a form they are filling in."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/form-builder: AuiFormBuilder component (<aui-form-builder>).",
+    "react": "@absoluteui/react/form-builder: AuiFormBuilder component.",
+    "vue": "@absoluteui/vue/form-builder: AuiFormBuilder component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

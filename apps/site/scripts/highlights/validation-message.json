@@ -1,0 +1,6 @@
+[
+  { "title": "Four tones", "text": "Error, warning, success, and info messages, each with its own icon." },
+  { "title": "Linked to the control", "text": "Adds itself to the control's description and marks the control invalid for errors." },
+  { "title": "Consistent look", "text": "Uses the same markup as the messages built into AbsoluteUI inputs." },
+  { "title": "Safe text", "text": "Messages are set as text and never parsed as HTML." }
+]

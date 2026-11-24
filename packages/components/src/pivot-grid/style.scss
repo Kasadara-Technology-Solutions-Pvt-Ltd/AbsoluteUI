@@ -1,0 +1,474 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // ---- Pivot Grid ------------------------------------------------------------
+  // Cell padding follows the instance density (private custom properties, not tokens).
+  .aui-pivot {
+    --_aui-pivot-pad-block: #{aui.token('space-2')};
+    --_aui-pivot-pad-inline: #{aui.token('space-3')};
+    display: grid;
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-pivot--compact {
+    --_aui-pivot-pad-block: #{aui.token('space-1')};
+    --_aui-pivot-pad-inline: #{aui.token('space-2')};
+  }
+
+  .aui-pivot--spacious {
+    --_aui-pivot-pad-block: #{aui.token('space-3')};
+    --_aui-pivot-pad-inline: #{aui.token('space-4')};
+  }
+
+  // Scroll container. Set max-block-size on it to keep the headers in view (virtual mode: 70vh).
+  .aui-pivot__region {
+    max-inline-size: 100%;
+    overflow: auto;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-pivot--virtual .aui-pivot__region {
+    max-block-size: 70vh;
+  }
+
+  .aui-pivot__table {
+    min-inline-size: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .aui-pivot__caption {
+    padding-block: aui.token('space-3');
+    padding-inline: var(--_aui-pivot-pad-inline);
+    font-size: aui.token('font-size-md');
+    font-weight: aui.token('font-weight-semibold');
+    text-align: start;
+    caption-side: top;
+  }
+
+  .aui-pivot__caption--hidden,
+  .aui-pivot__path {
+    @include aui.visually-hidden;
+  }
+
+  .aui-pivot__corner,
+  .aui-pivot__col-header,
+  .aui-pivot__value-header,
+  .aui-pivot__row-header,
+  .aui-pivot__cell {
+    padding-block: var(--_aui-pivot-pad-block);
+    padding-inline: var(--_aui-pivot-pad-inline);
+    vertical-align: middle;
+    border-block-end: aui.token('border-width') solid aui.token('color-border');
+    border-inline-end: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-pivot__corner,
+  .aui-pivot__col-header,
+  .aui-pivot__value-header {
+    font-weight: aui.token('font-weight-semibold');
+    text-align: start;
+    white-space: nowrap;
+    background: aui.token('color-surface-sunken');
+  }
+
+  .aui-pivot__value-header {
+    text-align: end;
+  }
+
+  .aui-pivot--sticky .aui-pivot__head {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+  }
+
+  // Row headers stay in view while scrolling sideways.
+  .aui-pivot__corner,
+  .aui-pivot__row-header {
+    position: sticky;
+    inset-inline-start: 0;
+    z-index: 1;
+  }
+
+  .aui-pivot__corner {
+    z-index: 3;
+  }
+
+  .aui-pivot__row-header {
+    padding-inline-start: calc(var(--_aui-pivot-pad-inline) + var(--aui-pivot-level, 0) * #{aui.token('space-5')});
+    font-weight: aui.token('font-weight-regular');
+    text-align: start;
+    white-space: nowrap;
+    background: aui.token('color-surface');
+  }
+
+  .aui-pivot__cell {
+    text-align: end;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  // Totals: bold plus a stronger rule, not color alone.
+  .aui-pivot__col-header--total,
+  .aui-pivot__value-header--total,
+  .aui-pivot__cell--total,
+  .aui-pivot__row--total > * {
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-pivot__row--total > * {
+    border-block-start: aui.token('border-width-strong') solid aui.token('color-border-strong');
+    background: aui.token('color-surface-sunken');
+  }
+
+  .aui-pivot__row--group > .aui-pivot__row-header,
+  .aui-pivot__row--group > .aui-pivot__cell {
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-pivot__row:hover > * {
+    background: aui.token('color-hover');
+  }
+
+  .aui-pivot__toggle,
+  .aui-pivot__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    margin-block: calc(-1 * var(--_aui-pivot-pad-block));
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:hover > span {
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+
+    svg {
+      flex: none;
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-pivot__toggle {
+    margin-inline-start: calc(-1 * #{aui.token('space-1')});
+  }
+
+  .aui-pivot__toggle[aria-busy='true'] svg {
+    opacity: 0.4;
+  }
+
+  .aui-pivot__sort-icon {
+    color: aui.token('color-text-muted');
+  }
+
+  [aria-sort='ascending'] > .aui-pivot__sort .aui-pivot__sort-icon,
+  [aria-sort='descending'] > .aui-pivot__sort .aui-pivot__sort-icon {
+    color: currentcolor;
+  }
+
+  .aui-pivot__value-header .aui-pivot__sort {
+    flex-direction: row-reverse;
+  }
+
+  .aui-pivot__status {
+    padding: aui.token('space-6') aui.token('space-4');
+    color: aui.token('color-text-muted');
+    text-align: center;
+  }
+
+  .aui-pivot__status--error {
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-pivot__retry {
+    margin-inline-start: aui.token('space-3');
+    min-block-size: aui.token('touch-target-min');
+    padding-inline: aui.token('space-3');
+    font: inherit;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-pivot__spacer > td {
+    padding: 0;
+    border: 0;
+  }
+
+  // ---- Pivot Field List ------------------------------------------------------
+  .aui-pivot-fields {
+    display: grid;
+    gap: aui.token('space-3');
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-pivot-fields__areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: aui.token('space-3');
+  }
+
+  .aui-pivot-fields__area {
+    display: grid;
+    align-content: start;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    padding: aui.token('space-2');
+    background: aui.token('color-surface-sunken');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+  }
+
+  .aui-pivot-fields__title {
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-pivot-fields__instructions {
+    margin: 0;
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-xs');
+  }
+
+  .aui-pivot-fields__list,
+  .aui-pivot-fields__member-list {
+    display: grid;
+    gap: aui.token('space-1');
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .aui-pivot-fields__empty {
+    align-self: center;
+    color: aui.token('color-text-muted');
+    font-style: italic;
+  }
+
+  .aui-pivot-fields__entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-1');
+    padding: aui.token('space-1');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-sm');
+  }
+
+  .aui-pivot-fields__entry--grabbed {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    border-color: aui.token('color-selected-text');
+  }
+
+  .aui-pivot-fields__entry--dragging {
+    position: relative;
+    z-index: 1;
+    opacity: 0.9;
+    box-shadow: aui.token('shadow-lg');
+  }
+
+  .aui-pivot-fields__label {
+    flex: 1 1 6rem;
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-pivot-fields__handle,
+  .aui-pivot-fields__filter,
+  .aui-pivot-fields__remove {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    min-inline-size: aui.token('touch-target-min');
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    border: aui.token('border-width') solid transparent;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+
+    svg {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-pivot-fields__handle {
+    cursor: grab;
+    // Pointer and touch drags start here; the page does not scroll from the handle.
+    touch-action: none;
+
+    &[aria-pressed='true'] {
+      border-color: currentcolor;
+      cursor: grabbing;
+    }
+  }
+
+  // An active filter: filled icon button plus the hidden "filtered" text.
+  .aui-pivot-fields__filter--active {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    border-color: aui.token('color-selected-text');
+  }
+
+  .aui-pivot-fields__sr {
+    @include aui.visually-hidden;
+  }
+
+  .aui-pivot-fields__aggregate,
+  .aui-pivot-fields__search {
+    min-block-size: aui.token('touch-target-min');
+    padding-inline: aui.token('space-2');
+    font: inherit;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+  }
+
+  .aui-pivot-fields__marker {
+    block-size: 0;
+    border-block-start: aui.token('border-width-strong') solid aui.token('color-focus-ring');
+  }
+
+  .aui-pivot-fields__panel {
+    display: grid;
+    flex-basis: 100%;
+    gap: aui.token('space-2');
+    padding: aui.token('space-2');
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border-block-start: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-pivot-fields__members {
+    max-block-size: 16rem;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    border: 0;
+  }
+
+  .aui-pivot-fields__member {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-block-size: aui.token('touch-target-min');
+
+    input {
+      inline-size: 1.125rem;
+      block-size: 1.125rem;
+      margin: 0;
+      accent-color: aui.token('color-primary');
+    }
+
+    input:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-pivot-fields__status {
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-xs');
+  }
+
+  .aui-pivot-fields__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+  }
+
+  .aui-pivot-fields__more,
+  .aui-pivot-fields__actions button {
+    min-block-size: aui.token('touch-target-min');
+    padding-inline: aui.token('space-3');
+    font: inherit;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-pivot-fields__actions .aui-pivot-fields__apply {
+    color: aui.token('color-on-primary');
+    background: aui.token('color-primary');
+    border-color: aui.token('color-primary');
+
+    &:hover {
+      background: aui.token('color-primary-hover');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-pivot-fields__entry--grabbed,
+    .aui-pivot-fields__filter--active {
+      color: HighlightText;
+      background: Highlight;
+      forced-color-adjust: none;
+    }
+
+    .aui-pivot-fields__marker {
+      border-color: Highlight;
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/funnel-chart",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiFunnelChart",
+      "description": "AbsoluteUI FunnelChart: `<aui-funnel-chart>`.\nTwo-way: `[(hiddenSeries)]`.",
+      "selector": "aui-funnel-chart",
+      "exportAs": [
+        "auiFunnelChart"
+      ],
+      "source": "generated",
+      "component": "funnel-chart",
+      "configKey": "funnelChart",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby). Must not be blank."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (stage count, first and last stage, overall conversion, largest drop)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for stage values in labels, accessible names, the tooltip, the data table, and the summary. Conversions are always percentages with at most one fraction digit."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat."
+        },
+        {
+          "name": "stages",
+          "type": "readonly FunnelStage[]",
+          "required": true,
+          "description": "Stages in order: { id, label, value: number | null, color?: 1-8 }. Ids are unique and non-empty; values are non-negative; null, NaN, and infinities are a missing stage (read \"No value\")."
+        },
+        {
+          "name": "color",
+          "type": "ChartColor",
+          "required": false,
+          "default": "1",
+          "description": "Palette slot for every stage without its own color."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Shared chart configuration; a funnel never shows a legend (stages are labelled beside their bars)."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table fallback (Stage, Value, Of first stage, Of previous stage): behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus (value, of first stage, of previous stage)."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Shared chart configuration; toggles the aui-chart--patterns host class. Funnel stages draw no textures (there is one series)."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000), divided evenly between stages; the width follows the container."
+        },
+        {
+          "name": "showConversion",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Print the conversion from the previous stage next to each stage value (\"400 | 40%\"). Accessible names, the tooltip, and the table always include conversions."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number, percent, and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl moves stage names and values to the right side and swaps ArrowLeft/ArrowRight."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Shared chart option; validated but has no effect (a funnel has no toggleable series)."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Shared chart method; re-renders but has no visible effect on a funnel. Emits no event."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG funnel chart as a named, described group (role=\"group\" with aria-roledescription \"funnel chart\") of role=\"img\" stage bars with roving focus; data table fallback (native table: Stage, Value, Of first stage, Of previous stage).",
+        "source": "packages/components/metadata/funnel-chart/accessibility.json"
+      },
+      "limitations": [
+        "One funnel per chart; no legend (each stage is labelled beside its bar).",
+        "Conversion is computed against the previous stage that has a value; missing stages are skipped.",
+        "Conversions are not computed when the first (or previous) stage is zero or missing; those stages read only their value.",
+        "The legend, patterns, and hiddenSeries options are accepted (shared chart options) but have no visible effect: there are no series to toggle or texture.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiFunnelChart } from '@absoluteui/angular/funnel-chart';\nimport type { FunnelStage } from '@absoluteui/components/funnel-chart';\n\n@Component({\n  selector: 'app-checkout',\n  imports: [AuiFunnelChart],\n  template: `<aui-funnel-chart label=\"Checkout\" [stages]=\"stages\"></aui-funnel-chart>`,\n})\nexport class CheckoutComponent {\n  readonly stages: FunnelStage[] = [\n    { id: 'visits', label: 'Visits', value: 1000 },\n    { id: 'paid', label: 'Paid', value: 100 },\n  ];\n}"
+    }
+  ]
+}

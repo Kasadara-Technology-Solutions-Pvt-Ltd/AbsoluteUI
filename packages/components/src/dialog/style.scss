@@ -1,0 +1,142 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-dialog {
+    box-sizing: border-box;
+    inline-size: min(aui.token('dialog-width-md'), calc(100vw - 2 * #{aui.token('space-4')}));
+    max-block-size: calc(100dvh - 2 * #{aui.token('space-4')});
+    margin: auto;
+    padding: 0;
+    color: aui.token('color-text');
+    background: aui.ctoken('dialog', 'bg');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.ctoken('dialog', 'radius');
+    box-shadow: aui.ctoken('dialog', 'shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(4px) scale(0.99);
+    // display/overlay transition discretely so the exit fade plays before the dialog
+    // leaves the top layer (SPEC section 16.2). The mixin removes it for reduced motion.
+    @include aui.transition(opacity, transform, display, overlay);
+    transition-behavior: allow-discrete;
+
+    &:not([open]) {
+      // A closing dialog ignores the pointer while it fades out.
+      pointer-events: none;
+    }
+
+    &[open] {
+      display: flex;
+      flex-direction: column;
+      opacity: 1;
+      transform: none;
+
+      @starting-style {
+        opacity: 0;
+        transform: translateY(4px) scale(0.99);
+      }
+    }
+
+    &::backdrop {
+      background: aui.ctoken('dialog', 'backdrop');
+      opacity: 0;
+      @include aui.transition(opacity, display, overlay);
+      transition-behavior: allow-discrete;
+    }
+
+    &[open]::backdrop {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+  }
+
+  .aui-dialog--sm {
+    inline-size: min(aui.token('dialog-width-sm'), calc(100vw - 2 * #{aui.token('space-4')}));
+  }
+
+  .aui-dialog--lg {
+    inline-size: min(aui.token('dialog-width-lg'), calc(100vw - 2 * #{aui.token('space-4')}));
+  }
+
+  .aui-dialog__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: aui.token('space-3');
+    padding: aui.ctoken('dialog', 'padding') aui.ctoken('dialog', 'padding') aui.token('space-2');
+  }
+
+  .aui-dialog__title {
+    margin: 0;
+    font-size: aui.token('font-size-lg');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-dialog__close {
+    flex: none;
+    margin-block-start: calc(-1 * #{aui.token('space-1')});
+    margin-inline-end: calc(-1 * #{aui.token('space-2')});
+  }
+
+  .aui-dialog__description {
+    margin: 0;
+    padding-inline: aui.ctoken('dialog', 'padding');
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-dialog__body {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    padding: aui.token('space-3') aui.ctoken('dialog', 'padding');
+    overflow: auto;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-dialog__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: aui.token('space-2');
+    padding: aui.token('space-3') aui.ctoken('dialog', 'padding') aui.ctoken('dialog', 'padding');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Narrow viewports: actions stack full-width for reachable touch targets (SPEC section 12).
+  @media (max-width: 480px) {
+    .aui-dialog__footer {
+      flex-direction: column-reverse;
+
+      .aui-button {
+        inline-size: 100%;
+      }
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-dialog {
+      border-color: CanvasText;
+    }
+  }
+}

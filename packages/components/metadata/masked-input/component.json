@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "name": "masked-input",
+  "displayName": "Masked Input",
+  "category": "Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { MaskedInput } from '@absoluteui/components/masked-input';",
+  "styleImport": "@absoluteui/components/masked-input/style.css",
+  "purpose": "A text field that formats input against a pattern mask (phone numbers, IBANs, postal codes, fixed-shape codes). Typed and pasted characters fill the next free slots, Backspace and Delete skip literals, and the caret keeps its logical position. The value is the raw text; formattedValue adds the literals. A Form control with a hidden input submitting the raw or formatted value.",
+  "whenToUse": [
+    "Values with one fixed shape: national phone numbers, IBANs, postal codes, account or reference numbers.",
+    "Codes where showing the separators while typing prevents errors."
+  ],
+  "whenNotToUse": [
+    "Dates and times: use Date Input or Date Picker, which validate real dates and respect the business calendar.",
+    "Formats that vary a lot (UK postcodes, international addresses, names): use Text Input with pattern or validate.",
+    "Numbers with locale grouping and decimals: use Number Input.",
+    "One-time codes: use OTP Input."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities", "@absoluteui/icons"],
+  "states": ["empty", "partially filled", "complete", "template shown (focused)", "required", "disabled", "read-only", "invalid (incomplete or custom)"],
+  "responsive": "The field fills its container.",
+  "rtl": "Label and chrome follow the document direction; the value is left to right by default (phone numbers, codes, IBANs), configurable with direction.",
+  "theme": "Global tokens only (field surface, focus ring, error color). Forced colors use the system colors of the native input.",
+  "timezone": "Not applicable. The date presets only shape digits; they do not validate dates (use Date Input for that).",
+  "security": "The value is set as plain text on a native input; custom token patterns are tested one character at a time. No HTML is rendered.",
+  "dataHandling": "No persistence, network access, or telemetry. autocomplete is off unless set (presets set tel and postal-code).",
+  "performance": {
+    "budgets": [
+      { "metric": "MaskedInput.create, per instance", "budget": "< 2 ms average in headless Chromium" },
+      { "metric": "Reformat per keystroke", "budget": "O(mask length)" }
+    ],
+    "testedScale": "Masks up to 64 slots; paste of 1,000 characters."
+  },
+  "limitations": [
+    "Edits are applied through beforeinput, so the browser's undo and redo do not apply to the field (Ctrl+Z does nothing).",
+    "Each mask has one shape; optional trailing slots are expressed with minLength (for example IBAN lengths 15 to 34).",
+    "IME composition is re-parsed after the composition commits."
+  ],
+  "unsupported": [
+    "Alternative masks chosen by the typed value (for example different phone formats per country).",
+    "Numeric masks with locale grouping, decimals, or currency."
+  ],
+  "antiPatterns": [
+    "Using a mask as the only description of the format (keep the label clear; the format hint is generated for screen readers).",
+    "Masking dates instead of using Date Input."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/masked-input: AuiMaskedInput component (<aui-masked-input>, [(value)], formControl).",
+    "react": "@absoluteui/react/masked-input: AuiMaskedInput component (value, onValueChange).",
+    "vue": "@absoluteui/vue/masked-input: AuiMaskedInput component (v-model)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

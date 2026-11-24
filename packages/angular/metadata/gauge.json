@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/gauge",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiGauge",
+      "description": "AbsoluteUI Gauge: `<aui-gauge>`.",
+      "selector": "aui-gauge",
+      "exportAs": [
+        "auiGauge"
+      ],
+      "source": "generated",
+      "component": "gauge",
+      "configKey": "gauge",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "What is measured: visible title and the accessible name of the meter (aria-labelledby)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible text below the gauge (text only). Not referenced by aria-describedby."
+        },
+        {
+          "name": "value",
+          "type": "number | null",
+          "required": true,
+          "description": "Current value. null (or a non-finite number) shows an em dash and the value text \"No value\"; aria-valuenow is removed. Values outside min-max are clamped on the arc and in aria-valuenow; the value text keeps the real value."
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Range start (finite)."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": "Range end (finite, greater than min)."
+        },
+        {
+          "name": "bands",
+          "type": "readonly GaugeBand[]",
+          "required": false,
+          "description": "Qualitative bands { to: number, label: string, color?: 1-8 } in ascending to order; the first band starts at min. Drawn as a thin arc outside the track; the current band's label is printed under the reading and appended to the value text."
+        },
+        {
+          "name": "target",
+          "type": "number",
+          "required": false,
+          "description": "Target value marked across the arc; appended to the value text (\"target 60%\")."
+        },
+        {
+          "name": "color",
+          "type": "GaugeColor",
+          "required": false,
+          "description": "Palette slot of the value arc. Default: the current band's color (its color, else its position), else 1."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for the reading, range ends, target, and value text."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat everywhere."
+        },
+        {
+          "name": "valueText",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated aria-valuetext."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']. The gauge uses palette, gridColor (track), fontFamily, textColor (range and band labels), and animation."
+        },
+        {
+          "name": "showRange",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Print the formatted min and max under the ends of the arc."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Accepted for configuration consistency; the gauge is not mirrored (min at the lower left, clockwise to max at the lower right)."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Static meter: svg role=\"meter\" (WAI-ARIA 1.2) named by the title, with aria-valuenow/min/max and an aria-valuetext that names the band and the target.",
+        "source": "packages/components/metadata/gauge/accessibility.json"
+      },
+      "limitations": [
+        "Fixed 240 degree arc; no needle, no ticks between the range ends.",
+        "Not interactive: no tooltip and no keyboard focus.",
+        "Not mirrored in RTL.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiGauge } from '@absoluteui/angular/gauge';\nimport type { GaugeBand } from '@absoluteui/components/gauge';\n\n@Component({\n  selector: 'app-cpu',\n  imports: [AuiGauge],\n  template: `<aui-gauge label=\"CPU load\" [value]=\"load\" [bands]=\"bands\" [target]=\"60\"></aui-gauge>`,\n})\nexport class CpuComponent {\n  readonly load = 72;\n  readonly bands: GaugeBand[] = [{ to: 50, label: 'Normal' }, { to: 80, label: 'Busy' }, { to: 100, label: 'Critical' }];\n}"
+    }
+  ]
+}

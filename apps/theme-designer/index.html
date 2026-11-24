@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Theme Designer | AbsoluteUI</title>
+    <meta name="description" content="Design an AbsoluteUI theme family, preview every component live, and check it against WCAG 2.2 AA before you export it.">
+    <link rel="canonical" href="https://aui.kasadara.com/designer/">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="fonts/cairo.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="c/accordion.css">
+    <link rel="stylesheet" href="c/alert.css">
+    <link rel="stylesheet" href="c/bar-chart.css">
+    <link rel="stylesheet" href="c/button.css">
+    <link rel="stylesheet" href="c/line-chart.css">
+    <link rel="stylesheet" href="c/select.css">
+    <link rel="stylesheet" href="c/switch.css">
+    <link rel="stylesheet" href="c/tabs.css">
+    <link rel="stylesheet" href="c/text-input.css">
+    <link rel="stylesheet" href="designer.css">
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <a class="td-skip" href="#preview">Skip to preview</a>
+    <header class="td-site">
+      <a class="td-site-brand" href="/" aria-label="AbsoluteUI home">
+        <img src="logo-light.svg" alt="" width="34" height="34">
+        <span>AbsoluteUI</span>
+      </a>
+      <span class="td-product">Theme Designer</span>
+      <nav class="td-site-nav" aria-label="AbsoluteUI">
+        <a href="/components/">Components</a>
+        <a href="/blocks/">Blocks</a>
+        <a href="/docs/guides/theming/">Theming guide</a>
+        <a href="/docs/">Docs</a>
+      </nav>
+      <a class="td-btn td-btn-primary td-btn-sm" href="/docs/getting-started/installation/">Get started</a>
+    </header>
+    <div class="td-header">
+      <div class="td-brand">
+        <span class="td-family" id="family-title"></span>
+        <span class="td-badge" id="status-badge" role="status"></span>
+      </div>
+      <div class="td-toolbar" id="toolbar" role="group" aria-label="Designer controls"></div>
+    </div>
+    <section class="td-intro" aria-labelledby="workspace-title">
+      <div class="td-intro-content">
+        <p class="td-eyebrow">A LITTLE CHARACTER. EVERY COMPONENT.</p>
+        <h1 id="workspace-title">Your vision.<br>Your <span class="td-title-accent">design language.</span></h1>
+        <p class="td-intro-copy">Turn a few thoughtful choices into a cohesive interface. Shape your colors, fine-tune the details, and watch your theme come to life.</p>
+        <nav class="td-workflow" aria-label="Workspace navigation"><a href="#h-editor"><span>01</span> Customize</a><a href="#preview"><span>02</span> Preview</a><a href="#compliance"><span>03</span> Validate</a></nav>
+      </div>
+      <div class="td-illustration" aria-hidden="true">
+        <svg viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+          <circle cx="268" cy="160" r="133" fill="#e0dffe"/>
+          <circle class="td-vector-orbit" cx="268" cy="160" r="106" stroke="#a59cfe" stroke-dasharray="4 8"/>
+          <path class="td-vector-guide" d="M65 231H132V67H420V245H370" stroke="#8874fb" stroke-width="2" stroke-dasharray="5 7"/>
+          <g class="td-vector-board">
+            <rect x="134" y="60" width="288" height="205" rx="19" fill="#c5d1e8"/>
+            <rect x="128" y="51" width="288" height="205" rx="19" fill="white" stroke="#243964" stroke-width="2"/>
+            <path d="M128 89H416" stroke="#dce2ef" stroke-width="2"/>
+            <circle cx="148" cy="71" r="4" fill="#70ccf2"/><circle cx="162" cy="71" r="4" fill="#a3e2fe"/><circle cx="176" cy="71" r="4" fill="#b2c2df"/>
+            <rect x="149" y="111" width="73" height="123" rx="9" fill="#eff2f8"/>
+            <rect x="161" y="125" width="49" height="9" rx="4.5" fill="#7e60fe"/>
+            <rect x="161" y="148" width="37" height="7" rx="3.5" fill="#c9d5ea"/><rect x="161" y="169" width="45" height="7" rx="3.5" fill="#c9d5ea"/><rect x="161" y="190" width="32" height="7" rx="3.5" fill="#c9d5ea"/>
+            <rect x="238" y="112" width="111" height="12" rx="6" fill="#23365d"/>
+            <rect x="238" y="135" width="155" height="7" rx="3.5" fill="#dae1ee"/>
+            <rect x="238" y="150" width="107" height="7" rx="3.5" fill="#dae1ee"/>
+            <rect x="238" y="177" width="69" height="44" rx="8" fill="#e9e8ff"/>
+            <rect x="320" y="177" width="73" height="44" rx="8" fill="#eaf1ff"/>
+            <path d="M250 208l11-13 12 5 20-13" stroke="#6f38fc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="m333 201 8 8 17-20" stroke="#768bb4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <g class="td-vector-palette">
+            <rect x="51" y="151" width="112" height="119" rx="15" fill="#c6dbe5"/>
+            <rect x="46" y="145" width="112" height="119" rx="15" fill="#f7fafe" stroke="#243964" stroke-width="2"/>
+            <rect x="59" y="159" width="37" height="37" rx="9" fill="#6f38fc"/>
+            <rect x="106" y="159" width="37" height="37" rx="9" fill="#155dfb"/>
+            <rect x="59" y="206" width="37" height="37" rx="9" fill="#00b9ee"/>
+            <rect x="106" y="206" width="37" height="37" rx="9" fill="#0a81ff"/>
+          </g>
+          <g class="td-vector-type">
+            <rect x="369" y="18" width="96" height="91" rx="15" fill="#59d0ff"/>
+            <rect x="363" y="12" width="96" height="91" rx="15" fill="#0a81ff" stroke="#243964" stroke-width="2"/>
+            <path d="m380 77 17-46h5l17 46m-32-14h24m15 13V52m0 12c0-16 22-16 22 0v12m0-17v17" stroke="#243964" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <g class="td-vector-cursor"><path d="m357 237 9 41 11-13 16-3-36-25Z" fill="#6f38fc" stroke="#243964" stroke-width="2" stroke-linejoin="round"/></g>
+          <path class="td-vector-star" d="M88 45v25M76 57h25M451 212v23m-11-12h23" stroke="#00b9ee" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="191" cy="290" r="5" fill="#0a81ff"/><circle cx="456" cy="154" r="4" fill="#6f38fc"/>
+        </svg>
+      </div>
+    </section>
+    <div class="td-shell">
+      <section class="td-editor" aria-labelledby="h-editor">
+        <div class="td-panel-heading"><div><p class="td-eyebrow">THE FOUNDATION</p><h2 id="h-editor">Theme editor</h2></div></div>
+        <div id="editor"></div>
+      </section>
+      <main class="td-preview" id="preview" tabindex="-1" aria-labelledby="h-preview">
+        <div class="td-panel-heading td-preview-heading"><div><p class="td-eyebrow">WATCH IT COME TOGETHER</p><h2 id="h-preview">Live preview</h2></div><span class="td-live-indicator">Live canvas</span></div>      </main>
+      <aside class="td-compliance" id="compliance" aria-labelledby="h-compliance">
+        <div class="td-panel-heading"><div><p class="td-eyebrow">DESIGN WITH CONFIDENCE</p><h2 class="td-section-title" id="h-compliance">Accessibility check</h2></div></div>
+        <p class="td-hint">Token-level assessment against WCAG 2.2 AA and AbsoluteUI guidelines. Verify rendered pages too.</p>
+      </aside>
+    </div>
+    <footer class="td-footer">
+      <p>(c) 2026 Kasadara Technology Solutions Pvt Ltd. AbsoluteUI is open source under the Apache License 2.0 (<a href="/license/">license</a>), Kasadara's contribution to the open-source community. <a href="https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI" rel="noopener">Source on GitHub</a>. Your themes are saved only in this browser.</p>
+      <ul aria-label="Legal">
+        <li><a href="/privacy/">Privacy Policy</a></li>
+        <li><a href="/terms/">Terms of Use</a></li>
+        <li><a href="/security/">Security</a></li>
+        <li><a href="/notices/">Third-party notices</a></li>
+        <li><button class="td-link-button" type="button" data-consent-reset>Cookie settings</button></li>
+      </ul>
+    </footer>
+    <div class="td-visually-hidden" id="announcer" aria-live="polite"></div>
+  </body>
+</html>

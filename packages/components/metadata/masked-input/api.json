@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "component": "masked-input",
+  "factory": { "name": "MaskedInput.create", "signature": "MaskedInput.create(host: HTMLElement, options: MaskedInputOptions): MaskedInput" },
+  "configKey": "maskedInput",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "mask", "type": "string", "required": true, "globallyConfigurable": false, "description": "Pattern: 9 digit, a letter, * letter or digit, custom token characters, \\ escapes; anything else is a literal." },
+    { "name": "tokens", "type": "Readonly<Record<string, MaskToken>>", "required": false, "globallyConfigurable": false, "description": "Custom tokens { pattern, transform?, description? }; override built-ins with the same character." },
+    { "name": "value", "type": "string", "default": "''", "required": false, "globallyConfigurable": false, "description": "Initial raw value (formatted text is accepted and parsed); also restored by reset()." },
+    { "name": "minLength", "type": "number", "required": false, "globallyConfigurable": false, "description": "Raw characters needed for a complete value (default: every slot)." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name (hidden input)." },
+    { "name": "submit", "type": "'raw' | 'formatted'", "default": "raw", "required": false, "globallyConfigurable": false, "description": "What the hidden input and getFormValue() carry." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Shown while empty and unfocused (default: the template with placeholder characters)." },
+    { "name": "example", "type": "string", "required": false, "globallyConfigurable": false, "description": "Example value read in the generated format hint." },
+    { "name": "formatHint", "type": "string", "required": false, "globallyConfigurable": false, "description": "Replaces the generated format hint." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Empty value is invalid; shows the required indicator." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the field." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Focusable and submitted, not editable." },
+    { "name": "inputMode", "type": "'numeric' | 'text' | 'tel' | 'decimal'", "required": false, "globallyConfigurable": false, "description": "Virtual keyboard hint (default numeric for digit-only masks)." },
+    { "name": "autocomplete", "type": "string", "default": "off", "required": false, "globallyConfigurable": false, "description": "Native autocomplete token." },
+    { "name": "direction", "type": "'ltr' | 'rtl' | 'auto'", "default": "ltr", "required": false, "globallyConfigurable": false, "description": "Text direction of the value." },
+    { "name": "validate", "type": "(value: string, context: { formattedValue: string; complete: boolean }) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation (for example a checksum); return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<{ error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "placeholderChar", "type": "string", "default": "_", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Character shown in empty slots while the template is visible." },
+    { "name": "showMaskOnFocus", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show the whole template while focused." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message locale." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "input", "type": "HTMLInputElement", "description": "The native input." },
+    { "name": "value", "type": "string", "description": "Raw value: slot characters only." },
+    { "name": "formattedValue", "type": "string", "description": "The value with literals, up to the last filled slot." },
+    { "name": "complete", "type": "boolean", "description": "At least minLength (default every) slot is filled." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the initial value." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<MaskedInputOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: string): void", "description": "Set from raw or formatted text; characters that fit no slot are dropped (no event)." },
+    { "name": "update", "signature": "update(options: Partial<MaskedInputOptions>): void", "description": "Merge and apply options; a new mask re-fits the value." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error; cleared when the user edits." },
+    { "name": "getFormValue", "signature": "getFormValue(): string", "description": "Raw or formatted value, per submit." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the input." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-input", "detail": "MaskedInputValueDetail", "bubbles": true, "cancelable": false, "description": "The raw value changed: { value, formattedValue, complete, validity }." },
+    { "name": "aui-change", "detail": "MaskedInputValueDetail", "bubbles": true, "cancelable": false, "description": "Focus left with a changed value." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-masked-input", "description": "Host." },
+    { "name": "aui-masked-input--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __required | __description | __error", "description": "Shared field chrome." },
+    { "name": "aui-masked-input__input", "description": "Native input showing the formatted value." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

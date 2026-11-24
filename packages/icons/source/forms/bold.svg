@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="bold">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 5h6a3.5 3.5 0 0 1 0 7H7z"/>
+      <path d="M7 12h7a3.5 3.5 0 0 1 0 7H7z"/>
+    </g>
+  </g>
+</svg>

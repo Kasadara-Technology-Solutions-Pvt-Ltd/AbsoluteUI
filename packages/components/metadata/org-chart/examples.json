@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "component": "org-chart",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "A company chart from flat nodes",
+      "language": "ts",
+      "code": "import { OrgChart, type OrgChartNode, type OrgChartNodeSelectDetail } from '@absoluteui/components/org-chart';\n\nconst nodes: OrgChartNode[] = [\n  { id: 'ceo', parentId: null, label: 'Ada Lovelace', title: 'Chief Executive Officer' },\n  { id: 'cto', parentId: 'ceo', label: 'Grace Hopper', title: 'Chief Technology Officer' },\n  { id: 'cfo', parentId: 'ceo', label: 'Mary Jackson', title: 'Chief Financial Officer' },\n  { id: 'eng', parentId: 'cto', label: 'Margaret Hamilton', title: 'Engineering Lead', description: 'Boston' },\n];\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chart = OrgChart.create(host, { label: 'Company structure', nodes });\nhost.addEventListener('aui-node-select', (event) => {\n  const { node } = (event as CustomEvent<OrgChartNodeSelectDetail>).detail;\n  host.dataset.selected = node.label;\n});\nchart.fit();"
+    },
+    {
+      "id": "lazy",
+      "title": "Load teams on demand and find a person",
+      "language": "ts",
+      "code": "import { OrgChart, type OrgChartLoadErrorDetail, type OrgChartNode } from '@absoluteui/components/org-chart';\nimport { TextInput } from '@absoluteui/components/text-input';\n\nconst top: OrgChartNode[] = [\n  { id: 'ceo', parentId: null, label: 'Ada Lovelace', title: 'CEO' },\n  { id: 'sales', parentId: 'ceo', label: 'Sales', title: 'Division', hasChildren: true },\n  { id: 'ops', parentId: 'ceo', label: 'Operations', title: 'Division', hasChildren: true },\n];\n\nconst host = document.querySelector<HTMLElement>('#org');\nif (host) {\n  const chart = OrgChart.create(host, {\n    label: 'Organization',\n    nodes: top,\n    orientation: 'horizontal',\n    requestTimeoutMs: 10_000,\n    loadChildren: async (node, signal) => {\n      const response = await fetch(`/api/people?manager=${encodeURIComponent(node.id)}`, { signal });\n      if (!response.ok) throw new Error(`Team request failed: ${String(response.status)}`);\n      return (await response.json()) as OrgChartNode[];\n    },\n  });\n  host.addEventListener('aui-load-error', (event) => {\n    host.dataset.failed = (event as CustomEvent<OrgChartLoadErrorDetail>).detail.id;\n  });\n  const searchHost = document.createElement('div');\n  const search = TextInput.create(searchHost, { label: 'Find a person', hideLabel: true, type: 'search' }).input;\n  search.addEventListener('change', () => {\n    const first = chart.search(search.value)[0];\n    if (first) chart.reveal(first, { select: true });\n  });\n  host.before(searchHost);\n}"
+    },
+    {
+      "id": "editing",
+      "title": "Restructure teams with undo, and save the result",
+      "language": "ts",
+      "code": "import { OrgChart, type OrgChartNode, type OrgChartNodeMoveDetail } from '@absoluteui/components/org-chart';\nimport { Button } from '@absoluteui/components/button';\n\nlet saved: OrgChartNode[] = [\n  { id: 'lead', parentId: null, label: 'Team Lead', locked: true },\n  { id: 'a', parentId: 'lead', label: 'Alex Kim', title: 'Designer' },\n  { id: 'b', parentId: 'lead', label: 'Sam Lee', title: 'Developer' },\n  { id: 'c', parentId: 'b', label: 'Robin Park', title: 'Intern' },\n];\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chart = OrgChart.create(host, {\n  label: 'Team',\n  nodes: saved,\n  editable: true,\n  // Interns stay with developers.\n  canMove: (node, parent) => node.title !== 'Intern' || parent?.title === 'Developer',\n});\nhost.addEventListener('aui-node-move', (event) => {\n  saved = (event as CustomEvent<OrgChartNodeMoveDetail>).detail.nodes;\n});\nconst undo = document.createElement('button');\nundo.type = 'button';\nundo.textContent = 'Undo last move';\nButton.enhance(undo);\nundo.addEventListener('click', () => {\n  chart.undo();\n});\nhost.after(undo);"
+    },
+    {
+      "id": "custom-card",
+      "title": "Custom card content and export",
+      "language": "ts",
+      "code": "import { OrgChart } from '@absoluteui/components/org-chart';\nimport { downloadOrgChart } from '@absoluteui/components/org-chart-export';\nimport { Button } from '@absoluteui/components/button';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chart = OrgChart.create(host, {\n  label: 'Board',\n  nodes: [\n    { id: 'chair', parentId: null, label: 'Chair', title: 'Jordan Blake' },\n    { id: 'audit', parentId: 'chair', label: 'Audit committee', title: '3 members' },\n  ],\n  nodeWidth: 240,\n  nodeHeight: 64,\n  // Non-interactive content only: the card is part of the treeitem.\n  renderNode: (node, { doc, childCount }) => {\n    const box = doc.createElement('span');\n    const name = doc.createElement('strong');\n    name.textContent = node.label;\n    const meta = doc.createElement('span');\n    meta.textContent = `, ${node.title ?? ''}${childCount > 0 ? `, ${String(childCount)} reports` : ''}`;\n    box.append(name, meta);\n    return box;\n  },\n});\nconst save = document.createElement('button');\nsave.type = 'button';\nsave.textContent = 'Download PNG';\nButton.enhance(save);\nsave.addEventListener('click', () => {\n  void downloadOrgChart(chart, { format: 'png', fileName: 'board' });\n});\nhost.after(save);"
+    },
+    {
+      "id": "layout-function",
+      "title": "Pure layout (no DOM)",
+      "language": "ts",
+      "code": "import { layoutOrgChart } from '@absoluteui/components/org-chart';\n\nconst layout = layoutOrgChart(\n  [{ id: 'a', children: [{ id: 'b', children: [] }, { id: 'c', children: [] }] }],\n  { nodeWidth: 120, nodeHeight: 40, siblingGap: 16, levelGap: 32, orientation: 'vertical' },\n);\nconst root = layout.boxes.get('a');\ndocument.body.dataset.size = `${String(layout.width)}x${String(layout.height)} root at ${String(root?.x ?? 0)}`;"
+    },
+    {
+      "id": "global-config",
+      "title": "Left-to-right charts with smaller cards everywhere",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { orgChart: { orientation: 'horizontal', nodeWidth: 180, nodeHeight: 56, expandDepth: 1 } } });"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "tour",
+  "examples": [
+    {
+      "id": "onboarding",
+      "title": "Dashboard onboarding",
+      "language": "ts",
+      "code": "import { Tour, type TourFinishDetail, type TourSkipDetail } from '@absoluteui/components/tour';\n\nconst search = document.createElement('input');\nsearch.id = 'global-search';\nsearch.setAttribute('aria-label', 'Search');\nconst start = document.createElement('button');\nstart.type = 'button';\nstart.textContent = 'Take the tour';\nconst host = document.createElement('div');\ndocument.body.append(search, start, host);\nconst tour = Tour.create(host, {\n  steps: [\n    { id: 'welcome', title: 'Welcome to PeopleHub', content: 'A one-minute tour of the dashboard.' },\n    { id: 'search', title: 'Search', content: 'Find people, documents, and pages.', target: '#global-search' },\n    { id: 'help', title: 'Help', content: 'Restart this tour from the Help menu.', target: '#help-menu' },\n  ],\n  dots: true,\n});\nhost.addEventListener('aui-finish', (event) => {\n  host.dataset.completed = String((event as CustomEvent<TourFinishDetail>).detail.completed);\n});\nhost.addEventListener('aui-skip', (event) => {\n  host.dataset.skippedAt = (event as CustomEvent<TourSkipDetail>).detail.stepId;\n});\nstart.addEventListener('click', () => {\n  void tour.start();\n});"
+    },
+    {
+      "id": "modal-hook",
+      "title": "Modal steps with a hook that prepares the target",
+      "language": "ts",
+      "code": "import { Tour, type TourStepMissingDetail } from '@absoluteui/components/tour';\n\nconst panel = document.createElement('details');\nconst summary = document.createElement('summary');\nsummary.textContent = 'Filters';\nconst button = document.createElement('button');\nbutton.textContent = 'Apply';\npanel.append(summary, button);\nconst host = document.createElement('div');\ndocument.body.append(panel, host);\nconst tour = Tour.create(host, {\n  modal: true,\n  steps: [\n    {\n      id: 'apply',\n      title: 'Apply filters',\n      content: 'Your filters take effect when you apply them.',\n      target: () => button,\n      placement: 'right',\n      onBeforeShow: () => {\n        panel.open = true;\n      },\n    },\n  ],\n});\nhost.addEventListener('aui-step-missing', (event) => {\n  host.dataset.missing = (event as CustomEvent<TourStepMissingDetail>).detail.reason;\n});\nvoid tour.start();"
+    }
+  ]
+}

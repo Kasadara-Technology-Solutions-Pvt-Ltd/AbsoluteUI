@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "popover",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Filters popover on a button",
+      "language": "ts",
+      "code": "import { Popover } from '@absoluteui/components/popover';\nimport { Button } from '@absoluteui/components/button';\nimport { Checkbox } from '@absoluteui/components/checkbox';\n\nconst trigger = document.createElement('button');\ntrigger.type = 'button';\ntrigger.textContent = 'Filters';\nButton.enhance(trigger);\ndocument.body.append(trigger);\nconst form = document.createElement('div');\nconst onlyActive = document.createElement('div');\nform.append(onlyActive);\nCheckbox.create(onlyActive, { label: 'Only active' });\nPopover.create(trigger, { title: 'Filters', content: form, showCloseButton: true });"
+    },
+    {
+      "id": "guard-close",
+      "title": "Keep open while a draft is unsaved",
+      "language": "ts",
+      "code": "import { Popover, type PopoverCloseDetail } from '@absoluteui/components/popover';\nimport { Button } from '@absoluteui/components/button';\nimport { Textarea } from '@absoluteui/components/textarea';\n\nconst trigger = document.createElement('button');\ntrigger.type = 'button';\ntrigger.textContent = 'Add note';\nButton.enhance(trigger);\ndocument.body.append(trigger);\nconst noteHost = document.createElement('div');\nconst note = Textarea.create(noteHost, { label: 'Note' }).textarea;\nconst popover = Popover.create(trigger, { label: 'Add note', content: noteHost, placement: 'right-start' });\npopover.element.addEventListener('aui-cancel', (event) => {\n  const { reason } = (event as CustomEvent<PopoverCloseDetail>).detail;\n  if (reason === 'outside-pointer' && note.value !== '') event.preventDefault();\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Global defaults",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { popover: { placement: 'bottom-end', showCloseButton: true } } });"
+    }
+  ]
+}

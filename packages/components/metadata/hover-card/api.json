@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "component": "hover-card",
+  "factory": { "name": "HoverCard.create", "signature": "HoverCard.create(trigger: HTMLElement, options: HoverCardOptions): HoverCard" },
+  "configKey": "hoverCard",
+  "options": [
+    { "name": "content", "type": "Node | string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Card content. Strings render as text (non-empty); Nodes are inserted as given. Inserted at construction and again only when update() passes content." },
+    { "name": "describe", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "The trigger references the card with aria-describedby (added to existing ids). Set false for long or highly interactive cards." },
+    { "name": "placement", "type": "Placement", "default": "bottom", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Preferred side and logical alignment; flips and shifts to fit." },
+    { "name": "showDelay", "type": "integer (0..5000)", "default": 600, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Delay before showing on hover or keyboard focus, ms. 0 shows synchronously." },
+    { "name": "hideDelay", "type": "integer (0..5000)", "default": 300, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Grace period after the pointer leaves trigger and card before hiding, ms. Always asynchronous, so the pointer can move onto the card." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Resolves logical start/end placements." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLDivElement", "description": "The card (div.aui-hover-card, popover=manual), inserted right after the trigger." },
+    { "name": "trigger", "type": "HTMLElement", "description": "The trigger element." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the card is visible." },
+    { "name": "options", "type": "Readonly<HoverCardOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "show", "signature": "show(): void", "description": "Show immediately, clearing an Escape dismissal; hides any other visible hover card." },
+    { "name": "hide", "signature": "hide(): void", "description": "Hide immediately (reason 'programmatic'); focus inside the card moves to the trigger." },
+    { "name": "update", "signature": "update(options: Partial<HoverCardOptions>): void", "description": "Merge and apply options; content is replaced only when passed; repositions when open. A failed update keeps the previous options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Hide; remove the card, the trigger aria-describedby reference, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "After the card became visible (dispatched on the card element)." },
+    { "name": "aui-close", "detail": "{ reason: 'escape' | 'pointer-leave' | 'focus-out' | 'outside-pointer' | 'programmatic' }", "bubbles": false, "cancelable": false, "description": "After the card was hidden. 'programmatic' covers hide(), destroy(), and another hover card showing." }
+  ],
+  "contentAreas": [
+    { "name": "content", "description": "The card element's children (the content option). Framework-owned nodes appended to element survive updates that do not pass content." }
+  ],
+  "cssClasses": [
+    { "name": "aui-hover-card", "description": "Card element (manual popover, top layer); data-placement holds the final placement." },
+    { "name": "aui-hover-card--static", "description": "Set on show when animation is disabled globally or by reduced motion." }
+  ],
+  "iconSlots": []
+}

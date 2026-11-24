@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="video-off" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3" y="6.5" width="12" height="11" rx="2"/>
+      <path d="M15 10.5l6-3.5v10l-6-3.5"/>
+      <line x1="3" y1="3" x2="21" y2="21" data-knockout="5"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <path d="M3 3l18 18"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <rect x="2" y="5.5" width="14" height="13" rx="2.5"/>
+      <path d="M17 10l5-3v10l-5-3z"/>
+      <line x1="3" y1="3" x2="21" y2="21" data-knockout="5"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <line x1="3" y1="3" x2="21" y2="21" data-outline-width="2"/>
+    </g>
+  </g>
+</svg>

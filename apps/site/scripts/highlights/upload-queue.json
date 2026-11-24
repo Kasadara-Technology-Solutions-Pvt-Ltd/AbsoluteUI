@@ -1,0 +1,7 @@
+[
+  { "title": "Bring your transport", "text": "You supply the upload function; fetch, XHR, or chunked uploads all fit." },
+  { "title": "Progress per file", "text": "Each item shows its progress, status, and size as it uploads." },
+  { "title": "Cancel and retry", "text": "Cancellation aborts the transfer through a signal; failed items can be retried." },
+  { "title": "Concurrency and retries", "text": "Limit parallel uploads and retry failures automatically with a delay." },
+  { "title": "Image previews", "text": "Optional previews for image files while they upload." }
+]

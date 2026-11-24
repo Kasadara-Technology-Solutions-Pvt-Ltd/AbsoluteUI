@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "component": "kbd",
+  "factory": { "name": "Kbd.create", "signature": "Kbd.create(host: HTMLElement, options: KbdOptions): Kbd" },
+  "configKey": "kbd",
+  "options": [
+    { "name": "hotkey", "type": "string", "required": true, "globallyConfigurable": false, "description": "Shortcut in matchesHotkey syntax, such as 'Mod+Shift+K'; 'Plus' is the + key." },
+    { "name": "platform", "type": "'auto' | 'apple' | 'other'", "default": "auto", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Apple shows Command for Mod and modifier symbols; other shows Ctrl and '+' separators; auto detects." },
+    { "name": "size", "type": "'sm' | 'md'", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Keycap size." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of key names." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (receives the classes)." },
+    { "name": "hotkey", "type": "string", "description": "Current hotkey string." },
+    { "name": "text", "type": "string", "description": "The visible shortcut text for the resolved platform." },
+    { "name": "options", "type": "Readonly<KbdOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<KbdOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, classes, and the configuration subscription." }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-kbd", "description": "Host." },
+    { "name": "aui-kbd--sm | --md", "description": "Size modifiers." },
+    { "name": "aui-kbd__combo", "description": "Outer kbd element for the combination." },
+    { "name": "aui-kbd__key", "description": "One keycap (kbd)." },
+    { "name": "aui-kbd__separator", "description": "'+' between keycaps (not on Apple platforms)." }
+  ],
+  "iconSlots": []
+}

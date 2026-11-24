@@ -1,0 +1,60 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-spinner {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-tight');
+    color: aui.token('color-text');
+  }
+
+  .aui-spinner__icon {
+    flex: none;
+    inline-size: aui.token('icon-size-md');
+    block-size: aui.token('icon-size-md');
+    color: aui.token('color-primary');
+    animation: aui-spinner-rotate 0.8s linear infinite;
+  }
+
+  .aui-spinner--sm .aui-spinner__icon {
+    inline-size: aui.token('icon-size-sm');
+    block-size: aui.token('icon-size-sm');
+  }
+
+  .aui-spinner--lg .aui-spinner__icon {
+    inline-size: aui.token('icon-size-lg');
+    block-size: aui.token('icon-size-lg');
+  }
+
+  .aui-spinner__label--hidden {
+    @include aui.visually-hidden;
+  }
+
+  @keyframes aui-spinner-rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  // Reduced motion / animation: none: a static icon; the label still conveys the state.
+  @include aui.reduced-motion {
+    .aui-spinner__icon {
+      animation: none;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-spinner__icon {
+    animation: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-spinner__icon {
+      color: CanvasText;
+    }
+  }
+}

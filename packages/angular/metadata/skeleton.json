@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/skeleton",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSkeleton",
+      "description": "AbsoluteUI Skeleton: `<aui-skeleton>`.",
+      "selector": "aui-skeleton",
+      "exportAs": [
+        "auiSkeleton"
+      ],
+      "source": "generated",
+      "component": "skeleton",
+      "configKey": "skeleton",
+      "inputs": [
+        {
+          "name": "shape",
+          "type": "SkeletonShape",
+          "required": false,
+          "default": "text",
+          "description": "Placeholder shape."
+        },
+        {
+          "name": "lines",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "description": "Text lines (integer 1..100); the last of several lines is 60% wide."
+        },
+        {
+          "name": "width",
+          "type": "string | null",
+          "required": false,
+          "description": "CSS length (px, rem, em, %, ch). null restores the default."
+        },
+        {
+          "name": "height",
+          "type": "string | null",
+          "required": false,
+          "description": "CSS length (px, rem, em, %, ch); per line for text. null restores the default."
+        },
+        {
+          "name": "animation",
+          "type": "SkeletonAnimation",
+          "required": false,
+          "default": "pulse",
+          "configurable": true,
+          "description": "Pulse animation; always none under reduced motion."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Decorative placeholders (aria-hidden) inside a region marked aria-busy, with a separate status message.",
+        "source": "packages/components/metadata/skeleton/accessibility.json"
+      },
+      "limitations": [
+        "The pulse is disabled automatically under prefers-reduced-motion and animation: none.",
+        "Only px, rem, em, %, and ch lengths are accepted."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { AuiSkeleton } from '@absoluteui/angular/skeleton';\n\n@Component({\n  selector: 'app-card',\n  imports: [AuiSkeleton],\n  template: `\n    <section [attr.aria-busy]=\"loading() ? 'true' : null\">\n      @if (loading()) { <aui-skeleton shape=\"text\" [lines]=\"3\"></aui-skeleton> } @else { <p>{{ text() }}</p> }\n    </section>`,\n})\nexport class CardComponent {\n  readonly loading = signal(true);\n  readonly text = signal('');\n}"
+    }
+  ]
+}

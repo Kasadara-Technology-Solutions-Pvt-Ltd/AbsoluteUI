@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/diagram",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDiagram",
+      "description": "AbsoluteUI Diagram: `<aui-diagram>`.\nTwo-way: `[(model)]`.",
+      "selector": "aui-diagram",
+      "exportAs": [
+        "auiDiagram"
+      ],
+      "source": "generated",
+      "component": "diagram",
+      "configKey": "diagram",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the diagram (canvas); the node list is named '{label}: nodes', the connection list '{label}: connections', and the toolbar '{label} controls'. Non-empty."
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Edit mode: palette, ports, moving, connecting, reconnecting, inline labels, copy and paste, delete, marquee selection, undo and redo."
+        },
+        {
+          "name": "layout",
+          "type": "DiagramAutoLayout | null",
+          "required": false,
+          "description": "Auto-layout settings { algorithm?: 'layered' | 'tree', direction?: 'TB' | 'BT' | 'LR' | 'RL', nodeGap?, rankGap?, sweeps?, keepPositions? }. Given on create, the layout runs once (keepPositions keeps nodes that have positions). Also the defaults of layout() and of placing nodes without positions."
+        },
+        {
+          "name": "palette",
+          "type": "readonly DiagramPaletteItem[]",
+          "required": false,
+          "description": "Shapes offered in edit mode: { shape, label, width?, height? }. Default: Step (rounded), Decision (diamond), Start or end (ellipse), Process, Input or output, Document, Database."
+        },
+        {
+          "name": "renderShape",
+          "type": "((node: Readonly<DiagramNode>, context: DiagramShapeContext) => SVGElement)",
+          "required": false,
+          "description": "Draws nodes with shape 'custom' ({ width, height, selected, doc } context): return SVG content in local coordinates. The label is drawn on top; return non-interactive content."
+        },
+        {
+          "name": "canConnect",
+          "type": "((from: Readonly<DiagramNode>, to: Readonly<DiagramNode>) => boolean)",
+          "required": false,
+          "description": "Veto new and changed connections (pointer, keyboard, addEdge). Self connections and exact duplicates are always refused (announced)."
+        },
+        {
+          "name": "historyLimit",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": "Undo depth, integer 0..500 (0 disables history)."
+        },
+        {
+          "name": "showGrid",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Dotted grid on the canvas in edit mode."
+        },
+        {
+          "name": "nodeWidth",
+          "type": "number",
+          "required": false,
+          "default": "160",
+          "configurable": true,
+          "description": "Default node width, integer 40..800 diagram px."
+        },
+        {
+          "name": "nodeHeight",
+          "type": "number",
+          "required": false,
+          "default": "64",
+          "configurable": true,
+          "description": "Default node height, integer 24..600 diagram px."
+        },
+        {
+          "name": "gridSize",
+          "type": "number",
+          "required": false,
+          "default": "16",
+          "configurable": true,
+          "description": "Grid spacing (snap, keyboard move step, grid dots), integer 4..200."
+        },
+        {
+          "name": "snapToGrid",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Snap moved and added nodes to the grid (keyboard moves step by gridSize; off: 1 px)."
+        },
+        {
+          "name": "routing",
+          "type": "DiagramRouting",
+          "required": false,
+          "default": "orthogonal",
+          "configurable": true,
+          "description": "Default edge routing (an edge's own routing wins)."
+        },
+        {
+          "name": "nodeGap",
+          "type": "number",
+          "required": false,
+          "default": "40",
+          "configurable": true,
+          "description": "Auto-layout space between neighbors of one rank, integer 8..400."
+        },
+        {
+          "name": "rankGap",
+          "type": "number",
+          "required": false,
+          "default": "64",
+          "configurable": true,
+          "description": "Auto-layout space between ranks, integer 16..600."
+        },
+        {
+          "name": "minZoom",
+          "type": "number",
+          "required": false,
+          "default": "0.2",
+          "configurable": true,
+          "description": "Smallest zoom factor, 0.05..1."
+        },
+        {
+          "name": "maxZoom",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "configurable": true,
+          "description": "Largest zoom factor, 1..8."
+        },
+        {
+          "name": "textAlternative",
+          "type": "DiagramTextAlternative",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Nodes and connections table below the canvas: behind a Show text description button (toggle), always shown, visually hidden but available to screen readers, or none."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of messages, counts, and zoom percentages."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors auto-layout and the reading order of nodes; arrow keys stay spatial."
+        }
+      ],
+      "models": [
+        {
+          "name": "model",
+          "type": "DiagramModel",
+          "change": "modelChange",
+          "description": "JSON model { nodes, edges, groups? }. Node: { id, label, shape? ('rectangle' | 'rounded' (default) | 'ellipse' | 'diamond' | 'parallelogram' | 'cylinder' | 'document' | 'custom'), x?, y?, width?, height? (16..2000), ports? ({ id, side, offset? }; default one per side: top, right, bottom, left), group?, pinned?, locked?, data? }. Edge: { id, from, to, fromPort?, toPort?, label?, routing?, arrowStart? (default 'none'), arrowEnd? (default 'arrow'; 'none' | 'arrow' | 'triangle' | 'diamond' | 'circle'), dashed?, data? }. Group: { id, label }. Validated (DIAGRAM_OPTIONS). Nodes without x/y are placed by auto-layout. Replacing it with update() clears the undo history."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "DiagramChangeDetail",
+          "event": "aui-change",
+          "description": "The model changed through the UI or an API method. Save detail.model."
+        },
+        {
+          "name": "selected",
+          "payload": "DiagramSelectDetail",
+          "event": "aui-select",
+          "description": "The selection changed through the UI (click, Shift-click, marquee, Space, Ctrl/Cmd+A, Escape, paste, delete). select() does not emit."
+        },
+        {
+          "name": "nodeActivated",
+          "payload": "DiagramNodeActivateDetail",
+          "event": "aui-node-activate",
+          "description": "A node was activated: Enter or double-click in view mode, or double-click on a locked node in edit mode."
+        },
+        {
+          "name": "zoomed",
+          "payload": "DiagramZoomDetail",
+          "event": "aui-zoom",
+          "description": "The zoom changed through the toolbar, keys, Ctrl/Cmd + wheel, or zoomTo (fit does not emit)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "select",
+          "signature": "select(ids: readonly string[]): void",
+          "description": "Replace the selection with these node and edge ids (no event)."
+        },
+        {
+          "name": "focusNode",
+          "signature": "focusNode(id: string): void",
+          "description": "Focus a node and pan it into view."
+        },
+        {
+          "name": "addNode",
+          "signature": "addNode(node: Partial<DiagramNode> & { label: string; }): string | undefined",
+          "description": "Add a node; id, size, and position are filled in (position: a free spot at the view center). Undoable; emits aui-change ('add'); returns the id."
+        },
+        {
+          "name": "addEdge",
+          "signature": "addEdge(edge: Partial<DiagramEdge> & { from: string; to: string; }): string | null | undefined",
+          "description": "Connect two nodes; null when refused (self, duplicate, canConnect). Undoable; emits aui-change ('connect')."
+        },
+        {
+          "name": "updateNode",
+          "signature": "updateNode(id: string, patch: Partial<Omit<DiagramNode, \"id\">>): void",
+          "description": "Change one node or edge (validated). Undoable; emits aui-change ('update')."
+        },
+        {
+          "name": "updateEdge",
+          "signature": "updateEdge(id: string, patch: Partial<Omit<DiagramEdge, \"id\">>): void",
+          "description": "Change one node or edge (validated). Undoable; emits aui-change ('update')."
+        },
+        {
+          "name": "moveNode",
+          "signature": "moveNode(id: string, x: number, y: number): void",
+          "description": "Move a node (snapped when snapToGrid). Undoable; emits aui-change ('move')."
+        },
+        {
+          "name": "remove",
+          "signature": "remove(ids: readonly string[]): void",
+          "description": "Remove nodes (with their edges) and edges. Undoable; emits aui-change ('delete')."
+        },
+        {
+          "name": "undo",
+          "signature": "undo(): boolean | undefined",
+          "description": "Undo / redo the last edit (whole-model snapshots). Announce and emit aui-change ('undo' / 'redo'); false when there is nothing to undo/redo."
+        },
+        {
+          "name": "redo",
+          "signature": "redo(): boolean | undefined",
+          "description": "Undo / redo the last edit (whole-model snapshots). Announce and emit aui-change ('undo' / 'redo'); false when there is nothing to undo/redo."
+        },
+        {
+          "name": "copy",
+          "signature": "copy(): number | undefined",
+          "description": "Copy the selected nodes and the edges between them into the instance clipboard; paste them offset by two grid steps (new ids), select them, emit aui-change ('paste')."
+        },
+        {
+          "name": "paste",
+          "signature": "paste(): string[] | undefined",
+          "description": "Copy the selected nodes and the edges between them into the instance clipboard; paste them offset by two grid steps (new ids), select them, emit aui-change ('paste')."
+        },
+        {
+          "name": "editLabel",
+          "signature": "editLabel(id: string): void",
+          "description": "Open the inline label editor of a node or edge (edit mode). Enter or blur commits, Escape cancels."
+        },
+        {
+          "name": "fit",
+          "signature": "fit(): void",
+          "description": "Scale (at most 100 %) and center the drawing; announces the zoom."
+        },
+        {
+          "name": "zoomTo",
+          "signature": "zoomTo(scale: number): void",
+          "description": "Zoom around the viewport center, clamped to minZoom..maxZoom; announces and emits aui-zoom."
+        },
+        {
+          "name": "centerOn",
+          "signature": "centerOn(id: string): void",
+          "description": "Center the view on a node."
+        },
+        {
+          "name": "describe",
+          "signature": "describe(): string | undefined",
+          "description": "Plain-text description: one line per node with its shape and connections."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "A focusable canvas (group, roledescription 'canvas') containing two multi-select listboxes, one for nodes and one for connections, each with one roving tab stop (WAI-ARIA APG listbox, with spatial arrow navigation for nodes). Each node's accessible name states its label, shape, and connections; a text alternative table lists every node with what it leads to and comes from. Edits have keyboard and single-pointer paths (no deprecated ARIA drag-and-drop attributes) and are announced through live regions.",
+        "source": "packages/components/metadata/diagram/accessibility.json"
+      },
+      "limitations": [
+        "Edges are routed between their end points only; they do not avoid other nodes (layered layout keeps most edges clear).",
+        "Every node and edge is rendered (no virtualization); sized for hundreds of nodes.",
+        "Groups are drawn as boxes around their members; swimlanes and nested groups are not provided.",
+        "Nodes are resized through the model (updateNode), not by dragging handles.",
+        "A plain mouse wheel scrolls the page; zooming needs Ctrl/Cmd + wheel, the toolbar, or keys. Pinch zoom is not provided.",
+        "Reconnecting by keyboard means deleting the connection and connecting again.",
+        "Export draws custom shapes as rounded rectangles.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { DiagramModel, DiagramNodeActivateDetail } from '@absoluteui/components/diagram';\nimport { AuiDiagram } from '@absoluteui/angular/diagram';\n\n@Component({\n  selector: 'app-workflow',\n  imports: [AuiDiagram],\n  template: `<aui-diagram label=\"Leave approval\" [(model)]=\"model\" [editable]=\"true\" (nodeActivated)=\"open($event)\"></aui-diagram>`,\n})\nexport class WorkflowComponent {\n  model: DiagramModel = {\n    nodes: [\n      { id: 'a', label: 'Request', x: 0, y: 0 },\n      { id: 'b', label: 'Manager approval', shape: 'diamond', x: 240, y: 0 },\n    ],\n    edges: [{ id: 'ab', from: 'a', to: 'b' }],\n  };\n\n  open(detail: DiagramNodeActivateDetail): void {\n    // show detail.node in a side panel\n  }\n}"
+    }
+  ]
+}

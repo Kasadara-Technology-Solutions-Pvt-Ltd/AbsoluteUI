@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="tablet">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="3" width="17" height="18" rx="2.5"/>
+      <path d="M11 18h2"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="3" y="2.5" width="18" height="19" rx="3"/>
+      <line x1="10.5" y1="18" x2="13.5" y2="18" data-outline-width="1.75"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="3.5" y="3" width="17" height="18" rx="2.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="3" width="17" height="18" rx="2.5"/>
+      <path d="M11 18h2"/>
+    </g>
+  </g>
+</svg>

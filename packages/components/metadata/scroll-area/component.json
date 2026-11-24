@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "scroll-area",
+  "displayName": "Scroll Area",
+  "category": "Layout",
+  "package": "@absoluteui/components",
+  "import": "import { ScrollArea } from '@absoluteui/components/scroll-area';",
+  "styleImport": "@absoluteui/components/scroll-area/style.css",
+  "purpose": "Enhances an element whose content can overflow: native scrolling, edge fades where more content exists (a CSS mask, no added elements), and, while the content overflows, a named keyboard-focusable region so keyboard users can scroll it. No custom-drawn scrollbars.",
+  "whenToUse": [
+    "A bounded panel with long content: release notes, a log, a terms box, a side list.",
+    "A horizontal strip of cards or chips that scrolls sideways."
+  ],
+  "whenNotToUse": [
+    "The whole page (let the document scroll).",
+    "Large data sets: use Data Table or Data Grid (they virtualize).",
+    "Content that should simply be shorter."
+  ],
+  "internalDependencies": ["@absoluteui/core"],
+  "states": ["overflowing", "not overflowing", "scrolled to start", "scrolled to end", "vertical", "horizontal", "both", "fades on", "fades off"],
+  "responsive": "Takes the size its layout gives it; maxBlockSize caps the height. Native scrolling works with touch, wheel, trackpad, and keyboard.",
+  "rtl": "Horizontal fades follow the scroll position in right-to-left layouts (content starts at the right edge).",
+  "theme": "Component token scroll-area-fade-size (falls back to space-6); focus ring color-focus-ring. Fades are a mask, so they work on any background; they are off in forced colors and while the region has keyboard focus.",
+  "timezone": "Not applicable.",
+  "security": "maxBlockSize accepts only plain CSS lengths and calc/min/max/clamp expressions; it is set through the CSSOM.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "ScrollArea.enhance, per instance", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "Edge state updates at most once per animation frame while scrolling; observers watch the element and its direct children."
+  },
+  "limitations": [
+    "Size changes deeper than the direct children are noticed when a direct child resizes; call refresh() after other changes.",
+    "The fades also fade content at the edge; avoid placing controls there."
+  ],
+  "unsupported": [
+    "Custom scrollbars.",
+    "Virtualized content (use the data components)."
+  ],
+  "antiPatterns": [
+    "Nested scroll areas in the same direction.",
+    "Hiding required content in a scroll area without a hint that more exists."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/scroll-area: AuiScrollArea directive ([auiScrollArea]).",
+    "react": "@absoluteui/react/scroll-area: AuiScrollArea component (renders a div; children stay React-managed).",
+    "vue": "@absoluteui/vue/scroll-area: AuiScrollArea component (renders a div; the default slot stays Vue-managed)."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

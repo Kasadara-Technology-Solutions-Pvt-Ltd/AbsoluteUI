@@ -1,0 +1,42 @@
+---
+// The one 404 page of the website (docs/PLAN-ONE-SITE.md OS-8): Azure Static Web Apps allows one
+// 404 override for the whole site, so the page links every section and, for a missing docs or
+// Theme Designer address, points first to that section's start page (script below).
+import Base from '../layouts/Base.astro';
+import { designer, docs } from '../site';
+---
+
+<Base title="Page not found" description="The page you asked for does not exist." path="/404/">
+  <section class="page-hero">
+    <div class="" aria-hidden="true"></div>
+    <div class="container">
+      <div class="page-hero-inner">
+        <p class="eyebrow">404</p>
+        <h1>This page does not exist</h1>
+        <p class="lead" data-section-lead>It may have moved. Try the search, or start from one of these pages.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/" data-section-home>Home</a>
+          <a class="btn btn-secondary" href="/components/">Components</a>
+          <a class="btn btn-secondary" href={docs()}>Documentation</a>
+          <a class="btn btn-secondary" href={designer()}>Theme Designer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Per-section start page for a missing address under /docs/ or /designer/.
+  const SECTIONS = [
+    { prefix: '/docs/', href: '/docs/', label: 'Documentation home', lead: 'This documentation page may have moved. Search the documentation from its home page.' },
+    { prefix: '/designer/', href: '/designer/', label: 'Open the Theme Designer', lead: 'This Theme Designer address does not exist. The designer itself is one page.' },
+  ];
+  const section = SECTIONS.find((s) => location.pathname.startsWith(s.prefix));
+  const home = document.querySelector<HTMLAnchorElement>('[data-section-home]');
+  const lead = document.querySelector<HTMLElement>('[data-section-lead]');
+  if (section && home && lead) {
+    home.href = section.href;
+    home.textContent = section.label;
+    lead.textContent = section.lead;
+  }
+</script>

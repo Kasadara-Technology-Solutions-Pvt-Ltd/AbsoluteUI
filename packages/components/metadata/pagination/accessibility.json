@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "component": "pagination",
+  "pattern": "Navigation landmark of native buttons (no dedicated APG pattern), following common accessible pagination practice: named buttons, aria-current on the current page, disabled bounds, and announced changes.",
+  "roles": [
+    { "element": "<nav>", "role": "navigation (native landmark)" },
+    { "element": "<ul>", "role": "list (native) of page items" },
+    { "element": "<button>", "role": "button (native)" },
+    { "element": "<select>", "role": "combobox (native select)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "<nav>", "value": "`label` option or localized 'Pagination'" },
+    { "attribute": "aria-label", "element": "page button", "value": "Localized 'Page 3' with a locale-formatted number" },
+    { "attribute": "aria-current", "element": "current page button", "value": "page" },
+    { "attribute": "aria-label", "element": "first/previous/next/last", "value": "Localized 'First page', 'Previous page', 'Next page', 'Last page'" },
+    { "attribute": "aria-hidden", "element": "ellipsis items, icons", "value": "true (decorative)" },
+    { "attribute": "disabled", "element": "previous/next/first/last", "value": "Native disabled at the bounds" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Moves between enabled buttons and the rows-per-page select (native tab order)." },
+    { "key": "Enter / Space", "context": "Button focused", "action": "Activates the button (changes the page)." },
+    { "key": "Arrow keys", "context": "Rows-per-page select focused", "action": "Native select behavior." }
+  ],
+  "focus": "After a page change the page buttons are re-rendered; focus stays on the same control (for example Next, or the page number clicked). When that control becomes disabled or hidden, focus moves to the current page button, then to previous/next.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.10", "2.1.1", "2.4.3", "2.4.7", "4.1.2", "4.1.3"],
+  "notes": [
+    "User page changes are announced through the shared polite live region: the summary ('Showing 11-20 of 57') when the total is known, otherwise 'Page 3 of 10'. Programmatic changes are not announced.",
+    "The rows-per-page select has a visible native label."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

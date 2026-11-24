@@ -1,0 +1,7 @@
+[
+  { "title": "Native form first", "text": "Enhances a plain form element and discovers every AbsoluteUI control inside it, including wrapped native fields." },
+  { "title": "Cross-field rules", "text": "Rules that read several fields, such as matching emails, run on submit and live after the first attempt." },
+  { "title": "Async validation", "text": "An optional server check runs after local constraints, with cancellation and a timeout." },
+  { "title": "Error summary", "text": "A failed submit lists every error as links that move focus to the field." },
+  { "title": "State and server errors", "text": "Tracks dirty, touched, and submitting state, applies server errors, and resets every control consistently." }
+]

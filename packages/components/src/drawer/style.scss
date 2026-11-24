@@ -1,0 +1,198 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-drawer {
+    --aui-drawer-size: #{aui.token('drawer-width-md')};
+    --aui-drawer-hidden: translateX(100%);
+
+    box-sizing: border-box;
+    position: fixed;
+    inset: auto;
+    margin: 0;
+    padding: 0;
+    max-inline-size: 100vw;
+    max-block-size: 100dvh;
+    color: aui.token('color-text');
+    background: aui.ctoken('drawer', 'bg');
+    border: 0 solid aui.token('color-border');
+    border-radius: 0;
+    box-shadow: aui.ctoken('drawer', 'shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    overflow: hidden;
+    transform: var(--aui-drawer-hidden);
+    // display/overlay transition discretely so the exit slide plays before the
+    // element leaves the top layer. The mixin removes it for reduced motion and
+    // data-aui-animation='none'.
+    @include aui.transition(transform, display, overlay, $duration: aui.token('duration-normal'));
+    transition-behavior: allow-discrete;
+
+    &[open] {
+      display: flex;
+      flex-direction: column;
+      transform: none;
+
+      @starting-style {
+        transform: var(--aui-drawer-hidden);
+      }
+    }
+
+    &::backdrop {
+      background: aui.ctoken('drawer', 'backdrop');
+      opacity: 0;
+      @include aui.transition(opacity, display, overlay, $duration: aui.token('duration-normal'));
+      transition-behavior: allow-discrete;
+    }
+
+    &[open]::backdrop {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+  }
+
+  // Non-modal drawers are not in the top layer; keep them above page content.
+  .aui-drawer--non-modal {
+    z-index: 1000;
+  }
+
+  .aui-drawer--sm {
+    --aui-drawer-size: #{aui.token('drawer-width-sm')};
+  }
+
+  .aui-drawer--lg {
+    --aui-drawer-size: #{aui.token('drawer-width-lg')};
+  }
+
+  // Edges are physical: direction is resolved to data-aui-side in TypeScript
+  // (start is the left edge in LTR and the right edge in RTL).
+  .aui-drawer[data-aui-side='left'],
+  .aui-drawer[data-aui-side='right'] {
+    inset-block: 0;
+    inline-size: min(var(--aui-drawer-size), 100vw);
+    block-size: 100dvh;
+  }
+
+  .aui-drawer[data-aui-side='left'] {
+    --aui-drawer-hidden: translateX(-100%);
+
+    left: 0;
+    border-right-width: aui.token('border-width');
+  }
+
+  .aui-drawer[data-aui-side='right'] {
+    --aui-drawer-hidden: translateX(100%);
+
+    right: 0;
+    border-left-width: aui.token('border-width');
+  }
+
+  .aui-drawer[data-aui-side='top'],
+  .aui-drawer[data-aui-side='bottom'] {
+    left: 0;
+    right: 0;
+    inline-size: 100vw;
+    block-size: auto;
+    max-block-size: min(var(--aui-drawer-size), 85dvh);
+  }
+
+  .aui-drawer[data-aui-side='top'] {
+    --aui-drawer-hidden: translateY(-100%);
+
+    top: 0;
+    border-bottom-width: aui.token('border-width');
+  }
+
+  .aui-drawer[data-aui-side='bottom'] {
+    --aui-drawer-hidden: translateY(100%);
+
+    bottom: 0;
+    border-top-width: aui.token('border-width');
+  }
+
+  .aui-drawer__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: aui.token('space-3');
+    padding: aui.ctoken('drawer', 'padding') aui.ctoken('drawer', 'padding') aui.token('space-2');
+  }
+
+  .aui-drawer__title {
+    margin: 0;
+    font-size: aui.token('font-size-lg');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-drawer__close {
+    flex: none;
+    margin-block-start: calc(-1 * #{aui.token('space-1')});
+    margin-inline-end: calc(-1 * #{aui.token('space-2')});
+  }
+
+  .aui-drawer__description {
+    margin: 0;
+    padding-inline: aui.ctoken('drawer', 'padding');
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-drawer__body {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    padding: aui.token('space-3') aui.ctoken('drawer', 'padding');
+    overflow: auto;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-drawer__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: aui.token('space-2');
+    padding: aui.token('space-3') aui.ctoken('drawer', 'padding') aui.ctoken('drawer', 'padding');
+    border-block-start: aui.token('border-width') solid aui.token('color-border');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Narrow viewports: side drawers take the full inline size and actions stack
+  // full-width for reachable touch targets (SPEC section 12).
+  @media (max-width: 479.98px) {
+    .aui-drawer[data-aui-side='left'],
+    .aui-drawer[data-aui-side='right'] {
+      inline-size: 100vw;
+    }
+
+    .aui-drawer__footer {
+      flex-direction: column-reverse;
+
+      .aui-button {
+        inline-size: 100%;
+      }
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-drawer {
+      border-color: CanvasText;
+    }
+  }
+}

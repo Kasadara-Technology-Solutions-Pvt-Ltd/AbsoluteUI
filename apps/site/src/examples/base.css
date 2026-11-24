@@ -1,0 +1,347 @@
+/* Live example page base: page chrome only; AbsoluteUI styles every control. */
+html {
+  color-scheme: light;
+}
+html[data-aui-theme='absolute-dark'] {
+  color-scheme: dark;
+}
+body {
+  margin: 0;
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  font-family: var(--aui-font-family-sans);
+  color: var(--aui-color-text);
+  background: var(--aui-color-bg);
+}
+body > * {
+  max-inline-size: 100%;
+}
+/* Buttons and links keep their own width instead of stretching across the grid track. */
+body > :is(button, a) {
+  justify-self: start;
+}
+
+/* Showcases (R19): heading, option bar, stage, event log. */
+.sc {
+  display: grid;
+  gap: 1rem;
+}
+.sc__title {
+  margin: 0;
+  font-size: var(--aui-font-size-xl);
+}
+.sc__description,
+.sc__simulated {
+  margin: 0;
+  color: var(--aui-color-text-muted);
+}
+.sc__simulated {
+  padding: 0.5rem 0.75rem;
+  border-inline-start: var(--aui-border-width-strong) solid var(--aui-color-info-fg);
+  background: var(--aui-color-info-subtle);
+  color: var(--aui-color-text);
+}
+/* Focus mode (R20-26): the parts about one component; the rest is hidden with the attribute. */
+.sc__focus {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border-inline-start: var(--aui-border-width-strong) solid var(--aui-color-primary);
+  background: var(--aui-color-surface-sunken);
+}
+.sc__focus a {
+  margin-inline-start: 0.25rem;
+  color: var(--aui-color-link);
+}
+.sc__controls[hidden],
+.sc__controls > [hidden],
+.sc__stage [data-components][hidden] {
+  display: none;
+}
+.sc-hint {
+  color: var(--aui-color-text-muted);
+  font-size: var(--aui-font-size-sm);
+}
+/* With sections hidden, a grid gives the remaining ones the full width. */
+.sc--focus .sc-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+.sc__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem 1.25rem;
+  padding: 0.75rem;
+  border: var(--aui-border-width) solid var(--aui-color-border);
+  border-radius: var(--aui-radius-md);
+  background: var(--aui-color-surface-sunken);
+}
+.sc__control {
+  min-inline-size: min(100%, 11rem);
+}
+.sc__stage {
+  display: grid;
+  gap: 1.25rem;
+  min-inline-size: 0;
+}
+.sc__section {
+  display: grid;
+  gap: 0.75rem;
+  min-inline-size: 0;
+}
+.sc__section > h2,
+.sc__log h2 {
+  margin: 0;
+  font-size: var(--aui-font-size-md);
+}
+.sc__log {
+  border-block-start: var(--aui-border-width) solid var(--aui-color-border);
+  padding-block-start: 0.75rem;
+}
+.sc__log-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sc__log-list {
+  margin: 0.5rem 0 0;
+  padding-inline-start: 1.25rem;
+  max-block-size: 10rem;
+  overflow: auto;
+  font-size: var(--aui-font-size-sm);
+  color: var(--aui-color-text-muted);
+}
+.sc__log-list code {
+  color: var(--aui-color-text);
+}
+.sc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+.sc-form {
+  display: grid;
+  gap: 1.25rem;
+}
+.sc-form fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+}
+.sc-form__actions {
+  display: grid;
+  gap: 1.25rem;
+}
+.sc-form__buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+.sc-outputs {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+.sc-outputs > h2 {
+  grid-column: 1 / -1;
+}
+.sc-output {
+  margin: 0;
+  min-inline-size: 0;
+}
+.sc-output figcaption {
+  font-size: var(--aui-font-size-sm);
+  color: var(--aui-color-text-muted);
+  margin-block-end: 0.25rem;
+}
+.sc-output pre {
+  margin: 0;
+  padding: 0.75rem;
+  max-block-size: 14rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: var(--aui-font-size-xs);
+  background: var(--aui-color-surface-sunken);
+  border: var(--aui-border-width) solid var(--aui-color-border);
+  border-radius: var(--aui-radius-md);
+}
+.sc-status {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--aui-radius-md);
+  background: var(--aui-color-surface-sunken);
+}
+.sc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+.sc-shell {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  min-block-size: 30rem;
+  border: var(--aui-border-width) solid var(--aui-color-border);
+  border-radius: var(--aui-radius-md);
+  overflow: hidden;
+}
+.sc-shell__main {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 1rem 0;
+  min-inline-size: 0;
+}
+.sc-shell__title {
+  margin: 0;
+  font-size: var(--aui-font-size-xl);
+}
+.sc-people {
+  margin: 0.75rem 0;
+  padding-inline-start: 1.25rem;
+}
+.sc-shortcuts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0;
+}
+.sc-shortcuts dd {
+  margin: 0;
+}
+.sc-notes {
+  margin: 0;
+  padding-inline-start: 1.5rem;
+}
+.sc-skeleton-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem;
+  border: var(--aui-border-width) solid var(--aui-color-border);
+  border-radius: var(--aui-radius-md);
+}
+.sc-json {
+  margin: 0;
+  padding: 0.75rem;
+  max-block-size: 18rem;
+  overflow: auto;
+  font-size: var(--aui-font-size-xs);
+  background: var(--aui-color-surface-sunken);
+  border: var(--aui-border-width) solid var(--aui-color-border);
+  border-radius: var(--aui-radius-md);
+}
+
+/* Playgrounds (R20-7): stage beside the option panel on wide frames, stacked on narrow ones. */
+.pg {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+@media (min-width: 52rem) {
+  .pg {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
+  }
+}
+.pg__stage-wrap {
+  display: grid;
+  gap: 0.75rem;
+  min-inline-size: 0;
+  padding: 1rem;
+  border: var(--aui-border-width) solid var(--aui-color-border);
+  border-radius: var(--aui-radius-md);
+  min-block-size: 8rem;
+}
+.pg__note {
+  margin: 0;
+  color: var(--aui-color-text-muted);
+}
+.pg__panel {
+  display: grid;
+  gap: 0.5rem;
+  min-inline-size: 0;
+}
+.pg__panel > h2,
+.pg__code h2,
+.pg__code-only h3 {
+  margin: 0;
+  font-size: var(--aui-font-size-md);
+}
+.pg__options {
+  display: grid;
+  gap: 0.875rem;
+  max-block-size: 34rem;
+  overflow: auto;
+  padding: 0.75rem;
+  border: var(--aui-border-width) solid var(--aui-color-border);
+  border-radius: var(--aui-radius-md);
+  background: var(--aui-color-surface-sunken);
+}
+.pg__option {
+  min-inline-size: 0;
+}
+.pg__code-only p,
+.pg__code-only ul {
+  margin: 0.25rem 0 0;
+  font-size: var(--aui-font-size-sm);
+  color: var(--aui-color-text-muted);
+}
+.pg__code-only ul {
+  padding-inline-start: 1.25rem;
+}
+.pg__code {
+  display: grid;
+  gap: 0.5rem;
+}
+.sc-workspace {
+  block-size: 30rem;
+  border: var(--aui-border-width) solid var(--aui-color-border);
+  border-radius: var(--aui-radius-md);
+}
+.sc-workspace__list {
+  block-size: 100%;
+}
+.sc-workspace__list .aui-virtual-list__viewport {
+  border: 0;
+  border-radius: 0;
+}
+.sc-workspace__detail {
+  block-size: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.sc-workspace__card h3 {
+  margin: 0 0 0.75rem;
+}
+.sc-workspace__card dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+.sc-workspace__card dt {
+  color: var(--aui-color-text-muted);
+}
+.sc-workspace__card dd {
+  margin: 0;
+}
+.sc-person {
+  display: grid;
+  min-inline-size: 0;
+}
+.sc-person__name,
+.sc-person__meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sc-person__meta {
+  font-size: var(--aui-font-size-sm);
+  color: var(--aui-color-text-muted);
+}
+.aui-virtual-list__item--selected .sc-person__meta {
+  color: inherit;
+}

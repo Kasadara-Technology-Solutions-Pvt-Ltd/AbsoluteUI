@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "name": "session-warning-dialog",
+  "displayName": "Session Warning Dialog",
+  "category": "Authentication UI",
+  "package": "@absoluteui/components",
+  "import": "import { SessionWarningDialog } from '@absoluteui/components/session-warning-dialog';",
+  "styleImport": "@absoluteui/components/session-warning-dialog/style.css",
+  "purpose": "Alert dialog (built on Dialog) that counts down to a session deadline (an Instant) and offers \"Stay signed in\" and \"Sign out\" (WCAG 2.2.1 Timing Adjustable). Remaining time is a duration from the deadline to the current clock, so it is timezone independent. Announcements are throttled to thresholds. It pauses, extends, and ends nothing on its own: it emits aui-extend, aui-sign-out, and aui-expire.",
+  "whenToUse": [
+    "Warning users before an inactivity or absolute session timeout.",
+    "Any deadline where the user must be able to extend with one simple action."
+  ],
+  "whenNotToUse": [
+    "Non-urgent notices: use Toast or Alert.",
+    "Enforcing the timeout: the server owns session expiry."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities",
+    "dialog",
+    "button"
+  ],
+  "states": [
+    "closed (scheduled when warnBefore is set)",
+    "open (counting down)",
+    "expired",
+    "suspended (answered; waits for a new expiresAt)"
+  ],
+  "responsive": "Uses Dialog size sm; buttons wrap on narrow screens.",
+  "rtl": "Follows Dialog: logical properties; the countdown text follows the locale.",
+  "theme": "Dialog surface and Button variants; the countdown uses color-text with tabular numbers. No animation of its own; Dialog transitions follow reduced motion.",
+  "timezone": "Timezone independent: expiresAt is an Instant and remaining time is expiresAt minus Date.now(). Only the device clock matters; compare the deadline with your server's expiry to limit clock skew.",
+  "security": "The component never signs anyone out, extends a session, or stores tokens: it emits events for the application to act on. All text is rendered with textContent. AbsoluteUI is not an authentication provider. CSP-safe.",
+  "dataHandling": "Holds only the deadline and texts in memory. No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "SessionWarningDialog open()",
+        "budget": "< 16 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "One dialog per page; one timer at a time."
+  },
+  "limitations": [
+    "Background tabs throttle timers; the countdown is recomputed from the clock on the next tick, so it is correct but can update late.",
+    "A deadline in the past at creation opens in the expired state without emitting aui-expire.",
+    "After the user answers, auto-open is suspended until update({ expiresAt }).",
+    "Escape extends the session by default (escapeExtends).",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Activity tracking (pointer or key activity): the application decides when the session was used.",
+    "Cross-tab coordination (use BroadcastChannel in the application and call update())."
+  ],
+  "antiPatterns": [
+    "Signing the user out without warning or less than 20 seconds to respond.",
+    "Announcing the countdown every second.",
+    "Extending the session on the client only."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/session-warning-dialog: AuiSessionWarningDialog directive (ng-template[auiSessionWarningDialog], hand-written); the template content is added below the countdown.",
+    "react": "@absoluteui/react/session-warning-dialog: AuiSessionWarningDialog component.",
+    "vue": "@absoluteui/vue/session-warning-dialog: AuiSessionWarningDialog component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

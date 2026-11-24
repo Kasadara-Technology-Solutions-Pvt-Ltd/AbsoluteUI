@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/menu",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiMenu",
+      "description": "AbsoluteUI Menu on its trigger: `<button [auiMenu]=\"items\" (selected)=\"run($event.id)\">Actions</button>`.",
+      "selector": "button[auiMenu]",
+      "exportAs": [
+        "auiMenu"
+      ],
+      "source": "hand-written",
+      "component": "menu",
+      "configKey": "menu",
+      "inputs": [
+        {
+          "name": "auiMenu",
+          "type": "readonly MenuItem[]",
+          "required": true,
+          "description": "Items: action (with optional submenu items), checkbox, radio, separator, and group. Ids are unique across the whole tree."
+        },
+        {
+          "name": "menuLabel",
+          "type": "string",
+          "required": false,
+          "description": "Menu aria-label. Default: the menu is labelled by the trigger (aria-labelledby)."
+        },
+        {
+          "name": "placement",
+          "type": "\"bottom\" | \"top\" | \"top-start\" | \"top-end\" | \"bottom-start\" | \"bottom-end\" | \"left\" | \"left-start\" | \"left-end\" | \"right\" | \"right-start\" | \"right-end\"",
+          "required": false,
+          "default": "bottom-start",
+          "configurable": true,
+          "description": "Top-level popup placement relative to the trigger. Submenus always use right-start (left-start in RTL)."
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Close after activating a checkbox or radio item. Action items always close the menu."
+        },
+        {
+          "name": "typeahead",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Printable characters move focus to the next item whose label starts with them."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Submenu side, submenu arrow keys, and chevron mirroring."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<MenuIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "renderItem",
+          "type": "MenuRenderItem",
+          "required": false,
+          "description": "Custom item content as a function; or put `<ng-template auiItem let-item>` inside the host (since 0.9.0)."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "selected",
+          "payload": "MenuSelectDetail",
+          "event": "aui-select",
+          "description": "Dispatched on the trigger when the user activates an enabled item. checked is the new state for checkbox and radio items."
+        },
+        {
+          "name": "opened",
+          "payload": "null",
+          "event": "aui-open",
+          "description": "Dispatched on the menu element after the top level opened."
+        },
+        {
+          "name": "closed",
+          "payload": "null",
+          "event": "aui-close",
+          "description": "Dispatched on the menu element after all levels closed."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(focus?: \"first\" | \"last\" | undefined): void",
+          "description": "Open the menu and focus its first (or last) item."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Close the menu (and its submenus)."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Menu Button and Menu (actions menu) with submenus; roving focus with real DOM focus on items.",
+        "source": "packages/components/metadata/menu/accessibility.json"
+      },
+      "limitations": [
+        "Submenus open on hover after 150 ms without a pointer-safe triangle; moving the pointer diagonally across a sibling item for longer than the delay switches submenus.",
+        "Shortcut text is a hint only; the menu does not register the keyboard shortcut or set aria-keyshortcuts.",
+        "Radio groups are scoped by group name across the whole menu tree.",
+        "There is no menubar (horizontal top-level) mode; use Menu Bar."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { MenuItem, MenuSelectDetail } from '@absoluteui/components/menu';\nimport { AuiMenu } from '@absoluteui/angular/menu';\nimport { AuiButton } from '@absoluteui/angular/button';\n\n@Component({\n  selector: 'app-row-actions',\n  imports: [AuiMenu, AuiButton],\n  template: `<button type=\"button\" auiButton [auiMenu]=\"items\" placement=\"bottom-end\" (selected)=\"onSelect($event)\">Actions</button>`,\n})\nexport class RowActionsComponent {\n  readonly items: MenuItem[] = [\n    { id: 'edit', label: 'Edit' },\n    { id: 'delete', label: 'Delete', tone: 'danger' },\n  ];\n\n  onSelect(detail: MenuSelectDetail): void {\n    if (detail.id === 'delete') {\n      // confirm and delete\n    }\n  }\n}"
+    }
+  ]
+}

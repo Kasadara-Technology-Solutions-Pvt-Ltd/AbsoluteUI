@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="exchange">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="7" cy="7.5" r="3.5"/>
+      <circle cx="17" cy="16.5" r="3.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M11 7h6a2 2 0 0 1 2 2v2.5"/>
+      <path d="M17.5 10l1.5 1.5L20.5 10"/>
+      <path d="M13 17H7a2 2 0 0 1-2-2v-2.5"/>
+      <path d="M6.5 14L5 12.5 3.5 14"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="7" cy="7.5" r="3.5"/>
+      <circle cx="17" cy="16.5" r="3.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="7" cy="7.5" r="3.5"/>
+      <circle cx="17" cy="16.5" r="3.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M11 7h6a2 2 0 0 1 2 2v2.5"/>
+      <path d="M17.5 10l1.5 1.5L20.5 10"/>
+      <path d="M13 17H7a2 2 0 0 1-2-2v-2.5"/>
+      <path d="M6.5 14L5 12.5 3.5 14"/>
+    </g>
+  </g>
+</svg>

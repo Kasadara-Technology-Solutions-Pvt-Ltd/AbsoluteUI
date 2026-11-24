@@ -1,0 +1,6 @@
+[
+  { "title": "Multi-line entry", "text": "A native textarea with label, required marker, help text, and validation message." },
+  { "title": "Grows with content", "text": "Auto resize expands the field as text is added, up to an optional row limit." },
+  { "title": "Length limits", "text": "Minimum and maximum length with an optional live character counter." },
+  { "title": "Shared validation", "text": "Localized messages from the same engine as every other AbsoluteUI field." }
+]

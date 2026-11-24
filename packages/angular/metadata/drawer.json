@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/drawer",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDrawer",
+      "description": "AbsoluteUI Drawer; the projected content is the body:\n`<aui-drawer title=\"Filters\" [(open)]=\"filtersOpen\">...</aui-drawer>`.\n`modal` is read once at creation (init-only).",
+      "selector": "aui-drawer",
+      "exportAs": [
+        "auiDrawer"
+      ],
+      "source": "hand-written",
+      "component": "drawer",
+      "configKey": "drawer",
+      "inputs": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name, rendered as the heading."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Referenced by aria-describedby."
+        },
+        {
+          "name": "actions",
+          "type": "readonly DrawerAction[]",
+          "required": false,
+          "description": "Footer buttons; clicking closes with the action value."
+        },
+        {
+          "name": "modal",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "true: showModal() with inert background, backdrop and scroll lock. false: show(); background stays interactive (supplementary panels only)."
+        },
+        {
+          "name": "placement",
+          "type": "DrawerPlacement",
+          "required": false,
+          "default": "end",
+          "configurable": true,
+          "description": "Screen edge; start/end follow the writing direction."
+        },
+        {
+          "name": "size",
+          "type": "DrawerSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Inline size for side drawers; maximum block size (capped at 85dvh) for top/bottom."
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Escape requests close (cancelable) when the drawer is the topmost overlay."
+        },
+        {
+          "name": "closeOnBackdrop",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Backdrop click requests close (cancelable). Modal only."
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Render the header close button."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Maps start/end placement to a physical edge; applied as the element's dir."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<DrawerIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "change": "openChange",
+          "description": "Whether the drawer is shown: `[(open)]`. Closing by Escape, the close button, or an action sets it to false."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "opened",
+          "payload": "null",
+          "event": "aui-open",
+          "description": "After the drawer opened."
+        },
+        {
+          "name": "cancelled",
+          "payload": "DrawerCloseDetail",
+          "event": "aui-cancel",
+          "description": "Before a user-initiated close; preventDefault keeps it open."
+        },
+        {
+          "name": "closed",
+          "payload": "DrawerCloseDetail",
+          "event": "aui-close",
+          "description": "After the drawer closed."
+        }
+      ],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Dialog (Modal) pattern implemented with native <dialog>.showModal(); non-modal drawers use <dialog>.show() as a non-modal dialog.",
+        "source": "packages/components/metadata/drawer/accessibility.json"
+      },
+      "limitations": [
+        "Non-modal drawers are not in the top layer; they use z-index 1000 and can be covered by page content with a higher stacking context.",
+        "The element's dir attribute follows the configured direction (default 'ltr'), not the document's dir attribute.",
+        "Slide animations need @starting-style and transition-behavior: allow-discrete; older browsers open and close without animation.",
+        "Initial focus follows the native dialog focusing steps: an action with `autofocus: true`, otherwise the first focusable element (the close button when shown)."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { AuiButton } from '@absoluteui/angular/button';\nimport { AuiDrawer } from '@absoluteui/angular/drawer';\n\n@Component({\n  selector: 'app-orders',\n  imports: [AuiButton, AuiDrawer],\n  template: `\n    <button type=\"button\" auiButton variant=\"secondary\" (click)=\"filtersOpen.set(true)\">Filters</button>\n    <aui-drawer title=\"Filters\" placement=\"end\" [modal]=\"false\" [open]=\"filtersOpen()\" (closed)=\"closed()\">\n      <p>Filter controls</p>\n    </aui-drawer>`,\n})\nexport class OrdersComponent {\n  readonly filtersOpen = signal(false);\n\n  closed(): void {\n    this.filtersOpen.set(false);\n    // re-run the query\n  }\n}"
+    }
+  ]
+}

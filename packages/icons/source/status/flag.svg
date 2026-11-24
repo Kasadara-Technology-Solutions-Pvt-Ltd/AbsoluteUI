@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="flag" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 21V3.5"/>
+      <path d="M5 4h13.5l-3 4.5 3 4.5H5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <line x1="5" y1="3" x2="5" y2="21" data-outline-width="2"/>
+      <path d="M4 3h15.5a1 1 0 0 1 .83 1.55L17.6 8.5l2.73 3.95A1 1 0 0 1 19.5 14H4z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M5 4h13.5l-3 4.5 3 4.5H5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 21V3.5"/>
+      <path d="M5 4h13.5l-3 4.5 3 4.5H5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.35">
+      <path d="M5 4h13.5l-3 4.5 3 4.5H5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 21V3.5"/>
+      <path d="M5 4h13.5l-3 4.5 3 4.5H5"/>
+    </g>
+  </g>
+</svg>

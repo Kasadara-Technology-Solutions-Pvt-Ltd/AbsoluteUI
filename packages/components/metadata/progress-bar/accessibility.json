@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "component": "progress-bar",
+  "pattern": "WAI-ARIA progressbar role (ARIA 1.2) with a visible label.",
+  "roles": [
+    {
+      "element": "track",
+      "role": "progressbar"
+    },
+    {
+      "element": "tone icon",
+      "role": "img (localized label: Success, Warning, Error)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "track",
+      "value": "id of the visible label"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "track",
+      "value": "id of the description (when provided)"
+    },
+    {
+      "attribute": "aria-valuemin / aria-valuemax",
+      "element": "track",
+      "value": "min / max"
+    },
+    {
+      "attribute": "aria-valuenow",
+      "element": "track",
+      "value": "Clamped value; absent when indeterminate"
+    },
+    {
+      "attribute": "aria-valuetext",
+      "element": "track",
+      "value": "Localized percentage or valueText(); absent when indeterminate"
+    },
+    {
+      "attribute": "aria-hidden",
+      "element": "visible value text",
+      "value": "\"true\" (duplicated in aria-valuetext)"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "None",
+      "context": "Any",
+      "action": "Not focusable; progress is conveyed through the progressbar role and optional live announcement."
+    }
+  ],
+  "focus": "Not focusable. Focus is never moved by value changes.",
+  "wcag": [
+    "1.3.1",
+    "1.4.1",
+    "1.4.11",
+    "2.3.3",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "Value changes are not announced continuously; completion is announced once through the shared polite live region (announceComplete).",
+    "Non-default tones include a labelled icon so meaning never depends on color alone (1.4.1).",
+    "The indeterminate sweep is replaced by a static striped bar under prefers-reduced-motion or animation: none."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

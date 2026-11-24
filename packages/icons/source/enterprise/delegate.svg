@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="delegate" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="6" cy="9" r="2.5"/>
+      <path d="M2 18.5a4 3.5 0 0 1 8 0"/>
+      <circle cx="18" cy="9" r="2.5"/>
+      <path d="M14 18.5a4 3.5 0 0 1 8 0"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M8 3.5h8"/>
+      <path d="M14 1.5l2 2-2 2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="18" cy="9" r="2.5"/>
+      <path d="M14 18.5a4 3.5 0 0 1 8 0z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="6" cy="9" r="2.5"/>
+      <path d="M2 18.5a4 3.5 0 0 1 8 0"/>
+      <circle cx="18" cy="9" r="2.5"/>
+      <path d="M14 18.5a4 3.5 0 0 1 8 0"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M8 3.5h8"/>
+      <path d="M14 1.5l2 2-2 2"/>
+    </g>
+  </g>
+</svg>

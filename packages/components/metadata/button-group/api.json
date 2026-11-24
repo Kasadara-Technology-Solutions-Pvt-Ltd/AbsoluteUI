@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "component": "button-group",
+  "factory": { "name": "ButtonGroup.create", "signature": "ButtonGroup.create(host: HTMLElement, options: ButtonGroupOptions): ButtonGroup; ButtonGroup.enhance(element: HTMLElement, options: ButtonGroupOptions): ButtonGroup" },
+  "configKey": "buttonGroup",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the group (aria-label)." },
+    { "name": "size", "type": "'sm' | 'md' | 'lg'", "required": false, "globallyConfigurable": false, "description": "Size of the Buttons the group creates or enhances; defaults to the Button configuration." },
+    { "name": "buttons", "type": "readonly { text?: string; icon?: IconRef; label?: string; variant?: ButtonVariant; value?: string; disabled?: boolean }[]", "required": false, "globallyConfigurable": false, "description": "create() only: Buttons to render. Icon-only buttons need a label." },
+    { "name": "orientation", "type": "'horizontal' | 'vertical'", "default": "horizontal", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Layout direction." },
+    { "name": "attached", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Shared borders and no inner radii; false spaces the buttons with a gap and lets horizontal groups wrap." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLElement", "description": "The group element (role=group)." },
+    { "name": "buttons", "type": "HTMLButtonElement[]", "description": "Direct child buttons, in DOM order." },
+    { "name": "options", "type": "Readonly<ButtonGroupOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "enhance", "signature": "ButtonGroup.enhance(element: HTMLElement, options: ButtonGroupOptions): ButtonGroup", "description": "Enhance an existing element containing native buttons; plain buttons become Buttons until destroy." },
+    { "name": "update", "signature": "update(options: Partial<ButtonGroupOptions>): void", "description": "Merge and apply options; a new buttons array rebuilds the Buttons." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove listeners and subscriptions, destroy created or enhanced Buttons, restore the element's role and aria-label." }
+  ],
+  "events": [
+    { "name": "aui-action", "detail": "{ value: string }", "bubbles": true, "cancelable": false, "description": "create() only: a button was activated. value defaults to the button index." }
+  ],
+  "contentAreas": [
+    { "name": "buttons", "description": "Native buttons (created from `buttons`, or the existing children with enhance())." }
+  ],
+  "cssClasses": [
+    { "name": "aui-button-group", "description": "Group element." },
+    { "name": "aui-button-group--horizontal | --vertical", "description": "Orientation modifiers." },
+    { "name": "aui-button-group--attached", "description": "Shared borders, removed inner radii; horizontal groups scroll instead of wrapping." }
+  ],
+  "iconSlots": []
+}

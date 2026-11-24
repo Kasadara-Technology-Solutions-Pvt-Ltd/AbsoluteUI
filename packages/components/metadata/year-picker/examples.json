@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "year-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required year with bounds",
+      "language": "ts",
+      "code": "import { YearPicker } from '@absoluteui/components/year-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst picker = YearPicker.create(host, {\n  label: 'Model year',\n  name: 'modelYear',\n  required: true,\n  min: 1990,\n  max: 2027,\n});\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(picker.validity.valid);\n});"
+    },
+    {
+      "id": "unavailable-years",
+      "title": "Unavailable years and the change detail",
+      "language": "ts",
+      "code": "import { YearPicker, type YearPickerChangeDetail } from '@absoluteui/components/year-picker';\n\nconst closedYears = new Set([2020, 2021]);\nconst host = document.createElement('div');\ndocument.body.append(host);\nYearPicker.create(host, {\n  label: 'Tax year',\n  value: 2025,\n  isYearDisabled: (year) => closedYears.has(year),\n  validate: (year) => (year !== null && year > 2026 ? 'Future years cannot be filed.' : null),\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value, validity } = (event as CustomEvent<YearPickerChangeDetail>).detail;\n  host.dataset.year = value === null ? '' : String(value);\n  host.dataset.error = validity.error ?? '';\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Global year picker defaults",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\nimport '@absoluteui/components/year-picker';\n\nconfigureAbsoluteUI({ components: { yearPicker: { closeOnSelect: false, validationTiming: 'input' } } });"
+    }
+  ]
+}

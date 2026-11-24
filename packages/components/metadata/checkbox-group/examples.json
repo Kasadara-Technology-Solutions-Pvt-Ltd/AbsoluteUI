@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "checkbox-group",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required group with help text",
+      "language": "ts",
+      "code": "import { CheckboxGroup } from '@absoluteui/components/checkbox-group';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCheckboxGroup.create(host, {\n  label: 'Notifications',\n  name: 'notify',\n  description: 'Choose at least one channel.',\n  required: true,\n  options: [\n    { value: 'email', label: 'Email' },\n    { value: 'sms', label: 'SMS', description: 'Carrier rates may apply' },\n    { value: 'push', label: 'Push notification' },\n  ],\n});"
+    },
+    {
+      "id": "limits",
+      "title": "Selection limits, horizontal layout",
+      "language": "ts",
+      "code": "import { CheckboxGroup } from '@absoluteui/components/checkbox-group';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst topics = CheckboxGroup.create(host, {\n  label: 'Topics',\n  orientation: 'horizontal',\n  minSelected: 2,\n  maxSelected: 3,\n  options: ['Design', 'Security', 'Performance', 'Accessibility'].map((t) => ({ value: t.toLowerCase(), label: t })),\n});\nhost.addEventListener('aui-change', () => {\n  host.dataset.count = String(topics.value.length);\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Show messages on first change (Mode B)",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { checkboxGroup: { validationTiming: 'input' } } });"
+    }
+  ]
+}

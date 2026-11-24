@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/scroll-area",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiScrollArea",
+      "description": "AbsoluteUI Scroll Area: `<div auiScrollArea label=\"Release notes\" maxBlockSize=\"20rem\">...</div>`.\nEnhances the element in place (native scrolling, edge fades, a focusable region while it\noverflows); the projected content stays Angular-managed.",
+      "selector": "[auiScrollArea]",
+      "exportAs": [
+        "auiScrollArea"
+      ],
+      "source": "hand-written",
+      "component": "scroll-area",
+      "configKey": "scrollArea",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the region."
+        },
+        {
+          "name": "orientation",
+          "type": "ScrollAreaOrientation",
+          "required": false,
+          "default": "vertical",
+          "description": "Scroll axis."
+        },
+        {
+          "name": "maxBlockSize",
+          "type": "string",
+          "required": false,
+          "description": "Maximum block size as a CSS length (sets --aui-scroll-area-max-block-size)."
+        },
+        {
+          "name": "shadows",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Fade the edges where more content exists."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Scrollable region (WCAG 2.1.1): a scrollable element that holds no focusable content must itself be focusable and named; it is a region with aria-label while it overflows.",
+        "source": "packages/components/metadata/scroll-area/accessibility.json"
+      },
+      "limitations": [
+        "Size changes deeper than the direct children are noticed when a direct child resizes; call refresh() after other changes.",
+        "The fades also fade content at the edge; avoid placing controls there."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiScrollArea } from '@absoluteui/angular/scroll-area';\n\n@Component({\n  selector: 'app-activity',\n  imports: [AuiScrollArea],\n  template: `\n    <ul auiScrollArea label=\"Activity\" maxBlockSize=\"16rem\">\n      @for (entry of entries; track entry) {\n        <li>{{ entry }}</li>\n      }\n    </ul>`,\n})\nexport class ActivityComponent {\n  readonly entries = Array.from({ length: 40 }, (_, i) => `Entry ${String(i + 1)}`);\n}"
+    }
+  ]
+}

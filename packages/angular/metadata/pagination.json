@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/pagination",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiPagination",
+      "description": "AbsoluteUI Pagination: `<aui-pagination>`.\nTwo-way: `[(page)]`, `[(pageSize)]`.",
+      "selector": "aui-pagination",
+      "exportAs": [
+        "auiPagination"
+      ],
+      "source": "generated",
+      "component": "pagination",
+      "configKey": "pagination",
+      "inputs": [
+        {
+          "name": "pageCount",
+          "type": "number",
+          "required": false,
+          "description": "Number of pages. Provide either pageCount or total."
+        },
+        {
+          "name": "total",
+          "type": "number",
+          "required": false,
+          "description": "Total items; the page count is derived from pageSize. Enables the summary."
+        },
+        {
+          "name": "pageSizes",
+          "type": "readonly number[]",
+          "required": false,
+          "description": "Render a native 'Rows per page' select with these sizes."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": "Pagination (localized)",
+          "description": "Accessible name of the <nav>."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<PaginationIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "siblingCount",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "configurable": true,
+          "description": "Pages shown on each side of the current page (0 to 10)."
+        },
+        {
+          "name": "boundaryCount",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "configurable": true,
+          "description": "Pages always shown at the start and end (0 to 10)."
+        },
+        {
+          "name": "showFirstLast",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Render first/last page buttons."
+        },
+        {
+          "name": "showSummary",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show 'Showing 11-20 of 57' when total is known."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message and number-formatting locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors the direction icons."
+        }
+      ],
+      "models": [
+        {
+          "name": "page",
+          "type": "number",
+          "change": "pageChange",
+          "description": "Current page, 1-based; clamped to 1..pageCount."
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "change": "pageSizeChange",
+          "description": "Items per page. Required with total unless pageSizes is set (then defaults to its first entry)."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "PaginationChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the page or the page size."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setPage",
+          "signature": "setPage(page: number): void",
+          "description": "Go to a page programmatically (clamped; no events, no announcement)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Navigation landmark of native buttons (no dedicated APG pattern), following common accessible pagination practice: named buttons, aria-current on the current page, disabled bounds, and announced changes.",
+        "source": "packages/components/metadata/pagination/accessibility.json"
+      },
+      "limitations": [
+        "No direct page-number input ('go to page').",
+        "The compact layout breakpoint (30rem container width) is fixed in the stylesheet.",
+        "Changing the page size keeps the first item of the current page visible; consumers wanting page 1 can call setPage(1)."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiPagination } from '@absoluteui/angular/pagination';\n\n@Component({\n  selector: 'app-orders-pager',\n  imports: [AuiPagination],\n  template: `<aui-pagination [total]=\"total\" [pageSize]=\"pageSize\" [pageSizes]=\"[25, 50, 100]\" [page]=\"page\" (changed)=\"onPage($event.page, $event.pageSize)\"></aui-pagination>`,\n})\nexport class OrdersPagerComponent {\n  total = 240;\n  page = 1;\n  pageSize = 25;\n  onPage(page: number, pageSize: number | null): void {\n    this.page = page;\n    if (pageSize !== null) this.pageSize = pageSize;\n  }\n}"
+    }
+  ]
+}

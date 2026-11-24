@@ -1,0 +1,6 @@
+[
+  { "title": "Single or range", "text": "One thumb for a value, two thumbs for a range that limit each other." },
+  { "title": "Marks and steps", "text": "Tick marks, labelled marks, step and large step for keyboard and pointer." },
+  { "title": "Formatted values", "text": "Intl number formats or your own text for the value and screen readers." },
+  { "title": "Form ready", "text": "Hidden inputs submit natively; validation and custom errors like every field." }
+]

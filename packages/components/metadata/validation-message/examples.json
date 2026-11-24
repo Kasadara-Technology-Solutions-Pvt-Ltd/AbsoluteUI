@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "validation-message",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Error message for a consumer-rendered control",
+      "language": "ts",
+      "code": "import { ValidationMessage } from '@absoluteui/components/validation-message';\nimport { TextInput } from '@absoluteui/components/text-input';\n\nconst inputHost = document.createElement('div');\nconst messageHost = document.createElement('div');\ndocument.body.append(inputHost, messageHost);\nconst input = TextInput.create(inputHost, { label: 'Coupon code', name: 'coupon' }).input;\n// Adds its id to the input's aria-describedby and sets aria-invalid=\"true\" for tone 'error'.\nconst message = ValidationMessage.create(messageHost, { for: input, message: 'Enter a coupon code.' });\ninput.addEventListener('input', () => {\n  if (input.value !== '') message.clear();\n});"
+    },
+    {
+      "id": "tones",
+      "title": "Tones for an availability check",
+      "language": "ts",
+      "code": "import { ValidationMessage } from '@absoluteui/components/validation-message';\nimport { TextInput } from '@absoluteui/components/text-input';\n\nconst inputHost = document.createElement('div');\nconst messageHost = document.createElement('div');\ndocument.body.append(inputHost, messageHost);\nconst input = TextInput.create(inputHost, { label: 'Handle', name: 'handle' }).input;\nconst message = ValidationMessage.create(messageHost, { for: input });\n\nasync function check(handle: string, signal: AbortSignal): Promise<void> {\n  message.setMessage('Checking availability…', 'info');\n  const response = await fetch(`/api/handles/${encodeURIComponent(handle)}`, { signal });\n  if (response.status === 404) message.setMessage('This handle is available.', 'success');\n  else if (response.ok) message.setMessage('This handle is taken.', 'error');\n  else message.setMessage('Availability could not be checked.', 'warning');\n}\n\nlet pending: AbortController | null = null;\ninput.addEventListener('change', () => {\n  pending?.abort();\n  const controller = new AbortController();\n  pending = controller;\n  check(input.value, controller.signal).catch(() => {\n    // A newer check aborted this one and owns the message.\n    if (!controller.signal.aborted) message.clear();\n  });\n});"
+    },
+    {
+      "id": "icons",
+      "title": "Custom tone icons",
+      "language": "ts",
+      "code": "import { ValidationMessage } from '@absoluteui/components/validation-message';\n\nconst messageHost = document.createElement('div');\ndocument.body.append(messageHost);\nValidationMessage.create(messageHost, { message: 'Saved as draft.', tone: 'info', icons: { info: 'check' } });"
+    }
+  ]
+}

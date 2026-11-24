@@ -1,0 +1,6 @@
+[
+  { "title": "One of a few", "text": "Native radios with a single tab stop and arrow-key selection from the browser." },
+  { "title": "Group semantics", "text": "A fieldset with the radiogroup role and a legend as its accessible name." },
+  { "title": "Option details", "text": "Descriptions under options and disabled options where a choice is unavailable." },
+  { "title": "Required validation", "text": "Localized required and custom checks with one message for the group." }
+]

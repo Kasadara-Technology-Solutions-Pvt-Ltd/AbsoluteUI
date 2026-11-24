@@ -1,0 +1,7 @@
+[
+  { "title": "Typed or picked", "text": "Type the date into segments or choose it from a calendar popup." },
+  { "title": "Business calendar", "text": "Weekends and holidays are marked and can be made unselectable." },
+  { "title": "Disabled dates", "text": "Minimum and maximum dates plus a function to block any other day." },
+  { "title": "Locale aware", "text": "Month names, week start, and segment order follow the locale." },
+  { "title": "Form ready", "text": "Validation, custom errors, and native form submission." }
+]

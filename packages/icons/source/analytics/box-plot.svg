@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="box-plot">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="5" y="8" width="5" height="7" rx="1"/>
+      <rect x="14" y="6" width="5" height="8" rx="1"/>
+      <path d="M7.5 4v4"/>
+      <path d="M7.5 15v4"/>
+      <path d="M5 11.5h5"/>
+      <path d="M16.5 3v3"/>
+      <path d="M16.5 14v4"/>
+      <path d="M14 9.5h5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="5" y="8" width="5" height="7" rx="1"/>
+      <rect x="14" y="6" width="5" height="8" rx="1"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="5" y="8" width="5" height="7" rx="1"/>
+      <rect x="14" y="6" width="5" height="8" rx="1"/>
+      <path d="M7.5 4v4"/>
+      <path d="M7.5 15v4"/>
+      <path d="M5 11.5h5"/>
+      <path d="M16.5 3v3"/>
+      <path d="M16.5 14v4"/>
+      <path d="M14 9.5h5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.35">
+      <rect x="5" y="8" width="5" height="7" rx="1"/>
+      <rect x="14" y="6" width="5" height="8" rx="1"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="5" y="8" width="5" height="7" rx="1"/>
+      <rect x="14" y="6" width="5" height="8" rx="1"/>
+      <path d="M7.5 4v4"/>
+      <path d="M7.5 15v4"/>
+      <path d="M5 11.5h5"/>
+      <path d="M16.5 3v3"/>
+      <path d="M16.5 14v4"/>
+      <path d="M14 9.5h5"/>
+    </g>
+  </g>
+</svg>

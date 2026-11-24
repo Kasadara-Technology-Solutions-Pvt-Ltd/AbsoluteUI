@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "name": "file-upload",
+  "displayName": "File Upload",
+  "category": "Upload",
+  "package": "@absoluteui/components",
+  "import": "import { FileUpload } from '@absoluteui/components/file-upload';",
+  "styleImport": "@absoluteui/components/file-upload/style.css",
+  "purpose": "File picker built on a native <input type=\"file\"> opened by a real button, with an optional drag-and-drop zone around it (never the only way in). Validates MIME type and extension (both when both are configured), per-file size, total size, and file count; files that break a rule are not added and the reason is shown and announced. A FormControl whose value is File[]. It never reads file contents and never performs network requests.",
+  "whenToUse": [
+    "Attaching one or more files to a form.",
+    "Feeding an Upload Queue that transfers files as soon as they are chosen.",
+    "Any file selection that needs consistent, localized validation messages."
+  ],
+  "whenNotToUse": [
+    "Choosing a folder tree or very large batches (thousands of files): use a dedicated tool.",
+    "Capturing photos or media in-page: use native capture APIs.",
+    "As a security control: client-side type checks can be bypassed; validate on the server."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "empty",
+    "files selected",
+    "dragging over (drop zone highlighted)",
+    "files rejected (reasons shown)",
+    "required",
+    "invalid",
+    "disabled"
+  ],
+  "responsive": "Full width of its container. The drop zone content wraps and centers; file rows wrap the size and reason under the name; remove buttons keep a 24 px target.",
+  "rtl": "Logical properties throughout: icons and remove buttons follow the inline direction. File names are rendered as text in their own direction.",
+  "theme": "Dashed color-border-strong zone on color-surface; drag-over uses color-selected with color-selected-text; errors use color-error-fg. Forced-colors mode uses CanvasText borders and a Highlight drag-over border.",
+  "timezone": "Not applicable.",
+  "security": "File names, reasons, and messages are rendered with textContent (never HTML). MIME types come from the browser (usually derived from the file name) and are not proof of content: always validate type and size on the server (for example by magic bytes). The accept attribute is only a hint; every file is re-checked. No file contents are read. CSP-safe.",
+  "dataHandling": "Files stay in memory as File objects and in the native input (for native form submission). Nothing is persisted, logged, or transmitted; uploading is the application's (or Upload Queue's consumer transport's) job.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "FileUpload.create, per instance (500 instances)",
+        "budget": "< 1 ms average in headless Chromium"
+      },
+      {
+        "metric": "Select 200 files (validate and render rows)",
+        "budget": "< 100 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "200 files in one selection in the performance test; tested with 500 fields on a page."
+  },
+  "limitations": [
+    "Sizes use decimal units (1 kB = 1,000 bytes), as Intl formats them.",
+    "Duplicate detection uses name, size, and modification time.",
+    "Dropped folders are rejected; folder upload (webkitdirectory) is not supported.",
+    "The drag-over highlight depends on the browser exposing \"Files\" in dataTransfer.types during dragenter.",
+    "Without a DataTransfer constructor (very old browsers) the native input cannot be synchronized; getFormValue() stays authoritative.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Reading, previewing, or transforming file contents (use Upload Queue previews for images).",
+    "Rendering HTML in labels, hints, or file names.",
+    "Paste-to-upload."
+  ],
+  "antiPatterns": [
+    "Making the drop zone the only way to choose files.",
+    "Trusting the browser MIME type or the accept attribute as a security check.",
+    "Showing raw server error text for rejected uploads."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/file-upload: AuiFileUpload directive ([auiFileUpload]) with ControlValueAccessor (File[]) and Validator.",
+    "react": "@absoluteui/react/file-upload: AuiFileUpload component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/file-upload: AuiFileUpload component with v-model."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

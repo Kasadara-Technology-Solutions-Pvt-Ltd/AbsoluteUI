@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/badge",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiBadge",
+      "description": "AbsoluteUI Badge: `<aui-badge>`.",
+      "selector": "aui-badge",
+      "exportAs": [
+        "auiBadge"
+      ],
+      "source": "generated",
+      "component": "badge",
+      "configKey": "badge",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible text; carries the meaning."
+        },
+        {
+          "name": "tone",
+          "type": "BadgeTone",
+          "required": false,
+          "default": "neutral",
+          "description": "Decorative tone color."
+        },
+        {
+          "name": "variant",
+          "type": "BadgeVariant",
+          "required": false,
+          "default": "subtle",
+          "configurable": true,
+          "description": "subtle: tone fill; outline: tone boundary."
+        },
+        {
+          "name": "size",
+          "type": "BadgeSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Badge size."
+        },
+        {
+          "name": "icon",
+          "type": "IconRef | null",
+          "required": false,
+          "description": "Decorative icon before the label."
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Decorative status dot before the label (not with icon)."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Static text: no role; the label is read in document order with the content it classifies.",
+        "source": "packages/components/metadata/badge/accessibility.json"
+      },
+      "limitations": [
+        "Text only: no links or rich content.",
+        "Long labels are truncated; keep labels to one or two words."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiBadge } from '@absoluteui/angular/badge';\n\n@Component({\n  selector: 'app-invoice-status',\n  imports: [AuiBadge],\n  template: `<aui-badge [label]=\"overdue ? 'Overdue' : 'Paid'\" [tone]=\"overdue ? 'error' : 'success'\" [dot]=\"true\"></aui-badge>`,\n})\nexport class InvoiceStatusComponent {\n  overdue = true;\n}"
+    }
+  ]
+}

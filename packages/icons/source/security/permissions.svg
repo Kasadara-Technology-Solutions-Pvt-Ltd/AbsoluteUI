@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="permissions">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M11 6h9.5"/>
+      <path d="M11 12h9.5"/>
+      <path d="M11 18h9.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M3.5 6l1.5 1.5 3-3"/>
+      <path d="M4 10.5l3 3"/>
+      <path d="M7 10.5l-3 3"/>
+      <path d="M3.5 18l1.5 1.5 3-3"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,143 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-date-input {
+    display: grid;
+    gap: aui.token('space-1');
+    font-family: aui.token('font-family-sans');
+    color: aui.token('color-text');
+  }
+
+  .aui-date-input__label {
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-medium');
+    line-height: aui.token('line-height-tight');
+  }
+
+  .aui-date-input__group {
+    @include aui.control-surface;
+    display: inline-flex;
+    align-items: center;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-within {
+      border-color: aui.token('color-focus-ring');
+      box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+    }
+  }
+
+  .aui-date-input__fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    // Segment order follows the locale; the group keeps LTR digit direction.
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  // Widths are explicit in ch units (tabular digits) so segments hug their content,
+  // with headroom for wider placeholder glyphs such as 'mm'.
+  .aui-date-input__segment {
+    box-sizing: content-box;
+    inline-size: 3ch;
+    min-inline-size: 0;
+    padding: aui.token('space-1') 2px;
+    margin: 0;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    caret-color: transparent;
+
+    &::placeholder {
+      color: aui.token('color-text-muted');
+      opacity: 1;
+    }
+
+    &:focus {
+      outline: none;
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+    }
+
+    &:focus-visible {
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: 0;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-date-input__segment--year {
+    inline-size: 4.4ch;
+  }
+
+  .aui-date-input__segment--dayPeriod {
+    inline-size: 3.6ch;
+  }
+
+  .aui-date-input__separator {
+    padding-inline: 1px;
+    color: aui.token('color-text-muted');
+    white-space: pre;
+  }
+
+  .aui-date-input__description,
+  .aui-date-input__hint {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-date-input__error {
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-1');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-date-input__description[hidden],
+  .aui-date-input__hint[hidden],
+  .aui-date-input__error[hidden] {
+    display: none;
+  }
+
+  .aui-date-input--invalid .aui-date-input__group {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-date-input--disabled .aui-date-input__group {
+    background: aui.token('color-disabled-bg');
+    border-color: aui.token('color-border');
+  }
+
+  @include aui.forced-colors {
+    .aui-date-input__segment:focus {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+  }
+  // Shared with R1 fields: required asterisk and error icon (0.2.0).
+  .aui-field__required {
+    margin-inline-start: aui.token('space-1');
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-validation-message__icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    margin-block-start: 0.1em;
+  }
+}

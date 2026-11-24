@@ -1,0 +1,70 @@
+---
+title: Introduction
+description: AbsoluteUI is a framework-neutral library of accessible enterprise UI components with zero third-party runtime dependencies.
+---
+
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+AbsoluteUI is a library of enterprise UI components for the web: forms, date and time pickers, data tables, pivot grids, charts, dashboards, schedulers, Gantt charts, Kanban boards, organization charts, and more. It is written in TypeScript, ships as minified ES modules, and has **no third-party runtime dependencies**.
+
+## Principles
+
+| Principle | What it means for you |
+|---|---|
+| Open source | Apache License 2.0, Kasadara's contribution to the open-source community. Use, modify, and redistribute it at no cost; the source is on [GitHub](https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI). See [License and attribution](/docs/getting-started/license/). |
+| Framework-neutral | Components are plain TypeScript controllers that render into an element you provide. They work in any application that runs in a browser. |
+| Zero runtime dependencies | Nothing else enters your bundle. Import one component and you ship that component and the AbsoluteUI core it needs. |
+| Accessible by default | WCAG 2.2 AA is the baseline: WAI-ARIA patterns, complete keyboard support, visible focus, reflow, reduced motion, and forced colors. See [Accessibility and compliance](/docs/quality/accessibility/). |
+| Correct with time | Dates, times, instants, durations, and ranges are distinct types. The default time zone is UTC, never the machine's, and daylight-saving gaps and overlaps follow a documented policy. |
+| Secure by construction | Runs under a strict Content Security Policy with Trusted Types. No `eval`, no inline styles, no HTML parsing of untrusted text, no telemetry, and no storage you did not ask for. |
+| Themeable | Every visual decision is a design token. Themes, density, and direction change at runtime; the [Theme Designer](/docs/guides/theming/) builds and checks your own themes. |
+| Measured | Every component declares performance budgets, and the release fails if one is missed. See [Performance](/docs/quality/performance/). |
+
+## Packages
+
+| Package | Contents |
+|---|---|
+| `@absoluteui/components` | Every component, each as its own subpath (`@absoluteui/components/date-picker`) with its own stylesheet (`@absoluteui/components/date-picker/style.css`). |
+| `@absoluteui/core` | Configuration, date and time types, time zones, recurrence rules, internationalization, the HTML sanitizer, and errors. |
+| `@absoluteui/theme` | Built-in themes (default, dark, high contrast), the theme runtime, tokens, and the Theme Designer engine. |
+| `@absoluteui/utilities` | Focus, keyboard, overlay, positioning, drag, scroll, and motion primitives. |
+| `@absoluteui/icons` | The icon registry and built-in icons. |
+| `@absoluteui/helpers` | Pure, zero-dependency helpers: collections, LINQ, dates, business calendars, strings, numbers, money, JSON, validation, and data structures. See [Helpers and services](/docs/guides/helpers-and-services/). |
+| `@absoluteui/services` | Browser services: storage, HTTP, files, downloads, ZIP, uploads, clipboard, crypto, logging, and environment detection. |
+| `@absoluteui/angular` | Angular 22 integration: every component as a standalone component or directive, with signals, Angular forms, templates, server rendering, and test harnesses. See [Angular](/docs/angular/). |
+
+All packages are versioned together.
+
+## A first component
+
+```ts
+import { plainDate } from '@absoluteui/core';
+import { DatePicker } from '@absoluteui/components/date-picker';
+import '@absoluteui/theme/absolute-default.css';
+import '@absoluteui/components/date-input/style.css';
+import '@absoluteui/components/calendar/style.css';
+import '@absoluteui/components/date-picker/style.css';
+
+const host = document.querySelector<HTMLElement>('#start-date');
+if (host) {
+  const picker = DatePicker.create(host, { label: 'Start date', required: true, min: plainDate(2026, 1, 1) });
+  host.addEventListener('aui-change', () => console.log(picker.value));
+}
+```
+
+Every component follows the same shape: a static `create(host, options)` factory, `update(options)` to change options later, events named `aui-*` dispatched from the host, and `destroy()` to remove everything it added.
+
+## Where to go next
+
+<CardGrid>
+  <LinkCard title="Installation" description="Install the packages, load styles, and start the theme runtime." href="/docs/getting-started/installation/" />
+  <LinkCard title="Components" description="Every component with live examples, API reference, keyboard, and accessibility details." href="/docs/components/" />
+  <LinkCard title="Theming" description="Built-in themes, design tokens, and the Theme Designer." href="/docs/guides/theming/" />
+  <LinkCard title="Dates and time zones" description="Typed dates, UTC by default, and daylight-saving policy." href="/docs/guides/dates-and-time-zones/" />
+  <LinkCard title="Performance" description="Measured budgets and the import cost of every component." href="/docs/quality/performance/" />
+  <LinkCard title="Accessibility and compliance" description="What is tested against WCAG 2.2 AA, the results, and known exceptions." href="/docs/quality/accessibility/" />
+</CardGrid>
+
+## Using a framework
+
+AbsoluteUI works with any framework today: create the component after your framework has rendered the host element, pass option changes to `update()`, listen for `aui-*` events on the host, and call `destroy()` when the host is removed. Dedicated framework integrations are planned.

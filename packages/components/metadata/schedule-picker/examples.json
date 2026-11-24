@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "schedule-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "A meeting with timezone choice and repetition",
+      "language": "ts",
+      "code": "import { parseInstant } from '@absoluteui/core';\nimport { SchedulePicker, scheduleToString, type SchedulePickerChangeDetail } from '@absoluteui/components/schedule-picker';\n\nconst start = parseInstant('2026-09-29T08:00:00Z');\nconst end = parseInstant('2026-09-29T09:00:00Z');\nconst host = document.createElement('div');\ndocument.body.append(host);\nif (start && end) {\n  SchedulePicker.create(host, {\n    label: 'When',\n    name: 'when',\n    value: { allDay: false, start, end, timeZone: 'Europe/London', recurrence: null },\n    timeZones: ['Europe/London', 'America/New_York', 'Asia/Kolkata'],\n    recurrence: true,\n  });\n}\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<SchedulePickerChangeDetail>).detail;\n  host.dataset.ical = value ? scheduleToString(value) : '';\n});"
+    },
+    {
+      "id": "parse",
+      "title": "Load and save iCalendar text",
+      "language": "ts",
+      "code": "import { parseSchedule, SchedulePicker } from '@absoluteui/components/schedule-picker';\n\nconst saved = 'DTSTART;VALUE=DATE:20261224\\nDTEND;VALUE=DATE:20261227';\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst picker = SchedulePicker.create(host, { label: 'Office closed', value: parseSchedule(saved), required: true });\nexport const text = picker.getFormValue();"
+    },
+    {
+      "id": "global-config",
+      "title": "Default duration of new timed schedules",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { schedulePicker: { defaultDuration: 30 } } });"
+    }
+  ]
+}

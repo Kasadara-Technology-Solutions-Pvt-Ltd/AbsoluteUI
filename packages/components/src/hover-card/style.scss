@@ -1,0 +1,47 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Top-layer popup (Popover API). Position is applied by the positioning engine.
+  .aui-hover-card {
+    box-sizing: border-box;
+    inline-size: max-content;
+    max-inline-size: min(22rem, calc(100vw - 2 * #{aui.token('space-2')}));
+    max-block-size: min(#{aui.token('popover-max-height')}, var(--aui-available-height, 100dvh));
+    padding: aui.token('space-4');
+    margin: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    overflow-wrap: anywhere;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-lg');
+    box-shadow: aui.token('shadow-lg');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+
+    @include aui.popup-motion;
+
+    a {
+      color: aui.token('color-link');
+    }
+
+    :focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  // Global `animation: 'none'` (set per show from shouldAnimate()).
+  .aui-hover-card--static {
+    transition: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-hover-card {
+      border-color: CanvasText;
+    }
+  }
+}

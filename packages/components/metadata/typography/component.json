@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "name": "typography",
+  "displayName": "Typography (Heading, Text, Link, Code, Prose)",
+  "category": "Typography",
+  "package": "@absoluteui/components",
+  "import": "import { Heading, Link, Text, setLineClamp } from '@absoluteui/components/typography';",
+  "styleImport": "@absoluteui/components/typography/style.css",
+  "purpose": "Token-based typography as CSS classes that work without JavaScript (aui-heading--1..6, aui-text and modifiers, aui-link, aui-code, aui-prose, aui-truncate, aui-line-clamp), plus validated JS helpers: headings whose semantic level is independent of visual size, links restricted to http(s) and relative URLs that announce when they open a new tab, and a validated line clamp.",
+  "whenToUse": [
+    "Headings, body text, and supporting text that must follow the theme's type scale.",
+    "Links inside content, including links that open in a new tab.",
+    "Rich text from a CMS or Markdown renderer (aui-prose), after sanitization.",
+    "Truncating long single-line labels or clamping previews to a number of lines."
+  ],
+  "whenNotToUse": [
+    "Actions that do not navigate: use a Button.",
+    "Code blocks that need syntax highlighting: use a dedicated highlighter inside aui-prose pre.",
+    "Truncating essential information that users cannot otherwise reach."
+  ],
+  "internalDependencies": ["@absoluteui/core"],
+  "states": ["default", "hover (link)", "focus-visible (link)", "muted", "truncated", "clamped"],
+  "responsive": "Sizes are rem-based tokens, so text scales with user font settings. Long words wrap (overflow-wrap). aui-truncate needs a constrained inline size; aui-line-clamp clamps to --aui-lines (default 3).",
+  "rtl": "Logical properties throughout: prose list indentation and blockquote rule sit at the inline start; ellipsis appears at the inline end.",
+  "theme": "font-family-*, font-size-*, font-weight-*, line-height-* tokens; color-text, color-text-muted, color-link, color-surface-sunken (code). Forced-colors mode renders links in LinkText with a Highlight focus outline; inline code keeps a visible border.",
+  "timezone": "Not applicable.",
+  "security": "All helpers set text with textContent. Link.create validates href with the WHATWG URL parser and accepts only http(s) or relative references; javascript:, data:, vbscript:, file:, blob:, and obfuscated forms are rejected. External links get rel=\"noopener noreferrer\". setLineClamp writes one custom property through the CSSOM. aui-prose styles markup but does not sanitize it: sanitize untrusted HTML with the core sanitizer first. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [],
+    "testedScale": "Helpers create one element each and attach no listeners or subscriptions. Not yet part of the e2e performance suite."
+  },
+  "limitations": [
+    "The external-link hint is resolved at creation time; later locale changes do not update existing links.",
+    "aui-line-clamp relies on -webkit-line-clamp (supported by all current engines); the standard line-clamp property is declared for forward compatibility.",
+    "aui-prose styles only p, ul, ol, li, h2 to h4, a, code, pre, and blockquote.",
+    "No external-link icon; the hint is text for assistive technology only."
+  ],
+  "unsupported": [
+    "HTML strings as heading, text, or link text.",
+    "Non-http(s) link schemes such as mailto: or tel: in Link.create (use a plain <a class=\"aui-link\"> for those).",
+    "Fluid (viewport-based) type scales."
+  ],
+  "antiPatterns": [
+    "Choosing a heading level for its size; use size to change appearance and keep the outline correct.",
+    "Removing the link underline; color alone does not identify links (WCAG 1.4.1).",
+    "Opening links in a new tab without telling the user.",
+    "Clamping or truncating text without another way to read it in full."
+  ],
+  "adapters": {
+    "angular": "No directive: use the CSS classes (aui-heading, aui-text, aui-link, ...) in Angular templates and the JS helpers from @absoluteui/components/typography.",
+    "react": "No component: use the CSS classes and `isSafeHref` from @absoluteui/components/typography (docs/REACT.md).",
+    "vue": "No component: use the CSS classes and `isSafeHref` from @absoluteui/components/typography (docs/VUE.md)."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

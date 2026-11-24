@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "empty-state",
+  "examples": [
+    {
+      "id": "no-results",
+      "title": "No search results",
+      "language": "ts",
+      "code": "import { EmptyState, type EmptyStateActionDetail } from '@absoluteui/components/empty-state';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nEmptyState.create(host, {\n  title: 'No employees match your filters',\n  description: 'Try a different name or clear the filters.',\n  icon: 'search',\n  live: true,\n  primaryAction: { label: 'Clear filters' },\n});\nhost.addEventListener('aui-action', (event) => {\n  if ((event as CustomEvent<EmptyStateActionDetail>).detail.action === 'primary') host.dataset.cleared = 'true';\n});"
+    },
+    {
+      "id": "first-use",
+      "title": "First use with two actions",
+      "language": "ts",
+      "code": "import { EmptyState } from '@absoluteui/components/empty-state';\n\nconst host = document.createElement('section');\ndocument.body.append(host);\nEmptyState.create(host, {\n  title: 'No projects yet',\n  description: 'Projects group people, budgets, and milestones.',\n  headingLevel: 2,\n  size: 'lg',\n  primaryAction: { label: 'Create project', icon: 'plus' },\n  secondaryAction: { label: 'Read the guide', href: '/docs/projects/' },\n});"
+    }
+  ]
+}

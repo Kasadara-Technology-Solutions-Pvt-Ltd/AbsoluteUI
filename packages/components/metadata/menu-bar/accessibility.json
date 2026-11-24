@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "component": "menu-bar",
+  "pattern": "WAI-ARIA APG Menubar with Menu popups (the Menu component and engine); roving tabindex on the bar, real DOM focus on menu items.",
+  "roles": [
+    { "element": "bar", "role": "menubar" },
+    { "element": "item wrappers", "role": "none" },
+    { "element": "bar items", "role": "menuitem (native <button>)" },
+    { "element": "menu popups and submenus", "role": "menu" },
+    { "element": "menu items", "role": "menuitem, menuitemcheckbox, or menuitemradio" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "bar", "value": "The label option" },
+    { "attribute": "aria-haspopup", "element": "bar items with items", "value": "\"menu\" (also on disabled items with items)" },
+    { "attribute": "aria-expanded", "element": "bar items with a menu", "value": "\"true\" while the menu is open, otherwise \"false\"" },
+    { "attribute": "aria-controls", "element": "bar items with a menu", "value": "id of the menu popup" },
+    { "attribute": "aria-labelledby", "element": "menu popup", "value": "id of its bar item" },
+    { "attribute": "aria-disabled", "element": "disabled bar items", "value": "\"true\"; the item stays focusable but never opens or emits" },
+    { "attribute": "tabindex", "element": "bar items", "value": "0 on the current item (roving tab stop), -1 on the others" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Page", "action": "Moves focus to or from the bar; the bar is one tab stop (the last focused item, else the first enabled item)." },
+    { "key": "ArrowRight / ArrowLeft (mirrored in RTL)", "context": "Bar item focused", "action": "Next / previous bar item, wrapping. Disabled items receive focus." },
+    { "key": "Home / End", "context": "Bar item focused", "action": "First / last bar item." },
+    { "key": "Printable characters", "context": "Bar item focused, typeahead=true", "action": "Focus the next enabled bar item whose label starts with the typed characters." },
+    { "key": "ArrowDown / Enter / Space", "context": "Bar item with a menu", "action": "Opens its menu and focuses the first enabled item." },
+    { "key": "ArrowUp", "context": "Bar item with a menu", "action": "Opens its menu and focuses the last enabled item." },
+    { "key": "Enter / Space", "context": "Command bar item (no items)", "action": "Emits aui-select; focus stays on the item." },
+    { "key": "ArrowDown / ArrowUp / Home / End / typeahead", "context": "Menu open", "action": "Menu navigation (same as Menu)." },
+    { "key": "ArrowRight (ArrowLeft in RTL)", "context": "Menu open, submenu parent focused", "action": "Opens the submenu (same as Menu)." },
+    { "key": "ArrowLeft (ArrowRight in RTL)", "context": "Submenu open", "action": "Closes the submenu and returns to its parent item (same as Menu)." },
+    { "key": "ArrowRight / ArrowLeft (mirrored in RTL)", "context": "Menu open, key not handled by the menu", "action": "Closes the menu, moves to the neighbouring bar item (wrapping), and opens its menu with focus on its first item; command items only receive focus." },
+    { "key": "Enter / Space", "context": "Menu item focused", "action": "Activates it (same as Menu); action items close the menu and return focus to the bar item." },
+    { "key": "Escape", "context": "Top-level menu open", "action": "Closes the menu and returns focus to its bar item. Submenus close one level at a time." },
+    { "key": "Tab / Shift+Tab", "context": "Menu open", "action": "Closes all levels, returns focus to the bar item, and moves on out of the bar." }
+  ],
+  "focus": "The bar has one tab stop (roving tabindex follows focus). Opening a menu moves real DOM focus to its first (or last) enabled item; activation, Escape at the top level, Tab, and close() with focus inside return focus to the bar item. Bar items show color-hover while hovered or expanded and a color-focus-ring outline on :focus-visible.",
+  "wcag": ["1.3.1", "1.4.3", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "4.1.2"],
+  "notes": [
+    "Disabled items stay focusable, per the APG, so screen-reader users discover them.",
+    "Hovering another bar item while a menu is open switches menus (pointer movement only; touch never switches).",
+    "Each menu level is a separate overlay-stack entry, so Escape and outside presses close the topmost level first, including inside a Dialog.",
+    "aui-select ids never collide: ids are validated as unique across the bar and all menus."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "A global configuration change or update() while a menu is open closes it without restoring focus to the bar item."
+  ]
+}

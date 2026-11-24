@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="redo" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M15.5 13l4-4-4-4"/>
+      <path d="M19.5 9H9a4.5 4.5 0 0 0 0 9h5"/>
+    </g>
+  </g>
+</svg>

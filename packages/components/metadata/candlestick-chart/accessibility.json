@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "component": "candlestick-chart",
+  "pattern": "SVG time-series chart as a named, described group (role=\"group\" with aria-roledescription \"candlestick chart\") of role=\"img\" candles with roving focus along the sessions; a legend of toggle buttons for moving averages; zoom toolbar; data table fallback.",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription \"candlestick chart\" (localized), named by the title"
+    },
+    {
+      "element": "candles (path.aui-candlestick-chart__candle)",
+      "role": "img with an aria-label: date, open, high, low, close, change"
+    },
+    {
+      "element": "legend",
+      "role": "list of toggle buttons (aria-pressed) for moving averages"
+    },
+    {
+      "element": "zoom toolbar",
+      "role": "group \"Zoom\" of buttons (aria-disabled when unavailable)"
+    },
+    {
+      "element": "data table",
+      "role": "table (native) with caption, column headers, and row headers"
+    },
+    {
+      "element": "axes, volume pane, averages, crosshair, tooltip",
+      "role": "aria-hidden (decorative duplicates of the accessible data)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized \"candlestick chart\""
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active mark",
+      "value": "0 on exactly one mark (roving); other marks have none"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each mark",
+      "value": "Localized: date, open, high, low, close, change"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowLeft / ArrowRight (also ArrowUp / ArrowDown)",
+      "context": "Candle focused",
+      "action": "Previous / next session (swapped in RTL); past the window edge a zoomed chart pans."
+    },
+    {
+      "key": "Home / End",
+      "context": "Candle focused",
+      "action": "First / last visible session."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Candle focused",
+      "action": "Ten sessions back / forward (clamped to the visible window)."
+    },
+    {
+      "key": "+ / = and - / _",
+      "context": "Mark focused, zoom on",
+      "action": "Zoom in / out around the focused mark (announced politely, aui-zoom)."
+    },
+    {
+      "key": "0",
+      "context": "Mark focused, zoom on",
+      "action": "Reset the zoom."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Mark focused",
+      "action": "Fires aui-point-click with source \"keyboard\"."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "One tab stop for the plot (the active mark), the zoom buttons, the legend buttons, then the Show data table button and the table region."
+    }
+  ],
+  "focus": "Roving focus: one candle is in the tab sequence and keeps the last visited session across re-renders, zoom, and pan.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "2.5.7",
+    "4.1.2"
+  ],
+  "notes": [
+    "Direction is shown by shape (hollow rising, filled falling candles; dashed falling OHLC bars) and named in each accessible name (\"up 1.2 %\"), never by color alone.",
+    "Zoom and pan have keyboard and button equivalents for every pointer gesture (WCAG 2.5.7).",
+    "The generated summary names the range, the change from first to last close, the extremes, and any sessions not plotted on non-trading days."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "aria-roledescription support varies; screen readers without it announce \"group\"."
+  ]
+}

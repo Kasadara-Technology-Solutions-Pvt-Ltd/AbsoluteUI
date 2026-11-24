@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/image-viewer",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiImageViewer",
+      "description": "AbsoluteUI ImageViewer: `<aui-image-viewer>`.",
+      "selector": "aui-image-viewer",
+      "exportAs": [
+        "auiImageViewer"
+      ],
+      "source": "generated",
+      "component": "image-viewer",
+      "configKey": "imageViewer",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the viewer (region or dialog)."
+        },
+        {
+          "name": "images",
+          "type": "readonly ImageViewerImage[]",
+          "required": true,
+          "description": "One or more images { src, alt, decorative?, caption?, thumbnail?, width?, height?, downloadName? }."
+        },
+        {
+          "name": "mode",
+          "type": "ImageViewerMode",
+          "required": false,
+          "default": "inline",
+          "description": "inline renders into the host; lightbox renders a modal dialog opened with open()."
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Shown image."
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Previous and next wrap around."
+        },
+        {
+          "name": "croppable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the Crop tool."
+        },
+        {
+          "name": "aspectRatios",
+          "type": "readonly ImageViewerAspectRatio[]",
+          "required": false,
+          "default": "Free, 1:1, 4:3, 16:9, 3:2",
+          "description": "Crop presets { label, value: width / height | null }."
+        },
+        {
+          "name": "cropType",
+          "type": "ImageViewerCropType",
+          "required": false,
+          "default": "image/png",
+          "description": "Blob type of the crop output."
+        },
+        {
+          "name": "cropQuality",
+          "type": "number",
+          "required": false,
+          "description": "Quality from 0 to 1 for JPEG and WebP output."
+        },
+        {
+          "name": "crossOrigin",
+          "type": "\"anonymous\" | \"use-credentials\" | null",
+          "required": false,
+          "default": "null",
+          "description": "CORS mode of the image request; needed to crop cross-origin images."
+        },
+        {
+          "name": "wheelZoom",
+          "type": "\"auto\" | \"ctrl\" | \"always\"",
+          "required": false,
+          "default": "auto",
+          "description": "When the wheel zooms: auto is Ctrl (or a pinch gesture) inline and always in the lightbox."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<ImageViewerIcons>",
+          "required": false,
+          "description": "Tool and error icons."
+        },
+        {
+          "name": "zoomStep",
+          "type": "number",
+          "required": false,
+          "default": "1.25",
+          "configurable": true,
+          "description": "Zoom factor of one step, 1.05 to 4."
+        },
+        {
+          "name": "minZoom",
+          "type": "number",
+          "required": false,
+          "default": "0.1",
+          "configurable": true,
+          "description": "Smallest zoom, 0.01 to 1 (fit may go lower for very large images)."
+        },
+        {
+          "name": "maxZoom",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "configurable": true,
+          "description": "Largest zoom, 1 to 32."
+        },
+        {
+          "name": "showThumbnails",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the thumbnail strip for two or more images."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the counter, zoom level, and messages."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "ImageViewerChangeDetail",
+          "event": "aui-change",
+          "description": "The shown image changed: { index, image }."
+        },
+        {
+          "name": "zoomed",
+          "payload": "ImageViewerZoomDetail",
+          "event": "aui-zoom",
+          "description": "The zoom changed: { zoom, fit }."
+        },
+        {
+          "name": "rotated",
+          "payload": "ImageViewerRotateDetail",
+          "event": "aui-rotate",
+          "description": "The image was rotated: { rotation, index }."
+        },
+        {
+          "name": "cropped",
+          "payload": "ImageViewerCropDetail",
+          "event": "aui-crop",
+          "description": "A crop was applied: { blob, canvas, rect, rotation, index, image }."
+        },
+        {
+          "name": "failed",
+          "payload": "ImageViewerErrorDetail",
+          "event": "aui-error",
+          "description": "An image failed to load, or a crop was refused (tainted canvas): { index, image, reason, message }."
+        },
+        {
+          "name": "opened",
+          "payload": "ImageViewerOpenDetail",
+          "event": "aui-open",
+          "description": "Lightbox opened: { index }."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "ImageViewerOpenDetail",
+          "description": "Lightbox closed: { index }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(index?: number | undefined): void",
+          "description": "Lightbox: open the dialog (optionally at an image). Inline: show that image."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Lightbox: close and restore focus."
+        },
+        {
+          "name": "show",
+          "signature": "show(index: number): void",
+          "description": "Show an image (clamped), fitted and unrotated."
+        },
+        {
+          "name": "next",
+          "signature": "next(): void",
+          "description": "Next image."
+        },
+        {
+          "name": "previous",
+          "signature": "previous(): void",
+          "description": "Previous image."
+        },
+        {
+          "name": "zoomIn",
+          "signature": "zoomIn(): void",
+          "description": "Zoom in by one step."
+        },
+        {
+          "name": "zoomOut",
+          "signature": "zoomOut(): void",
+          "description": "Zoom out by one step."
+        },
+        {
+          "name": "setZoom",
+          "signature": "setZoom(zoom: number): void",
+          "description": "Set the zoom, clamped to the zoom range."
+        },
+        {
+          "name": "fit",
+          "signature": "fit(): void",
+          "description": "Fit the image to the view."
+        },
+        {
+          "name": "actualSize",
+          "signature": "actualSize(): void",
+          "description": "Zoom to 100%."
+        },
+        {
+          "name": "rotate",
+          "signature": "rotate(degrees?: number | undefined): void",
+          "description": "Rotate by a multiple of 90 degrees (default 90, clockwise)."
+        },
+        {
+          "name": "startCrop",
+          "signature": "startCrop(aspect?: number | null | undefined): void",
+          "description": "Enter crop mode with an aspect ratio (default: the first preset)."
+        },
+        {
+          "name": "cancelCrop",
+          "signature": "cancelCrop(): void",
+          "description": "Leave crop mode without output."
+        },
+        {
+          "name": "crop",
+          "signature": "crop(): Promise<ImageViewerCropDetail> | undefined",
+          "description": "Crop to the crop rectangle; resolves with the canvas and Blob and emits aui-crop."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Inline: a labelled region with a toolbar (WAI-ARIA APG Toolbar), a focusable image stage, and thumbnail buttons with aria-current. Lightbox: the same content in a modal dialog (APG Dialog) that restores focus when it closes.",
+        "source": "packages/components/metadata/image-viewer/accessibility.json"
+      },
+      "limitations": [
+        "Rotation is in steps of 90 degrees.",
+        "Crop rectangles are axis aligned; there is no free rotation or perspective correction.",
+        "The download link uses the download attribute, which browsers ignore for cross-origin URLs (they open the image instead)."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { ImageViewerCropDetail, ImageViewerImage } from '@absoluteui/components/image-viewer';\nimport { AuiImageViewer } from '@absoluteui/angular/image-viewer';\n\n@Component({\n  selector: 'app-photo-crop',\n  imports: [AuiImageViewer],\n  template: `<aui-image-viewer label=\"Profile photo\" [images]=\"images\" [croppable]=\"true\" (cropped)=\"onCrop($event)\"></aui-image-viewer>`,\n})\nexport class PhotoCropComponent {\n  readonly images: ImageViewerImage[] = [{ src: '/images/people-ada.png', alt: 'Ada Lovelace smiling' }];\n  size = '';\n  onCrop(detail: ImageViewerCropDetail): void {\n    this.size = `${String(detail.rect.width)} x ${String(detail.rect.height)}`;\n  }\n}"
+    }
+  ]
+}

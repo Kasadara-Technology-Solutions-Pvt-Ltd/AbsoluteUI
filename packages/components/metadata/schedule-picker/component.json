@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "name": "schedule-picker",
+  "displayName": "Schedule Picker",
+  "category": "Date and Time",
+  "package": "@absoluteui/components",
+  "import": "import { SchedulePicker } from '@absoluteui/components/schedule-picker';",
+  "styleImport": "@absoluteui/components/schedule-picker/style.css",
+  "purpose": "Choose when something happens in one form control: start and end (DateTime Pickers, or Date Pickers for all-day), an all-day checkbox, an optional timezone select, and an optional embedded Recurrence Picker. The value is a ScheduleValue (instants with a timezone, or dates) and the form value is iCalendar text (DTSTART, DTEND, RRULE, EXDATE).",
+  "whenToUse": [
+    "Event, meeting, booking, or maintenance-window editors.",
+    "Anything with a start, an end, and optionally a repetition, where timezones matter."
+  ],
+  "whenNotToUse": [
+    "A single moment: use DateTime Picker.",
+    "A range of dates without times: Date Range Picker is lighter.",
+    "A duration without a start: use Duration Picker."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "timed",
+    "all-day",
+    "with timezone select",
+    "with recurrence",
+    "incomplete",
+    "end before start",
+    "disabled",
+    "required",
+    "invalid"
+  ],
+  "responsive": "Start and end sit side by side when there is room (auto-fit grid, 14rem minimum) and stack below; reflows at 320 px without horizontal scrolling. The embedded Recurrence Picker wraps its rows.",
+  "rtl": "All parts follow the direction option; the inner pickers mirror their segments and popups.",
+  "theme": "Uses the inner pickers' styles plus the shared control surface for the timezone select; the recurrence section is separated by a border. Import the Date Input, Calendar, Date Picker, DateTime Picker, and (with recurrence) Recurrence Picker styles as well.",
+  "timezone": "Timed values are Instants read and entered in `value.timeZone` (or the select, or the timezone option; UTC by default, section 8.1) with the DST policy (section 8.5). Changing the timezone keeps the wall-clock times and recomputes the instants. All-day values are PlainDate with an inclusive last day; the iCalendar DTEND of all-day values is exclusive (the next day), as RFC 5545 requires.",
+  "security": "Text via textContent; timezone names from Intl. The form value is produced by the component, never parsed as HTML.",
+  "dataHandling": "No persistence or network access. One hidden input carries the iCalendar text when `name` is set; inner pickers are not registered with Form and their radios are not submitted.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "SchedulePicker.create with recurrence",
+        "budget": "< 30 ms per instance in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "One schedule per instance (four inner pickers and an optional Recurrence Picker)."
+  },
+  "limitations": [
+    "One timezone for start and end.",
+    "The end follows the start with the previous duration; there is no separate duration field.",
+    "All-day schedules have no times; switching back to timed restores the previous start time (09:00 by default) and duration.",
+    "parseSchedule accepts TZID, UTC (Z), and VALUE=DATE forms only.",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ],
+  "unsupported": [
+    "Floating (zone-less) times.",
+    "Multiple date ranges in one value."
+  ],
+  "antiPatterns": [
+    "Storing only the instants and dropping timeZone: the recurrence expands in the wall clock of that zone.",
+    "Treating the all-day end as exclusive in application code: ScheduleValue.end is the last day."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/schedule-picker: AuiSchedulePicker directive ([auiSchedulePicker]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/schedule-picker: AuiSchedulePicker component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/schedule-picker: AuiSchedulePicker component with v-model."
+  },
+  "versionIntroduced": "0.6.0",
+  "deprecated": null
+}

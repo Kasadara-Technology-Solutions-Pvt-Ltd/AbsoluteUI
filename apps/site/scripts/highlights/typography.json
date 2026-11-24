@@ -1,0 +1,6 @@
+[
+  { "title": "Heading, Text, Link", "text": "Factories and enhancers for headings, body text, and links on the type scale." },
+  { "title": "Safe links", "text": "Only http(s) and relative destinations are accepted; other schemes are rejected." },
+  { "title": "New tab hint", "text": "Links that open a new tab say so in a localized, visually hidden hint." },
+  { "title": "Line clamp", "text": "Clamp long text to a number of lines with one call." }
+]

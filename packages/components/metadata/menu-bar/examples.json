@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "menu-bar",
+  "examples": [
+    {
+      "id": "editor",
+      "title": "Editor menubar with menus, a submenu, and a command item",
+      "language": "ts",
+      "code": "import { MenuBar, type MenuBarSelectDetail } from '@absoluteui/components/menu-bar';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nMenuBar.create(host, {\n  label: 'Editor',\n  items: [\n    { id: 'file', label: 'File', items: [\n      { id: 'new', label: 'New', shortcut: 'Ctrl+N' },\n      { id: 'open-recent', label: 'Open recent', items: [{ id: 'recent-report', label: 'report.md' }] },\n      { type: 'separator' },\n      { id: 'close-file', label: 'Close', tone: 'danger' },\n    ] },\n    { id: 'edit', label: 'Edit', items: [\n      { id: 'undo', label: 'Undo', shortcut: 'Ctrl+Z' },\n      { id: 'redo', label: 'Redo', shortcut: 'Ctrl+Y' },\n    ] },\n    { id: 'help', label: 'Help' },\n  ],\n});\n// Command items and menu items both bubble aui-select to the host.\nhost.addEventListener('aui-select', (event) => {\n  const { id } = (event as CustomEvent<MenuBarSelectDetail>).detail;\n  host.dataset.lastCommand = id;\n});"
+    },
+    {
+      "id": "view-options",
+      "title": "Checkbox and radio items that keep the menu open",
+      "language": "ts",
+      "code": "import { MenuBar, type MenuBarSelectDetail } from '@absoluteui/components/menu-bar';\n\nconst host = document.querySelector<HTMLElement>('#app-menu');\nif (host) {\n  const bar = MenuBar.create(host, {\n    label: 'Application',\n    closeOnSelect: false,\n    items: [\n      { id: 'view', label: 'View', items: [\n        { type: 'checkbox', id: 'grid', label: 'Show grid', checked: true },\n        { type: 'group', label: 'Zoom', items: [\n          { type: 'radio', id: 'zoom-100', label: '100%', group: 'zoom', checked: true },\n          { type: 'radio', id: 'zoom-200', label: '200%', group: 'zoom', checked: false },\n        ] },\n      ] },\n      { id: 'tools', label: 'Tools', disabled: true, items: [{ id: 'macros', label: 'Macros' }] },\n    ],\n  });\n  host.addEventListener('aui-select', (event) => {\n    const { id, checked } = (event as CustomEvent<MenuBarSelectDetail>).detail;\n    if (checked !== undefined) host.dataset[id] = String(checked);\n  });\n  bar.menu('view')?.element.addEventListener('aui-close', () => {\n    host.dataset.viewMenu = 'closed';\n  });\n}"
+    },
+    {
+      "id": "global-config",
+      "title": "Global defaults",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { menuBar: { closeOnSelect: false, typeahead: false } } });"
+    }
+  ]
+}

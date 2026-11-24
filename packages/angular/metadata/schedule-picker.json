@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/schedule-picker",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSchedulePicker",
+      "description": "AbsoluteUI SchedulePicker: `<aui-schedule-picker>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-schedule-picker",
+      "exportAs": [
+        "auiSchedulePicker"
+      ],
+      "source": "generated",
+      "component": "schedule-picker",
+      "configKey": "schedulePicker",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "ScheduleValue | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Legend of the fieldset (required accessible name)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the legend."
+        },
+        {
+          "name": "allowAllDay",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Offer the all-day checkbox."
+        },
+        {
+          "name": "timeZones",
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Timezones offered in a select; omitted: no select."
+        },
+        {
+          "name": "recurrence",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Embed a Recurrence Picker (read at creation)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name of the hidden input (iCalendar text)."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by the fieldset."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "An empty schedule is invalid."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables every part; not submitted."
+        },
+        {
+          "name": "firstDayOfWeek",
+          "type": "IsoWeekday",
+          "required": false,
+          "description": "First column of the calendars and weekday toggles."
+        },
+        {
+          "name": "validate",
+          "type": "((value: ScheduleValue | null) => string | null)",
+          "required": false,
+          "description": "Consumer validation after built-in checks."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<SchedulePickerIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear."
+        },
+        {
+          "name": "defaultDuration",
+          "type": "number",
+          "required": false,
+          "default": "60",
+          "configurable": true,
+          "description": "Minutes of a new timed schedule after switching off all-day."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Month and weekday names, dates, numbers, the first day of the week, and messages."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "Timezone of the wall-clock times when the value has none and no select is shown."
+        },
+        {
+          "name": "disambiguation",
+          "type": "Disambiguation",
+          "required": false,
+          "default": "compatible",
+          "configurable": true,
+          "description": "DST policy for wall-clock times in a gap or overlap (SPEC section 8.5)."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Reading direction; Left/Right arrow keys and chevrons follow it."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "ScheduleValue | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "SchedulePickerChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed a part of the schedule or its validity error."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error; cleared on the next edit."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "iCalendar text, or null."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the start."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "A fieldset composing labelled pickers (APG date picker dialogs), a native checkbox and select, and an optional Recurrence Picker fieldset.",
+        "source": "packages/components/metadata/schedule-picker/accessibility.json"
+      },
+      "limitations": [
+        "One timezone for start and end.",
+        "The end follows the start with the previous duration; there is no separate duration field.",
+        "All-day schedules have no times; switching back to timed restores the previous start time (09:00 by default) and duration.",
+        "parseSchedule accepts TZID, UTC (Z), and VALUE=DATE forms only.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport type { ScheduleValue } from '@absoluteui/components/schedule-picker';\nimport { AuiSchedulePicker } from '@absoluteui/angular/schedule-picker';\n\n@Component({\n  selector: 'app-when',\n  imports: [ReactiveFormsModule, AuiSchedulePicker],\n  template: `<aui-schedule-picker label=\"When\" [recurrence]=\"true\" [timeZones]=\"zones\" [formControl]=\"when\"></aui-schedule-picker>`,\n})\nexport class WhenComponent {\n  readonly zones = ['Europe/London', 'America/New_York'];\n  readonly when = new FormControl<ScheduleValue | null>(null);\n}"
+    }
+  ]
+}

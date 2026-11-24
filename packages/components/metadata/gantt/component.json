@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "name": "gantt",
+  "displayName": "Gantt Chart",
+  "category": "Data visualization",
+  "package": "@absoluteui/components",
+  "import": "import { Gantt, type GanttTask, type GanttDependency } from '@absoluteui/components/gantt';",
+  "styleImport": "@absoluteui/components/gantt/style.css",
+  "purpose": "A project schedule: a task tree grid (name, start, end, duration, progress, resources, float) beside a timeline of bars with summary tasks, milestones, progress, baselines, dependency connectors, the critical path, non-working days, and today. Tasks are scheduled in working days of a Business Calendar: dependencies (finish-to-start, start-to-start, finish-to-finish, start-to-finish, with lag or lead) push successors later, never before their requested start; manual tasks keep their start and report violated dependencies. Editing: drag a bar to move it, its end to resize it, its link handle onto another bar to link them; Ctrl/Cmd+Left/Right moves by a working day, Shift+Left/Right changes the duration, and the toolbar offers the same plus Link (then Enter on the successor). Every change is dispatched first as the cancelable aui-task-change with the tasks, dependencies, and new schedule; changes are undoable. An optional resource histogram shows daily load against capacity. Rows are virtual. The engine (scheduleGantt, resourceLoad, createsCycle) is pure and runs without DOM (for example on a server).",
+  "whenToUse": [
+    "Planning and tracking projects with dependent tasks, milestones, and deadlines.",
+    "Finding the critical path and the float of each task after a change.",
+    "Comparing the current schedule with a baseline, and spotting over-allocated resources."
+  ],
+  "whenNotToUse": [
+    "Calendars of meetings and appointments with times of day: use Scheduler.",
+    "Workflow boards without dates: use Kanban.",
+    "Simple date ranges on a few rows: use a timeline view of Scheduler or a table."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["row focused", "summary expanded / collapsed", "critical task", "milestone", "manual task (dashed bar)", "violated dependency (dashed connector)", "baseline shown", "read-only task", "linking (source picked)", "dragging (move, resize, link)", "valid / invalid link target", "scale day / week / month", "histogram shown", "virtual rows"],
+  "responsive": "The body scrolls in two dimensions inside a fixed block size (--aui-gantt-height, 32rem) while the page reflows at 320 px (WCAG 1.4.10 exception for two-dimensional content). The tree grid (--aui-gantt-table-width, 28rem) stays at the inline start while the timeline scrolls; in containers narrower than 40rem it scrolls away with the timeline. The header rows are sticky. Toolbar buttons are touch-target-min squares; bars, resize edges, and link handles use touch-action: none.",
+  "rtl": "direction 'rtl' mirrors the timeline (dates run from right to left, connectors are mirrored) and swaps ArrowLeft/ArrowRight: expand/collapse and Ctrl/Cmd or Shift + arrow follow the reading direction (the arrow toward later dates moves later or lengthens).",
+  "theme": "Bars use a tint of color-chart-1..8 (from the task color) over color-surface with a solid accent border and a solid progress fill; critical bars get a color-error-fg border-width-strong border and a hatch pattern (not color alone, and the grid says 'Critical'); manual tasks have dashed borders; summary bars are color-text brackets; milestones are diamonds; baselines are thin color-text-muted bars. Connectors use color-chart-axis (critical: color-error-fg; violated: dashed color-warning-fg). Non-working days are color-surface-sunken; today is a dashed color-primary line. Over-capacity days in the histogram use color-error-fg with a hatch. Forced colors use Canvas/CanvasText bars, Mark for critical, and Highlight for focus and the link source.",
+  "timezone": "Dates are PlainDate values (no timezone); durations and lags count working days of the calendar. The default today is the local date of the device (pass today to fix it).",
+  "security": "Task, resource, and dependency text renders through textContent. Options are validated (unique ids, known parents and resources, no cycles, dependencies between leaf tasks only) before use (GANTT_OPTIONS). Positions and sizes are written through the CSSOM only (CSP-safe); connectors are SVG paths built from numbers.",
+  "dataHandling": "No persistence, network access, or telemetry. Changes are reported through aui-task-change (tasks, dependencies, schedule) for the application to save; the task's start is the requested start and the scheduled dates are in schedule.",
+  "performance": {
+    "budgets": [
+      { "metric": "Gantt.create with 2,000 tasks and 1,500 dependencies", "budget": "< 150 ms in headless Chromium (e2e performance test)" },
+      { "metric": "Keyboard move of a task with 2,000 tasks (reschedule and render)", "budget": "< 60 ms in headless Chromium (e2e performance test)" },
+      { "metric": "scheduleGantt for 10,000 tasks and 9,000 dependencies", "budget": "< 80 ms in headless Chromium (e2e performance test)" }
+    ],
+    "testedScale": "2,000 visible tasks (10,000 in the engine budget) for the budgets; 6 to 2,000 tasks in the unit tests. Rows are virtual; timeline columns are not (a day scale over several years renders a long scale)."
+  },
+  "limitations": [
+    "Scheduling is in whole working days (PlainDate); hours within a day are not modeled.",
+    "Dependencies connect leaf tasks only; summary tasks follow their children.",
+    "Auto-scheduled tasks start at their requested start or later (as soon as dependencies allow); there are no other constraint types (must finish on, as late as possible).",
+    "Resource load is reported, not leveled: over-allocations are shown but not resolved.",
+    "Progress is displayed but not edited in the chart.",
+    "Pointer drags are not announced step by step (keyboard and toolbar changes are).",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Adding, deleting, renaming, indenting, or reordering tasks inside the chart (change tasks with update()).",
+    "Several calendars (per resource or per task).",
+    "Printing or exporting the chart.",
+    "Split tasks, recurring tasks, and cost tracking."
+  ],
+  "antiPatterns": [
+    "Writing the scheduled dates back into task.start after every change: the requested start becomes a floor and tasks can no longer move earlier when predecessors do.",
+    "Passing new tasks on every framework render: it clears the undo history.",
+    "Relying on the timeline for information: keep the grid columns users need (start, end, duration) visible."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/gantt: generated AuiGantt directive ([auiGantt], inputs mirror GanttOptions; outputs auiTaskChange, auiTaskActivate, auiExpandChange, auiScaleChange; controllerSignal).",
+    "react": "@absoluteui/react/gantt: generated AuiGantt (props = GanttOptions + onTaskChange, onTaskActivate, onExpandChange, onScaleChange; ref receives the Gantt).",
+    "vue": "@absoluteui/vue/gantt: generated AuiGantt (emits taskChange, taskActivate, expandChange, scaleChange; template ref exposes controller)."
+  },
+  "versionIntroduced": "0.7.0",
+  "deprecated": null
+}

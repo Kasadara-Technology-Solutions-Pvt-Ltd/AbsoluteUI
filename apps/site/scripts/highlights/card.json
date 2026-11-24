@@ -1,0 +1,6 @@
+[
+  { "title": "Titled or plain", "text": "A titled card is an article with a heading at the level you choose." },
+  { "title": "Content areas", "text": "Body, footer, and media areas take text or any DOM node." },
+  { "title": "Whole-card link", "text": "Interactive cards use one native link, so the whole card is clickable." },
+  { "title": "Surface variants", "text": "Flat, raised, and sunken surfaces, also available for your own elements." }
+]

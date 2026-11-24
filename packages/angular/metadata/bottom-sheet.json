@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/bottom-sheet",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiBottomSheet",
+      "description": "AbsoluteUI Bottom Sheet; the projected content is the body:\n`<aui-bottom-sheet title=\"Share\" [(open)]=\"sharing\">...</aui-bottom-sheet>`.\n`modal` is read once at creation (init-only).",
+      "selector": "aui-bottom-sheet",
+      "exportAs": [
+        "auiBottomSheet"
+      ],
+      "source": "hand-written",
+      "component": "bottom-sheet",
+      "configKey": "bottomSheet",
+      "inputs": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name, rendered as the heading (text only). Must be non-empty after trimming."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Referenced by aria-describedby (text only). Hidden when empty."
+        },
+        {
+          "name": "snapPoints",
+          "type": "readonly number[]",
+          "required": false,
+          "description": "Heights as fractions of the viewport height, strictly ascending, each in (0, 1]. Without snap points the sheet fits its content (capped at 90dvh). Two or more make the handle a slider."
+        },
+        {
+          "name": "snap",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Index into snapPoints used when the sheet opens (0 = lowest). Must be 0 without snap points. When set, open() re-applies it."
+        },
+        {
+          "name": "modal",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "true: showModal() with inert background, backdrop and scroll lock. false: show(); the page stays interactive (supplementary panels only)."
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Escape requests close (cancelable, reason 'escape') when the sheet is the topmost overlay."
+        },
+        {
+          "name": "closeOnBackdrop",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Backdrop click requests close (cancelable, reason 'backdrop'). Modal only."
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Render the header close button (reason 'close-button')."
+        },
+        {
+          "name": "closeOnDragDown",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Dragging the handle down past min(120px, 25% of the lowest height) requests close (cancelable, reason 'drag')."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<BottomSheetIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "change": "openChange",
+          "description": "Whether the bottom sheet is shown: `[(open)]`. Closing by Escape, the close button, or an action sets it to false."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "opened",
+          "payload": "null",
+          "event": "aui-open",
+          "description": "After the sheet opened."
+        },
+        {
+          "name": "cancelled",
+          "payload": "BottomSheetCloseDetail",
+          "event": "aui-cancel",
+          "description": "Before a user-initiated close; preventDefault keeps it open (a dismissing drag snaps back)."
+        },
+        {
+          "name": "closed",
+          "payload": "BottomSheetCloseDetail",
+          "event": "aui-close",
+          "description": "After the sheet closed."
+        },
+        {
+          "name": "snapChange",
+          "payload": "BottomSheetSnapChangeDetail",
+          "event": "aui-snap-change",
+          "description": "The user picked a height (snap point index)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "snapTo",
+          "signature": "snapTo(index: number): void",
+          "description": "Move to a snap point (index into `snapPoints`)."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Dialog (Modal) pattern implemented with native <dialog>.showModal(); non-modal sheets use <dialog>.show(). With two or more snap points the drag handle follows the APG Slider pattern.",
+        "source": "packages/components/metadata/bottom-sheet/accessibility.json"
+      },
+      "limitations": [
+        "Non-modal sheets are not in the top layer; they use z-index 1000 and can be covered by page content with a higher stacking context.",
+        "Only the handle strip starts a drag; the body scrolls and never drags the sheet.",
+        "Snap points are fractions of the viewport height, not pixel heights or content-based heights.",
+        "Slide animations need @starting-style and transition-behavior: allow-discrete; older browsers open and close without animation.",
+        "Initial focus follows the native dialog focusing steps: the first focusable element, which is the close button when shown (it precedes the handle in DOM order although the handle is shown first).",
+        "open() re-applies the `snap` option when it is set, so a height the user chose is not kept across reopening in that case.",
+        "A <form method=\"dialog\"> submit inside the content closes with reason 'programmatic'."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { AuiButton } from '@absoluteui/angular/button';\nimport { AuiBottomSheet } from '@absoluteui/angular/bottom-sheet';\n\n@Component({\n  selector: 'app-article',\n  imports: [AuiButton, AuiBottomSheet],\n  template: `\n    <button type=\"button\" auiButton variant=\"secondary\" (click)=\"sharing.set(true)\">Share</button>\n    <aui-bottom-sheet title=\"Share\" [open]=\"sharing()\" (closed)=\"sharing.set(false)\">\n      <p>Share targets</p>\n    </aui-bottom-sheet>`,\n})\nexport class ArticleComponent {\n  readonly sharing = signal(false);\n}"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "component": "mention-input",
+  "pattern": "WAI-ARIA APG Combobox with a listbox popup (list autocomplete). The single-line field is role=combobox with aria-expanded; the textarea keeps its native textbox role (ARIA does not allow combobox on textarea) and exposes aria-autocomplete, aria-controls, and aria-activedescendant.",
+  "roles": [
+    { "element": "single-line field", "role": "combobox" },
+    { "element": "textarea", "role": "textbox (native, multiline)" },
+    { "element": "suggestion list", "role": "listbox" },
+    { "element": "suggestion", "role": "option" }
+  ],
+  "aria": [
+    { "attribute": "aria-autocomplete", "element": "field", "value": "list" },
+    { "attribute": "aria-expanded", "element": "single-line field", "value": "true while suggestions are open" },
+    { "attribute": "aria-controls", "element": "field", "value": "the listbox id while open" },
+    { "attribute": "aria-activedescendant", "element": "field", "value": "the active suggestion while open" },
+    { "attribute": "aria-selected", "element": "suggestion", "value": "true on the active suggestion" },
+    { "attribute": "aria-label", "element": "listbox", "value": "Suggestions (localized)" },
+    { "attribute": "aria-describedby", "element": "field", "value": "help text, counter, error, and the trigger hint ('Type @ for people to mention.')" },
+    { "attribute": "aria-invalid", "element": "field", "value": "true while an error is shown" },
+    { "attribute": "aria-busy", "element": "popup", "value": "true while the provider is loading" }
+  ],
+  "keyboard": [
+    { "key": "Trigger character (for example @)", "context": "Field", "action": "Opens suggestions for the text typed after it." },
+    { "key": "ArrowDown / ArrowUp", "context": "Suggestions open", "action": "Moves the active suggestion (wraps)." },
+    { "key": "Enter / Tab", "context": "Suggestions open", "action": "Inserts the active suggestion as a mention followed by a space." },
+    { "key": "Escape", "context": "Suggestions open", "action": "Closes the suggestions until the caret leaves this trigger." },
+    { "key": "Space", "context": "Suggestions open", "action": "Ends the query; the suggestions close." },
+    { "key": "Any other key", "context": "Field", "action": "Native text editing; mentions the edit touches become plain text." }
+  ],
+  "focus": "Focus stays in the field; suggestions are referenced with aria-activedescendant, and pointer selection does not move focus.",
+  "wcag": ["1.3.1", "2.1.1", "2.4.7", "3.3.1", "3.3.2", "4.1.2", "4.1.3"],
+  "notes": [
+    "Result counts, 'No matches', failures, and inserted mentions are announced through a polite live region (4.1.3).",
+    "The trigger hint is part of the description, so screen-reader users learn that @ or # open suggestions.",
+    "Mentions are plain text in the field; the structure lives in the value."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Some screen readers announce aria-activedescendant changes on a textarea less reliably than on a combobox; the polite count announcement compensates."
+  ]
+}

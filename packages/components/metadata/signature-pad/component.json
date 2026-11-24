@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "signature-pad",
+  "displayName": "Signature Pad",
+  "category": "Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { SignaturePad } from '@absoluteui/components/signature-pad';",
+  "styleImport": "@absoluteui/components/signature-pad/style.css",
+  "purpose": "Captures a handwritten signature with mouse, pen, or touch on a high-DPI canvas with smoothed, pressure- and speed-aware strokes, undo, clear, and PNG or SVG export. A typed-name mode is always available for keyboard and screen-reader users. A Form control: the hidden input carries a PNG or SVG data URL.",
+  "whenToUse": [
+    "Acknowledging documents: offer letters, policies, timesheets, delivery receipts.",
+    "Any place a person must sign in the browser, with a typed alternative."
+  ],
+  "whenNotToUse": [
+    "Legally qualified electronic signatures (certificates, identity proofing): use a signing service; a drawn image alone proves little.",
+    "Free drawing or annotation: the pad has one pen and no shapes."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities", "@absoluteui/icons"],
+  "states": ["empty", "drawing", "drawn", "typed", "draw mode", "type mode", "read-only", "disabled", "required", "invalid (required, validate, custom error)"],
+  "responsive": "The pad fills the container width at a fixed height (default 10rem); strokes are stored relative to the pad, so they rescale when the width changes.",
+  "rtl": "The toolbar mirrors and the placeholder starts at the right; strokes are geometry and are not mirrored.",
+  "theme": "Component tokens signature-pad-ink (default pen color, color-text), signature-pad-bg (color-surface), and signature-pad-guide (boundary and baseline, color-border-strong); ink and guide are 3:1 against the pad in the contrast gate. Forced colors draw the pad boundary and default ink in CanvasText.",
+  "timezone": "Not applicable. Point times are relative milliseconds within a stroke.",
+  "security": "No HTML is rendered; the typed name is drawn on the canvas and escaped in SVG export. penColor, height, and typedFont are validated before use; positions use the CSSOM (CSP-safe).",
+  "dataHandling": "No persistence, network access, or telemetry. The value (stroke points or the typed name) and exported images stay in the page until the app sends them.",
+  "performance": {
+    "budgets": [
+      { "metric": "SignaturePad.create, per instance", "budget": "< 3 ms average in headless Chromium" },
+      { "metric": "Redraw of a 2,000-point signature", "budget": "< 8 ms" }
+    ],
+    "testedScale": "Up to 20,000 points per signature (excess points are dropped)."
+  },
+  "limitations": [
+    "The default ink color is read when drawing; after a theme change, a resize or update() redraws with the new color.",
+    "Exported PNGs have a transparent background."
+  ],
+  "unsupported": [
+    "Erasing parts of a stroke (undo removes whole strokes).",
+    "Biometric signature verification."
+  ],
+  "antiPatterns": [
+    "Offering drawing only: the typed mode is the keyboard and screen-reader alternative (WCAG 2.1.1).",
+    "Treating the image as proof of identity."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/signature-pad: AuiSignaturePad component (<aui-signature-pad>, [(value)], formControl).",
+    "react": "@absoluteui/react/signature-pad: AuiSignaturePad component (value, onValueChange).",
+    "vue": "@absoluteui/vue/signature-pad: AuiSignaturePad component (v-model)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="attendance">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M8.5 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.5"/>
+      <rect x="8.5" y="2.5" width="7" height="3" rx="1"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="12" cy="10.5" r="2"/>
+      <path d="M8.75 17a3.25 2.5 0 0 1 6.5 0"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M8.5 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M8.5 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.5"/>
+      <rect x="8.5" y="2.5" width="7" height="3" rx="1"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="12" cy="10.5" r="2"/>
+      <path d="M8.75 17a3.25 2.5 0 0 1 6.5 0"/>
+    </g>
+  </g>
+</svg>

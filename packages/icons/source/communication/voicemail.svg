@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="voicemail">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="6.5" cy="12" r="3.5"/>
+      <circle cx="17.5" cy="12" r="3.5"/>
+      <path d="M6.5 15.5h11"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="6.5" cy="12" r="3.5"/>
+      <circle cx="17.5" cy="12" r="3.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="6.5" cy="12" r="3.5"/>
+      <circle cx="17.5" cy="12" r="3.5"/>
+      <path d="M6.5 15.5h11"/>
+    </g>
+  </g>
+</svg>

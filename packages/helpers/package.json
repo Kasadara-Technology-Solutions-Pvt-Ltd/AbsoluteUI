@@ -1,0 +1,151 @@
+{
+  "name": "@absoluteui/helpers",
+  "version": "0.13.0",
+  "description": "AbsoluteUI helpers: pure, zero-dependency functions and data structures (collections, dates, business calendar, strings, numbers, JSON, LINQ, validation).",
+  "type": "module",
+  "license": "Apache-2.0",
+  "homepage": "https://aui.kasadara.com/docs/api/helpers/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI.git",
+    "directory": "packages/helpers"
+  },
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/kasadara/_packaging/AbsoluteUI/npm/registry/"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./is": {
+      "types": "./dist/is/index.d.ts",
+      "default": "./dist/is/index.js"
+    },
+    "./convert": {
+      "types": "./dist/convert/index.d.ts",
+      "default": "./dist/convert/index.js"
+    },
+    "./error": {
+      "types": "./dist/error/index.d.ts",
+      "default": "./dist/error/index.js"
+    },
+    "./array": {
+      "types": "./dist/array/index.d.ts",
+      "default": "./dist/array/index.js"
+    },
+    "./set": {
+      "types": "./dist/set/index.d.ts",
+      "default": "./dist/set/index.js"
+    },
+    "./object": {
+      "types": "./dist/object/index.d.ts",
+      "default": "./dist/object/index.js"
+    },
+    "./linq": {
+      "types": "./dist/linq/index.d.ts",
+      "default": "./dist/linq/index.js"
+    },
+    "./string": {
+      "types": "./dist/string/index.d.ts",
+      "default": "./dist/string/index.js"
+    },
+    "./number": {
+      "types": "./dist/number/index.d.ts",
+      "default": "./dist/number/index.js"
+    },
+    "./decimal": {
+      "types": "./dist/decimal/index.d.ts",
+      "default": "./dist/decimal/index.js"
+    },
+    "./stats": {
+      "types": "./dist/stats/index.d.ts",
+      "default": "./dist/stats/index.js"
+    },
+    "./boolean": {
+      "types": "./dist/boolean/index.d.ts",
+      "default": "./dist/boolean/index.js"
+    },
+    "./compare": {
+      "types": "./dist/compare/index.d.ts",
+      "default": "./dist/compare/index.js"
+    },
+    "./random": {
+      "types": "./dist/random/index.d.ts",
+      "default": "./dist/random/index.js"
+    },
+    "./encoding": {
+      "types": "./dist/encoding/index.d.ts",
+      "default": "./dist/encoding/index.js"
+    },
+    "./zip": {
+      "types": "./dist/zip/index.d.ts",
+      "default": "./dist/zip/index.js"
+    },
+    "./url": {
+      "types": "./dist/url/index.d.ts",
+      "default": "./dist/url/index.js"
+    },
+    "./color": {
+      "types": "./dist/color/index.d.ts",
+      "default": "./dist/color/index.js"
+    },
+    "./json": {
+      "types": "./dist/json/index.d.ts",
+      "default": "./dist/json/index.js"
+    },
+    "./csv": {
+      "types": "./dist/csv/index.d.ts",
+      "default": "./dist/csv/index.js"
+    },
+    "./validate": {
+      "types": "./dist/validate/index.d.ts",
+      "default": "./dist/validate/index.js"
+    },
+    "./sanitize": {
+      "types": "./dist/sanitize/index.d.ts",
+      "default": "./dist/sanitize/index.js"
+    },
+    "./http": {
+      "types": "./dist/http/index.d.ts",
+      "default": "./dist/http/index.js"
+    },
+    "./fn": {
+      "types": "./dist/fn/index.d.ts",
+      "default": "./dist/fn/index.js"
+    },
+    "./async": {
+      "types": "./dist/async/index.d.ts",
+      "default": "./dist/async/index.js"
+    },
+    "./ds": {
+      "types": "./dist/ds/index.d.ts",
+      "default": "./dist/ds/index.js"
+    },
+    "./date": {
+      "types": "./dist/date/index.d.ts",
+      "default": "./dist/date/index.js"
+    },
+    "./timezone": {
+      "types": "./dist/timezone/index.d.ts",
+      "default": "./dist/timezone/index.js"
+    },
+    "./duration": {
+      "types": "./dist/duration/index.d.ts",
+      "default": "./dist/duration/index.js"
+    },
+    "./business-calendar": {
+      "types": "./dist/business-calendar/index.d.ts",
+      "default": "./dist/business-calendar/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {}
+}

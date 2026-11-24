@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="signature" data-mirror="true" data-animations="draw:manual">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 17c2-4 3.5-8 5.5-8s-1 6 1 6 2.5-3 4-3-.5 2.5 1 2.5 2-1 4.5-1"/>
+      <path d="M4 20.5h16"/>
+    </g>
+  </g>
+</svg>

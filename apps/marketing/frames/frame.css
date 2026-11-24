@@ -1,0 +1,274 @@
+/* Page chrome of the marketing live frames only; AbsoluteUI styles every control. */
+html {
+  color-scheme: light;
+}
+html.is-dark {
+  color-scheme: dark;
+}
+body {
+  margin: 0;
+  font-family: var(--aui-font-family-sans);
+  color: var(--aui-color-text);
+  background: var(--aui-color-bg);
+}
+
+/* Hero application preview: a calm app shell with generous spacing. */
+.app {
+  display: grid;
+  grid-template-columns: 13.5rem 1fr;
+  min-block-size: 100vh;
+}
+.app > aside {
+  border-inline-end: 1px solid var(--aui-color-border);
+  background: var(--aui-color-surface);
+  padding-block: 1rem;
+}
+.app__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem 1rem;
+  font-weight: 600;
+}
+.app__brand span {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  border-radius: 0.375rem;
+  background: var(--aui-color-primary);
+}
+.app > main {
+  padding: 1.5rem 1.75rem 2rem;
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+.app__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.app__head h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.app__head p {
+  margin: 0.25rem 0 0;
+  color: var(--aui-color-text-muted);
+  font-size: 0.875rem;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.swatches {
+  display: flex;
+  gap: 0.5rem;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.swatches legend {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.swatch {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--aui-color-surface);
+  box-shadow: 0 0 0 1px var(--aui-color-border);
+  cursor: pointer;
+  padding: 0;
+}
+.swatch[aria-pressed='true'] {
+  box-shadow: 0 0 0 2px var(--aui-color-text);
+}
+.swatch:focus-visible {
+  outline: 2px solid var(--aui-color-focus-ring, var(--aui-color-primary));
+  outline-offset: 3px;
+}
+.swatch--cobalt { background: #2563eb; }
+.swatch--teal { background: #0d9488; }
+.swatch--emerald { background: #059669; }
+.swatch--violet { background: #7c3aed; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.panel {
+  border: 1px solid var(--aui-color-border);
+  border-radius: 0.75rem;
+  background: var(--aui-color-surface);
+  padding: 1rem 1.25rem;
+}
+
+/* Simplified mobile preview. */
+.mobile {
+  display: grid;
+  gap: 0.875rem;
+  padding: 1rem;
+}
+.mobile .stats {
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+/* Single-component frames (proof, gallery previews). */
+.solo {
+  padding: 1.25rem;
+}
+.rows {
+  display: grid;
+  gap: 1rem;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.grow {
+  flex: 1;
+}
+.files {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+  max-inline-size: 18rem;
+}
+.files li {
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--aui-color-border);
+  border-radius: 0.5rem;
+  background: var(--aui-color-surface);
+}
+.grid-host {
+  block-size: 420px;
+}
+.chart-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 640px) {
+  .chart-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Blocks (data/blocks.json): page layouts around the components; AbsoluteUI styles the controls. */
+.block {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+  max-inline-size: 72rem;
+  margin-inline: auto;
+  padding: 1.5rem;
+}
+.block-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.block-head h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.block-head p {
+  margin: 0.25rem 0 0;
+  color: var(--aui-color-text-muted);
+  font-size: 0.875rem;
+}
+.stats4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+.block-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 1rem;
+}
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.row-end {
+  justify-content: flex-end;
+}
+.muted {
+  color: var(--aui-color-text-muted);
+}
+.block-auth {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-block-size: 100vh;
+}
+.auth-panel {
+  display: grid;
+  align-content: center;
+  gap: 1.5rem;
+  inline-size: 100%;
+  max-inline-size: 26rem;
+  margin-inline: auto;
+  padding: 2.5rem 1.5rem;
+}
+.auth-panel h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.auth-panel p {
+  margin: 0;
+}
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+.auth-brand span {
+  inline-size: 1.4rem;
+  block-size: 1.4rem;
+  border-radius: 0.4rem;
+  background: var(--aui-color-primary);
+}
+.auth-art {
+  background: linear-gradient(135deg, #1e40af, #2563eb 60%, #0f766e);
+}
+@media (max-width: 900px) {
+  .stats4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .block-row,
+  .fields,
+  .block-auth {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .auth-art {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .stats4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .block {
+    padding: 1rem;
+  }
+}
+
+[hidden] {
+  display: none !important;
+}

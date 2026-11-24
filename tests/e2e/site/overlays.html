@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AbsoluteUI R1 harness: overlays and navigation</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/dialog.css">
+    <link rel="stylesheet" href="/combobox.css">
+    <link rel="stylesheet" href="/popover.css">
+    <link rel="stylesheet" href="/tooltip.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/drawer.css">
+    <link rel="stylesheet" href="/tabs.css">
+    <link rel="stylesheet" href="/breadcrumb.css">
+    <link rel="stylesheet" href="/pagination.css">
+    <link rel="stylesheet" href="/demo.css">
+    <script type="module" src="/overlays.js"></script>
+  </head>
+  <body>
+    <main class="demo">
+      <div id="breadcrumb"></div>
+      <h1>AbsoluteUI R1 overlays and navigation</h1>
+      <section aria-labelledby="h-overlays">
+        <h2 id="h-overlays">Overlays</h2>
+        <div class="demo-row">
+          <button type="button" id="popover-trigger">Filters</button>
+          <button type="button" id="menu-trigger">Actions</button>
+          <button type="button" id="tooltip-trigger"></button>
+          <button type="button" id="drawer-trigger">Open drawer</button>
+          <button type="button" id="dialog-trigger">Open dialog</button>
+        </div>
+        <p>Last action: <output id="last-action">none</output></p>
+      </section>
+      <section aria-labelledby="h-tabs">
+        <h2 id="h-tabs">Tabs</h2>
+        <div id="tabs"></div>
+      </section>
+      <section aria-labelledby="h-pagination">
+        <h2 id="h-pagination">Pagination</h2>
+        <div id="pagination"></div>
+      </section>
+    </main>
+  </body>
+</html>

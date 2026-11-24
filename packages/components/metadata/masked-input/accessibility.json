@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "component": "masked-input",
+  "pattern": "Native text input (textbox) with a programmatically associated format hint; no custom widget role.",
+  "roles": [
+    { "element": "field", "role": "textbox (native input)" },
+    { "element": "format hint", "role": "none (visually hidden text referenced by aria-describedby)" }
+  ],
+  "aria": [
+    { "attribute": "aria-describedby", "element": "field", "value": "the format hint ('Format: (999) 999-9999. 9 is a digit.'), help text, and error" },
+    { "attribute": "aria-invalid", "element": "field", "value": "true while an error is shown" },
+    { "attribute": "required", "element": "field", "value": "native required when required" }
+  ],
+  "keyboard": [
+    { "key": "Printable characters", "context": "Field", "action": "Fill the next free slot; characters that fit no slot are ignored and literals are inserted automatically." },
+    { "key": "Backspace", "context": "Field", "action": "Delete the slot character before the caret, skipping literals." },
+    { "key": "Delete", "context": "Field", "action": "Delete the slot character after the caret, skipping literals." },
+    { "key": "Ctrl+V / Cmd+V", "context": "Field", "action": "Paste: matching characters fill the slots from the caret; separators and other characters are dropped." },
+    { "key": "Arrow keys, Home, End", "context": "Field", "action": "Native caret movement." }
+  ],
+  "focus": "Native input focus; on focus the caret moves to the first empty slot.",
+  "wcag": ["1.3.1", "1.3.5", "2.1.1", "3.3.1", "3.3.2", "3.3.3", "4.1.2"],
+  "notes": [
+    "The input's value is the formatted text, so screen readers read what is shown; placeholder characters are only part of the template, never of the value.",
+    "The format hint is generated from the mask (or set with formatHint or example) and announced with the field (3.3.2).",
+    "Incomplete values get a message that repeats the format (3.3.3)."
+  ],
+  "knownCaveats": [
+    "While focused with showMaskOnFocus, some screen readers read the placeholder characters of empty slots; set showMaskOnFocus: false where that is a concern.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "component": "dashboard-widget",
+  "factory": { "name": "DashboardWidget.create", "signature": "DashboardWidget.create(host: HTMLElement, options: DashboardWidgetOptions): DashboardWidget" },
+  "configKey": "dashboardWidget",
+  "options": [
+    { "name": "title", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Heading text; names the region and the action buttons. Non-empty." },
+    { "name": "headingLevel", "type": "2 | 3 | 4 | 5 | 6", "default": 3, "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Heading element level; changing it with update() throws." },
+    { "name": "subtitle", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Supporting text under the heading (hidden when empty)." },
+    { "name": "actions", "type": "readonly DashboardWidgetAction[]", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Extra header icon buttons { id, label, icon } (unique ids, non-empty labels); activation emits aui-action." },
+    { "name": "removable", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Show a remove button that emits the cancelable aui-remove." },
+    { "name": "collapsed", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Initial and controlled collapsed state (update() sets it without an event)." },
+    { "name": "busy", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Set aria-busy=true on the host while content loads." },
+    { "name": "collapsible", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show the collapse/expand button." },
+    { "name": "maximizable", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show the maximize/restore button." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the action button names." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Resolved with the other options; the layout itself follows the document direction (logical CSS)." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The enhanced host." },
+    { "name": "header", "type": "HTMLDivElement", "description": "The inserted header element (first child of the host)." },
+    { "name": "collapsed", "type": "boolean", "description": "Collapsed state." },
+    { "name": "maximized", "type": "boolean", "description": "Maximized (modal) state." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<DashboardWidgetOptions>): void", "description": "Merge, validate, and re-render the header (collapsed applies without an event). Throws when headingLevel changes." },
+    { "name": "setCollapsed", "signature": "setCollapsed(collapsed: boolean): void", "description": "Collapse or expand without an event." },
+    { "name": "setMaximized", "signature": "setMaximized(maximized: boolean): void", "description": "Maximize into a modal dialog in the top layer, or restore; emits aui-maximize when the state changes." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Restore if maximized; remove the header, classes, aria-busy, aria-labelledby, and the region role it set. Body children stay." }
+  ],
+  "events": [
+    { "name": "aui-toggle", "detail": "DashboardWidgetToggleDetail { collapsed: boolean }", "bubbles": false, "cancelable": false, "description": "The user activated the collapse/expand button." },
+    { "name": "aui-maximize", "detail": "DashboardWidgetMaximizeDetail { maximized: boolean }", "bubbles": false, "cancelable": false, "description": "The widget was maximized or restored (button, Escape, or setMaximized)." },
+    { "name": "aui-action", "detail": "DashboardWidgetActionDetail { id: string }", "bubbles": true, "cancelable": false, "description": "The user activated a custom header action." },
+    { "name": "aui-remove", "detail": "DashboardWidgetRemoveDetail { id: string | null }", "bubbles": true, "cancelable": true, "description": "The user activated the remove button; id is the host's data-aui-item (its Dashboard Grid item) or null. The widget takes no default action: remove the element or call grid.removeItem(id)." }
+  ],
+  "contentAreas": [
+    { "name": "body (host children)", "description": "Every host child other than the inserted header is the body. It stays where it is (framework-owned content is never moved) and is hidden with display: none while collapsed." }
+  ],
+  "cssClasses": [
+    { "name": "aui-widget", "description": "Host panel." },
+    { "name": "aui-widget--collapsed | --maximized", "description": "State modifiers on the host." },
+    { "name": "aui-widget__header | __titles | __heading | __title | __subtitle", "description": "Header, title group, heading element, title text (labels the region/dialog), subtitle." },
+    { "name": "aui-widget__actions", "description": "Action button group." },
+    { "name": "aui-widget__action", "description": "Every action button; modifiers aui-widget__action--custom, aui-widget__toggle, aui-widget__maximize, aui-widget__remove. data-action is custom:<id>, toggle, maximize, or remove." }
+  ],
+  "iconSlots": [
+    { "name": "collapse / expand", "default": "chevron-down" },
+    { "name": "maximize", "default": "maximize" },
+    { "name": "restore", "default": "minimize" },
+    { "name": "remove", "default": "trash" },
+    { "name": "custom actions (DashboardWidgetAction.icon)", "default": "none" }
+  ]
+}

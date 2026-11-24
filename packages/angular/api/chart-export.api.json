@@ -1,0 +1,13 @@
+{
+  "entry": "@absoluteui/angular/chart-export",
+  "declarations": {
+    "chartToPng": "export declare function chartToPng<C extends ExportableChart & Controller<O>, O>(chart: ComponentBridge<C, O>, options?: ChartExportOptions): Promise<Blob | null>;",
+    "chartToSvg": "export declare function chartToSvg<C extends ExportableChart & Controller<O>, O>(chart: ComponentBridge<C, O>, options?: ChartExportOptions): string | null;",
+    "downloadChart": "export declare function downloadChart<C extends ExportableChart & Controller<O>, O>(chart: ComponentBridge<C, O>, options: ChartDownloadOptions): Promise<void>;"
+  },
+  "reexports": [
+    "ChartDownloadOptions",
+    "ChartExportFormat",
+    "ChartExportOptions"
+  ]
+}

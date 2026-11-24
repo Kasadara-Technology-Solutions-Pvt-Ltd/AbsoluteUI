@@ -1,0 +1,45 @@
+---
+// A live AbsoluteUI frame (R4-3). `scaled` frames render at a fixed design size and scale to
+// their container; fluid frames grow to the height their content reports. Frames load lazily.
+interface Props {
+  src: string;
+  title: string;
+  scaled?: boolean;
+  width?: number;
+  height?: number;
+  minHeight?: number;
+  /** Still image shown instead on small screens (C9). */
+  mobileImage?: string;
+  mobileAlt?: string;
+  /** Link to the full frame, shown with the mobile image. */
+  fullHref?: string;
+  class?: string;
+}
+const { src, title, scaled = false, width = 1120, height = 720, minHeight = 360, mobileImage, mobileAlt = '', fullHref, class: className } = Astro.props;
+---
+
+<figure class:list={['live', scaled && 'live-scaled', className]}>
+  <div class:list={['live-viewport', mobileImage && 'live-desktop']}>
+    {
+      scaled ? (
+        <iframe data-src={src} title={title} loading="lazy" data-scaled data-width={width} data-height={height} width={width} height={height} />
+      ) : (
+        <iframe data-src={src} title={title} loading="lazy" data-min-height={minHeight} height={minHeight} />
+      )
+    }
+  </div>
+  {
+    mobileImage && (
+      <div class="live-viewport live-mobile">
+        <img src={mobileImage} alt={mobileAlt} width="1280" height="800" loading="lazy" />
+      </div>
+    )
+  }
+</figure>
+{
+  mobileImage && fullHref && (
+    <p class="live-note live-mobile">
+      Simplified preview. <a href={fullHref}>Open the live demo</a>
+    </p>
+  )
+}

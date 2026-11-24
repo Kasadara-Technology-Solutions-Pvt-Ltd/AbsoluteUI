@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "password-strength-meter",
+  "examples": [
+    {
+      "id": "attached",
+      "title": "Meter attached to a new-password field",
+      "language": "ts",
+      "code": "import { PasswordInput } from '@absoluteui/components/password-input';\nimport { PasswordStrengthMeter } from '@absoluteui/components/password-strength-meter';\n\nconst inputHost = document.querySelector<HTMLElement>('#password');\nconst meterHost = document.querySelector<HTMLElement>('#meter');\nif (inputHost && meterHost) {\n  const password = PasswordInput.create(inputHost, { label: 'New password', autocomplete: 'new-password' });\n  const meter = PasswordStrengthMeter.create(meterHost, { input: password });\n  password.update({ describedBy: [meter.describedById] });\n}"
+    },
+    {
+      "id": "custom-rules",
+      "title": "Custom rules and evaluator",
+      "language": "ts",
+      "code": "import { PasswordInput } from '@absoluteui/components/password-input';\nimport { PasswordStrengthMeter, passwordRequirements, type PasswordStrengthEvaluator } from '@absoluteui/components/password-strength-meter';\n\nconst evaluate: PasswordStrengthEvaluator = (value, requirements) => {\n  const met = requirements.filter((r) => r.met).length;\n  if (value === '') return { score: 0 };\n  return { score: met === requirements.length ? (value.length >= 20 ? 4 : 3) : 1 };\n};\n\nconst inputHost = document.createElement('div');\nconst meterHost = document.createElement('div');\ndocument.body.append(inputHost, meterHost);\nconst password = PasswordInput.create(inputHost, { label: 'New password', autocomplete: 'new-password' });\nconst meter = PasswordStrengthMeter.create(meterHost, {\n  input: password,\n  requirements: [\n    passwordRequirements.minLength(14),\n    passwordRequirements.symbol(),\n    { id: 'no-company', label: 'Does not contain the company name', test: (v) => !v.toLowerCase().includes('acme') },\n  ],\n  evaluate,\n});\npassword.update({ describedBy: [meter.describedById] });"
+    }
+  ]
+}

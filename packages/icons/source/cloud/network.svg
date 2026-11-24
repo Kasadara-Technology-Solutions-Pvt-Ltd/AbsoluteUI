@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="network">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="2.5"/>
+      <circle cx="5" cy="5" r="2"/>
+      <circle cx="19" cy="5" r="2"/>
+      <circle cx="5" cy="19" r="2"/>
+      <circle cx="19" cy="19" r="2"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M6.4 6.4l3.8 3.8"/>
+      <path d="M17.6 6.4l-3.8 3.8"/>
+      <path d="M6.4 17.6l3.8-3.8"/>
+      <path d="M17.6 17.6l-3.8-3.8"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="12" r="2.5"/>
+      <circle cx="5" cy="5" r="2"/>
+      <circle cx="19" cy="5" r="2"/>
+      <circle cx="5" cy="19" r="2"/>
+      <circle cx="19" cy="19" r="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="2.5"/>
+      <circle cx="5" cy="5" r="2"/>
+      <circle cx="19" cy="5" r="2"/>
+      <circle cx="5" cy="19" r="2"/>
+      <circle cx="19" cy="19" r="2"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M6.4 6.4l3.8 3.8"/>
+      <path d="M17.6 6.4l-3.8 3.8"/>
+      <path d="M6.4 17.6l3.8-3.8"/>
+      <path d="M17.6 17.6l-3.8-3.8"/>
+    </g>
+  </g>
+</svg>

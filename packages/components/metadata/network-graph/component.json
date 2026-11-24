@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "name": "network-graph",
+  "displayName": "Network Graph",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { NetworkGraph } from '@absoluteui/components/network-graph';",
+  "styleImport": "@absoluteui/components/network-graph/style.css",
+  "purpose": "Accessible SVG network graph: nodes and edges laid out by a deterministic force-directed simulation (seeded; it settles, then stops). The settling animates only when animation is allowed and the user has not asked for reduced motion. Node groups get palette colors and marker shapes; nodes can be pinned by dragging or with Shift+Arrow; zoom and pan use the shared chart zoom. Arrow keys move between connected nodes, neighbors are highlighted on focus, and the data table is an adjacency list.",
+  "whenToUse": [
+    "Relationships between entities: team collaboration, service dependencies, referral networks.",
+    "Spotting clusters, hubs, and isolated nodes."
+  ],
+  "whenNotToUse": [
+    "Hierarchies: use Org Chart or Treemap.",
+    "Flows with quantities between stages: use Funnel Chart or Bar Chart.",
+    "Thousands of nodes: a force layout becomes a hairball; aggregate first."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "laying out (animated settle)",
+    "settled",
+    "node focused or hovered (neighbors highlighted)",
+    "node pinned",
+    "zoomed",
+    "group hidden (legend)",
+    "empty (no nodes: No data)",
+    "table open"
+  ],
+  "responsive": "The width follows the container (ResizeObserver); the layout is fitted to the plot keeping its aspect ratio, so it never overflows. Labels (auto) are shown for up to 50 visible nodes. Wide data tables scroll in a focusable region.",
+  "rtl": "direction rtl puts node labels on the left of the nodes. The layout itself is not mirrored (positions have no reading direction); arrow keys are spatial.",
+  "theme": "Nodes use their group palette slot (--aui-chart-<n>) and marker shape with a color-surface outline; edges use color-chart-axis; pinned nodes get a dashed color-text outline; the focused or hovered neighborhood stays opaque while the rest fades. Forced colors: CanvasText nodes and edges, Highlight for the neighborhood and focus.",
+  "timezone": "Not applicable.",
+  "security": "All text (title, description, labels, values, legend, tooltip, table) is set with textContent; SVG is built with createElementNS; positions and per-item colors are written through the CSSOM (style.setProperty) or as SVG geometry. No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "NetworkGraph.create with 150 nodes and 300 edges, synchronous layout (reduced motion) and the first render",
+        "budget": "< 250 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "Designed for up to about 300 nodes and 1,000 edges; at most 1,000 nodes and 5,000 edges are accepted (the layout cools faster above 300 nodes, since repulsion is O(n^2) per step)."
+  },
+  "limitations": [
+    "Pairwise repulsion is O(n^2) per step; very large graphs lay out slowly.",
+    "Dragging pins a node where it is dropped; other nodes keep their positions until the layout runs again (relayout() or new data).",
+    "Straight edges only; parallel edges overlap.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Hierarchical, circular, or custom layouts.",
+    "Edge labels.",
+    "Editing nodes and edges by pointer."
+  ],
+  "antiPatterns": [
+    "Encoding groups by color only and hiding the legend (marker shapes and the table carry the group too).",
+    "Rendering thousands of nodes without aggregation."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/network-graph: AuiNetworkGraph component (<aui-network-graph>).",
+    "react": "@absoluteui/react/network-graph: AuiNetworkGraph component.",
+    "vue": "@absoluteui/vue/network-graph: AuiNetworkGraph component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

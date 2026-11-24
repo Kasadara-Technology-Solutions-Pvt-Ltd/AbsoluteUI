@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/treemap",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiTreemap",
+      "description": "AbsoluteUI Treemap: `<aui-treemap>`.\nTwo-way: `[(hiddenSeries)]`.",
+      "selector": "aui-treemap",
+      "exportAs": [
+        "auiTreemap"
+      ],
+      "source": "generated",
+      "component": "treemap",
+      "configKey": "treemap",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby); also the data table caption."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (shown path, item count, total, three largest items)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for values in tile labels, tooltips, the data table, and the summary (percentages use a percent format)."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat everywhere."
+        },
+        {
+          "name": "data",
+          "type": "readonly TreemapNode[]",
+          "required": true,
+          "description": "Top-level nodes: { id (unique across the tree), label, value?: number | null, children?: TreemapNode[], color?: 1-8 }. Groups default to the sum of their children (a positive own value takes precedence). Zero, negative, and missing values are not plotted. At most 32 levels of nesting."
+        },
+        {
+          "name": "root",
+          "type": "string | null",
+          "required": false,
+          "default": "null",
+          "description": "Id of the group to show (drill-down state); null shows the top level. An unknown id or a leaf falls back to the top level. Setting it through update() emits no event."
+        },
+        {
+          "name": "drillDown",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Allow opening groups by click and Enter/Space and going up with Backspace and the breadcrumb. false: groups are plain tiles and no breadcrumb is shown (drillTo() still works)."
+        },
+        {
+          "name": "rootLabel",
+          "type": "string",
+          "required": false,
+          "default": "All",
+          "description": "Name of the top level in the breadcrumb and the \"Showing ...\" text (default: localized \"All\")."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Shared chart option; a treemap labels its tiles directly and never shows a legend, so it has no effect."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table of the whole hierarchy (name path, value, share of parent): behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus (label, value, share)."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Texture fills on tiles (by position in the shown level) so neighbors never differ by color alone (always on in forced colors)."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+        },
+        {
+          "name": "tileLabels",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Print the label (groups that open end with \">\") and the value inside tiles that are large enough."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors the layout (largest tile at the top right), right-aligns tile labels, and swaps ArrowLeft/ArrowRight."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Shared chart option; a treemap has no series, so it has no effect."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "drilled",
+          "payload": "TreemapDrillDetail",
+          "event": "aui-drill",
+          "description": "The shown group changed through a tile (click, Enter/Space), Backspace, the breadcrumb, or drillTo(). id: the shown group (null: top level); path: ids from the top level. Not emitted for update({ root })."
+        },
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+        }
+      ],
+      "properties": [
+        {
+          "name": "path",
+          "type": "Signal<string[]>",
+          "description": "Read-only: Ids from the top level to the shown group (empty at the top level)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "drillTo",
+          "signature": "drillTo(id: string | null): void",
+          "description": "Show the group id (null: top level). Ignored for leaves, unknown ids, and the current group. Emits aui-drill and announces \"Showing {path}\" politely; when focus was in the chart it moves to the largest tile (going down) or the group you came from (going up)."
+        },
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Shared chart method; a treemap has no series, so it only re-renders."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG treemap as a named, described group (role=\"group\" with aria-roledescription \"treemap\") of role=\"img\" tiles in size order with roving focus; one level shown at a time with drill-down (Enter/Space, click), Backspace and a breadcrumb (nav \"Treemap path\") to go up, a polite announcement of the shown level, and a data table of the whole hierarchy.",
+        "source": "packages/components/metadata/treemap/accessibility.json"
+      },
+      "limitations": [
+        "One level is drawn at a time (no nested rendering of grandchildren).",
+        "Zero, negative, and missing values are not plotted and are not listed in the table.",
+        "A group's own positive value replaces the sum of its children.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiTreemap } from '@absoluteui/angular/treemap';\nimport type { TreemapNode } from '@absoluteui/components/treemap';\n\n@Component({\n  selector: 'app-budget',\n  imports: [AuiTreemap],\n  template: `<aui-treemap label=\"Budget\" [data]=\"data\"></aui-treemap>`,\n})\nexport class BudgetComponent {\n  readonly data: TreemapNode[] = [\n    { id: 'eng', label: 'Engineering', children: [{ id: 'web', label: 'Web', value: 30 }, { id: 'api', label: 'API', value: 20 }] },\n    { id: 'ops', label: 'Operations', value: 25 },\n  ];\n}"
+    }
+  ]
+}

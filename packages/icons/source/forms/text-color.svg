@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="text-color">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 16L12 4l5 12"/>
+      <path d="M8.75 12h6.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M4.5 20h15"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="4" y="18.5" width="16" height="3" rx="1"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 16L12 4l5 12"/>
+      <path d="M8.75 12h6.5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 16L12 4l5 12"/>
+      <path d="M8.75 12h6.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <rect x="4" y="18.5" width="16" height="3" rx="1"/>
+    </g>
+  </g>
+</svg>

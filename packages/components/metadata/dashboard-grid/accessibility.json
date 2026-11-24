@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "component": "dashboard-grid",
+  "pattern": "Labelled region of items with a toggle-button move handle per item (keyboard drag-and-drop pattern, as Sortable List) and live-region announcements. No ARIA drag-and-drop attributes (aria-grabbed and aria-dropeffect are deprecated). The catalog is a labelled list of buttons.",
+  "roles": [
+    { "element": "grid host", "role": "region (role attribute), named by aria-label" },
+    { "element": "item elements", "role": "unchanged (owned by the page; for example a Dashboard Widget region)" },
+    { "element": "move handle <button>", "role": "button (native, toggle through aria-pressed)" },
+    { "element": "resize grip, drop placeholder", "role": "none (aria-hidden=true)" },
+    { "element": "catalog <ul> / <li>", "role": "list / listitem (native)" },
+    { "element": "catalog template <button>", "role": "button (native)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "grid host", "value": "`label` option" },
+    { "attribute": "aria-label and title", "element": "move handle", "value": "Localized 'Move {label}': the item's `label`, else its first heading (h1-h6 or role=heading) text, else its id" },
+    { "attribute": "aria-pressed", "element": "move handle", "value": "true while the item is grabbed (keyboard) or dragged/resized (pointer), false otherwise" },
+    { "attribute": "aria-hidden", "element": "resize grip, placeholder", "value": "true" },
+    { "attribute": "aria-label", "element": "catalog list", "value": "Catalog `label` option" },
+    { "attribute": "aria-label", "element": "catalog template button", "value": "Localized 'Add {label}' (the description is visible text only)" },
+    { "attribute": "live region", "element": "shared live regions", "value": "Assertive: grabbed (with position, size, and instructions), moved, resized, dropped, cancelled. Polite: added, removed, undone, redone, locked." }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Edit mode, nothing grabbed", "action": "Moves through the move handles and item content in DOM order, which follows the visual reading order (row, then column)." },
+    { "key": "Enter / Space", "context": "Move handle focused, nothing grabbed", "action": "Grabs the item (aria-pressed=true); announces '{label} grabbed. Column {column}, row {row}, {width} by {height}. Arrow keys move, Shift and arrow keys resize, Enter drops, Escape cancels.' A locked item announces '{label} is locked.' and is not grabbed." },
+    { "key": "ArrowLeft / ArrowRight / ArrowUp / ArrowDown", "context": "Item grabbed", "action": "Moves the item one cell (Left/Right mirrored in RTL); other items are pushed down and float up live; announces 'Column {column}, row {row}.' Stops at the grid edges." },
+    { "key": "Shift+ArrowRight / Shift+ArrowLeft", "context": "Item grabbed", "action": "Widens / narrows the item by one column (in both directions), within minW/maxW and the column count; announces '{width} columns by {height} rows.'" },
+    { "key": "Shift+ArrowDown / Shift+ArrowUp", "context": "Item grabbed", "action": "Makes the item one row taller / shorter, within minH/maxH; announces the size." },
+    { "key": "Enter / Space", "context": "Grabbed item's handle focused", "action": "Drops the item (compacting the layout); announces '{label} dropped at column {column}, row {row}.'; emits aui-layout-change (move or resize) when the layout changed. Focus stays on the handle." },
+    { "key": "Escape", "context": "Item grabbed", "action": "Cancels: the layout returns to where it was; announces 'Move cancelled. {label} is back at column {column}, row {row}.' The key event is consumed (preventDefault and stopPropagation)." },
+    { "key": "Tab / Shift+Tab", "context": "Item grabbed", "action": "Drops the item at its current position (like Enter) and moves focus on. Leaving the handle any other way (blur) also drops." },
+    { "key": "Ctrl/Cmd+Z", "context": "Edit mode, focus inside the grid, nothing grabbed", "action": "Undo the last layout change (moves, resizes, setLayout); announces 'Layout change undone.'" },
+    { "key": "Ctrl/Cmd+Shift+Z or Ctrl/Cmd+Y", "context": "Edit mode, focus inside the grid, nothing grabbed", "action": "Redo; announces 'Layout change redone.'" },
+    { "key": "Enter / Space", "context": "Catalog template button focused", "action": "Adds the widget at the first free spot (after the cancelable aui-catalog-add); in edit mode focus moves to the new item's move handle." },
+    { "key": "Tab / Shift+Tab", "context": "Catalog", "action": "Moves between template buttons (each is a tab stop)." }
+  ],
+  "focus": "Focus stays on the grabbed item's move handle during a keyboard move and after the drop; DOM reordering to reading order restores focus to the previously focused element (preventScroll). After a catalog add in edit mode, focus moves to the new item's move handle. The handle shows a focus-ring-width outline in color-focus-ring.",
+  "wcag": ["1.3.1", "1.3.2", "1.4.11", "2.1.1", "2.4.3", "2.4.7", "2.5.7", "2.5.8", "4.1.2", "4.1.3"],
+  "notes": [
+    "Dragging is never the only way to move or resize (WCAG 2.5.7): the move handle works with keyboard and with a single pointer (click the handle to grab, click again to drop); Shift+arrow keys resize.",
+    "The DOM order follows the visual reading order after every change (reorderDom, default true), so focus order and screen-reader reading order match the layout.",
+    "The grabbed state is conveyed by aria-pressed, a selected background, and a border (not color alone); forced-colors mode uses Highlight.",
+    "Handles, grips, and catalog buttons are at least touch-target-min in size.",
+    "Undo/redo shortcuts apply only in edit mode and not while an item is grabbed."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Some screen readers intercept Space, Enter, and arrow keys in browse mode; users may need focus/forms mode on the handle.",
+    "Pointer drags and pointer resizes are not announced.",
+    "In edit mode the undo/redo shortcuts are handled on the whole host, so they also apply (and prevent native undo) while a text field inside a widget is focused."
+  ]
+}

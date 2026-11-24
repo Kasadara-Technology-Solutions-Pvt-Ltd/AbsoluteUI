@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/tree-view",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiTreeView",
+      "description": "AbsoluteUI TreeView: `<aui-tree-view>`.\nTwo-way: `[(selected)]`, `[(checked)]`, `[(expanded)]`.",
+      "selector": "aui-tree-view",
+      "exportAs": [
+        "auiTreeView"
+      ],
+      "source": "generated",
+      "component": "tree-view",
+      "configKey": "treeView",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the tree."
+        },
+        {
+          "name": "nodes",
+          "type": "readonly TreeNode[]",
+          "required": true,
+          "description": "The nodes ({ id, label, icon?, expandedIcon?, children?, hasChildren?, disabled? }); ids must be unique."
+        },
+        {
+          "name": "selection",
+          "type": "TreeViewSelection",
+          "required": false,
+          "default": "none",
+          "description": "Selection mode."
+        },
+        {
+          "name": "checkboxes",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show a checkbox per node; Space toggles it."
+        },
+        {
+          "name": "cascade",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Checking a parent checks its descendants; parents show the mixed state."
+        },
+        {
+          "name": "loadChildren",
+          "type": "((node: TreeNode, context: TreeViewLoadContext) => Promise<readonly TreeNode[]>) | null",
+          "required": false,
+          "description": "Loads the children of a node with hasChildren on first expansion; receives an AbortSignal."
+        },
+        {
+          "name": "draggable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Nodes can be moved by dragging and with Ctrl+X / Ctrl+V and Alt+Up / Alt+Down."
+        },
+        {
+          "name": "canDrag",
+          "type": "((node: TreeNode) => boolean)",
+          "required": false,
+          "description": "Which nodes may be moved."
+        },
+        {
+          "name": "canDrop",
+          "type": "((source: TreeNode, target: TreeNode | null, position: TreeViewDropPosition) => boolean)",
+          "required": false,
+          "description": "Whether a node may be dropped before, inside, or after a target."
+        },
+        {
+          "name": "renamable",
+          "type": "boolean | ((node: TreeNode) => boolean)",
+          "required": false,
+          "default": "false",
+          "description": "Nodes can be renamed with F2 or a double click on the label."
+        },
+        {
+          "name": "filter",
+          "type": "string",
+          "required": false,
+          "default": "''",
+          "description": "Show matching nodes and the paths to them (case and accent insensitive); matches are highlighted."
+        },
+        {
+          "name": "filterBy",
+          "type": "((node: TreeNode, query: string) => boolean)",
+          "required": false,
+          "description": "Custom filter match instead of the label match."
+        },
+        {
+          "name": "itemHeight",
+          "type": "number",
+          "required": false,
+          "description": "Row height in pixels (24 to 200). Default by density: 32, 40, or 48."
+        },
+        {
+          "name": "height",
+          "type": "string | null",
+          "required": false,
+          "default": "20rem",
+          "description": "Block size of the scroll area as a CSS length, or null to fill the host."
+        },
+        {
+          "name": "empty",
+          "type": "string",
+          "required": false,
+          "default": "No items",
+          "description": "Text shown when there are no nodes."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "description": "Writing direction for the arrow keys. Default: the computed direction of the host."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<TreeViewIcons>",
+          "required": false,
+          "description": "Twisty, loading, and error icons."
+        },
+        {
+          "name": "overscan",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "configurable": true,
+          "description": "Rows rendered beyond each edge of the visible area (0 to 100)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of messages, filtering, and type-ahead."
+        },
+        {
+          "name": "density",
+          "type": "Density",
+          "required": false,
+          "default": "comfortable",
+          "configurable": true,
+          "description": "Default row height when itemHeight is not set."
+        }
+      ],
+      "models": [
+        {
+          "name": "selected",
+          "type": "readonly string[]",
+          "change": "selectedChange",
+          "description": "Ids of the selected nodes."
+        },
+        {
+          "name": "checked",
+          "type": "readonly string[]",
+          "change": "checkedChange",
+          "description": "Ids of the checked nodes."
+        },
+        {
+          "name": "expanded",
+          "type": "readonly string[]",
+          "change": "expandedChange",
+          "description": "Ids of the expanded nodes."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "selectionChanged",
+          "payload": "TreeViewSelectDetail",
+          "event": "aui-select",
+          "description": "The user changed the selection: { selected, id }."
+        },
+        {
+          "name": "changed",
+          "payload": "TreeViewChangeDetail",
+          "event": "aui-change",
+          "description": "The user toggled a checkbox: { checked, indeterminate, id }."
+        },
+        {
+          "name": "expandToggled",
+          "payload": "TreeViewExpandDetail",
+          "event": "aui-expand",
+          "description": "The user expanded or collapsed a node: { id, open, expanded }."
+        },
+        {
+          "name": "moved",
+          "payload": "TreeViewMoveDetail",
+          "event": "aui-move",
+          "description": "A node is about to move (drag or keyboard): { id, parentId, index, previousParentId, previousIndex, source }; preventDefault() keeps it in place."
+        },
+        {
+          "name": "renamed",
+          "payload": "TreeViewRenameDetail",
+          "event": "aui-rename",
+          "description": "A node is about to be renamed: { id, label, previousLabel }; preventDefault() keeps the old label."
+        },
+        {
+          "name": "activated",
+          "payload": "TreeViewActivateDetail",
+          "event": "aui-activate",
+          "description": "A node was activated with Enter or a double click: { id, node }."
+        },
+        {
+          "name": "loadError",
+          "payload": "TreeViewLoadErrorDetail",
+          "event": "aui-load-error",
+          "description": "loadChildren rejected: { id, error }."
+        },
+        {
+          "name": "rangeChange",
+          "payload": "unknown",
+          "event": "aui-range-change",
+          "detail": "{ start: number; end: number }",
+          "description": "The visible rows changed."
+        }
+      ],
+      "methods": [
+        {
+          "name": "expand",
+          "signature": "expand(id: string): Promise<void> | undefined",
+          "description": "Expand a node and its ancestors, loading lazy children."
+        },
+        {
+          "name": "collapse",
+          "signature": "collapse(id: string): void",
+          "description": "Collapse a node."
+        },
+        {
+          "name": "expandAll",
+          "signature": "expandAll(): void",
+          "description": "Expand every loaded parent."
+        },
+        {
+          "name": "collapseAll",
+          "signature": "collapseAll(): void",
+          "description": "Collapse every node."
+        },
+        {
+          "name": "setSelected",
+          "signature": "setSelected(ids: readonly string[]): void",
+          "description": "Select by ids (no event)."
+        },
+        {
+          "name": "focusNode",
+          "signature": "focusNode(id: string): void",
+          "description": "Focus a node, expanding its ancestors and scrolling it into view."
+        },
+        {
+          "name": "scrollToNode",
+          "signature": "scrollToNode(id: string, align?: \"auto\" | \"start\" | \"end\" | \"center\" | undefined): void",
+          "description": "Scroll a node into view, expanding its ancestors."
+        },
+        {
+          "name": "reload",
+          "signature": "reload(id: string): Promise<void> | undefined",
+          "description": "Load a lazy node's children again."
+        },
+        {
+          "name": "rename",
+          "signature": "rename(id: string): void",
+          "description": "Start renaming a node."
+        },
+        {
+          "name": "getNode",
+          "signature": "getNode(id: string): TreeNode | null | undefined",
+          "description": "A node of the current tree."
+        },
+        {
+          "name": "getParentId",
+          "signature": "getParentId(id: string): string | null | undefined",
+          "description": "The id of a node's parent."
+        },
+        {
+          "name": "getItemElement",
+          "signature": "getItemElement(id: string): HTMLElement | null | undefined",
+          "description": "The rendered treeitem of a node, or null."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Tree View with a flat DOM: every visible node is a treeitem directly inside the tree and carries aria-level, aria-posinset, and aria-setsize (only part of the tree is rendered). Roving tabindex keeps one tab stop; the focused node always stays rendered.",
+        "source": "packages/components/metadata/tree-view/accessibility.json"
+      },
+      "limitations": [
+        "Rows have one fixed height (by density or itemHeight); labels do not wrap.",
+        "The filter and type-ahead see loaded nodes only; lazy children are not searched until loaded.",
+        "Only rendered nodes exist in the DOM, so find-in-page and printing see only those.",
+        "Touch drags start on the node icon; the keyboard alternative works everywhere."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { AuiTreeView } from '@absoluteui/angular/tree-view';\nimport type { TreeNode } from '@absoluteui/components/tree-view';\n\n@Component({\n  selector: 'app-org-tree',\n  imports: [AuiTreeView],\n  template: `<aui-tree-view label=\"Organization\" selection=\"single\" [nodes]=\"nodes\" [(selected)]=\"selected\" [(expanded)]=\"expanded\"></aui-tree-view>`,\n})\nexport class OrgTreeComponent {\n  readonly nodes: TreeNode[] = [{ id: 'acme', label: 'Acme', children: [{ id: 'eng', label: 'Engineering' }, { id: 'ops', label: 'Operations' }] }];\n  readonly selected = signal<readonly string[] | undefined>(['eng']);\n  readonly expanded = signal<readonly string[] | undefined>(['acme']);\n}"
+    }
+  ]
+}

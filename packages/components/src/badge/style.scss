@@ -1,0 +1,125 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-badge {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    max-inline-size: 100%;
+    min-block-size: 1.5rem;
+    padding-inline: aui.ctoken('badge', 'padding-x');
+    color: aui.token('color-text');
+    background: aui.token('color-surface-sunken');
+    border: aui.token('border-width') solid transparent;
+    border-radius: aui.ctoken('badge', 'radius');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.ctoken('badge', 'font-weight');
+    line-height: aui.token('line-height-tight');
+    white-space: nowrap;
+    vertical-align: middle;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-badge--sm {
+    min-block-size: 1.25rem;
+    padding-inline: aui.token('space-1');
+    font-size: aui.token('font-size-xs');
+  }
+
+  .aui-badge__label {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .aui-badge__icon {
+    display: inline-flex;
+    flex: none;
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-badge__dot {
+    flex: none;
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    background: currentcolor;
+    border-radius: aui.token('radius-pill');
+  }
+
+  .aui-badge__icon[hidden],
+  .aui-badge__dot[hidden] {
+    display: none;
+  }
+
+  // Tone: subtle fill (subtle variant) or tone boundary (outline variant); the dot and
+  // icon take the tone foreground. Text stays color-text (contrast gate pairs).
+  .aui-badge--outline {
+    background: aui.token('color-surface');
+    border-color: aui.token('color-border-strong');
+  }
+
+  // Literal token names (not a loop) keep the token usage index complete.
+  .aui-badge--info {
+    --_aui-badge-tone-fg: #{aui.token('color-info-fg')};
+    --_aui-badge-tone-subtle: #{aui.token('color-info-subtle')};
+  }
+
+  .aui-badge--success {
+    --_aui-badge-tone-fg: #{aui.token('color-success-fg')};
+    --_aui-badge-tone-subtle: #{aui.token('color-success-subtle')};
+  }
+
+  .aui-badge--warning {
+    --_aui-badge-tone-fg: #{aui.token('color-warning-fg')};
+    --_aui-badge-tone-subtle: #{aui.token('color-warning-subtle')};
+  }
+
+  .aui-badge--error {
+    --_aui-badge-tone-fg: #{aui.token('color-error-fg')};
+    --_aui-badge-tone-subtle: #{aui.token('color-error-subtle')};
+  }
+
+  .aui-badge:is(.aui-badge--info, .aui-badge--success, .aui-badge--warning, .aui-badge--error) {
+    .aui-badge__dot,
+    .aui-badge__icon {
+      color: var(--_aui-badge-tone-fg);
+    }
+
+    &.aui-badge--subtle {
+      background: var(--_aui-badge-tone-subtle);
+    }
+
+    &.aui-badge--outline {
+      border-color: var(--_aui-badge-tone-fg);
+    }
+  }
+
+  .aui-badge--neutral {
+    .aui-badge__dot,
+    .aui-badge__icon {
+      color: aui.token('color-text-muted');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-badge {
+      border-color: CanvasText;
+    }
+
+    .aui-badge__dot {
+      background: CanvasText;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "combo-chart",
+  "examples": [
+    {
+      "id": "revenue-margin",
+      "title": "Revenue bars with a margin line on a secondary percent axis",
+      "language": "ts",
+      "code": "import { ComboChart, type ComboChartSeries } from '@absoluteui/components/combo-chart';\n\nconst series: ComboChartSeries[] = [\n  { id: 'rev', label: 'Revenue', type: 'bar', values: [120, 150, 170, 160] },\n  { id: 'margin', label: 'Margin', type: 'line', axis: 'secondary', values: [0.32, 0.4, 0.38, 0.41] },\n];\nconst host = document.createElement('div');\ndocument.body.append(host);\nComboChart.create(host, {\n  label: 'Revenue and margin',\n  categories: ['Q1', 'Q2', 'Q3', 'Q4'],\n  series,\n  primaryAxis: { label: 'Revenue (k)' },\n  secondaryAxis: { label: 'Margin', format: { style: 'percent' } },\n  crosshair: true,\n});"
+    },
+    {
+      "id": "zoom-stacked",
+      "title": "Stacked bars with a target line, zoomed to the first quarter",
+      "language": "ts",
+      "code": "import { ComboChart, type ComboChartSeries, type ComboChartZoomDetail } from '@absoluteui/components/combo-chart';\n\nconst months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];\nconst series: ComboChartSeries[] = [\n  { id: 'web', label: 'Web', type: 'bar', values: months.map((_, i) => 40 + i * 3) },\n  { id: 'store', label: 'Store', type: 'bar', values: months.map((_, i) => 30 + (i % 4) * 5) },\n  { id: 'target', label: 'Target', type: 'line', values: months.map(() => 90) },\n];\nconst host = document.querySelector<HTMLElement>('#sales');\nif (host) {\n  const chart = ComboChart.create(host, { label: 'Sales by channel', categories: months, series, stacked: true, zoom: true, zoomRange: { from: 0, to: 2 } });\n  host.addEventListener('aui-zoom', (event) => {\n    const { x } = (event as CustomEvent<ComboChartZoomDetail>).detail;\n    host.dataset.window = x ? `${months[Math.round(x.from)] ?? ''}-${months[Math.round(x.to)] ?? ''}` : 'all';\n  });\n  chart.update({ zoomRange: null });\n}"
+    }
+  ]
+}

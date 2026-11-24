@@ -1,0 +1,117 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-avatar {
+    --_aui-avatar-size: 2.5rem;
+
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    inline-size: var(--_aui-avatar-size);
+    block-size: var(--_aui-avatar-size);
+    vertical-align: middle;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-avatar--xs {
+    --_aui-avatar-size: 1.5rem;
+  }
+
+  .aui-avatar--sm {
+    --_aui-avatar-size: 2rem;
+  }
+
+  .aui-avatar--lg {
+    --_aui-avatar-size: 3rem;
+  }
+
+  .aui-avatar--xl {
+    --_aui-avatar-size: 4rem;
+  }
+
+  .aui-avatar__visual {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+    font-family: aui.token('font-family-sans');
+    // Initials scale with the avatar.
+    font-size: calc(var(--_aui-avatar-size) * 0.4);
+    font-weight: aui.token('font-weight-semibold');
+    line-height: 1;
+    color: aui.ctoken('avatar', 'fg');
+    background: aui.ctoken('avatar', 'bg');
+    border-radius: aui.token('radius-pill');
+    user-select: none;
+
+    .aui-icon {
+      inline-size: 55%;
+      block-size: 55%;
+    }
+  }
+
+  .aui-avatar--square .aui-avatar__visual {
+    border-radius: aui.ctoken('avatar', 'square-radius');
+  }
+
+  .aui-avatar__image {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  // Presence dot at the bottom inline-end corner, ringed in the surface color.
+  .aui-avatar__status {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    box-sizing: border-box;
+    inline-size: max(0.5rem, calc(var(--_aui-avatar-size) * 0.28));
+    block-size: max(0.5rem, calc(var(--_aui-avatar-size) * 0.28));
+    background: aui.token('color-text-muted');
+    border: 2px solid aui.token('color-surface');
+    border-radius: aui.token('radius-pill');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-avatar--status-online .aui-avatar__status {
+    background: aui.token('color-success-fg');
+  }
+
+  .aui-avatar--status-away .aui-avatar__status {
+    background: aui.token('color-warning-fg');
+  }
+
+  // Shapes as well as colors: busy has a bar, offline is a hollow ring.
+  .aui-avatar--status-busy .aui-avatar__status {
+    background: linear-gradient(aui.token('color-surface'), aui.token('color-surface')) center / 60% 2px no-repeat, aui.token('color-error-fg');
+  }
+
+  .aui-avatar--status-offline .aui-avatar__status {
+    background: aui.token('color-surface');
+    box-shadow: inset 0 0 0 2px aui.token('color-text-muted');
+  }
+
+  @include aui.forced-colors {
+    .aui-avatar__visual {
+      border: aui.token('border-width') solid CanvasText;
+    }
+
+    .aui-avatar__status {
+      background: CanvasText;
+      border-color: Canvas;
+    }
+  }
+}

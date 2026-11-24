@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "name": "business-calendar",
+  "displayName": "Business Calendar",
+  "category": "Date and Time",
+  "package": "@absoluteui/components",
+  "import": "import { BusinessCalendar, createBusinessCalendar } from '@absoluteui/components/business-calendar';",
+  "styleImport": "@absoluteui/components/business-calendar/style.css",
+  "purpose": "Show and edit a working-time calendar: one to twelve months of working days, non-working days (weekends), holidays (one-off or yearly), and changed days (exceptions) from a BusinessCalendarDefinition, with a legend and the holidays in view. The same subpath exports the pure engine (createBusinessCalendar) for working-day arithmetic and working hours as instants, used by Scheduler and, later, Gantt.",
+  "whenToUse": [
+    "Maintaining office days, public holidays, and one-off closures or extra working days.",
+    "Showing a team or site which days count as working days.",
+    "Working-day arithmetic in code (due dates, SLAs) with the engine alone."
+  ],
+  "whenNotToUse": [
+    "Picking a date: use Date Picker or Calendar.",
+    "Scheduling events: use Scheduler (it reads the same definition for business hours).",
+    "Per-person availability or shifts: not modelled; a definition describes one calendar."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "focused day",
+    "today",
+    "working day",
+    "non-working day",
+    "holiday",
+    "changed day",
+    "editable"
+  ],
+  "responsive": "Months flow into as many columns as fit (CSS grid with auto-fill, at least 15rem each); at 320 px one month per row without horizontal scrolling. Legend and holiday list wrap.",
+  "rtl": "The direction option (or the inherited global direction) mirrors the month grids and the previous/next chevrons; ArrowLeft/ArrowRight follow the reading direction.",
+  "theme": "Working days use the surface with a border, non-working days the sunken surface with muted text, holidays the subtle warning fill with a warning bar along the bottom edge, and changed days a dashed info-colored outline. Forced-colors mode draws borders, bars, and outlines in CanvasText and uses GrayText for non-working days.",
+  "timezone": "Dates are PlainDate (no timezone). \"Today\" is the current date in the configured timezone (UTC unless configured). The engine turns working hours into instants only through workingIntervals(date, timeZone) with an explicit zone and DST policy.",
+  "security": "Labels, holiday names, and reasons are rendered with textContent (title attributes for tooltips). No HTML sinks; CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Edits change the in-memory definition and are emitted with aui-change (detail.definition) for the application to save.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "BusinessCalendar.create with 12 months",
+        "budget": "< 40 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Up to 12 visible months (about 370 day cells) and a few hundred holidays and exceptions; the engine caches day lookups."
+  },
+  "limitations": [
+    "One working-hours pattern per weekday (plus per-exception hours); no rotating shifts or per-week patterns.",
+    "Holidays are one-off dates or yearly on the same month and day; movable feasts (Easter) must be listed per year.",
+    "Editing toggles working/non-working only; holiday names and hours are edited in the definition.",
+    "Timezone rule accuracy for workingIntervals depends on the browser ICU data.",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ],
+  "unsupported": [
+    "Rendering HTML in holiday names or reasons.",
+    "Selecting ranges of days.",
+    "Half-day holidays as a separate kind (use an exception with shorter hours)."
+  ],
+  "antiPatterns": [
+    "Using color alone to show holidays in custom styles: the day names state the kind; keep them.",
+    "Storing the rendered grid state instead of the definition from aui-change."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/business-calendar: AuiBusinessCalendar directive ([auiBusinessCalendar]) with inputs for every option and outputs for every event.",
+    "react": "@absoluteui/react/business-calendar: AuiBusinessCalendar component with props for every option and on* callbacks for events.",
+    "vue": "@absoluteui/vue/business-calendar: AuiBusinessCalendar component with props for every option and emits for events."
+  },
+  "versionIntroduced": "0.6.0",
+  "deprecated": null
+}

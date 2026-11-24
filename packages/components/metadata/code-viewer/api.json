@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "component": "code-viewer",
+  "factory": { "name": "CodeViewer.create", "signature": "CodeViewer.create(host: HTMLElement, options: CodeViewerOptions): CodeViewer" },
+  "configKey": "codeViewer",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the code region." },
+    { "name": "code", "type": "string", "default": "''", "required": false, "globallyConfigurable": false, "description": "Source text (ignored when diff is set)." },
+    { "name": "diff", "type": "CodeViewerDiff | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Show a diff: { original, modified, mode?: 'unified' | 'split', originalLabel?, modifiedLabel?, ignoreWhitespace? }." },
+    { "name": "language", "type": "CodeLanguage", "default": "plain", "required": false, "globallyConfigurable": false, "description": "'typescript' | 'javascript' | 'json' | 'html' | 'css' | 'sql' | 'bash' | 'markdown' | 'plain'." },
+    { "name": "filename", "type": "string", "required": false, "globallyConfigurable": false, "description": "File name shown in the toolbar." },
+    { "name": "startLine", "type": "number", "default": "1", "required": false, "globallyConfigurable": false, "description": "Number of the first line (code view)." },
+    { "name": "highlightLines", "type": "readonly CodeViewerLineRange[]", "default": "[]", "required": false, "globallyConfigurable": false, "description": "Line numbers or [from, to] ranges to highlight (modified line numbers in a diff)." },
+    { "name": "toolbar", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Show the toolbar (file name, language, actions)." },
+    { "name": "copyable", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Show the copy button." },
+    { "name": "wrapToggle", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Show the wrap toggle." },
+    { "name": "maxHeight", "type": "string | null", "default": "30rem", "required": false, "globallyConfigurable": false, "description": "Maximum block size of the scroll area (CSS length), or null to grow with the content (no virtualization)." },
+    { "name": "icons", "type": "Partial<CodeViewerIcons>", "required": false, "globallyConfigurable": false, "description": "Toolbar icons: copy, copied, unified, split." },
+    { "name": "lineNumbers", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show line numbers." },
+    { "name": "wrap", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Wrap long lines (the side-by-side diff always wraps)." },
+    { "name": "tabSize", "type": "number", "default": "2", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Width of a tab character in spaces (1 to 16)." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of messages and counts." },
+    { "name": "density", "type": "'compact' | 'comfortable' | 'spacious'", "default": "comfortable", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Line and toolbar spacing." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "options", "type": "Readonly<CodeViewerOptions>", "description": "Current options." },
+    { "name": "wrap", "type": "boolean", "description": "Whether long lines wrap." },
+    { "name": "mode", "type": "CodeViewerDiffMode | null", "description": "The diff mode, or null for plain code." },
+    { "name": "diff", "type": "DiffLine[] | null", "description": "The computed diff lines (null outside diff mode)." },
+    { "name": "text", "type": "string", "description": "The text the copy button writes (the code, or the modified text of a diff)." },
+    { "name": "rowCount", "type": "number", "description": "Total number of rows." },
+    { "name": "renderedRowCount", "type": "number", "description": "Rows currently in the DOM (all rows unless virtualized)." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<CodeViewerOptions>): void", "description": "Merge and apply options." },
+    { "name": "scrollToLine", "signature": "scrollToLine(line: number, align?: 'auto' | 'start' | 'center' | 'end'): void", "description": "Scroll a displayed line number (modified side in a diff) into view." },
+    { "name": "copy", "signature": "copy(): Promise<boolean>", "description": "Copy the text to the clipboard; resolves false when the clipboard refused." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, buttons, observers, and listeners." }
+  ],
+  "events": [
+    { "name": "aui-copy", "detail": "CodeViewerCopyDetail", "bubbles": true, "cancelable": false, "description": "The text was written to the clipboard: { text }." },
+    { "name": "aui-change", "detail": "CodeViewerChangeDetail", "bubbles": true, "cancelable": false, "description": "The user toggled wrapping or the diff mode: { wrap, mode, reason }." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-code-viewer", "description": "Host." },
+    { "name": "aui-code-viewer--wrap | --diff | --split | --virtual | --grow | --numbers", "description": "State modifiers." },
+    { "name": "aui-code-viewer--compact | --comfortable | --spacious", "description": "Density." },
+    { "name": "aui-code-viewer__toolbar", "description": "Toolbar with file name, language, diff counts, and actions." },
+    { "name": "aui-code-viewer__viewport", "description": "Scrollable, focusable region (role=region)." },
+    { "name": "aui-code-viewer__row", "description": "One row (a line, or a pair of lines side by side)." },
+    { "name": "aui-code-viewer__line", "description": "A line; with --insert, --delete, or --highlight." },
+    { "name": "aui-code-viewer__num", "description": "Line number (aria-hidden)." },
+    { "name": "aui-code-viewer__code", "description": "Line text (left to right)." },
+    { "name": "aui-code-viewer__t--<type>", "description": "Token: keyword, string, number, comment, function, type, tag, attr, variable, punctuation, heading, emphasis, link, code." }
+  ],
+  "iconSlots": [
+    { "name": "copy", "default": "copy (icon set)" },
+    { "name": "copied", "default": "check (icon set)" },
+    { "name": "unified", "default": "layout-list (icon set)" },
+    { "name": "split", "default": "layout-columns (icon set)" }
+  ]
+}

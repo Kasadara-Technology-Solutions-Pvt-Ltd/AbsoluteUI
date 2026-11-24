@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="coins">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="14.5" cy="9.5" r="5.5"/>
+      <line x1="9.5" y1="14.49" x2="9.5" y2="14.51" data-knockout="13"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <circle cx="9.5" cy="14.5" r="5.5"/>
+      <circle cx="9.5" cy="14.5" r="2.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="9.5" cy="14.5" r="6.25"/>
+      <circle cx="9.5" cy="14.5" r="2.75"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <path d="M14.5 3.25a6.25 6.25 0 0 1 4.85 10.2A7.75 7.75 0 0 0 10.55 4.65 6.25 6.25 0 0 1 14.5 3.25z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="14.5" cy="9.5" r="5.5"/>
+      <line x1="9.5" y1="14.49" x2="9.5" y2="14.51" data-knockout="13"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="9.5" cy="14.5" r="5.5"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <circle cx="9.5" cy="14.5" r="5.5"/>
+      <circle cx="9.5" cy="14.5" r="2.5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="14.5" cy="9.5" r="5.5"/>
+      <line x1="9.5" y1="14.49" x2="9.5" y2="14.51" data-knockout="13"/>
+    </g>
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.3">
+      <circle cx="9.5" cy="14.5" r="5.5"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <circle cx="9.5" cy="14.5" r="5.5"/>
+      <circle cx="9.5" cy="14.5" r="2.5"/>
+    </g>
+  </g>
+</svg>

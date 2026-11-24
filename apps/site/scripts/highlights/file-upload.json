@@ -1,0 +1,7 @@
+[
+  { "title": "Button and drop zone", "text": "Choose files with the button or drop them on the zone around it." },
+  { "title": "Type and size limits", "text": "Accepted types, extensions, file size, total size, and file count." },
+  { "title": "Clear rejections", "text": "Files that break a rule are rejected with a reason and a separate event." },
+  { "title": "Removable list", "text": "Selected files appear in a list where each one can be removed." },
+  { "title": "Form ready", "text": "Submits with the form and validates like every other field." }
+]

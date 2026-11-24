@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "component": "calendar-heatmap",
+  "pattern": "SVG calendar grid as a named, described group (role=\"group\" with aria-roledescription \"calendar heatmap\") of role=\"img\" days with roving focus following the APG date grid keys (day and week); a legend of steps and day types; data table fallback.",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription \"calendar heatmap\" (localized), named by the title"
+    },
+    {
+      "element": "days (rect.aui-calendar-heatmap__cell)",
+      "role": "img with an aria-label: date, value (or \"No value\"), and holiday name or \"Non-working day\""
+    },
+    {
+      "element": "legend",
+      "role": "list (ul) named \"Legend\"; static entries"
+    },
+    {
+      "element": "data table",
+      "role": "table (native): date, value, day type"
+    },
+    {
+      "element": "month and weekday labels, holiday dots, tooltip",
+      "role": "aria-hidden (decorative duplicates of the accessible data)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized \"calendar heatmap\""
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active mark",
+      "value": "0 on exactly one mark (roving); other marks have none"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each mark",
+      "value": "Localized: date, value (or \"No value\"), and holiday name or \"Non-working day\""
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowUp / ArrowDown",
+      "context": "Day focused",
+      "action": "Previous / next day (crossing weeks)."
+    },
+    {
+      "key": "ArrowLeft / ArrowRight",
+      "context": "Day focused",
+      "action": "Same weekday of the previous / next week (swapped in RTL)."
+    },
+    {
+      "key": "Home / End",
+      "context": "Day focused",
+      "action": "First / last day of the week."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Day focused",
+      "action": "Same day of the previous / next month (Shift: year), clamped to the range."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Mark focused",
+      "action": "Fires aui-point-click with source \"keyboard\"."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "One tab stop for the plot (the active mark), then the Show data table button and the table region."
+    }
+  ],
+  "focus": "Roving focus: one day is in the tab sequence and keeps the last visited day across re-renders. Moves stop at the first and last day of the range.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "4.1.2"
+  ],
+  "notes": [
+    "Lightness is never the only cue: every day's accessible name and tooltip carry its exact value, the legend lists every step's range, and the data table lists every day.",
+    "Non-working days and holidays are marked by an outline style and a dot, and named in text, not by color.",
+    "The week starts on the locale's first day (getFirstDayOfWeek) unless firstDayOfWeek is set."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "A year is many key presses; browse-mode users can read the data table instead."
+  ]
+}

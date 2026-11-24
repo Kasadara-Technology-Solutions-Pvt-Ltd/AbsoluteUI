@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/date-range-picker",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDateRangePicker",
+      "description": "AbsoluteUI DateRangePicker: `<aui-date-range-picker>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-date-range-picker",
+      "exportAs": [
+        "auiDateRangePicker"
+      ],
+      "source": "generated",
+      "component": "date-range-picker",
+      "configKey": "dateRangePicker",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "Range<PlainDate> | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible group label and accessible name of the role=group around both fields."
+        },
+        {
+          "name": "startLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name of the start field (visually hidden). Default: localized 'Start date'."
+        },
+        {
+          "name": "endLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name of the end field (visually hidden). Default: localized 'End date'."
+        },
+        {
+          "name": "min",
+          "type": "PlainDate | null",
+          "required": false,
+          "description": "Inclusive lower bound for both dates (validation and calendar)."
+        },
+        {
+          "name": "max",
+          "type": "PlainDate | null",
+          "required": false,
+          "description": "Inclusive upper bound for both dates (validation and calendar)."
+        },
+        {
+          "name": "minDays",
+          "type": "number",
+          "required": false,
+          "description": "Minimum range length in days, counting the start and end day (integer 1-100000)."
+        },
+        {
+          "name": "maxDays",
+          "type": "number",
+          "required": false,
+          "description": "Maximum range length in days, counting the start and end day (integer 1-100000)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name; Form and the hidden input carry the ISO 8601 interval YYYY-MM-DD/YYYY-MM-DD."
+        },
+        {
+          "name": "startName",
+          "type": "string",
+          "required": false,
+          "description": "Field name of the start date's own hidden input (YYYY-MM-DD) for native form posts."
+        },
+        {
+          "name": "endName",
+          "type": "string",
+          "required": false,
+          "description": "Field name of the end date's own hidden input (YYYY-MM-DD) for native form posts."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by the group's aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Both dates are required (value-missing)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables both fields and the calendar button; a disabled picker is not submitted."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Prevents editing; the calendar button is disabled."
+        },
+        {
+          "name": "isDateDisabled",
+          "type": "((date: PlainDate) => boolean)",
+          "required": false,
+          "description": "Disable days in the calendar; a typed disabled start or end day is invalid ('date-unavailable'). Days between the ends are not checked."
+        },
+        {
+          "name": "businessCalendar",
+          "type": "BusinessCalendarEngine | null",
+          "required": false,
+          "description": "Business calendar (since 0.9.0): non-working days and holidays are marked and named in the calendar."
+        },
+        {
+          "name": "disableNonWorking",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "With businessCalendar: non-working days cannot be picked or typed (since 0.9.0)."
+        },
+        {
+          "name": "validate",
+          "type": "((value: Range<PlainDate> | null) => string | null)",
+          "required": false,
+          "description": "Consumer validation, run when the field and range constraints pass; return a message to mark the value invalid (error 'custom')."
+        },
+        {
+          "name": "firstDayOfWeek",
+          "type": "Weekday",
+          "required": false,
+          "description": "First calendar column (ISO weekday). Default: the locale's first day of week."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<DateRangePickerIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Close the popup after the last day of the range is picked."
+        },
+        {
+          "name": "months",
+          "type": "DateRangePickerMonths",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Months in the popup. 'auto': two when the viewport is at least 40rem wide when the popup opens, else one. Applied on the next open."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Segment order, calendar, messages, formatting; forwarded to all children."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "Zone used only to determine today in the calendar."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Arrow-key mirroring, calendar direction, and popup alignment."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "Range<PlainDate> | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "DateRangePickerChangeDetail",
+          "event": "aui-change",
+          "description": "User typing or a completed calendar pick changed the value or validity. Dispatched from the picker host; the inner Date Input and Calendar change events are not exposed."
+        },
+        {
+          "name": "navigate",
+          "payload": "unknown",
+          "event": "aui-navigate",
+          "detail": "{ month: { year: number; month: number } }",
+          "description": "Bubbles from the inner Calendar when the user changes the visible months; month is the first visible month."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "The popup opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "The popup closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isOpen",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the popup is open."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Open the calendar on the range start (else the typed start date, else today) and focus it. No-op when disabled or read-only."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Close the calendar; an unfinished pick is discarded. Focus inside the popup returns to the calendar button."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show both fields' messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule), shown on the end field; cleared when the user changes either date. null or '' clears it."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "ISO 8601 interval YYYY-MM-DD/YYYY-MM-DD, or null when there is no valid range."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the first segment of the start date."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Close, restore the initial range, and clear the custom error and touched/submitted state (no aui-change)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Date Picker Dialog, non-modal variant, for a range: a labelled role=group containing two labelled segmented date fields (Date Input), a button with aria-haspopup=dialog inside the end field, and a role=dialog popup containing a range-selecting Calendar grid (one or two months).",
+        "source": "packages/components/metadata/date-range-picker/accessibility.json"
+      },
+      "limitations": [
+        "Gregorian calendar only; years 1-9999 (Date Input range).",
+        "A range may include disabled days: isDateDisabled is checked on the start and end days only.",
+        "minDays and maxDays count both the start and the end day.",
+        "Validation messages follow Date Input timing (incomplete, required, and range or custom messages after the field is touched or on reportValidity); validationTiming is not supported.",
+        "validity reports one error at a time; a range error is shown on the field it concerns.",
+        "Closing the popup with only the first day picked discards that pick; the previous range stays.",
+        "No Cancel/OK buttons: picking the last day commits the range.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { plainDate, type PlainDate, type Range } from '@absoluteui/core';\nimport { AuiDateRangePicker } from '@absoluteui/angular/date-range-picker';\n\n@Component({\n  selector: 'app-stay',\n  imports: [ReactiveFormsModule, AuiDateRangePicker],\n  template: `<aui-date-range-picker label=\"Stay\" [min]=\"today\" [maxDays]=\"14\" [required]=\"true\" [formControl]=\"stay\"></aui-date-range-picker>`,\n})\nexport class StayComponent {\n  readonly today = plainDate(2026, 9, 27);\n  readonly stay = new FormControl<Range<PlainDate> | null>(null, { validators: [Validators.required] });\n}"
+    }
+  ]
+}

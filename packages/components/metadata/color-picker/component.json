@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "color-picker",
+  "displayName": "Color Picker",
+  "category": "Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { ColorPicker } from '@absoluteui/components/color-picker';",
+  "styleImport": "@absoluteui/components/color-picker/style.css",
+  "purpose": "Picks a color through a saturation and brightness area, a hue slider, and an optional opacity slider, or by typing hex, rgb(), or hsl() text. App-supplied preset and recent swatches, a screen eyedropper where the browser supports it, and an optional WCAG contrast hint against a background. Inline or in a popup. A Form control whose value is a hex string.",
+  "whenToUse": [
+    "Brand, theme, label, or calendar colors chosen freely by the user.",
+    "Colors that must meet a contrast target against a known background (contrast hint)."
+  ],
+  "whenNotToUse": [
+    "A small fixed set of colors: use Radio Group or Toggle Group with color names.",
+    "Wide-gamut or print color spaces (Display P3, CMYK): the picker works in sRGB."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities", "@absoluteui/icons"],
+  "states": ["popup closed", "popup open", "inline", "empty (no color)", "with opacity", "read-only", "disabled", "invalid (required, unparsable text, validate, custom error)", "dragging"],
+  "responsive": "The panel is 16.5rem wide and never wider than its container; the popup is positioned and height-limited by the positioning engine.",
+  "rtl": "Saturation and the hue and opacity sliders run along the reading direction (mirrored in right-to-left) and the arrow keys follow it; brightness always runs bottom to top.",
+  "theme": "Global tokens only; the chosen color is shown as-is. Thumbs use a white and a black ring so they stay visible on any color; forced colors draw thumbs, swatches, and tracks with system colors.",
+  "timezone": "Not applicable.",
+  "security": "Labels, swatch names, and values are rendered with textContent and aria-label. Colors are parsed and normalized to hex before they reach the CSSOM (style.setProperty), so no style attributes or HTML strings are used.",
+  "dataHandling": "No persistence, network access, or telemetry. Recent colors are supplied and stored by the app. The eyedropper reads a single pixel only after the user's explicit click and the browser's own prompt.",
+  "performance": {
+    "budgets": [
+      { "metric": "ColorPicker.create, per instance", "budget": "< 3 ms average in headless Chromium" },
+      { "metric": "Drag update (pointermove)", "budget": "< 1 ms per event; only attributes and custom properties change" }
+    ],
+    "testedScale": "Up to 64 preset and 16 recent swatches."
+  },
+  "limitations": [
+    "sRGB only; values are 8-bit hex.",
+    "The eyedropper exists only where the browser has the EyeDropper API (Chromium-based browsers); elsewhere the button is not shown."
+  ],
+  "unsupported": [
+    "Wide-gamut (Display P3, OKLCH) values.",
+    "Color names such as 'rebeccapurple' as typed input."
+  ],
+  "antiPatterns": [
+    "Relying on the color alone to convey meaning: give swatches spoken names.",
+    "Expecting the component to remember recent colors: the app owns that list."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/color-picker: AuiColorPicker component (<aui-color-picker>, [(value)], formControl).",
+    "react": "@absoluteui/react/color-picker: AuiColorPicker component (value, onValueChange).",
+    "vue": "@absoluteui/vue/color-picker: AuiColorPicker component (v-model)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

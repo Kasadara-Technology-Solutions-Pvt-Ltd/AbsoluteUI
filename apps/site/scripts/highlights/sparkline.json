@@ -1,0 +1,6 @@
+[
+  { "title": "Word-sized trend", "text": "A small line or bar graphic for text, table cells, and KPI tiles." },
+  { "title": "Generated name", "text": "The accessible name summarizes count, first, last, minimum, and maximum values." },
+  { "title": "Cheap at scale", "text": "No layout reads on creation, so hundreds per page stay fast." },
+  { "title": "Last value marker", "text": "Highlights the most recent value by default." }
+]

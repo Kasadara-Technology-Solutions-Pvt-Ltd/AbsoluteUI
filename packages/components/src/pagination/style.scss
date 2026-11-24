@@ -1,0 +1,166 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // The host is a size container so the layout follows the space it is given, not the viewport.
+  .aui-pagination {
+    container-type: inline-size;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-pagination__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: aui.token('space-3');
+  }
+
+  .aui-pagination__summary {
+    margin: 0;
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-pagination__controls {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-1');
+  }
+
+  .aui-pagination__pages {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .aui-pagination__item {
+    display: inline-flex;
+  }
+
+  .aui-pagination__ellipsis {
+    align-items: center;
+    justify-content: center;
+    min-inline-size: aui.token('touch-target-min');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-pagination__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: aui.token('touch-target-min');
+    min-block-size: aui.token('touch-target-min');
+    padding-inline: aui.token('space-2');
+    margin: 0;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    color: aui.token('color-text');
+    background: transparent;
+    border: aui.token('border-width') solid transparent;
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+    @include aui.transition(background-color, border-color);
+
+    &:hover:not(:disabled) {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  // Current page: filled and bordered plus a heavier weight, not color alone.
+  .aui-pagination__page[aria-current='page'] {
+    color: aui.token('color-selected-text');
+    font-weight: aui.token('font-weight-semibold');
+    background: aui.token('color-selected');
+    border-color: aui.token('color-primary');
+  }
+
+  // Direction icons point in the reading direction.
+  .aui-pagination--rtl .aui-pagination__button .aui-icon,
+  .aui-pagination__button .aui-icon:dir(rtl) {
+    transform: scaleX(-1);
+  }
+
+  .aui-pagination__compact {
+    display: none;
+    padding-inline: aui.token('space-2');
+    white-space: nowrap;
+  }
+
+  .aui-pagination__size {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-2');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-pagination__size-label {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-pagination__size-select {
+    @include aui.control-surface;
+    inline-size: auto;
+    font: inherit;
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+  }
+
+  // Narrow containers: page numbers give way to "Page 3 of 10".
+  @container (max-width: 30rem) {
+    .aui-pagination__pages {
+      display: none;
+    }
+
+    .aui-pagination__compact {
+      display: inline;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-pagination__page[aria-current='page'] {
+      border-color: Highlight;
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-pagination__button:disabled {
+      color: GrayText;
+    }
+  }
+}

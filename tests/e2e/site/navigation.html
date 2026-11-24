@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>AbsoluteUI R2 harness: navigation and overlays</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/button.css">
+    <link rel="stylesheet" href="/menu.css">
+    <link rel="stylesheet" href="/menu-bar.css">
+    <link rel="stylesheet" href="/context-menu.css">
+    <link rel="stylesheet" href="/drawer.css">
+    <link rel="stylesheet" href="/tooltip.css">
+    <link rel="stylesheet" href="/stepper.css">
+    <link rel="stylesheet" href="/sidebar.css">
+    <link rel="stylesheet" href="/hover-card.css">
+    <link rel="stylesheet" href="/bottom-sheet.css">
+    <link rel="stylesheet" href="/sortable-list.css">
+    <link rel="stylesheet" href="/demo.css">
+    <script type="module" src="/navigation.js"></script>
+  </head>
+  <body>
+    <div class="demo-shell">
+      <aside id="sidebar"></aside>
+      <main class="demo">
+        <div class="demo-row">
+          <button type="button" id="nav-toggle">Open navigation</button>
+        </div>
+        <h1>AbsoluteUI R2 navigation and overlays</h1>
+        <section aria-labelledby="h-menubar">
+          <h2 id="h-menubar">Menu bar</h2>
+          <div id="menubar"></div>
+          <p>Last action: <output id="last-action">none</output></p>
+        </section>
+        <section aria-labelledby="h-stepper">
+          <h2 id="h-stepper">Stepper</h2>
+          <div id="stepper"></div>
+          <p>Current step: <output id="current-step">shipping</output></p>
+        </section>
+        <section aria-labelledby="h-context">
+          <h2 id="h-context">Context menu</h2>
+          <p id="files-hint">Right-click a file, or focus it and press Shift+F10, for file actions.</p>
+          <div id="files" class="demo-files">
+            <button type="button" aria-describedby="files-hint">report.pdf</button>
+            <button type="button" aria-describedby="files-hint">budget.xlsx</button>
+          </div>
+        </section>
+        <section aria-labelledby="h-hover">
+          <h2 id="h-hover">Hover card</h2>
+          <p>Written by <a id="author" href="#ada">Ada Lovelace</a>, reviewed by the editors.</p>
+        </section>
+        <section aria-labelledby="h-sheet">
+          <h2 id="h-sheet">Bottom sheet</h2>
+          <button type="button" id="sheet-trigger">Share</button>
+        </section>
+        <section aria-labelledby="h-sortable">
+          <h2 id="h-sortable">Sortable list</h2>
+          <div id="sortable" class="demo-sortable"></div>
+          <p>Order: <output id="order">security, search, billing, exports, audit</output></p>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

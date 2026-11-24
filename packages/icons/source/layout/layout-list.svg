@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="layout-list" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="4.5" width="4" height="4" rx="1"/>
+      <path d="M11 6.5h9"/>
+      <rect x="4" y="10" width="4" height="4" rx="1"/>
+      <path d="M11 12h9"/>
+      <rect x="4" y="15.5" width="4" height="4" rx="1"/>
+      <path d="M11 17.5h9"/>
+    </g>
+  </g>
+</svg>

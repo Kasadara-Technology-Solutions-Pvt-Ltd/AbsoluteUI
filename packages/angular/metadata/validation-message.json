@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/validation-message",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiValidationMessage",
+      "description": "AbsoluteUI ValidationMessage: `<aui-validation-message>`.",
+      "selector": "aui-validation-message",
+      "exportAs": [
+        "auiValidationMessage"
+      ],
+      "source": "generated",
+      "component": "validation-message",
+      "configKey": "validationMessage",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "Message text. Empty hides the message and unlinks the target."
+        },
+        {
+          "name": "tone",
+          "type": "ValidationMessageTone",
+          "required": false,
+          "default": "error",
+          "description": "Visual tone and icon. Only 'error' sets aria-invalid on the target."
+        },
+        {
+          "name": "for",
+          "type": "HTMLElement | null",
+          "required": false,
+          "description": "Control described by the message: receives the host id in aria-describedby while a message is shown, and aria-invalid for errors."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<ValidationMessageIcons>",
+          "required": false,
+          "description": "Icon overrides per tone."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [
+        {
+          "name": "setMessage",
+          "signature": "setMessage(message: string, tone?: ValidationMessageTone | undefined): void",
+          "description": "Set the message and optionally the tone."
+        },
+        {
+          "name": "clear",
+          "signature": "clear(): void",
+          "description": "Hide the message and unlink the target."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Field description referenced by aria-describedby, with aria-invalid on the target for errors (HTML/ARIA).",
+        "source": "packages/components/metadata/validation-message/accessibility.json"
+      },
+      "limitations": [
+        "Not a live region: a new message is read when the user moves to the target (through aria-describedby), not when it appears.",
+        "Every update re-creates the icon element.",
+        "No locale option: the message text is consumer-provided."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiValidationMessage } from '@absoluteui/angular/validation-message';\nimport { AuiFormField } from '@absoluteui/angular/form-field';\n\n@Component({\n  selector: 'app-promo',\n  imports: [AuiValidationMessage, AuiFormField],\n  template: `\n    <aui-form-field label=\"Promo code\"><input #promo name=\"promo\" /></aui-form-field>\n    <aui-validation-message [for]=\"promo\" [message]=\"message\" tone=\"error\"></aui-validation-message>`,\n})\nexport class PromoComponent {\n  message = '';\n}"
+    }
+  ]
+}

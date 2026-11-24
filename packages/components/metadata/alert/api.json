@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "component": "alert",
+  "factory": { "name": "Alert.create", "signature": "Alert.create(host: HTMLElement, options: AlertOptions): Alert" },
+  "configKey": "alert",
+  "options": [
+    { "name": "message", "type": "string | Node", "required": true, "globallyConfigurable": false, "description": "Message; strings render as text." },
+    { "name": "tone", "type": "'info' | 'success' | 'warning' | 'error'", "default": "info", "required": false, "globallyConfigurable": false, "description": "Tone: icon, colors, and hidden tone prefix." },
+    { "name": "title", "type": "string", "required": false, "globallyConfigurable": false, "description": "Optional title (text)." },
+    { "name": "live", "type": "'off' | 'polite' | 'assertive'", "default": "off", "required": false, "globallyConfigurable": false, "description": "off: static; polite: role=status; assertive: role=alert. Announces content inserted or changed after load." },
+    { "name": "actions", "type": "readonly AlertAction[]", "required": false, "globallyConfigurable": false, "description": "Buttons { label, value, variant? } that emit aui-action." },
+    { "name": "icons", "type": "Partial<AlertIcons>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "dismissible", "type": "boolean", "default": false, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Render a dismiss button (localized 'Dismiss')." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the tone prefix and dismiss label." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (receives role and classes)." },
+    { "name": "isDismissed", "type": "boolean", "description": "Whether the alert was dismissed (hidden)." },
+    { "name": "options", "type": "Readonly<AlertOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<AlertOptions>): void", "description": "Merge and apply options; changed content in a live alert is announced." },
+    { "name": "dismiss", "signature": "dismiss(): boolean", "description": "Emit cancelable aui-dismiss, then hide unless prevented. Returns whether it was dismissed." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, role, classes, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-action", "detail": "{ value: string }", "bubbles": true, "cancelable": false, "description": "An action button was activated." },
+    { "name": "aui-dismiss", "detail": "{ reason: 'dismiss-button' | 'programmatic' }", "bubbles": false, "cancelable": true, "description": "Before the alert hides; preventDefault keeps it visible." }
+  ],
+  "contentAreas": [
+    { "name": "message", "description": "The `message` option (string or Node)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-alert", "description": "Host." },
+    { "name": "aui-alert--info | --success | --warning | --error", "description": "Tone modifiers." },
+    { "name": "aui-alert--dismissible", "description": "Has a dismiss button." },
+    { "name": "aui-alert__icon", "description": "Tone icon (decorative)." },
+    { "name": "aui-alert__content", "description": "Tone prefix, title, message, and actions." },
+    { "name": "aui-alert__tone", "description": "Visually hidden tone prefix." },
+    { "name": "aui-alert__title", "description": "Title." },
+    { "name": "aui-alert__message", "description": "Message." },
+    { "name": "aui-alert__actions", "description": "Action buttons." },
+    { "name": "aui-alert__dismiss", "description": "Dismiss button." }
+  ],
+  "iconSlots": [
+    { "name": "info", "default": "info" },
+    { "name": "success", "default": "check-circle" },
+    { "name": "warning", "default": "alert-triangle" },
+    { "name": "error", "default": "alert-circle" },
+    { "name": "dismiss", "default": "close" }
+  ]
+}

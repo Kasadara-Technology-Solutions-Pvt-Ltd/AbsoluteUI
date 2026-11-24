@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="chart-waterfall">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 4v14.5A1.5 1.5 0 0 0 5.5 20H20"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="stroke">
+      <path d="M7.5 16v-5"/>
+      <path d="M18 16v-6"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M11 10V7.5"/>
+      <path d="M14.5 7.5v3"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="6.5" y="10" width="2" height="7" rx="1"/>
+      <rect x="17" y="9" width="2" height="8" rx="1"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 4v14.5A1.5 1.5 0 0 0 5.5 20H20"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M11 10V7.5"/>
+      <path d="M14.5 7.5v3"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 4v14.5A1.5 1.5 0 0 0 5.5 20H20"/>
+    </g>
+    <g data-layer="secondary" data-role="muted" data-paint="fill">
+      <rect x="6.5" y="10" width="2" height="7" rx="1"/>
+      <rect x="17" y="9" width="2" height="8" rx="1"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <rect x="10" y="6.5" width="2" height="4.5" rx="1"/>
+      <rect x="13.5" y="6.5" width="2" height="5" rx="1"/>
+    </g>
+  </g>
+</svg>

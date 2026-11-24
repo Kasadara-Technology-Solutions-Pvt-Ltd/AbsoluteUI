@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AbsoluteUI R3 harness: advanced charts</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/line-chart.css">
+    <link rel="stylesheet" href="/scatter-chart.css">
+    <link rel="stylesheet" href="/combo-chart.css">
+    <link rel="stylesheet" href="/waterfall-chart.css">
+    <link rel="stylesheet" href="/histogram.css">
+    <link rel="stylesheet" href="/heatmap.css">
+    <link rel="stylesheet" href="/gauge.css">
+    <link rel="stylesheet" href="/radar-chart.css">
+    <link rel="stylesheet" href="/treemap.css">
+    <link rel="stylesheet" href="/funnel-chart.css">
+    <link rel="stylesheet" href="/box-plot.css">
+    <link rel="stylesheet" href="/bullet-chart.css">
+    <link rel="stylesheet" href="/demo.css">
+    <script type="module" src="/charts-r3.js"></script>
+  </head>
+  <body>
+    <main class="demo">
+      <h1>AbsoluteUI R3 advanced charts</h1>
+      <section aria-labelledby="h-zoom" class="demo-stack">
+        <h2 id="h-zoom">Zoom, crosshair, export</h2>
+        <div id="line-zoom"></div>
+        <div class="demo-row">
+          <button type="button" id="export-svg">Export SVG</button>
+          <button type="button" id="export-png">Export PNG</button>
+          <output id="export-result">none</output>
+        </div>
+      </section>
+      <section aria-labelledby="h-relations" class="demo-stack">
+        <h2 id="h-relations">Relationships</h2>
+        <div id="scatter"></div>
+        <div id="bubble"></div>
+        <div id="radar"></div>
+      </section>
+      <section aria-labelledby="h-compare" class="demo-stack">
+        <h2 id="h-compare">Comparison and change</h2>
+        <div id="combo"></div>
+        <div id="waterfall"></div>
+        <div id="bullet"></div>
+      </section>
+      <section aria-labelledby="h-distribution" class="demo-stack">
+        <h2 id="h-distribution">Distribution</h2>
+        <div id="histogram"></div>
+        <div id="box"></div>
+        <div id="heatmap"></div>
+      </section>
+      <section aria-labelledby="h-parts" class="demo-stack">
+        <h2 id="h-parts">Parts and stages</h2>
+        <div id="treemap"></div>
+        <div id="funnel"></div>
+        <div class="demo-row">
+          <div id="gauge-cpu"></div>
+          <div id="gauge-sla"></div>
+        </div>
+      </section>
+      <p>Last event: <output id="last-event">none</output></p>
+    </main>
+  </body>
+</html>

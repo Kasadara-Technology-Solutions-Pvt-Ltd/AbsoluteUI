@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="alert-octagon">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M8.33 3.13H15.67L20.87 8.33V15.67L15.67 20.87H8.33L3.13 15.67V8.33Z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 7.5v5.5"/>
+      <path d="M12 16.5h.01"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M8.33 3.13H15.67L20.87 8.33V15.67L15.67 20.87H8.33L3.13 15.67V8.33Z" transform="translate(12 12) scale(1.08) translate(-12 -12)"/>
+      <line x1="12" y1="7.25" x2="12" y2="13.25" data-outline-width="2"/>
+      <circle cx="12" cy="16.75" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M8.33 3.13H15.67L20.87 8.33V15.67L15.67 20.87H8.33L3.13 15.67V8.33Z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M8.33 3.13H15.67L20.87 8.33V15.67L15.67 20.87H8.33L3.13 15.67V8.33Z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 7.5v5.5"/>
+      <path d="M12 16.5h.01"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="error" data-paint="fill" data-opacity="0.2">
+      <path d="M8.33 3.13H15.67L20.87 8.33V15.67L15.67 20.87H8.33L3.13 15.67V8.33Z"/>
+    </g>
+    <g data-layer="base" data-role="error" data-paint="stroke">
+      <path d="M8.33 3.13H15.67L20.87 8.33V15.67L15.67 20.87H8.33L3.13 15.67V8.33Z"/>
+    </g>
+    <g data-layer="accent" data-role="error" data-paint="stroke">
+      <path d="M12 7.5v5.5"/>
+      <path d="M12 16.5h.01"/>
+    </g>
+  </g>
+</svg>

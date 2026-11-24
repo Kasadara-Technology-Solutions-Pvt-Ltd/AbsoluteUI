@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "component": "carousel",
+  "pattern": "WAI-ARIA APG Carousel (basic, with slide picker buttons): region with aria-roledescription 'carousel', slides as groups with aria-roledescription 'slide' and 'N of M' labels, rotation control first.",
+  "roles": [
+    { "element": "host", "role": "region (aria-roledescription 'carousel')" },
+    { "element": "slide", "role": "group (aria-roledescription 'slide')" },
+    { "element": "pause, previous, next, picker", "role": "button (native)" },
+    { "element": "picker", "role": "group" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "host", "value": "the label option" },
+    { "attribute": "aria-label", "element": "slide", "value": "'N of M' (plus the slide label)" },
+    { "attribute": "aria-live", "element": "viewport", "value": "off while rotating automatically; polite otherwise" },
+    { "attribute": "aria-current", "element": "current picker button", "value": "true" },
+    { "attribute": "aria-label", "element": "pause button", "value": "'Stop automatic slide show' or 'Start automatic slide show'" },
+    { "attribute": "inert", "element": "inactive slides", "value": "present (not focusable, not read)" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Carousel", "action": "Pause button (with autoplay), the current slide's content, previous, picker buttons, next." },
+    { "key": "Enter / Space", "context": "Buttons", "action": "Activate." }
+  ],
+  "focus": "Focus inside the carousel (or hovering it) pauses rotation; moving slides never moves focus.",
+  "wcag": ["1.3.1", "2.1.1", "2.2.2", "2.3.3", "2.4.3", "2.5.8", "4.1.2", "4.1.3"],
+  "notes": [
+    "Autoplay is off by default; when on, the pause button is the first element (WCAG 2.2.2), and users who prefer reduced motion start paused.",
+    "Picker dots keep a 24px target and the current one is filled, not only recolored."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="siren" data-animations="pulse:on-change">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 18v-6a5 5 0 0 1 10 0v6"/>
+      <path d="M5 18h14v3H5z"/>
+      <path d="M12 2v2"/>
+      <path d="M4.2 5.2l1.4 1.4"/>
+      <path d="M19.8 5.2l-1.4 1.4"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M6.5 17v-5a5.5 5.5 0 0 1 11 0v5z"/>
+      <rect x="4.5" y="18" width="15" height="3.5" rx="1"/>
+      <line x1="12" y1="2" x2="12" y2="4" data-outline-width="2"/>
+      <line x1="4.2" y1="5.2" x2="5.6" y2="6.6" data-outline-width="2"/>
+      <line x1="19.8" y1="5.2" x2="18.4" y2="6.6" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M7 18v-6a5 5 0 0 1 10 0v6z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 18v-6a5 5 0 0 1 10 0v6"/>
+      <path d="M5 18h14v3H5z"/>
+      <path d="M12 2v2"/>
+      <path d="M4.2 5.2l1.4 1.4"/>
+      <path d="M19.8 5.2l-1.4 1.4"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="error" data-paint="fill" data-opacity="0.35">
+      <path d="M7 18v-6a5 5 0 0 1 10 0v6z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 18v-6a5 5 0 0 1 10 0v6"/>
+      <path d="M5 18h14v3H5z"/>
+      <path d="M12 2v2"/>
+      <path d="M4.2 5.2l1.4 1.4"/>
+      <path d="M19.8 5.2l-1.4 1.4"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "name": "schema-form",
+  "displayName": "Schema Form",
+  "category": "Forms",
+  "package": "@absoluteui/components",
+  "import": "import { SchemaForm } from '@absoluteui/components/schema-form';",
+  "styleImport": "@absoluteui/components/schema-form/style.css",
+  "purpose": "Renders a complete form from a JSON Schema subset (draft 2020-12 keywords) and an optional UI schema, with the existing AbsoluteUI controls inside a native form managed by Form. Controls are named by JSON Pointer, so values validate, serialize, and show the Error Summary exactly like a hand-written form; getValue() returns typed JSON, aui-submit carries the validated value, and server errors map back with setErrors(pointer -> message). Unsupported keywords are configuration errors, never silently ignored.",
+  "whenToUse": [
+    "Forms defined by configuration or by administrators (questionnaires, request types, settings pages).",
+    "Many similar forms whose fields change without a release.",
+    "Forms produced by Form Builder."
+  ],
+  "whenNotToUse": [
+    "A single, stable form with custom layout or behavior: compose Form, Form Field, and the controls directly.",
+    "Schemas that need $ref, allOf/anyOf, if/then/else, or arbitrary oneOf subschemas (not supported).",
+    "Spreadsheet-like data entry: use Data Grid."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities",
+    "@absoluteui/helpers"
+  ],
+  "states": [
+    "pristine",
+    "editing",
+    "conditional field hidden",
+    "array empty",
+    "array at maxItems",
+    "invalid (summary shown)",
+    "async validating",
+    "submitted",
+    "server errors",
+    "disabled"
+  ],
+  "responsive": "Fields flow in one column; a UI schema `columns` value (1 to 4) applies as far as the form's container allows: about 13rem per column (2 columns from 27rem, 3 from 41rem, 4 from 55rem; container queries), one column below 27rem, so narrow screens never scroll horizontally. Array item actions wrap under the item.",
+  "rtl": "Layout uses logical properties; the controls mirror as they do on their own. JSON Pointers and values are direction-neutral.",
+  "theme": "Uses the global tokens only (spacing, border, radius, text colors) and the themes of the controls it renders; groups and arrays have a border that becomes CanvasText in forced colors.",
+  "timezone": "Date fields emit ISO dates (YYYY-MM-DD), date-time fields ISO instants in UTC (toISOString), time fields HH:MM:SS. Date-time fields use the `timezone` option or the global configuration. With a business calendar, `disableNonWorking` in the UI schema blocks weekends and holidays.",
+  "security": "Labels, help text, and options are rendered as text. Rich-text fields are sanitized by Rich Text Editor. Conditions are plain JSON evaluated by a fixed interpreter: no eval or Function. Patterns compile with the u flag and are limited to 500 characters; schemas are limited in depth (8) and size (500 fields).",
+  "dataHandling": "No persistence, network access, or telemetry; the async validator and submission handling belong to the application.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "SchemaForm.create with 50 fields",
+        "budget": "< 60 ms average in headless Chromium"
+      }
+    ],
+    "testedScale": "Up to 500 fields and arrays of 100 entries; every field is a real control in the DOM (no virtualization)."
+  },
+  "limitations": [
+    "Conditions compare values with equals, notEquals, in, and filled, combined with all, any, and not.",
+    "Arrays of arrays are not supported; array items are primitives or objects.",
+    "Reordering array entries rebuilds their controls (focus moves to the corresponding action button)."
+  ],
+  "unsupported": [
+    "$ref, $defs, allOf, anyOf, not, if/then/else, dependentSchemas, patternProperties, and type arrays.",
+    "Formats other than date, date-time, time, email, and uri.",
+    "Custom widgets (use Form with your own controls)."
+  ],
+  "antiPatterns": [
+    "Generating a schema per user at runtime to work around missing conditions: keep one schema and use visibleIf.",
+    "Hiding required information behind conditions that the user cannot discover."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/schema-form: AuiSchemaForm component (<aui-schema-form>).",
+    "react": "@absoluteui/react/schema-form: AuiSchemaForm component.",
+    "vue": "@absoluteui/vue/schema-form: AuiSchemaForm component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

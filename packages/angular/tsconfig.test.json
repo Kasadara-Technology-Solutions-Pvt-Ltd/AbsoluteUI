@@ -1,0 +1,19 @@
+{
+  "//": "AOT (full) compilation of the adapter and its tests; vitest.angular.config.ts runs the output in Chromium.",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "../../.cache/angular-test",
+    "declaration": false,
+    "experimentalDecorators": true,
+    "noEmit": false,
+    "types": []
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "full",
+    "strictTemplates": true,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
+  },
+  "include": ["src", "test"]
+}

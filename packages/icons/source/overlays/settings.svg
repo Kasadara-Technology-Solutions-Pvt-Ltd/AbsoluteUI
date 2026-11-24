@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" data-id="settings">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <circle cx="5" cy="5" r="3.3"/>
+      <line x1="5" y1="1.9" x2="5" y2="8.1" data-outline-width="1.7"/>
+      <line x1="2.32" y1="3.45" x2="7.68" y2="6.55" data-outline-width="1.7"/>
+      <line x1="2.32" y1="6.55" x2="7.68" y2="3.45" data-outline-width="1.7"/>
+      <line x1="5" y1="4.99" x2="5" y2="5.01" data-knockout="2.6"/>
+    </g>
+  </g>
+</svg>

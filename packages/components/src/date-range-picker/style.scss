@@ -1,0 +1,132 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-date-range-picker {
+    display: grid;
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    color: aui.token('color-text');
+  }
+
+  .aui-date-range-picker__group {
+    display: grid;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+  }
+
+  .aui-date-range-picker__label {
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-medium');
+    line-height: aui.token('line-height-tight');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-date-range-picker__description {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Start and end fields on one line; they wrap below each other when space runs out.
+  .aui-date-range-picker__fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: aui.token('space-1') aui.token('space-2');
+    min-inline-size: 0;
+  }
+
+  // The group label names both fields; each field keeps its own accessible name.
+  .aui-date-range-picker .aui-date-input__label {
+    @include aui.visually-hidden;
+  }
+
+  .aui-date-range-picker__separator {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: aui.token('control-height-md');
+    color: aui.token('color-text-muted');
+  }
+
+  // The calendar button sits inside the end field boundary, flush with its end edge.
+  .aui-date-range-picker__end .aui-date-input__group {
+    padding-inline-end: 0;
+  }
+
+  .aui-date-range-picker__trailing {
+    display: inline-flex;
+    align-self: stretch;
+    margin-inline-start: aui.token('space-2');
+  }
+
+  .aui-date-range-picker__button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: aui.token('control-height-md');
+    padding: 0;
+    margin: 0;
+    color: aui.token('color-text-muted');
+    background: transparent;
+    border: 0;
+    border-start-end-radius: aui.token('radius-md');
+    border-end-end-radius: aui.token('radius-md');
+    cursor: pointer;
+    @include aui.transition(background-color, color);
+
+    &:hover {
+      color: aui.token('color-text');
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      background: transparent;
+      cursor: not-allowed;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  // Top-layer popup (Popover API). Position is applied by the positioning engine.
+  .aui-date-range-picker__popup {
+    @include aui.popup-motion;
+    box-sizing: border-box;
+    max-inline-size: calc(100vw - 2 * #{aui.token('space-2')});
+    max-block-size: var(--aui-available-height, 100dvh);
+    padding: aui.token('space-3');
+    margin: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    box-shadow: aui.token('shadow-md');
+    font-family: aui.token('font-family-sans');
+  }
+
+  @include aui.forced-colors {
+    .aui-date-range-picker__popup {
+      border-color: CanvasText;
+    }
+
+    .aui-date-range-picker__button:disabled {
+      color: GrayText;
+    }
+  }
+}

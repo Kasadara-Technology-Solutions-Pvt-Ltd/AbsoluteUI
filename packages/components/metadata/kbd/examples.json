@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "kbd",
+  "examples": [
+    {
+      "id": "shortcuts",
+      "title": "Shortcuts for the current platform",
+      "language": "ts",
+      "code": "import { Kbd } from '@absoluteui/components/kbd';\n\nconst list = document.createElement('ul');\ndocument.body.append(list);\nconst shortcuts: [string, string][] = [['Save', 'Mod+S'], ['Command palette', 'Mod+Shift+P'], ['Close dialog', 'Esc'], ['Next row', 'ArrowDown']];\nfor (const [command, hotkey] of shortcuts) {\n  const item = document.createElement('li');\n  const keys = document.createElement('span');\n  item.append(`${command}: `, keys);\n  list.append(item);\n  Kbd.create(keys, { hotkey });\n}"
+    },
+    {
+      "id": "platforms",
+      "title": "The same shortcut on Apple and other platforms",
+      "language": "ts",
+      "code": "import { Kbd } from '@absoluteui/components/kbd';\n\nfor (const platform of ['apple', 'other'] as const) {\n  const line = document.createElement('p');\n  const keys = document.createElement('span');\n  line.append(`${platform === 'apple' ? 'macOS' : 'Windows and Linux'}: `, keys);\n  document.body.append(line);\n  Kbd.create(keys, { hotkey: 'Mod+Alt+Shift+K', platform });\n}"
+    }
+  ]
+}

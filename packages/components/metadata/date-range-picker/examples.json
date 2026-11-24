@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "date-range-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required stay with a length limit",
+      "language": "ts",
+      "code": "import { plainDate, plainDateToString } from '@absoluteui/core';\nimport { DateRangePicker, type DateRangePickerChangeDetail } from '@absoluteui/components/date-range-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDateRangePicker.create(host, {\n  label: 'Stay',\n  startLabel: 'Check-in',\n  endLabel: 'Check-out',\n  name: 'stay',\n  required: true,\n  min: plainDate(2026, 1, 1),\n  minDays: 2,\n  maxDays: 14,\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<DateRangePickerChangeDetail>).detail;\n  host.dataset.value = value ? `${plainDateToString(value.start)}/${plainDateToString(value.end)}` : '';\n});"
+    },
+    {
+      "id": "unavailable-validate",
+      "title": "Initial range, weekdays only, and a consumer rule",
+      "language": "ts",
+      "code": "import { dayOfWeek, plainDate } from '@absoluteui/core';\nimport { DateRangePicker } from '@absoluteui/components/date-range-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDateRangePicker.create(host, {\n  label: 'Leave',\n  value: { start: plainDate(2026, 10, 5), end: plainDate(2026, 10, 9) },\n  startName: 'leaveFrom',\n  endName: 'leaveTo',\n  months: 1,\n  firstDayOfWeek: 1,\n  isDateDisabled: (date) => dayOfWeek(date) >= 6,\n  validate: (range) => (range && range.start.month !== range.end.month ? 'Request leave within one month.' : null),\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Always two months, and keep the popup open after picking",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ common: { timezone: 'Europe/Berlin' }, components: { dateRangePicker: { months: 2, closeOnSelect: false } } });"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+[
+  { "title": "Value and change", "text": "A formatted headline value with the change against a previous value." },
+  { "title": "Sentiment aware", "text": "Decide whether an increase is good, bad, or neutral; meaning never depends on color." },
+  { "title": "Trend sparkline", "text": "An optional sparkline shows the recent trend." },
+  { "title": "Linked cards", "text": "With a link, the whole card navigates to the detail page." }
+]

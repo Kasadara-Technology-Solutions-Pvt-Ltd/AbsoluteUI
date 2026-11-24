@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/breadcrumb",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiBreadcrumb",
+      "description": "AbsoluteUI Breadcrumb: `<aui-breadcrumb>`.",
+      "selector": "aui-breadcrumb",
+      "exportAs": [
+        "auiBreadcrumb"
+      ],
+      "source": "generated",
+      "component": "breadcrumb",
+      "configKey": "breadcrumb",
+      "inputs": [
+        {
+          "name": "items",
+          "type": "readonly BreadcrumbItem[]",
+          "required": true,
+          "description": "Trail from the root to the current page (last item). Items without href render as text."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": "Breadcrumb (localized)",
+          "description": "Accessible name of the <nav>."
+        },
+        {
+          "name": "linkCurrent",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Render the current (last) item as a link when it has an href."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<BreadcrumbIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "maxItems",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "configurable": true,
+          "description": "0 never collapses. Otherwise (>= 2), longer trails show the first item, an expander, and the last maxItems - 1 items."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors the separator icon."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "navigate",
+          "payload": "BreadcrumbNavigateDetail",
+          "event": "aui-navigate",
+          "description": "An unmodified primary click on a link. preventDefault stops native navigation so a router can handle it."
+        }
+      ],
+      "properties": [
+        {
+          "name": "expanded",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the user expanded a collapsed trail."
+        }
+      ],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Breadcrumb pattern.",
+        "source": "packages/components/metadata/breadcrumb/accessibility.json"
+      },
+      "limitations": [
+        "Collapsing is by item count (maxItems), not by measured width.",
+        "An expanded trail stays expanded until the items change."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, inject } from '@angular/core';\nimport { Router } from '@angular/router';\nimport type { BreadcrumbItem, BreadcrumbNavigateDetail } from '@absoluteui/components/breadcrumb';\nimport { AuiBreadcrumb } from '@absoluteui/angular/breadcrumb';\n\n@Component({\n  selector: 'app-trail',\n  imports: [AuiBreadcrumb],\n  template: `<aui-breadcrumb [items]=\"items\" [maxItems]=\"3\" (aui-navigate)=\"go($event)\"></aui-breadcrumb>`,\n})\nexport class TrailComponent {\n  private readonly router = inject(Router);\n  readonly items: BreadcrumbItem[] = [{ label: 'Home', href: '/' }, { label: 'Projects', href: '/projects' }, { label: 'Atlas' }];\n\n  go(event: Event): void {\n    const { item } = (event as CustomEvent<BreadcrumbNavigateDetail>).detail;\n    if (item.href === undefined) return;\n    event.preventDefault();\n    void this.router.navigateByUrl(item.href);\n  }\n}"
+    }
+  ]
+}

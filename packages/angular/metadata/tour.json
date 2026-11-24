@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/tour",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiTour",
+      "description": "AbsoluteUI Tour: `<aui-tour>`.",
+      "selector": "aui-tour",
+      "exportAs": [
+        "auiTour"
+      ],
+      "source": "generated",
+      "component": "tour",
+      "configKey": "tour",
+      "inputs": [
+        {
+          "name": "steps",
+          "type": "readonly TourStep[]",
+          "required": true,
+          "description": "The steps: { id, title, content?, target?, placement?, spotlightPadding?, onBeforeShow? }. target is an Element, a CSS selector, a function returning an Element, or null for a centered step."
+        },
+        {
+          "name": "dots",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show decorative progress dots under the content."
+        },
+        {
+          "name": "skippable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show the Skip button (hidden on the last step)."
+        },
+        {
+          "name": "keyboardNavigation",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Arrow keys move between steps while focus is on the panel or its buttons (mirrored in RTL)."
+        },
+        {
+          "name": "modal",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Each step is a modal dialog: focus is trapped and the page is blocked."
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Escape skips the tour."
+        },
+        {
+          "name": "showProgress",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the '2 of 5' progress text."
+        },
+        {
+          "name": "spotlight",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Dim the page around the target."
+        },
+        {
+          "name": "spotlightPadding",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "configurable": true,
+          "description": "Space between the target and the spotlight edge, px (0 to 64)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the button labels and progress text."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "started",
+          "payload": "TourStartDetail",
+          "event": "aui-start",
+          "description": "The tour started: { index } of the first shown step."
+        },
+        {
+          "name": "stepChange",
+          "payload": "TourStepChangeDetail",
+          "event": "aui-step-change",
+          "description": "A step is shown: { index, stepId, previousIndex, direction }."
+        },
+        {
+          "name": "stepMissing",
+          "payload": "TourStepMissingDetail",
+          "event": "aui-step-missing",
+          "description": "A step was skipped because its target is missing, hidden, or its hook failed: { index, stepId, reason }."
+        },
+        {
+          "name": "finished",
+          "payload": "TourFinishDetail",
+          "event": "aui-finish",
+          "description": "The tour ended at its end: { index, completed } (completed is false when no later step could be shown)."
+        },
+        {
+          "name": "skipped",
+          "payload": "TourSkipDetail",
+          "event": "aui-skip",
+          "description": "The tour was skipped: { index, stepId, reason }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "start",
+          "signature": "start(index?: number | undefined): Promise<void> | undefined",
+          "description": "Start (or restart) at index (default 0); steps with a missing target are skipped."
+        },
+        {
+          "name": "next",
+          "signature": "next(): Promise<void> | undefined",
+          "description": "Show the next available step; on the last step, finish."
+        },
+        {
+          "name": "back",
+          "signature": "back(): Promise<void> | undefined",
+          "description": "Show the previous available step."
+        },
+        {
+          "name": "goTo",
+          "signature": "goTo(index: number): Promise<void> | undefined",
+          "description": "Show the step at index (starts the tour when inactive)."
+        },
+        {
+          "name": "skip",
+          "signature": "skip(reason?: \"skip-button\" | \"escape\" | \"programmatic\" | undefined): void",
+          "description": "End the tour early and emit aui-skip."
+        },
+        {
+          "name": "finish",
+          "signature": "finish(): void",
+          "description": "End the tour as completed and emit aui-finish."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Dialog per step: a non-modal dialog by default (the page stays usable), or a modal dialog with aria-modal and a focus trap. Focus moves to the step dialog on every step and returns to the element that had focus before the tour.",
+        "source": "packages/components/metadata/tour/accessibility.json"
+      },
+      "limitations": [
+        "One target per step; the spotlight is a rounded rectangle around it.",
+        "In modal mode the spotlighted element is shown but not interactive.",
+        "Targets inside closed shadow roots or other documents (iframes) cannot be found by selector; pass a function that returns the element."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiButton } from '@absoluteui/angular/button';\nimport { AuiTour } from '@absoluteui/angular/tour';\nimport type { TourFinishDetail, TourStep } from '@absoluteui/components/tour';\n\n@Component({\n  selector: 'app-dashboard-tour',\n  imports: [AuiButton, AuiTour],\n  template: `\n    <button auiButton type=\"button\" (click)=\"tour.start()\">Take the tour</button>\n    <aui-tour #tour=\"auiTour\" [steps]=\"steps\" (finished)=\"onFinish($event)\"></aui-tour>\n  `,\n})\nexport class DashboardTourComponent {\n  readonly steps: TourStep[] = [\n    { id: 'welcome', title: 'Welcome', content: 'A short tour of your dashboard.' },\n    { id: 'search', title: 'Search', content: 'Find people and documents.', target: '#search' },\n  ];\n  completed = false;\n  onFinish(detail: TourFinishDetail): void {\n    this.completed = detail.completed;\n  }\n}"
+    }
+  ]
+}

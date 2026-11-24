@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "sparkline",
+  "examples": [
+    {
+      "id": "inline",
+      "title": "Inline line sparkline next to a KPI",
+      "language": "ts",
+      "code": "import { Sparkline } from '@absoluteui/components/sparkline';\n\nconst host = document.createElement('span');\ndocument.body.append(host);\nSparkline.create(host, { label: 'Weekly sign-ups, last 12 weeks', values: [120, 132, 128, 150, 149, 170, 181, 176, 195, 210, 205, 230] });"
+    },
+    {
+      "id": "bars",
+      "title": "Bar sparkline with negatives and a fixed domain",
+      "language": "ts",
+      "code": "import { Sparkline } from '@absoluteui/components/sparkline';\n\nconst host = document.querySelector<HTMLElement>('#net');\nif (host) {\n  const spark = Sparkline.create(host, { label: 'Net change per day', values: [4, -2, 6, null, -5, 8], variant: 'bar', color: 3, min: -10, max: 10 });\n  spark.update({ values: [4, -2, 6, 3, -5, 8] });\n}"
+    }
+  ]
+}

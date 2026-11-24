@@ -1,0 +1,90 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-schedule-picker__fieldset {
+    display: grid;
+    gap: aui.token('space-3');
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .aui-schedule-picker__fieldset > .aui-field__label {
+    margin-block-end: aui.token('space-1');
+  }
+
+  // Start and end side by side when there is room, stacked otherwise (reflow at 320 px).
+  .aui-schedule-picker__range {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: aui.token('space-3');
+  }
+
+  .aui-schedule-picker__part[hidden],
+  .aui-schedule-picker__row[hidden],
+  .aui-schedule-picker__duration[hidden],
+  .aui-schedule-picker__recurrence[hidden] {
+    display: none;
+  }
+
+  .aui-schedule-picker__duration {
+    margin: 0;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-schedule-picker__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-2');
+  }
+
+  .aui-schedule-picker__label {
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-schedule-picker__check {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-block-size: aui.token('touch-target-min');
+    cursor: pointer;
+  }
+
+  .aui-schedule-picker__checkbox {
+    inline-size: aui.token('icon-size-sm');
+    block-size: aui.token('icon-size-sm');
+    margin: 0;
+    accent-color: aui.token('color-primary');
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-schedule-picker__row--zone {
+    display: grid;
+    gap: aui.token('space-1');
+  }
+
+  // A percentage width keeps long zone names from widening the container (min-content of 0).
+  .aui-schedule-picker__select {
+    inline-size: 100%;
+    max-inline-size: 24rem;
+    cursor: pointer;
+    @include aui.control-surface;
+    @include aui.text-control-states;
+  }
+
+  .aui-schedule-picker__recurrence {
+    padding-block-start: aui.token('space-3');
+    border-block-start: aui.token('border-width') solid aui.token('color-border');
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "component": "splitter",
+  "pattern": "WAI-ARIA APG Window Splitter (variable): each separator is a focusable role=separator whose value is the size of the pane before it in percent; arrow keys move it, Home and End go to the limits, Enter collapses and restores.",
+  "roles": [
+    { "element": "separator", "role": "separator (focusable)" },
+    { "element": "pane", "role": "none (generic container)" }
+  ],
+  "aria": [
+    { "attribute": "aria-valuenow", "element": "separator", "value": "size of the pane before it, 0 to 100" },
+    { "attribute": "aria-valuemin / aria-valuemax", "element": "separator", "value": "limits from min, max, and the neighbor's limits (min 0 when collapsible)" },
+    { "attribute": "aria-valuetext", "element": "separator", "value": "'{label}, collapsed' while the pane before it is collapsed" },
+    { "attribute": "aria-orientation", "element": "separator", "value": "vertical for horizontal splitters, horizontal for vertical ones" },
+    { "attribute": "aria-controls", "element": "separator", "value": "id of the pane before it" },
+    { "attribute": "aria-label", "element": "separator", "value": "the label of the pane before it (the primary pane)" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Splitter", "action": "Each separator is a tab stop between the panes' content." },
+    { "key": "Left / Right Arrow", "context": "Separator (horizontal splitter)", "action": "Move by step pixels (mirrored in RTL)." },
+    { "key": "Up / Down Arrow", "context": "Separator (vertical splitter)", "action": "Move by step pixels." },
+    { "key": "Home / End", "context": "Separator", "action": "Smallest or largest allowed size of the pane before it." },
+    { "key": "Enter", "context": "Separator", "action": "Collapse the collapsible pane next to it, or restore it." }
+  ],
+  "focus": "Separators are focusable (tabindex 0); dragging focuses the separator, so keyboard and pointer share one current separator. Collapsing never moves focus.",
+  "wcag": ["1.3.1", "1.4.11", "2.1.1", "2.4.3", "2.4.7", "2.5.7", "4.1.2"],
+  "notes": [
+    "Every drag can be done with the keyboard (WCAG 2.5.7 dragging movements).",
+    "The grip is a shape cue besides the line color; its color meets 3:1 against the surface."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

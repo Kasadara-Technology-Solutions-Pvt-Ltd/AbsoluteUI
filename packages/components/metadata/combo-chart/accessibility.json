@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "component": "combo-chart",
+  "pattern": "SVG chart as a named, described group (role=\"group\" with aria-roledescription) of role=\"img\" data marks with roving focus; data table fallback (native table). Follows the WAI Complex Images tutorial (short name plus long description) and the roving tabindex technique of WAI-ARIA APG.",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription (localized chart type), named by the title"
+    },
+    {
+      "element": "data marks",
+      "role": "img with an aria-label: category, series, formatted value (bars and line/area points)"
+    },
+    {
+      "element": "legend",
+      "role": "list (ul) named \"Legend\"; entries are toggle buttons (aria-pressed)"
+    },
+    {
+      "element": "zoom toolbar (zoom enabled)",
+      "role": "group named \"Zoom\" of native buttons \"Zoom in\", \"Zoom out\", \"Reset zoom\""
+    },
+    {
+      "element": "axes, lines, areas, textures, tooltip, crosshair, selection brush",
+      "role": "aria-hidden (decorative duplicates of the accessible data)"
+    },
+    {
+      "element": "data table",
+      "role": "table (native) with caption, column headers, and row headers; wide tables scroll in a focusable region"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized \"combo chart\""
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each mark",
+      "value": "Localized \"{x}, {series}: {value}\", formatted with the series' axis format. Example: \"Q2, Margin: 40%\""
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active mark",
+      "value": "0 on exactly one mark (roving); other marks have none"
+    },
+    {
+      "attribute": "aria-pressed",
+      "element": "legend button",
+      "value": "true while the series is visible"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    },
+    {
+      "attribute": "aria-disabled",
+      "element": "zoom buttons",
+      "value": "true while the action is unavailable (Zoom in at the minimum span, Zoom out and Reset zoom when not zoomed); the button stays focusable"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowLeft / ArrowRight",
+      "context": "Mark focused",
+      "action": "Previous / next category of the same series (gaps skipped); mirrored in RTL. Zoomed: past the window edge the window pans to the next value."
+    },
+    {
+      "key": "ArrowUp / ArrowDown",
+      "context": "Mark focused, more than one visible series",
+      "action": "Same (or nearest) category in the previous / next visible series, in series order."
+    },
+    {
+      "key": "Home / End",
+      "context": "Mark focused",
+      "action": "First / last mark of the series."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Mark focused",
+      "action": "Ten marks back / forward."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "Zoom buttons (zoom: true), legend buttons, then one tab stop for the plot (the active mark), then the Show data table button and table region."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Legend button",
+      "action": "Shows or hides the series (native button)."
+    },
+    {
+      "key": "+ / =",
+      "context": "Mark focused, zoom enabled",
+      "action": "Zoom in around the focused mark."
+    },
+    {
+      "key": "-",
+      "context": "Mark focused, zoom enabled",
+      "action": "Zoom out around the focused mark."
+    },
+    {
+      "key": "0",
+      "context": "Mark focused, zoom enabled",
+      "action": "Reset zoom (show all data)."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Zoom button",
+      "action": "Zoom in, zoom out, or reset (native button; ignored while aria-disabled)."
+    }
+  ],
+  "focus": "Roving focus: one mark is in the tab sequence and remembers the last visited mark across re-renders (resize, update, zoom). Toggling a legend entry keeps focus on its button; toggling the table keeps focus on the table button.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "4.1.2",
+    "2.5.1"
+  ],
+  "notes": [
+    "The generated summary names the chart type, series and category counts, the category range, the primary (and secondary) axis range, each series' minimum and maximum with their categories and trend, missing values, and hidden series.",
+    "Meaning never depends on color alone: bars carry textures, lines dash patterns and marker shapes, repeated in the legend keys.",
+    "Forced colors: marks use CanvasText (bubbles and outlines Canvas/CanvasText) and keep shapes and textures; focus uses Highlight.",
+    "No animation: nothing moves on render; hover and focus emphasis transitions are removed under prefers-reduced-motion and animation: none.",
+    "Zoom changes are announced politely (\"Showing {from} to {to}.\" or \"Showing all data.\") and emitted as aui-zoom. Pointer gestures (Ctrl/Cmd + wheel, drag pan, Shift + drag selection) have keyboard and toolbar equivalents.",
+    "The crosshair (crosshair option) is aria-hidden and follows both hover and keyboard focus; it hides when focus and the pointer leave.",
+    "Hovering a category shows every visible series of that category in one tooltip; keyboard focus shows the focused mark only."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "aria-roledescription support varies; screen readers without it announce \"group\".",
+    "The secondary axis is identified by its title (secondaryAxis.label); without one, the summary calls it \"Secondary axis\"."
+  ]
+}

@@ -1,0 +1,156 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  // Box and label on one row; the label wraps under itself, not under the box.
+  .aui-checkbox__row {
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-2');
+    min-block-size: aui.token('touch-target-min');
+  }
+
+  .aui-checkbox__box {
+    position: relative;
+    display: block;
+    flex: none;
+    inline-size: aui.ctoken('checkbox', 'size');
+    block-size: aui.ctoken('checkbox', 'size');
+    // Centre the box on the first line of the label.
+    margin-block-start: max(0px, calc((1lh - #{aui.ctoken('checkbox', 'size')}) / 2));
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+  }
+
+  // The native input is the visible box, the focus target, and the hit target.
+  .aui-checkbox__input {
+    appearance: none;
+    box-sizing: border-box;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.ctoken('checkbox', 'border-color');
+    border-radius: aui.ctoken('checkbox', 'radius');
+    cursor: pointer;
+    @include aui.transition(background-color, border-color);
+
+    &:hover:not(:disabled) {
+      border-color: aui.ctoken('checkbox', 'checked-bg');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &:checked,
+    &:indeterminate {
+      background: aui.ctoken('checkbox', 'checked-bg');
+      border-color: aui.ctoken('checkbox', 'checked-bg');
+    }
+
+    &[aria-invalid='true'] {
+      border-color: aui.token('color-error-fg');
+    }
+
+    &:disabled {
+      background: aui.token('color-disabled-bg');
+      border-color: aui.token('color-border');
+      cursor: not-allowed;
+    }
+
+    &:disabled:checked,
+    &:disabled:indeterminate {
+      background: aui.token('color-text-disabled');
+      border-color: aui.token('color-text-disabled');
+    }
+  }
+
+  // Check and minus marks: shape, not color, carries the state.
+  .aui-checkbox__mark {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: aui.ctoken('checkbox', 'mark-fg');
+    pointer-events: none;
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-checkbox__input:checked:not(:indeterminate) ~ .aui-checkbox__mark--checked,
+  .aui-checkbox__input:indeterminate ~ .aui-checkbox__mark--indeterminate {
+    display: flex;
+  }
+
+  .aui-checkbox__input:disabled ~ .aui-checkbox__mark {
+    color: aui.token('color-surface');
+  }
+
+  .aui-checkbox__label.aui-field__label {
+    font-size: aui.token('font-size-md');
+    font-weight: aui.token('font-weight-regular');
+    line-height: aui.token('line-height-normal');
+    cursor: pointer;
+  }
+
+  .aui-checkbox--disabled .aui-checkbox__label {
+    color: aui.token('color-text-disabled');
+    cursor: not-allowed;
+  }
+
+  // Help text and messages align with the label, not the box.
+  .aui-checkbox > .aui-field__description,
+  .aui-checkbox > .aui-field__error {
+    padding-inline-start: calc(#{aui.ctoken('checkbox', 'size')} + #{aui.token('space-2')});
+  }
+
+  @include aui.forced-colors {
+    .aui-checkbox__input,
+    .aui-checkbox__mark {
+      forced-color-adjust: none;
+    }
+
+    .aui-checkbox__input {
+      background: Canvas;
+      border-color: CanvasText;
+
+      &:checked,
+      &:indeterminate {
+        background: Highlight;
+        border-color: Highlight;
+      }
+
+      &:focus-visible {
+        outline-color: CanvasText;
+      }
+
+      &:disabled {
+        border-color: GrayText;
+      }
+
+      &:disabled:checked,
+      &:disabled:indeterminate {
+        background: GrayText;
+        border-color: GrayText;
+      }
+    }
+
+    .aui-checkbox__mark {
+      color: HighlightText;
+    }
+
+    .aui-checkbox__input:disabled ~ .aui-checkbox__mark {
+      color: Canvas;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+[
+  { "title": "Right-click and keyboard", "text": "Opens on right-click, Shift+F10, or the context menu key at the right spot." },
+  { "title": "Native menu kept", "text": "Shift+right-click still shows the browser menu unless you turn that off." },
+  { "title": "Knows the origin", "text": "Select events report the element that was right-clicked, for per-row actions." },
+  { "title": "Same items as Menu", "text": "Submenus, checkboxes, radio groups, separators, and groups work alike." }
+]

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "alert",
+  "examples": [
+    {
+      "id": "static-info",
+      "title": "Static service notice",
+      "language": "ts",
+      "code": "import { Alert } from '@absoluteui/components/alert';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nAlert.create(host, {\n  tone: 'info',\n  title: 'Scheduled maintenance',\n  message: 'The service is read-only on Sunday from 02:00 to 04:00 UTC.',\n  dismissible: true,\n});"
+    },
+    {
+      "id": "live-error-with-action",
+      "title": "Error inserted after a failed save, with Retry",
+      "language": "ts",
+      "code": "import { Alert, type AlertActionDetail } from '@absoluteui/components/alert';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst alert = Alert.create(host, {\n  tone: 'error',\n  live: 'assertive',\n  title: 'Could not save',\n  message: 'Check your connection and try again.',\n  actions: [{ label: 'Retry', value: 'retry', variant: 'primary' }],\n});\nhost.addEventListener('aui-action', (event) => {\n  if ((event as CustomEvent<AlertActionDetail>).detail.value === 'retry') {\n    alert.update({ tone: 'info', title: 'Retrying', message: 'Saving again.' });\n  }\n});"
+    }
+  ]
+}

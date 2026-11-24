@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "component": "hover-card",
+  "pattern": "Supplementary preview disclosed on hover or keyboard focus, meeting WCAG 1.4.13 Content on Hover or Focus; the card is a generic container in DOM order right after the trigger (not a dialog, not a tooltip).",
+  "roles": [
+    { "element": "trigger", "role": "consumer-provided link or button (unchanged)" },
+    { "element": "card", "role": "none added (generic div, popover=manual)" }
+  ],
+  "aria": [
+    { "attribute": "aria-describedby", "element": "trigger", "value": "id of the card, added to existing ids while describe is true (default); removed on describe false and destroy()" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Focus moves to the trigger (:focus-visible)", "action": "Shows the card after showDelay." },
+    { "key": "Tab", "context": "Trigger focused, card visible", "action": "Moves into focusable card content (the card follows the trigger in the DOM); the card stays open." },
+    { "key": "Tab / Shift+Tab", "context": "Focus leaves trigger and card", "action": "Hides the card (reason focus-out) unless the pointer is over it." },
+    { "key": "Escape", "context": "Card visible and topmost, focus on the trigger or elsewhere", "action": "Hides the card without moving focus (reason escape); it stays hidden until pointer or focus leaves and returns." },
+    { "key": "Escape", "context": "Focus inside the card", "action": "Hides the card and moves focus to the trigger; it does not reopen until focus leaves and returns." },
+    { "key": "Escape", "context": "Card visible inside a Dialog", "action": "Closes only the card; the next Escape reaches the dialog." }
+  ],
+  "focus": "Showing never moves focus. Focus inside the card or keyboard focus on the trigger keeps it open. Escape or hide() with focus inside the card returns focus to the trigger; focus-out, pointer-leave, and outside-pointer closes leave focus where the user put it.",
+  "wcag": ["1.3.1", "1.3.2", "1.4.3", "1.4.11", "1.4.13", "2.1.1", "2.4.3", "2.4.7", "4.1.2"],
+  "notes": [
+    "1.4.13 dismissible: Escape hides the card without moving pointer or focus off the trigger, and it stays dismissed until the pointer or focus leaves and returns.",
+    "1.4.13 hoverable: the pointer can move from the trigger onto the card within hideDelay; the card stays open while hovered.",
+    "1.4.13 persistent: stays visible while trigger or card is hovered or focused, until Escape, an outside press, or another hover card opens.",
+    "DOM order places the card right after the trigger, so reading and Tab order follow the visual relationship (1.3.2, 2.4.3).",
+    "Only one hover card is visible at a time; touch pointers never open it, so it must not hold essential information or actions.",
+    "With describe true the whole card text becomes the trigger's description; use describe false for long or interactive cards."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "The card has no role or name; screen-reader users discover it only through aria-describedby (describe true) or by tabbing into it."
+  ]
+}

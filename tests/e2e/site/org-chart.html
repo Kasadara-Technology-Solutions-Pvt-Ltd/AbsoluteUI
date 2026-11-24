@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AbsoluteUI R3 harness: organization chart</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/org-chart.css">
+    <link rel="stylesheet" href="/demo.css">
+    <script type="module" src="/org-chart.js"></script>
+  </head>
+  <body>
+    <main class="demo demo-wide">
+      <h1>AbsoluteUI R3 organization chart</h1>
+      <div class="demo-row">
+        <label for="find">Find a person</label>
+        <input id="find" type="search" autocomplete="off">
+        <button type="button" id="find-go">Find</button>
+        <button type="button" id="export">Export SVG</button>
+      </div>
+      <div id="org"></div>
+      <p>Last event: <output id="last-event">none</output></p>
+    </main>
+  </body>
+</html>

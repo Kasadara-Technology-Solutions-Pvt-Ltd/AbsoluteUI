@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "component": "password-strength-meter",
+  "factory": {
+    "name": "PasswordStrengthMeter.create",
+    "signature": "PasswordStrengthMeter.create(host: HTMLElement, options?: PasswordStrengthMeterOptions): PasswordStrengthMeter"
+  },
+  "configKey": "passwordStrengthMeter",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visible heading. Default: localized \"Password strength\"."
+    },
+    {
+      "name": "input",
+      "type": "HTMLInputElement | { readonly input: HTMLInputElement }",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Input to follow (Password Input, Text Input, or the element)."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Evaluate this value instead of following an input (framework bindings)."
+    },
+    {
+      "name": "requirements",
+      "type": "readonly { id: string; label: string | ((locale: string) => string); test: (value: string) => boolean }[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Checklist rules. Default: defaultPasswordRequirements()."
+    },
+    {
+      "name": "evaluate",
+      "type": "(value: string, requirements: readonly PasswordRequirementResult[]) => { score: 0 | 1 | 2 | 3 | 4; label?: string }",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Scoring. Default: defaultPasswordEvaluator (advisory)."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ met: IconRef; unmet: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    },
+    {
+      "name": "showRequirements",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Render the requirements checklist."
+    },
+    {
+      "name": "announce",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Announce the rating and requirement count politely after typing pauses (1 s)."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Message and number-formatting locale."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "Host element."
+    },
+    {
+      "name": "describedById",
+      "type": "string",
+      "description": "Id to add to the input's aria-describedby (rating and checklist)."
+    },
+    {
+      "name": "result",
+      "type": "PasswordStrengthResult",
+      "description": "Latest result (score, label, requirements); never the password."
+    },
+    {
+      "name": "options",
+      "type": "Readonly<PasswordStrengthMeterOptions>",
+      "description": "Current options."
+    }
+  ],
+  "methods": [
+    {
+      "name": "evaluate",
+      "signature": "evaluate(value: string): PasswordStrengthResult",
+      "description": "Evaluate and render (no event, no announcement)."
+    },
+    {
+      "name": "attach",
+      "signature": "attach(target: HTMLInputElement | { input: HTMLInputElement }): void",
+      "description": "Follow an input."
+    },
+    {
+      "name": "detach",
+      "signature": "detach(): void",
+      "description": "Stop following the input."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<PasswordStrengthMeterOptions>): void",
+      "description": "Merge and apply options."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Detach, cancel the pending announcement, remove rendering."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-change",
+      "detail": "{ result: { score: 0 | 1 | 2 | 3 | 4; label: string; requirements: readonly { id: string; label: string; met: boolean }[] } }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The rating or a requirement changed after user input."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-password-strength-meter",
+      "description": "Host."
+    },
+    {
+      "name": "aui-password-strength-meter--score-0 .. --score-4",
+      "description": "Score modifier."
+    },
+    {
+      "name": "aui-password-strength-meter__body",
+      "description": "Describing element (id = describedById)."
+    },
+    {
+      "name": "aui-password-strength-meter__header | __label | __rating",
+      "description": "Heading and rating text."
+    },
+    {
+      "name": "aui-password-strength-meter__bar | __segment",
+      "description": "aria-hidden segmented bar (--filled)."
+    },
+    {
+      "name": "aui-password-strength-meter__requirements | __requirement",
+      "description": "Checklist (--met; data-requirement holds the id)."
+    },
+    {
+      "name": "aui-password-strength-meter__icon",
+      "description": "Met / not met icon."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "met",
+      "default": "check"
+    },
+    {
+      "name": "unmet",
+      "default": "close"
+    }
+  ]
+}

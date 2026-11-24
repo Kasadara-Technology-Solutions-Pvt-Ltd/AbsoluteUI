@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "component": "badge",
+  "factory": { "name": "Badge.create", "signature": "Badge.create(host: HTMLElement, options: BadgeOptions): Badge" },
+  "configKey": "badge",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible text; carries the meaning." },
+    { "name": "tone", "type": "'neutral' | 'info' | 'success' | 'warning' | 'error'", "default": "neutral", "required": false, "globallyConfigurable": false, "description": "Decorative tone color." },
+    { "name": "variant", "type": "'subtle' | 'outline'", "default": "subtle", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "subtle: tone fill; outline: tone boundary." },
+    { "name": "size", "type": "'sm' | 'md'", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Badge size." },
+    { "name": "icon", "type": "IconRef | null", "required": false, "globallyConfigurable": false, "description": "Decorative icon before the label." },
+    { "name": "dot", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Decorative status dot before the label (not with icon)." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (receives the classes)." },
+    { "name": "label", "type": "string", "description": "Current label." },
+    { "name": "options", "type": "Readonly<BadgeOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<BadgeOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, classes, and the configuration subscription." }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-badge", "description": "Host." },
+    { "name": "aui-badge--neutral | --info | --success | --warning | --error", "description": "Tone modifiers." },
+    { "name": "aui-badge--subtle | --outline", "description": "Variant modifiers." },
+    { "name": "aui-badge--sm | --md", "description": "Size modifiers." },
+    { "name": "aui-badge__dot", "description": "Decorative status dot." },
+    { "name": "aui-badge__icon", "description": "Decorative icon." },
+    { "name": "aui-badge__label", "description": "Label text." }
+  ],
+  "iconSlots": []
+}

@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "name": "virtual-list",
+  "displayName": "Virtual List",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { VirtualList } from '@absoluteui/components/virtual-list';",
+  "styleImport": "@absoluteui/components/virtual-list/style.css",
+  "purpose": "Renders only the visible items (plus an overscan) of very large lists, 100,000 items and more, with fixed or measured variable heights. Selectable lists are WAI-ARIA listboxes with single or multiple selection, type-ahead, and roving focus; otherwise the list is a plain role=list. The focused item always stays rendered. aui-range-change reports the visible range for lazy loading, and an optional loadMore hook adds infinite scroll with a polite status message.",
+  "whenToUse": [
+    "Lists of hundreds to millions of items, such as people, files, or log lines.",
+    "A selectable list in a sidebar or picker that must stay fast with large data.",
+    "Infinite scroll over a paged API."
+  ],
+  "whenNotToUse": [
+    "Short lists (under a few hundred items): render them directly or use Sortable List.",
+    "Tabular data with columns, sorting, and filters: use Data Table or Data Grid (both virtualize).",
+    "Lists the user must print or search with the browser's find: only visible items are in the DOM."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities"],
+  "states": ["plain list", "single selection", "multiple selection", "disabled items", "variable heights", "loading more", "load failed", "empty"],
+  "responsive": "Fills the inline size of its host; the block size comes from the height option or, with height null, from the host (for example a Splitter pane). The rendered window follows the viewport size.",
+  "rtl": "Items, the selection bar, and text follow the writing direction; the scrollbar sits on the inline-end edge as the browser places it.",
+  "theme": "Component tokens virtual-list-radius (radius-md) and virtual-list-border-color (color-border). Selected items use color-selected and color-selected-text plus a start-edge bar (color-selected-indicator), so selection is not shown by color alone; forced colors use Highlight and HighlightText.",
+  "timezone": "Not applicable.",
+  "security": "Items are rendered by the application's renderItem as DOM nodes; the component never parses HTML. Status messages are set as text.",
+  "dataHandling": "No persistence, network access, or telemetry. loadMore is the application's own function.",
+  "performance": {
+    "budgets": [
+      { "metric": "VirtualList.create with 100,000 items", "budget": "< 20 ms average in headless Chromium" },
+      { "metric": "Rendered item elements at 100,000 items", "budget": "visible items + 2 x overscan + 1" }
+    ],
+    "testedScale": "100,000 fixed-height and variable-height items; at most 1,000,000 items, and items x height must stay under the browser's maximum element height (about 17.9 million px in Firefox, 33.5 million px in Chromium): 400,000 items of 40 px work everywhere."
+  },
+  "limitations": [
+    "Vertical lists only.",
+    "The total height (items x item height) must stay under the browser's maximum element height, about 17.9 million px in Firefox.",
+    "Only rendered items exist in the DOM, so the browser's find-in-page and printing see only those.",
+    "Variable heights are estimated until an item has been rendered once, so the scrollbar can adjust while scrolling."
+  ],
+  "unsupported": [
+    "Horizontal or grid (two-dimensional) virtualization.",
+    "Drag-and-drop reordering (use Sortable List for short lists)."
+  ],
+  "antiPatterns": [
+    "Returning the same Node from renderItem for different calls; items are rendered again as they scroll back into view.",
+    "Using index keys (the default) with selection while items are inserted or removed: pass itemKey."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/virtual-list: AuiVirtualList component (<aui-virtual-list>).",
+    "react": "@absoluteui/react/virtual-list: AuiVirtualList component.",
+    "vue": "@absoluteui/vue/virtual-list: AuiVirtualList component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

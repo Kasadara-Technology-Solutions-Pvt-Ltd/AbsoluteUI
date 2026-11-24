@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "component": "form-builder",
+  "factory": {
+    "name": "FormBuilder.create",
+    "signature": "FormBuilder.create(host: HTMLElement, options: FormBuilderOptions): FormBuilder"
+  },
+  "configKey": "formBuilder",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Accessible name of the builder (toolbar)."
+    },
+    {
+      "name": "schema",
+      "type": "FormSchema",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Initial schema (root type object). Default: an empty form."
+    },
+    {
+      "name": "uiSchema",
+      "type": "UiField",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Initial UI schema."
+    },
+    {
+      "name": "fieldTypes",
+      "type": "readonly FormBuilderFieldType[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Field types offered in the palette, in order. Default: all 18."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<FormBuilderIcons>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon overrides: undo, redo, remove, handle."
+    },
+    {
+      "name": "historyLimit",
+      "type": "number",
+      "default": "100",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Undo steps kept (1 to 1000)."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Locale of the builder's messages and controls."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "options",
+      "type": "Readonly<FormBuilderOptions>",
+      "description": "Current options."
+    },
+    {
+      "name": "selected",
+      "type": "string | null",
+      "description": "Selected field name, or null (form settings)."
+    },
+    {
+      "name": "canUndo",
+      "type": "boolean",
+      "description": "Whether there is a step to undo."
+    },
+    {
+      "name": "canRedo",
+      "type": "boolean",
+      "description": "Whether there is a step to redo."
+    }
+  ],
+  "methods": [
+    {
+      "name": "getValue",
+      "signature": "getValue(): FormBuilderChangeDetail",
+      "description": "The current { schema, uiSchema } (a copy)."
+    },
+    {
+      "name": "setValue",
+      "signature": "setValue(schema: FormSchema, uiSchema?: UiField): void",
+      "description": "Replace the document (validated, undoable, no event)."
+    },
+    {
+      "name": "addField",
+      "signature": "addField(type: FormBuilderFieldType, index?: number): string",
+      "description": "Add a field after the selection or at index; returns its name."
+    },
+    {
+      "name": "removeField",
+      "signature": "removeField(name: string): void",
+      "description": "Remove a field and the conditions that use it."
+    },
+    {
+      "name": "selectField",
+      "signature": "selectField(name: string | null): void",
+      "description": "Select a field, or null for the form settings."
+    },
+    {
+      "name": "undo | redo",
+      "signature": "undo(): void | redo(): void",
+      "description": "Step through the history (also Ctrl+Z, Ctrl+Y, Ctrl+Shift+Z outside text fields)."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<FormBuilderOptions>): void",
+      "description": "Merge options; a new schema or uiSchema replaces the document and clears the history."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Destroy every control and empty the host."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-change",
+      "detail": "FormBuilderChangeDetail",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The document changed (edit, reorder, import, undo, redo): { schema, uiSchema }, always valid for Schema Form."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-form-builder",
+      "description": "Host (a size container)."
+    },
+    {
+      "name": "aui-form-builder__toolbar",
+      "description": "Undo and redo (role=toolbar)."
+    },
+    {
+      "name": "aui-form-builder__design",
+      "description": "Palette, canvas, and properties."
+    },
+    {
+      "name": "aui-form-builder__palette | __types | __type",
+      "description": "Field type list and its buttons."
+    },
+    {
+      "name": "aui-form-builder__canvas | __drop",
+      "description": "Field list (Sortable List) and the drop line while dragging a type."
+    },
+    {
+      "name": "aui-form-builder__item | __item--selected | __select",
+      "description": "A field on the canvas, the selected one, and its select button."
+    },
+    {
+      "name": "aui-form-builder__panel | __fields",
+      "description": "Properties panel and its controls."
+    },
+    {
+      "name": "aui-form-builder__preview | __output",
+      "description": "Schema Form preview and the submitted value."
+    },
+    {
+      "name": "aui-form-builder__json",
+      "description": "JSON view."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "undo",
+      "default": "undo"
+    },
+    {
+      "name": "redo",
+      "default": "redo"
+    },
+    {
+      "name": "remove",
+      "default": "trash"
+    },
+    {
+      "name": "handle",
+      "default": "menu"
+    }
+  ]
+}

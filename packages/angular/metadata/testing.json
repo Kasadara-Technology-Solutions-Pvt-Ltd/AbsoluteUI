@@ -1,0 +1,804 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/testing",
+  "declarations": [
+    {
+      "kind": "harness",
+      "name": "AuiButtonHarness",
+      "description": "`button[auiButton]` and `a[auiButton]`.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiButtonHarness>(this: ComponentHarnessConstructor<T>, options?: AuiButtonHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getText",
+          "signature": "getText(): Promise<string>",
+          "description": "Visible text, or the accessible label of an icon-only button."
+        },
+        {
+          "name": "getVariant",
+          "signature": "getVariant(): Promise<string | null>"
+        },
+        {
+          "name": "isDisabled",
+          "signature": "isDisabled(): Promise<boolean>",
+          "description": "Native `disabled`, or `aria-disabled` (disabled links, loading)."
+        },
+        {
+          "name": "isLoading",
+          "signature": "isLoading(): Promise<boolean>"
+        },
+        {
+          "name": "isLink",
+          "signature": "isLink(): Promise<boolean>"
+        },
+        {
+          "name": "click",
+          "signature": "click(): Promise<void>"
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiFieldHarness",
+      "description": "Label, description, validation message, required and disabled state of a form field.",
+      "methods": [
+        {
+          "name": "getLabel",
+          "signature": "getLabel(): Promise<string>"
+        },
+        {
+          "name": "getDescription",
+          "signature": "getDescription(): Promise<string | null>"
+        },
+        {
+          "name": "getErrorMessage",
+          "signature": "getErrorMessage(): Promise<string | null>",
+          "description": "The message shown to the user, or null."
+        },
+        {
+          "name": "isRequired",
+          "signature": "isRequired(): Promise<boolean>"
+        },
+        {
+          "name": "isDisabled",
+          "signature": "isDisabled(): Promise<boolean>"
+        },
+        {
+          "name": "isInvalid",
+          "signature": "isInvalid(): Promise<boolean>"
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): Promise<void>"
+        },
+        {
+          "name": "blur",
+          "signature": "blur(): Promise<void>",
+          "description": "Leaves the field (marks it touched)."
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiTextInputHarness",
+      "description": "`<aui-text-input>`.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiTextInputHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getValue",
+          "signature": "getValue(): Promise<string>"
+        },
+        {
+          "name": "setValue",
+          "signature": "setValue(value: string): Promise<void>",
+          "description": "Replaces the value by typing, as a user would (input events per key)."
+        },
+        {
+          "name": "getPlaceholder",
+          "signature": "getPlaceholder(): Promise<string>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiSelectHarness",
+      "description": "`<aui-select>`. The listbox renders inside the host.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiSelectHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getValueText",
+          "signature": "getValueText(): Promise<string>",
+          "description": "The selected option's label as shown, or the placeholder."
+        },
+        {
+          "name": "isOpen",
+          "signature": "isOpen(): Promise<boolean>"
+        },
+        {
+          "name": "open",
+          "signature": "open(): Promise<void>"
+        },
+        {
+          "name": "close",
+          "signature": "close(): Promise<void>"
+        },
+        {
+          "name": "getOptions",
+          "signature": "getOptions(): Promise<AuiSelectOption[]>",
+          "description": "Options (opens the listbox first)."
+        },
+        {
+          "name": "selectOption",
+          "signature": "selectOption(label: string | RegExp): Promise<void>",
+          "description": "Opens the listbox and chooses the first option whose label matches."
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiDatePickerHarness",
+      "description": "`<aui-date-picker>`: typed segments and the calendar popup.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiDatePickerHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getLabel",
+          "signature": "getLabel(): Promise<string>"
+        },
+        {
+          "name": "getSegments",
+          "signature": "getSegments(): Promise<string[]>",
+          "description": "The typed segments in display order, e.g. ['08', '03', '2026'] in en-GB."
+        },
+        {
+          "name": "typeDate",
+          "signature": "typeDate(date: { year: number; month: number; day: number; }): Promise<void>",
+          "description": "Types a date into the segments by their accessible names (locale-independent)."
+        },
+        {
+          "name": "isCalendarOpen",
+          "signature": "isCalendarOpen(): Promise<boolean>"
+        },
+        {
+          "name": "openCalendar",
+          "signature": "openCalendar(): Promise<void>"
+        },
+        {
+          "name": "getCalendarMonth",
+          "signature": "getCalendarMonth(): Promise<string>",
+          "description": "The visible month heading, e.g. \"November 2026\"."
+        },
+        {
+          "name": "getDayLabels",
+          "signature": "getDayLabels(): Promise<string[]>",
+          "description": "Accessible names of the days of the visible month (they name non-working days and holidays)."
+        },
+        {
+          "name": "isDayDisabled",
+          "signature": "isDayDisabled(day: number): Promise<boolean>"
+        },
+        {
+          "name": "selectDay",
+          "signature": "selectDay(day: number): Promise<void>",
+          "description": "Chooses a day of the visible month in the calendar."
+        },
+        {
+          "name": "nextMonth",
+          "signature": "nextMonth(): Promise<void>"
+        },
+        {
+          "name": "previousMonth",
+          "signature": "previousMonth(): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiTabsHarness",
+      "description": "`<aui-tabs>`.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiTabsHarness>(this: ComponentHarnessConstructor<T>, options?: AuiTabsHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getLabel",
+          "signature": "getLabel(): Promise<string>"
+        },
+        {
+          "name": "getTabLabels",
+          "signature": "getTabLabels(): Promise<string[]>"
+        },
+        {
+          "name": "getSelectedTabLabel",
+          "signature": "getSelectedTabLabel(): Promise<string | null>"
+        },
+        {
+          "name": "isTabDisabled",
+          "signature": "isTabDisabled(label: string): Promise<boolean>"
+        },
+        {
+          "name": "selectTab",
+          "signature": "selectTab(label: string): Promise<void>"
+        },
+        {
+          "name": "getPanelText",
+          "signature": "getPanelText(): Promise<string>",
+          "description": "Text of the visible panel."
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiDialogHarness",
+      "description": "An open AbsoluteUI dialog (`<aui-dialog>` or `AuiDialogService`). Dialogs render in the body\nlayer: load it with `TestbedHarnessEnvironment.documentRootLoader(fixture)`.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiDialogHarness>(this: ComponentHarnessConstructor<T>, options?: AuiDialogHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getTitle",
+          "signature": "getTitle(): Promise<string>"
+        },
+        {
+          "name": "getDescription",
+          "signature": "getDescription(): Promise<string | null>"
+        },
+        {
+          "name": "getBodyText",
+          "signature": "getBodyText(): Promise<string>"
+        },
+        {
+          "name": "getRole",
+          "signature": "getRole(): Promise<string>",
+          "description": "`dialog` or `alertdialog`."
+        },
+        {
+          "name": "getActionLabels",
+          "signature": "getActionLabels(): Promise<string[]>"
+        },
+        {
+          "name": "clickAction",
+          "signature": "clickAction(label: string): Promise<void>"
+        },
+        {
+          "name": "getFocusedText",
+          "signature": "getFocusedText(): Promise<string | null>",
+          "description": "Text of the element that has focus inside the dialog, or null."
+        },
+        {
+          "name": "close",
+          "signature": "close(): Promise<void>"
+        },
+        {
+          "name": "pressEscape",
+          "signature": "pressEscape(): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiDataTableHeaderHarness",
+      "description": "A column header of `<aui-data-table>`.",
+      "methods": [
+        {
+          "name": "getText",
+          "signature": "getText(): Promise<string>"
+        },
+        {
+          "name": "isSortable",
+          "signature": "isSortable(): Promise<boolean>"
+        },
+        {
+          "name": "getSortDirection",
+          "signature": "getSortDirection(): Promise<\"ascending\" | \"descending\" | null>",
+          "description": "The sort direction of the primary sort (`aria-sort`), or null."
+        },
+        {
+          "name": "sort",
+          "signature": "sort(): Promise<void>",
+          "description": "Activates the sort button (cycles ascending, descending, unsorted)."
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiDataTableRowHarness",
+      "description": "A rendered data row of `<aui-data-table>`.",
+      "methods": [
+        {
+          "name": "getCellTexts",
+          "signature": "getCellTexts(): Promise<string[]>",
+          "description": "Cell texts in column order (selection and expander cells are empty strings)."
+        },
+        {
+          "name": "isSelected",
+          "signature": "isSelected(): Promise<boolean>"
+        },
+        {
+          "name": "toggleSelection",
+          "signature": "toggleSelection(): Promise<void>",
+          "description": "Toggles the row's selection control."
+        },
+        {
+          "name": "isEditable",
+          "signature": "isEditable(columnId: string): Promise<boolean>"
+        },
+        {
+          "name": "isEditing",
+          "signature": "isEditing(): Promise<boolean>",
+          "description": "True while a cell editor is open in this row (for example after an invalid value)."
+        },
+        {
+          "name": "startEdit",
+          "signature": "startEdit(columnId: string): Promise<void>",
+          "description": "Opens a cell editor (the row is rebuilt: query the row again afterwards). No-op while one is open."
+        },
+        {
+          "name": "commitEdit",
+          "signature": "commitEdit(value: string): Promise<void>",
+          "description": "Replaces the open editor's text and commits with Enter (the row is rebuilt: query it again)."
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiDataTableHarness",
+      "description": "`<aui-data-table>`: rows are the rendered data rows of the current page (or virtual window).",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiDataTableHarness>(this: ComponentHarnessConstructor<T>, options?: AuiDataTableHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getCaption",
+          "signature": "getCaption(): Promise<string>"
+        },
+        {
+          "name": "getHeaders",
+          "signature": "getHeaders(): Promise<AuiDataTableHeaderHarness[]>"
+        },
+        {
+          "name": "getHeaderTexts",
+          "signature": "getHeaderTexts(): Promise<string[]>"
+        },
+        {
+          "name": "getHeader",
+          "signature": "getHeader(text: string): Promise<AuiDataTableHeaderHarness>"
+        },
+        {
+          "name": "getRows",
+          "signature": "getRows(): Promise<AuiDataTableRowHarness[]>"
+        },
+        {
+          "name": "getCellTexts",
+          "signature": "getCellTexts(): Promise<string[][]>",
+          "description": "Cell texts of every rendered row."
+        },
+        {
+          "name": "getSort",
+          "signature": "getSort(): Promise<{ column: string; direction: \"ascending\" | \"descending\"; } | null>",
+          "description": "The primary sort, or null."
+        },
+        {
+          "name": "sortBy",
+          "signature": "sortBy(header: string): Promise<void>"
+        },
+        {
+          "name": "search",
+          "signature": "search(text: string): Promise<void>",
+          "description": "Types into the search field and presses Enter, which applies it without the typing delay."
+        },
+        {
+          "name": "editCell",
+          "signature": "editCell(rowIndex: number, columnId: string, value: string): Promise<string | null>",
+          "description": "Opens the editor of a cell (rendered row index, column id), replaces its text, and commits\nwith Enter. Returns the message shown for an invalid value (the editor stays open), or null."
+        },
+        {
+          "name": "getEditError",
+          "signature": "getEditError(): Promise<string | null>",
+          "description": "The message of an open cell editor (invalid value), or null."
+        },
+        {
+          "name": "goToPage",
+          "signature": "goToPage(target: number | \"next\" | \"previous\" | \"first\" | \"last\"): Promise<void>",
+          "description": "Moves to another page through the pager."
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiCheckboxHarness",
+      "description": "`<aui-checkbox>`.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiCheckboxHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "isChecked",
+          "signature": "isChecked(): Promise<boolean>"
+        },
+        {
+          "name": "isIndeterminate",
+          "signature": "isIndeterminate(): Promise<boolean>"
+        },
+        {
+          "name": "toggle",
+          "signature": "toggle(): Promise<void>"
+        },
+        {
+          "name": "check",
+          "signature": "check(): Promise<void>"
+        },
+        {
+          "name": "uncheck",
+          "signature": "uncheck(): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiSwitchHarness",
+      "description": "`<aui-switch>`.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiSwitchHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "isChecked",
+          "signature": "isChecked(): Promise<boolean>"
+        },
+        {
+          "name": "toggle",
+          "signature": "toggle(): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiRadioGroupHarness",
+      "description": "`<aui-radio-group>`.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiRadioGroupHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getOptionLabels",
+          "signature": "getOptionLabels(): Promise<string[]>"
+        },
+        {
+          "name": "getCheckedLabel",
+          "signature": "getCheckedLabel(): Promise<string | null>",
+          "description": "Label of the checked option, or null."
+        },
+        {
+          "name": "isOptionDisabled",
+          "signature": "isOptionDisabled(label: string): Promise<boolean>"
+        },
+        {
+          "name": "select",
+          "signature": "select(label: string): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiTextareaHarness",
+      "description": "`<aui-textarea>`.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiTextareaHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getValue",
+          "signature": "getValue(): Promise<string>"
+        },
+        {
+          "name": "setValue",
+          "signature": "setValue(value: string): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiNumberInputHarness",
+      "description": "`<aui-number-input>`: typing and the spin button keys.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiNumberInputHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getText",
+          "signature": "getText(): Promise<string>",
+          "description": "The text shown (formatted for the locale)."
+        },
+        {
+          "name": "getValue",
+          "signature": "getValue(): Promise<number | null>",
+          "description": "The value as announced (`aria-valuenow`), or null when empty."
+        },
+        {
+          "name": "setText",
+          "signature": "setText(text: string): Promise<void>",
+          "description": "Types text and leaves the field, as a user would."
+        },
+        {
+          "name": "increment",
+          "signature": "increment(): Promise<void>"
+        },
+        {
+          "name": "decrement",
+          "signature": "decrement(): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiComboboxHarness",
+      "description": "`<aui-combobox>`: typing, options (static or loaded), choosing.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiComboboxHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getLabel",
+          "signature": "getLabel(): Promise<string>"
+        },
+        {
+          "name": "getInputText",
+          "signature": "getInputText(): Promise<string>"
+        },
+        {
+          "name": "isOpen",
+          "signature": "isOpen(): Promise<boolean>"
+        },
+        {
+          "name": "type",
+          "signature": "type(text: string): Promise<void>",
+          "description": "Replaces the text by typing (filters the options or starts a load)."
+        },
+        {
+          "name": "getOptionLabels",
+          "signature": "getOptionLabels(): Promise<string[]>",
+          "description": "Labels of the options shown."
+        },
+        {
+          "name": "waitForOptions",
+          "signature": "waitForOptions(timeout?: number | undefined): Promise<string[]>",
+          "description": "Waits (up to `timeout` ms) until at least one option is shown: loads are debounced outside Angular's stability tracking."
+        },
+        {
+          "name": "selectOption",
+          "signature": "selectOption(label: string | RegExp): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiMultiSelectHarness",
+      "description": "`<aui-multi-select>`: typing, toggling options, selected chips.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiMultiSelectHarness>(this: ComponentHarnessConstructor<T>, options?: AuiFieldHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getLabel",
+          "signature": "getLabel(): Promise<string>"
+        },
+        {
+          "name": "isOpen",
+          "signature": "isOpen(): Promise<boolean>"
+        },
+        {
+          "name": "open",
+          "signature": "open(): Promise<void>"
+        },
+        {
+          "name": "close",
+          "signature": "close(): Promise<void>"
+        },
+        {
+          "name": "type",
+          "signature": "type(text: string): Promise<void>",
+          "description": "Replaces the text by typing (filters the options or starts a load)."
+        },
+        {
+          "name": "getSelectedLabels",
+          "signature": "getSelectedLabels(): Promise<string[]>",
+          "description": "Labels of the selected values (the chips), in selection order."
+        },
+        {
+          "name": "getOptionLabels",
+          "signature": "getOptionLabels(): Promise<string[]>",
+          "description": "Labels of the options shown (including \"Select all\" when enabled)."
+        },
+        {
+          "name": "toggleOption",
+          "signature": "toggleOption(label: string | RegExp): Promise<void>",
+          "description": "Toggles the option with this label (opens the list first)."
+        },
+        {
+          "name": "removeValue",
+          "signature": "removeValue(label: string): Promise<void>",
+          "description": "Removes a selected value with its chip remove button (not available when read-only or disabled)."
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiSidebarHarness",
+      "description": "`<aui-sidebar>`.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiSidebarHarness>(this: ComponentHarnessConstructor<T>, options?: AuiSidebarHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "getLabel",
+          "signature": "getLabel(): Promise<string>"
+        },
+        {
+          "name": "getItemLabels",
+          "signature": "getItemLabels(): Promise<string[]>",
+          "description": "Labels of the visible items (items of collapsed groups are hidden)."
+        },
+        {
+          "name": "getCurrentLabel",
+          "signature": "getCurrentLabel(): Promise<string | null>",
+          "description": "Label of the current item (`aria-current=\"page\"`), or null."
+        },
+        {
+          "name": "click",
+          "signature": "click(label: string): Promise<void>",
+          "description": "Activates an item or toggles a group, as a click does."
+        },
+        {
+          "name": "isGroupExpanded",
+          "signature": "isGroupExpanded(label: string): Promise<boolean>"
+        },
+        {
+          "name": "isCollapsed",
+          "signature": "isCollapsed(): Promise<boolean>"
+        },
+        {
+          "name": "toggleCollapsed",
+          "signature": "toggleCollapsed(): Promise<void>",
+          "description": "The collapse button (inline mode, collapsible)."
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiPaginationHarness",
+      "description": "`<aui-pagination>`.",
+      "methods": [
+        {
+          "name": "getCurrentPage",
+          "signature": "getCurrentPage(): Promise<number | null>"
+        },
+        {
+          "name": "getPageNumbers",
+          "signature": "getPageNumbers(): Promise<number[]>",
+          "description": "Page numbers shown as buttons (ellipses are not pages)."
+        },
+        {
+          "name": "isDisabled",
+          "signature": "isDisabled(target: \"next\" | \"previous\" | \"first\" | \"last\"): Promise<boolean>"
+        },
+        {
+          "name": "goTo",
+          "signature": "goTo(target: number | \"next\" | \"previous\" | \"first\" | \"last\"): Promise<void>"
+        }
+      ]
+    },
+    {
+      "kind": "harness",
+      "name": "AuiMenuHarness",
+      "description": "`button[auiMenu]`: the trigger; the menu renders next to it, so items are read from the document.",
+      "methods": [
+        {
+          "name": "with",
+          "static": true,
+          "signature": "with<T extends AuiMenuHarness>(this: ComponentHarnessConstructor<T>, options?: AuiMenuHarnessFilters | undefined): HarnessPredicate<T>"
+        },
+        {
+          "name": "isOpen",
+          "signature": "isOpen(): Promise<boolean>"
+        },
+        {
+          "name": "open",
+          "signature": "open(): Promise<void>"
+        },
+        {
+          "name": "close",
+          "signature": "close(): Promise<void>"
+        },
+        {
+          "name": "getItems",
+          "signature": "getItems(): Promise<AuiMenuItem[]>",
+          "description": "Items of the top-level menu (opens it)."
+        },
+        {
+          "name": "select",
+          "signature": "select(...path: string[]): Promise<void>",
+          "description": "Opens the menu and activates the item at `path` (submenus by their labels)."
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "AuiButtonHarnessFilters",
+      "description": "Filters for `AuiButtonHarness.with()`."
+    },
+    {
+      "name": "AuiFieldHarnessFilters",
+      "description": "Filters for the form field harnesses (`with({ label })`)."
+    },
+    {
+      "name": "AuiSelectOption",
+      "description": "An option of a Select, as the harness reads it."
+    },
+    {
+      "name": "AuiTabsHarnessFilters",
+      "description": "Filters for `AuiTabsHarness.with()`."
+    },
+    {
+      "name": "AuiDialogHarnessFilters",
+      "description": "Filters for `AuiDialogHarness.with()`."
+    },
+    {
+      "name": "AuiDataTableHarnessFilters",
+      "description": "Filters for `AuiDataTableHarness.with()`."
+    },
+    {
+      "name": "AuiSidebarHarnessFilters",
+      "description": "Filters for `AuiSidebarHarness.with()`."
+    },
+    {
+      "name": "AuiMenuItem",
+      "description": "A menu item, as the harness reads it."
+    },
+    {
+      "name": "AuiMenuHarnessFilters",
+      "description": "Filters for `AuiMenuHarness.with()`."
+    }
+  ]
+}

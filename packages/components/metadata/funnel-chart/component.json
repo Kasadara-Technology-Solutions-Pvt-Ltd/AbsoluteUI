@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "name": "funnel-chart",
+  "displayName": "Funnel Chart",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { FunnelChart } from '@absoluteui/components/funnel-chart';",
+  "styleImport": "@absoluteui/components/funnel-chart/style.css",
+  "purpose": "Accessible SVG funnel chart for sequential stages (for example visits, sign-ups, purchases): centered bars whose width is proportional to the stage value, joined by decorative trapezoid connectors. Each stage prints its value and its conversion from the previous stage, reads its value and conversion from the first and previous stage to assistive technology, and is keyboard-reachable; a generated summary names the overall conversion and the largest drop, and a data table lists every conversion.",
+  "whenToUse": [
+    "A fixed sequence of stages where each stage is a subset of the previous one (conversion or pipeline funnels).",
+    "Showing where the largest drop-off happens between consecutive stages."
+  ],
+  "whenNotToUse": [
+    "Categories without an order or without a subset relationship: use Bar Chart.",
+    "Comparing several funnels side by side: use a grouped Bar Chart.",
+    "Values that can be negative (rejected by validation)."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "empty (no data: no stages, or no stage above zero)",
+    "stage missing (null value)",
+    "stage focused (tooltip)",
+    "stage hovered",
+    "table open"
+  ],
+  "responsive": "Width follows the container (ResizeObserver); height is the height option, divided evenly between stages. Stage names and values sit beside the funnel in up to 40% of the width and are truncated with an ellipsis to fit; the full text stays in the accessible names, tooltip, and table. Reflows at 320 CSS px.",
+  "rtl": "direction rtl moves stage names and values to the right of the funnel (right-aligned) and swaps ArrowLeft/ArrowRight; the funnel itself is symmetric.",
+  "theme": "Stage bars use color-chart-1..8 (the stage color, else the chart color, default slot 1) with a color-surface separator; connectors are the same color at low opacity. Stage names color-text (medium weight), values color-text-muted, missing stages a dashed color-chart-axis outline. Forced colors use CanvasText, Canvas, GrayText (connectors), and Highlight.",
+  "timezone": "Not applicable (stages are text).",
+  "security": "All text (title, description, stage names, values, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; the height and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "FunnelChart.create, 20 stages, including the first render",
+        "budget": "< 20 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Up to about 20 stages (each stage is one focusable node, one connector, and two text labels). Funnels with more stages lose readability; aggregate stages first."
+  },
+  "limitations": [
+    "One funnel per chart; no legend (each stage is labelled beside its bar).",
+    "Conversion is computed against the previous stage that has a value; missing stages are skipped.",
+    "Conversions are not computed when the first (or previous) stage is zero or missing; those stages read only their value.",
+    "The legend, patterns, and hiddenSeries options are accepted (shared chart options) but have no visible effect: there are no series to toggle or texture.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Negative stage values.",
+    "Several funnels in one chart, or stage breakdowns (segments within a stage).",
+    "Curved or pyramid shapes; proportional-area stages.",
+    "HTML content in labels."
+  ],
+  "antiPatterns": [
+    "Stages that are not subsets of the previous stage (conversions above 100% mislead).",
+    "Unordered categories drawn as a funnel.",
+    "Encoding meaning only through per-stage colors."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/funnel-chart: AuiFunnelChart directive ([auiFunnelChart]).",
+    "react": "@absoluteui/react/funnel-chart: AuiFunnelChart component.",
+    "vue": "@absoluteui/vue/funnel-chart: AuiFunnelChart component."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

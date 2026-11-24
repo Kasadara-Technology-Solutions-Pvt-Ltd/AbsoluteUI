@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "file-manager",
+  "examples": [
+    {
+      "id": "in-memory",
+      "title": "In-memory provider",
+      "language": "ts",
+      "code": "import { instant } from '@absoluteui/core';\nimport { FileManager, type FileEntry, type FileManagerProvider } from '@absoluteui/components/file-manager';\n\n// An in-memory provider; a real one calls your API and passes request.signal to fetch.\nconst entries: FileEntry[] = [\n  { id: 'contracts', name: 'Contracts', kind: 'folder', parentId: null },\n  { id: 'policies', name: 'Policies', kind: 'folder', parentId: null, hasChildren: false },\n  { id: 'offer', name: 'Offer letter.txt', kind: 'file', size: 2048, mimeType: 'text/plain', modified: instant(Date.UTC(2026, 2, 3, 9, 30)), parentId: 'contracts' },\n];\nlet next = 1;\nconst provider: FileManagerProvider = {\n  list: async (folderId) => entries.filter((e) => e.parentId === folderId),\n  createFolder: async (parentId, name) => {\n    const entry: FileEntry = { id: `folder-${String(next++)}`, name, kind: 'folder', parentId };\n    entries.push(entry);\n    return entry;\n  },\n  rename: async (entry, name) => ({ ...entry, name }),\n  move: async (moved, targetFolderId) => moved.map((e) => ({ ...e, parentId: targetFolderId })),\n  delete: async () => {},\n  upload: async (folderId, file, request) => {\n    request.onProgress(file.size, file.size);\n    return { id: `file-${String(next++)}`, name: file.name, kind: 'file', size: file.size, mimeType: file.type, parentId: folderId };\n  },\n  read: async () => 'Dear Ada, we are pleased to offer you the position.',\n};\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst files = FileManager.create(host, { label: 'Employee documents', provider, root: { id: null, label: 'Documents' }, maxFileSize: 10_000_000 });\nhost.addEventListener('aui-navigate', () => {\n  host.dataset.folder = files.currentFolderId ?? 'root';\n});"
+    },
+    {
+      "id": "events",
+      "title": "Read-only grid with your own PDF handling",
+      "language": "ts",
+      "code": "import { FileManager, type FileManagerErrorDetail, type FileManagerOpenDetail, type FileManagerProvider } from '@absoluteui/components/file-manager';\n\ndeclare const provider: FileManagerProvider;\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nFileManager.create(host, { label: 'Scans', provider, view: 'grid', readOnly: true, accept: ['image/*', '.pdf'] });\nhost.addEventListener('aui-open', (event) => {\n  const { entry } = (event as CustomEvent<FileManagerOpenDetail>).detail;\n  // Handle PDFs yourself; images still open in the built-in Image Viewer.\n  if (entry.mimeType === 'application/pdf') {\n    event.preventDefault();\n    window.open(`/documents/${encodeURIComponent(entry.id)}`, '_blank', 'noopener');\n  }\n});\nhost.addEventListener('aui-error', (event) => {\n  const { operation } = (event as CustomEvent<FileManagerErrorDetail>).detail;\n  host.dataset.lastError = operation;\n});"
+    },
+    {
+      "id": "custom-preview",
+      "title": "Custom preview without the folder pane",
+      "language": "ts",
+      "code": "import { FileManager, type FileManagerProvider } from '@absoluteui/components/file-manager';\n\ndeclare const provider: FileManagerProvider;\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nFileManager.create(host, {\n  label: 'Reports',\n  provider,\n  showFolderPane: false,\n  height: '24rem',\n  preview: async (entry, { signal }) => {\n    if (!entry.name.endsWith('.csv') || !provider.read) return null;\n    const text = await provider.read(entry, { signal });\n    const pre = document.createElement('pre');\n    pre.textContent = text.split('\\n').slice(0, 20).join('\\n');\n    return pre;\n  },\n});"
+    }
+  ]
+}

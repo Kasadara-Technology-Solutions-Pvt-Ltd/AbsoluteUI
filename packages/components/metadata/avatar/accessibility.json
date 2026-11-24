@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "component": "avatar",
+  "pattern": "Image with a text alternative: role=img on the host, aria-label with the name and presence status.",
+  "roles": [
+    { "element": "host", "role": "img (absent when decorative)" },
+    { "element": "visual and status dot", "role": "none (aria-hidden=true)" },
+    { "element": "img", "role": "presentation (alt is empty; the host carries the name)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "host", "value": "the name, or 'name, status' when a status is shown" },
+    { "attribute": "aria-hidden", "element": "host when decorative; visual and status dot always", "value": "true" }
+  ],
+  "keyboard": [
+    { "key": "None", "context": "Any", "action": "Not focusable; read in document order by assistive technology." }
+  ],
+  "focus": "Never receives or moves focus.",
+  "wcag": ["1.1.1", "1.4.1", "1.4.3", "1.4.11"],
+  "notes": [
+    "Presence is part of the accessible name and has a distinct shape per status, not only a color.",
+    "Set decorative when the person's name is printed next to the avatar, so it is not read twice."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

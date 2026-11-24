@@ -1,0 +1,209 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Headings: the modifier sets the visual size only; the element sets the outline level.
+  .aui-heading {
+    margin: 0;
+    font-family: aui.token('font-family-sans');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+    color: aui.token('color-text');
+    overflow-wrap: break-word;
+  }
+
+  .aui-heading--1 {
+    font-size: aui.token('font-size-4xl');
+  }
+
+  .aui-heading--2 {
+    font-size: aui.token('font-size-3xl');
+  }
+
+  .aui-heading--3 {
+    font-size: aui.token('font-size-2xl');
+  }
+
+  .aui-heading--4 {
+    font-size: aui.token('font-size-xl');
+  }
+
+  .aui-heading--5 {
+    font-size: aui.token('font-size-lg');
+  }
+
+  .aui-heading--6 {
+    font-size: aui.token('font-size-md');
+  }
+
+  // Body text.
+  .aui-text {
+    margin: 0;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    color: aui.token('color-text');
+    overflow-wrap: break-word;
+  }
+
+  .aui-text--muted {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-text--lg {
+    font-size: aui.token('font-size-lg');
+  }
+
+  .aui-text--sm {
+    font-size: aui.token('font-size-sm');
+  }
+
+  .aui-text--xs {
+    font-size: aui.token('font-size-xs');
+  }
+
+  .aui-text--strong {
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  // Links: always underlined (WCAG 1.4.1), so the muted variant is still identifiable.
+  .aui-link,
+  .aui-prose :where(a) {
+    color: aui.token('color-link');
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    border-radius: aui.token('radius-sm');
+    @include aui.transition(text-decoration-thickness);
+
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-link--muted {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-link__hint {
+    @include aui.visually-hidden;
+  }
+
+  // Inline code.
+  .aui-code,
+  .aui-prose :where(code) {
+    padding-block: 0.1em;
+    padding-inline: aui.token('space-1');
+    font-family: aui.token('font-family-mono');
+    font-size: 0.875em;
+    color: aui.token('color-text');
+    background: aui.token('color-surface-sunken');
+    // Transparent border becomes visible in forced-colors mode, where backgrounds are removed.
+    border: aui.token('border-width') solid transparent;
+    border-radius: aui.token('radius-sm');
+    overflow-wrap: anywhere;
+  }
+
+  // Rich text: vertical rhythm for consumer-authored markup. :where() keeps specificity at one class.
+  .aui-prose {
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-relaxed');
+    color: aui.token('color-text');
+    overflow-wrap: break-word;
+
+    :where(p, ul, ol, blockquote, pre, h2, h3, h4) {
+      margin-block: 0;
+    }
+
+    :where(* + *) {
+      margin-block-start: aui.token('space-4');
+    }
+
+    :where(* + h2, * + h3, * + h4) {
+      margin-block-start: aui.token('space-8');
+    }
+
+    :where(h2, h3, h4) {
+      font-weight: aui.token('font-weight-semibold');
+      line-height: aui.token('line-height-tight');
+    }
+
+    :where(h2) {
+      font-size: aui.token('font-size-2xl');
+    }
+
+    :where(h3) {
+      font-size: aui.token('font-size-xl');
+    }
+
+    :where(h4) {
+      font-size: aui.token('font-size-lg');
+    }
+
+    :where(ul, ol) {
+      padding-inline-start: aui.token('space-6');
+    }
+
+    :where(li + li) {
+      margin-block-start: aui.token('space-2');
+    }
+
+    :where(blockquote) {
+      padding-inline-start: aui.token('space-4');
+      color: aui.token('color-text-muted');
+      border-inline-start: aui.token('border-width-strong') solid aui.token('color-border-strong');
+    }
+
+    :where(pre) {
+      padding: aui.token('space-4');
+      overflow-x: auto;
+      font-family: aui.token('font-family-mono');
+      font-size: aui.token('font-size-sm');
+      line-height: aui.token('line-height-normal');
+      background: aui.token('color-surface-sunken');
+      border-radius: aui.token('radius-md');
+    }
+
+    :where(pre code) {
+      padding: 0;
+      font-size: inherit;
+      background: none;
+      border: 0;
+    }
+  }
+
+  // Overflow helpers.
+  .aui-truncate {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-line-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--aui-lines, 3);
+    line-clamp: var(--aui-lines, 3);
+    overflow: hidden;
+  }
+
+  @include aui.forced-colors {
+    .aui-link,
+    .aui-link--muted,
+    .aui-prose :where(a) {
+      color: LinkText;
+    }
+
+    .aui-link:focus-visible,
+    .aui-prose :where(a):focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

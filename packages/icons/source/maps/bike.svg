@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="bike" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="5.5" cy="16" r="3.5"/>
+      <circle cx="18.5" cy="16" r="3.5"/>
+      <path d="M5.5 16L9.5 9.5H16"/>
+      <path d="M9.5 9.5L12 16l4-6.5"/>
+      <path d="M18.5 16L15 6h2.5"/>
+      <path d="M8 7h3"/>
+      <path d="M9.5 7v2.5"/>
+    </g>
+  </g>
+</svg>

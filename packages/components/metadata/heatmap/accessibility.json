@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "component": "heatmap",
+  "pattern": "SVG matrix chart as a named, described group (role=\"group\" with aria-roledescription \"heatmap\") of role=\"img\" cells with two-dimensional roving focus; a legend listing every color step with its value range; data table fallback with the exact matrix.",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription \"heatmap\" (localized), named by the title"
+    },
+    {
+      "element": "cells (rect.aui-heatmap__cell)",
+      "role": "img with an aria-label: column, row, formatted value (or \"No value\")"
+    },
+    {
+      "element": "legend",
+      "role": "list (ul) named \"Legend\"; entries are static text (step ranges), not buttons"
+    },
+    {
+      "element": "data table",
+      "role": "table (native) with caption, column headers (row axis title, then the columns), and row headers; wide tables scroll in a focusable region"
+    },
+    {
+      "element": "row and column labels, axis titles, printed cell values, tooltip",
+      "role": "aria-hidden (decorative duplicates of the accessible data)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized \"heatmap\""
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each cell",
+      "value": "Localized \"{column}, {row}: {value}\", for example \"12, Tue: 4\"; empty cells read \"No value\""
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active cell",
+      "value": "0 on exactly one cell (roving); other cells have none"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowLeft / ArrowRight",
+      "context": "Cell focused",
+      "action": "Previous / next column in the same row (swapped in RTL)."
+    },
+    {
+      "key": "ArrowUp / ArrowDown",
+      "context": "Cell focused",
+      "action": "Same column in the previous / next row."
+    },
+    {
+      "key": "Home / End",
+      "context": "Cell focused",
+      "action": "First / last cell of the row."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Cell focused",
+      "action": "Ten columns back / forward in the row (clamped to the ends)."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "One tab stop for the plot (the active cell), then the Show data table button and table region. Legend entries are not focusable."
+    }
+  ],
+  "focus": "Roving focus: one cell is in the tab sequence and remembers the last visited cell, also across re-renders (resize, update, configuration changes). Every cell, including empty ones, is reachable. Toggling the table keeps focus on the table button.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "4.1.2"
+  ],
+  "notes": [
+    "Fill lightness is a weak cue (and sequential steps of one hue are hard to tell apart), so it is never the only one: cells print their values when they fit (cellLabels), the legend lists every step's value range, each cell's accessible name and tooltip carry its exact value, and the data table holds the whole matrix.",
+    "The generated summary names the matrix size and the lowest and highest values with their cells, for example \"heatmap, 2 rows by 3 columns. Lowest 1 at 9, Mon; highest 9 at 15, Mon.\"",
+    "Cells are separated by a color-surface stroke, so neighboring fills need no mutual contrast; the hovered or focused cell gets a 2px color-text outline.",
+    "Forced colors: fills are not reliable, so cells become outlined boxes (Canvas fill, CanvasText stroke; Highlight for hover and focus); values remain available through the printed cell labels, accessible names, and the data table.",
+    "No animation."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "aria-roledescription support varies; screen readers without it announce \"group\".",
+    "Large matrices mean many arrow presses; browse-mode users can read the data table instead."
+  ]
+}

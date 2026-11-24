@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "carousel",
+  "displayName": "Carousel",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { Carousel } from '@absoluteui/components/carousel';",
+  "styleImport": "@absoluteui/components/carousel/style.css",
+  "purpose": "Shows one slide at a time from a set (featured items, an onboarding tour, image sets), following the WAI-ARIA APG carousel: a named region with roledescription 'carousel', slides labelled 'N of M', previous/next buttons and slide pickers, inert inactive slides. No autoplay by default; with autoplay, a pause button comes first, rotation pauses on hover and focus, and it does not start for reduced motion.",
+  "whenToUse": [
+    "A few related items of equal weight that do not all need to be visible at once.",
+    "A short step-through such as an onboarding tour."
+  ],
+  "whenNotToUse": [
+    "Important content every user must see (most users never see slides after the first).",
+    "Many items: use a list or a grid.",
+    "Navigation between views: use Tabs."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["first slide", "middle slide", "last slide", "loop", "autoplay rotating", "autoplay paused", "single slide"],
+  "responsive": "Slides take the full width of the carousel; swiping on touch screens moves between slides; controls wrap under the slides.",
+  "rtl": "Slides move from right to left; swipe directions and the track mirror.",
+  "theme": "Component tokens carousel-radius (radius-md) and carousel-indicator (color-primary, 3:1 against color-surface in the contrast gate); the current picker dot is filled. Controls are Buttons. The slide transition uses the shared motion tokens and is off for reduced motion and animation 'none'.",
+  "timezone": "Not applicable.",
+  "security": "String content is rendered as text; Node content is inserted as given (the application owns it).",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Carousel.create with 5 slides", "budget": "< 3 ms average in headless Chromium" }
+    ],
+    "testedScale": "Up to 100 slides; all slides are in the DOM (inert when not shown)."
+  },
+  "limitations": [
+    "One slide is shown at a time.",
+    "Swiping is for touch and pen; mouse users use the buttons."
+  ],
+  "unsupported": [
+    "Several slides per view, peeking neighbours, or free scrolling (use Scroll Area with a horizontal strip).",
+    "Autoplay intervals shorter than 2 seconds."
+  ],
+  "antiPatterns": [
+    "Autoplay without a reason; most carousels should not rotate.",
+    "Putting the only call to action on a later slide."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/carousel: AuiCarousel component (<aui-carousel>).",
+    "react": "@absoluteui/react/carousel: AuiCarousel component.",
+    "vue": "@absoluteui/vue/carousel: AuiCarousel component."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

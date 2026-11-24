@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "component": "menu-bar",
+  "factory": { "name": "MenuBar.create", "signature": "MenuBar.create(host: HTMLElement, options: MenuBarOptions): MenuBar" },
+  "configKey": "menuBar",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Accessible name of the menubar (aria-label). Must be a non-empty string." },
+    { "name": "items", "type": "readonly MenuBarItem[]", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Non-empty list of menubar items { id, label, icon?, disabled?, items? }. Items with items open a Menu; items without are commands. Ids are unique across the bar and all of its menus." },
+    { "name": "renderItem", "type": "(item: MenuSelectableItem, context: MenuRenderContext) => Node", "required": false, "globallyConfigurable": false, "description": "Custom item content (since 0.9.0); the label stays the accessible name and typeahead text. Nodes are reused per item and released with releaseNode when dropped." },
+    { "name": "icons", "type": "Partial<{ submenu: IconRef; checked: IconRef; radio: IconRef }>", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Icon slot overrides passed to every menu." },
+    { "name": "closeOnSelect", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Menus close after activating a checkbox or radio item. Action items always close the menu." },
+    { "name": "typeahead", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Printable characters move focus to the next bar item (skipping disabled items) or menu item whose label starts with them." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Arrow-key mirroring and menu/submenu sides. An inherited dir=rtl on the host also makes the bar RTL." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (class aui-menu-bar); its children are replaced." },
+    { "name": "element", "type": "HTMLDivElement", "description": "The role=menubar element inside the host." },
+    { "name": "options", "type": "Readonly<MenuBarOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "menu", "signature": "menu(id: string): Menu | null", "description": "The Menu opened by a menubar item, or null for commands, disabled items, and unknown ids." },
+    { "name": "close", "signature": "close(): void", "description": "Close any open menu; focus returns to its menubar item when it was inside the menu." },
+    { "name": "update", "signature": "update(options: Partial<MenuBarOptions>): void", "description": "Merge, validate, and re-render. Focus and the tab stop stay on the same item id; open menus close and menu state resets. A failed update keeps the previous options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Destroy every menu, remove listeners and subscriptions, empty the host, and remove the aui-menu-bar class." }
+  ],
+  "events": [
+    { "name": "aui-select", "detail": "{ id: string; item: MenuBarItem | MenuSelectableItem; checked?: boolean }", "bubbles": true, "cancelable": false, "description": "A command bar item or an enabled menu item was activated. Always dispatched on the host (menu selections are re-dispatched there). checked is the new state for checkbox and radio items." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-menu-bar", "description": "Host element." },
+    { "name": "aui-menu-bar--rtl", "description": "Set on the host when the effective direction is RTL." },
+    { "name": "aui-menu-bar__bar", "description": "The role=menubar row (wrapping flex)." },
+    { "name": "aui-menu-bar__entry", "description": "role=none wrapper (display: contents) around each item and its menu popup." },
+    { "name": "aui-menu-bar__item", "description": "Bar item button (role=menuitem); [aria-expanded='true'] while its menu is open." },
+    { "name": "aui-menu-bar__icon | __label", "description": "Item parts." },
+    { "name": "aui-menu (and all aui-menu__* classes)", "description": "Menu popups opened from the bar; styled by @absoluteui/components/menu/style.css." }
+  ],
+  "iconSlots": [
+    { "name": "submenu", "default": "chevron-right" },
+    { "name": "checked", "default": "check" },
+    { "name": "radio", "default": "check" }
+  ]
+}

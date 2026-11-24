@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "toggle-group",
+  "displayName": "Toggle Group",
+  "category": "Buttons",
+  "package": "@absoluteui/components",
+  "import": "import { ToggleGroup } from '@absoluteui/components/toggle-group';",
+  "styleImport": "@absoluteui/components/toggle-group/style.css",
+  "purpose": "Named group of toggle buttons (aria-pressed) for one setting with a few choices, such as text alignment, a list or grid view, or text styles: single selection (at most one pressed, optionally required) or multiple. Roving tabindex: one button in the tab sequence, arrow keys between buttons.",
+  "whenToUse": [
+    "Switching a view or a formatting state that applies at once: list or grid, bold and italic, alignment.",
+    "Two to about seven short choices shown side by side."
+  ],
+  "whenNotToUse": [
+    "A form value submitted with other fields: use Radio Group or Checkbox Group.",
+    "Navigation between panels: use Tabs.",
+    "Commands that run once: use Button or Button Group."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["single", "multiple", "required", "horizontal", "vertical", "attached", "disabled", "item disabled"],
+  "responsive": "Inline buttons that wrap (unless attached); vertical orientation stacks them.",
+  "rtl": "Arrow keys follow the reading direction; logical properties keep the attached radii at the inline ends.",
+  "theme": "Uses Button tokens; pressed buttons use color-selected, color-selected-text, and color-selected-indicator (contrast gate pairs). Forced colors draw pressed buttons in Highlight.",
+  "timezone": "Not applicable.",
+  "security": "Labels are rendered as text; never parsed as HTML.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "ToggleGroup.create with 5 items", "budget": "< 2 ms average in headless Chromium" }
+    ],
+    "testedScale": "Up to 100 items accepted; intended for a handful."
+  },
+  "limitations": [
+    "Not a form control: the value is not submitted with a form (use Radio Group or Checkbox Group for form values).",
+    "Changing items re-creates the buttons."
+  ],
+  "unsupported": [
+    "Menus or popups inside the group.",
+    "Rich content in items (text and an icon only)."
+  ],
+  "antiPatterns": [
+    "Changing the item label when it is pressed (aria-pressed already announces the state).",
+    "Using a toggle group for navigation."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/toggle-group: AuiToggleGroup component (<aui-toggle-group>, [(value)]).",
+    "react": "@absoluteui/react/toggle-group: AuiToggleGroup component (value, onValueChange).",
+    "vue": "@absoluteui/vue/toggle-group: AuiToggleGroup component (v-model)."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

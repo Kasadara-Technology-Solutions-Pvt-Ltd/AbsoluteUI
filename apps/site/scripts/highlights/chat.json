@@ -1,0 +1,8 @@
+[
+  { "title": "Streaming replies", "text": "Pass any AsyncIterable or ReadableStream of text; Stop aborts the request through an AbortSignal, and Retry restarts the same message." },
+  { "title": "Safe Markdown", "text": "Headings, lists, links, and code blocks from a built-in subset. Model output is never parsed as HTML, and only http(s) links render." },
+  { "title": "Calm for screen readers", "text": "A role=log conversation that announces each finished reply once, never every streamed token." },
+  { "title": "Reads like a conversation", "text": "Avatars, times, and day separators that name holidays and non-working days from your business calendar." },
+  { "title": "Actions on every reply", "text": "Copy, thumbs up and down, attachment chips, and suggestion chips, all reachable by keyboard and reported as events." },
+  { "title": "Long conversations", "text": "Auto-scroll pauses while you read earlier messages, with Jump to latest; the DOM keeps a bounded number of messages." }
+]

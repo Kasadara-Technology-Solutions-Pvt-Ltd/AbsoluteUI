@@ -1,0 +1,70 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+import demos from '../../generated/demos.json';
+
+export function getStaticPaths() {
+  return demos.map((demo) => ({ params: { id: demo.id }, props: { demo } }));
+}
+const { demo } = Astro.props;
+---
+
+<Base title={demo.name} description={demo.summary} path={`/demos/${demo.id}/`}>
+  <PageHero eyebrow="Demo" title={demo.name} lead={demo.summary}>
+    <p class="muted small">{demo.stack}</p>
+    {
+      demo.url && (
+        <div class="actions">
+          <a class="btn btn-primary" href={demo.url} rel="noopener">
+            Open the demo <Icon name="external" />
+          </a>
+        </div>
+      )
+    }
+  </PageHero>
+
+  {
+    demo.recordingSrc && (
+      <section class="section section-tight" aria-labelledby="recording">
+        <div class="container container-wide">
+          <h2 id="recording" class="visually-hidden">Recording</h2>
+          <figure class="shot">
+            <video src={demo.recordingSrc} poster={demo.screens[0]?.src} controls preload="metadata" muted playsinline width="1600" height="1000" aria-label={`Screen recording of ${demo.name}`} />
+            <figcaption>A short walkthrough recorded from the running application. The recording has no audio.</figcaption>
+          </figure>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section-white section-line" aria-labelledby="screens">
+    <div class="container container-wide">
+      <h2 id="screens" class="visually-hidden">Screens</h2>
+      <div class="cards cards-2">
+        {
+          demo.screens.map((s) => (
+            <figure class="shot">
+              {s.src ? <img src={s.src} alt={`${demo.name}: ${s.title}`} width="1600" height="1000" loading="lazy" /> : <div class="shot-missing">Screenshot: {s.title}</div>}
+              <figcaption>
+                <strong>{s.title}</strong>
+                {s.caption}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="run">
+    <div class="container container-narrow">
+      <div class="stack stack-lg">
+        <h2 id="run">Run it locally</h2>
+        <ol class="steps-list">
+          {demo.runLocally.map((step) => <li>{step}</li>)}
+        </ol>
+      </div>
+    </div>
+  </section>
+</Base>

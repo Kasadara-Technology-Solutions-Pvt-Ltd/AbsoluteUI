@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="spell-check">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3.5 15l4.5-11 4.5 11"/>
+      <path d="M5.3 10.75h5.4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12.5 18l2.5 2.5L20.5 15"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,142 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the stylesheets of the controls it renders (see the docs header): form, error-summary,
+// fieldset, button, and the field controls.
+@layer aui.components {
+  .aui-schema-form {
+    display: block;
+    min-inline-size: 0;
+    container-type: inline-size;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-schema-form__form {
+    display: grid;
+    gap: aui.token('space-5');
+    min-inline-size: 0;
+  }
+
+  .aui-schema-form__grid {
+    display: grid;
+    gap: aui.token('space-4');
+    min-inline-size: 0;
+  }
+
+  // Columns from the UI schema (R20-24). Each column needs about 13rem, so a form gets as many of
+  // its configured columns as fit: 2 from 27rem, 3 from 41rem, 4 from 55rem, one column below 27rem
+  // (no horizontal scrolling). Spans are clamped to the columns in use.
+  @container (min-inline-size: 27rem) {
+    .aui-schema-form__grid--columns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .aui-schema-form__cell--span {
+      grid-column: span 2;
+    }
+  }
+
+  @container (min-inline-size: 41rem) {
+    .aui-schema-form__grid--columns:is([data-columns='3'], [data-columns='4']) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      > [data-span='2'] {
+        grid-column: span 2;
+      }
+
+      > :is([data-span='3'], [data-span='4']) {
+        grid-column: span 3;
+      }
+    }
+  }
+
+  @container (min-inline-size: 55rem) {
+    .aui-schema-form__grid--columns[data-columns='4'] {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      > [data-span='4'] {
+        grid-column: span 4;
+      }
+    }
+  }
+
+  .aui-schema-form__cell,
+  .aui-schema-form__group,
+  .aui-schema-form__array {
+    min-inline-size: 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-schema-form__group,
+  .aui-schema-form__array {
+    padding: aui.token('space-4');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+  }
+
+  .aui-schema-form__items {
+    display: grid;
+    gap: aui.token('space-3');
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .aui-schema-form__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+
+    > :first-child {
+      flex: 1 1 16rem;
+      min-inline-size: 0;
+    }
+  }
+
+  .aui-schema-form__tools {
+    display: flex;
+    flex: none;
+    gap: aui.token('space-1');
+    padding-block-start: aui.token('space-5');
+  }
+
+  .aui-schema-form__empty {
+    margin: 0;
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-schema-form__add {
+    justify-self: start;
+  }
+
+  .aui-schema-form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+
+    &[hidden],
+    > [hidden] {
+      display: none;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-schema-form__group,
+    .aui-schema-form__array {
+      border-color: CanvasText;
+    }
+  }
+}

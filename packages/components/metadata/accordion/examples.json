@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "accordion",
+  "examples": [
+    {
+      "id": "faq",
+      "title": "FAQ (single mode)",
+      "language": "ts",
+      "code": "import { Accordion } from '@absoluteui/components/accordion';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nAccordion.create(host, {\n  headingLevel: 2,\n  value: ['shipping'],\n  items: [\n    { id: 'shipping', title: 'How long does shipping take?', content: 'Orders ship within two business days.' },\n    { id: 'returns', title: 'Can I return an item?', content: 'Returns are free for 30 days.' },\n  ],\n});"
+    },
+    {
+      "id": "multiple",
+      "title": "Several open panels with rich content and change tracking",
+      "language": "ts",
+      "code": "import { Accordion, type AccordionChangeDetail } from '@absoluteui/components/accordion';\n\nconst details = document.createElement('p');\ndetails.textContent = 'Rich content is passed as a Node.';\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst accordion = Accordion.create(host, {\n  multiple: true,\n  items: [\n    { id: 'profile', title: 'Profile', content: details },\n    { id: 'billing', title: 'Billing', content: 'Billing settings', disabled: true },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<AccordionChangeDetail>).detail;\n  host.dataset.open = value.join(',');\n});\naccordion.expand('profile');"
+    },
+    {
+      "id": "global-config",
+      "title": "Default heading level for the application",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { accordion: { headingLevel: 2 } } });"
+    }
+  ]
+}

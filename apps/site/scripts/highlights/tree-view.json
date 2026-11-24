@@ -1,0 +1,8 @@
+[
+  { "title": "APG tree, every key", "text": "Arrows, Home, End, type-ahead, and * to expand siblings, with one tab stop and RTL-aware arrows." },
+  { "title": "Lazy children", "text": "An async hook loads children on first expansion, with a busy state, an error message, and retry." },
+  { "title": "Tri-state checkboxes", "text": "Checking a parent checks its descendants; partly checked parents show the mixed state." },
+  { "title": "Move by drag or keyboard", "text": "Drag to reorder or reparent, or cut and paste with Ctrl+X and Ctrl+V; every move is cancelable." },
+  { "title": "Rename and filter", "text": "F2 renames in a text input; a filter keeps the paths to matches visible and highlights them." },
+  { "title": "10,000+ visible nodes", "text": "Rows are virtualized on the shared windowing engine; the focused node always stays rendered." }
+]

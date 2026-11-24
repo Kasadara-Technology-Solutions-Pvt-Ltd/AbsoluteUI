@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "component": "transfer-list",
+  "factory": { "name": "TransferList.create", "signature": "TransferList.create(host: HTMLElement, options: TransferListOptions): TransferList" },
+  "configKey": "transferList",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label of the control; names the group." },
+    { "name": "hideLabel", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Visually hide the label." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text, referenced by the group." },
+    { "name": "items", "type": "readonly TransferListItem[]", "required": true, "globallyConfigurable": false, "description": "All items { value, label, description?, disabled? }; values are unique." },
+    { "name": "value", "type": "readonly string[]", "default": "[]", "required": false, "globallyConfigurable": false, "description": "Selected values in Selected-list order; unknown values are dropped." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name: one hidden input per selected value." },
+    { "name": "required", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "At least one item must be selected." },
+    { "name": "minSelected", "type": "number", "required": false, "globallyConfigurable": false, "description": "At least this many items when any are selected (or when required)." },
+    { "name": "maxSelected", "type": "number", "required": false, "globallyConfigurable": false, "description": "Hard limit; moves beyond it are refused and announced." },
+    { "name": "disabled", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Disable the control." },
+    { "name": "readOnly", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Lists can be browsed and searched, but nothing moves." },
+    { "name": "searchable", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Show a search box above each list." },
+    { "name": "draggable", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Drag items between the lists with a pointer." },
+    { "name": "titles", "type": "{ available?: string; selected?: string }", "required": false, "globallyConfigurable": false, "description": "List titles (default Available and Selected)." },
+    { "name": "visibleRows", "type": "number", "default": "8", "required": false, "globallyConfigurable": false, "description": "Rows visible in each list before it scrolls (3 to 50)." },
+    { "name": "validate", "type": "(value: readonly string[]) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<TransferListIcons>", "required": false, "globallyConfigurable": false, "description": "Icon overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages appear." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of counts, messages, and search matching." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "value", "type": "TransferListValue", "description": "Selected values in Selected-list order (a copy)." },
+    { "name": "validity", "type": "FieldValidity", "description": "Current validity." },
+    { "name": "dirty", "type": "boolean", "description": "The value differs from the initial value." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control once." },
+    { "name": "options", "type": "Readonly<TransferListOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: readonly string[]): void", "description": "Set the selected values (no event)." },
+    { "name": "getFormValue", "signature": "getFormValue(): string[]", "description": "The value for Form serialization." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "Show or clear an external error." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the Available list." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear searches, checks, and messages." },
+    { "name": "update", "signature": "update(options: Partial<TransferListOptions>): void", "description": "Merge and apply options; an invalid update leaves the previous state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, and the form registration." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "TransferListValueDetail", "bubbles": true, "cancelable": false, "description": "Items moved: { value, validity, moved, to }." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-transfer-list", "description": "Host (with aui-field); a size container." },
+    { "name": "aui-transfer-list--disabled | --invalid | --dragging", "description": "State modifiers." },
+    { "name": "aui-transfer-list__body", "description": "The group holding the lists and buttons." },
+    { "name": "aui-transfer-list__panel | __panel--available | __panel--selected | __panel--drop", "description": "A list panel and the drop-target state." },
+    { "name": "aui-transfer-list__head | __title | __count", "description": "Panel header: title and count (role=status)." },
+    { "name": "aui-transfer-list__search", "description": "Search box." },
+    { "name": "aui-transfer-list__list", "description": "The listbox (scroll container)." },
+    { "name": "aui-transfer-list__option | __option--active | __option--draggable", "description": "An option, the active option, and a draggable option." },
+    { "name": "aui-transfer-list__check | __label | __desc", "description": "Check box indicator, label, and description." },
+    { "name": "aui-transfer-list__empty", "description": "Empty or no-matches text." },
+    { "name": "aui-transfer-list__actions | __move", "description": "The move buttons." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" },
+    { "name": "moveChecked", "default": "chevron-right" },
+    { "name": "moveAll", "default": "chevrons-right" },
+    { "name": "removeChecked", "default": "chevron-left" },
+    { "name": "removeAll", "default": "chevrons-left" }
+  ]
+}

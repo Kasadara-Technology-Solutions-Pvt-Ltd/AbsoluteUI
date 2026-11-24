@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "signature-pad",
+  "examples": [
+    {
+      "id": "offer",
+      "title": "Required signature with export",
+      "language": "ts",
+      "code": "import { SignaturePad } from '@absoluteui/components/signature-pad';\n\nconst host = document.createElement('div');\nconst preview = document.createElement('img');\npreview.alt = 'Exported signature';\ndocument.body.append(host, preview);\nconst pad = SignaturePad.create(host, { label: 'Signature', description: 'Draw your signature or type your full name.', required: true, name: 'signature' });\nhost.addEventListener('aui-change', () => {\n  preview.src = pad.isEmpty ? '' : pad.toDataURL('svg');\n});"
+    },
+    {
+      "id": "typed",
+      "title": "Typed-name mode first",
+      "language": "ts",
+      "code": "import { SignaturePad } from '@absoluteui/components/signature-pad';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nSignaturePad.create(host, { label: 'Acknowledgement', mode: 'type', value: { mode: 'type', text: 'Ana Ruiz' }, height: '6rem' });"
+    },
+    {
+      "id": "pen",
+      "title": "Pen color, width, and SVG submission",
+      "language": "ts",
+      "code": "import { SignaturePad } from '@absoluteui/components/signature-pad';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nSignaturePad.create(host, { label: 'Delivery receipt', penColor: '#1d3a8a', penWidth: 3, submit: 'svg', name: 'receipt' });"
+    }
+  ]
+}

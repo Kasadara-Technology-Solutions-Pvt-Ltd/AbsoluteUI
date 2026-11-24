@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "quarter-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required quarter with bounds",
+      "language": "ts",
+      "code": "import { plainYearQuarter } from '@absoluteui/core';\nimport { QuarterPicker } from '@absoluteui/components/quarter-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst picker = QuarterPicker.create(host, {\n  label: 'Reporting quarter',\n  name: 'quarter',\n  required: true,\n  min: plainYearQuarter(2024, 1),\n  max: plainYearQuarter(2026, 4),\n});\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(picker.validity.valid);\n});"
+    },
+    {
+      "id": "unavailable-quarters",
+      "title": "Unavailable quarters and the change detail",
+      "language": "ts",
+      "code": "import { plainYearQuarter, plainYearQuarterToString } from '@absoluteui/core';\nimport { QuarterPicker, type QuarterPickerChangeDetail } from '@absoluteui/components/quarter-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst lastClosed = plainYearQuarter(2026, 2);\nQuarterPicker.create(host, {\n  label: 'Closed quarter',\n  isQuarterDisabled: (q) => q.year * 4 + q.quarter > lastClosed.year * 4 + lastClosed.quarter,\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<QuarterPickerChangeDetail>).detail;\n  host.dataset.quarter = value ? plainYearQuarterToString(value) : '';\n});"
+    },
+    {
+      "id": "localized-pattern",
+      "title": "Localized segment order through registered messages",
+      "language": "ts",
+      "code": "import { registerMessages } from '@absoluteui/core';\nimport { QuarterPicker } from '@absoluteui/components/quarter-picker';\n\nregisterMessages('quarterPicker', 'fr', { pattern: '{quarter}e trimestre {year}', value: '{quarter}e trimestre {year}' });\nconst host = document.createElement('div');\ndocument.body.append(host);\nQuarterPicker.create(host, { label: 'Trimestre', locale: 'fr-FR' });"
+    },
+    {
+      "id": "global-config",
+      "title": "Global quarter picker defaults",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\nimport '@absoluteui/components/quarter-picker';\n\nconfigureAbsoluteUI({ common: { timezone: 'Asia/Tokyo' }, components: { quarterPicker: { validationTiming: 'submit' } } });"
+    }
+  ]
+}

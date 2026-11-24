@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/menu-bar",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiMenuBar",
+      "description": "AbsoluteUI MenuBar: `<aui-menu-bar>`.\nTemplates: AuiItem (`@absoluteui/angular/templates`).",
+      "selector": "aui-menu-bar",
+      "exportAs": [
+        "auiMenuBar"
+      ],
+      "source": "generated",
+      "component": "menu-bar",
+      "configKey": "menuBar",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the menubar (aria-label). Must be a non-empty string."
+        },
+        {
+          "name": "items",
+          "type": "readonly MenuBarItem[]",
+          "required": true,
+          "description": "Non-empty list of menubar items { id, label, icon?, disabled?, items? }. Items with items open a Menu; items without are commands. Ids are unique across the bar and all of its menus."
+        },
+        {
+          "name": "renderItem",
+          "type": "MenuRenderItem",
+          "required": false,
+          "description": "Custom item content (since 0.9.0); the label stays the accessible name and typeahead text. Nodes are reused per item and released with releaseNode when dropped."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<MenuIcons>",
+          "required": false,
+          "description": "Icon slot overrides passed to every menu."
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Menus close after activating a checkbox or radio item. Action items always close the menu."
+        },
+        {
+          "name": "typeahead",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Printable characters move focus to the next bar item (skipping disabled items) or menu item whose label starts with them."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Arrow-key mirroring and menu/submenu sides. An inherited dir=rtl on the host also makes the bar RTL."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "selected",
+          "payload": "MenuSelectDetail",
+          "event": "aui-select",
+          "description": "A command bar item or an enabled menu item was activated. Always dispatched on the host (menu selections are re-dispatched there). checked is the new state for checkbox and radio items."
+        }
+      ],
+      "methods": [
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Close any open menu; focus returns to its menubar item when it was inside the menu."
+        }
+      ],
+      "templates": [
+        "AuiItem"
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Menubar with Menu popups (the Menu component and engine); roving tabindex on the bar, real DOM focus on menu items.",
+        "source": "packages/components/metadata/menu-bar/accessibility.json"
+      },
+      "limitations": [
+        "Horizontal only; there is no vertical menubar and no overflow collapse (items wrap instead).",
+        "update() and any global menuBar configuration change re-render the bar and rebuild every menu: an open menu closes, focus inside it is not restored, and checkbox/radio state resets to the item data.",
+        "An explicit direction 'ltr' does not override an inherited dir=rtl on the host; menus read the direction when the bar renders, so a later dir change reaches the menus only on the next render.",
+        "Menu placement is fixed at bottom-start; the global menu configuration does not apply to menubar menus.",
+        "Disabled items with items render aria-haspopup=menu but no menu, so they cannot be opened or inspected."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { MenuBarItem, MenuBarSelectDetail } from '@absoluteui/components/menu-bar';\nimport { AuiMenuBar } from '@absoluteui/angular/menu-bar';\n\n@Component({\n  selector: 'app-editor-menu',\n  imports: [AuiMenuBar],\n  template: `<aui-menu-bar label=\"Editor\" [items]=\"items\" (selected)=\"onSelect($event)\"></aui-menu-bar>`,\n})\nexport class EditorMenuComponent {\n  readonly items: MenuBarItem[] = [\n    { id: 'file', label: 'File', items: [{ id: 'new', label: 'New' }, { id: 'save', label: 'Save' }] },\n    { id: 'help', label: 'Help' },\n  ];\n\n  onSelect(detail: MenuBarSelectDetail): void {\n    if (detail.id === 'save') {\n      // save the document\n    }\n  }\n}"
+    }
+  ]
+}

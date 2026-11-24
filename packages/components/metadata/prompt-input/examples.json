@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "component": "prompt-input",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Send a message with Enter",
+      "language": "ts",
+      "code": "import { PromptInput, type PromptInputSendDetail } from '@absoluteui/components/prompt-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nPromptInput.create(host, { label: 'Message', hideLabel: true, placeholder: 'Ask a question', showHint: true });\nhost.addEventListener('aui-send', (event) => {\n  const { text } = (event as CustomEvent<PromptInputSendDetail>).detail;\n  host.dataset.lastSent = text;\n});"
+    },
+    {
+      "id": "attachments",
+      "title": "Attachments with type and size limits",
+      "language": "ts",
+      "code": "import { PromptInput } from '@absoluteui/components/prompt-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nPromptInput.create(host, {\n  label: 'Message',\n  attachments: true,\n  accept: ['image/*', '.pdf'],\n  maxFiles: 3,\n  maxFileSize: 5 * 1024 * 1024,\n});"
+    },
+    {
+      "id": "streaming",
+      "title": "Send becomes Stop while a reply streams",
+      "language": "ts",
+      "code": "import { PromptInput } from '@absoluteui/components/prompt-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst prompt = PromptInput.create(host, { label: 'Message' });\nlet controller: AbortController | null = null;\nhost.addEventListener('aui-send', () => {\n  controller = new AbortController();\n  prompt.update({ status: 'streaming' });\n  setTimeout(() => {\n    prompt.update({ status: 'idle' });\n  }, 2000);\n});\nhost.addEventListener('aui-stop', () => {\n  controller?.abort();\n  prompt.update({ status: 'idle' });\n});"
+    },
+    {
+      "id": "commands",
+      "title": "Slash commands and mentions",
+      "language": "ts",
+      "code": "import { PromptInput, type PromptSuggestion } from '@absoluteui/components/prompt-input';\n\nconst commands: PromptSuggestion[] = [\n  { insert: '/summarize', label: '/summarize', description: 'Summarize the conversation' },\n  { insert: '/translate', label: '/translate', description: 'Translate the last reply' },\n];\nconst people = ['Ada Lovelace', 'Grace Hopper', 'Alan Turing'];\nconst host = document.createElement('div');\ndocument.body.append(host);\nPromptInput.create(host, {\n  label: 'Message',\n  triggers: [\n    { char: '/', suggest: (query) => commands.filter((c) => c.label.slice(1).startsWith(query)) },\n    { char: '@', suggest: (query) => people.filter((p) => p.toLowerCase().includes(query.toLowerCase())).map((p) => ({ insert: `@${p}`, label: p })) },\n  ],\n});"
+    },
+    {
+      "id": "tokens",
+      "title": "Token counter hook",
+      "language": "ts",
+      "code": "import { PromptInput } from '@absoluteui/components/prompt-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\n// A rough estimate; pass your model's tokenizer instead.\nPromptInput.create(host, { label: 'Prompt', maxLength: 4000, showCounter: true, count: (text) => Math.ceil(text.length / 4) });"
+    },
+    {
+      "id": "global-config",
+      "title": "Send with Ctrl/Cmd+Enter everywhere",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { promptInput: { submitKey: 'mod-enter' } } });"
+    }
+  ]
+}

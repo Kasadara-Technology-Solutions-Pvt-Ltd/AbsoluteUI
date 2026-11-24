@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="signal" data-mirror="true" data-animations="reveal:loading">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 19v-3"/>
+      <path d="M10 19v-6"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="stroke">
+      <path d="M15 19v-9"/>
+      <path d="M20 19V5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="13.75" y="9" width="2.5" height="11" rx="1.25"/>
+      <rect x="18.75" y="4" width="2.5" height="16" rx="1.25"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 19v-3"/>
+      <path d="M10 19v-6"/>
+      <path d="M15 19v-9"/>
+      <path d="M20 19V5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="base" data-role="success" data-paint="stroke">
+      <path d="M5 19v-3"/>
+      <path d="M10 19v-6"/>
+    </g>
+    <g data-layer="secondary" data-role="muted" data-paint="stroke">
+      <path d="M15 19v-9"/>
+      <path d="M20 19V5"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+[
+  { "title": "Two searchable lists", "text": "Available and Selected, each with search and a live item count." },
+  { "title": "Keyboard first", "text": "Multi-select listboxes: Space, Shift ranges, Ctrl+A, Enter to move, type-ahead." },
+  { "title": "Drag, optionally", "text": "Drag items between the lists; the move buttons are always the alternative." },
+  { "title": "10,000 items", "text": "Windowed rows keep long lists fast, with positions announced in the full list." },
+  { "title": "Form ready", "text": "Required, minimum, and maximum counts; one hidden input per selected value." }
+]

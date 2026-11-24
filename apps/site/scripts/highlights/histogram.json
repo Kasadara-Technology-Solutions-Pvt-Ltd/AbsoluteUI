@@ -1,0 +1,6 @@
+[
+  { "title": "Automatic bins", "text": "Bins from a nice-boundary rule, a bin count, or explicit thresholds." },
+  { "title": "Reusable binning", "text": "The same binning is available as a function that also reports missing and out-of-range values." },
+  { "title": "Keyboard bins", "text": "One tab stop through every bin, empty ones included, with a tooltip." },
+  { "title": "Data table fallback", "text": "A summary naming the most frequent bin and a table of bins and counts." }
+]

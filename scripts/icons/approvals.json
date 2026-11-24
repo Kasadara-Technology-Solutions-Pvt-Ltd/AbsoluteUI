@@ -1,0 +1,2602 @@
+{
+  "accessibility": {
+    "status": "released",
+    "hash": "6e2f8b92a8de30ef",
+    "date": "2026-10-28"
+  },
+  "accordion": {
+    "status": "released",
+    "hash": "00519b6fcd55c55e",
+    "date": "2026-10-28"
+  },
+  "activity": {
+    "status": "released",
+    "hash": "32cae17150b9d63c",
+    "date": "2026-10-28"
+  },
+  "alarm-clock": {
+    "status": "released",
+    "hash": "a877730faaf5b2c1",
+    "date": "2026-10-28"
+  },
+  "album": {
+    "status": "released",
+    "hash": "c555862d255a0ea5",
+    "date": "2026-10-28"
+  },
+  "alert-circle": {
+    "status": "released",
+    "hash": "322fa0a6d3cbf2c7",
+    "date": "2026-10-28"
+  },
+  "alert-octagon": {
+    "status": "released",
+    "hash": "4faa495338a99fe8",
+    "date": "2026-10-28"
+  },
+  "alert-triangle": {
+    "status": "released",
+    "hash": "0aeb653bf28f297d",
+    "date": "2026-10-28"
+  },
+  "align-center": {
+    "status": "released",
+    "hash": "904946539106fb38",
+    "date": "2026-10-28"
+  },
+  "align-end": {
+    "status": "released",
+    "hash": "4c91aeb2f6a966f4",
+    "date": "2026-10-28"
+  },
+  "align-justify": {
+    "status": "released",
+    "hash": "34edd6d2db9c2336",
+    "date": "2026-10-28"
+  },
+  "align-start": {
+    "status": "released",
+    "hash": "46dac8fab3da9848",
+    "date": "2026-10-28"
+  },
+  "anchor": {
+    "status": "released",
+    "hash": "5f53493e00b47deb",
+    "date": "2026-10-28"
+  },
+  "api": {
+    "status": "released",
+    "hash": "7058f80e629fe88c",
+    "date": "2026-10-28"
+  },
+  "app-window": {
+    "status": "released",
+    "hash": "bad672c3acc7f79c",
+    "date": "2026-10-28"
+  },
+  "appraisal": {
+    "status": "released",
+    "hash": "1c4bb4809d972da6",
+    "date": "2026-10-28"
+  },
+  "archive": {
+    "status": "released",
+    "hash": "d19d34e221221af8",
+    "date": "2026-10-28"
+  },
+  "arrow-down": {
+    "status": "released",
+    "hash": "f08f423fd91e6a58",
+    "date": "2026-10-28"
+  },
+  "arrow-down-left": {
+    "status": "released",
+    "hash": "ddd3901903ebb37d",
+    "date": "2026-10-28"
+  },
+  "arrow-left": {
+    "status": "released",
+    "hash": "c53dfb2b14fd5a9f",
+    "date": "2026-10-28"
+  },
+  "arrow-left-right": {
+    "status": "released",
+    "hash": "f18adfed9e9cf3dc",
+    "date": "2026-10-28"
+  },
+  "arrow-right": {
+    "status": "released",
+    "hash": "4b520d026a0d6107",
+    "date": "2026-10-28"
+  },
+  "arrow-up": {
+    "status": "released",
+    "hash": "b49ebcfbe9e785d0",
+    "date": "2026-10-28"
+  },
+  "arrow-up-down": {
+    "status": "released",
+    "hash": "86d437e7f34ed597",
+    "date": "2026-10-28"
+  },
+  "arrow-up-right": {
+    "status": "released",
+    "hash": "80b7fbd3f25fdfad",
+    "date": "2026-10-28"
+  },
+  "aspect-ratio": {
+    "status": "released",
+    "hash": "e946827604679ec1",
+    "date": "2026-10-28"
+  },
+  "asterisk": {
+    "status": "released",
+    "hash": "1f8d1cbe1f29d76e",
+    "date": "2026-10-28"
+  },
+  "at-sign": {
+    "status": "released",
+    "hash": "a8a77d36ebdd25ea",
+    "date": "2026-10-28"
+  },
+  "attendance": {
+    "status": "released",
+    "hash": "7a183d309c1279cf",
+    "date": "2026-10-28"
+  },
+  "audit": {
+    "status": "released",
+    "hash": "43fa9c77174a2896",
+    "date": "2026-10-28"
+  },
+  "autoscale": {
+    "status": "released",
+    "hash": "f80c19a229920863",
+    "date": "2026-10-28"
+  },
+  "backup": {
+    "status": "released",
+    "hash": "55d625072dd9ff3b",
+    "date": "2026-10-28"
+  },
+  "ban": {
+    "status": "released",
+    "hash": "cb1fd4f6782905e7",
+    "date": "2026-10-28"
+  },
+  "bank": {
+    "status": "released",
+    "hash": "93adc3bd3d371df1",
+    "date": "2026-10-28"
+  },
+  "banknote": {
+    "status": "released",
+    "hash": "39afd8fe1d8d49c6",
+    "date": "2026-10-28"
+  },
+  "barcode": {
+    "status": "released",
+    "hash": "31140a92a2446162",
+    "date": "2026-10-28"
+  },
+  "battery": {
+    "status": "released",
+    "hash": "d024657a9fdbc4d8",
+    "date": "2026-10-28"
+  },
+  "bed": {
+    "status": "released",
+    "hash": "8e071ac192d18886",
+    "date": "2026-10-28"
+  },
+  "bell": {
+    "status": "released",
+    "hash": "7d178387f8262fee",
+    "date": "2026-10-28"
+  },
+  "bell-off": {
+    "status": "released",
+    "hash": "a4c159ad68fa6353",
+    "date": "2026-10-28"
+  },
+  "bell-ring": {
+    "status": "released",
+    "hash": "2cc08b019fe6de82",
+    "date": "2026-10-28"
+  },
+  "bike": {
+    "status": "released",
+    "hash": "302f411d809c4c4a",
+    "date": "2026-10-28"
+  },
+  "binary": {
+    "status": "released",
+    "hash": "9416721d5c8b4bf8",
+    "date": "2026-10-28"
+  },
+  "blocks": {
+    "status": "released",
+    "hash": "85a7fc8f646b5915",
+    "date": "2026-10-28"
+  },
+  "bold": {
+    "status": "released",
+    "hash": "00dc6081bbc57aa7",
+    "date": "2026-10-28"
+  },
+  "book": {
+    "status": "released",
+    "hash": "5fed69f2e430e447",
+    "date": "2026-10-28"
+  },
+  "bookmark": {
+    "status": "released",
+    "hash": "e76b19b6a9d7faa4",
+    "date": "2026-10-28"
+  },
+  "bot": {
+    "status": "released",
+    "hash": "e90f943468e72677",
+    "date": "2026-10-28"
+  },
+  "box-plot": {
+    "status": "released",
+    "hash": "a8983e5b1d5facb7",
+    "date": "2026-10-28"
+  },
+  "boxes": {
+    "status": "released",
+    "hash": "b79d48c01754208e",
+    "date": "2026-10-28"
+  },
+  "braces": {
+    "status": "released",
+    "hash": "6700518b6c758dfe",
+    "date": "2026-10-28"
+  },
+  "breadcrumb": {
+    "status": "released",
+    "hash": "73ca6fcf78338216",
+    "date": "2026-10-28"
+  },
+  "briefcase": {
+    "status": "released",
+    "hash": "14b030240c1562b5",
+    "date": "2026-10-28"
+  },
+  "brush": {
+    "status": "released",
+    "hash": "ce0f976d52441258",
+    "date": "2026-10-28"
+  },
+  "budget": {
+    "status": "released",
+    "hash": "9733414f91d92795",
+    "date": "2026-10-28"
+  },
+  "bug": {
+    "status": "released",
+    "hash": "f169c024387d19a8",
+    "date": "2026-10-28"
+  },
+  "building": {
+    "status": "released",
+    "hash": "8dcdf71384f02e6e",
+    "date": "2026-10-28"
+  },
+  "bus": {
+    "status": "released",
+    "hash": "ae87a9dc08506236",
+    "date": "2026-10-28"
+  },
+  "cable": {
+    "status": "released",
+    "hash": "480538e020ee9ec7",
+    "date": "2026-10-28"
+  },
+  "cache": {
+    "status": "released",
+    "hash": "2b2a0964ba7548d5",
+    "date": "2026-10-28"
+  },
+  "cake": {
+    "status": "released",
+    "hash": "4b1d6bce2479c136",
+    "date": "2026-10-28"
+  },
+  "calculator": {
+    "status": "released",
+    "hash": "b3f58d9072b54c40",
+    "date": "2026-10-28"
+  },
+  "calendar": {
+    "status": "released",
+    "hash": "fb18197a5ee80876",
+    "date": "2026-10-28"
+  },
+  "calendar-business": {
+    "status": "released",
+    "hash": "beeb412b7617b53a",
+    "date": "2026-10-28"
+  },
+  "calendar-check": {
+    "status": "released",
+    "hash": "094e72a9fea9716f",
+    "date": "2026-10-28"
+  },
+  "calendar-clock": {
+    "status": "released",
+    "hash": "6c2549e5b7eb23e7",
+    "date": "2026-10-28"
+  },
+  "calendar-day": {
+    "status": "released",
+    "hash": "926da8419bc251c0",
+    "date": "2026-10-28"
+  },
+  "calendar-event": {
+    "status": "released",
+    "hash": "d31f7f061ef70336",
+    "date": "2026-10-28"
+  },
+  "calendar-holiday": {
+    "status": "released",
+    "hash": "63e3ebb87c3f3b99",
+    "date": "2026-10-28"
+  },
+  "calendar-plus": {
+    "status": "released",
+    "hash": "4ad71b410875b4b3",
+    "date": "2026-10-28"
+  },
+  "calendar-range": {
+    "status": "released",
+    "hash": "26fd98f5a33c55bf",
+    "date": "2026-10-28"
+  },
+  "calendar-week": {
+    "status": "released",
+    "hash": "7cf9c95778f377cf",
+    "date": "2026-10-28"
+  },
+  "calendar-weekend": {
+    "status": "released",
+    "hash": "637324585f0e8faa",
+    "date": "2026-10-28"
+  },
+  "calendar-x": {
+    "status": "released",
+    "hash": "ef4341c2a3bd3a8d",
+    "date": "2026-10-28"
+  },
+  "camera": {
+    "status": "released",
+    "hash": "1c3e84bb826fb5f5",
+    "date": "2026-10-28"
+  },
+  "car": {
+    "status": "released",
+    "hash": "f9dd122b9378c70f",
+    "date": "2026-10-28"
+  },
+  "carousel": {
+    "status": "released",
+    "hash": "9e94b4fb8e2f73ff",
+    "date": "2026-10-28"
+  },
+  "cart-plus": {
+    "status": "released",
+    "hash": "8c292a72bcac9e86",
+    "date": "2026-10-28"
+  },
+  "cdn": {
+    "status": "released",
+    "hash": "5f1d926c6ac7bd01",
+    "date": "2026-10-28"
+  },
+  "certificate": {
+    "status": "released",
+    "hash": "051a15aa1f5d870e",
+    "date": "2026-10-28"
+  },
+  "chart-area": {
+    "status": "released",
+    "hash": "7c199ae942584b27",
+    "date": "2026-10-28"
+  },
+  "chart-bar": {
+    "status": "released",
+    "hash": "f90a3f782bcf14af",
+    "date": "2026-10-28"
+  },
+  "chart-bullet": {
+    "status": "released",
+    "hash": "e50eeb5de9322533",
+    "date": "2026-10-28"
+  },
+  "chart-candlestick": {
+    "status": "released",
+    "hash": "98609391c5656e50",
+    "date": "2026-10-28"
+  },
+  "chart-combo": {
+    "status": "released",
+    "hash": "d537fdc449456835",
+    "date": "2026-10-28"
+  },
+  "chart-line": {
+    "status": "released",
+    "hash": "22e6e370dde82362",
+    "date": "2026-10-28"
+  },
+  "chart-pie": {
+    "status": "released",
+    "hash": "06de8a0bb782eaed",
+    "date": "2026-10-28"
+  },
+  "chart-radar": {
+    "status": "released",
+    "hash": "b32eee2c196755b4",
+    "date": "2026-10-28"
+  },
+  "chart-scatter": {
+    "status": "released",
+    "hash": "dfa687809718ec69",
+    "date": "2026-10-28"
+  },
+  "chart-stacked": {
+    "status": "released",
+    "hash": "22620df503f5339a",
+    "date": "2026-10-28"
+  },
+  "chart-waterfall": {
+    "status": "released",
+    "hash": "b42d5986e87f7fb2",
+    "date": "2026-10-28"
+  },
+  "check": {
+    "status": "released",
+    "hash": "52d2bf5c1d9cdfe3",
+    "date": "2026-10-28"
+  },
+  "check-circle": {
+    "status": "released",
+    "hash": "41b2a37fd473a80d",
+    "date": "2026-10-28"
+  },
+  "checkbox": {
+    "status": "released",
+    "hash": "b2a133ba4bc45b49",
+    "date": "2026-10-28"
+  },
+  "chevron-down": {
+    "status": "released",
+    "hash": "39c564033c794165",
+    "date": "2026-10-28"
+  },
+  "chevron-left": {
+    "status": "released",
+    "hash": "62283c639456afae",
+    "date": "2026-10-28"
+  },
+  "chevron-right": {
+    "status": "released",
+    "hash": "58a4c62bded1ecc6",
+    "date": "2026-10-28"
+  },
+  "chevron-up": {
+    "status": "released",
+    "hash": "c1898806c48aad4b",
+    "date": "2026-10-28"
+  },
+  "chevrons-down": {
+    "status": "released",
+    "hash": "81719da598023926",
+    "date": "2026-10-28"
+  },
+  "chevrons-left": {
+    "status": "released",
+    "hash": "7f578932d0bd48aa",
+    "date": "2026-10-28"
+  },
+  "chevrons-right": {
+    "status": "released",
+    "hash": "2c7a1bb9bbae917d",
+    "date": "2026-10-28"
+  },
+  "chevrons-up": {
+    "status": "released",
+    "hash": "a17fca560ad55da4",
+    "date": "2026-10-28"
+  },
+  "chevrons-up-down": {
+    "status": "released",
+    "hash": "7421c72a378a228b",
+    "date": "2026-10-28"
+  },
+  "circle": {
+    "status": "released",
+    "hash": "60c62efeadc57778",
+    "date": "2026-10-28"
+  },
+  "circle-dashed": {
+    "status": "released",
+    "hash": "7038f25e05f54e98",
+    "date": "2026-10-28"
+  },
+  "circle-half": {
+    "status": "released",
+    "hash": "f893cdb0faf360d2",
+    "date": "2026-10-28"
+  },
+  "clear-format": {
+    "status": "released",
+    "hash": "2be52746d617b530",
+    "date": "2026-10-28"
+  },
+  "clipboard": {
+    "status": "released",
+    "hash": "e86f8d9086067ddf",
+    "date": "2026-10-28"
+  },
+  "clock": {
+    "status": "released",
+    "hash": "1e0cb5d980ee2695",
+    "date": "2026-10-28"
+  },
+  "close": {
+    "status": "released",
+    "hash": "42c85b7f5c5821ba",
+    "date": "2026-10-28"
+  },
+  "closed-captions": {
+    "status": "released",
+    "hash": "3083c694fa3698de",
+    "date": "2026-10-28"
+  },
+  "cloud": {
+    "status": "released",
+    "hash": "60fb2dcf5d4e8cc3",
+    "date": "2026-10-28"
+  },
+  "cloud-check": {
+    "status": "released",
+    "hash": "66df71cc0d2952f2",
+    "date": "2026-10-28"
+  },
+  "cloud-download": {
+    "status": "released",
+    "hash": "3417d34f8410cfa9",
+    "date": "2026-10-28"
+  },
+  "cloud-off": {
+    "status": "released",
+    "hash": "eaf4289c02f2ef39",
+    "date": "2026-10-28"
+  },
+  "cloud-sync": {
+    "status": "released",
+    "hash": "865424c06215c776",
+    "date": "2026-10-28"
+  },
+  "cloud-upload": {
+    "status": "released",
+    "hash": "1e98f64d6f1a283e",
+    "date": "2026-10-28"
+  },
+  "code": {
+    "status": "released",
+    "hash": "73fedaf6fcb8fb44",
+    "date": "2026-10-28"
+  },
+  "code-block": {
+    "status": "released",
+    "hash": "84683722b760d1cf",
+    "date": "2026-10-28"
+  },
+  "coins": {
+    "status": "released",
+    "hash": "74e1ab7c491cd89b",
+    "date": "2026-10-28"
+  },
+  "color-picker": {
+    "status": "released",
+    "hash": "0aa14759522a2440",
+    "date": "2026-10-28"
+  },
+  "color-swatch": {
+    "status": "released",
+    "hash": "7dbe1ecfecd9e4cc",
+    "date": "2026-10-28"
+  },
+  "compass": {
+    "status": "released",
+    "hash": "a1c0d07bb5d22c0a",
+    "date": "2026-10-28"
+  },
+  "contact-book": {
+    "status": "released",
+    "hash": "b903e90ba70d564f",
+    "date": "2026-10-28"
+  },
+  "contact-card": {
+    "status": "released",
+    "hash": "9c0ea55af93890a0",
+    "date": "2026-10-28"
+  },
+  "container": {
+    "status": "released",
+    "hash": "f4755f25e9024190",
+    "date": "2026-10-28"
+  },
+  "contract": {
+    "status": "released",
+    "hash": "600e69bbd4b209f4",
+    "date": "2026-10-28"
+  },
+  "contrast": {
+    "status": "released",
+    "hash": "999c1e8852a1af2a",
+    "date": "2026-10-28"
+  },
+  "cookie": {
+    "status": "released",
+    "hash": "a481a3dac02ef5a5",
+    "date": "2026-10-28"
+  },
+  "copy": {
+    "status": "released",
+    "hash": "4b96998f897a7a85",
+    "date": "2026-10-28"
+  },
+  "coverage": {
+    "status": "released",
+    "hash": "1fa77ae68ee80f9f",
+    "date": "2026-10-28"
+  },
+  "cpu": {
+    "status": "released",
+    "hash": "daef9e6533456752",
+    "date": "2026-10-28"
+  },
+  "credit-card": {
+    "status": "released",
+    "hash": "0f0cf022287d6a29",
+    "date": "2026-10-28"
+  },
+  "crop": {
+    "status": "released",
+    "hash": "d09cffbf681b7a57",
+    "date": "2026-10-28"
+  },
+  "crown": {
+    "status": "released",
+    "hash": "fc60c7f2a1bd8afe",
+    "date": "2026-10-28"
+  },
+  "currency": {
+    "status": "released",
+    "hash": "b1668326d1802708",
+    "date": "2026-10-28"
+  },
+  "currency-dollar": {
+    "status": "released",
+    "hash": "ffb304a6132c306f",
+    "date": "2026-10-28"
+  },
+  "currency-euro": {
+    "status": "released",
+    "hash": "86c5f837444c774e",
+    "date": "2026-10-28"
+  },
+  "currency-pound": {
+    "status": "released",
+    "hash": "d6034cfda2a6169e",
+    "date": "2026-10-28"
+  },
+  "currency-rupee": {
+    "status": "released",
+    "hash": "d539138083231f08",
+    "date": "2026-10-28"
+  },
+  "currency-yen": {
+    "status": "released",
+    "hash": "54dc97bb880a5d1d",
+    "date": "2026-10-28"
+  },
+  "customer": {
+    "status": "released",
+    "hash": "755d4e97e801dc3b",
+    "date": "2026-10-28"
+  },
+  "cut": {
+    "status": "released",
+    "hash": "97d7434e9d4d3bc5",
+    "date": "2026-10-28"
+  },
+  "data-center": {
+    "status": "released",
+    "hash": "d6755ee2535b3dc6",
+    "date": "2026-10-28"
+  },
+  "database": {
+    "status": "released",
+    "hash": "0febc3725c9b58d3",
+    "date": "2026-10-28"
+  },
+  "deadline": {
+    "status": "released",
+    "hash": "a35743c484d91801",
+    "date": "2026-10-28"
+  },
+  "decision": {
+    "status": "released",
+    "hash": "3156f137d488e83a",
+    "date": "2026-10-28"
+  },
+  "delegate": {
+    "status": "released",
+    "hash": "c2147cfaf55db1c4",
+    "date": "2026-10-28"
+  },
+  "department": {
+    "status": "released",
+    "hash": "997c306ad6c44c90",
+    "date": "2026-10-28"
+  },
+  "dialog": {
+    "status": "released",
+    "hash": "ce9546cb88216381",
+    "date": "2026-10-28"
+  },
+  "diff": {
+    "status": "released",
+    "hash": "e156c9ff29540a7e",
+    "date": "2026-10-28"
+  },
+  "dns": {
+    "status": "released",
+    "hash": "1cfb711e7225e948",
+    "date": "2026-10-28"
+  },
+  "door-open": {
+    "status": "released",
+    "hash": "803447a4b91b57c5",
+    "date": "2026-10-28"
+  },
+  "download": {
+    "status": "released",
+    "hash": "bd800ed196fa82aa",
+    "date": "2026-10-28"
+  },
+  "edit": {
+    "status": "released",
+    "hash": "a038ad0bea0924c7",
+    "date": "2026-10-28"
+  },
+  "eraser": {
+    "status": "released",
+    "hash": "eb7d5044fa85d54e",
+    "date": "2026-10-28"
+  },
+  "escalate": {
+    "status": "released",
+    "hash": "25c6d74c4485d068",
+    "date": "2026-10-28"
+  },
+  "ev-charging": {
+    "status": "released",
+    "hash": "7f0d055c38eb45dc",
+    "date": "2026-10-28"
+  },
+  "exchange": {
+    "status": "released",
+    "hash": "ba6766f54a88eb8f",
+    "date": "2026-10-28"
+  },
+  "expense": {
+    "status": "released",
+    "hash": "6a96a5c546a44437",
+    "date": "2026-10-28"
+  },
+  "export": {
+    "status": "released",
+    "hash": "54dbe7e09d1eca82",
+    "date": "2026-10-28"
+  },
+  "external-link": {
+    "status": "released",
+    "hash": "1365b3e3295d560f",
+    "date": "2026-10-28"
+  },
+  "eye": {
+    "status": "released",
+    "hash": "ee871463ce4186bf",
+    "date": "2026-10-28"
+  },
+  "eye-off": {
+    "status": "released",
+    "hash": "c63f5554ca568790",
+    "date": "2026-10-28"
+  },
+  "factory": {
+    "status": "released",
+    "hash": "4717967cae693686",
+    "date": "2026-10-28"
+  },
+  "fast-forward": {
+    "status": "released",
+    "hash": "895d3d0aa3c31782",
+    "date": "2026-10-28"
+  },
+  "feature-flag": {
+    "status": "released",
+    "hash": "212f0c46ad86e011",
+    "date": "2026-10-28"
+  },
+  "file": {
+    "status": "released",
+    "hash": "1ce23afd32b054c7",
+    "date": "2026-10-28"
+  },
+  "file-archive": {
+    "status": "released",
+    "hash": "3d15ebc5c2e63289",
+    "date": "2026-10-28"
+  },
+  "file-audio": {
+    "status": "released",
+    "hash": "f5479434eec1fb2d",
+    "date": "2026-10-28"
+  },
+  "file-check": {
+    "status": "released",
+    "hash": "4cd185080454131a",
+    "date": "2026-10-28"
+  },
+  "file-code": {
+    "status": "released",
+    "hash": "fcef36cebdb977ea",
+    "date": "2026-10-28"
+  },
+  "file-image": {
+    "status": "released",
+    "hash": "367b47004307cb85",
+    "date": "2026-10-28"
+  },
+  "file-lock": {
+    "status": "released",
+    "hash": "c05293050f9d4ed7",
+    "date": "2026-10-28"
+  },
+  "file-plus": {
+    "status": "released",
+    "hash": "4f14a19d1db953d1",
+    "date": "2026-10-28"
+  },
+  "file-presentation": {
+    "status": "released",
+    "hash": "67e2141c485256f7",
+    "date": "2026-10-28"
+  },
+  "file-search": {
+    "status": "released",
+    "hash": "0a559ebff5403ff9",
+    "date": "2026-10-28"
+  },
+  "file-spreadsheet": {
+    "status": "released",
+    "hash": "1606c24f4b318718",
+    "date": "2026-10-28"
+  },
+  "file-text": {
+    "status": "released",
+    "hash": "5cab880c82b1b119",
+    "date": "2026-10-28"
+  },
+  "file-video": {
+    "status": "released",
+    "hash": "5d59ea04108c7cb3",
+    "date": "2026-10-28"
+  },
+  "file-x": {
+    "status": "released",
+    "hash": "5d6e545eaf76921a",
+    "date": "2026-10-28"
+  },
+  "files": {
+    "status": "released",
+    "hash": "44a12aaa20cb2fb0",
+    "date": "2026-10-28"
+  },
+  "film": {
+    "status": "released",
+    "hash": "8a91f2e8210ab134",
+    "date": "2026-10-28"
+  },
+  "filter": {
+    "status": "released",
+    "hash": "90406b349b17f9c2",
+    "date": "2026-10-28"
+  },
+  "fingerprint": {
+    "status": "released",
+    "hash": "e62798704677e0c6",
+    "date": "2026-10-28"
+  },
+  "firewall": {
+    "status": "released",
+    "hash": "03f0573ee203d3b6",
+    "date": "2026-10-28"
+  },
+  "flag": {
+    "status": "released",
+    "hash": "966667a63a46c5ea",
+    "date": "2026-10-28"
+  },
+  "flask": {
+    "status": "released",
+    "hash": "8779d15307085cbe",
+    "date": "2026-10-28"
+  },
+  "folder": {
+    "status": "released",
+    "hash": "d85d229635788156",
+    "date": "2026-10-28"
+  },
+  "folder-lock": {
+    "status": "released",
+    "hash": "a6d9552a1b8bc316",
+    "date": "2026-10-28"
+  },
+  "folder-open": {
+    "status": "released",
+    "hash": "fe5b244c9c053c94",
+    "date": "2026-10-28"
+  },
+  "folder-plus": {
+    "status": "released",
+    "hash": "0456cc723f177581",
+    "date": "2026-10-28"
+  },
+  "folder-tree": {
+    "status": "released",
+    "hash": "973fa02b4577ef6e",
+    "date": "2026-10-28"
+  },
+  "font-size": {
+    "status": "released",
+    "hash": "794b8d25964ed7f1",
+    "date": "2026-10-28"
+  },
+  "forum": {
+    "status": "released",
+    "hash": "f238836e8b023fcf",
+    "date": "2026-10-28"
+  },
+  "forward": {
+    "status": "released",
+    "hash": "d9e241c51315f822",
+    "date": "2026-10-28"
+  },
+  "frown": {
+    "status": "released",
+    "hash": "3dc5066ad8d8ca6d",
+    "date": "2026-10-28"
+  },
+  "ftp": {
+    "status": "released",
+    "hash": "26f529910927bcb1",
+    "date": "2026-10-28"
+  },
+  "fuel": {
+    "status": "released",
+    "hash": "d68a031eb87d987e",
+    "date": "2026-10-28"
+  },
+  "function": {
+    "status": "released",
+    "hash": "a01be98f50040e3e",
+    "date": "2026-10-28"
+  },
+  "funnel": {
+    "status": "released",
+    "hash": "2f995204a3199d8d",
+    "date": "2026-10-28"
+  },
+  "gauge": {
+    "status": "released",
+    "hash": "ae4d179cfaba455b",
+    "date": "2026-10-28"
+  },
+  "gavel": {
+    "status": "released",
+    "hash": "4da97b256ee96037",
+    "date": "2026-10-28"
+  },
+  "geofence": {
+    "status": "released",
+    "hash": "88502adb3dc6df09",
+    "date": "2026-10-28"
+  },
+  "gift": {
+    "status": "released",
+    "hash": "3ac2087882e14c09",
+    "date": "2026-10-28"
+  },
+  "git-branch": {
+    "status": "released",
+    "hash": "558dadaee1fd2a6d",
+    "date": "2026-10-28"
+  },
+  "git-commit": {
+    "status": "released",
+    "hash": "e7675e7a6c66763a",
+    "date": "2026-10-28"
+  },
+  "git-merge": {
+    "status": "released",
+    "hash": "afa25bca821012fe",
+    "date": "2026-10-28"
+  },
+  "git-pull-request": {
+    "status": "released",
+    "hash": "335422e4d724997c",
+    "date": "2026-10-28"
+  },
+  "git-tag": {
+    "status": "released",
+    "hash": "a2ed2da77e3a1858",
+    "date": "2026-10-28"
+  },
+  "globe": {
+    "status": "released",
+    "hash": "7b117137dd4482e3",
+    "date": "2026-10-28"
+  },
+  "gpu": {
+    "status": "released",
+    "hash": "c90f3af547c344c9",
+    "date": "2026-10-28"
+  },
+  "graduation-cap": {
+    "status": "released",
+    "hash": "e71cad16140a53cc",
+    "date": "2026-10-28"
+  },
+  "grip": {
+    "status": "released",
+    "hash": "2c775044c8d2a5dc",
+    "date": "2026-10-28"
+  },
+  "guest": {
+    "status": "released",
+    "hash": "07ccc6d6f9727aa1",
+    "date": "2026-10-28"
+  },
+  "hand": {
+    "status": "released",
+    "hash": "cfaaf13454743c22",
+    "date": "2026-10-28"
+  },
+  "hand-wave": {
+    "status": "released",
+    "hash": "5e61b8bbe5d04a0e",
+    "date": "2026-10-28"
+  },
+  "handshake": {
+    "status": "released",
+    "hash": "0e981a3cd00f5f5f",
+    "date": "2026-10-28"
+  },
+  "hard-drive": {
+    "status": "released",
+    "hash": "f89b98fd4ee591a9",
+    "date": "2026-10-28"
+  },
+  "hash": {
+    "status": "released",
+    "hash": "6b331f50c0df043b",
+    "date": "2026-10-28"
+  },
+  "heading": {
+    "status": "released",
+    "hash": "c2582a3249533228",
+    "date": "2026-10-28"
+  },
+  "headphones": {
+    "status": "released",
+    "hash": "6e2f3e69fdb7c229",
+    "date": "2026-10-28"
+  },
+  "headset": {
+    "status": "released",
+    "hash": "e4e2e67a4e6d3e91",
+    "date": "2026-10-28"
+  },
+  "heart": {
+    "status": "released",
+    "hash": "93430f098e6134b5",
+    "date": "2026-10-28"
+  },
+  "heatmap": {
+    "status": "released",
+    "hash": "33cbde883c873b9d",
+    "date": "2026-10-28"
+  },
+  "help-circle": {
+    "status": "released",
+    "hash": "47a39509508959f3",
+    "date": "2026-10-28"
+  },
+  "highlighter": {
+    "status": "released",
+    "hash": "d4dac500a26498df",
+    "date": "2026-10-28"
+  },
+  "history": {
+    "status": "released",
+    "hash": "68f9a9ccb012aa87",
+    "date": "2026-10-28"
+  },
+  "home": {
+    "status": "released",
+    "hash": "8f9c14835cf45852",
+    "date": "2026-10-28"
+  },
+  "hourglass": {
+    "status": "released",
+    "hash": "2be00d9c18d20cf2",
+    "date": "2026-10-28"
+  },
+  "http": {
+    "status": "released",
+    "hash": "ae2a30543aaa7b6b",
+    "date": "2026-10-28"
+  },
+  "https": {
+    "status": "released",
+    "hash": "0b4109eaa8fb89f1",
+    "date": "2026-10-28"
+  },
+  "id-badge": {
+    "status": "released",
+    "hash": "69893fae78188f66",
+    "date": "2026-10-28"
+  },
+  "image": {
+    "status": "released",
+    "hash": "964548c20738e334",
+    "date": "2026-10-28"
+  },
+  "image-insert": {
+    "status": "released",
+    "hash": "692f962e614f969c",
+    "date": "2026-10-28"
+  },
+  "image-off": {
+    "status": "released",
+    "hash": "8560b3a392885e50",
+    "date": "2026-10-28"
+  },
+  "images": {
+    "status": "released",
+    "hash": "a4d5a04a9165a25e",
+    "date": "2026-10-28"
+  },
+  "import": {
+    "status": "released",
+    "hash": "eeae1a6725ec8e70",
+    "date": "2026-10-28"
+  },
+  "inbox": {
+    "status": "released",
+    "hash": "73676a10ceb6686a",
+    "date": "2026-10-28"
+  },
+  "indent-decrease": {
+    "status": "released",
+    "hash": "a0d8d3d99cd7ff97",
+    "date": "2026-10-28"
+  },
+  "indent-increase": {
+    "status": "released",
+    "hash": "885d1ac0df8111c7",
+    "date": "2026-10-28"
+  },
+  "info": {
+    "status": "released",
+    "hash": "55ee2d3ecd8a7c56",
+    "date": "2026-10-28"
+  },
+  "interview": {
+    "status": "released",
+    "hash": "a08d72d3606169c9",
+    "date": "2026-10-28"
+  },
+  "invoice": {
+    "status": "released",
+    "hash": "a06230588981c8a1",
+    "date": "2026-10-28"
+  },
+  "italic": {
+    "status": "released",
+    "hash": "3fa0c72fc105e0f0",
+    "date": "2026-10-28"
+  },
+  "kanban": {
+    "status": "released",
+    "hash": "eac639855e434c66",
+    "date": "2026-10-28"
+  },
+  "key": {
+    "status": "released",
+    "hash": "e63d734f62feea8d",
+    "date": "2026-10-28"
+  },
+  "keyboard": {
+    "status": "released",
+    "hash": "28de33fd671641de",
+    "date": "2026-10-28"
+  },
+  "languages": {
+    "status": "released",
+    "hash": "1538325b49e74ade",
+    "date": "2026-10-28"
+  },
+  "laptop": {
+    "status": "released",
+    "hash": "3d51d794021a7525",
+    "date": "2026-10-28"
+  },
+  "layers": {
+    "status": "released",
+    "hash": "f6dfe676d2f10f11",
+    "date": "2026-10-28"
+  },
+  "layout-columns": {
+    "status": "released",
+    "hash": "4b2e842853a63953",
+    "date": "2026-10-28"
+  },
+  "layout-dashboard": {
+    "status": "released",
+    "hash": "5d94cbfeb8573819",
+    "date": "2026-10-28"
+  },
+  "layout-grid": {
+    "status": "released",
+    "hash": "06449ce2affc7c3a",
+    "date": "2026-10-28"
+  },
+  "layout-list": {
+    "status": "released",
+    "hash": "6055733fbd09e448",
+    "date": "2026-10-28"
+  },
+  "leaf": {
+    "status": "released",
+    "hash": "0b1e6ef24bfaf816",
+    "date": "2026-10-28"
+  },
+  "leave": {
+    "status": "released",
+    "hash": "4462dcc903168226",
+    "date": "2026-10-28"
+  },
+  "ledger": {
+    "status": "released",
+    "hash": "a2f9b2ef7e881da7",
+    "date": "2026-10-28"
+  },
+  "library": {
+    "status": "released",
+    "hash": "aa80adf4bfd7836d",
+    "date": "2026-10-28"
+  },
+  "life-buoy": {
+    "status": "released",
+    "hash": "43a3c68579c12139",
+    "date": "2026-10-28"
+  },
+  "lightbulb": {
+    "status": "released",
+    "hash": "95ee4367ccd9ae36",
+    "date": "2026-10-28"
+  },
+  "link": {
+    "status": "released",
+    "hash": "0331b29ab61fd26d",
+    "date": "2026-10-28"
+  },
+  "list-bulleted": {
+    "status": "released",
+    "hash": "7ff1c0b65539ba28",
+    "date": "2026-10-28"
+  },
+  "list-checks": {
+    "status": "released",
+    "hash": "312a00ed763b9c71",
+    "date": "2026-10-28"
+  },
+  "list-numbered": {
+    "status": "released",
+    "hash": "8d5f7ef789a23f5d",
+    "date": "2026-10-28"
+  },
+  "load-balancer": {
+    "status": "released",
+    "hash": "faf4d6a0a00ac2b9",
+    "date": "2026-10-28"
+  },
+  "locate": {
+    "status": "released",
+    "hash": "26ae8fa98e257201",
+    "date": "2026-10-28"
+  },
+  "lock": {
+    "status": "released",
+    "hash": "3a923e32427bfa3d",
+    "date": "2026-10-28"
+  },
+  "lock-open": {
+    "status": "released",
+    "hash": "6164ee7e51946588",
+    "date": "2026-10-28"
+  },
+  "log-in": {
+    "status": "released",
+    "hash": "511860eadb4083e9",
+    "date": "2026-10-28"
+  },
+  "log-out": {
+    "status": "released",
+    "hash": "5c9d0e5d1c800077",
+    "date": "2026-10-28"
+  },
+  "logs": {
+    "status": "released",
+    "hash": "b562b73b95497e91",
+    "date": "2026-10-28"
+  },
+  "mail": {
+    "status": "released",
+    "hash": "84e4766239f132eb",
+    "date": "2026-10-28"
+  },
+  "mail-open": {
+    "status": "released",
+    "hash": "638cc0add7c12700",
+    "date": "2026-10-28"
+  },
+  "mail-plus": {
+    "status": "released",
+    "hash": "4a0be6d6493589b3",
+    "date": "2026-10-28"
+  },
+  "map": {
+    "status": "released",
+    "hash": "395abfdaf835e26c",
+    "date": "2026-10-28"
+  },
+  "map-pin": {
+    "status": "released",
+    "hash": "909754fc213dd9bc",
+    "date": "2026-10-28"
+  },
+  "map-pin-off": {
+    "status": "released",
+    "hash": "93aadfdea1ea6356",
+    "date": "2026-10-28"
+  },
+  "maximize": {
+    "status": "released",
+    "hash": "d170517705af0f02",
+    "date": "2026-10-28"
+  },
+  "meeting": {
+    "status": "released",
+    "hash": "b1a0a8e40ce9e3d1",
+    "date": "2026-10-28"
+  },
+  "megaphone": {
+    "status": "released",
+    "hash": "6b0bcbcc8aa908f7",
+    "date": "2026-10-28"
+  },
+  "meh": {
+    "status": "released",
+    "hash": "cd1e60683eec6be7",
+    "date": "2026-10-28"
+  },
+  "memory": {
+    "status": "released",
+    "hash": "76238c13976217a3",
+    "date": "2026-10-28"
+  },
+  "menu": {
+    "status": "released",
+    "hash": "f2450773c74efb2f",
+    "date": "2026-10-28"
+  },
+  "message": {
+    "status": "released",
+    "hash": "1b5fc50098d99459",
+    "date": "2026-10-28"
+  },
+  "message-plus": {
+    "status": "released",
+    "hash": "4624d50cf72f5a30",
+    "date": "2026-10-28"
+  },
+  "messages": {
+    "status": "released",
+    "hash": "200f3df031572503",
+    "date": "2026-10-28"
+  },
+  "mfa": {
+    "status": "released",
+    "hash": "5fb2526bef0b9c1b",
+    "date": "2026-10-28"
+  },
+  "mic": {
+    "status": "released",
+    "hash": "4335deddbe79c404",
+    "date": "2026-10-28"
+  },
+  "mic-off": {
+    "status": "released",
+    "hash": "470489d4c8ba0fd1",
+    "date": "2026-10-28"
+  },
+  "milestone": {
+    "status": "released",
+    "hash": "106770c7d21b79ba",
+    "date": "2026-10-28"
+  },
+  "minimize": {
+    "status": "released",
+    "hash": "22ea02edbfb85a6e",
+    "date": "2026-10-28"
+  },
+  "minus": {
+    "status": "released",
+    "hash": "db79b0b1f3ec181e",
+    "date": "2026-10-28"
+  },
+  "minus-circle": {
+    "status": "released",
+    "hash": "95882ad066e14804",
+    "date": "2026-10-28"
+  },
+  "monitor": {
+    "status": "released",
+    "hash": "d187bb23b7c780ec",
+    "date": "2026-10-28"
+  },
+  "moon": {
+    "status": "released",
+    "hash": "c5a5f8c48c94f65e",
+    "date": "2026-10-28"
+  },
+  "more-horizontal": {
+    "status": "released",
+    "hash": "40a20e0d8b60c653",
+    "date": "2026-10-28"
+  },
+  "more-vertical": {
+    "status": "released",
+    "hash": "fa13a7d54e450f83",
+    "date": "2026-10-28"
+  },
+  "mouse": {
+    "status": "released",
+    "hash": "6e65ad94c02db381",
+    "date": "2026-10-28"
+  },
+  "move": {
+    "status": "released",
+    "hash": "f51c2cd603d71d1c",
+    "date": "2026-10-28"
+  },
+  "music": {
+    "status": "released",
+    "hash": "5cd8936f5432ec95",
+    "date": "2026-10-28"
+  },
+  "navigation": {
+    "status": "released",
+    "hash": "a5c036270147ab3e",
+    "date": "2026-10-28"
+  },
+  "network": {
+    "status": "released",
+    "hash": "f4d32e0d67e73417",
+    "date": "2026-10-28"
+  },
+  "newspaper": {
+    "status": "released",
+    "hash": "f666641d14eb4b65",
+    "date": "2026-10-28"
+  },
+  "notebook": {
+    "status": "released",
+    "hash": "32adbcfe0a5b23c0",
+    "date": "2026-10-28"
+  },
+  "offboarding": {
+    "status": "released",
+    "hash": "b9e95ffc06764448",
+    "date": "2026-10-28"
+  },
+  "onboarding": {
+    "status": "released",
+    "hash": "71b1edb1fd5eea72",
+    "date": "2026-10-28"
+  },
+  "org-chart": {
+    "status": "released",
+    "hash": "57879e5321cc8fb0",
+    "date": "2026-10-28"
+  },
+  "overlay:alert": {
+    "status": "released",
+    "hash": "550c7624c75d695a",
+    "date": "2026-10-28"
+  },
+  "overlay:arrow-down": {
+    "status": "released",
+    "hash": "7b6b897b37626673",
+    "date": "2026-10-28"
+  },
+  "overlay:arrow-up": {
+    "status": "released",
+    "hash": "b392c542028a37ff",
+    "date": "2026-10-28"
+  },
+  "overlay:check": {
+    "status": "released",
+    "hash": "a5357358a0caf5a0",
+    "date": "2026-10-28"
+  },
+  "overlay:clock": {
+    "status": "released",
+    "hash": "2b5b482671d7c3f6",
+    "date": "2026-10-28"
+  },
+  "overlay:dot": {
+    "status": "released",
+    "hash": "c3729c61e81bf587",
+    "date": "2026-10-28"
+  },
+  "overlay:lock": {
+    "status": "released",
+    "hash": "2d9278f8a43074ab",
+    "date": "2026-10-28"
+  },
+  "overlay:minus": {
+    "status": "released",
+    "hash": "1a361458d6cb7a2f",
+    "date": "2026-10-28"
+  },
+  "overlay:plus": {
+    "status": "released",
+    "hash": "a62a06edd95dd71e",
+    "date": "2026-10-28"
+  },
+  "overlay:search": {
+    "status": "released",
+    "hash": "97f7a344431d666d",
+    "date": "2026-10-28"
+  },
+  "overlay:settings": {
+    "status": "released",
+    "hash": "dfd74e5b59b67a50",
+    "date": "2026-10-28"
+  },
+  "overlay:star": {
+    "status": "released",
+    "hash": "08ba2e75471ba3bc",
+    "date": "2026-10-28"
+  },
+  "overlay:x": {
+    "status": "released",
+    "hash": "c4082965fbab2e22",
+    "date": "2026-10-28"
+  },
+  "overtime": {
+    "status": "released",
+    "hash": "7b06f1b40e971ae0",
+    "date": "2026-10-28"
+  },
+  "package": {
+    "status": "released",
+    "hash": "cd677195ac664aee",
+    "date": "2026-10-28"
+  },
+  "page-first": {
+    "status": "released",
+    "hash": "1842a2f15e2612c8",
+    "date": "2026-10-28"
+  },
+  "page-last": {
+    "status": "released",
+    "hash": "ccf41a82cf383d9e",
+    "date": "2026-10-28"
+  },
+  "pagination": {
+    "status": "released",
+    "hash": "1a69676f84a1440b",
+    "date": "2026-10-28"
+  },
+  "palette": {
+    "status": "released",
+    "hash": "447a5ac31f64312b",
+    "date": "2026-10-28"
+  },
+  "paperclip": {
+    "status": "released",
+    "hash": "ac2e18c46e753df3",
+    "date": "2026-10-28"
+  },
+  "parking": {
+    "status": "released",
+    "hash": "be30edb9add53262",
+    "date": "2026-10-28"
+  },
+  "password": {
+    "status": "released",
+    "hash": "889075eaf13a3994",
+    "date": "2026-10-28"
+  },
+  "pause": {
+    "status": "released",
+    "hash": "9c6701b5481e9701",
+    "date": "2026-10-28"
+  },
+  "payroll": {
+    "status": "released",
+    "hash": "83cba266a7e13d4e",
+    "date": "2026-10-28"
+  },
+  "pen-tool": {
+    "status": "released",
+    "hash": "c8383e2cae807cf6",
+    "date": "2026-10-28"
+  },
+  "percent": {
+    "status": "released",
+    "hash": "474513888af9ca0c",
+    "date": "2026-10-28"
+  },
+  "permissions": {
+    "status": "released",
+    "hash": "3966039a080dba3d",
+    "date": "2026-10-28"
+  },
+  "phone": {
+    "status": "released",
+    "hash": "4c705b753e0300d8",
+    "date": "2026-10-28"
+  },
+  "phone-hangup": {
+    "status": "released",
+    "hash": "a7b609cd72a3e50d",
+    "date": "2026-10-28"
+  },
+  "phone-incoming": {
+    "status": "released",
+    "hash": "0b5a053f69c36ad5",
+    "date": "2026-10-28"
+  },
+  "phone-missed": {
+    "status": "released",
+    "hash": "13ef467f163a7466",
+    "date": "2026-10-28"
+  },
+  "phone-outgoing": {
+    "status": "released",
+    "hash": "22e0ef7110a9625c",
+    "date": "2026-10-28"
+  },
+  "picture-in-picture": {
+    "status": "released",
+    "hash": "6e9b99a6999bafb9",
+    "date": "2026-10-28"
+  },
+  "piggy-bank": {
+    "status": "released",
+    "hash": "841a56fe2efaa646",
+    "date": "2026-10-28"
+  },
+  "pilcrow": {
+    "status": "released",
+    "hash": "509361fb0be2bb55",
+    "date": "2026-10-28"
+  },
+  "pin": {
+    "status": "released",
+    "hash": "7a5f53a5b5d3624b",
+    "date": "2026-10-28"
+  },
+  "pipeline": {
+    "status": "released",
+    "hash": "0b75eccb293ca8a9",
+    "date": "2026-10-28"
+  },
+  "pivot-table": {
+    "status": "released",
+    "hash": "df190e8542fe58d9",
+    "date": "2026-10-28"
+  },
+  "plane": {
+    "status": "released",
+    "hash": "472af8290db499c4",
+    "date": "2026-10-28"
+  },
+  "play": {
+    "status": "released",
+    "hash": "72efe9428ed8592a",
+    "date": "2026-10-28"
+  },
+  "plug": {
+    "status": "released",
+    "hash": "b4f3a19b4ed62742",
+    "date": "2026-10-28"
+  },
+  "plus": {
+    "status": "released",
+    "hash": "155967bcca39aefa",
+    "date": "2026-10-28"
+  },
+  "plus-circle": {
+    "status": "released",
+    "hash": "9f5789a4e0ff8632",
+    "date": "2026-10-28"
+  },
+  "podcast": {
+    "status": "released",
+    "hash": "f5f163c69a1389f0",
+    "date": "2026-10-28"
+  },
+  "pointer": {
+    "status": "released",
+    "hash": "d79ce1fb0152da32",
+    "date": "2026-10-28"
+  },
+  "policy": {
+    "status": "released",
+    "hash": "27d2812bf146b766",
+    "date": "2026-10-28"
+  },
+  "power": {
+    "status": "released",
+    "hash": "d546a0aa3d510985",
+    "date": "2026-10-28"
+  },
+  "presentation": {
+    "status": "released",
+    "hash": "f623733d7c7e7f45",
+    "date": "2026-10-28"
+  },
+  "printer": {
+    "status": "released",
+    "hash": "84f7d2c02d95e675",
+    "date": "2026-10-28"
+  },
+  "project": {
+    "status": "released",
+    "hash": "d389b8f7b26a429a",
+    "date": "2026-10-28"
+  },
+  "projector": {
+    "status": "released",
+    "hash": "58037a863dfc6ad4",
+    "date": "2026-10-28"
+  },
+  "puzzle": {
+    "status": "released",
+    "hash": "5f7deaaab7a5e205",
+    "date": "2026-10-28"
+  },
+  "qr-code": {
+    "status": "released",
+    "hash": "91539b33bab9a298",
+    "date": "2026-10-28"
+  },
+  "queue": {
+    "status": "released",
+    "hash": "417cb32f087ad3d4",
+    "date": "2026-10-28"
+  },
+  "quote": {
+    "status": "released",
+    "hash": "1a09f0484713a0b2",
+    "date": "2026-10-28"
+  },
+  "radio": {
+    "status": "released",
+    "hash": "d17e9c1da0f0dcb6",
+    "date": "2026-10-28"
+  },
+  "rating": {
+    "status": "released",
+    "hash": "57cb0d27f87e5fc8",
+    "date": "2026-10-28"
+  },
+  "receipt": {
+    "status": "released",
+    "hash": "29e8402c65e8804c",
+    "date": "2026-10-28"
+  },
+  "record": {
+    "status": "released",
+    "hash": "7ab1565cc560bb86",
+    "date": "2026-10-28"
+  },
+  "recruitment": {
+    "status": "released",
+    "hash": "3319ef45fc2da96a",
+    "date": "2026-10-28"
+  },
+  "redo": {
+    "status": "released",
+    "hash": "770b4cf715e07df5",
+    "date": "2026-10-28"
+  },
+  "refresh": {
+    "status": "released",
+    "hash": "1033f5711c4e45fd",
+    "date": "2026-10-28"
+  },
+  "refund": {
+    "status": "released",
+    "hash": "67113d63b241153e",
+    "date": "2026-10-28"
+  },
+  "repeat": {
+    "status": "released",
+    "hash": "ef53045b902b6ea1",
+    "date": "2026-10-28"
+  },
+  "repeat-off": {
+    "status": "released",
+    "hash": "56b1dbfd22af4758",
+    "date": "2026-10-28"
+  },
+  "reply": {
+    "status": "released",
+    "hash": "88af480ba66cc0b3",
+    "date": "2026-10-28"
+  },
+  "reply-all": {
+    "status": "released",
+    "hash": "104c58c6e1ee7863",
+    "date": "2026-10-28"
+  },
+  "report": {
+    "status": "released",
+    "hash": "4b611b2fa4750041",
+    "date": "2026-10-28"
+  },
+  "rest": {
+    "status": "released",
+    "hash": "ed0753a730408fcb",
+    "date": "2026-10-28"
+  },
+  "rewind": {
+    "status": "released",
+    "hash": "26f55d5301e0d0a4",
+    "date": "2026-10-28"
+  },
+  "roadmap": {
+    "status": "released",
+    "hash": "e9776a2d0a79699f",
+    "date": "2026-10-28"
+  },
+  "rocket": {
+    "status": "released",
+    "hash": "eb3c04cff4139222",
+    "date": "2026-10-28"
+  },
+  "role": {
+    "status": "released",
+    "hash": "5b4945953db26beb",
+    "date": "2026-10-28"
+  },
+  "rotate": {
+    "status": "released",
+    "hash": "a9f7030b31017e93",
+    "date": "2026-10-28"
+  },
+  "route": {
+    "status": "released",
+    "hash": "82fa8f8ba01a42b7",
+    "date": "2026-10-28"
+  },
+  "router": {
+    "status": "released",
+    "hash": "2d8fcfc5182030a6",
+    "date": "2026-10-28"
+  },
+  "rss": {
+    "status": "released",
+    "hash": "2a781daba2f7bcb8",
+    "date": "2026-10-28"
+  },
+  "ruler": {
+    "status": "released",
+    "hash": "2e13e20eb9b533c4",
+    "date": "2026-10-28"
+  },
+  "save": {
+    "status": "released",
+    "hash": "4fc467fdea7e205e",
+    "date": "2026-10-28"
+  },
+  "scale": {
+    "status": "released",
+    "hash": "f2922ce908f0deb9",
+    "date": "2026-10-28"
+  },
+  "scan": {
+    "status": "released",
+    "hash": "6dddca779d9fc2f7",
+    "date": "2026-10-28"
+  },
+  "scan-face": {
+    "status": "released",
+    "hash": "9dadfaf991a1ff65",
+    "date": "2026-10-28"
+  },
+  "schedule": {
+    "status": "released",
+    "hash": "bc4287f2a61ac591",
+    "date": "2026-10-28"
+  },
+  "screen-share": {
+    "status": "released",
+    "hash": "505836a5fa2a90d9",
+    "date": "2026-10-28"
+  },
+  "sd-card": {
+    "status": "released",
+    "hash": "d428d575562411f0",
+    "date": "2026-10-28"
+  },
+  "search": {
+    "status": "released",
+    "hash": "b9fdf39479bc1ab4",
+    "date": "2026-10-28"
+  },
+  "security-camera": {
+    "status": "released",
+    "hash": "fe3b45dc72af1d13",
+    "date": "2026-10-28"
+  },
+  "select": {
+    "status": "released",
+    "hash": "be5e0ae74d27154c",
+    "date": "2026-10-28"
+  },
+  "send": {
+    "status": "released",
+    "hash": "b0f717473129f6ad",
+    "date": "2026-10-28"
+  },
+  "server": {
+    "status": "released",
+    "hash": "6fc31869fef1f531",
+    "date": "2026-10-28"
+  },
+  "server-cog": {
+    "status": "released",
+    "hash": "c8184a8e5e767c18",
+    "date": "2026-10-28"
+  },
+  "settings": {
+    "status": "released",
+    "hash": "391206c9239d2523",
+    "date": "2026-10-28"
+  },
+  "shapes": {
+    "status": "released",
+    "hash": "50ae2b5ace929c6f",
+    "date": "2026-10-28"
+  },
+  "share": {
+    "status": "released",
+    "hash": "764772129b13d789",
+    "date": "2026-10-28"
+  },
+  "shield": {
+    "status": "released",
+    "hash": "7cb5b94b4d1de871",
+    "date": "2026-10-28"
+  },
+  "shield-alert": {
+    "status": "released",
+    "hash": "6991939a69fa7da7",
+    "date": "2026-10-28"
+  },
+  "shield-check": {
+    "status": "released",
+    "hash": "13b208a4e4c9db57",
+    "date": "2026-10-28"
+  },
+  "shield-off": {
+    "status": "released",
+    "hash": "74acce00879695a9",
+    "date": "2026-10-28"
+  },
+  "shift": {
+    "status": "released",
+    "hash": "c0bf3bc1e09bfe38",
+    "date": "2026-10-28"
+  },
+  "ship": {
+    "status": "released",
+    "hash": "3d883aec33c95aa2",
+    "date": "2026-10-28"
+  },
+  "shopping-bag": {
+    "status": "released",
+    "hash": "3905cf161aaf6a55",
+    "date": "2026-10-28"
+  },
+  "shopping-cart": {
+    "status": "released",
+    "hash": "b25edfc385212303",
+    "date": "2026-10-28"
+  },
+  "shuffle": {
+    "status": "released",
+    "hash": "270f70fadb7dd4e0",
+    "date": "2026-10-28"
+  },
+  "sidebar": {
+    "status": "released",
+    "hash": "67ed3ff985900a6a",
+    "date": "2026-10-28"
+  },
+  "sigma": {
+    "status": "released",
+    "hash": "8461d50c584658c7",
+    "date": "2026-10-28"
+  },
+  "signal": {
+    "status": "released",
+    "hash": "e1470f49f927cd4d",
+    "date": "2026-10-28"
+  },
+  "signature": {
+    "status": "released",
+    "hash": "9f15b0c77fb0c223",
+    "date": "2026-10-28"
+  },
+  "signpost": {
+    "status": "released",
+    "hash": "50633f220889ab19",
+    "date": "2026-10-28"
+  },
+  "sim-card": {
+    "status": "released",
+    "hash": "fa4ab6f8fb2ece98",
+    "date": "2026-10-28"
+  },
+  "siren": {
+    "status": "released",
+    "hash": "421783eae7670826",
+    "date": "2026-10-28"
+  },
+  "skip-back": {
+    "status": "released",
+    "hash": "a48b95c75ee10d5b",
+    "date": "2026-10-28"
+  },
+  "skip-forward": {
+    "status": "released",
+    "hash": "529f8cb7787645ca",
+    "date": "2026-10-28"
+  },
+  "slider": {
+    "status": "released",
+    "hash": "879207c5f16709f3",
+    "date": "2026-10-28"
+  },
+  "sliders": {
+    "status": "released",
+    "hash": "24f1291e01598ebf",
+    "date": "2026-10-28"
+  },
+  "smartphone": {
+    "status": "released",
+    "hash": "ad02c3a9492d78dd",
+    "date": "2026-10-28"
+  },
+  "smile": {
+    "status": "released",
+    "hash": "fbf2f9924db680ba",
+    "date": "2026-10-28"
+  },
+  "snooze": {
+    "status": "released",
+    "hash": "3ef3c258d8809f90",
+    "date": "2026-10-28"
+  },
+  "soap": {
+    "status": "released",
+    "hash": "7382a26cac9dfbff",
+    "date": "2026-10-28"
+  },
+  "sort-ascending": {
+    "status": "released",
+    "hash": "7a1043d0aafdce88",
+    "date": "2026-10-28"
+  },
+  "sort-descending": {
+    "status": "released",
+    "hash": "0aa32b6d9bddf63c",
+    "date": "2026-10-28"
+  },
+  "sparkles": {
+    "status": "released",
+    "hash": "bed8b468d4220943",
+    "date": "2026-10-28"
+  },
+  "speaker": {
+    "status": "released",
+    "hash": "9a1b62668ab3c529",
+    "date": "2026-10-28"
+  },
+  "spell-check": {
+    "status": "released",
+    "hash": "97660929f9ca645d",
+    "date": "2026-10-28"
+  },
+  "spinner": {
+    "status": "released",
+    "hash": "f8caa02a3ec71998",
+    "date": "2026-10-28"
+  },
+  "stamp": {
+    "status": "released",
+    "hash": "b6fa6ec3069f494c",
+    "date": "2026-10-28"
+  },
+  "star": {
+    "status": "released",
+    "hash": "b2d65e36e18135fb",
+    "date": "2026-10-28"
+  },
+  "stepper": {
+    "status": "released",
+    "hash": "7ed3ead2f3ad9761",
+    "date": "2026-10-28"
+  },
+  "sticky-note": {
+    "status": "released",
+    "hash": "b0ea32641c54106d",
+    "date": "2026-10-28"
+  },
+  "stop": {
+    "status": "released",
+    "hash": "7cfde6daf7c080ec",
+    "date": "2026-10-28"
+  },
+  "storage-bucket": {
+    "status": "released",
+    "hash": "83fe270ab952c3d6",
+    "date": "2026-10-28"
+  },
+  "store": {
+    "status": "released",
+    "hash": "eaffd2c9a871b912",
+    "date": "2026-10-28"
+  },
+  "strikethrough": {
+    "status": "released",
+    "hash": "3562632cbf8e5918",
+    "date": "2026-10-28"
+  },
+  "subscript": {
+    "status": "released",
+    "hash": "ea3c23867f1193c3",
+    "date": "2026-10-28"
+  },
+  "sun": {
+    "status": "released",
+    "hash": "ba5f82459bdfa3a8",
+    "date": "2026-10-28"
+  },
+  "sunrise": {
+    "status": "released",
+    "hash": "699b2d499283978e",
+    "date": "2026-10-28"
+  },
+  "sunset": {
+    "status": "released",
+    "hash": "6be9e7ec06c2d7e5",
+    "date": "2026-10-28"
+  },
+  "superscript": {
+    "status": "released",
+    "hash": "ad08e8326a04f441",
+    "date": "2026-10-28"
+  },
+  "switch-user": {
+    "status": "released",
+    "hash": "69c17d83ca0c0acd",
+    "date": "2026-10-28"
+  },
+  "sync": {
+    "status": "released",
+    "hash": "235ebccafa90613f",
+    "date": "2026-10-28"
+  },
+  "table": {
+    "status": "released",
+    "hash": "1a436403a2e62e33",
+    "date": "2026-10-28"
+  },
+  "table-insert": {
+    "status": "released",
+    "hash": "71b625e513070fd5",
+    "date": "2026-10-28"
+  },
+  "tablet": {
+    "status": "released",
+    "hash": "2674228ae234ec87",
+    "date": "2026-10-28"
+  },
+  "tabs": {
+    "status": "released",
+    "hash": "d8f1746a2363c3a8",
+    "date": "2026-10-28"
+  },
+  "tag": {
+    "status": "released",
+    "hash": "1bd9c4f6eca91ea2",
+    "date": "2026-10-28"
+  },
+  "target": {
+    "status": "released",
+    "hash": "1a15e0cb8628485d",
+    "date": "2026-10-28"
+  },
+  "tasks": {
+    "status": "released",
+    "hash": "44a4fbdd34397d46",
+    "date": "2026-10-28"
+  },
+  "terminal": {
+    "status": "released",
+    "hash": "8aea2103d98f119f",
+    "date": "2026-10-28"
+  },
+  "terrain": {
+    "status": "released",
+    "hash": "0423929eacfccc50",
+    "date": "2026-10-28"
+  },
+  "test-pass": {
+    "status": "released",
+    "hash": "d7154e64a409949c",
+    "date": "2026-10-28"
+  },
+  "text": {
+    "status": "released",
+    "hash": "5fe2bdc22229ea76",
+    "date": "2026-10-28"
+  },
+  "text-color": {
+    "status": "released",
+    "hash": "7817a941c31e4b25",
+    "date": "2026-10-28"
+  },
+  "text-input": {
+    "status": "released",
+    "hash": "54b09c8e9ee026b2",
+    "date": "2026-10-28"
+  },
+  "thumbs-down": {
+    "status": "released",
+    "hash": "e905a19b52fe9f78",
+    "date": "2026-10-28"
+  },
+  "thumbs-up": {
+    "status": "released",
+    "hash": "265a5a99d236b45b",
+    "date": "2026-10-28"
+  },
+  "ticket": {
+    "status": "released",
+    "hash": "80aa90ff93c51c86",
+    "date": "2026-10-28"
+  },
+  "time-zone": {
+    "status": "released",
+    "hash": "2ab8ce98b8926240",
+    "date": "2026-10-28"
+  },
+  "timeline": {
+    "status": "released",
+    "hash": "70dd437c78ccf430",
+    "date": "2026-10-28"
+  },
+  "timer": {
+    "status": "released",
+    "hash": "cb81bde9233a71cf",
+    "date": "2026-10-28"
+  },
+  "timer-off": {
+    "status": "released",
+    "hash": "497d411575e2bcbf",
+    "date": "2026-10-28"
+  },
+  "timesheet": {
+    "status": "released",
+    "hash": "93b91dd254d0df32",
+    "date": "2026-10-28"
+  },
+  "toast": {
+    "status": "released",
+    "hash": "5d776578e97654f4",
+    "date": "2026-10-28"
+  },
+  "toggle": {
+    "status": "released",
+    "hash": "75fa7403d56e0a74",
+    "date": "2026-10-28"
+  },
+  "tooltip": {
+    "status": "released",
+    "hash": "58e2fc0d1ba66b3f",
+    "date": "2026-10-28"
+  },
+  "traffic-light": {
+    "status": "released",
+    "hash": "7c8c5b779e1a7b94",
+    "date": "2026-10-28"
+  },
+  "train": {
+    "status": "released",
+    "hash": "09c84c0038090302",
+    "date": "2026-10-28"
+  },
+  "trash": {
+    "status": "released",
+    "hash": "394844d51ab5088a",
+    "date": "2026-10-28"
+  },
+  "tree-view": {
+    "status": "released",
+    "hash": "4e714a94317f5a15",
+    "date": "2026-10-28"
+  },
+  "treemap": {
+    "status": "released",
+    "hash": "92b85f5120ed86ca",
+    "date": "2026-10-28"
+  },
+  "trending-down": {
+    "status": "released",
+    "hash": "826d59c2bc1057b4",
+    "date": "2026-10-28"
+  },
+  "trending-up": {
+    "status": "released",
+    "hash": "8f302df5df1bf87c",
+    "date": "2026-10-28"
+  },
+  "trophy": {
+    "status": "released",
+    "hash": "cadecead89c0c6b0",
+    "date": "2026-10-28"
+  },
+  "truck": {
+    "status": "released",
+    "hash": "5e38b9d0f03fcddc",
+    "date": "2026-10-28"
+  },
+  "tv": {
+    "status": "released",
+    "hash": "81aa8df848d32808",
+    "date": "2026-10-28"
+  },
+  "underline": {
+    "status": "released",
+    "hash": "e141f64f27bc74c4",
+    "date": "2026-10-28"
+  },
+  "undo": {
+    "status": "released",
+    "hash": "8cd1e84086eb0716",
+    "date": "2026-10-28"
+  },
+  "unlink": {
+    "status": "released",
+    "hash": "098a518047aac11d",
+    "date": "2026-10-28"
+  },
+  "upload": {
+    "status": "released",
+    "hash": "3a6adb27ab377a92",
+    "date": "2026-10-28"
+  },
+  "user": {
+    "status": "released",
+    "hash": "97b258176240513c",
+    "date": "2026-10-28"
+  },
+  "user-check": {
+    "status": "released",
+    "hash": "0266b051bb1abbe7",
+    "date": "2026-10-28"
+  },
+  "user-circle": {
+    "status": "released",
+    "hash": "6a7f05a400fc5bd1",
+    "date": "2026-10-28"
+  },
+  "user-clock": {
+    "status": "released",
+    "hash": "2e0fb8b7c73b9b47",
+    "date": "2026-10-28"
+  },
+  "user-cog": {
+    "status": "released",
+    "hash": "328eed5afedc6e4f",
+    "date": "2026-10-28"
+  },
+  "user-minus": {
+    "status": "released",
+    "hash": "c86730f96b8a69c4",
+    "date": "2026-10-28"
+  },
+  "user-plus": {
+    "status": "released",
+    "hash": "279be370bd1c0e9e",
+    "date": "2026-10-28"
+  },
+  "user-shield": {
+    "status": "released",
+    "hash": "f7cf19168930621d",
+    "date": "2026-10-28"
+  },
+  "user-x": {
+    "status": "released",
+    "hash": "084a4b286dd321fe",
+    "date": "2026-10-28"
+  },
+  "users": {
+    "status": "released",
+    "hash": "a5d728c07ef65504",
+    "date": "2026-10-28"
+  },
+  "utensils": {
+    "status": "released",
+    "hash": "a7f899e6c3aebc11",
+    "date": "2026-10-28"
+  },
+  "variable": {
+    "status": "released",
+    "hash": "47067d98fd168216",
+    "date": "2026-10-28"
+  },
+  "vault": {
+    "status": "released",
+    "hash": "127953208697df0b",
+    "date": "2026-10-28"
+  },
+  "verified": {
+    "status": "released",
+    "hash": "cdfb3f4c43e49416",
+    "date": "2026-10-28"
+  },
+  "video": {
+    "status": "released",
+    "hash": "68b9b616ff4632ef",
+    "date": "2026-10-28"
+  },
+  "video-off": {
+    "status": "released",
+    "hash": "1dbb66946e7c7241",
+    "date": "2026-10-28"
+  },
+  "virus": {
+    "status": "released",
+    "hash": "38d49e99d8bc8cbc",
+    "date": "2026-10-28"
+  },
+  "voicemail": {
+    "status": "released",
+    "hash": "e45653c83f1b53e3",
+    "date": "2026-10-28"
+  },
+  "volume": {
+    "status": "released",
+    "hash": "e4697c6f1b41a154",
+    "date": "2026-10-28"
+  },
+  "volume-off": {
+    "status": "released",
+    "hash": "7f17fea6e13d3430",
+    "date": "2026-10-28"
+  },
+  "walk": {
+    "status": "released",
+    "hash": "da1bab2d2a3befc7",
+    "date": "2026-10-28"
+  },
+  "wallet": {
+    "status": "released",
+    "hash": "f4439a44094f45a4",
+    "date": "2026-10-28"
+  },
+  "warehouse": {
+    "status": "released",
+    "hash": "54b8888c1c7085f6",
+    "date": "2026-10-28"
+  },
+  "watch": {
+    "status": "released",
+    "hash": "bafaef8d6ecf158e",
+    "date": "2026-10-28"
+  },
+  "web-page": {
+    "status": "released",
+    "hash": "84263f5f43857483",
+    "date": "2026-10-28"
+  },
+  "web-service": {
+    "status": "released",
+    "hash": "0a58aef26e09f6ac",
+    "date": "2026-10-28"
+  },
+  "webhook": {
+    "status": "released",
+    "hash": "00538dc177369c28",
+    "date": "2026-10-28"
+  },
+  "wifi": {
+    "status": "released",
+    "hash": "022a2bba49669b1e",
+    "date": "2026-10-28"
+  },
+  "wifi-off": {
+    "status": "released",
+    "hash": "08d7ed5d1b7679c1",
+    "date": "2026-10-28"
+  },
+  "workflow": {
+    "status": "released",
+    "hash": "7a24124797fa3e33",
+    "date": "2026-10-28"
+  },
+  "wrench": {
+    "status": "released",
+    "hash": "a4880282a28d7811",
+    "date": "2026-10-28"
+  },
+  "x-circle": {
+    "status": "released",
+    "hash": "1399940d86e3740c",
+    "date": "2026-10-28"
+  },
+  "zap": {
+    "status": "released",
+    "hash": "b8ffd82e3fd8a8a0",
+    "date": "2026-10-28"
+  },
+  "zoom-in": {
+    "status": "released",
+    "hash": "3a104cefd9518815",
+    "date": "2026-10-28"
+  },
+  "zoom-out": {
+    "status": "released",
+    "hash": "e3a70d8babe8fe3b",
+    "date": "2026-10-28"
+  }
+}

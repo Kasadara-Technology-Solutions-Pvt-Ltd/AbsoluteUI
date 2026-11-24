@@ -1,0 +1,7 @@
+[
+  { "title": "Columns and lanes", "text": "Columns for stages and swimlanes for teams or priorities." },
+  { "title": "WIP limits", "text": "Warn about or block moves that exceed a column limit." },
+  { "title": "Keyboard moves", "text": "Grab a card with Space and move it with the arrow keys." },
+  { "title": "Server saves", "text": "Moves can be saved to a server and roll back when the save fails." },
+  { "title": "Undo and redo", "text": "Card moves can be undone and redone from the toolbar or keyboard." }
+]

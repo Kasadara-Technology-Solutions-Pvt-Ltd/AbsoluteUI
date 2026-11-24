@@ -1,0 +1,126 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-tag-group__tag {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    max-inline-size: 100%;
+    min-block-size: 2rem;
+    padding-inline: aui.token('space-3');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-tight');
+    color: aui.token('color-text');
+    background: aui.ctoken('tag-group', 'bg');
+    border: aui.token('border-width') solid aui.ctoken('tag-group', 'border-color');
+    border-radius: aui.ctoken('tag-group', 'radius');
+    cursor: default;
+    user-select: none;
+    @include aui.transition(background-color, border-color);
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &[aria-selected] {
+      cursor: pointer;
+    }
+
+    &[aria-selected]:hover {
+      background: aui.token('color-hover');
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+  }
+
+  // Selected tags: selection fill, a stronger boundary, and a check-like inset, so the
+  // state differs in more than hue; aria-selected carries it to assistive technology.
+  .aui-tag-group__tag--selected,
+  .aui-tag-group__tag--selected[aria-selected]:hover {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    border-color: aui.token('color-selected-indicator');
+    box-shadow: inset 0 0 0 aui.token('border-width') aui.token('color-selected-indicator');
+  }
+
+  .aui-tag-group--sm .aui-tag-group__tag {
+    min-block-size: 1.5rem;
+    padding-inline: aui.token('space-2');
+    font-size: aui.token('font-size-xs');
+  }
+
+  .aui-tag-group__cell {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+  }
+
+  .aui-tag-group__label {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-tag-group__remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    padding: 0;
+    margin-inline-end: calc(-1 * aui.token('space-1'));
+    color: aui.token('color-text-muted');
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-pill');
+    cursor: pointer;
+
+    &:hover {
+      color: aui.token('color-text');
+      background: aui.token('color-hover');
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-tag-group__tag {
+      border-color: CanvasText;
+    }
+
+    .aui-tag-group__tag--selected,
+    .aui-tag-group__tag--selected[aria-selected]:hover {
+      color: HighlightText;
+      background: Highlight;
+      border-color: Highlight;
+    }
+  }
+}

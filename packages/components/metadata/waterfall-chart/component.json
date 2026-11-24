@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "name": "waterfall-chart",
+  "displayName": "Waterfall Chart",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { WaterfallChart } from '@absoluteui/components/waterfall-chart';",
+  "styleImport": "@absoluteui/components/waterfall-chart/style.css",
+  "purpose": "Accessible SVG waterfall chart showing how a starting value changes through a sequence of increases and decreases: delta steps float from the running total, total steps drop to the baseline, and dashed connectors link consecutive steps. Increases, decreases, and totals differ by color, texture, signed value labels, and accessible names; every step is keyboard-reachable, with a generated summary and a data table fallback.",
+  "whenToUse": [
+    "Bridges from an opening to a closing value (profit and loss, cash flow, headcount changes).",
+    "Explaining which steps contributed most to a change."
+  ],
+  "whenNotToUse": [
+    "Independent values per category: use Bar Chart.",
+    "Trends over time: use Line Chart.",
+    "Part-to-whole without an order: use Pie Chart."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "empty (no data)",
+    "step focused (tooltip)",
+    "hovered",
+    "table open"
+  ],
+  "responsive": "Width follows the container (ResizeObserver); height is the height option. Category labels thin and truncate with the band width; value labels wider than a step are omitted. Reflows at 320 CSS px.",
+  "rtl": "direction rtl mirrors the category axis (first step at the right), puts the value axis on the right, mirrors connectors, and swaps ArrowLeft/ArrowRight. Legend, tooltip, and table follow the document direction.",
+  "theme": "Step colors from color-chart-<n> by kind (increase 3, decrease 2, total 1 by default; colors option); connectors color-chart-axis; value labels color-text with a surface halo; gridlines color-chart-grid. Forced colors use CanvasText, Canvas, GrayText, and Highlight.",
+  "timezone": "Not applicable: numeric and category axes only; no dates are formatted.",
+  "security": "All text (title, description, labels, values, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; sizes and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "WaterfallChart.create, 200 steps, including the first render",
+        "budget": "< 40 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Measured in tests/e2e/perf-r3.spec.ts with 200 steps. One DOM node per step. The data table is built only when opened (toggle mode)."
+  },
+  "limitations": [
+    "One sequence per chart (no series, no legend toggling).",
+    "Total steps always drop to zero; subtotals are totals without a value.",
+    "Value labels are omitted when wider than the step.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Horizontal orientation; grouped or stacked waterfalls.",
+    "Zoom, pan, and crosshair.",
+    "HTML content in labels or tooltips."
+  ],
+  "antiPatterns": [
+    "Relying on color alone for increase/decrease (keep patterns and value labels on).",
+    "Very many steps with long labels (labels thin out)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/waterfall-chart: AuiWaterfallChart directive ([auiWaterfallChart]).",
+    "react": "@absoluteui/react/waterfall-chart: AuiWaterfallChart component.",
+    "vue": "@absoluteui/vue/waterfall-chart: AuiWaterfallChart component."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

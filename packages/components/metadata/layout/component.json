@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "name": "layout",
+  "displayName": "Layout (Container, Stack, Flex, Grid, Divider)",
+  "category": "Layout",
+  "package": "@absoluteui/components",
+  "import": "import { Container, Divider, Flex, Grid, Stack } from '@absoluteui/components/layout';",
+  "styleImport": "@absoluteui/components/layout/style.css",
+  "purpose": "Layout primitives as CSS classes that work without JavaScript (aui-container, aui-stack, aui-flex, aui-inline, aui-grid, aui-divider, aui-gap-*, aui-align-*, aui-justify-*), plus thin, validated JS helpers that apply the same classes and custom properties to consumer elements and remove exactly what they added.",
+  "whenToUse": [
+    "Spacing siblings with token gaps instead of ad-hoc margins.",
+    "Responsive card or tile grids that reflow without media queries (aui-grid--auto).",
+    "Centering page content with a token maximum width (aui-container).",
+    "Separating groups of content with a semantic or decorative divider."
+  ],
+  "whenNotToUse": [
+    "Visual grouping with a border or background: use Surface or Card.",
+    "Tabular data: use a table (Data Table in a later release).",
+    "Reordering content visually so it differs from the reading order (flex row-reverse on meaningful sequences)."
+  ],
+  "internalDependencies": ["@absoluteui/core"],
+  "states": ["applied", "destroyed"],
+  "responsive": "Flex rows wrap by default. Auto-fit grids use repeat(auto-fit, minmax(min(var(--aui-grid-min, 16rem), 100%), 1fr)), so a column never exceeds the container and content reflows to one column at narrow widths. Fixed column counts (aui-grid--cols-N) do not collapse; prefer auto mode for reflow. Containers cap max-inline-size with container-width-* tokens and keep space-4 inline padding.",
+  "rtl": "Logical properties throughout (max-inline-size, margin-inline, padding-inline, border-inline-start). Flex rows follow the writing direction, so start/end alignment and row order mirror automatically in RTL.",
+  "theme": "Spacing uses space-* tokens; divider lines use color-border and labels color-text-muted. Forced-colors mode draws divider lines in CanvasText.",
+  "timezone": "Not applicable.",
+  "security": "Helpers only add classes and set the --aui-grid-min custom property through the CSSOM (el.style.setProperty); no style attributes, no HTML parsing. minColumnWidth is validated against a strict CSS length pattern that rejects calc(), var(), and declaration injection. Divider labels use textContent. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [],
+    "testedScale": "Constant work per apply()/update(): a few classList operations and at most one custom property. No listeners; one configuration subscription per handle. Not yet part of the e2e performance suite."
+  },
+  "limitations": [
+    "Only one of Stack, Flex, or Grid can own an element at a time (LAYOUT_ALREADY_APPLIED); Container can be combined with any of them.",
+    "Fixed grid column counts do not collapse at narrow widths; use columns: 'auto' for reflow.",
+    "Labelled dividers are horizontal only; vertical dividers cannot carry text.",
+    "Handles that rely on the configured defaultGap re-apply when configuration changes; plain CSS classes use the space-4 default."
+  ],
+  "unsupported": [
+    "Arbitrary CSS values for gaps (only the documented space steps).",
+    "calc(), var(), or other CSS functions as minColumnWidth.",
+    "Masonry and subgrid layouts."
+  ],
+  "antiPatterns": [
+    "Using flex row-reverse to reorder content whose order carries meaning; the reading and focus order stay in source order.",
+    "Nesting margins on children of a stack; let the gap own spacing.",
+    "Using a divider as the only indication that two regions are separate; use headings or landmarks for structure."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/layout: AuiStack ([auiStack]), AuiFlex ([auiFlex]), AuiGrid ([auiGrid]), and AuiContainer ([auiContainer]) directives; no directive for Divider (use the aui-divider classes).",
+    "react": "@absoluteui/react/layout: AuiStack, AuiFlex (flexDirection), AuiGrid, AuiContainer.",
+    "vue": "@absoluteui/vue/layout: AuiStack, AuiFlex (flexDirection), AuiGrid, AuiContainer."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "component": "number-input",
+  "factory": { "name": "NumberInput.create", "signature": "NumberInput.create(host: HTMLElement, options: NumberInputOptions): NumberInput" },
+  "configKey": "numberInput",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "value", "type": "number | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Initial value; also the value restored by reset()." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name, set on the hidden input that carries the canonical value." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Supplementary hint; never replaces the label." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Empty value is invalid; shows the required indicator." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the input and steppers; the value is not submitted." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Value is focusable and submitted but not editable or steppable." },
+    { "name": "min", "type": "number", "required": false, "globallyConfigurable": false, "description": "Minimum value; also the step base and the Home target." },
+    { "name": "max", "type": "number", "required": false, "globallyConfigurable": false, "description": "Maximum value; End goes to the largest on-grid value <= max." },
+    { "name": "step", "type": "number | null", "default": 1, "required": false, "globallyConfigurable": false, "description": "Increment and step-validation grid (base min ?? 0). Default 0.01 for percent style. null: any value, increments of 1." },
+    { "name": "format", "type": "{ minimumFractionDigits?: number; maximumFractionDigits?: number; useGrouping?: boolean; style?: 'decimal' | 'percent' | 'currency' | 'unit'; currency?: string; unit?: string }", "required": false, "globallyConfigurable": false, "description": "Display format (Intl.NumberFormat subset). maximumFractionDigits also rounds the value on commit." },
+    { "name": "validate", "type": "(value: number | null) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<{ error: IconRef; increment: IconRef; decrement: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "showSteppers", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Render increase/decrease buttons (pointer affordance; keyboard users use the arrow keys)." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Parsing, formatting, and message locale." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "input", "type": "HTMLInputElement", "description": "The visible text input (role=spinbutton)." },
+    { "name": "formInput", "type": "HTMLInputElement", "description": "Hidden input carrying the canonical value and name." },
+    { "name": "value", "type": "number | null", "description": "Current parsed value; null when empty or unparseable." },
+    { "name": "text", "type": "string", "description": "Text in the input (raw while typing, formatted after commit)." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the initial value, or the text is unparseable." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<NumberInputOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: number | null): void", "description": "Programmatic value; reformats the display (no events); clears an external custom error." },
+    { "name": "update", "signature": "update(options: Partial<NumberInputOptions>): void", "description": "Merge and apply options." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error (server, cross-field rule); cleared when the user edits." },
+    { "name": "getFormValue", "signature": "getFormValue(): number | null", "description": "Value for form serialization." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the input." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-input", "detail": "{ value: number | null; text: string; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "User typed, or stepped (keyboard or stepper buttons, since 0.9.0); value is the parse of the raw text." },
+    { "name": "aui-change", "detail": "{ value: number | null; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "User committed a changed value (blur, Enter, arrow/page/Home/End keys, or a stepper button)." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-number-input", "description": "Host." },
+    { "name": "aui-number-input--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __required | __description | __error", "description": "Shared field chrome." },
+    { "name": "aui-number-input__control", "description": "Control boundary (input and stepper buttons)." },
+    { "name": "aui-number-input__input", "description": "Visible text input." },
+    { "name": "aui-number-input__stepper | __increment | __decrement", "description": "Stepper buttons." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" },
+    { "name": "increment", "default": "plus" },
+    { "name": "decrement", "default": "minus" }
+  ]
+}

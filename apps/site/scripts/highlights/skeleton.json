@@ -1,0 +1,6 @@
+[
+  { "title": "Three shapes", "text": "Text lines, rectangles, and circles shaped like the content that is coming." },
+  { "title": "Sized to fit", "text": "Line count, width, and height mirror the final layout to avoid jumps." },
+  { "title": "Busy regions", "text": "Marks the loading region busy so screen readers wait for the real content." },
+  { "title": "Calm animation", "text": "A gentle pulse that turns off with reduced motion or on request." }
+]

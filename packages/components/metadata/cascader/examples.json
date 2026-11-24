@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "cascader",
+  "examples": [
+    {
+      "id": "location",
+      "title": "Country, state, and city",
+      "language": "ts",
+      "code": "import { Cascader, type CascaderValueDetail } from '@absoluteui/components/cascader';\n\nconst host = document.createElement('div');\nconst summary = document.createElement('p');\ndocument.body.append(host, summary);\nCascader.create(host, {\n  label: 'Work location',\n  name: 'city',\n  required: true,\n  levelLabels: ['Country', 'State', 'City'],\n  options: [\n    { value: 'in', label: 'India', children: [\n      { value: 'ka', label: 'Karnataka', children: [{ value: 'blr', label: 'Bengaluru' }, { value: 'mys', label: 'Mysuru' }] },\n      { value: 'kl', label: 'Kerala', children: [{ value: 'cok', label: 'Kochi' }] },\n    ] },\n    { value: 'de', label: 'Germany', children: [\n      { value: 'be', label: 'Berlin', children: [{ value: 'ber', label: 'Berlin' }] },\n    ] },\n  ],\n  value: ['in', 'ka', 'blr'],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { labels } = (event as CustomEvent<CascaderValueDetail>).detail;\n  summary.textContent = Array.isArray(labels) ? labels.join(' > ') : 'No location';\n});"
+    },
+    {
+      "id": "lazy",
+      "title": "Lazy loading with abort",
+      "language": "ts",
+      "code": "import { Cascader, type CascaderOption } from '@absoluteui/components/cascader';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCascader.create(host, {\n  label: 'Department',\n  levelLabels: ['Division', 'Department', 'Team'],\n  options: [{ value: 'ops', label: 'Operations' }, { value: 'eng', label: 'Engineering' }],\n  loadChildren: async (option, { signal, path }): Promise<CascaderOption[]> => {\n    const response = await fetch(`/api/org/${path.map(encodeURIComponent).join('/')}`, { signal });\n    if (!response.ok) throw new Error(`HTTP ${String(response.status)}`);\n    const rows = (await response.json()) as { id: string; name: string; leaf: boolean }[];\n    return rows.map((r) => ({ value: r.id, label: r.name, isLeaf: r.leaf || path.length >= 2 }));\n  },\n});"
+    },
+    {
+      "id": "multiple",
+      "title": "Multiple paths and any level",
+      "language": "ts",
+      "code": "import { Cascader } from '@absoluteui/components/cascader';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCascader.create(host, {\n  label: 'Product categories',\n  multiple: true,\n  changeOnSelect: true,\n  options: [\n    { value: 'hw', label: 'Hardware', children: [{ value: 'laptops', label: 'Laptops' }, { value: 'monitors', label: 'Monitors' }] },\n    { value: 'sw', label: 'Software', children: [{ value: 'licenses', label: 'Licenses' }] },\n  ],\n  value: [['hw', 'laptops'], ['sw']],\n});"
+    }
+  ]
+}

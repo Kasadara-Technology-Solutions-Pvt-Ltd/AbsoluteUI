@@ -1,0 +1,674 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Cell padding follows the instance density (private custom properties, not tokens).
+  .aui-data-table {
+    --_aui-data-table-pad-block: #{aui.token('space-2')};
+    --_aui-data-table-pad-inline: #{aui.token('space-3')};
+    display: grid;
+    gap: aui.token('space-3');
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-data-table--compact {
+    --_aui-data-table-pad-block: #{aui.token('space-1')};
+    --_aui-data-table-pad-inline: #{aui.token('space-2')};
+  }
+
+  .aui-data-table--spacious {
+    --_aui-data-table-pad-block: #{aui.token('space-3')};
+    --_aui-data-table-pad-inline: #{aui.token('space-4')};
+  }
+
+  .aui-data-table__body {
+    position: relative;
+    min-inline-size: 0;
+  }
+
+  // Scroll container for wide tables. Set max-block-size on it to make the sticky header stick.
+  .aui-data-table__region {
+    max-inline-size: 100%;
+    overflow: auto;
+    background: aui.ctoken('data-table', 'bg');
+    border: aui.token('border-width') solid aui.ctoken('data-table', 'border-color');
+    border-radius: aui.ctoken('data-table', 'radius');
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-data-table__table {
+    inline-size: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .aui-data-table__caption {
+    padding-block: aui.token('space-3');
+    padding-inline: var(--_aui-data-table-pad-inline);
+    font-size: aui.token('font-size-md');
+    font-weight: aui.token('font-weight-semibold');
+    text-align: start;
+    caption-side: top;
+  }
+
+  .aui-data-table__visually-hidden {
+    @include aui.visually-hidden;
+  }
+
+  .aui-data-table__header-cell,
+  .aui-data-table__cell {
+    padding-block: var(--_aui-data-table-pad-block);
+    padding-inline: var(--_aui-data-table-pad-inline);
+    text-align: start;
+    vertical-align: middle;
+    border-block-end: aui.token('border-width') solid aui.ctoken('data-table', 'row-border-color');
+  }
+
+  // Positioned for the resize handle.
+  .aui-data-table__header-cell {
+    position: relative;
+    color: aui.token('color-text');
+    font-weight: aui.token('font-weight-semibold');
+    background: aui.ctoken('data-table', 'header-bg');
+    white-space: nowrap;
+  }
+
+  // The whole head sticks, so the filter row stays under the header row.
+  .aui-data-table--sticky .aui-data-table__head {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+  }
+
+  // Row headers read as data, not as column headers.
+  .aui-data-table__cell:is(th) {
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-data-table__cell--end {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .aui-data-table__cell--center {
+    text-align: center;
+  }
+
+  .aui-data-table__rows .aui-data-table__row:last-child > * {
+    border-block-end: 0;
+  }
+
+  .aui-data-table__row:not(.aui-data-table__skeleton-row):hover {
+    background: aui.token('color-hover');
+  }
+
+  // Selected rows: fill plus the checked input, not color alone.
+  .aui-data-table__row--selected,
+  .aui-data-table__row--selected:not(.aui-data-table__skeleton-row):hover {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+  }
+
+  // Sort buttons fill the header so the whole header is the hit target.
+  .aui-data-table__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:hover .aui-data-table__sort-label {
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-data-table__cell--end .aui-data-table__sort {
+    flex-direction: row-reverse;
+  }
+
+  // Shift+click adds a sort column; it must not extend a text selection.
+  .aui-data-table__sort {
+    user-select: none;
+  }
+
+  // Sort priority (multi-column sort); the number is repeated as text for assistive technology.
+  .aui-data-table__sort-priority {
+    font-size: aui.token('font-size-xs');
+    font-variant-numeric: tabular-nums;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-data-table__sort-icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    color: aui.token('color-text-muted');
+    font-size: aui.icon-size('sm');
+  }
+
+  .aui-data-table__header-cell--sorted .aui-data-table__sort-icon {
+    color: aui.token('color-text');
+  }
+
+  .aui-data-table__select-cell {
+    inline-size: 1%;
+    white-space: nowrap;
+  }
+
+  // Native selection inputs styled like Checkbox (the input is the focus and hit target).
+  .aui-data-table__box {
+    position: relative;
+    display: block;
+    inline-size: aui.token('icon-size-md');
+    block-size: aui.token('icon-size-md');
+  }
+
+  .aui-data-table__check {
+    appearance: none;
+    box-sizing: border-box;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+    @include aui.transition(background-color, border-color);
+
+    &:hover:not(:disabled) {
+      border-color: aui.token('color-primary');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    // :indeterminate is limited to checkboxes: a radio group with nothing checked also
+    // matches :indeterminate, which made every unchecked radio look selected (regression).
+    &:checked,
+    &:not(.aui-data-table__check--radio):indeterminate {
+      background: aui.token('color-primary');
+      border-color: aui.token('color-primary');
+    }
+
+    &:disabled {
+      background: aui.token('color-disabled-bg');
+      border-color: aui.token('color-border');
+      cursor: not-allowed;
+    }
+  }
+
+  // In selected rows the box boundary uses the selected text color, which contrasts with
+  // the selected row background in every theme (primary on selected does not in
+  // high contrast: #0000CC on black).
+  .aui-data-table__row--selected .aui-data-table__check,
+  .aui-data-table__row--selected .aui-data-table__check:hover:not(:disabled) {
+    border-color: aui.token('color-selected-text');
+  }
+
+  // Focus indicators inside selected rows: the focus-ring color can equal the selected
+  // background (high contrast), so they use the selected text color.
+  .aui-data-table__row--selected :focus-visible {
+    outline-color: aui.token('color-selected-text');
+  }
+
+  // Radio: a filled dot inside a ring (shape, not color alone).
+  .aui-data-table__check--radio {
+    border-radius: aui.token('radius-pill');
+
+    &:checked {
+      box-shadow: inset 0 0 0 3px aui.token('color-surface');
+    }
+  }
+
+  .aui-data-table__mark {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: aui.token('color-on-primary');
+    pointer-events: none;
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-data-table__check:checked:not(:indeterminate) ~ .aui-data-table__mark--checked,
+  .aui-data-table__check:not(.aui-data-table__check--radio):indeterminate ~ .aui-data-table__mark--indeterminate {
+    display: flex;
+  }
+
+  // Toolbar with the global search (since 0.3.0).
+  .aui-data-table__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: aui.token('space-3');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-data-table__search {
+    display: grid;
+    gap: aui.token('space-1');
+    inline-size: min(100%, 20rem);
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  // Native filter and search fields.
+  .aui-data-table__control {
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-block-size: aui.token('control-height-sm');
+    padding-inline: aui.token('space-2');
+    margin: 0;
+    font: inherit;
+    font-weight: aui.token('font-weight-regular');
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+  }
+
+  .aui-data-table__filter-cell {
+    padding-block: aui.token('space-1');
+    padding-inline: var(--_aui-data-table-pad-inline);
+    vertical-align: top;
+    background: aui.token('color-surface-sunken');
+    border-block-end: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-data-table__filter-input,
+  .aui-data-table__filter-select {
+    min-inline-size: 6rem;
+  }
+
+  .aui-data-table__filter-input[type='date'] {
+    min-inline-size: 9rem;
+  }
+
+  .aui-data-table__filter-range {
+    display: grid;
+    gap: aui.token('space-1');
+  }
+
+  // Column resize handle (since 0.3.0): a focusable separator centered on the column edge.
+  .aui-data-table__resizer {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: calc(#{aui.token('space-4')} / -2);
+    z-index: 1;
+    inline-size: aui.token('space-4');
+    cursor: col-resize;
+    touch-action: none;
+
+    &::after {
+      position: absolute;
+      inset-block: aui.token('space-2');
+      inset-inline-start: calc(50% - 1px);
+      inline-size: 2px;
+      content: '';
+      background: aui.token('color-border');
+    }
+
+    &:hover::after,
+    &:focus-visible::after {
+      background: aui.token('color-border-strong');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+  }
+
+  // The last column's handle stays inside the table.
+  .aui-data-table__header-row > :last-child > .aui-data-table__resizer {
+    inset-inline-end: 0;
+  }
+
+  .aui-data-table--resizing {
+    cursor: col-resize;
+    user-select: none;
+  }
+
+  // Fixed layout after resizing: pixel widths, text wraps inside them.
+  .aui-data-table--fixed .aui-data-table__table {
+    table-layout: fixed;
+  }
+
+  .aui-data-table--fixed .aui-data-table__header-cell,
+  .aui-data-table--fixed .aui-data-table__cell {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  // Pinned (sticky) columns (since 0.3.0). Offsets come from table custom properties.
+  .aui-data-table__cell--pinned {
+    position: sticky;
+    z-index: 1;
+  }
+
+  .aui-data-table__row > .aui-data-table__cell--pinned {
+    background: aui.ctoken('data-table', 'bg');
+  }
+
+  .aui-data-table__row:not(.aui-data-table__skeleton-row):hover > .aui-data-table__cell--pinned {
+    background: aui.token('color-hover');
+  }
+
+  .aui-data-table__row--selected > .aui-data-table__cell--pinned,
+  .aui-data-table__row--selected:not(.aui-data-table__skeleton-row):hover > .aui-data-table__cell--pinned {
+    background: aui.token('color-selected');
+  }
+
+  .aui-data-table__cell--pinned-start.aui-data-table__cell--pinned-edge {
+    border-inline-end: aui.token('border-width') solid aui.token('color-border-strong');
+  }
+
+  .aui-data-table__cell--pinned-end.aui-data-table__cell--pinned-edge {
+    border-inline-start: aui.token('border-width') solid aui.token('color-border-strong');
+  }
+
+  // Row expansion (since 0.3.0).
+  .aui-data-table__expand-cell {
+    inline-size: 1%;
+    white-space: nowrap;
+  }
+
+  .aui-data-table__expander {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: aui.token('touch-target-min');
+    block-size: aui.token('touch-target-min');
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-data-table__expander-icon {
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    font-size: aui.icon-size('sm');
+  }
+
+  // The collapsed chevron points toward the inline end.
+  .aui-data-table__expander[aria-expanded='false']:dir(rtl) .aui-data-table__expander-icon {
+    transform: scaleX(-1);
+  }
+
+  // Inline editing (since 0.9.0).
+  .aui-data-table__edit {
+    display: block;
+    inline-size: 100%;
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: text;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-data-table__editor {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-1');
+  }
+
+  .aui-data-table__editor-control {
+    inline-size: 100%;
+    min-block-size: aui.token('touch-target-min');
+  }
+
+  .aui-data-table__edit-error {
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-error-fg');
+  }
+
+  // Grouping and totals (since 0.9.0).
+  .aui-data-table__group {
+    padding-block: aui.token('space-1');
+    padding-inline-start: calc(var(--_aui-data-table-pad-inline) + var(--aui-data-table-group-depth, 0) * #{aui.token('space-4')});
+    padding-inline-end: var(--_aui-data-table-pad-inline);
+    font-weight: aui.token('font-weight-semibold');
+    text-align: start;
+    background: aui.token('color-surface-sunken');
+    border-block-end: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-data-table__group-toggle {
+    display: inline-flex;
+    gap: aui.token('space-2');
+    align-items: center;
+    min-block-size: aui.token('touch-target-min');
+    padding-block: 0;
+    padding-inline: aui.token('space-1');
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    text-align: start;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-data-table__group-icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    font-size: aui.icon-size('sm');
+  }
+
+  .aui-data-table__group-toggle[aria-expanded='false']:dir(rtl) .aui-data-table__group-icon {
+    transform: scaleX(-1);
+  }
+
+  .aui-data-table__group-aggregates {
+    margin-inline-start: aui.token('space-4');
+    font-weight: aui.token('font-weight-regular');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-data-table__totals-row > * {
+    font-weight: aui.token('font-weight-semibold');
+    background: aui.token('color-surface');
+    border-block-start: calc(2 * #{aui.token('border-width')}) solid aui.token('color-border-strong');
+  }
+
+  .aui-data-table__total-label {
+    padding-inline: var(--_aui-data-table-pad-inline);
+    text-align: start;
+  }
+
+  .aui-data-table__detail {
+    padding: aui.token('space-3') var(--_aui-data-table-pad-inline);
+    background: aui.token('color-surface-sunken');
+    border-block-end: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  // Virtual rows (since 0.3.0): one line each, so every row has the same height.
+  .aui-data-table--virtual .aui-data-table__region {
+    max-block-size: 70vh;
+    overflow-anchor: none;
+  }
+
+  .aui-data-table--virtual .aui-data-table__cell {
+    white-space: nowrap;
+  }
+
+  .aui-data-table__spacer > td {
+    padding: 0;
+    border: 0;
+  }
+
+  .aui-data-table__empty {
+    padding: aui.token('space-8') var(--_aui-data-table-pad-inline);
+    color: aui.token('color-text-muted');
+    text-align: center;
+  }
+
+  .aui-data-table__skeleton {
+    display: block;
+    block-size: 0.75em;
+    inline-size: 80%;
+    background: aui.token('color-surface-sunken');
+    border-radius: aui.token('radius-sm');
+    animation: aui-data-table-pulse 1.6s aui.token('easing-standard') infinite alternate;
+  }
+
+  @keyframes aui-data-table-pulse {
+    from {
+      background-color: aui.token('color-surface-sunken');
+    }
+
+    to {
+      background-color: aui.token('color-active');
+    }
+  }
+
+  // The status is visually empty unless it overlays existing rows.
+  .aui-data-table__status {
+    display: none;
+  }
+
+  .aui-data-table__status--overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, #{aui.token('color-surface')} 60%, transparent);
+    border-radius: aui.token('radius-md');
+  }
+
+  .aui-data-table__spinner {
+    inline-size: aui.token('icon-size-lg');
+    block-size: aui.token('icon-size-lg');
+    color: aui.token('color-primary');
+    animation: aui-data-table-rotate 0.8s linear infinite;
+  }
+
+  @keyframes aui-data-table-rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @include aui.reduced-motion {
+    .aui-data-table__skeleton,
+    .aui-data-table__spinner {
+      animation: none;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-data-table__skeleton,
+  :where([data-aui-animation='none']) .aui-data-table__spinner {
+    animation: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-data-table__row--selected {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+
+    .aui-data-table__check,
+    .aui-data-table__mark {
+      forced-color-adjust: none;
+    }
+
+    .aui-data-table__check {
+      background: Canvas;
+      border-color: CanvasText;
+
+      &:checked,
+      &:not(.aui-data-table__check--radio):indeterminate {
+        background: Highlight;
+        border-color: Highlight;
+      }
+
+      &:disabled {
+        border-color: GrayText;
+      }
+    }
+
+    .aui-data-table__check--radio:checked {
+      box-shadow: inset 0 0 0 3px Canvas;
+    }
+
+    .aui-data-table__mark {
+      color: HighlightText;
+    }
+
+    .aui-data-table__skeleton {
+      background: GrayText;
+    }
+
+    .aui-data-table__resizer::after {
+      background: CanvasText;
+    }
+
+    .aui-data-table__cell--pinned-edge {
+      border-color: CanvasText;
+    }
+  }
+}

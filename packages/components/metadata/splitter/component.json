@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "name": "splitter",
+  "displayName": "Splitter",
+  "category": "Layout",
+  "package": "@absoluteui/components",
+  "import": "import { Splitter } from '@absoluteui/components/splitter';",
+  "styleImport": "@absoluteui/components/splitter/style.css",
+  "purpose": "Two or more resizable panes, side by side or stacked, following the WAI-ARIA APG window splitter: each separator is a focusable role=separator with aria-valuenow, min, and max, moved by dragging or by arrow keys, Home, and End; Enter collapses and restores a collapsible pane, and a double-click resets the sizes. Min and max sizes take pixels or percentages; splitters nest. The component stores nothing: sizes are reported in aui-change for the application to persist.",
+  "whenToUse": [
+    "Master-detail layouts (a list beside its detail) where users want to choose the proportions.",
+    "Tool layouts with a sidebar, an editor, and a preview or console.",
+    "Comparing two documents side by side."
+  ],
+  "whenNotToUse": [
+    "Fixed page layouts: use Layout (Grid, Flex) or Sidebar.",
+    "Small screens where panes cannot be usefully side by side: stack them or use Tabs.",
+    "Showing and hiding a single region: use Collapsible or Drawer."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities"],
+  "states": ["horizontal", "vertical", "dragging", "pane at min or max", "pane collapsed", "nested"],
+  "responsive": "Pane sizes are fractions of the available space, so proportions hold when the container resizes; pixel minimums and maximums are enforced again after a resize.",
+  "rtl": "Horizontal splitters mirror: the first pane is on the right, and Left Arrow grows it.",
+  "theme": "Component tokens splitter-size (space-3, the separator thickness), splitter-line-color (color-border, decorative), and splitter-grip-color (color-border-strong, 3:1 against color-surface in the contrast gate). The focus ring uses the shared focus tokens; forced colors use CanvasText and ButtonText.",
+  "timezone": "Not applicable.",
+  "security": "Pane content is inserted as given (the application owns it). No HTML parsing.",
+  "dataHandling": "No persistence, network access, or telemetry; the application persists the sizes from aui-change.",
+  "performance": {
+    "budgets": [
+      { "metric": "Splitter.create with 3 panes", "budget": "< 2 ms average in headless Chromium" },
+      { "metric": "Drag frame", "budget": "one custom property per pane; no layout reads besides the host size" }
+    ],
+    "testedScale": "Up to 10 panes per splitter and three levels of nesting."
+  },
+  "limitations": [
+    "A separator moves only its two neighboring panes.",
+    "The separator is 12px thick by default (splitter-size); its target spans the whole pane length.",
+    "Sizes are percentages of the space between separators; pixel sizes in panes[].size apply to the first layout only."
+  ],
+  "unsupported": [
+    "Storing sizes (localStorage or cookies) inside the component: persist aui-change sizes in the application.",
+    "Panes that overlap or float."
+  ],
+  "antiPatterns": [
+    "Nesting splitters more than two or three levels deep.",
+    "Panes without minimum sizes that can be squeezed to an unusable width."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/splitter: AuiSplitter component (<aui-splitter>).",
+    "react": "@absoluteui/react/splitter: AuiSplitter component.",
+    "vue": "@absoluteui/vue/splitter: AuiSplitter component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

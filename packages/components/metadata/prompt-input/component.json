@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "name": "prompt-input",
+  "displayName": "Prompt Input",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { PromptInput } from '@absoluteui/components/prompt-input';",
+  "styleImport": "@absoluteui/components/prompt-input/style.css",
+  "purpose": "The composer of a chat or assistant: an auto-growing text field where Enter sends and Shift+Enter adds a line (or Ctrl/Cmd+Enter sends), attachments by button, paste, or drop with type, size, and count limits, a character or token counter hook, a Send button that becomes Stop while a reply streams, and an optional suggestions popup for slash commands or mentions. A form control with label, help text, and validation.",
+  "whenToUse": [
+    "Writing a message or prompt to an assistant, a support agent, or a colleague.",
+    "A short text that is sent rather than saved, with optional files.",
+    "Commands or mentions picked from a list while typing (slash commands, @mentions)."
+  ],
+  "whenNotToUse": [
+    "Long form text that is saved with a form: use Textarea.",
+    "Formatted text: use Rich Text Editor.",
+    "Single-line values: use Text Input."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["idle", "empty (Send unavailable)", "filled", "sending (locked, Send shows a spinner)", "streaming (Send becomes Stop)", "disabled", "invalid", "over limit", "with attachments", "drag over", "suggestions open"],
+  "responsive": "Full width of its container. The field grows with its content between `rows` and `maxRows`, then scrolls. Attachment chips wrap; long file names are cut with an ellipsis.",
+  "rtl": "Logical properties throughout; the toolbar and chips mirror, and the send icon mirrors with the writing direction.",
+  "theme": "Component tokens prompt-input-bg, -border-color, -radius, and -padding-x (falling back to the control field roles). Focus shows on the whole box (ring plus border color). Forced-colors mode draws a Highlight outline on focus and Highlight for the active suggestion.",
+  "timezone": "Not applicable.",
+  "security": "Label, help text, file names, suggestions, and messages are rendered with textContent. Attached files are never read or uploaded by the component; the host receives them in `aui-send`. Auto-grow writes block-size through the CSSOM (style.setProperty), never a style attribute. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Files stay in memory until sent, removed, or the component is destroyed.",
+  "performance": {
+    "budgets": [
+      { "metric": "PromptInput.create", "budget": "< 2 ms average in headless Chromium" },
+      { "metric": "Keystroke with a 10,000-character value", "budget": "< 4 ms average in headless Chromium" }
+    ],
+    "testedScale": "Values up to 100,000 characters; up to 100 attachments; up to 50 suggestions shown."
+  },
+  "limitations": [
+    "The token counter is a hook: AbsoluteUI ships no tokenizer.",
+    "Suggestions open above the field inside the component; they are not in the top layer, so an ancestor with overflow hidden can clip them.",
+    "Without native `field-sizing` support, auto-grow measures on input and on render only."
+  ],
+  "unsupported": [
+    "Rich text, inline images, or HTML in the field.",
+    "Voice input (the host can add a button next to the component).",
+    "Uploading files: the host uploads what `aui-send` delivers."
+  ],
+  "antiPatterns": [
+    "Hiding the label without a visible heading or placeholder that explains the field.",
+    "Using Enter to send in a field where users write long multi-paragraph text: use submitKey 'mod-enter'.",
+    "Disabling the field while a reply streams: users should be able to write the next message."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/prompt-input: AuiPromptInput component (<aui-prompt-input>) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/prompt-input: AuiPromptInput component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/prompt-input: AuiPromptInput component with v-model."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

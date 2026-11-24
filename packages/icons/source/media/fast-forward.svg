@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="fast-forward">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M13 19l8.5-7L13 5z"/>
+      <path d="M3 19l8.5-7L3 5z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M12.25 20.5l10.5-8.5-10.5-8.5z"/>
+      <path d="M2 20.5l10.5-8.5L2 3.5z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "component": "context-menu",
+  "pattern": "WAI-ARIA APG Menu (the Menu engine) opened as a context menu at the pointer or at the focused element; roving focus with real DOM focus on items.",
+  "roles": [
+    { "element": "target", "role": "unchanged (no role or ARIA attributes are added)" },
+    { "element": "popup and submenus", "role": "menu" },
+    { "element": "items", "role": "menuitem, menuitemcheckbox, or menuitemradio" },
+    { "element": "group", "role": "group" },
+    { "element": "separator", "role": "separator" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "top-level menu", "value": "The label option, default localized 'Context menu'" },
+    { "attribute": "aria-haspopup", "element": "submenu parent items", "value": "\"menu\"" },
+    { "attribute": "aria-expanded", "element": "submenu parent items", "value": "\"true\" while the submenu is open" },
+    { "attribute": "aria-controls", "element": "submenu parent items", "value": "id of the submenu" },
+    { "attribute": "aria-labelledby", "element": "submenu", "value": "Label of its parent item" },
+    { "attribute": "aria-labelledby", "element": "items", "value": "The item's label text" },
+    { "attribute": "aria-describedby", "element": "items", "value": "Description and shortcut hint ids" },
+    { "attribute": "aria-disabled", "element": "disabled items", "value": "\"true\"; the item stays focusable but is not activatable" },
+    { "attribute": "aria-checked", "element": "checkbox and radio items", "value": "\"true\" | \"false\"" }
+  ],
+  "keyboard": [
+    { "key": "Shift+F10 / ContextMenu", "context": "Focus inside the target, not disabled", "action": "Opens the menu at the focused element and focuses the first enabled item." },
+    { "key": "ArrowDown / ArrowUp", "context": "Menu", "action": "Next / previous item, wrapping. Disabled items receive focus." },
+    { "key": "Home / End", "context": "Menu", "action": "First / last item." },
+    { "key": "Printable characters", "context": "Menu, typeahead=true", "action": "Focus the next item whose label starts with the typed characters." },
+    { "key": "Enter", "context": "Item focused", "action": "Activates the item (closes, restores focus, emits aui-select), toggles a checkbox or checks a radio, or opens a submenu." },
+    { "key": "Space", "context": "Item focused", "action": "Same as Enter; with closeOnSelect=false, toggles checkbox/radio items without closing." },
+    { "key": "ArrowRight (ArrowLeft in RTL)", "context": "Submenu parent focused", "action": "Opens the submenu and focuses its first item." },
+    { "key": "ArrowLeft (ArrowRight in RTL)", "context": "Submenu", "action": "Closes the submenu and returns focus to its parent item." },
+    { "key": "Escape", "context": "Submenu", "action": "Closes that submenu only and returns focus to its parent item." },
+    { "key": "Escape", "context": "Top-level menu", "action": "Closes the menu and restores focus to the previously focused element; an enclosing Dialog stays open." },
+    { "key": "Tab / Shift+Tab", "context": "Menu", "action": "Closes all levels, restores focus, and lets the browser move focus on from there." }
+  ],
+  "focus": "Opening moves real DOM focus to the first enabled item. Activation, Escape at the top level, Tab, and close() with focus inside restore focus to the element focused before opening (not the body), else to the target when it is focusable. Outside presses and focus moving elsewhere close without moving focus.",
+  "wcag": ["1.3.1", "1.4.3", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "4.1.2"],
+  "notes": [
+    "The target receives no ARIA attributes, so nothing announces the context menu: describe it (for example aria-describedby text 'Press Shift+F10 for actions') or show a visible hint.",
+    "Never put actions only in a context menu; offer each one through a visible control as well (2.1.1, discoverability).",
+    "Keyboard access uses Shift+F10 and the ContextMenu key at the focused element, so descendants must be focusable for per-row keyboard use.",
+    "Popups are appended to the enclosing <dialog> so they are not inert inside a modal Dialog; each level is a separate overlay-stack entry.",
+    "Right-clicking inside the open popup never shows the native menu over it."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Inside an enabled target the native browser menu is not reachable from the keyboard (Shift+F10 and the ContextMenu key always open the component menu)."
+  ]
+}

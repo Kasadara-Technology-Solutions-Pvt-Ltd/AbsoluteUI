@@ -1,0 +1,32 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Body of the session warning. The dialog frame, title, and actions come from
+// Dialog and Button styles (load dialog/style.css and button/style.css too).
+// No animation: the countdown is a text change once per second.
+@layer aui.components {
+  .aui-session-warning {
+    display: grid;
+    gap: aui.token('space-3');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    color: aui.token('color-text');
+  }
+
+  .aui-session-warning__message,
+  .aui-session-warning__countdown {
+    margin: 0;
+  }
+
+  .aui-session-warning__countdown {
+    font-weight: aui.token('font-weight-semibold');
+    font-variant-numeric: tabular-nums;
+  }
+
+  .aui-session-warning__countdown[hidden],
+  .aui-session-warning__content[hidden] {
+    display: none;
+  }
+}

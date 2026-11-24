@@ -1,0 +1,169 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-virtual-list {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-virtual-list--fill {
+    block-size: 100%;
+    min-block-size: 0;
+  }
+
+  // The scroll container; its block size comes from the `height` option (set through the CSSOM).
+  .aui-virtual-list__viewport {
+    position: relative;
+    block-size: var(--_aui-virtual-list-height, 20rem);
+    overflow: auto;
+    overflow-anchor: none;
+    overscroll-behavior: contain;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.ctoken('virtual-list', 'border-color');
+    border-radius: aui.ctoken('virtual-list', 'radius');
+
+    &[hidden] {
+      display: none;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+
+    .aui-virtual-list--fill > & {
+      flex: 1 1 auto;
+      block-size: auto;
+      min-block-size: 0;
+    }
+  }
+
+  // Full height of all items, so the scrollbar reflects the whole list.
+  .aui-virtual-list__canvas {
+    position: relative;
+    block-size: var(--_aui-virtual-list-total, 0px);
+    min-inline-size: 100%;
+  }
+
+  .aui-virtual-list__item {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 0;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    block-size: var(--_aui-virtual-list-item, 2.5rem);
+    padding-inline: aui.token('space-3');
+    overflow: hidden;
+    translate: 0 var(--_aui-virtual-list-y, 0px);
+
+    .aui-virtual-list--variable > .aui-virtual-list__viewport > .aui-virtual-list__canvas > & {
+      block-size: auto;
+      min-block-size: var(--_aui-virtual-list-item, 2.5rem);
+      overflow: visible;
+    }
+  }
+
+  .aui-virtual-list--selectable .aui-virtual-list__item {
+    cursor: default;
+    user-select: none;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      z-index: 1;
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+      background: transparent;
+    }
+  }
+
+  // Selection is shown by a bar at the start edge as well as the fill (not color alone).
+  .aui-virtual-list__item--selected {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-block: aui.token('space-1');
+      inset-inline-start: 0;
+      inline-size: 3px;
+      background: aui.token('color-selected-indicator');
+      border-radius: aui.token('radius-pill');
+    }
+
+    .aui-virtual-list--selectable &:hover {
+      background: aui.token('color-selected');
+    }
+  }
+
+  .aui-virtual-list__empty {
+    display: grid;
+    place-items: center;
+    min-block-size: 6rem;
+    padding: aui.token('space-4');
+    color: aui.token('color-text-muted');
+    text-align: center;
+    border: aui.token('border-width') dashed aui.ctoken('virtual-list', 'border-color');
+    border-radius: aui.ctoken('virtual-list', 'radius');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Load-more status: visible while loading or after a failure; otherwise read by screen readers only.
+  .aui-virtual-list__status {
+    @include aui.visually-hidden;
+  }
+
+  .aui-virtual-list__status--visible {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: aui.token('space-1') aui.token('space-2');
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+  }
+
+  .aui-virtual-list__status--error {
+    color: aui.token('color-error-fg');
+  }
+
+  @include aui.forced-colors {
+    .aui-virtual-list__item--selected {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+
+      &::before {
+        background: HighlightText;
+      }
+    }
+
+    .aui-virtual-list--selectable .aui-virtual-list__item[aria-disabled='true'] {
+      color: GrayText;
+    }
+  }
+}

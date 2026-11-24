@@ -1,0 +1,114 @@
+/* Preview frame chrome only; every component style comes from AbsoluteUI stylesheets.
+   Logical properties throughout. */
+body {
+  margin: 0;
+  font-family: var(--aui-font-family-sans);
+  font-size: var(--aui-font-size-md);
+  line-height: var(--aui-line-height-normal);
+  color: var(--aui-color-text);
+  background: var(--aui-color-bg);
+}
+
+.fr-main {
+  display: grid;
+  gap: var(--aui-space-8);
+  padding: var(--aui-space-6);
+  max-inline-size: var(--aui-container-width-xl);
+  margin-inline: auto;
+}
+
+.fr-main:focus {
+  outline: none;
+}
+
+.fr-section {
+  display: grid;
+  gap: var(--aui-space-3);
+  min-inline-size: 0;
+}
+
+.fr-heading {
+  margin: 0;
+  font-size: var(--aui-font-size-xl);
+  font-weight: var(--aui-font-weight-semibold);
+  line-height: var(--aui-line-height-tight);
+}
+
+.fr-body {
+  display: grid;
+  gap: var(--aui-space-4);
+  min-inline-size: 0;
+}
+
+.fr-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--aui-space-3);
+  align-items: center;
+}
+
+.fr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+  gap: var(--aui-space-4);
+}
+
+.fr-cell {
+  display: grid;
+  gap: var(--aui-space-2);
+  min-inline-size: 0;
+}
+
+.fr-row > .fr-cell {
+  flex: 1 1 16rem;
+}
+
+.fr-lead,
+.fr-muted,
+.fr-slide {
+  margin: 0;
+}
+
+.fr-slide {
+  display: grid;
+  place-items: center;
+  min-block-size: 8rem;
+  background: var(--aui-color-surface-sunken);
+}
+
+.fr-muted {
+  color: var(--aui-color-text-muted);
+  font-size: var(--aui-font-size-sm);
+}
+
+.fr-link {
+  color: var(--aui-color-link);
+}
+
+.fr-link:focus-visible {
+  outline: var(--aui-focus-ring-width) solid var(--aui-color-focus-ring);
+  outline-offset: var(--aui-focus-ring-offset);
+}
+
+/* The diagram preview needs less height than the component default. */
+.fr-diagram .aui-diagram__viewport {
+  block-size: 16rem;
+}
+
+/* Same tokens as the aui.focus-ring mixin. */
+.fr-focus-sample {
+  outline: var(--aui-focus-ring-width) solid var(--aui-color-focus-ring);
+  outline-offset: var(--aui-focus-ring-offset);
+}
+
+@media (forced-colors: active) {
+  .fr-focus-sample {
+    outline-color: Highlight;
+  }
+}
+
+.fr-split {
+  block-size: 16rem;
+  border: 1px solid var(--aui-color-border);
+  border-radius: var(--aui-radius-md);
+}

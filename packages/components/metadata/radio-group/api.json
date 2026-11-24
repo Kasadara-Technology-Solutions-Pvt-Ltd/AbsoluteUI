@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "component": "radio-group",
+  "factory": { "name": "RadioGroup.create", "signature": "RadioGroup.create(host: HTMLElement, options: RadioGroupOptions): RadioGroup" },
+  "configKey": "radioGroup",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Legend text and accessible name of the radiogroup." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the legend; it remains the accessible name." },
+    { "name": "options", "type": "readonly { value: string; label: string; description?: string; disabled?: boolean }[]", "required": true, "globallyConfigurable": false, "description": "Choices; values must be unique." },
+    { "name": "value", "type": "string | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Initially selected value; also restored by reset()." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Native radio name; a unique name is generated when absent." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Group help text referenced by the radiogroup's aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "A selection is required (aria-required on the radiogroup, native required on radios)." },
+    { "name": "orientation", "type": "'vertical' | 'horizontal'", "default": "vertical", "required": false, "globallyConfigurable": false, "description": "Layout of the options." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the whole group (fieldset disabled)." },
+    { "name": "validate", "type": "(value: string | null) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the selection invalid." },
+    { "name": "icons", "type": "Partial<{ error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message locale." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "fieldset", "type": "HTMLFieldSetElement", "description": "The fieldset with role=radiogroup." },
+    { "name": "inputs", "type": "HTMLInputElement[]", "description": "The native radios, in option order." },
+    { "name": "value", "type": "string | null", "description": "Selected value, or null." },
+    { "name": "name", "type": "string | null", "description": "Consumer form field name (null when generated)." },
+    { "name": "label", "type": "string", "description": "Legend text." },
+    { "name": "disabled", "type": "boolean", "description": "Group disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "dirty", "type": "boolean", "description": "Selection differs from the initial selection." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the group at least once." },
+    { "name": "options", "type": "Readonly<RadioGroupOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: string | null): void", "description": "Programmatic selection (no events); null clears it; unknown values throw RADIO_GROUP_OPTIONS." },
+    { "name": "update", "signature": "update(options: Partial<RadioGroupOptions>): void", "description": "Merge and apply options; a new option list keeps the selection if it still exists." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error; cleared when the selection changes." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | null", "description": "Selected value for form serialization." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the selected radio, else the first enabled radio." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial selection and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: string | null; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "The user selected an option (click, Space, or arrow keys)." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-radio-group", "description": "Host." },
+    { "name": "aui-radio-group--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __required | __description | __error", "description": "Shared field chrome (the label is the legend)." },
+    { "name": "aui-radio-group__fieldset", "description": "Fieldset with role=radiogroup." },
+    { "name": "aui-radio-group__options | __options--horizontal", "description": "Option list and its horizontal layout." },
+    { "name": "aui-radio-group__option", "description": "One option row." },
+    { "name": "aui-radio-group__box | __input | __dot", "description": "Radio wrapper, native input, and selected dot." },
+    { "name": "aui-radio-group__text | __label | __option-description", "description": "Option label and help text." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

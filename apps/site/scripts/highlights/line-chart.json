@@ -1,0 +1,7 @@
+[
+  { "title": "Trends over time", "text": "Series over categories, numbers, or dates, with gaps for missing values and an optional area fill." },
+  { "title": "Zoom and crosshair", "text": "Zoom and pan along the x axis with a toolbar, keys, wheel, or drag, plus an optional crosshair." },
+  { "title": "Keyboard points", "text": "One tab stop; arrow keys move between points and show the tooltip on focus." },
+  { "title": "Data table fallback", "text": "A generated summary and a table with the exact values for screen readers." },
+  { "title": "Not color alone", "text": "Series differ by color, marker shape, and dash pattern." }
+]

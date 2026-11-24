@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "component": "time-picker",
+  "pattern": "Segmented time field in a labelled group (as Date Input) with a button that opens a WAI-ARIA APG listbox popup: focus moves into the single-select listbox, which conveys the active option through aria-activedescendant.",
+  "roles": [
+    { "element": "segment container", "role": "group" },
+    { "element": "each segment (input type=text)", "role": "textbox (native)" },
+    { "element": "choose time button", "role": "button (native)" },
+    { "element": "suggestions container (tabindex=0)", "role": "listbox" },
+    { "element": "each suggestion", "role": "option" },
+    { "element": "separators and icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "group", "value": "Label id" },
+    { "attribute": "aria-describedby", "element": "group", "value": "Help text and visible error message ids" },
+    { "attribute": "aria-label", "element": "segment", "value": "Localized segment name (Hour, Minute, Second, AM/PM)" },
+    { "attribute": "aria-invalid", "element": "segment", "value": "\"true\" only while an error message is shown" },
+    { "attribute": "aria-label", "element": "button", "value": "Localized \"Choose time\"" },
+    { "attribute": "aria-haspopup", "element": "button", "value": "listbox" },
+    { "attribute": "aria-expanded", "element": "button", "value": "true when the listbox is shown" },
+    { "attribute": "aria-controls", "element": "button", "value": "listbox id" },
+    { "attribute": "aria-labelledby", "element": "listbox", "value": "Label id" },
+    { "attribute": "aria-activedescendant", "element": "listbox", "value": "id of the active option while open; removed when closed" },
+    { "attribute": "aria-selected", "element": "option", "value": "\"true\" for the option equal to the value, \"false\" otherwise" }
+  ],
+  "keyboard": [
+    { "key": "Digits", "context": "Hour, minute, or second segment", "action": "Enters digits; advances when the segment is full or no further digit could be valid (for example 7 in the hour of a 24-hour clock)." },
+    { "key": "A / P (or the localized day period)", "context": "Day-period segment", "action": "Sets AM or PM and advances." },
+    { "key": ": . , - / Space", "context": "Numeric segment", "action": "Pads a single digit and advances to the next segment." },
+    { "key": "ArrowUp / ArrowDown", "context": "Segment", "action": "Increments or decrements with wrap (hours 1-12 or 0-23, minutes and seconds 0-59); toggles AM/PM. Empty segments start at the minimum (Up) or maximum (Down)." },
+    { "key": "ArrowLeft / ArrowRight", "context": "Caret at the segment edge", "action": "Previous or next segment, following the visual order of the LTR-isolated segment run." },
+    { "key": "Backspace", "context": "Empty segment", "action": "Moves to the previous segment." },
+    { "key": "Alt+ArrowDown", "context": "Segment", "action": "Opens the listbox." },
+    { "key": "Enter / Space", "context": "Button", "action": "Opens the listbox (or closes it when open) and moves focus into it." },
+    { "key": "ArrowDown / ArrowUp", "context": "Listbox", "action": "Moves the active option without wrapping." },
+    { "key": "Home / End", "context": "Listbox", "action": "First / last option." },
+    { "key": "PageDown / PageUp", "context": "Listbox", "action": "Moves the active option by 10." },
+    { "key": "Printable characters", "context": "Listbox", "action": "Typeahead: activates the next option whose label starts with the typed text; Space continues a query in progress." },
+    { "key": "Enter / Space", "context": "Listbox", "action": "Selects the active option, closes, returns focus to the first segment, emits aui-change if the value changed." },
+    { "key": "Escape", "context": "Listbox", "action": "Closes without changing the value and returns focus to the button; does not reach a surrounding Dialog." },
+    { "key": "Tab / Shift+Tab", "context": "Listbox", "action": "Closes without selecting and moves focus." },
+    { "key": "Tab / Shift+Tab", "context": "Group", "action": "Moves through the segments, then the button." }
+  ],
+  "focus": "Each segment and the button are tab stops. Opening the listbox moves DOM focus to the listbox (tabindex=0); the active option is conveyed through aria-activedescendant, has a visible outline that does not rely on color alone, and is scrolled into view (centered on open). Selecting returns focus to the first segment; Escape and closing through the button return it to the button; focus is moved before the popup hides so it never falls to the document body.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.4.3", "2.4.7", "2.5.3", "3.2.2", "3.3.1", "3.3.2", "4.1.2"],
+  "notes": [
+    "The label is a <label> associated through aria-labelledby because a group is not labelable; clicking the label focuses the first segment.",
+    "The required asterisk is aria-hidden; each segment carries the native required state.",
+    "Errors appear after the first blur of the whole control by default, so moving between segments does not trigger messages.",
+    "The button name is constant (\"Choose time\"); aria-expanded conveys the popup state."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "Segment arrow navigation follows visual order and is not mirrored in RTL, unlike Date Input, because segments render as an LTR run."
+  ]
+}

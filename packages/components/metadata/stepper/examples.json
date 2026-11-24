@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "stepper",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Checkout progress with a completed first step",
+      "language": "ts",
+      "code": "import { Stepper } from '@absoluteui/components/stepper';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nStepper.create(host, {\n  label: 'Checkout progress',\n  steps: [\n    { id: 'cart', label: 'Cart', status: 'complete' },\n    { id: 'shipping', label: 'Shipping' },\n    { id: 'payment', label: 'Payment' },\n    { id: 'review', label: 'Review', optional: true },\n  ],\n  value: 'shipping',\n});"
+    },
+    {
+      "id": "guarded-wizard",
+      "title": "Linear wizard: guard forward moves and unlock steps on completion",
+      "language": "ts",
+      "code": "import { Stepper, type StepperChangeDetail, type StepperNavigateDetail, type StepperStep } from '@absoluteui/components/stepper';\n\nconst host = document.querySelector<HTMLElement>('#signup-steps');\nconst form = document.querySelector<HTMLFormElement>('#signup-form');\nconst next = document.querySelector<HTMLButtonElement>('#signup-next');\nif (host && form && next) {\n  let steps: StepperStep[] = [\n    { id: 'account', label: 'Account' },\n    { id: 'profile', label: 'Profile', description: 'Name and photo' },\n    { id: 'finish', label: 'Finish' },\n  ];\n  const stepper = Stepper.create(host, { label: 'Sign-up steps', steps });\n  form.dataset.step = stepper.value;\n  // Guard forward moves: the current section must be valid first.\n  host.addEventListener('aui-navigate', (event) => {\n    const { index, previous } = (event as CustomEvent<StepperNavigateDetail>).detail;\n    const from = steps.findIndex((s) => s.id === previous);\n    if (index > from && !form.reportValidity()) event.preventDefault();\n  });\n  host.addEventListener('aui-change', (event) => {\n    form.dataset.step = (event as CustomEvent<StepperChangeDetail>).detail.value;\n  });\n  // \"Next\": mark the current step complete (unlocking the next one) and move on.\n  next.addEventListener('click', () => {\n    if (!form.reportValidity()) return;\n    const index = steps.findIndex((s) => s.id === stepper.value);\n    steps = steps.map((s, i): StepperStep => (i === index ? { ...s, status: 'complete' } : s));\n    const following = steps[index + 1];\n    stepper.update({ steps, ...(following ? { value: following.id } : {}) });\n    form.dataset.step = stepper.value;\n  });\n}"
+    },
+    {
+      "id": "non-linear-links",
+      "title": "Non-linear vertical stepper with link steps and an error step",
+      "language": "ts",
+      "code": "import { Stepper } from '@absoluteui/components/stepper';\n\nconst host = document.querySelector<HTMLElement>('#application-steps');\nif (host) {\n  const stepper = Stepper.create(host, {\n    label: 'Application sections',\n    orientation: 'vertical',\n    linear: false,\n    steps: [\n      { id: 'personal', label: 'Personal details', href: '/apply/personal', status: 'complete' },\n      { id: 'income', label: 'Income', href: '/apply/income', status: 'error', description: '2 fields need attention' },\n      { id: 'documents', label: 'Documents', href: '/apply/documents' },\n      { id: 'submit', label: 'Submit', href: '/apply/submit', disabled: true },\n    ],\n    value: 'documents',\n  });\n  host.dataset.canSubmit = String(stepper.isReachable('submit'));\n}"
+    }
+  ]
+}

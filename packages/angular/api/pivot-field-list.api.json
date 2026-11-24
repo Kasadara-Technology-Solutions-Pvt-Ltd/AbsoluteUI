@@ -1,0 +1,7 @@
+{
+  "entry": "@absoluteui/angular/pivot-field-list",
+  "declarations": {
+    "AuiPivotFieldList": "export declare class AuiPivotFieldList<Row extends object> {\n    #private;\n    readonly grid: InputSignal<AuiPivotGrid<Row> | null | undefined>;\n    readonly label: InputSignal<string>;\n    readonly memberPageSize: InputSignal<number | undefined>;\n    readonly locale: InputSignal<string | undefined>;\n    readonly fieldMoved: OutputEmitterRef<PivotFieldMoveDetail>;\n    constructor();\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiPivotFieldList<any>, never>;\n    static ɵcmp: i0.ɵɵComponentDeclaration<AuiPivotFieldList<any>, \"aui-pivot-field-list\", [\n        \"auiPivotFieldList\"\n    ], {\n        \"grid\": {\n            \"alias\": \"grid\";\n            \"required\": false;\n            \"isSignal\": true;\n        };\n        \"label\": {\n            \"alias\": \"label\";\n            \"required\": true;\n            \"isSignal\": true;\n        };\n        \"memberPageSize\": {\n            \"alias\": \"memberPageSize\";\n            \"required\": false;\n            \"isSignal\": true;\n        };\n        \"locale\": {\n            \"alias\": \"locale\";\n            \"required\": false;\n            \"isSignal\": true;\n        };\n    }, {\n        \"fieldMoved\": \"fieldMoved\";\n    }, never, never, true, never>;\n}"
+  },
+  "reexports": []
+}

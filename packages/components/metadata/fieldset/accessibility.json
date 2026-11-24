@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "component": "fieldset",
+  "pattern": "Native fieldset and legend (HTML grouping): the legend names the group; help and the group error are referenced by aria-describedby.",
+  "roles": [
+    { "element": "fieldset", "role": "group (native)" },
+    { "element": "legend", "role": "names the group (native)" }
+  ],
+  "aria": [
+    { "attribute": "aria-describedby", "element": "fieldset", "value": "help and error ids while shown, followed by the page's own ids" },
+    { "attribute": "aria-hidden", "element": "required asterisk", "value": "true; '(required)' is spoken with the legend instead" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Controls inside", "action": "Moves through the group's controls in document order (the fieldset itself is not focusable)." }
+  ],
+  "focus": "Never takes focus itself. focus() moves focus to the first enabled control, for Error Summary links.",
+  "wcag": ["1.3.1", "2.4.6", "3.3.1", "3.3.2", "4.1.2"],
+  "notes": [
+    "The group role cannot carry aria-required, so required state is spoken as part of the legend.",
+    "Native disabled removes every native control inside from the tab order."
+  ],
+  "knownCaveats": [
+    "Screen readers differ in how often they repeat the legend when moving between controls; keep legends short.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

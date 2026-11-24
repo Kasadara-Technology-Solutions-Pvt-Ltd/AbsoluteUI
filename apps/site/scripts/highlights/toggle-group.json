@@ -1,0 +1,6 @@
+[
+  { "title": "Single or multiple", "text": "Works like a radio group or like a set of independent toggles." },
+  { "title": "Required selection", "text": "Optionally keeps at least one item pressed at all times." },
+  { "title": "Icons and labels", "text": "Items show text, an icon, or only an icon with the label as its name." },
+  { "title": "Keyboard friendly", "text": "Arrow keys move between items and Space or Enter toggles them." }
+]

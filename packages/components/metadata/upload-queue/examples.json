@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "upload-queue",
+  "examples": [
+    {
+      "id": "fetch",
+      "title": "Queue fed by File Upload, uploading with fetch",
+      "language": "ts",
+      "code": "import { FileUpload, type FileUploadChangeDetail } from '@absoluteui/components/file-upload';\nimport { UploadQueue } from '@absoluteui/components/upload-queue';\n\nconst pickerHost = document.querySelector<HTMLElement>('#picker');\nconst queueHost = document.querySelector<HTMLElement>('#queue');\nif (pickerHost && queueHost) {\n  const picker = FileUpload.create(pickerHost, { label: 'Documents', multiple: true, maxFileSize: 50_000_000 });\n  const queue = UploadQueue.create(queueHost, {\n    label: 'Uploads',\n    upload: async (file, { signal }) => {\n      const response = await fetch('/api/files', { method: 'POST', body: file, signal });\n      if (!response.ok) throw new Error(String(response.status));\n      return response.json();\n    },\n  });\n  picker.host.addEventListener('aui-change', (e) => {\n    queue.add((e as CustomEvent<FileUploadChangeDetail>).detail.added);\n    picker.setValue([]);\n  });\n}"
+    },
+    {
+      "id": "chunked",
+      "title": "Chunked upload with progress and retries",
+      "language": "ts",
+      "code": "import { UploadQueue, type UploadFunction } from '@absoluteui/components/upload-queue';\n\nconst CHUNK = 5_000_000;\nconst upload: UploadFunction = async (file, { signal, onProgress, id }) => {\n  for (let offset = 0; offset < file.size; offset += CHUNK) {\n    const chunk = file.slice(offset, offset + CHUNK);\n    const response = await fetch(`/api/uploads/${id}?offset=${String(offset)}`, { method: 'PUT', body: chunk, signal });\n    if (!response.ok) throw new Error(String(response.status));\n    onProgress(Math.min(offset + CHUNK, file.size));\n  }\n  return null;\n};\n\nconst host = document.querySelector<HTMLElement>('#queue');\nif (host) UploadQueue.create(host, { label: 'Uploads', upload, concurrency: 3, retries: 2, errorMessage: () => 'The file could not be uploaded. Try again.' });"
+    }
+  ]
+}

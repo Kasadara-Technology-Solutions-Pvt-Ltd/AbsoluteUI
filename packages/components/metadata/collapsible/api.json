@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "component": "collapsible",
+  "factory": { "name": "Collapsible.create", "signature": "Collapsible.create(host: HTMLElement, options: CollapsibleOptions): Collapsible" },
+  "configKey": "collapsible",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Trigger text." },
+    { "name": "content", "type": "Node | string", "required": true, "globallyConfigurable": false, "description": "Region content; strings are rendered as text." },
+    { "name": "open", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Initial state; with update(), sets the state." },
+    { "name": "disabled", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Blocks toggling (aria-disabled; the trigger stays focusable)." },
+    { "name": "headingLevel", "type": "2 | 3 | 4 | 5 | 6 | null", "required": false, "globallyConfigurable": false, "description": "Wrap the trigger in a heading of this level." },
+    { "name": "variant", "type": "'plain' | 'bordered'", "default": "plain", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "plain: text trigger; bordered: full-width trigger in a bordered surface." },
+    { "name": "icons", "type": "Partial<CollapsibleIcons>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "open", "type": "boolean", "description": "Whether the content is shown." },
+    { "name": "trigger", "type": "HTMLButtonElement", "description": "The trigger button." },
+    { "name": "content", "type": "HTMLDivElement", "description": "The content container." },
+    { "name": "options", "type": "Readonly<CollapsibleOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "show", "signature": "show(): void", "description": "Show the content (no event)." },
+    { "name": "hide", "signature": "hide(): void", "description": "Hide the content (no event)." },
+    { "name": "toggle", "signature": "toggle(): void", "description": "Toggle the content (no event)." },
+    { "name": "update", "signature": "update(options: Partial<CollapsibleOptions>): void", "description": "Merge and apply options; open sets the state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, classes, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "CollapsibleChangeDetail", "bubbles": true, "cancelable": false, "description": "The user toggled the content: { open }." }
+  ],
+  "contentAreas": [
+    { "name": "content", "description": "Region content (Node or text)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-collapsible", "description": "Host." },
+    { "name": "aui-collapsible--plain | --bordered", "description": "Variant modifiers." },
+    { "name": "aui-collapsible--open | --disabled", "description": "State modifiers." },
+    { "name": "aui-collapsible__heading", "description": "Heading around the trigger (optional)." },
+    { "name": "aui-collapsible__trigger", "description": "The disclosure button." },
+    { "name": "aui-collapsible__label", "description": "Trigger text." },
+    { "name": "aui-collapsible__icon", "description": "Expand icon (rotates when open)." },
+    { "name": "aui-collapsible__panel", "description": "The controlled region." },
+    { "name": "aui-collapsible__content", "description": "Content container." }
+  ],
+  "iconSlots": [
+    { "name": "expand", "default": "chevron-down" }
+  ]
+}

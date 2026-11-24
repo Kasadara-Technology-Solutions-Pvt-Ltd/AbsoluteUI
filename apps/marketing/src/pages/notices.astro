@@ -1,0 +1,50 @@
+---
+// Third-party notices for the AbsoluteUI websites (legal.json "notices"; texts read from each
+// installed package's own license file at build time). The AbsoluteUI packages themselves contain
+// no third-party code.
+import Base from '../layouts/Base.astro';
+import Document from '../components/Document.astro';
+import legal from '../generated/legal.json';
+
+const SITE_NAMES: Record<string, string> = { marketing: 'product site', docs: 'documentation', designer: 'Theme Designer' };
+const where = (sites: readonly string[]): string => sites.map((s) => SITE_NAMES[s] ?? s).join(', ');
+---
+
+<Base title="Third-party notices" description="Fonts and open-source software used by the AbsoluteUI websites, with their licenses." path="/notices/">
+  <Document eyebrow="Legal" title="Third-party notices" lead="Fonts and open-source software that the AbsoluteUI websites use, with their licenses. The AbsoluteUI packages contain no third-party code and have no runtime dependencies.">
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Version</th><th>License</th><th>Used on</th></tr>
+      </thead>
+      <tbody>
+        {
+          legal.notices.map((n) => (
+            <tr>
+              <td><a href={`#${n.package.replace(/[@/]/g, '-').replace(/^-/, '')}`}>{n.name}</a></td>
+              <td>{n.version}</td>
+              <td>{n.license}</td>
+              <td>{where(n.sites)}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+    {
+      legal.notices.map((n) => (
+        <section>
+          <h2 id={n.package.replace(/[@/]/g, '-').replace(/^-/, '')}>{n.name}</h2>
+          <p>
+            <code>{n.package}</code> {n.version}, {n.license}.{n.note && ` ${n.note}`}
+            {n.homepage && (
+              <>
+                {' '}
+                <a href={n.homepage}>Project page</a>
+              </>
+            )}
+          </p>
+          <pre class="license-text" tabindex="0" aria-label={`${n.name} license text`}>{n.text}</pre>
+        </section>
+      ))
+    }
+  </Document>
+</Base>

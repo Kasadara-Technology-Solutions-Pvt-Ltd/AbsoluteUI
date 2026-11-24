@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "component": "duration-picker",
+  "pattern": "Labelled group of WAI-ARIA APG Spinbutton segments (one text input per unit) with no popup; each segment exposes its unit value and a localized value text.",
+  "roles": [
+    { "element": "segment container", "role": "group" },
+    { "element": "each segment (input type=text)", "role": "spinbutton" },
+    { "element": "unit text", "role": "none (aria-hidden=true)" },
+    { "element": "error icon", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "group", "value": "Label id" },
+    { "attribute": "aria-describedby", "element": "group", "value": "Help text and visible error message ids" },
+    { "attribute": "aria-disabled", "element": "group", "value": "\"true\" while the picker is disabled; absent otherwise" },
+    { "attribute": "aria-label", "element": "segment", "value": "Localized unit name (Days, Hours, Minutes, Seconds)" },
+    { "attribute": "aria-valuenow", "element": "segment", "value": "Number in the segment; removed when empty" },
+    { "attribute": "aria-valuetext", "element": "segment", "value": "Number with the long localized unit (for example \"30 minutes\"); removed when empty" },
+    { "attribute": "aria-valuemin", "element": "segment", "value": "0" },
+    { "attribute": "aria-valuemax", "element": "segment", "value": "23 for hours and 59 for minutes and seconds below a larger unit; for the largest segment, max in that unit (rounded down) or the digit limit (for example 999)" },
+    { "attribute": "aria-invalid", "element": "segment", "value": "\"true\" only while an error message is shown" }
+  ],
+  "keyboard": [
+    { "key": "Digits", "context": "Segment", "action": "Enters digits (other characters are removed); advances when the segment is full, or, below the largest unit, when no second digit could be valid (for example 7 minutes), padding to two digits." },
+    { "key": ": . , Space", "context": "Segment", "action": "Pads a single digit below the largest unit and advances to the next segment." },
+    { "key": "ArrowUp / ArrowDown", "context": "Segment", "action": "Changes the total by one unit of the segment and carries into the other units; the smallest segment moves by step, snapping to the step grid first. Clamped to [min or 0, max or the digit limit]; an empty entry starts from zero." },
+    { "key": "Home / End", "context": "Segment", "action": "Sets the segment to 0 / its aria-valuemax." },
+    { "key": "ArrowLeft / ArrowRight", "context": "Caret at the segment edge, or text selected", "action": "Previous or next unit in reading order (mirrored in RTL)." },
+    { "key": "Backspace", "context": "Empty segment", "action": "Moves to the previous segment." },
+    { "key": "Tab / Shift+Tab", "context": "Group", "action": "Moves through the segments, then out of the control." }
+  ],
+  "focus": "Each segment is a tab stop; focusing one selects its text. The group shows the focus indicator (border in color-focus-ring plus a 1px ring) while any segment is focused, and the focused segment uses the selected colors with a focus-ring outline on :focus-visible. Clicking the label focuses the first segment. Rebuilding the segments (fields, locale, or max change) keeps focus on the same unit.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.4.3", "2.4.7", "2.5.3", "3.2.2", "3.3.1", "3.3.2", "4.1.2"],
+  "notes": [
+    "The label is a <label> associated through aria-labelledby because a group is not labelable; clicking it focuses the first segment unless disabled.",
+    "The visible unit text is aria-hidden because each segment's name and aria-valuetext already carry the unit.",
+    "The required asterisk is aria-hidden; each segment carries the native required state.",
+    "Errors appear after the first blur of the whole control by default, so moving between segments does not trigger messages.",
+    "Validation messages format durations in the locale with short units (for example 'Enter a duration of 1 hr, 30 min or more.')."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior (spinbutton names, aria-valuetext on step) has not yet been manually verified with NVDA, JAWS, and VoiceOver.",
+    "aria-valuemin is always 0 per segment; min is enforced by stepping and validation, not exposed on the segments."
+  ]
+}

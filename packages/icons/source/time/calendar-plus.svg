@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="calendar-plus">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 20.5H5.5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v5.5"/>
+      <path d="M3.5 9.5h17"/>
+      <path d="M8 3v4"/>
+      <path d="M16 3v4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M18 15v6"/>
+      <path d="M15 18h6"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M2.5 19V6.5A2.5 2.5 0 0 1 5 4h14a2.5 2.5 0 0 1 2.5 2.5v7h-5.25a3.5 3.5 0 0 0-3.5 3.5v4.5H5A2.5 2.5 0 0 1 2.5 19z"/>
+      <rect x="6" y="11" width="2.75" height="2.5" rx="0.5"/>
+      <rect x="10" y="11" width="2.75" height="2.5" rx="0.5"/>
+      <rect x="6" y="15" width="2.75" height="2.5" rx="0.5"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <rect x="7" y="2" width="2" height="4" rx="1"/>
+      <rect x="15" y="2" width="2" height="4" rx="1"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <path d="M16.875 15h2.25v1.875H21v2.25h-1.875V21h-2.25v-1.875H15v-2.25h1.875z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3.5 9.5h17v3h-5a4 4 0 0 0-4 4v4h-6a2 2 0 0 1-2-2z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 20.5H5.5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v5.5"/>
+      <path d="M3.5 9.5h17"/>
+      <path d="M8 3v4"/>
+      <path d="M16 3v4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M18 15v6"/>
+      <path d="M15 18h6"/>
+    </g>
+  </g>
+</svg>

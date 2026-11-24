@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/inline-message",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiInlineMessage",
+      "description": "AbsoluteUI InlineMessage: `<aui-inline-message>`.",
+      "selector": "aui-inline-message",
+      "exportAs": [
+        "auiInlineMessage"
+      ],
+      "source": "generated",
+      "component": "inline-message",
+      "configKey": "inlineMessage",
+      "inputs": [
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "description": "Message text."
+        },
+        {
+          "name": "tone",
+          "type": "InlineMessageTone",
+          "required": false,
+          "default": "info",
+          "description": "Tone: icon, colors, and hidden tone prefix."
+        },
+        {
+          "name": "live",
+          "type": "InlineMessageLive",
+          "required": false,
+          "default": "off",
+          "description": "off: static; polite: role=status; assertive: role=alert."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<InlineMessageIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the tone prefix."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Status message (WCAG 4.1.3): role=status for polite updates, role=alert for urgent ones, plain text when static.",
+        "source": "packages/components/metadata/inline-message/accessibility.json"
+      },
+      "limitations": [
+        "Live roles only announce changes made after the live region exists; set live when creating the message and change it with update().",
+        "Text only: no links or rich content."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiInlineMessage } from '@absoluteui/angular/inline-message';\n\n@Component({\n  selector: 'app-save-state',\n  imports: [AuiInlineMessage],\n  template: `<aui-inline-message live=\"polite\" [tone]=\"saved ? 'success' : 'info'\" [message]=\"saved ? 'Saved' : 'Saving'\"></aui-inline-message>`,\n})\nexport class SaveStateComponent {\n  saved = false;\n}"
+    }
+  ]
+}

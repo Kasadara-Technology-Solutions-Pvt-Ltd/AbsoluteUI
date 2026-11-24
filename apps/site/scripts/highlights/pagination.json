@@ -1,0 +1,6 @@
+[
+  { "title": "Page or total based", "text": "Give a page count, or a total and page size, and the pages are worked out." },
+  { "title": "Page size choice", "text": "An optional page size list lets users pick how many rows they see." },
+  { "title": "Compact page list", "text": "Sibling and boundary counts control which page numbers show around gaps." },
+  { "title": "Readable summary", "text": "A localized summary such as the shown range of the total, announced politely." }
+]

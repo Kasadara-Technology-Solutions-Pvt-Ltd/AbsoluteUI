@@ -1,0 +1,7 @@
+[
+  { "title": "Chips for choices", "text": "Selected values appear as chips with their own remove buttons." },
+  { "title": "Filter and toggle", "text": "Typing filters the list, and the list stays open for further choices." },
+  { "title": "Limits and select all", "text": "Cap the number of selections and offer a select all option." },
+  { "title": "Async options", "text": "Loads options from a server as the user types, with debouncing and cancellation." },
+  { "title": "Form ready", "text": "Submits every selected value natively, with required validation." }
+]

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" data-id="lock">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M1.5 5.25a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1V8a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1z"/>
+      <path d="M2.75 4.25V3.25a2.25 2.25 0 0 1 4.5 0v1H6v-1a1 1 0 0 0-2 0v1z"/>
+    </g>
+  </g>
+</svg>

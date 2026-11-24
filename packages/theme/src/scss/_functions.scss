@@ -1,0 +1,39 @@
+@use 'sass:map';
+@use 'generated-tokens' as gen;
+@use 'generated-component-tokens' as cgen;
+
+$_known: map.get(gen.$aui-themes, 'absolute-default', 'tokens');
+
+/// Reference a design token as a CSS custom property. Unknown names fail the build.
+@function token($name) {
+  @if not map.has-key($_known, $name) {
+    @error 'Unknown AbsoluteUI token "#{$name}".';
+  }
+  @return var(--aui-#{$name});
+}
+
+/// Icon size in component stylesheets (docs/PLAN-R8.md D5): `--aui-icon-size` set on the icon,
+/// the component, or any ancestor wins; otherwise the theme token `icon-size-<name>`.
+@function icon-size($name) {
+  @return var(--aui-icon-size, #{token('icon-size-#{$name}')});
+}
+
+/// A chart corner radius component token (R20-22): the token, else the overall
+/// `--aui-chart-corner-radius`, else the token's global fallback. The name keeps the
+/// `ctoken('<component>', '<property>')` form the metadata check reads.
+@function corner-ctoken($component, $property) {
+  @if not map.has-key(cgen.$aui-component-tokens, $component, $property) {
+    @error 'Unknown AbsoluteUI component token "#{$component}-#{$property}".';
+  }
+  @return var(--aui-#{$component}-#{$property}, var(--aui-chart-corner-radius, #{token(map.get(cgen.$aui-component-tokens, $component, $property))}));
+}
+
+/// Reference a component token (SPEC section 10.2). It is unset by default and falls back to
+/// its global token: `ctoken('button', 'radius')` is `var(--aui-button-radius, var(--aui-radius-md))`.
+/// Unknown components or properties fail the build.
+@function ctoken($component, $property) {
+  @if not map.has-key(cgen.$aui-component-tokens, $component, $property) {
+    @error 'Unknown AbsoluteUI component token "#{$component}-#{$property}".';
+  }
+  @return var(--aui-#{$component}-#{$property}, #{token(map.get(cgen.$aui-component-tokens, $component, $property))});
+}

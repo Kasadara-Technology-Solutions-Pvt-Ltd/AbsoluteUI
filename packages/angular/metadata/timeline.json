@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/timeline",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiTimeline",
+      "description": "AbsoluteUI Timeline: `<aui-timeline>`.",
+      "selector": "aui-timeline",
+      "exportAs": [
+        "auiTimeline"
+      ],
+      "source": "generated",
+      "component": "timeline",
+      "configKey": "timeline",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the list (and of the scroll region when horizontal)."
+        },
+        {
+          "name": "items",
+          "type": "readonly TimelineItem[]",
+          "required": true,
+          "description": "Items in display order: { id, title, time?, description?, tone?, status?, icon?, avatar?, href?, actions? }."
+        },
+        {
+          "name": "order",
+          "type": "TimelineOrder",
+          "required": false,
+          "default": "newest-first",
+          "description": "Order of items; older items collapse and load at the older end."
+        },
+        {
+          "name": "initialVisible",
+          "type": "number | null",
+          "required": false,
+          "default": "null",
+          "description": "Show this many items and collapse the older rest behind 'Show N older'."
+        },
+        {
+          "name": "loadMore",
+          "type": "((context: TimelineLoadContext) => Promise<readonly TimelineItem[]>) | null",
+          "required": false,
+          "default": "null",
+          "description": "Fetch older items; the context has an AbortSignal and the oldest item."
+        },
+        {
+          "name": "hasMore",
+          "type": "boolean",
+          "required": false,
+          "default": "true when loadMore is set",
+          "description": "More items can be loaded; an empty result sets it to false."
+        },
+        {
+          "name": "businessCalendar",
+          "type": "BusinessCalendarEngine | null",
+          "required": false,
+          "default": "null",
+          "description": "Names holidays and non-working days in day headings."
+        },
+        {
+          "name": "headingLevel",
+          "type": "2 | 3 | 4 | 5 | 6",
+          "required": false,
+          "default": "3",
+          "description": "Heading level of day headings."
+        },
+        {
+          "name": "now",
+          "type": "Instant",
+          "required": false,
+          "default": "the current instant",
+          "description": "Reference for relative times and 'Today'."
+        },
+        {
+          "name": "empty",
+          "type": "string",
+          "required": false,
+          "default": "localized 'No activity yet.'",
+          "description": "Text when there are no items."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<TimelineIcons>",
+          "required": false,
+          "description": "Tone markers, 'Show older', and retry icons."
+        },
+        {
+          "name": "orientation",
+          "type": "TimelineOrientation",
+          "required": false,
+          "default": "vertical",
+          "configurable": true,
+          "description": "Direction of the line."
+        },
+        {
+          "name": "layout",
+          "type": "TimelineLayout",
+          "required": false,
+          "default": "start",
+          "configurable": true,
+          "description": "Items on one side, or alternating sides (vertical)."
+        },
+        {
+          "name": "timeFormat",
+          "type": "TimelineTimeFormat",
+          "required": false,
+          "default": "absolute",
+          "configurable": true,
+          "description": "'3 hours ago' or a formatted time; the full date is always in the title and datetime."
+        },
+        {
+          "name": "groupByDay",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Group consecutive items of the same day under a day heading."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "configurable": true,
+          "description": "Locale for dates, numbers, and messages."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "configurable": true,
+          "description": "IANA timezone for grouping and formatting instants."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "action",
+          "payload": "TimelineActionDetail",
+          "event": "aui-action",
+          "description": "An item action was activated: { itemId, actionId, item }."
+        },
+        {
+          "name": "toggled",
+          "payload": "TimelineToggleDetail",
+          "event": "aui-toggle",
+          "description": "Older items were shown or collapsed: { expanded }."
+        },
+        {
+          "name": "loadedMore",
+          "payload": "TimelineLoadMoreDetail",
+          "event": "aui-load-more",
+          "description": "loadMore resolved: { items, hasMore }."
+        },
+        {
+          "name": "loadError",
+          "payload": "TimelineLoadErrorDetail",
+          "event": "aui-load-error",
+          "description": "loadMore rejected or returned invalid items: { error }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setExpanded",
+          "signature": "setExpanded(expanded: boolean): void",
+          "description": "Show or collapse older items (no event)."
+        },
+        {
+          "name": "loadOlder",
+          "signature": "loadOlder(): Promise<void> | undefined",
+          "description": "Run loadMore as the 'Load older' button does."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Structured content: an ordered list of events (day groups as list items with a heading and a nested ordered list); native links and buttons for actions; a horizontal timeline is a focusable, labelled scroll region.",
+        "source": "packages/components/metadata/timeline/accessibility.json"
+      },
+      "limitations": [
+        "Not virtualized: keep the rendered items to a few hundred with initialVisible or loadMore.",
+        "Relative times are computed at render; call update({ now }) to refresh them.",
+        "The alternate layout applies to vertical timelines only."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { instant } from '@absoluteui/core';\nimport type { TimelineActionDetail, TimelineItem } from '@absoluteui/components/timeline';\nimport { AuiTimeline } from '@absoluteui/angular/timeline';\n\n@Component({\n  selector: 'app-activity',\n  imports: [AuiTimeline],\n  template: `<aui-timeline label=\"Activity\" [items]=\"items\" timeFormat=\"relative\" (action)=\"onAction($event)\"></aui-timeline>`,\n})\nexport class ActivityComponent {\n  items: TimelineItem[] = [{ id: 'a1', title: 'Request approved', tone: 'success', time: instant(Date.now() - 600_000), actions: [{ id: 'open', label: 'Open' }] }];\n  last = '';\n  onAction(detail: TimelineActionDetail): void {\n    this.last = detail.actionId;\n  }\n}"
+    }
+  ]
+}

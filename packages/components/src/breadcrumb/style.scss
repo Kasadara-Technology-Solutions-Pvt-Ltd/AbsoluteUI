@@ -1,0 +1,111 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-breadcrumb {
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-breadcrumb__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-1');
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .aui-breadcrumb__item {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+  }
+
+  .aui-breadcrumb__separator {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    color: aui.token('color-text-muted');
+    font-size: aui.icon-size('sm');
+  }
+
+  // Separators point in the reading direction.
+  .aui-breadcrumb--rtl .aui-breadcrumb__separator,
+  .aui-breadcrumb__separator:dir(rtl) {
+    transform: scaleX(-1);
+  }
+
+  .aui-breadcrumb__link {
+    color: aui.token('color-link');
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    border-radius: aui.token('radius-sm');
+    overflow-wrap: anywhere;
+
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-breadcrumb__text {
+    color: aui.token('color-text-muted');
+    overflow-wrap: anywhere;
+
+    &[aria-current='page'] {
+      color: aui.token('color-text');
+      font-weight: aui.token('font-weight-medium');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-breadcrumb__link[aria-current='page'] {
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-breadcrumb__expander {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: aui.token('control-height-sm');
+    min-block-size: aui.token('control-height-sm');
+    padding-inline: aui.token('space-2');
+    margin: 0;
+    font: inherit;
+    color: aui.token('color-text');
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-breadcrumb__link {
+      color: LinkText;
+    }
+
+    .aui-breadcrumb__expander {
+      border: 1px solid ButtonText;
+    }
+  }
+}

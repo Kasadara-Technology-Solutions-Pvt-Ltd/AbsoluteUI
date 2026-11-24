@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/transfer-list",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiTransferList",
+      "description": "AbsoluteUI TransferList: `<aui-transfer-list>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-transfer-list",
+      "exportAs": [
+        "auiTransferList"
+      ],
+      "source": "generated",
+      "component": "transfer-list",
+      "configKey": "transferList",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "string[]"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label of the control; names the group."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text, referenced by the group."
+        },
+        {
+          "name": "items",
+          "type": "readonly TransferListItem[]",
+          "required": true,
+          "description": "All items { value, label, description?, disabled? }; values are unique."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name: one hidden input per selected value."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "At least one item must be selected."
+        },
+        {
+          "name": "minSelected",
+          "type": "number",
+          "required": false,
+          "description": "At least this many items when any are selected (or when required)."
+        },
+        {
+          "name": "maxSelected",
+          "type": "number",
+          "required": false,
+          "description": "Hard limit; moves beyond it are refused and announced."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable the control."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Lists can be browsed and searched, but nothing moves."
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show a search box above each list."
+        },
+        {
+          "name": "draggable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Drag items between the lists with a pointer."
+        },
+        {
+          "name": "titles",
+          "type": "{ readonly available?: string; readonly selected?: string; }",
+          "required": false,
+          "description": "List titles (default Available and Selected)."
+        },
+        {
+          "name": "visibleRows",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "description": "Rows visible in each list before it scrolls (3 to 50)."
+        },
+        {
+          "name": "validate",
+          "type": "((value: readonly string[]) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<TransferListIcons>",
+          "required": false,
+          "description": "Icon overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages appear."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of counts, messages, and search matching."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string[]",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "TransferListValueDetail",
+          "event": "aui-change",
+          "description": "Items moved: { value, validity, moved, to }."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string[] | undefined",
+          "description": "The value for Form serialization."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "Show or clear an external error."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the Available list."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear searches, checks, and messages."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Listbox (multi-select, recommended selection model): each list is role=listbox with aria-multiselectable; focus stays on the listbox and aria-activedescendant names the active option; aria-selected marks checked options.",
+        "source": "packages/components/metadata/transfer-list/accessibility.json"
+      },
+      "limitations": [
+        "Rows have a fixed height so the window can be computed; long labels and descriptions are truncated with an ellipsis.",
+        "Values not found in items are dropped from the value.",
+        "The Selected list cannot be reordered."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { TransferListItem } from '@absoluteui/components/transfer-list';\nimport { AuiTransferList } from '@absoluteui/angular/transfer-list';\n\n@Component({\n  selector: 'app-team-picker',\n  imports: [AuiTransferList],\n  template: `<aui-transfer-list label=\"Project team\" [items]=\"people\" [(value)]=\"team\"></aui-transfer-list>`,\n})\nexport class TeamPickerComponent {\n  readonly people: TransferListItem[] = [\n    { value: 'e1', label: 'Asha Rao' },\n    { value: 'e2', label: 'Ben Okafor' },\n  ];\n  team: string[] = ['e2'];\n}"
+    }
+  ]
+}

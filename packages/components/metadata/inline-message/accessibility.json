@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "inline-message",
+  "pattern": "Status message (WCAG 4.1.3): role=status for polite updates, role=alert for urgent ones, plain text when static.",
+  "roles": [
+    { "element": "host", "role": "none (live 'off'), status (live 'polite'), or alert (live 'assertive')" },
+    { "element": "icon", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "role", "element": "host", "value": "status or alert when live is enabled; absent otherwise" }
+  ],
+  "keyboard": [
+    { "key": "None", "context": "Any", "action": "Not focusable; read in document order by assistive technology." }
+  ],
+  "focus": "Never receives or moves focus.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "4.1.3"],
+  "notes": [
+    "Tone is conveyed by an icon and a visually hidden, localized prefix such as 'Error:', never by color alone.",
+    "Live roles announce only changes made after the region exists; create it with live set, then call update()."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

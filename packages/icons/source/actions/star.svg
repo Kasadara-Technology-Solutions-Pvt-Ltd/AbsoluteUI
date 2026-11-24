@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="star" data-animations="pulse:press">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12,2.8L14.47,8.9L21.03,9.36L15.99,13.6L17.58,19.99L12,16.5L6.42,19.99L8.01,13.6L2.97,9.36L9.53,8.9z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M12,2.8L14.47,8.9L21.03,9.36L15.99,13.6L17.58,19.99L12,16.5L6.42,19.99L8.01,13.6L2.97,9.36L9.53,8.9z" transform="translate(12 12.3) scale(1.08) translate(-12 -12.3)"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12,2.8L14.47,8.9L21.03,9.36L15.99,13.6L17.58,19.99L12,16.5L6.42,19.99L8.01,13.6L2.97,9.36L9.53,8.9z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12,2.8L14.47,8.9L21.03,9.36L15.99,13.6L17.58,19.99L12,16.5L6.42,19.99L8.01,13.6L2.97,9.36L9.53,8.9z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.35">
+      <path d="M12,2.8L14.47,8.9L21.03,9.36L15.99,13.6L17.58,19.99L12,16.5L6.42,19.99L8.01,13.6L2.97,9.36L9.53,8.9z"/>
+    </g>
+    <g data-layer="base" data-role="warning" data-paint="stroke">
+      <path d="M12,2.8L14.47,8.9L21.03,9.36L15.99,13.6L17.58,19.99L12,16.5L6.42,19.99L8.01,13.6L2.97,9.36L9.53,8.9z"/>
+    </g>
+  </g>
+</svg>

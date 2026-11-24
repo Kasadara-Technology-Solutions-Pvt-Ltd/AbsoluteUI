@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="binary">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="3" width="5" height="7.5" rx="2.5"/>
+      <path d="M17 3v7.5"/>
+      <path d="M15 5l2-2"/>
+      <path d="M7 13.5V21"/>
+      <path d="M5 15.5l2-2"/>
+      <rect x="15" y="13.5" width="5" height="7.5" rx="2.5"/>
+    </g>
+  </g>
+</svg>

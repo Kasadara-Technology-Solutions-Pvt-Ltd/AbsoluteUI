@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "pie-chart",
+  "examples": [
+    {
+      "id": "pie",
+      "title": "Pie chart with percentage labels",
+      "language": "ts",
+      "code": "import { PieChart } from '@absoluteui/components/pie-chart';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nPieChart.create(host, {\n  label: 'Traffic sources',\n  slices: [\n    { id: 'search', label: 'Search', value: 46 },\n    { id: 'direct', label: 'Direct', value: 25 },\n    { id: 'social', label: 'Social', value: 17 },\n    { id: 'email', label: 'Email', value: 12 },\n  ],\n  height: 240,\n});"
+    },
+    {
+      "id": "donut",
+      "title": "Donut with a center total and units",
+      "language": "ts",
+      "code": "import { PieChart } from '@absoluteui/components/pie-chart';\n\nconst host = document.querySelector<HTMLElement>('#storage');\nif (host) {\n  PieChart.create(host, {\n    label: 'Storage by type',\n    slices: [\n      { id: 'docs', label: 'Documents', value: 120 },\n      { id: 'media', label: 'Media', value: 310 },\n      { id: 'backups', label: 'Backups', value: 90 },\n    ],\n    donut: true,\n    centerLabel: '520 GB',\n    valueFormat: { style: 'unit', unit: 'gigabyte' },\n    sliceLabels: 'value',\n  });\n}"
+    }
+  ]
+}

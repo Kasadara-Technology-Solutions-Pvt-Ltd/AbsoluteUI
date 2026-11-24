@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="sort-descending" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M6 5v14"/>
+      <path d="M3 16l3 3 3-3"/>
+      <path d="M12 7h8"/>
+      <path d="M12 12h6"/>
+      <path d="M12 17h4"/>
+    </g>
+  </g>
+</svg>

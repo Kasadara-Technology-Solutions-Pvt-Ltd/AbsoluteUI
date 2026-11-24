@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "component": "form",
+  "pattern": "Native <form> with the GOV.UK error summary pattern: validate on submit, then move focus to a summary of links to each invalid field.",
+  "roles": [
+    { "element": "form", "role": "form (native; exposed as a landmark only when the consumer gives it an accessible name)" },
+    { "element": "error summary", "role": "region labelled by its heading (see Error Summary)" }
+  ],
+  "aria": [
+    { "attribute": "aria-busy", "element": "form", "value": "\"true\" while the async validator runs; removed when it settles, times out, or is aborted" },
+    { "attribute": "aria-invalid / aria-describedby", "element": "controls", "value": "Set by each control when its message is shown (submit marks every control as submitted)" }
+  ],
+  "keyboard": [
+    { "key": "Enter", "context": "Single-line input focused", "action": "Native implicit submission: runs the Form submit pipeline." },
+    { "key": "Tab / Shift+Tab", "context": "Error summary focused", "action": "Moves through the summary links, then on into the form." },
+    { "key": "Enter", "context": "Summary link focused", "action": "Moves focus to the invalid control and scrolls it into view." },
+    { "key": "Enter / Space", "context": "Reset button focused", "action": "Native reset, intercepted: every control returns to its initial value." }
+  ],
+  "focus": "After a failed submission focus moves to the error summary (default) or, with focusOnInvalid 'first-field' or errorSummary false, to the first invalid control. setErrors moves focus the same way. A successful submission does not move focus.",
+  "wcag": ["1.3.1", "2.1.1", "2.4.3", "3.3.1", "3.3.3", "4.1.2", "4.1.3"],
+  "notes": [
+    "The form sets noValidate so native validation bubbles never compete with AbsoluteUI messages; destroy() restores the original value.",
+    "Focusing the summary makes screen readers read its heading and list once; no live region is used.",
+    "Messages that belong to no field (unknown setErrors names, async failure) appear in the summary; without a summary they are announced through an assertive live region.",
+    "Blur/pointer deferral: when focus leaves a field because the user pressed the pointer elsewhere (for example on Submit), the field's message renders after the pointer is released, so the layout shift does not make the click miss its target.",
+    "aria-busy is set during async validation; consider a visible status for long checks."
+  ],
+  "knownCaveats": [
+    "Summary focus and announcement have not yet been manually verified with NVDA, JAWS, and VoiceOver.",
+    "Form does not announce a successful submission; announce the outcome from the aui-submit handler."
+  ]
+}

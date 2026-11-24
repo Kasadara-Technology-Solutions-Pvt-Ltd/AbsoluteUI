@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="lightbulb">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M8.6 15.5C7.1 14.2 6 12.4 6 10a6 6 0 0 1 12 0c0 2.4-1.1 4.2-2.6 5.5z"/>
+      <path d="M9 18.5h6"/>
+      <path d="M10.5 21h3"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M8.6 15.5C7.1 14.2 6 12.4 6 10a6 6 0 0 1 12 0c0 2.4-1.1 4.2-2.6 5.5z" transform="translate(12 10) scale(1.06) translate(-12 -10)"/>
+      <rect x="8.5" y="17.25" width="7" height="2.5" rx="1.25"/>
+      <rect x="9.75" y="20" width="4.5" height="2" rx="1"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M8.6 15.5C7.1 14.2 6 12.4 6 10a6 6 0 0 1 12 0c0 2.4-1.1 4.2-2.6 5.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M8.6 15.5C7.1 14.2 6 12.4 6 10a6 6 0 0 1 12 0c0 2.4-1.1 4.2-2.6 5.5z"/>
+      <path d="M9 18.5h6"/>
+      <path d="M10.5 21h3"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.35">
+      <path d="M8.6 15.5C7.1 14.2 6 12.4 6 10a6 6 0 0 1 12 0c0 2.4-1.1 4.2-2.6 5.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M8.6 15.5C7.1 14.2 6 12.4 6 10a6 6 0 0 1 12 0c0 2.4-1.1 4.2-2.6 5.5z"/>
+      <path d="M9 18.5h6"/>
+      <path d="M10.5 21h3"/>
+    </g>
+  </g>
+</svg>

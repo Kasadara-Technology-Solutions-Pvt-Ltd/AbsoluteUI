@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "bar-chart",
+  "examples": [
+    {
+      "id": "grouped",
+      "title": "Grouped columns with value labels",
+      "language": "ts",
+      "code": "import { BarChart } from '@absoluteui/components/bar-chart';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nBarChart.create(host, {\n  label: 'Support tickets by region',\n  categories: ['North America', 'Europe', 'Asia Pacific'],\n  series: [\n    { id: 'open', label: 'Open', values: [34, 28, 19] },\n    { id: 'closed', label: 'Closed', values: [120, 96, 88] },\n  ],\n  valueAxis: { label: 'Tickets' },\n  valueLabels: true,\n});"
+    },
+    {
+      "id": "stacked-horizontal",
+      "title": "Horizontal stacked bars with negative values",
+      "language": "ts",
+      "code": "import { BarChart } from '@absoluteui/components/bar-chart';\n\nconst host = document.querySelector<HTMLElement>('#variance');\nif (host) {\n  const chart = BarChart.create(host, {\n    label: 'Budget variance by department',\n    categories: ['Engineering', 'Marketing', 'Finance'],\n    series: [\n      { id: 'capex', label: 'Capital', values: [40, 22, -8] },\n      { id: 'opex', label: 'Operating', values: [25, -18, 12] },\n    ],\n    orientation: 'horizontal',\n    layout: 'stacked',\n    valueFormat: { style: 'currency', currency: 'EUR', notation: 'compact' },\n  });\n  chart.setSeriesVisible('opex', false);\n}"
+    }
+  ]
+}

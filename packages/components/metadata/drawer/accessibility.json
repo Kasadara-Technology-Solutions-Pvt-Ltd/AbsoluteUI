@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "component": "drawer",
+  "pattern": "WAI-ARIA APG Dialog (Modal) pattern implemented with native <dialog>.showModal(); non-modal drawers use <dialog>.show() as a non-modal dialog.",
+  "roles": [
+    { "element": "<dialog>", "role": "dialog (native)" },
+    { "element": "title", "role": "heading level 2" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "<dialog>", "value": "id of the title heading" },
+    { "attribute": "aria-describedby", "element": "<dialog>", "value": "id of the description (when provided)" },
+    { "attribute": "aria-label", "element": "close button", "value": "Localized 'Close'" },
+    { "attribute": "aria-modal", "element": "<dialog>", "value": "Implicit true for modal drawers (native showModal()); absent for non-modal drawers" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Modal drawer open", "action": "Moves focus among drawer controls; the background is inert (native modal)." },
+    { "key": "Tab / Shift+Tab", "context": "Non-modal drawer open", "action": "Follows document order; focus can leave the drawer and reach the page." },
+    { "key": "Escape", "context": "Drawer is the topmost overlay, closeOnEscape=true", "action": "Emits cancelable aui-cancel, then closes and restores focus." },
+    { "key": "Escape", "context": "closeOnEscape=false", "action": "No effect; the native close request is prevented, including repeated presses." },
+    { "key": "Escape", "context": "Nested overlay (e.g. combobox listbox) open", "action": "Closes only the topmost overlay." },
+    { "key": "Enter / Space", "context": "Action or close button focused", "action": "Activates the button." }
+  ],
+  "focus": "On open, focus moves to the autofocus action or first focusable element. On close, a modal drawer returns focus to the element focused before opening; a non-modal drawer does so only when focus was inside the drawer, so users working in the page keep their place.",
+  "wcag": ["1.3.1", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "4.1.2"],
+  "notes": [
+    "Background inertness and top-layer rendering of modal drawers are provided by the browser.",
+    "Slide motion is removed under prefers-reduced-motion and data-aui-animation='none'.",
+    "Use non-modal drawers only for supplementary panels (filters, details)."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

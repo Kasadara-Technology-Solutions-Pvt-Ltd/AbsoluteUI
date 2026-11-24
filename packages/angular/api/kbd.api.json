@@ -1,0 +1,7 @@
+{
+  "entry": "@absoluteui/angular/kbd",
+  "declarations": {
+    "AuiKbd": "export declare class AuiKbd extends ComponentBridge<Kbd, KbdOptions> {\n    readonly hotkey: InputSignal<KbdOptions['hotkey']>;\n    readonly platform: InputSignal<KbdOptions['platform'] | undefined>;\n    readonly size: InputSignal<KbdOptions['size'] | undefined>;\n    readonly locale: InputSignal<KbdOptions['locale'] | undefined>;\n    constructor();\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiKbd, never>;\n    static ɵcmp: i0.ɵɵComponentDeclaration<AuiKbd, \"aui-kbd\", [\n        \"auiKbd\"\n    ], {\n        \"hotkey\": {\n            \"alias\": \"hotkey\";\n            \"required\": true;\n            \"isSignal\": true;\n        };\n        \"platform\": {\n            \"alias\": \"platform\";\n            \"required\": false;\n            \"isSignal\": true;\n        };\n        \"size\": {\n            \"alias\": \"size\";\n            \"required\": false;\n            \"isSignal\": true;\n        };\n        \"locale\": {\n            \"alias\": \"locale\";\n            \"required\": false;\n            \"isSignal\": true;\n        };\n    }, {}, never, never, true, never>;\n}"
+  },
+  "reexports": []
+}

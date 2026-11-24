@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "name": "menu-bar",
+  "displayName": "Menu Bar",
+  "category": "Navigation",
+  "package": "@absoluteui/components",
+  "import": "import { MenuBar } from '@absoluteui/components/menu-bar';",
+  "styleImport": "@absoluteui/components/menu-bar/style.css",
+  "purpose": "Horizontal application menubar (WAI-ARIA APG Menubar): a role=menubar of role=menuitem buttons with one tab stop (roving tabindex). Items with `items` open a Menu (same component and engine as Menu: submenus, checkbox and radio items, typeahead, overlay stack); items without open nothing and emit aui-select. While a menu is open, ArrowLeft/ArrowRight and hover move between menus. The popups are Menu popups and need @absoluteui/components/menu/style.css as well.",
+  "whenToUse": [
+    "A persistent application command bar in the style of desktop software (File, Edit, View, Help) in editors and tools.",
+    "Several groups of commands that each need a menu, where a single Menu button would be too deep."
+  ],
+  "whenNotToUse": [
+    "Site or app navigation made of links: use navigation links or Tabs, not role=menubar.",
+    "A single overflow or row-actions menu: use Menu.",
+    "A row of always-visible buttons without menus: use a toolbar or Button Group.",
+    "Vertical navigation (side menus): the menu bar is horizontal only."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "@absoluteui/components/menu"],
+  "states": ["idle", "item focused (focus-visible)", "menu open (item aria-expanded=true)", "submenu open", "item disabled"],
+  "responsive": "The bar is a wrapping flex row: on narrow widths items wrap onto further lines; labels wrap anywhere. There is no overflow ('more') collapse. Menu popups size and position like Menu popups (flip and shift to stay in the viewport).",
+  "rtl": "Effective direction is 'rtl' when the direction option (or global direction) is 'rtl' or the host inherits dir=rtl. ArrowLeft/ArrowRight are mirrored on the bar and for switching menus; menus open with bottom-start aligned to the right edge and submenus open to the left. The host gets aui-menu-bar--rtl.",
+  "theme": "Surface, border, radius, hover, disabled-text, and focus-ring role tokens. Forced-colors mode draws a CanvasText bar border, the expanded item in Highlight/HighlightText, and disabled items in GrayText. Menus use the Menu theme.",
+  "timezone": "Not applicable.",
+  "security": "Labels are rendered with textContent; menu content follows Menu (text only). Styles only through compiled CSS and the CSSOM. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Checkbox and radio state inside menus lives in memory and is reset whenever the bar re-renders (update() or a global configuration change).",
+  "performance": {
+    "budgets": [
+      { "metric": "MenuBar.create with 8 menus of 20 items", "budget": "< 50 ms in headless Chromium" }
+    ],
+    "testedScale": "8 menubar items with 20 menu items each; submenus two levels deep."
+  },
+  "limitations": [
+    "Horizontal only; there is no vertical menubar and no overflow collapse (items wrap instead).",
+    "update() and any global menuBar configuration change re-render the bar and rebuild every menu: an open menu closes, focus inside it is not restored, and checkbox/radio state resets to the item data.",
+    "An explicit direction 'ltr' does not override an inherited dir=rtl on the host; menus read the direction when the bar renders, so a later dir change reaches the menus only on the next render.",
+    "Menu placement is fixed at bottom-start; the global menu configuration does not apply to menubar menus.",
+    "Disabled items with items render aria-haspopup=menu but no menu, so they cannot be opened or inspected."
+  ],
+  "unsupported": [
+    "Vertical menubars.",
+    "Link items (href); navigate in the aui-select listener.",
+    "HTML or custom nodes inside bar items or menu items.",
+    "Checkbox or radio items directly on the bar (only inside its menus)."
+  ],
+  "antiPatterns": [
+    "Using a menubar for website navigation.",
+    "A menubar with a single item (use Menu).",
+    "Putting frequently used single actions only inside menubar menus without shortcuts or a toolbar."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/menu-bar: generated AuiMenuBar directive ([auiMenuBar] on an empty host); inputs mirror the options, output auiSelect.",
+    "react": "@absoluteui/react/menu-bar: AuiMenuBar component.",
+    "vue": "@absoluteui/vue/menu-bar: AuiMenuBar component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

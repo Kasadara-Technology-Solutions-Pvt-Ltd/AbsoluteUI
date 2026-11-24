@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/sortable-list",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSortableList",
+      "description": "AbsoluteUI SortableList: `<aui-sortable-list>`.",
+      "selector": "aui-sortable-list",
+      "exportAs": [
+        "auiSortableList"
+      ],
+      "source": "generated",
+      "component": "sortable-list",
+      "configKey": "sortableList",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the list (aria-label on the <ul>). Must be non-empty after trimming."
+        },
+        {
+          "name": "items",
+          "type": "readonly SortableListItem[]",
+          "required": true,
+          "description": "Items in order. Ids must be unique, non-empty, and stable; labels non-empty (used in the handle name and announcements). Rows are kept by id on update; the array order defines the DOM order."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable reordering for the whole list (all handles disabled)."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<SortableListIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "dragFrom",
+          "type": "SortableListDragFrom",
+          "required": false,
+          "default": "handle",
+          "configurable": true,
+          "description": "Where a pointer drag can start: the handle only, or anywhere on a movable item (interactive content inside the item keeps its own pointer behavior)."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "SortableListChangeDetail",
+          "event": "aui-change",
+          "description": "Dispatched on the host after a keyboard or pointer drop that changed the item's position. from and to are zero-based. Not emitted for cancels, drops in place, move(), or update()."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isDragging",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether an item is grabbed (keyboard) or dragged (pointer)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "move",
+          "signature": "move(id: string, index: number): void",
+          "description": "Move an item to a zero-based index; cancels an active grab or drag first. No event, no announcement. Throws SORTABLE_LIST_OPTIONS for an unknown id or an index outside 0..count-1."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Reorderable list with a toggle-button grab handle per item and live-region announcements (keyboard drag-and-drop pattern). Native list semantics; no ARIA drag-and-drop attributes (aria-grabbed and aria-dropeffect are deprecated).",
+        "source": "packages/components/metadata/sortable-list/accessibility.json"
+      },
+      "limitations": [
+        "Vertical lists only.",
+        "No auto-scroll during a pointer drag; the dragged item is clamped to the list's visible bounds.",
+        "No drag between lists and no nesting.",
+        "update() and global configuration changes re-render in the order of the items option; after a reorder, pass the new order back with update({ items }) or the DOM order reverts on the next re-render.",
+        "Item content is inserted once per item and re-inserted only when the item's content (or, without content, its label) changes by identity.",
+        "Announcements are English by default; register messages for other locales.",
+        "Every pointer-driven position change is announced assertively, which can be verbose while dragging over many items."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { SortableListChangeDetail, SortableListItem } from '@absoluteui/components/sortable-list';\nimport { AuiSortableList } from '@absoluteui/angular/sortable-list';\n\n@Component({\n  selector: 'app-priorities',\n  imports: [AuiSortableList],\n  template: `<aui-sortable-list label=\"Priorities\" [items]=\"items\" (changed)=\"save($event.order)\"></aui-sortable-list>`,\n})\nexport class PrioritiesComponent {\n  items: SortableListItem[] = [\n    { id: 'security', label: 'Security review' },\n    { id: 'performance', label: 'Performance' },\n    { id: 'docs', label: 'Documentation' },\n  ];\n\n  save(order: SortableListChangeDetail['order']): void {\n    const byId = new Map(this.items.map((item) => [item.id, item] as const));\n    this.items = order.flatMap((id) => byId.get(id) ?? []);\n    // persist `order`\n  }\n}"
+    }
+  ]
+}

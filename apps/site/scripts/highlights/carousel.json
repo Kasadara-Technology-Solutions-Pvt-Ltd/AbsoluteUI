@@ -1,0 +1,6 @@
+[
+  { "title": "Accessible slides", "text": "Each slide is announced as N of M with an optional name." },
+  { "title": "Slide picker", "text": "Optional buttons to jump straight to any slide." },
+  { "title": "Loop and autoplay", "text": "Wrap around at the ends and rotate on a timer with a pause button." },
+  { "title": "Pauses for users", "text": "Rotation stops on hover and focus, and respects reduced motion." }
+]

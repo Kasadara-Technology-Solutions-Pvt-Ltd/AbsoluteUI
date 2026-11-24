@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="queue" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="4" width="12" height="4" rx="1"/>
+      <rect x="6" y="10" width="12" height="4" rx="1"/>
+      <rect x="8" y="16" width="12" height="4" rx="1"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="4" y="4" width="12" height="4" rx="1"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="4" width="12" height="4" rx="1"/>
+      <rect x="6" y="10" width="12" height="4" rx="1"/>
+      <rect x="8" y="16" width="12" height="4" rx="1"/>
+    </g>
+  </g>
+</svg>

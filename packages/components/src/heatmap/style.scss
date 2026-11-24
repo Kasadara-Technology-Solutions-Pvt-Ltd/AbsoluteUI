@@ -1,0 +1,50 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+
+  // Discrete fill strengths: the palette slot mixed into the surface (15-100 %).
+  @for $i from 3 through 20 {
+    .aui-heatmap__level--#{$i * 5} {
+      --aui-heatmap-fill: color-mix(in srgb, var(--aui-chart-color) #{$i * 5%}, #{aui.token('color-surface')});
+    }
+  }
+
+  // Cells are separated by the surface color, so neighbors never need mutual contrast.
+  .aui-heatmap__cell {
+    fill: var(--aui-heatmap-fill, var(--aui-chart-color));
+    stroke: aui.token('color-surface');
+    stroke-width: 1;
+  }
+
+  .aui-heatmap__cell--empty {
+    fill: aui.token('color-surface-sunken');
+  }
+
+  .aui-heatmap .aui-chart__swatch .aui-chart__swatch-fill {
+    fill: var(--aui-heatmap-fill, var(--aui-chart-color));
+  }
+
+  .aui-heatmap__cell.aui-chart__mark--hover,
+  .aui-heatmap__cell.aui-chart__mark--active {
+    stroke: aui.token('color-text');
+    stroke-width: 2;
+  }
+
+  // Forced colors: fills are not reliable, so cells become outlined boxes; values stay
+  // in the cell labels and the data table.
+  @include aui.forced-colors {
+    .aui-heatmap__cell,
+    .aui-heatmap__cell--empty {
+      fill: Canvas;
+      stroke: CanvasText;
+    }
+
+    .aui-heatmap__cell.aui-chart__mark--hover,
+    .aui-heatmap__cell.aui-chart__mark--active {
+      stroke: Highlight;
+    }
+  }
+}

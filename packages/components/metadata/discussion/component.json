@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "discussion",
+  "displayName": "Discussion",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { Discussion } from '@absoluteui/components/discussion';",
+  "styleImport": "@absoluteui/components/discussion/style.css",
+  "purpose": "A threaded comments and forum control: a comment box and replies nested to any depth, @mentions in every composer (Mention Input, people supplied by the host or taken from the discussion), a configurable character count that blocks posting over the limit, delete with an inline confirmation (a deleted comment with replies stays as a placeholder), edit of own comments, and the author, avatar, and a relative timestamp on every comment and reply with the absolute date and time on hover and focus. Visual indentation stops at maxIndent while the nesting stays semantic; threads collapse and expand, replies can load lazily, and top-level comments sort oldest or newest first. The host owns persistence through cancelable events.",
+  "whenToUse": [
+    "Comments on a record (an announcement, a leave request, a document, a ticket).",
+    "Forum or Q&A threads where people reply to replies.",
+    "Review discussions where people mention each other."
+  ],
+  "whenNotToUse": [
+    "A linear conversation or an assistant: use Chat.",
+    "An activity history without replies: use Timeline.",
+    "A single free-text note: use Textarea or Mention Input."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/helpers", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["empty", "loading", "error with Retry", "comments", "thread collapsed", "thread expanded", "replies loading", "replies failed with Retry", "more replies or comments behind Show more", "replying", "editing", "confirming delete", "deleted placeholder", "composer invalid (empty or over the character limit)", "read-only (no current user)"],
+  "responsive": "Fluid width. Each level indents by the discussion-indent token (half of it below 30rem) and indentation stops at maxIndent, so deep threads keep a readable line length on phones; deeper replies show 'Replying to <name>'. Action rows and the header wrap.",
+  "rtl": "Logical properties throughout: indentation, the thread guide line, and the tooltip mirror; the reply icon mirrors.",
+  "theme": "Component tokens discussion-indent, discussion-thread-line, discussion-mention-bg/-fg (in the contrast gate), plus global text, link, and error tokens. Forced-colors mode outlines mention chips and keeps the guide line visible.",
+  "timezone": "Timestamps are Instants shown in the configured timezone (common config or the timezone option), never the machine's zone. Relative text: 'just now', minutes and hours, 'Yesterday', a weekday within a week, then a date. With a business calendar the absolute date names holidays and non-working days.",
+  "security": "Comment text is never parsed as HTML: text nodes only, mentions are text chips, and only http(s) and scheme-less URLs (isSafeHref) become links, opened with rel=noopener noreferrer nofollow. Avatar images go through the Avatar URL policy. canEdit and canDelete only hide actions; the server must enforce permissions.",
+  "dataHandling": "No persistence, network access, or telemetry. The host stores comments: it listens to aui-post, aui-reply, aui-edit, and aui-delete and calls addComment, updateComment, removeComment, or update({ comments }). loadReplies runs only when a thread is expanded and is aborted on collapse and destroy.",
+  "performance": {
+    "budgets": [
+      { "metric": "Discussion.create with 1,000 comments (20 top-level rendered)", "budget": "< 80 ms in headless Chromium" },
+      { "metric": "Posting a reply in a 1,000-comment discussion", "budget": "< 16 ms (only changed comments are rebuilt)" }
+    ],
+    "testedScale": "50,000 comments in the model; the DOM holds the shown page of top-level comments (pageSize, default 20), the first repliesPageSize replies per expanded thread (default 5), and nothing below collapseDepth until expanded."
+  },
+  "limitations": [
+    "Not virtualized: the DOM grows as the user pages in more comments or expands threads.",
+    "Replies are always in conversation order (oldest first); sort applies to top-level comments.",
+    "One reply, edit, or delete panel is open at a time; an unsent reply is kept as a draft when another panel opens.",
+    "Relative timestamps refresh every minute."
+  ],
+  "unsupported": [
+    "Rich text, attachments, or reactions in comments.",
+    "Real-time presence or typing indicators.",
+    "Enforcing permissions: the server decides who may edit or delete."
+  ],
+  "antiPatterns": [
+    "Rendering comment text as HTML next to the discussion.",
+    "Relying on canDelete for security without a server check.",
+    "Expanding every thread of a very large discussion at once (collapseDepth 50): use the defaults and let readers expand."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/discussion: AuiDiscussion component (<aui-discussion>).",
+    "react": "@absoluteui/react/discussion: AuiDiscussion component.",
+    "vue": "@absoluteui/vue/discussion: AuiDiscussion component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

@@ -1,0 +1,28 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-marks;
+
+  // Series with `style.marker: "none"`: vertices appear only while hovered or focused.
+  .aui-chart__point--unmarked:not(.aui-chart__mark--hover, .aui-chart__mark--active, :focus-visible) {
+    opacity: 0;
+  }
+
+  .aui-radar-chart__ring {
+    fill: none;
+  }
+
+  .aui-radar-chart__axis-label {
+    fill: aui.token('color-text');
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  @include aui.forced-colors {
+    .aui-radar-chart__axis-label {
+      fill: CanvasText;
+    }
+  }
+}

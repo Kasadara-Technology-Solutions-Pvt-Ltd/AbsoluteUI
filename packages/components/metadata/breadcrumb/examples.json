@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "breadcrumb",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Product hierarchy",
+      "language": "ts",
+      "code": "import { Breadcrumb } from '@absoluteui/components/breadcrumb';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nBreadcrumb.create(host, {\n  items: [\n    { label: 'Home', href: '/' },\n    { label: 'Products', href: '/products' },\n    { label: 'Laptops', href: '/products/laptops' },\n  ],\n});"
+    },
+    {
+      "id": "router",
+      "title": "Collapsed trail with a client-side router",
+      "language": "ts",
+      "code": "import { Breadcrumb, type BreadcrumbNavigateDetail } from '@absoluteui/components/breadcrumb';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst navigate = (path: string): void => {\n  history.pushState(null, '', path);\n};\nBreadcrumb.create(host, {\n  maxItems: 3,\n  items: [\n    { label: 'Home', href: '/' },\n    { label: 'Projects', href: '/projects' },\n    { label: 'Atlas', href: '/projects/atlas' },\n    { label: 'Settings', href: '/projects/atlas/settings' },\n    { label: 'Members' },\n  ],\n});\nhost.addEventListener('aui-navigate', (event) => {\n  const { item } = (event as CustomEvent<BreadcrumbNavigateDetail>).detail;\n  if (item.href !== undefined) {\n    event.preventDefault();\n    navigate(item.href);\n  }\n});"
+    }
+  ]
+}

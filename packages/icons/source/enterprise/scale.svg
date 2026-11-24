@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="scale">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 4v16"/>
+      <path d="M7 20h10"/>
+      <path d="M5 7h14"/>
+      <path d="M5 7l-2.5 6"/>
+      <path d="M5 7l2.5 6"/>
+      <path d="M2.5 13a2.5 2.5 0 0 0 5 0z"/>
+      <path d="M19 7l-2.5 6"/>
+      <path d="M19 7l2.5 6"/>
+      <path d="M16.5 13a2.5 2.5 0 0 0 5 0z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <line x1="12" y1="4" x2="12" y2="20" data-outline-width="2"/>
+      <line x1="7" y1="20.5" x2="17" y2="20.5" data-outline-width="2"/>
+      <line x1="5" y1="7" x2="19" y2="7" data-outline-width="2"/>
+      <line x1="5" y1="7" x2="2.5" y2="12.5" data-outline-width="1.5"/>
+      <line x1="5" y1="7" x2="7.5" y2="12.5" data-outline-width="1.5"/>
+      <line x1="19" y1="7" x2="16.5" y2="12.5" data-outline-width="1.5"/>
+      <line x1="19" y1="7" x2="21.5" y2="12.5" data-outline-width="1.5"/>
+      <path d="M2 12.5h6a3 3 0 0 1-6 0z"/>
+      <path d="M16 12.5h6a3 3 0 0 1-6 0z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M2.5 13a2.5 2.5 0 0 0 5 0z"/>
+      <path d="M16.5 13a2.5 2.5 0 0 0 5 0z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 4v16"/>
+      <path d="M7 20h10"/>
+      <path d="M5 7h14"/>
+      <path d="M5 7l-2.5 6"/>
+      <path d="M5 7l2.5 6"/>
+      <path d="M2.5 13a2.5 2.5 0 0 0 5 0z"/>
+      <path d="M19 7l-2.5 6"/>
+      <path d="M19 7l2.5 6"/>
+      <path d="M16.5 13a2.5 2.5 0 0 0 5 0z"/>
+    </g>
+  </g>
+</svg>

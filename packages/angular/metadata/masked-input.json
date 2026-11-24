@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/masked-input",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiMaskedInput",
+      "description": "AbsoluteUI MaskedInput: `<aui-masked-input>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-masked-input",
+      "exportAs": [
+        "auiMaskedInput"
+      ],
+      "source": "generated",
+      "component": "masked-input",
+      "configKey": "maskedInput",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "string"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "mask",
+          "type": "string",
+          "required": true,
+          "description": "Pattern: 9 digit, a letter, * letter or digit, custom token characters, \\ escapes; anything else is a literal."
+        },
+        {
+          "name": "tokens",
+          "type": "Readonly<Record<string, MaskToken>>",
+          "required": false,
+          "description": "Custom tokens { pattern, transform?, description? }; override built-ins with the same character."
+        },
+        {
+          "name": "minLength",
+          "type": "number",
+          "required": false,
+          "description": "Raw characters needed for a complete value (default: every slot)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name (hidden input)."
+        },
+        {
+          "name": "submit",
+          "type": "\"raw\" | \"formatted\"",
+          "required": false,
+          "default": "raw",
+          "description": "What the hidden input and getFormValue() carry."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Shown while empty and unfocused (default: the template with placeholder characters)."
+        },
+        {
+          "name": "example",
+          "type": "string",
+          "required": false,
+          "description": "Example value read in the generated format hint."
+        },
+        {
+          "name": "formatHint",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated format hint."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Empty value is invalid; shows the required indicator."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the field."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Focusable and submitted, not editable."
+        },
+        {
+          "name": "inputMode",
+          "type": "\"text\" | \"numeric\" | \"tel\" | \"decimal\"",
+          "required": false,
+          "description": "Virtual keyboard hint (default numeric for digit-only masks)."
+        },
+        {
+          "name": "autocomplete",
+          "type": "string",
+          "required": false,
+          "default": "off",
+          "description": "Native autocomplete token."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\" | \"auto\"",
+          "required": false,
+          "default": "ltr",
+          "description": "Text direction of the value."
+        },
+        {
+          "name": "validate",
+          "type": "((value: string, context: { readonly formattedValue: string; readonly complete: boolean; }) => string | null)",
+          "required": false,
+          "description": "Consumer validation (for example a checksum); return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<MaskedInputIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "placeholderChar",
+          "type": "string",
+          "required": false,
+          "default": "_",
+          "configurable": true,
+          "description": "Character shown in empty slots while the template is visible."
+        },
+        {
+          "name": "showMaskOnFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the whole template while focused."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valueInput",
+          "payload": "MaskedInputValueDetail",
+          "event": "aui-input",
+          "description": "The raw value changed: { value, formattedValue, complete, validity }."
+        },
+        {
+          "name": "changed",
+          "payload": "MaskedInputValueDetail",
+          "event": "aui-change",
+          "description": "Focus left with a changed value."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error; cleared when the user edits."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | undefined",
+          "description": "Raw or formatted value, per submit."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the input."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Native text input (textbox) with a programmatically associated format hint; no custom widget role.",
+        "source": "packages/components/metadata/masked-input/accessibility.json"
+      },
+      "limitations": [
+        "Edits are applied through beforeinput, so the browser's undo and redo do not apply to the field (Ctrl+Z does nothing).",
+        "Each mask has one shape; optional trailing slots are expressed with minLength (for example IBAN lengths 15 to 34).",
+        "IME composition is re-parsed after the composition commits."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiMaskedInput } from '@absoluteui/angular/masked-input';\n\n@Component({\n  selector: 'app-bank-details',\n  imports: [AuiMaskedInput],\n  template: `<aui-masked-input label=\"Sort code\" mask=\"99-99-99\" [(value)]=\"sortCode\"></aui-masked-input>`,\n})\nexport class BankDetailsComponent {\n  sortCode = '';\n}"
+    }
+  ]
+}

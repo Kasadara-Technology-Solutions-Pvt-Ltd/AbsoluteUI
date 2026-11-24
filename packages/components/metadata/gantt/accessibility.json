@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "component": "gantt",
+  "pattern": "WAI-ARIA APG Treegrid with row focus: rows carry aria-level, aria-setsize, aria-posinset, aria-expanded (summary tasks), and aria-rowindex (virtual rows); one roving tab stop. The grid is the accessible surface: every value a bar shows (dates, duration, milestone, critical, dependencies, violations, baseline variance) is text in its row. The timeline and histogram tracks are aria-hidden pointer surfaces with keyboard and toolbar equivalents for every action (WCAG 2.5.7).",
+  "roles": [
+    { "element": "toolbar <div>", "role": "group, named '{label} controls'" },
+    { "element": "toolbar <button>s", "role": "button (native); Link is a toggle (aria-pressed)" },
+    { "element": "grid <div>", "role": "treegrid, named by aria-label, described by the instructions" },
+    { "element": "header and body groups", "role": "rowgroup" },
+    { "element": "header row / cells", "role": "row / columnheader" },
+    { "element": "task row / cells", "role": "row / gridcell" },
+    { "element": "timeline, connectors, bars", "role": "none (aria-hidden=true)" },
+    { "element": "histogram title / summaries", "role": "heading (level 3) / text; tracks are aria-hidden" }
+  ],
+  "aria": [
+    { "attribute": "aria-label / aria-describedby", "element": "treegrid", "value": "`label` / visually hidden instructions" },
+    { "attribute": "aria-rowcount / aria-colcount", "element": "treegrid", "value": "Visible rows + 1 (header) / column count" },
+    { "attribute": "aria-rowindex", "element": "row", "value": "1-based index including the header (rows are virtual)" },
+    { "attribute": "aria-level / aria-setsize / aria-posinset", "element": "task row", "value": "Depth, siblings, position" },
+    { "attribute": "aria-expanded", "element": "summary row", "value": "true / false (absent on leaf tasks)" },
+    { "attribute": "aria-colindex", "element": "cells", "value": "1-based column" },
+    { "attribute": "tabindex", "element": "task row", "value": "0 on the focused row, -1 on the others" },
+    { "attribute": "aria-pressed / aria-disabled", "element": "toolbar buttons", "value": "Link while picking a successor / true when an action is not possible (buttons stay focusable)" },
+    { "attribute": "live region", "element": "shared live regions", "value": "Polite: new dates after a change, scale, undone, redone, linking cancelled. Assertive: linking instructions, linked, unlinked, refused, cannot be changed, limited by dependencies." }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Chart", "action": "Toolbar buttons, then the grid (one tab stop: the focused row)." },
+    { "key": "ArrowDown / ArrowUp", "context": "Row focused", "action": "Next / previous visible task (the grid scrolls; virtual rows render)." },
+    { "key": "PageDown / PageUp, Home / End", "context": "Row focused", "action": "One page down / up; first / last task." },
+    { "key": "ArrowRight (ArrowLeft in RTL)", "context": "Row focused", "action": "Expand a collapsed summary; on an expanded one, move to its first child." },
+    { "key": "ArrowLeft (ArrowRight in RTL)", "context": "Row focused", "action": "Collapse an expanded summary; otherwise move to the parent." },
+    { "key": "Enter", "context": "Row focused", "action": "Activate (aui-task-activate); while linking, make this task the successor (or remove the existing link between the two)." },
+    { "key": "Ctrl/Cmd+ArrowRight / Ctrl/Cmd+ArrowLeft", "context": "Row focused (editable)", "action": "Move the task one working day later / earlier (reading direction in RTL). Announces the new dates, or that dependencies prevent an earlier start." },
+    { "key": "Shift+ArrowRight / Shift+ArrowLeft", "context": "Row focused (editable)", "action": "Lengthen / shorten by one working day (at least one day)." },
+    { "key": "Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z or Ctrl/Cmd+Y", "context": "Row focused (editable)", "action": "Undo / redo." },
+    { "key": "Escape", "context": "Linking", "action": "Cancel linking." }
+  ],
+  "focus": "One roving tab stop over the rows; the focused row stays rendered while the grid scrolls (virtual rows). Collapsing a summary moves focus to it from a hidden child. Changes keep focus on the edited row; toolbar actions apply to the focused row and leave focus on the button. Clicking a bar focuses its row.",
+  "wcag": ["1.3.1 Info and Relationships", "1.4.1 Use of Color", "1.4.10 Reflow (two-dimensional chart scrolls in its own container)", "1.4.11 Non-text Contrast", "2.1.1 Keyboard", "2.1.4 Character Key Shortcuts (only modifier shortcuts)", "2.4.3 Focus Order", "2.4.7 Focus Visible", "2.5.7 Dragging Movements", "2.5.8 Target Size (Minimum)", "4.1.2 Name, Role, Value", "4.1.3 Status Messages"],
+  "notes": [
+    "Critical tasks are marked with the text 'Critical' in the grid and a hatched bar; milestones with 'Milestone'.",
+    "Dependencies and baseline variance are visually hidden text in the name cell, read with the row.",
+    "The histogram's peak load and over-capacity days are visible text next to each resource."
+  ],
+  "knownCaveats": [
+    "Pointer drags are not announced until the change is applied.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

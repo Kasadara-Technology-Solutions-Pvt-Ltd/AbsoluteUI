@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/file-manager",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiFileManager",
+      "description": "AbsoluteUI FileManager: `<aui-file-manager>`.",
+      "selector": "aui-file-manager",
+      "exportAs": [
+        "auiFileManager"
+      ],
+      "source": "generated",
+      "component": "file-manager",
+      "configKey": "fileManager",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the File Manager region, such as 'Company documents'."
+        },
+        {
+          "name": "provider",
+          "type": "FileManagerProvider",
+          "required": true,
+          "description": "Async storage: list, createFolder, rename, move, delete, upload, and optional getUrl and read; every call receives an AbortSignal."
+        },
+        {
+          "name": "root",
+          "type": "FileManagerRoot",
+          "required": false,
+          "default": "{ id: null, label }",
+          "description": "The top folder { id, label }; changing it lists the new root."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "No create, rename, move, delete, or upload."
+        },
+        {
+          "name": "accept",
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Accepted uploads: MIME types (image/*) and extensions (.csv)."
+        },
+        {
+          "name": "maxFileSize",
+          "type": "number",
+          "required": false,
+          "description": "Largest accepted upload in bytes."
+        },
+        {
+          "name": "preview",
+          "type": "false | \"auto\" | FileManagerPreview",
+          "required": false,
+          "default": "auto",
+          "description": "Preview of opened files: auto (images in an Image Viewer lightbox, text and code in a Code Viewer dialog), false, or a function returning a Node."
+        },
+        {
+          "name": "height",
+          "type": "string | null",
+          "required": false,
+          "default": "32rem",
+          "description": "Block size as a CSS length, or null to fill the host."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<FileManagerIcons>",
+          "required": false,
+          "description": "Entry and toolbar icons."
+        },
+        {
+          "name": "view",
+          "type": "FileManagerView",
+          "required": false,
+          "default": "list",
+          "configurable": true,
+          "description": "List rows with columns, or tiles."
+        },
+        {
+          "name": "sortBy",
+          "type": "FileManagerSortBy",
+          "required": false,
+          "default": "name",
+          "configurable": true,
+          "description": "Sort key."
+        },
+        {
+          "name": "sortDirection",
+          "type": "FileManagerSortDirection",
+          "required": false,
+          "default": "asc",
+          "configurable": true,
+          "description": "Sort direction."
+        },
+        {
+          "name": "foldersFirst",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Folders before files, whatever the sort."
+        },
+        {
+          "name": "showFolderPane",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the folder tree next to the content."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of sizes, dates, sorting, and messages."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "IANA timezone of modified dates."
+        },
+        {
+          "name": "density",
+          "type": "Density",
+          "required": false,
+          "default": "comfortable",
+          "configurable": true,
+          "description": "Row and tile size."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "navigate",
+          "payload": "FileManagerNavigateDetail",
+          "event": "aui-navigate",
+          "description": "Another folder is shown: { folderId, path }."
+        },
+        {
+          "name": "changed",
+          "payload": "FileManagerChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the selection: { selected }."
+        },
+        {
+          "name": "opened",
+          "payload": "FileManagerOpenDetail",
+          "event": "aui-open",
+          "description": "A file was opened (Enter or double click): { entry }; preventDefault() suppresses the built-in preview."
+        },
+        {
+          "name": "folderCreated",
+          "payload": "FileManagerCreateFolderDetail",
+          "event": "aui-create-folder",
+          "description": "A folder was created: { entry }."
+        },
+        {
+          "name": "renamed",
+          "payload": "FileManagerRenameDetail",
+          "event": "aui-rename",
+          "description": "An entry was renamed: { entry, previousName }."
+        },
+        {
+          "name": "moved",
+          "payload": "FileManagerMoveDetail",
+          "event": "aui-move",
+          "description": "Entries were moved: { entries, targetFolderId, source: 'drag' | 'paste' }."
+        },
+        {
+          "name": "deleted",
+          "payload": "FileManagerDeleteDetail",
+          "event": "aui-delete",
+          "description": "Entries were deleted: { entries }."
+        },
+        {
+          "name": "uploaded",
+          "payload": "FileManagerUploadDetail",
+          "event": "aui-upload",
+          "description": "One file finished uploading: { entry, file }."
+        },
+        {
+          "name": "failed",
+          "payload": "FileManagerErrorDetail",
+          "event": "aui-error",
+          "description": "A provider call failed: { operation, error, entries }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "refresh",
+          "signature": "refresh(): Promise<void> | undefined",
+          "description": "List the current folder again."
+        },
+        {
+          "name": "select",
+          "signature": "select(ids: readonly string[]): void",
+          "description": "Select entries of the current folder (no event)."
+        },
+        {
+          "name": "upload",
+          "signature": "upload(files: readonly File[]): void",
+          "description": "Upload files to the current folder (checked against accept and maxFileSize)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "A labelled region with a WAI-ARIA APG toolbar, a Breadcrumb navigation, a Tree View of folders, and the folder content as an APG listbox with multiple selection (focus stays on the listbox; aria-activedescendant names the active entry). Dialogs follow the APG dialog and alertdialog patterns.",
+        "source": "packages/components/metadata/file-manager/accessibility.json"
+      },
+      "limitations": [
+        "No copy operation: the provider contract covers move, rename, delete, create, and upload.",
+        "Folder uploads (directories dropped from the operating system) are not expanded; only files are uploaded.",
+        "Paths of folders opened through navigate() are known only for folders the File Manager has listed before."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { FileEntry, FileManagerOpenDetail, FileManagerProvider } from '@absoluteui/components/file-manager';\nimport { AuiFileManager } from '@absoluteui/angular/file-manager';\n\n// An in-memory provider; a real one calls your API and passes request.signal to fetch.\nconst entries: FileEntry[] = [\n  { id: 'contracts', name: 'Contracts', kind: 'folder', parentId: null },\n  { id: 'offer', name: 'Offer letter.txt', kind: 'file', size: 2048, mimeType: 'text/plain', parentId: 'contracts' },\n  { id: 'handbook', name: 'Handbook.txt', kind: 'file', size: 4096, mimeType: 'text/plain', parentId: null },\n];\nlet next = 1;\nconst documentsProvider: FileManagerProvider = {\n  list: async (folderId) => entries.filter((e) => e.parentId === folderId),\n  createFolder: async (parentId, name) => {\n    const entry: FileEntry = { id: `folder-${String(next++)}`, name, kind: 'folder', parentId };\n    entries.push(entry);\n    return entry;\n  },\n  rename: async (entry, name) => ({ ...entry, name }),\n  move: async (moved, targetFolderId) => moved.map((e) => ({ ...e, parentId: targetFolderId })),\n  delete: async () => {},\n  upload: async (folderId, file, request) => {\n    request.onProgress(file.size, file.size);\n    return { id: `file-${String(next++)}`, name: file.name, kind: 'file', size: file.size, mimeType: file.type, parentId: folderId };\n  },\n};\n\n@Component({\n  selector: 'app-documents',\n  imports: [AuiFileManager],\n  template: `<aui-file-manager label=\"Employee documents\" [provider]=\"provider\" view=\"grid\" (opened)=\"onOpen($event)\"></aui-file-manager>`,\n})\nexport class DocumentsComponent {\n  readonly provider = documentsProvider;\n  lastOpened = '';\n  onOpen(detail: FileManagerOpenDetail): void {\n    this.lastOpened = detail.entry.name;\n  }\n}"
+    }
+  ]
+}

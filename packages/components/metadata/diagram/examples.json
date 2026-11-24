@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "component": "diagram",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "A flowchart laid out automatically",
+      "language": "ts",
+      "code": "import { Diagram, type DiagramModel, type DiagramNodeActivateDetail } from '@absoluteui/components/diagram';\n\nconst model: DiagramModel = {\n  nodes: [\n    { id: 'start', label: 'Request submitted', shape: 'ellipse' },\n    { id: 'manager', label: 'Manager approval', shape: 'diamond', height: 96 },\n    { id: 'done', label: 'Approved', shape: 'rounded' },\n    { id: 'rejected', label: 'Rejected', shape: 'rounded' },\n  ],\n  edges: [\n    { id: 'e1', from: 'start', to: 'manager' },\n    { id: 'e2', from: 'manager', to: 'done', label: 'Yes' },\n    { id: 'e3', from: 'manager', to: 'rejected', label: 'No', dashed: true },\n  ],\n};\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDiagram.create(host, { label: 'Leave approval', model, layout: { algorithm: 'layered', direction: 'TB' } });\nhost.addEventListener('aui-node-activate', (event) => {\n  host.dataset.opened = (event as CustomEvent<DiagramNodeActivateDetail>).detail.node.label;\n});"
+    },
+    {
+      "id": "editing",
+      "title": "Edit mode with undo and saving",
+      "language": "ts",
+      "code": "import { Diagram, type DiagramChangeDetail, type DiagramModel } from '@absoluteui/components/diagram';\nimport { Button } from '@absoluteui/components/button';\n\nlet saved: DiagramModel = {\n  nodes: [\n    { id: 'a', label: 'Draft', x: 0, y: 0 },\n    { id: 'b', label: 'Review', x: 240, y: 0, locked: true },\n  ],\n  edges: [{ id: 'ab', from: 'a', to: 'b' }],\n};\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst diagram = Diagram.create(host, {\n  label: 'Document workflow',\n  model: saved,\n  editable: true,\n  routing: 'curved',\n  // Nothing may lead back to the draft.\n  canConnect: (_from, to) => to.id !== 'a',\n});\nhost.addEventListener('aui-change', (event) => {\n  saved = (event as CustomEvent<DiagramChangeDetail>).detail.model;\n});\nconst undo = document.createElement('button');\nundo.type = 'button';\nundo.textContent = 'Undo';\nButton.enhance(undo);\nundo.addEventListener('click', () => {\n  diagram.undo();\n});\nhost.after(undo);"
+    },
+    {
+      "id": "ports-routing",
+      "title": "Ports, routing, and arrowheads",
+      "language": "ts",
+      "code": "import { Diagram } from '@absoluteui/components/diagram';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDiagram.create(host, {\n  label: 'Data flow',\n  model: {\n    nodes: [\n      { id: 'app', label: 'Web app', shape: 'rectangle', x: 0, y: 80, ports: [{ id: 'out', side: 'right' }] },\n      { id: 'api', label: 'API', shape: 'rounded', x: 260, y: 80, ports: [{ id: 'in', side: 'left' }, { id: 'db', side: 'bottom' }] },\n      { id: 'db', label: 'Orders', shape: 'cylinder', x: 276, y: 240, width: 128, height: 80 },\n    ],\n    edges: [\n      { id: 'call', from: 'app', fromPort: 'out', to: 'api', toPort: 'in', label: 'HTTPS', arrowStart: 'circle', arrowEnd: 'triangle' },\n      { id: 'query', from: 'api', fromPort: 'db', to: 'db', routing: 'straight', arrowEnd: 'arrow' },\n    ],\n  },\n});"
+    },
+    {
+      "id": "custom-shape",
+      "title": "A custom shape and export",
+      "language": "ts",
+      "code": "import { Diagram, downloadDiagram } from '@absoluteui/components/diagram';\nimport { Button } from '@absoluteui/components/button';\n\nconst SVG = 'http://www.w3.org/2000/svg';\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst diagram = Diagram.create(host, {\n  label: 'Escalation',\n  model: {\n    nodes: [\n      { id: 'alert', label: 'Alert', shape: 'custom', x: 0, y: 0, width: 120, height: 72 },\n      { id: 'oncall', label: 'On-call engineer', x: 220, y: 4 },\n    ],\n    edges: [{ id: 'page', from: 'alert', to: 'oncall', label: 'Page' }],\n  },\n  // Non-interactive SVG in local coordinates; the label is drawn on top.\n  renderShape: (_node, { width, height, doc }) => {\n    const hexagon = doc.createElementNS(SVG, 'path');\n    hexagon.setAttribute('d', `M20 0H${String(width - 20)}L${String(width)} ${String(height / 2)}L${String(width - 20)} ${String(height)}H20L0 ${String(height / 2)}Z`);\n    hexagon.setAttribute('class', 'escalation-shape');\n    return hexagon;\n  },\n});\nconst save = document.createElement('button');\nsave.type = 'button';\nsave.textContent = 'Download SVG';\nButton.enhance(save);\nsave.addEventListener('click', () => {\n  void downloadDiagram(diagram, { format: 'svg', fileName: 'escalation' });\n});\nhost.after(save);"
+    },
+    {
+      "id": "layout-function",
+      "title": "Pure layout (no DOM)",
+      "language": "ts",
+      "code": "import { layoutDiagram } from '@absoluteui/components/diagram';\n\nconst result = layoutDiagram(\n  [\n    { id: 'a', width: 120, height: 48 },\n    { id: 'b', width: 120, height: 48 },\n    { id: 'c', width: 120, height: 48 },\n  ],\n  [{ from: 'a', to: 'b' }, { from: 'a', to: 'c' }],\n  { algorithm: 'tree', direction: 'LR', nodeGap: 24, rankGap: 48 },\n);\nconst b = result.positions.get('b');\ndocument.body.dataset.size = `${String(result.width)}x${String(result.height)}, b at ${String(b?.x ?? 0)}`;"
+    },
+    {
+      "id": "global-config",
+      "title": "Straight connectors and a coarser grid everywhere",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { diagram: { routing: 'straight', gridSize: 24, textAlternative: 'visible' } } });"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "context-menu",
+  "examples": [
+    {
+      "id": "per-row",
+      "title": "One context menu for a list; find the row from origin",
+      "language": "ts",
+      "code": "import { ContextMenu, type ContextMenuSelectDetail } from '@absoluteui/components/context-menu';\n\nconst list = document.querySelector<HTMLUListElement>('#files');\nif (list) {\n  // The target gets no ARIA attributes: describe the menu so it is discoverable.\n  const hint = document.createElement('p');\n  hint.id = 'files-hint';\n  hint.textContent = 'Right-click a file or press Shift+F10 for actions. The same actions are in each row\\'s Actions button.';\n  list.before(hint);\n  list.setAttribute('aria-describedby', hint.id);\n  ContextMenu.create(list, {\n    label: 'File actions',\n    items: [\n      { id: 'rename', label: 'Rename' },\n      { id: 'share', label: 'Share', items: [{ id: 'copy-link', label: 'Copy link' }] },\n      { type: 'separator' },\n      { id: 'delete', label: 'Delete', tone: 'danger' },\n    ],\n  });\n  list.addEventListener('aui-select', (event) => {\n    const { id, origin } = (event as CustomEvent<ContextMenuSelectDetail>).detail;\n    const row = origin.closest<HTMLLIElement>('li[data-file]');\n    if (row === null) return;\n    row.dataset.lastAction = id;\n  });\n}"
+    },
+    {
+      "id": "vary-items",
+      "title": "Different items per origin with update() from a capture-phase listener",
+      "language": "ts",
+      "code": "import { ContextMenu, type MenuItem } from '@absoluteui/components/context-menu';\nimport { Button } from '@absoluteui/components/button';\n\nconst canvas = document.createElement('div');\ncanvas.tabIndex = 0;\ncanvas.setAttribute('aria-label', 'Drawing');\nconst shape = document.createElement('button');\nshape.type = 'button';\nshape.dataset.shape = 'circle';\nshape.textContent = 'Circle';\nButton.enhance(shape, { variant: 'outline' });\ncanvas.append(shape);\ndocument.body.append(canvas);\n\nconst shapeItems: MenuItem[] = [\n  { id: 'bring-front', label: 'Bring to front' },\n  { id: 'delete-shape', label: 'Delete shape', tone: 'danger' },\n];\nconst canvasItems: MenuItem[] = [\n  { id: 'paste', label: 'Paste', shortcut: 'Ctrl+V' },\n  { type: 'checkbox', id: 'snap', label: 'Snap to grid', checked: true },\n];\nconst menu = ContextMenu.create(canvas, { items: canvasItems });\n\n// Capture phase runs before the component's own listener, so the right items are in place when it opens.\nconst chooseItems = (event: Event): void => {\n  const onShape = event.target instanceof Element && event.target.closest('[data-shape]') !== null;\n  menu.update({ items: onShape ? shapeItems : canvasItems });\n};\ncanvas.addEventListener('contextmenu', chooseItems, { capture: true });\ncanvas.addEventListener('keydown', (event) => {\n  if (event.key === 'ContextMenu' || (event.key === 'F10' && event.shiftKey)) chooseItems(event);\n}, { capture: true });"
+    },
+    {
+      "id": "global-config",
+      "title": "Global defaults",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { contextMenu: { nativeModifier: 'none', closeOnSelect: false } } });"
+    }
+  ]
+}

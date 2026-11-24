@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="user-cog">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9" cy="7" r="3.5"/>
+      <path d="M2.5 20a6.5 5.5 0 0 1 10-4.64"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M17.3 14.32L18.7 14.32L18.9 15.4L19.8 15.92L20.84 15.55L21.54 16.77L20.7 17.48L20.7 18.52L21.54 19.23L20.84 20.45L19.8 20.08L18.9 20.6L18.7 21.68L17.3 21.68L17.1 20.6L16.2 20.08L15.16 20.45L14.46 19.23L15.3 18.52L15.3 17.48L14.46 16.77L15.16 15.55L16.2 15.92L17.1 15.4z"/>
+      <circle cx="18" cy="18" r="1"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <circle cx="9" cy="7" r="4.5"/>
+      <path d="M2 20.5a7 6 0 0 1 10.5-5.2V20.5z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M17.2 13.83L18.8 13.83L19.02 15.07L20.03 15.65L21.22 15.22L22.01 16.6L21.05 17.42L21.05 18.58L22.01 19.4L21.22 20.78L20.03 20.35L19.02 20.93L18.8 22.17L17.2 22.17L16.98 20.93L15.97 20.35L14.78 20.78L13.99 19.4L14.95 18.58L14.95 17.42L13.99 16.6L14.78 15.22L15.97 15.65L16.98 15.07z"/>
+      <circle cx="18" cy="18" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="9" cy="7" r="3.5"/>
+      <path d="M2.5 20a6.5 5.5 0 0 1 10-4.64V20z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9" cy="7" r="3.5"/>
+      <path d="M2.5 20a6.5 5.5 0 0 1 10-4.64"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M17.3 14.32L18.7 14.32L18.9 15.4L19.8 15.92L20.84 15.55L21.54 16.77L20.7 17.48L20.7 18.52L21.54 19.23L20.84 20.45L19.8 20.08L18.9 20.6L18.7 21.68L17.3 21.68L17.1 20.6L16.2 20.08L15.16 20.45L14.46 19.23L15.3 18.52L15.3 17.48L14.46 16.77L15.16 15.55L16.2 15.92L17.1 15.4z"/>
+      <circle cx="18" cy="18" r="1"/>
+    </g>
+  </g>
+</svg>

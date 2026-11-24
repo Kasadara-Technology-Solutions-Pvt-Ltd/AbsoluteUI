@@ -1,0 +1,21 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  center?: boolean;
+}
+const { eyebrow, title, lead, center = false } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="container">
+    <div class:list={['page-hero-inner', center && 'page-hero-center']}>
+      <p class="eyebrow">{eyebrow}</p>
+      <h1>{title}</h1>
+      <p class="lead">{lead}</p>
+      <slot />
+    </div>
+  </div>
+</section>

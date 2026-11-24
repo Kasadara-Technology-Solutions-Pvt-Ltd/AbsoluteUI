@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "menu",
+  "displayName": "Menu",
+  "category": "Overlays",
+  "package": "@absoluteui/components",
+  "import": "import { Menu } from '@absoluteui/components/menu';",
+  "styleImport": "@absoluteui/components/menu/style.css",
+  "purpose": "Actions menu opened from a trigger button (WAI-ARIA APG Menu Button + Menu), with icons, descriptions, shortcut hints, danger tone, checkbox and radio items, labelled groups, separators, and nested submenus. Every level renders in the top layer through the Popover API and participates in the shared overlay stack.",
+  "whenToUse": [
+    "A list of commands or actions attached to a button (row actions, overflow 'more' menus, editor commands).",
+    "Toggling a few view options (checkbox items) or picking one of a few modes (radio items) inside an actions menu.",
+    "Grouping secondary actions into submenus to keep the first level short."
+  ],
+  "whenNotToUse": [
+    "Choosing a form value: use Select, Combobox, or Radio Group.",
+    "Site or app navigation made of links: use navigation links or a disclosure menu, not role=menu.",
+    "A persistent horizontal command bar: use a toolbar.",
+    "Rich interactive content (forms, text fields): use a popover or dialog."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["closed", "open", "submenu open", "item focused (focus-visible)", "item disabled", "item checked", "danger item"],
+  "responsive": "Popup width 10rem to min(22rem, 100vw - 1rem); height capped by popover-max-height and the available viewport space, then scrolls. The positioning engine flips and shifts every level to stay in the viewport.",
+  "rtl": "direction 'rtl' opens submenus to the left (placement left-start), swaps ArrowLeft/ArrowRight for opening and closing submenus, and mirrors the submenu chevron via [data-direction='rtl']. Item content uses logical properties.",
+  "theme": "Surface, border, shadow, radius, hover, focus-ring, muted-text, and error-foreground role tokens. Forced-colors mode shows the focused item in Highlight/HighlightText and disabled items in GrayText.",
+  "timezone": "Not applicable.",
+  "security": "Labels, descriptions, shortcuts, and group labels are rendered with textContent; never parsed as HTML. Styles only through compiled CSS and the CSSOM. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Checkbox and radio state lives in memory and is reset by update({ items }).",
+  "performance": {
+    "budgets": [
+      { "metric": "Menu.create plus open() with 200 items", "budget": "< 100 ms in headless Chromium" }
+    ],
+    "testedScale": "200 items in one level; three nested levels."
+  },
+  "limitations": [
+    "Submenus open on hover after 150 ms without a pointer-safe triangle; moving the pointer diagonally across a sibling item for longer than the delay switches submenus.",
+    "Shortcut text is a hint only; the menu does not register the keyboard shortcut or set aria-keyshortcuts.",
+    "Radio groups are scoped by group name across the whole menu tree.",
+    "There is no menubar (horizontal top-level) mode; use Menu Bar."
+  ],
+  "unsupported": [
+    "Rendering HTML or custom nodes inside items.",
+    "Link items (href); handle navigation in the aui-select listener.",
+    "Context menus opened at the pointer position."
+  ],
+  "antiPatterns": [
+    "Using a menu for site navigation or for selecting a form value.",
+    "Deeply nested submenus (more than two levels) that are hard to operate by pointer.",
+    "Hiding frequently used, single actions inside a menu."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/menu: AuiMenu directive (button[auiMenu]) on the trigger button; [auiMenu] binds the items.",
+    "react": "@absoluteui/react/menu: AuiMenu component.",
+    "vue": "@absoluteui/vue/menu: AuiMenu component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

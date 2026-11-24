@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "component": "command-palette",
+  "pattern": "Modal dialog (native <dialog>, inert background) containing a WAI-ARIA 1.2 combobox whose listbox is always shown: focus stays in the search field and aria-activedescendant points at the active option. Section headers are presentational rows; the active option always stays rendered while the list is virtualized.",
+  "roles": [
+    { "element": "dialog", "role": "dialog (native, modal)" },
+    { "element": "search field", "role": "combobox" },
+    { "element": "results", "role": "listbox" },
+    { "element": "result", "role": "option" },
+    { "element": "section header", "role": "presentation" },
+    { "element": "status", "role": "status" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "dialog", "value": "the label option (default Command palette)" },
+    { "attribute": "aria-label", "element": "combobox", "value": "Search commands" },
+    { "attribute": "aria-expanded / aria-controls / aria-autocomplete", "element": "combobox", "value": "true / the listbox id / list" },
+    { "attribute": "aria-activedescendant", "element": "combobox", "value": "id of the active option" },
+    { "attribute": "aria-description", "element": "combobox", "value": "the nested page trail while on a nested page" },
+    { "attribute": "aria-selected", "element": "option", "value": "true on the active option" },
+    { "attribute": "aria-disabled", "element": "option", "value": "true for disabled commands" },
+    { "attribute": "aria-haspopup", "element": "option", "value": "listbox for commands with children" },
+    { "attribute": "aria-busy", "element": "listbox", "value": "true while providers search" }
+  ],
+  "keyboard": [
+    { "key": "Ctrl + K (Cmd + K)", "context": "Page", "action": "Open or close the palette (the shortcut option)." },
+    { "key": "Down / Up", "context": "Search field", "action": "Next or previous result (wraps)." },
+    { "key": "Page Down / Page Up", "context": "Search field", "action": "Move by one visible page." },
+    { "key": "Ctrl + Home / Ctrl + End", "context": "Search field", "action": "First or last result." },
+    { "key": "Enter", "context": "Search field", "action": "Choose the active result: run it, or open its nested page." },
+    { "key": "Backspace", "context": "Empty search field on a nested page", "action": "Go back one page." },
+    { "key": "Escape", "context": "Dialog", "action": "Close and return focus to where it was." },
+    { "key": "Tab", "context": "Dialog", "action": "Stays inside the modal dialog (native focus containment)." }
+  ],
+  "focus": "Opening moves focus to the search field and remembers the previously focused element; closing (Escape, backdrop click, or a chosen command) restores it before the command runs. The background is inert while the dialog is open.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "4.1.2", "4.1.3"],
+  "notes": [
+    "The number of results is announced politely after typing pauses (WCAG 4.1.3); an empty result shows an Empty State with the reason.",
+    "The active result is shown by a start-edge bar as well as color (WCAG 1.4.1).",
+    "The shortcut is shown in the footer hints and next to each command with Kbd (with spoken names for symbols)."
+  ],
+  "knownCaveats": [
+    "Section names are visible headers but not part of the options' accessible names.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

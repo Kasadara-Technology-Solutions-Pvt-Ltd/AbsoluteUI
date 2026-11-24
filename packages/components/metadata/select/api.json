@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "component": "select",
+  "factory": { "name": "Select.create", "signature": "Select.create(host: HTMLElement, options: SelectOptions): Select" },
+  "configKey": "select",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name (via aria-labelledby)." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "options", "type": "readonly SelectOption[]", "required": true, "globallyConfigurable": false, "description": "{ value, label, disabled?, description? } with unique string values (flat list)." },
+    { "name": "value", "type": "string | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Initial selected value; also the value restored by reset(). Unknown values select nothing." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name for the hidden input." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Shown while nothing is selected. Default: localized \"Select an option\"." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "No selection is invalid; sets aria-required and shows the required indicator." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "aria-disabled, removed from the tab order, not submitted." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Focusable and submitted; the listbox does not open." },
+    { "name": "validate", "type": "(value: string | null) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<{ expand: IconRef; selected: IconRef; error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "renderOption", "type": "(option: SelectOption, context: SelectRenderContext) => Node", "required": false, "globallyConfigurable": false, "description": "Custom option content (since 0.9.0); the label stays the accessible name. Nodes are released with releaseNode when dropped." },
+    { "name": "renderValue", "type": "(option: SelectOption, context: SelectRenderContext) => Node", "required": false, "globallyConfigurable": false, "description": "Custom content for the selected value (since 0.9.0); the label stays the announced value." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Placeholder and message locale." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Listbox alignment direction (applied when the listbox opens)." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "combobox", "type": "HTMLDivElement", "description": "The focusable role=combobox element." },
+    { "name": "listbox", "type": "HTMLDivElement", "description": "The listbox element." },
+    { "name": "value", "type": "string | null", "description": "Selected value." },
+    { "name": "selectedOption", "type": "SelectOption | null", "description": "Selected option." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the listbox is shown." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the initial value." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<SelectOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: string | null): void", "description": "Programmatic selection (no events); unknown values clear it; clears an external custom error." },
+    { "name": "update", "signature": "update(options: Partial<SelectOptions>): void", "description": "Merge and apply options. A value whose option was removed is cleared." },
+    { "name": "open", "signature": "open(): void", "description": "Show the listbox; the selected (or first enabled) option becomes active." },
+    { "name": "close", "signature": "close(): void", "description": "Hide the listbox without changing the value." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error (server, cross-field rule); cleared when the user selects a new value." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | null", "description": "Value for form serialization." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the combobox." },
+    { "name": "reset", "signature": "reset(): void", "description": "Close, restore the initial value, and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close, remove rendering, listeners, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: string | null; option: SelectOption | null; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "User selected a different option." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "Listbox opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "Listbox closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-select", "description": "Host." },
+    { "name": "aui-select--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __required | __description | __error", "description": "Shared field chrome." },
+    { "name": "aui-select__combobox", "description": "Focusable combobox; control boundary and popup anchor." },
+    { "name": "aui-select__value | __value--placeholder", "description": "Selected label or placeholder." },
+    { "name": "aui-select__chevron", "description": "Decorative expand icon." },
+    { "name": "aui-select__popup", "description": "Top-layer popover container." },
+    { "name": "aui-select__listbox", "description": "Listbox." },
+    { "name": "aui-select__option", "description": "Option; --active marks the active descendant." },
+    { "name": "aui-select__option-label | __option-description", "description": "Option text parts." },
+    { "name": "aui-select__check", "description": "Check icon on the selected option." }
+  ],
+  "iconSlots": [
+    { "name": "expand", "default": "chevron-down" },
+    { "name": "selected", "default": "check" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

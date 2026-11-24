@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="signpost" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 4.5h6.5l2 2.25-2 2.25H12z"/>
+      <path d="M12 11.5H5.5l-2 2.25 2 2.25H12z"/>
+      <path d="M12 2.5v18.5"/>
+      <path d="M9 21h6"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M11 3.5h7.9l2.6 3.25-2.6 3.25H11z"/>
+      <path d="M13 10.5H5.1l-2.6 3.25 2.6 3.25H13z"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <line x1="12" y1="2.5" x2="12" y2="21" data-outline-width="2"/>
+      <line x1="9" y1="21" x2="15" y2="21" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 4.5h6.5l2 2.25-2 2.25H12z"/>
+      <path d="M12 11.5H5.5l-2 2.25 2 2.25H12z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 4.5h6.5l2 2.25-2 2.25H12z"/>
+      <path d="M12 11.5H5.5l-2 2.25 2 2.25H12z"/>
+      <path d="M12 2.5v18.5"/>
+      <path d="M9 21h6"/>
+    </g>
+  </g>
+</svg>

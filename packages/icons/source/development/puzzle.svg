@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="puzzle">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 7h3.5a2 2 0 1 1 4 0H16v3.5a2 2 0 1 1 0 4V18h-3.5a2 2 0 1 0-4 0H5z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M5 7h3.5a2 2 0 1 1 4 0H16v3.5a2 2 0 1 1 0 4V18h-3.5a2 2 0 1 0-4 0H5z" transform="translate(11 12.5) scale(1.08) translate(-11 -12.5)"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M5 7h3.5a2 2 0 1 1 4 0H16v3.5a2 2 0 1 1 0 4V18h-3.5a2 2 0 1 0-4 0H5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 7h3.5a2 2 0 1 1 4 0H16v3.5a2 2 0 1 1 0 4V18h-3.5a2 2 0 1 0-4 0H5z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="diff">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="3" width="16" height="18" rx="2"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 7v6"/>
+      <path d="M9 10h6"/>
+      <path d="M9 17h6"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="4" y="3" width="16" height="18" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="3" width="16" height="18" rx="2"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 7v6"/>
+      <path d="M9 10h6"/>
+      <path d="M9 17h6"/>
+    </g>
+  </g>
+</svg>

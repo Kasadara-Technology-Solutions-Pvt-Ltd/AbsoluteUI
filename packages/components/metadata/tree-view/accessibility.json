@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "component": "tree-view",
+  "pattern": "WAI-ARIA APG Tree View with a flat DOM: every visible node is a treeitem directly inside the tree and carries aria-level, aria-posinset, and aria-setsize (only part of the tree is rendered). Roving tabindex keeps one tab stop; the focused node always stays rendered.",
+  "roles": [
+    { "element": "viewport", "role": "tree" },
+    { "element": "canvas", "role": "none" },
+    { "element": "node", "role": "treeitem" },
+    { "element": "empty message", "role": "status" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "tree", "value": "the label option" },
+    { "attribute": "aria-multiselectable", "element": "tree", "value": "true with multiple selection" },
+    { "attribute": "aria-level / aria-posinset / aria-setsize", "element": "treeitem", "value": "depth (1-based), position among visible siblings, and their count" },
+    { "attribute": "aria-expanded", "element": "treeitem", "value": "true or false on parents (absent on leaves)" },
+    { "attribute": "aria-selected", "element": "treeitem", "value": "true or false when selection is not none" },
+    { "attribute": "aria-checked", "element": "treeitem", "value": "true, false, or mixed with checkboxes" },
+    { "attribute": "aria-disabled", "element": "treeitem", "value": "true for disabled nodes" },
+    { "attribute": "aria-busy", "element": "treeitem", "value": "true while its children load" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Tree", "action": "Focus the active node (one tab stop)." },
+    { "key": "Down / Up", "context": "Tree", "action": "Next or previous visible node." },
+    { "key": "Right (Left in RTL)", "context": "Node", "action": "Collapsed parent: expand (loading lazy children). Expanded parent: first child. Failed load: retry." },
+    { "key": "Left (Right in RTL)", "context": "Node", "action": "Expanded parent: collapse. Otherwise: focus the parent." },
+    { "key": "Home / End", "context": "Tree", "action": "First or last visible node." },
+    { "key": "Page Down / Page Up", "context": "Tree", "action": "Move by one visible page." },
+    { "key": "*", "context": "Node", "action": "Expand all siblings of the focused node." },
+    { "key": "Printable characters", "context": "Tree", "action": "Type-ahead to the next visible node whose label starts with the typed characters." },
+    { "key": "Enter", "context": "Node", "action": "Activate (aui-activate); selects in single mode; retries a failed load." },
+    { "key": "Space", "context": "Node", "action": "Toggle the checkbox (checkboxes), toggle selection (multiple), or select (single)." },
+    { "key": "Shift + Down / Up / Space", "context": "Multiple selection", "action": "Extend the selection from the anchor." },
+    { "key": "Ctrl + A (Cmd + A)", "context": "Multiple selection", "action": "Select all visible nodes, or clear when all are selected." },
+    { "key": "F2", "context": "Renamable node", "action": "Rename in a text input: Enter saves, Escape cancels." },
+    { "key": "Ctrl + X (Cmd + X)", "context": "Draggable tree", "action": "Cut the focused node (keyboard move)." },
+    { "key": "Ctrl + V / Ctrl + Shift + V", "context": "After a cut", "action": "Move the cut node inside the focused node (last child) or after it." },
+    { "key": "Alt + Up / Alt + Down", "context": "Draggable tree", "action": "Move the focused node one place among its siblings." },
+    { "key": "Escape", "context": "After a cut", "action": "Cancel the move." }
+  ],
+  "focus": "One tab stop (roving tabindex). The focused node stays rendered while scrolling; collapsing an ancestor or filtering it out moves focus to the nearest visible ancestor. After a move or rename, focus stays on the node.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.11", "2.1.1", "2.4.3", "2.4.7", "2.5.7", "2.5.8", "4.1.2", "4.1.3"],
+  "notes": [
+    "Dragging has a keyboard and single-pointer alternative (cut and paste, Alt+Arrow), meeting WCAG 2.5.7.",
+    "Loading, load failures, moves, renames, and filter results are announced politely (failures assertively) through the shared live region (WCAG 4.1.3).",
+    "Selection is shown by a start-edge bar as well as color; checked and mixed states by a check mark and a dash (WCAG 1.4.1)."
+  ],
+  "knownCaveats": [
+    "The tree is flat in the DOM (aria-level instead of nested groups) so it can be virtualized; screen readers announce levels from aria-level.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

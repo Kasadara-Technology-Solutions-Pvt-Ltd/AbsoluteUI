@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="key">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="8" cy="15.5" r="4"/>
+      <path d="M10.8 12.7L19 4.5"/>
+      <path d="M16.5 7l2.5 2.5"/>
+      <path d="M14.5 9l2 2"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="8" cy="15.5" r="5"/>
+      <circle cx="8" cy="15.5" r="2"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <line x1="11.2" y1="12.3" x2="19" y2="4.5" data-outline-width="2"/>
+      <line x1="16.5" y1="7" x2="19" y2="9.5" data-outline-width="2"/>
+      <line x1="14.5" y1="9" x2="16.5" y2="11" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="8" cy="15.5" r="4"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="8" cy="15.5" r="4"/>
+      <path d="M10.8 12.7L19 4.5"/>
+      <path d="M16.5 7l2.5 2.5"/>
+      <path d="M14.5 9l2 2"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="expense">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M13 18H4.5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h15a2 2 0 0 1 2 2v4"/>
+      <circle cx="12" cy="12" r="2.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15 21l6-6"/>
+      <path d="M16.5 15H21v4.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M13 18H4.5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h15a2 2 0 0 1 2 2v4h-4.5a4 4 0 0 0-4 4z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M13 18H4.5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h15a2 2 0 0 1 2 2v4"/>
+      <circle cx="12" cy="12" r="2.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15 21l6-6"/>
+      <path d="M16.5 15H21v4.5"/>
+    </g>
+  </g>
+</svg>

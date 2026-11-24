@@ -1,0 +1,108 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  // One real input underneath; aria-hidden cells on top let pointer events through.
+  .aui-otp-input__control {
+    position: relative;
+    display: flex;
+    inline-size: min(100%, calc(var(--aui-otp-length, 6) * 3.25rem));
+  }
+
+  .aui-otp-input__input {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    padding: 0;
+    margin: 0;
+    // 16px or more: mobile browsers do not zoom into the field on focus.
+    font-size: max(1rem, #{aui.token('font-size-md')});
+    color: transparent;
+    caret-color: transparent;
+    background: transparent;
+    border: 0;
+    outline: none;
+
+    &::selection {
+      background: transparent;
+    }
+
+    &::-ms-reveal {
+      display: none;
+    }
+  }
+
+  .aui-otp-input__cells {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    pointer-events: none;
+  }
+
+  .aui-otp-input__cell {
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-inline-size: 0;
+    max-inline-size: 3rem;
+    block-size: aui.token('control-height-lg');
+    font-family: aui.token('font-family-mono');
+    font-size: aui.token('font-size-lg');
+    font-weight: aui.token('font-weight-semibold');
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-md');
+    @include aui.transition(border-color, box-shadow);
+  }
+
+  .aui-otp-input__separator {
+    flex: none;
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-otp-input--focused .aui-otp-input__cell--active {
+    border-color: aui.token('color-focus-ring');
+    box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+  }
+
+  .aui-otp-input--invalid .aui-otp-input__cell {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-otp-input--disabled .aui-otp-input__cell {
+    color: aui.token('color-text-disabled');
+    background: aui.token('color-disabled-bg');
+    border-color: aui.token('color-border');
+  }
+
+  .aui-otp-input--disabled .aui-otp-input__input {
+    cursor: not-allowed;
+  }
+
+  .aui-otp-input:has(.aui-otp-input__input:read-only:not(:disabled)) .aui-otp-input__cell {
+    background: aui.token('color-surface-sunken');
+  }
+
+  @include aui.forced-colors {
+    .aui-otp-input__cell {
+      border-color: CanvasText;
+    }
+
+    .aui-otp-input--focused .aui-otp-input__cell--active {
+      outline: 2px solid Highlight;
+      outline-offset: 1px;
+    }
+  }
+}

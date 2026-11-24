@@ -1,0 +1,54 @@
+---
+// Starlight's footer plus the legal row shared with the product site and the Theme Designer
+// (legal.json): copyright, license, privacy, terms, security, notices, and the site's cookie settings.
+// One website (docs/PLAN-ONE-SITE.md OS-11, OS-13): the legal pages live once at the site root, linked
+// by path, and the footer links the home page and the Theme Designer.
+import Default from '@astrojs/starlight/components/Footer.astro';
+import legal from '../generated/legal.json';
+---
+
+<Default />
+<div class="aui-legal">
+  <p>(c) {legal.copyrightYear} {legal.company}. AbsoluteUI is open source under the Apache License 2.0 (<a href={legal.pages.license}>license</a>), Kasadara's contribution to the open-source community. <a href={legal.repository} rel="noopener">Source on GitHub</a>.</p>
+  <ul>
+    <li><a href="/">AbsoluteUI home</a></li>
+    <li><a href="/designer/">Theme Designer</a></li>
+    <li><a href={legal.pages.privacy}>Privacy Policy</a></li>
+    <li><a href={legal.pages.terms}>Terms of Use</a></li>
+    <li><a href={legal.pages.security}>Security</a></li>
+    <li><a href={legal.pages.notices}>Third-party notices</a></li>
+    <li><button type="button" data-consent-reset>Cookie settings</button></li>
+  </ul>
+</div>
+
+<style>
+  .aui-legal {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sl-color-hairline);
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+  }
+  .aui-legal ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .aui-legal a,
+  .aui-legal button {
+    color: var(--sl-color-gray-2);
+  }
+  .aui-legal button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+</style>

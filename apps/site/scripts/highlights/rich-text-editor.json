@@ -1,0 +1,8 @@
+[
+  { "title": "Model-based editing", "text": "Every edit goes through an internal document model, not the browser's editing commands." },
+  { "title": "Full formatting set", "text": "Headings, emphasis, links, nested lists, quotes, code blocks, and alignment." },
+  { "title": "HTML and Markdown", "text": "Sanitized HTML and Markdown input and output, plus a plain-text mode." },
+  { "title": "Markdown shortcuts", "text": "Typing shortcuts such as a hash for headings or a dash for lists." },
+  { "title": "Configurable toolbar", "text": "Choose which toolbar items and heading levels authors can use." },
+  { "title": "Form control contract", "text": "Label, help text, length limits, counter, and localized validation like Textarea." }
+]

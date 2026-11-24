@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "mention-input",
+  "displayName": "Mention Input",
+  "category": "Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { MentionInput } from '@absoluteui/components/mention-input';",
+  "styleImport": "@absoluteui/components/mention-input/style.css",
+  "purpose": "A plain-text field that suggests people, tags, or other entities when the user types a trigger character such as @ or #. Suggestions come from an async provider (debounced, aborted when superseded); inserted mentions are kept as structured tokens { id, label, trigger, start, end } whose offsets follow every edit. Nothing is rendered as HTML. A Form control with a hidden input carrying the JSON value.",
+  "whenToUse": [
+    "Comments, notes, and messages that reference people (@) or topics (#) by id.",
+    "Any text where the server needs to know exactly which entity was referenced, not just the typed name."
+  ],
+  "whenNotToUse": [
+    "Picking one or more entities without free text: use Combobox or Multi Select.",
+    "Formatted text with bold, lists, or links: use Rich Text Editor.",
+    "Values that must not contain free text."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities", "@absoluteui/icons"],
+  "states": ["empty", "filled", "suggestions open", "loading", "no matches", "provider failed", "single-line", "multiline", "required", "disabled", "read-only", "invalid", "counter over limit"],
+  "responsive": "The field fills its container; the suggestion popup is at most 24rem wide and the viewport width, and flips above the field when there is no room below.",
+  "rtl": "The text follows the document direction; the popup aligns to the field's inline start.",
+  "theme": "Global tokens only: field surface, selected and hover colors for suggestions, focus ring. Forced colors use Highlight and HighlightText for the active suggestion.",
+  "timezone": "Not applicable.",
+  "security": "Text, labels, and suggestions are rendered with textContent; the value is plain text with offsets, never HTML. Provider results are validated (id and label strings) before rendering.",
+  "dataHandling": "The provider is called with the query only; no persistence or telemetry. Queries are aborted through AbortSignal when superseded.",
+  "performance": {
+    "budgets": [
+      { "metric": "MentionInput.create, per instance", "budget": "< 3 ms average in headless Chromium" },
+      { "metric": "Offset update per edit", "budget": "O(mentions) with one string diff" }
+    ],
+    "testedScale": "Texts of 10,000 characters with 200 mentions; up to 50 suggestions shown (maxSuggestions)."
+  },
+  "limitations": [
+    "Mentions are not highlighted inside the field (a native textarea cannot style ranges); they are plain text with tokens in the value.",
+    "Inserting a suggestion replaces the field value programmatically, so the browser's undo history does not include it.",
+    "Queries stop at whitespace: multi-word labels are found by their first word."
+  ],
+  "unsupported": [
+    "Rich text, HTML, or Markdown rendering.",
+    "Mentions without a trigger character."
+  ],
+  "antiPatterns": [
+    "Parsing @names out of the text on the server instead of using the mention ids.",
+    "Providers that ignore the AbortSignal and do expensive work for stale queries."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/mention-input: AuiMentionInput component (<aui-mention-input>, [(value)], formControl).",
+    "react": "@absoluteui/react/mention-input: AuiMentionInput component (value, onValueChange).",
+    "vue": "@absoluteui/vue/mention-input: AuiMentionInput component (v-model)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

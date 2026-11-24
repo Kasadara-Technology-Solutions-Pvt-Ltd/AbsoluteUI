@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "name": "data-table",
+  "displayName": "Data Table",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { DataTable } from '@absoluteui/components/data-table';",
+  "styleImport": "@absoluteui/components/data-table/style.css",
+  "purpose": "Enterprise CRUD table and grid: a real <table> with a caption, column and row headers, typed and locale-aware cell formatting (number, currency, date, datetime in the configured timezone, boolean), stable single- or multi-column sorting with aria-sort and announcements, row selection (single radios or multiple checkboxes with a per-page select-all and Shift+click ranges), composed Pagination with a result summary, client or server data modes, loading and empty states, and a keyboard-scrollable responsive region. Since 0.3.0, all opt-in: per-column filters (text, number, date, enum) and global search with a server filtering contract, column visibility with a Menu-based column chooser, pointer and keyboard column resizing, sticky column pinning, row expansion with consumer-rendered detail rows, virtual scrolling for large client row sets, RFC 4180 CSV export with formula-injection protection, and JSON-safe state serialization.",
+  "whenToUse": [
+    "Lists of records users scan, compare, sort, select, and page through (orders, users, invoices).",
+    "Server-paged data where the backend sorts, filters, and pages, and the table renders the current page.",
+    "Operational grids that need filters, several sort columns, column choice and widths, pinned identifier columns, detail rows, or CSV export, with the view state saved and restored.",
+    "Large client-side row sets (tested with 100,000 rows) in a fixed-height region with virtual: true."
+  ],
+  "whenNotToUse": [
+    "Spreadsheet-like interaction with cell-by-cell arrow-key navigation or cell selection: not provided (the table keeps plain table semantics; every control, editable cells included, is reached with Tab).",
+    "Page layout or visual alignment of non-tabular content: use Layout.",
+    "Rows of different heights (wrapping text, detail rows) with virtual scrolling: virtual rows are single-line and uniform; page instead.",
+    "Very large data sets that do not fit in memory: use server mode."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities",
+    "@absoluteui/components/pagination",
+    "@absoluteui/components/menu (DataTableColumnChooser only; tree-shaken otherwise)"
+  ],
+  "states": [
+    "default",
+    "row hover",
+    "row selected",
+    "row not selectable",
+    "sorted ascending",
+    "sorted descending",
+    "unsorted",
+    "focus-visible",
+    "loading (skeleton rows)",
+    "loading (overlay over existing rows)",
+    "empty",
+    "compact / comfortable / spacious density",
+    "sticky header",
+    "multi-column sorted (priority numbers)",
+    "filtered (filter row, search)",
+    "column hidden",
+    "column resized (fixed layout)",
+    "resizing (pointer drag)",
+    "columns pinned (sticky start/end)",
+    "row expanded (detail row)",
+    "virtual (windowed rows)"
+  ],
+  "responsive": "The table sits in a horizontally (and, with a consumer max-block-size, vertically) scrollable region with role=region, tabindex=0, and the caption as its name, so keyboard users can scroll it (WCAG 2.1.1, 1.4.10). Pinned columns stay visible while the region scrolls horizontally, which keeps row identity visible on narrow screens; pin few columns there, since pinned columns take space from the scrolling ones. The search toolbar wraps; filter fields keep a minimum width and scroll with the table. Virtual mode gives the region max-block-size: 70vh. The composed Pagination switches to its compact 'Page 3 of 10' layout in narrow containers.",
+  "rtl": "Layout uses logical properties and follows the document direction; numeric columns align to the end edge. Pinned columns use inset-inline-start/end, so start pins sit on the right in rtl. Resize handles sit on the inline-end edge; in rtl the Left arrow widens a column and a drag to the left widens it. The collapsed disclosure chevron is mirrored. The direction option is passed to the composed Pagination, which mirrors its chevrons.",
+  "theme": "Headers and the filter row use color-surface-sunken; row hover uses color-hover; selected rows use color-selected / color-selected-text plus the checked input (not color alone). Pinned cells get an opaque background matching their row state and a color-border-strong boundary on the innermost pinned column. Filter fields use color-surface with a color-border-strong boundary. Detail rows use color-surface-sunken. Selection inputs mirror the Checkbox styling. Forced-colors mode outlines selected rows with Highlight, and draws resize handles and pinned boundaries in CanvasText.",
+  "timezone": "datetime columns format Instant (and ZonedDateTime) values with formatInstant in the configured timezone (instance, component, or common config; UTC by default), never the host machine's zone. Date filters on datetime columns compare the calendar date in that timezone: from/to days are converted to their start instants in the zone (compatible disambiguation), so 2024-01-15T03:00Z matches the day 2024-01-14 in America/New_York. date columns format and filter PlainDate values without any timezone shift. Raw CSV exports use ISO 8601 (YYYY-MM-DD for dates, UTC instants with Z).",
+  "security": "All cell text is set with textContent; format(), render(), and renderDetail() strings are text, never HTML. Nodes returned by render() and renderDetail() are consumer-owned and appended as-is. Column widths are validated (CSS length allowlist, or finite pixel numbers) and written with style.setProperty, like sticky offsets (CSS custom properties); CSP-safe. CSV export follows RFC 4180 and prefixes cells that start with =, +, -, @, tab, or carriage return with a single quote and quotes them (OWASP CSV injection guidance); numbers the table formats itself, and numbers or booleans from exportValue, are trusted. setState validates untrusted input. downloadCsv is the only function with a download side effect.",
+  "dataHandling": "No persistence, network access, or telemetry. Rows are held by reference; the component never mutates them. getState() returns a JSON-safe snapshot; storing it is the consumer's choice. Server mode emits events and the consumer supplies new rows. Filter and search text stay in memory and are only exposed through events, getState(), and properties.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "DataTable.create with 1,000 rows x 8 columns, pageSize null (client mode)",
+        "budget": "< 150 ms in headless Chromium (e2e performance test)"
+      },
+      {
+        "metric": "Sorting 10,000 rows with pageSize 25 (update({ sort })), text column (locale collation with numeric ordering)",
+        "budget": "< 100 ms in headless Chromium (e2e performance test, median of 5; measured about 60 ms)"
+      },
+      {
+        "metric": "Sorting 10,000 rows with pageSize 25, numeric column",
+        "budget": "< 50 ms in headless Chromium (e2e performance test, median of 5)"
+      },
+      {
+        "metric": "Since 0.3.0: multi-column sort of 10,000 rows (text then number) with pageSize 25",
+        "budget": "< 120 ms in headless Chromium (e2e performance test, median of 5)"
+      },
+      {
+        "metric": "Since 0.3.0: filtering 10,000 rows (text contains, number range, and global search) with pageSize 25",
+        "budget": "< 50 ms in headless Chromium (e2e performance test, median of 5, displayed-text cache warm)"
+      },
+      {
+        "metric": "Since 0.3.0: DataTable.create with 100,000 rows, virtual: true, pageSize null",
+        "budget": "< 200 ms in headless Chromium (e2e performance test)"
+      },
+      {
+        "metric": "Since 0.3.0: re-rendering the virtual window after a scroll, 100,000 rows",
+        "budget": "< 16 ms per scroll update in headless Chromium (e2e performance test, median of 10 jumps)"
+      },
+      {
+        "metric": "Since 0.3.0: toCsv() of 10,000 rows x 8 columns (formatted values)",
+        "budget": "< 150 ms in headless Chromium (e2e performance test, median of 5)"
+      }
+    ],
+    "testedScale": "10,000 rows client-side with paging, filtering, and multi-sort; 1,000 rows x 8 columns rendered at once; 100,000 rows with virtual scrolling (about 40 rows rendered for a 70vh region). Row elements are reused by row id; only the current page (or the virtual window) is in the DOM. Virtual scrolling is bounded by the browser's maximum element height (about 33,000,000 px in Chromium: roughly 800,000 rows at 40 px); use server mode beyond that."
+  },
+  "limitations": [
+    "Plain table semantics, not an ARIA grid: no cell-by-cell arrow-key navigation or cell selection. Inline editing (since 0.9.0) opens one cell editor at a time; editable cells are tab stops.",
+    "No column reorder by drag or nested grids (column order is programmatic: columnOrder, setState). Grouping and aggregation (since 0.9.0) run in client mode only and not with virtual.",
+    "Pointer resizing needs a drag; the single-pointer alternatives are the keyboard handle (focus it, then arrow keys) and columnWidths/setState. WCAG 2.5.7 conformance of the pointer path relies on those alternatives and is flagged for review.",
+    "Select all applies to the current page (every row of it in virtual mode); there is no 'select all N results' affordance. Filters do not change the selection: rows filtered out stay selected.",
+    "Shift+click range selection works within the current page only.",
+    "Virtual scrolling needs a scroll region with a bounded height (70vh by default) and single-line rows of uniform height; it cannot be combined with renderDetail.",
+    "Enum filters in the filter row choose one value; several values (values: [...]) are programmatic and shown as 'n selected'.",
+    "Text filters and search are case-insensitive substring matches on the displayed text; accents and punctuation are significant.",
+    "Filters and search do not run in server mode; the consumer applies them (aui-filter-change, getState()).",
+    "The sticky header sticks within the scroll region; give the region a max-block-size for it to take effect on long tables.",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ],
+  "unsupported": [
+    "ARIA grid semantics and arrow-key cell navigation.",
+    "Infinite scrolling and lazy loading of virtual windows from a server.",
+    "HTML strings in cells or detail rows.",
+    "virtual combined with renderDetail (throws DATA_TABLE_OPTIONS)."
+  ],
+  "antiPatterns": [
+    "Rendering tens of thousands of rows with pageSize null and without virtual: true.",
+    "Using array indexes or unstable values as row ids (breaks selection, expansion, row reuse, and virtual focus retention).",
+    "Putting interactive controls in the row-header column without a text label (the selection and disclosure labels read the row header text).",
+    "Pinning many columns on narrow screens (pinned columns do not scroll).",
+    "Restoring getState() snapshots from untrusted sources without setState (setState validates; building options by hand does not drop stale ids).",
+    "Opening exported CSV in a spreadsheet with escapeFormulas: false.",
+    "Using a table for layout."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/data-table: AuiDataTable directive ([auiDataTable]) with every option as an input and every event as an output; AuiDataTableColumnChooser (button[auiDataTableColumnChooser]).",
+    "react": "@absoluteui/react/data-table: AuiDataTable component. Column chooser: @absoluteui/react/data-table-column-chooser.",
+    "vue": "@absoluteui/vue/data-table: AuiDataTable component. Column chooser: @absoluteui/vue/data-table-column-chooser."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

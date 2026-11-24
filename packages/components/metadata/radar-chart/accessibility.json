@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "component": "radar-chart",
+  "pattern": "SVG radar chart as a named, described group (role=\"group\" with aria-roledescription \"radar chart\") of role=\"img\" vertices with two-dimensional roving focus (around the axes, between series); legend of toggle buttons; data table fallback with one row per axis.",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription \"radar chart\" (localized), named by the title"
+    },
+    {
+      "element": "vertices (path.aui-chart__point)",
+      "role": "img with an aria-label: axis, series, formatted value"
+    },
+    {
+      "element": "legend",
+      "role": "list (ul) named \"Legend\"; entries are toggle buttons (aria-pressed)"
+    },
+    {
+      "element": "data table",
+      "role": "table (native) with caption, column headers (Axis, then each series), and row headers (axes); wide tables scroll in a focusable region"
+    },
+    {
+      "element": "rings, spokes, tick labels, axis names, polygons, tooltip",
+      "role": "aria-hidden (decorative duplicates of the accessible data)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized \"radar chart\""
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each vertex",
+      "value": "Localized \"{axis}, {series}: {value}\", for example \"Power, Beta: 2\"; missing values read \"No value\""
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active vertex",
+      "value": "0 on exactly one vertex (roving); other vertices have none"
+    },
+    {
+      "attribute": "aria-pressed",
+      "element": "legend button",
+      "value": "true while the series is visible"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowRight / ArrowLeft",
+      "context": "Vertex focused",
+      "action": "Next (clockwise) / previous axis of the same series; swapped in RTL so forward follows the reading direction."
+    },
+    {
+      "key": "ArrowDown / ArrowUp",
+      "context": "Vertex focused",
+      "action": "Same axis in the next / previous visible series (single visible series: next / previous axis)."
+    },
+    {
+      "key": "Home / End",
+      "context": "Vertex focused",
+      "action": "First (top) / last axis of the series."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Vertex focused",
+      "action": "Ten axes back / forward (clamped to the ends)."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "Legend buttons, then one tab stop for the plot (the active vertex), then the Show data table button and table region."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Legend button",
+      "action": "Shows or hides the series (native button)."
+    }
+  ],
+  "focus": "Roving focus: one vertex is in the tab sequence and remembers the last visited vertex, also across re-renders (resize, update, series toggles). Toggling a legend entry keeps focus on its button; toggling the table keeps focus on the table button.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "4.1.2"
+  ],
+  "notes": [
+    "The generated summary lists the type, series and axis counts, the axis names in order, the scale, each series' highest and lowest axis, and hidden series, for example \"radar chart, 2 series, 4 axes: Speed, Power, Range, and Armor. Scale {from} to {to}. Alpha: highest 5 on Power, lowest 2 on Range. ...\"",
+    "Meaning never depends on color alone: series differ by marker shape and (with patterns) dash pattern, and the legend keys repeat them.",
+    "Axes keep clockwise order in RTL (a radar has no reading axis, like pie charts); only ArrowLeft/ArrowRight are swapped.",
+    "Missing values are drawn at the center and read \"No value\".",
+    "Forced colors: series use CanvasText and keep shapes and dashes; axis names use CanvasText; focus uses Highlight.",
+    "No animation."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "aria-roledescription support varies; screen readers without it announce \"group\".",
+    "Polygon area depends on axis order and exaggerates differences; the summary and table give exact values."
+  ]
+}

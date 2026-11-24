@@ -1,0 +1,7 @@
+[
+  { "title": "Stats or raw values", "text": "Pass five-number summaries or raw values computed with spreadsheet quantiles." },
+  { "title": "Whisker rules", "text": "Tukey whiskers with outliers or plain min and max whiskers." },
+  { "title": "Keyboard boxes", "text": "One tab stop; names read the five-number summary and outlier count." },
+  { "title": "Data table fallback", "text": "A summary and a table with every statistic and the outlier values." },
+  { "title": "Grouped series", "text": "Several series side by side with legend toggles and optional textures." }
+]

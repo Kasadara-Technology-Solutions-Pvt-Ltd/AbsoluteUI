@@ -1,0 +1,7 @@
+[
+  { "title": "Your storage", "text": "One async provider (list, create, rename, move, delete, upload) with an AbortSignal on every call." },
+  { "title": "Built from AbsoluteUI", "text": "Tree View folders, a Splitter, a Breadcrumb path, menus, dialogs, and progress bars." },
+  { "title": "10,000 files per folder", "text": "List and grid views on the shared windowing engine keep about 30 entries in the DOM." },
+  { "title": "Keyboard first", "text": "Listbox selection, F2, Delete, Ctrl+X and Ctrl+V moves, Backspace up, and a context menu." },
+  { "title": "Previews", "text": "Images open in the Image Viewer, text and code in the Code Viewer, anything else in your preview." }
+]

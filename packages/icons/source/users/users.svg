@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="users" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9" cy="8" r="3.25"/>
+      <path d="M2.5 20a6.5 5 0 0 1 13 0"/>
+      <path d="M16.56 4.8a3.25 3.25 0 0 1 0 6.4"/>
+      <path d="M17.5 15.2a6.5 5 0 0 1 4 4.8"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <circle cx="8.5" cy="8" r="4.25"/>
+      <path d="M1.5 20.5a7.5 6 0 0 1 15 0z"/>
+      <circle cx="16.5" cy="7.5" r="3"/>
+      <path d="M14.8 13.8a6 6 0 0 1 7.2 6.2v.5h-4.5a8.5 8.5 0 0 0-2.7-6.7z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="9" cy="8" r="3.25"/>
+      <path d="M2.5 20a6.5 5 0 0 1 13 0z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9" cy="8" r="3.25"/>
+      <path d="M2.5 20a6.5 5 0 0 1 13 0"/>
+      <path d="M16.56 4.8a3.25 3.25 0 0 1 0 6.4"/>
+      <path d="M17.5 15.2a6.5 5 0 0 1 4 4.8"/>
+    </g>
+  </g>
+</svg>

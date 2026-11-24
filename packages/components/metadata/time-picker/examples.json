@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "time-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required time with business-hours bounds",
+      "language": "ts",
+      "code": "import { plainTime } from '@absoluteui/core';\nimport { TimePicker } from '@absoluteui/components/time-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst start = TimePicker.create(host, {\n  label: 'Opening time',\n  name: 'opensAt',\n  required: true,\n  min: plainTime(6, 0),\n  max: plainTime(22, 0),\n  step: 15,\n});\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(start.validity.valid);\n});"
+    },
+    {
+      "id": "seconds-24h",
+      "title": "24-hour entry with seconds and custom validation",
+      "language": "ts",
+      "code": "import { parsePlainTime } from '@absoluteui/core';\nimport { TimePicker, type TimePickerChangeDetail } from '@absoluteui/components/time-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nTimePicker.create(host, {\n  label: 'Backup time',\n  granularity: 'second',\n  hourCycle: 'h23',\n  value: parsePlainTime('02:30:00'),\n  validate: (value) => (value !== null && value.hour >= 8 && value.hour < 18 ? 'Choose a time outside office hours.' : null),\n});\nhost.addEventListener('aui-change', (event) => {\n  const detail = (event as CustomEvent<TimePickerChangeDetail>).detail;\n  host.dataset.time = detail.value ? `${detail.value.hour}:${detail.value.minute}` : '';\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Global hour cycle and suggestion step",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { timePicker: { hourCycle: 'h23', step: 15 } } });"
+    }
+  ]
+}

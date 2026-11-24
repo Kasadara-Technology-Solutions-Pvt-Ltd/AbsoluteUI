@@ -1,0 +1,157 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-collapsible {
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    color: aui.token('color-text');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-collapsible--bordered {
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.ctoken('collapsible', 'border-color');
+    border-radius: aui.ctoken('collapsible', 'radius');
+  }
+
+  .aui-collapsible__heading {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .aui-collapsible__trigger {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    box-sizing: border-box;
+    min-block-size: aui.token('touch-target-min');
+    padding-block: aui.token('space-2');
+    padding-inline: 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: aui.token('font-size-md');
+    font-weight: aui.token('font-weight-medium');
+    line-height: aui.token('line-height-tight');
+    text-align: start;
+    color: aui.token('color-text');
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+    @include aui.transition(background-color);
+
+    &:hover {
+      color: aui.token('color-link');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-collapsible--bordered .aui-collapsible__trigger {
+    inline-size: 100%;
+    padding-inline: aui.token('space-4');
+    border-radius: aui.ctoken('collapsible', 'radius');
+
+    &:hover {
+      color: aui.token('color-text');
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * aui.token('focus-ring-width')));
+    }
+  }
+
+  .aui-collapsible__label {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-collapsible__icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    font-size: aui.icon-size('sm');
+    color: aui.token('color-text-muted');
+    @include aui.transition(transform);
+  }
+
+  .aui-collapsible--bordered .aui-collapsible__icon {
+    margin-inline-start: auto;
+  }
+
+  // Static end state: the rotated icon still conveys "expanded" without motion.
+  .aui-collapsible__trigger[aria-expanded='true'] .aui-collapsible__icon {
+    transform: rotate(180deg);
+  }
+
+  // Height animation: a grid row transitions 0fr -> 1fr; `display` transitions
+  // discretely so the hidden attribute applies immediately (as in Accordion).
+  .aui-collapsible__panel {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition-property: grid-template-rows, display;
+    transition-duration: aui.token('duration-normal');
+    transition-timing-function: aui.token('easing-standard');
+    transition-behavior: allow-discrete;
+
+    // Only after the first toggle, so content open at creation does not animate on load.
+    .aui-collapsible--animated > & {
+      @starting-style {
+        grid-template-rows: 0fr;
+      }
+    }
+
+    &[hidden] {
+      display: none;
+      grid-template-rows: 0fr;
+    }
+
+    @include aui.reduced-motion {
+      transition: none;
+    }
+
+    :where([data-aui-animation='none']) & {
+      transition: none;
+    }
+  }
+
+  .aui-collapsible__clip {
+    min-block-size: 0;
+    overflow: hidden;
+  }
+
+  .aui-collapsible__content {
+    padding-block: aui.token('space-2');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-collapsible--bordered .aui-collapsible__content {
+    padding-inline: aui.token('space-4');
+    padding-block-end: aui.token('space-4');
+  }
+
+  @include aui.forced-colors {
+    .aui-collapsible--bordered {
+      border-color: CanvasText;
+    }
+
+    .aui-collapsible__trigger[aria-disabled='true'] {
+      color: GrayText;
+    }
+  }
+}

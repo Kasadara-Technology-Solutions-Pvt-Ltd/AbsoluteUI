@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "rating",
+  "examples": [
+    {
+      "id": "review",
+      "title": "Performance score with half steps and captions",
+      "language": "ts",
+      "code": "import { Rating, type RatingValueDetail } from '@absoluteui/components/rating';\n\nconst host = document.createElement('div');\nconst out = document.createElement('p');\ndocument.body.append(host, out);\nRating.create(host, {\n  label: 'Overall performance',\n  allowHalf: true,\n  required: true,\n  labels: ['Needs improvement', 'Developing', 'Meets expectations', 'Exceeds expectations', 'Outstanding'],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<RatingValueDetail>).detail;\n  out.textContent = value === null ? 'Not rated' : `Score ${String(value)}`;\n});"
+    },
+    {
+      "id": "display",
+      "title": "Read-only display in a list",
+      "language": "ts",
+      "code": "import { Rating } from '@absoluteui/components/rating';\n\nconst host = document.createElement('span');\ndocument.body.append(host);\nRating.create(host, { label: 'Customer rating', value: 4.5, allowHalf: true, display: true, size: 'sm', hideLabel: true });"
+    },
+    {
+      "id": "custom-icon",
+      "title": "Custom symbol and value text",
+      "language": "ts",
+      "code": "import { Rating } from '@absoluteui/components/rating';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nRating.create(host, {\n  label: 'Difficulty',\n  max: 3,\n  value: 2,\n  icons: { item: 'alert-triangle' },\n  valueText: (v, max) => `Level ${String(v)} of ${String(max)}`,\n});"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="cake">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="12" width="16" height="8.5" rx="1.5"/>
+      <path d="M4 15.5c1.3 0 1.3-1.5 2.7-1.5s1.3 1.5 2.6 1.5 1.3-1.5 2.7-1.5 1.3 1.5 2.6 1.5 1.4-1.5 2.7-1.5 1.4 1.5 2.7 1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 12V8.5"/>
+      <path d="M12 4.5c.8.8 1.2 1.5.8 2.3a.9.9 0 0 1-1.6 0c-.4-.8 0-1.5.8-2.3z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="3" y="11.5" width="18" height="10" rx="2"/>
+      <line x1="4.75" y1="15.5" x2="19.25" y2="15.5" data-outline-width="1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <rect x="11" y="7.5" width="2" height="3" rx="0.5"/>
+      <path d="M12 3.5c1.1 1 1.7 2 1.2 3.1a1.3 1.3 0 0 1-2.4 0c-.5-1.1.1-2.1 1.2-3.1z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="4" y="12" width="16" height="8.5" rx="1.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="12" width="16" height="8.5" rx="1.5"/>
+      <path d="M4 15.5c1.3 0 1.3-1.5 2.7-1.5s1.3 1.5 2.6 1.5 1.3-1.5 2.7-1.5 1.3 1.5 2.6 1.5 1.4-1.5 2.7-1.5 1.4 1.5 2.7 1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 12V8.5"/>
+      <path d="M12 4.5c.8.8 1.2 1.5.8 2.3a.9.9 0 0 1-1.6 0c-.4-.8 0-1.5.8-2.3z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="warning" data-paint="fill" data-opacity="0.3">
+      <rect x="4" y="12" width="16" height="8.5" rx="1.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="12" width="16" height="8.5" rx="1.5"/>
+      <path d="M4 15.5c1.3 0 1.3-1.5 2.7-1.5s1.3 1.5 2.6 1.5 1.3-1.5 2.7-1.5 1.3 1.5 2.6 1.5 1.4-1.5 2.7-1.5 1.4 1.5 2.7 1.5"/>
+    </g>
+    <g data-layer="accent" data-role="error" data-paint="stroke">
+      <path d="M12 12V8.5"/>
+      <path d="M12 4.5c.8.8 1.2 1.5.8 2.3a.9.9 0 0 1-1.6 0c-.4-.8 0-1.5.8-2.3z"/>
+    </g>
+  </g>
+</svg>

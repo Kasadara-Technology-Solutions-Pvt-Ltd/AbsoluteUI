@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "component": "dashboard",
+  "factory": { "name": "Dashboard.create", "signature": "Dashboard.create(host: HTMLElement, options: DashboardOptions): Dashboard" },
+  "configKey": "dashboard",
+  "options": [
+    { "name": "definition", "type": "unknown (DashboardDefinition JSON)", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "The dashboard definition (plain JSON). Older schemaVersions are migrated; invalid input throws DASHBOARD_DEFINITION with the first issue's JSON Pointer. Change it later with setDefinition()." },
+    { "name": "registry", "type": "WidgetRegistry", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Widget types by name. Default: defaultWidgetRegistry (fill it with registerWidgetType or registerBuiltInWidgets)." },
+    { "name": "transforms", "type": "TransformRegistry", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Custom transforms for { op: 'custom', name }. Default: defaultTransformRegistry." },
+    { "name": "fetcher", "type": "DashboardFetcher", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "(request, signal) => Promise<unknown>: performs data source requests and owns authentication. Default: defaultFetcher (global fetch, no redirects, JSON only, size-limited)." },
+    { "name": "allowedOrigins", "type": "readonly string[]", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Exact http(s) origins besides the page origin that data sources may call. Invalid entries throw DASHBOARD_OPTIONS. Default: none." },
+    { "name": "baseUrl", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Base for root-relative data source URLs and the 'same origin'. Default: location.href." },
+    { "name": "editable", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Whether users may switch to edit mode; false hides the edit switch and refuses setMode('edit')." },
+    { "name": "mode", "type": "'view' | 'edit'", "default": "view", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Initial mode; 'edit' needs editable: true. Change it with setMode()." },
+    { "name": "toolbar", "type": "boolean | DashboardToolbarOptions", "default": true, "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Show the toolbar; an object turns items off (variables, refresh, edit, undo, reset, add, json, pages)." },
+    { "name": "timeZone", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "IANA zone for date range presets and the 'Updated' time. Default: the runtime zone." },
+    { "name": "businessCalendars", "type": "Readonly<Record<string, BusinessCalendarEngine>>", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Business calendars by the name date range variables refer to (business-day presets, date range picker)." },
+    { "name": "headingLevel", "type": "2 | 3 | 4 | 5 | 6", "default": 3, "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Heading level of widget titles." },
+    { "name": "label", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Accessible name of the widget area. Default: '{title} widgets'." },
+    { "name": "lazy", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "init-only", "description": "Load a widget's data only when it comes within 200 px of the viewport (IntersectionObserver)." },
+    { "name": "historyLimit", "type": "number", "default": 100, "required": false, "globallyConfigurable": true, "mutability": "init-only", "description": "Undo steps (integer 1 to 1000)." },
+    { "name": "retries", "type": "number", "default": 2, "required": false, "globallyConfigurable": true, "mutability": "init-only", "description": "GET retries on network errors, timeouts, 408, 429, and 5xx, with exponential backoff and jitter (integer 0 to 5)." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "init-only", "description": "Locale of messages, numbers, and times." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "init-only", "description": "Direction of the grid, toolbar, tabs, and drawers." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "definition", "type": "DashboardDefinition", "description": "Current validated, deeply frozen definition." },
+    { "name": "savedDefinition", "type": "DashboardDefinition", "description": "The definition reset() returns to (create time or the last markSaved())." },
+    { "name": "dirty", "type": "boolean", "description": "True when definition differs from savedDefinition." },
+    { "name": "mode", "type": "'view' | 'edit'", "description": "Current mode." },
+    { "name": "editable", "type": "boolean", "description": "The editable option." },
+    { "name": "page", "type": "string | null", "description": "Selected page id, or null without pages." },
+    { "name": "variables", "type": "Readonly<Record<string, VariableValue>>", "description": "Current variable values (date ranges as { from, to } ISO dates)." },
+    { "name": "canUndo / canRedo", "type": "boolean", "description": "Whether undo() / redo() would change the definition." },
+    { "name": "kiosk", "type": "boolean", "description": "Whether kiosk mode is on." },
+    { "name": "grid", "type": "DashboardGrid | null", "description": "The Dashboard Grid of the current page." },
+    { "name": "registry", "type": "WidgetRegistry", "description": "The widget registry in use." }
+  ],
+  "methods": [
+    { "name": "setDefinition", "signature": "setDefinition(definition: unknown, reason?: DashboardChangeReason): void", "description": "Validate and apply a definition (undoable). Loaded data of unchanged sources is kept. Throws DASHBOARD_DEFINITION when invalid." },
+    { "name": "check", "signature": "check(definition: unknown): readonly DefinitionIssue[]", "description": "Migrate and validate a candidate definition without applying it." },
+    { "name": "markSaved", "signature": "markSaved(): void", "description": "Make the current definition the one reset() returns to (call after storing it)." },
+    { "name": "setMode", "signature": "setMode(mode: 'view' | 'edit'): void", "description": "Switch mode; 'edit' needs editable. Emits aui-mode-change." },
+    { "name": "setVariable", "signature": "setVariable(id: string, value: unknown): boolean", "description": "Validate and set a variable; dependent data sources reload. Returns false for an unknown id or invalid value." },
+    { "name": "refresh", "signature": "refresh(source?: string): void", "description": "Reload one data source, or every source used on the current page, bypassing the cache." },
+    { "name": "setPage", "signature": "setPage(id: string): void", "description": "Show a page. Emits aui-page-change." },
+    { "name": "addWidget", "signature": "addWidget(widget: Omit<WidgetDefinition, 'layout'> & { layout?: WidgetLayout }): readonly DefinitionIssue[]", "description": "Add a widget (first free spot with the type's default size when layout is omitted, on the current page). Returns issues; empty when added." },
+    { "name": "updateWidget", "signature": "updateWidget(id: string, widget: WidgetDefinition): readonly DefinitionIssue[]", "description": "Replace a widget's definition. Returns issues; empty when applied." },
+    { "name": "removeWidget", "signature": "removeWidget(id: string): boolean", "description": "Remove a widget and its per-breakpoint layout entries." },
+    { "name": "undo / redo", "signature": "undo(): boolean; redo(): boolean", "description": "Step through the definition history (moves, resizes, add, remove, widget and definition changes, reset)." },
+    { "name": "reset", "signature": "reset(): void", "description": "Return to savedDefinition (undoable)." },
+    { "name": "startKiosk / stopKiosk", "signature": "startKiosk(options?: DashboardKioskOptions): void; stopKiosk(): void", "description": "Read-only display without toolbar and tabs; optional page rotation (10 s minimum, pause toggle) and full screen. Emits aui-kiosk-change." },
+    { "name": "widgetStatus", "signature": "widgetStatus(id: string): WidgetStatus | undefined", "description": "idle, loading, ready, empty, error, or stale." },
+    { "name": "widgetElement", "signature": "widgetElement(id: string): HTMLElement | undefined", "description": "The widget host ([data-aui-item]) on the current page." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Abort requests, stop timers and kiosk mode, destroy widgets, grid, toolbar, and tabs, and remove the classes it added." }
+  ],
+  "events": [
+    { "name": "aui-dashboard-change", "detail": "DashboardChangeDetail { reason: DashboardChangeReason; definition: DashboardDefinition }", "bubbles": true, "cancelable": false, "description": "The definition changed (layout, add, remove, widget, definition, undo, redo, reset, import). Store detail.definition." },
+    { "name": "aui-mode-change", "detail": "DashboardModeChangeDetail { mode: 'view' | 'edit' }", "bubbles": true, "cancelable": false, "description": "The mode changed." },
+    { "name": "aui-variables-change", "detail": "DashboardVariablesChangeDetail { variables; id: string }", "bubbles": true, "cancelable": false, "description": "A variable changed (toolbar control, interaction, or setVariable)." },
+    { "name": "aui-widget-error", "detail": "DashboardWidgetErrorDetail { widget: string; source: string | null; kind: string; status: number | null }", "bubbles": true, "cancelable": false, "description": "A widget shows an error: blocked, network, http, timeout, too-large, parse, transform, options, unknown-type, or render. Never contains response bodies." },
+    { "name": "aui-widget-select", "detail": "DashboardWidgetSelectDetail { widget: string; datum: JsonValue }", "bubbles": true, "cancelable": false, "description": "A user selected a row or list item in a widget; the widget's interactions have set their variables." },
+    { "name": "aui-page-change", "detail": "{ page: string }", "bubbles": true, "cancelable": false, "description": "A different page is shown." },
+    { "name": "aui-kiosk-change", "detail": "{ kiosk: boolean }", "bubbles": true, "cancelable": false, "description": "Kiosk mode started or stopped." }
+  ],
+  "contentAreas": [
+    { "name": "host children", "description": "The dashboard appends its toolbar, page tabs, and grid to the host; leave the host otherwise empty." },
+    { "name": "widget body", "description": "Each widget type renders into .aui-dashboard-widget__body through WidgetContext.body; custom types own that element's children." }
+  ],
+  "cssClasses": [
+    { "name": "aui-dashboard-root", "description": "Host; modifiers aui-dashboard-root--editing and aui-dashboard-root--kiosk; data-aui-density and data-aui-accent from the definition style." },
+    { "name": "aui-dashboard-root__grid | __pages", "description": "Grid host and page tabs host." },
+    { "name": "aui-dashboard-toolbar | __variables | __variable | __actions | __button | __edit", "description": "Toolbar parts; data-aui-variable on each variable control." },
+    { "name": "aui-dashboard-widget", "description": "Widget host (also aui-widget); data-aui-item, data-aui-status, data-aui-tone, and the style attributes data-aui-accent, -surface, -border, -shadow, -header, -density, -padding." },
+    { "name": "aui-dashboard-widget__body | __state | __message | __retry | __footer", "description": "Renderer area, state overlay (role=status, role=alert for errors), retry button, and the 'Updated' footer (data-aui-stale when stale)." },
+    { "name": "aui-dashboard-kiosk", "description": "Kiosk bar with the pause toggle and exit button." },
+    { "name": "aui-dashboard-builder | __form | __json | __group | __field | __message", "description": "Builder and JSON editor content inside the Drawer (dashboard/builder)." },
+    { "name": "aui-dashboard-list | aui-dashboard-text | aui-dashboard-kpi | aui-dashboard-chart | aui-dashboard-table", "description": "Containers of the built-in widget types (dashboard/widgets)." }
+  ],
+  "iconSlots": [
+    { "name": "toolbar refresh, undo, redo, reset, add, JSON", "default": "refresh, undo, redo, close, plus, code" },
+    { "name": "widget refresh and edit actions", "default": "refresh, more-horizontal" },
+    { "name": "kiosk exit", "default": "minimize" },
+    { "name": "JSON download", "default": "download" }
+  ]
+}

@@ -1,0 +1,7 @@
+[
+  { "title": "Spotlight", "text": "Dims the page around the target with a CSS cut-out that follows scrolling and resizing, under a strict CSP." },
+  { "title": "A dialog per step", "text": "Non-modal by default, modal on request; focus moves into every step and returns when the tour ends." },
+  { "title": "Keyboard first", "text": "Next, Back, Skip, and Finish buttons, arrow keys mirrored in RTL, and Escape to skip." },
+  { "title": "Robust targets", "text": "Elements, selectors, or functions; missing targets are skipped with an event, and hooks can open what a step needs." },
+  { "title": "Progress", "text": "\"2 of 5\" announced with each step, optional dots, and targets scrolled into view." }
+]

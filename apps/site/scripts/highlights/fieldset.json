@@ -1,0 +1,6 @@
+[
+  { "title": "Native grouping", "text": "Enhances a native fieldset, keeping its controls in place and its built-in group semantics." },
+  { "title": "Legend and help", "text": "A styled legend that can be visually hidden, plus group help text read with the group." },
+  { "title": "Group-level error", "text": "One error message for the whole group, for checks no single control can make." },
+  { "title": "Disable in one step", "text": "The native disabled state turns off every control inside the group." }
+]

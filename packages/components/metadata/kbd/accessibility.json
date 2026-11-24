@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "kbd",
+  "pattern": "Keyboard input markup: a kbd element for the combination with one nested kbd per key (HTML kbd semantics).",
+  "roles": [
+    { "element": "combination and keys", "role": "none (kbd text semantics)" },
+    { "element": "symbol glyphs", "role": "none (aria-hidden=true; a visually hidden name follows)" }
+  ],
+  "aria": [
+    { "attribute": "aria-hidden", "element": "Apple modifier and arrow symbols", "value": "true; the key name is provided as visually hidden text" }
+  ],
+  "keyboard": [
+    { "key": "None", "context": "Any", "action": "Not focusable; read in document order by assistive technology." }
+  ],
+  "focus": "Never receives or moves focus.",
+  "wcag": ["1.1.1", "1.3.1", "1.4.3"],
+  "notes": [
+    "Symbols such as the Command sign are hidden from assistive technology and replaced by localized names ('Command'), so screen readers do not announce unknown glyphs.",
+    "Shortcuts supplement, never replace, a visible way to reach the command."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

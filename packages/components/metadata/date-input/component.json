@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "date-input",
+  "displayName": "Date Input",
+  "category": "Form Inputs / Date and Time",
+  "package": "@absoluteui/components",
+  "import": "import { DateInput } from '@absoluteui/components/date-input';",
+  "styleImport": "@absoluteui/components/date-input/style.css",
+  "purpose": "Keyboard-first date or date-time entry using locale-ordered numeric segments. Produces explicit types: PlainDate (date granularity) or Instant (minute granularity) resolved in the configured timezone with a documented DST policy.",
+  "whenToUse": [
+    "Entering known dates such as birth dates or due dates.",
+    "Entering an exact moment (meeting time) in a specific timezone."
+  ],
+  "whenNotToUse": [
+    "Browsing dates visually: use Date Picker or DateTime Picker. Choosing ranges: use Date Range Picker.",
+    "Relative or fuzzy dates ('next week')."
+  ],
+  "internalDependencies": ["@absoluteui/core"],
+  "states": ["empty", "partial (incomplete)", "valid", "invalid-date", "value-missing", "range-underflow", "range-overflow", "nonexistent-time", "ambiguous-time", "disabled", "read-only"],
+  "responsive": "Segments wrap inside the group on narrow containers; group width fits its content up to 100%.",
+  "rtl": "Segment order follows the locale's Intl pattern; digits stay LTR (isolated). Arrow-key segment navigation mirrors in RTL.",
+  "theme": "Control surface, focus and error tokens. Focused segment uses selected colors; forced-colors mode uses Highlight/HighlightText.",
+  "timezone": "Minute granularity resolves wall-clock input in the `timezone` option or configuration (default UTC, never the host zone). Nonexistent/ambiguous times follow `disambiguation` (default compatible) and the user is told when a time was adjusted or which occurrence was used; `reject` produces a validation error. A hint shows the zone name and offset.",
+  "security": "All text via textContent; no HTML parsing. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. A hidden input carries an ISO 8601 value (YYYY-MM-DD or UTC instant) when `name` is set.",
+  "performance": {
+    "budgets": [
+      { "metric": "DateInput.create, per instance (100 instances)", "budget": "< 5 ms average in headless Chromium" }
+    ],
+    "testedScale": "100 instances on one page in the performance test."
+  },
+  "limitations": [
+    "No calendar popup (use Date Picker).",
+    "Gregorian calendar only; years 1-9999.",
+    "Minute granularity only; seconds are not editable.",
+    "Timezone rule accuracy depends on the browser's ICU data (SPEC section 8.7).",
+    "Incomplete and required errors are shown after the group loses focus or reportValidity() is called; other errors show immediately."
+  ],
+  "unsupported": [
+    "Free-form localized text parsing (e.g. '3rd March').",
+    "Changing `granularity` after creation (init-only; throws CFG_INIT_ONLY)."
+  ],
+  "antiPatterns": [
+    "Using minute granularity for date-only concepts such as birthdays (use date granularity to avoid timezone shifts).",
+    "Relying on the host timezone; always configure `timezone` explicitly for user-facing times."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/date-input: AuiDateInput directive ([auiDateInput]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/date-input: AuiDateInput component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/date-input: AuiDateInput component with v-model."
+  },
+  "versionIntroduced": "0.1.0",
+  "deprecated": null
+}

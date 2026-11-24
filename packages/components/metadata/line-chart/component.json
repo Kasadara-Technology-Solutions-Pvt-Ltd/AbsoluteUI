@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "name": "line-chart",
+  "displayName": "Line Chart",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { LineChart } from '@absoluteui/components/line-chart';",
+  "styleImport": "@absoluteui/components/line-chart/style.css",
+  "purpose": "Accessible SVG line and area chart for trends over a shared x axis (categories, numbers, or instants in the configured timezone) with one or more series, gaps for missing values, a toggleable legend, keyboard-reachable points with tooltips, optional zoom and pan along x and a crosshair, a generated summary, and a data table fallback.",
+  "whenToUse": [
+    "Trends over time or an ordered dimension.",
+    "Comparing a few series (up to about 8) over the same x values.",
+    "Area option: emphasizing magnitude relative to zero for one or two series."
+  ],
+  "whenNotToUse": [
+    "Comparing discrete categories: use Bar Chart.",
+    "Part-to-whole: use Pie Chart or a stacked Bar Chart.",
+    "An inline trend without axes: use Sparkline.",
+    "Unordered x values or per-series x values: use Scatter Chart.",
+    "Bars and lines together or two value axes: use Combo Chart."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "empty (no data)",
+    "all series hidden",
+    "series hidden",
+    "point focused (tooltip)",
+    "hovered (shared tooltip)",
+    "table open",
+    "dense (virtual points above 600 visible points)",
+    "zoomed (window applied; toolbar Zoom out and Reset zoom enabled)",
+    "panning (pointer drag) or selecting a range (Shift + drag)",
+    "crosshair shown (hover or focus)"
+  ],
+  "responsive": "Width follows the container (ResizeObserver); height is the height option. Tick counts, label thinning, and truncation adapt to the width; markers appear when points are at least 12 px apart. Reflows at 320 CSS px.",
+  "rtl": "direction rtl mirrors the x axis (first value at the right), puts the y axis on the right, and swaps ArrowLeft/ArrowRight. Legend, tooltip, and table follow the document direction.",
+  "theme": "Series colors from color-chart-1..8 by palette slot; gridlines color-chart-grid; axes color-chart-axis; text color-text / color-text-muted; tooltip color-surface with color-border-strong. Forced colors use CanvasText, Canvas, GrayText, and Highlight.",
+  "timezone": "Time axes (Instant or ZonedDateTime x values) compute ticks at wall-clock boundaries (midnight, first of month, January) in the configured timezone (instance, component, or common config; UTC by default) and format labels there; ticks follow local time across DST changes. Never the host machine zone.",
+  "security": "All text (title, description, labels, values, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; sizes and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "LineChart.create, 5 series x 1,000 points (time axis, with gaps), including the first render",
+        "budget": "< 50 ms in headless Chromium (e2e performance test, median of 5)"
+      },
+      {
+        "metric": "Re-render after update() for the same data",
+        "budget": "< 50 ms (e2e performance test)"
+      }
+    ],
+    "testedScale": "5 series x 1,000 points; above 600 visible points points are virtual (two proxy marks), so DOM size is independent of point count except for the line paths. The data table is built only when opened (toggle mode)."
+  },
+  "limitations": [
+    "x values are shared by all series; each series needs exactly one value per x value.",
+    "Straight line segments only (no curve smoothing).",
+    "Axis labels are sized by estimate (about 0.6 em per character, 1 em for wide characters), so unusual fonts may truncate earlier or later than needed.",
+    "The zoom window keeps at least two points visible; zoomRange is clamped to the data.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Zoom on the y axis (x only) and linked zoom across charts.",
+    "Secondary y axis, logarithmic scales, and stacked areas (use Combo Chart for a secondary axis).",
+    "Unordered or per-series x values (use Scatter Chart).",
+    "HTML content in labels or tooltips."
+  ],
+  "antiPatterns": [
+    "More than about 8 series (colors and shapes start repeating).",
+    "Hiding the data table (dataTable: none) for data users must read exactly.",
+    "Turning patterns off when series cross often.",
+    "Using a line chart for unordered categories."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/line-chart: AuiLineChart directive ([auiLineChart]).",
+    "react": "@absoluteui/react/line-chart: AuiLineChart component.",
+    "vue": "@absoluteui/vue/line-chart: AuiLineChart component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

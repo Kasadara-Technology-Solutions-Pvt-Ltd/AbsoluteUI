@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "name": "candlestick-chart",
+  "displayName": "Candlestick Chart",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { CandlestickChart } from '@absoluteui/components/candlestick-chart';",
+  "styleImport": "@absoluteui/components/candlestick-chart/style.css",
+  "purpose": "Accessible SVG candlestick chart: daily open-high-low-close prices as candles (rising hollow, falling filled, so direction never depends on color alone) or OHLC bars, an optional volume pane, and simple moving-average overlays. The time axis is a day axis; with a business calendar it counts trading days only, skipping weekends and holidays. Crosshair, zoom and pan, keyboard navigation along the sessions, tooltips, a generated summary, and the data table are built in.",
+  "whenToUse": [
+    "Daily price movements of a security, commodity, or index, with the range of each session visible.",
+    "Comparing closes against moving averages and volume."
+  ],
+  "whenNotToUse": [
+    "Intraday (sub-daily) data: dates are PlainDate values, one session per day.",
+    "A single value per day: use Line Chart.",
+    "Many securities at once: use Line Chart with one series each."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/helpers",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default (candles)",
+    "OHLC bars",
+    "with volume pane",
+    "with moving averages",
+    "zoomed (pan by drag or arrow keys)",
+    "empty (no sessions: No data)",
+    "session focused (crosshair, tooltip)",
+    "table open"
+  ],
+  "responsive": "The width follows the container (ResizeObserver); candles share the plot width (body width capped at 24px) and date labels are thinned to fit. The price axis rescales to the visible sessions when zoomed. Wide data tables scroll in a focusable region.",
+  "rtl": "direction rtl mirrors the time axis (earliest session on the right), moves the price axis to the right, and swaps ArrowLeft/ArrowRight.",
+  "theme": "Rising candles: color-surface body outlined with --aui-candlestick-chart-up-color (color-success-fg); falling candles: filled with --aui-candlestick-chart-down-color (color-error-fg); falling OHLC bars are dashed. Moving averages use palette slots. Forced colors: hollow and filled CanvasText candles, Highlight on focus.",
+  "timezone": "Dates are PlainDate values (calendar days without a time zone), so no time zone conversion happens.",
+  "security": "All text (title, description, labels, values, legend, tooltip, table) is set with textContent; SVG is built with createElementNS; positions and per-item colors are written through the CSSOM (style.setProperty) or as SVG geometry. No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "CandlestickChart.create with 1,000 sessions, volume, and two moving averages, including the first render",
+        "budget": "< 120 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "Designed for up to about 5,000 sessions (about 20 years of trading days) with zoom; at most 20,000 are accepted. Every visible candle is a focusable SVG path."
+  },
+  "limitations": [
+    "Daily sessions only (PlainDate); no intraday or weekly aggregation.",
+    "Simple moving averages of the close only (up to four).",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Logarithmic price axes.",
+    "Drawing tools (trend lines, annotations by pointer).",
+    "Live streaming updates beyond update()."
+  ],
+  "antiPatterns": [
+    "Relying on the up and down colors alone (the hollow and filled bodies already differ; keep them).",
+    "Showing years of data without zoom."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/candlestick-chart: AuiCandlestickChart component (<aui-candlestick-chart>).",
+    "react": "@absoluteui/react/candlestick-chart: AuiCandlestickChart component.",
+    "vue": "@absoluteui/vue/candlestick-chart: AuiCandlestickChart component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

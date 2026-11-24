@@ -1,0 +1,25 @@
+{
+  "description": "Angular M6 benchmark baseline (docs/PLAN-R9-ANGULAR.md M6). Milliseconds, headless Chromium via npm run test:angular; each run writes .cache/angular-bench.json. A: 100 Text Inputs in a reactive form (mount, patchValue all). B: Data Table, 100,000 rows, virtual, auiCell template (mount, scroll to the middle incl. one frame). C: dashboard with 4 charts, 6 stat cards, tabs, 1,000-row paged table (mount). loop.*: average mount+destroy in a loop (A x20, B x5, C x20); retained instances and hosts after GC must be 0.",
+  "measured": "2026-10-12",
+  "machine": "developer workstation (Windows 11, Node 22.18.0, Chromium from Playwright 1.63)",
+  "results": {
+    "A.mount": 437.9,
+    "A.patch": 13.5,
+    "B.mount": 282.4,
+    "B.scroll": 32.6,
+    "C.mount": 116.9,
+    "loop.A.perMount": 155.3,
+    "loop.B.perMount": 60.9,
+    "loop.C.perMount": 53.7
+  },
+  "budgets": {
+    "A.mount": 1500,
+    "A.patch": 300,
+    "B.mount": 1500,
+    "B.scroll": 100,
+    "C.mount": 1500,
+    "loop.A.perMount": 300,
+    "loop.C.perMount": 300,
+    "retained": 0
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/date-picker",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDatePicker",
+      "description": "AbsoluteUI DatePicker: `<aui-date-picker>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-date-picker",
+      "exportAs": [
+        "auiDatePicker"
+      ],
+      "source": "generated",
+      "component": "date-picker",
+      "configKey": "datePicker",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "PlainDate | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Field label and accessible name of the segment group."
+        },
+        {
+          "name": "min",
+          "type": "PlainDate | null",
+          "required": false,
+          "description": "Inclusive lower bound (validation and calendar)."
+        },
+        {
+          "name": "max",
+          "type": "PlainDate | null",
+          "required": false,
+          "description": "Inclusive upper bound (validation and calendar)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name for the ISO 8601 hidden input."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Empty value is invalid (value-missing)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the segments and the calendar button."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Prevents editing; the calendar button is disabled."
+        },
+        {
+          "name": "isDateDisabled",
+          "type": "((date: PlainDate) => boolean)",
+          "required": false,
+          "description": "Disable days in the calendar; a typed disabled day is invalid ('This date is not available.')."
+        },
+        {
+          "name": "businessCalendar",
+          "type": "BusinessCalendarEngine | null",
+          "required": false,
+          "description": "Business calendar (since 0.9.0): non-working days and holidays are marked and named in the calendar."
+        },
+        {
+          "name": "disableNonWorking",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "With businessCalendar: non-working days cannot be picked or typed (since 0.9.0)."
+        },
+        {
+          "name": "firstDayOfWeek",
+          "type": "Weekday",
+          "required": false,
+          "description": "First calendar column (ISO weekday). Default: the locale's first day of week."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<DatePickerIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Close the popup after a day is picked."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Segment order, calendar, messages, formatting; forwarded to both children."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "Zone used only to determine today in the calendar."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Arrow-key mirroring, calendar direction, and popup alignment."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "PlainDate | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "DatePickerChangeDetail",
+          "event": "aui-change",
+          "description": "User typing or picking changed the value or validity. Dispatched from the picker host."
+        },
+        {
+          "name": "navigate",
+          "payload": "unknown",
+          "event": "aui-navigate",
+          "detail": "{ month: { year: number; month: number } }",
+          "description": "Bubbles from the inner Calendar when the user changes the visible month."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "The popup opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "The popup closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isOpen",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the popup is open."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Open the calendar and focus the selected day (or today). No-op when disabled or read-only."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Close the calendar; focus inside the popup returns to the calendar button."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user changes the value."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "ISO 8601 YYYY-MM-DD, or null when empty or invalid."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the first date segment."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Close, restore the initial value, and clear touched/submitted state (no aui-change)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Date Picker Dialog, non-modal variant: a labelled segmented date field (Date Input), a button with aria-haspopup=dialog, and a role=dialog popup containing the Calendar grid.",
+        "source": "packages/components/metadata/date-picker/accessibility.json"
+      },
+      "limitations": [
+        "Gregorian calendar only; years 1-9999 (Date Input range).",
+        "Single dates only; for ranges use Date Range Picker.",
+        "Validation messages follow Date Input timing (incomplete and required after blur or reportValidity); validationTiming is not supported.",
+        "A typed day rejected by isDateDisabled is reported as error 'custom' with the message 'This date is not available.'; a consumer custom error takes precedence.",
+        "The popup has no Cancel/OK buttons: picking a day commits it."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { plainDate, type PlainDate } from '@absoluteui/core';\nimport { AuiDatePicker } from '@absoluteui/angular/date-picker';\n\n@Component({\n  selector: 'app-trip',\n  imports: [ReactiveFormsModule, AuiDatePicker],\n  template: `<aui-date-picker label=\"Departure\" [min]=\"today\" [required]=\"true\" [formControl]=\"departure\"></aui-date-picker>`,\n})\nexport class TripComponent {\n  readonly today = plainDate(2026, 9, 27);\n  readonly departure = new FormControl<PlainDate | null>(null, { validators: [Validators.required] });\n}"
+    }
+  ]
+}

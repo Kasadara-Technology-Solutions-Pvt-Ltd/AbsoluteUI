@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "tabs",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Account tabs with text content",
+      "language": "ts",
+      "code": "import { Tabs } from '@absoluteui/components/tabs';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nTabs.create(host, {\n  label: 'Account',\n  tabs: [\n    { id: 'overview', label: 'Overview', content: 'Plan, usage, and contacts.' },\n    { id: 'billing', label: 'Billing', icon: 'info', content: 'Invoices and payment methods.' },\n    { id: 'audit', label: 'Audit log', disabled: true },\n  ],\n});"
+    },
+    {
+      "id": "lazy-panels",
+      "title": "Manual activation with lazily filled panels",
+      "language": "ts",
+      "code": "import { Tabs, type TabsChangeDetail } from '@absoluteui/components/tabs';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst tabs = Tabs.create(host, {\n  label: 'Reports',\n  activation: 'manual',\n  tabs: [\n    { id: 'daily', label: 'Daily' },\n    { id: 'weekly', label: 'Weekly' },\n  ],\n});\nconst fill = (id: string): void => {\n  const panel = tabs.panel(id);\n  if (panel && panel.childElementCount === 0) {\n    const table = document.createElement('table');\n    panel.append(table);\n  }\n};\nfill(tabs.value);\nhost.addEventListener('aui-change', (event) => {\n  fill((event as CustomEvent<TabsChangeDetail>).detail.value);\n});"
+    },
+    {
+      "id": "vertical",
+      "title": "Vertical settings navigation",
+      "language": "ts",
+      "code": "import { Tabs } from '@absoluteui/components/tabs';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst settings = Tabs.create(host, {\n  label: 'Settings',\n  orientation: 'vertical',\n  tabs: [\n    { id: 'profile', label: 'Profile' },\n    { id: 'security', label: 'Security' },\n    { id: 'notifications', label: 'Notifications' },\n  ],\n  value: 'security',\n});\nsettings.select('notifications');"
+    }
+  ]
+}

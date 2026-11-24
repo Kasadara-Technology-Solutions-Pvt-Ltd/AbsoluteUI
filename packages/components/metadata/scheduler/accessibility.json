@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "component": "scheduler",
+  "pattern": "WAI-ARIA APG grid for every view except the agenda: table role=grid with day or slot gridcells under one roving tab stop; events are buttons inside the cell where they start (APG \"cells containing widgets\": Enter/F2 in, Escape/F2 out). The agenda is a region with day headings and lists under one roving tab stop. Moves have three equivalent paths (drag, Ctrl/Cmd+X then Ctrl/Cmd+V, toolbar Move / Move here).",
+  "roles": [
+    {
+      "element": "toolbar",
+      "role": "toolbar"
+    },
+    {
+      "element": "view switcher, edit buttons",
+      "role": "group of buttons (aria-pressed on views)"
+    },
+    {
+      "element": "period title",
+      "role": "heading (aria-live=polite)"
+    },
+    {
+      "element": "status",
+      "role": "status"
+    },
+    {
+      "element": "grid",
+      "role": "grid"
+    },
+    {
+      "element": "day/time headers, row headers",
+      "role": "columnheader / rowheader"
+    },
+    {
+      "element": "cells",
+      "role": "gridcell"
+    },
+    {
+      "element": "events",
+      "role": "button"
+    },
+    {
+      "element": "continuation segments, current-time line",
+      "role": "none (aria-hidden)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-label",
+      "element": "grid",
+      "value": "\"{label}, {period}\""
+    },
+    {
+      "attribute": "aria-label",
+      "element": "cell",
+      "value": "Date (and slot time, and resource), then \"non-working time\", holiday, and the number of events starting there"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "event",
+      "value": "Title, time or dates, location, \"repeats ...\" for series, \"read-only\" in edit mode"
+    },
+    {
+      "attribute": "aria-selected",
+      "element": "cell",
+      "value": "\"true\" on cells of a keyboard or pointer selection"
+    },
+    {
+      "attribute": "aria-current",
+      "element": "today header / month cell",
+      "value": "\"date\""
+    },
+    {
+      "attribute": "aria-busy",
+      "element": "grid",
+      "value": "\"true\" while loadEvents is pending"
+    },
+    {
+      "attribute": "aria-rowcount / aria-rowindex",
+      "element": "virtual timeline",
+      "value": "Total rows and the index of each rendered row"
+    },
+    {
+      "attribute": "aria-disabled",
+      "element": "edit buttons",
+      "value": "\"true\" when not applicable (buttons stay focusable)"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "Arrow keys",
+      "context": "Cell",
+      "action": "Move between days or slots; past the edge of a day or week, the neighbouring period (month: the previous or next week row)."
+    },
+    {
+      "key": "Home / End",
+      "context": "Cell",
+      "action": "First / last cell of the row; with Ctrl/Cmd, the first / last cell of the grid."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Cell or agenda",
+      "action": "Previous / next period."
+    },
+    {
+      "key": "Shift+Arrow",
+      "context": "Cell",
+      "action": "Extend a selection (within one day in time views, one resource in the timeline)."
+    },
+    {
+      "key": "Enter / F2",
+      "context": "Cell",
+      "action": "Move to the first event of the cell (or \"+N more\"); on an empty cell or with a selection, emit aui-slot-activate."
+    },
+    {
+      "key": "Shift+Enter",
+      "context": "Cell",
+      "action": "Emit aui-slot-activate for the cell or selection."
+    },
+    {
+      "key": "ArrowUp / ArrowDown",
+      "context": "Event",
+      "action": "Previous / next event of the same cell."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Event",
+      "action": "Emit aui-event-activate."
+    },
+    {
+      "key": "Escape / F2",
+      "context": "Event",
+      "action": "Back to the cell."
+    },
+    {
+      "key": "Ctrl/Cmd+X, then Ctrl/Cmd+V",
+      "context": "Event, then a cell (edit mode)",
+      "action": "Move the event to that cell (time kept on day cells); Escape on a cell cancels."
+    },
+    {
+      "key": "Shift+ArrowDown / Shift+ArrowUp",
+      "context": "Timed event in day or week views (edit mode)",
+      "action": "Lengthen / shorten by snapDuration."
+    },
+    {
+      "key": "Shift+ArrowRight / Shift+ArrowLeft",
+      "context": "Bars in month, all-day row, timeline (edit mode)",
+      "action": "Lengthen / shorten by a day or a snap (mirrored in RTL)."
+    },
+    {
+      "key": "Delete / Backspace",
+      "context": "Event (edit mode)",
+      "action": "Emit aui-event-delete."
+    },
+    {
+      "key": "Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z or Ctrl/Cmd+Y",
+      "context": "Grid (edit mode)",
+      "action": "Undo / redo."
+    },
+    {
+      "key": "Tab",
+      "context": "Scheduler",
+      "action": "Toolbar buttons, then the grid (one tab stop)."
+    }
+  ],
+  "focus": "One roving tab stop per view; changing the period moves it to the anchor date (at scrollToHour in time views). After an edit, focus follows the event (its key changes when an exception is created); after toolbar edits focus stays on the toolbar. The recurring-scope dialog restores focus on close.",
+  "wcag": [
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "2.5.7",
+    "2.5.8",
+    "3.2.2",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "Event colors are never the only cue: titles, times, and names carry the meaning; non-working cells say so in their names.",
+    "Moves and resizes are announced (\"Design review moved to 30 Sept 2026, 11:00 to 12:30.\").",
+    "Pointer dragging has single-pointer alternatives (toolbar Move / Move here / Shorten / Lengthen), WCAG 2.5.7."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver.",
+    "Very long cell names in dense weeks are read in full; the count of events keeps them short."
+  ]
+}

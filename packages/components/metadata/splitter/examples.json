@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "splitter",
+  "examples": [
+    {
+      "id": "nested",
+      "title": "Nested splitters",
+      "language": "ts",
+      "code": "import { Splitter } from '@absoluteui/components/splitter';\n\nconst pane = (text: string): HTMLElement => {\n  const el = document.createElement('section');\n  el.textContent = text;\n  return el;\n};\nconst right = document.createElement('div');\nSplitter.create(right, { orientation: 'vertical', panes: [{ content: pane('Editor'), label: 'Editor', min: 120 }, { content: pane('Console'), label: 'Console', size: '30%', collapsible: true }] });\nconst host = document.createElement('div');\nhost.style.setProperty('block-size', '30rem');\ndocument.body.append(host);\nSplitter.create(host, { panes: [{ content: pane('Files'), label: 'Files', size: 220, min: 160 }, { content: right, label: 'Workspace' }] });"
+    },
+    {
+      "id": "persisted",
+      "title": "Sidebar and content with persisted sizes",
+      "language": "ts",
+      "code": "import { Splitter, type SplitterChangeDetail } from '@absoluteui/components/splitter';\n\nconst sidebar = document.createElement('nav');\nsidebar.textContent = 'Folders';\nconst content = document.createElement('main');\ncontent.textContent = 'Messages';\nconst host = document.createElement('div');\nhost.style.setProperty('block-size', '24rem');\ndocument.body.append(host);\nconst saved = sessionStorage.getItem('mail-split');\nconst parsed: unknown = saved ? JSON.parse(saved) : null;\nconst sizes = Array.isArray(parsed) && parsed.every((n) => typeof n === 'number') ? parsed : null;\nSplitter.create(host, {\n  sizes,\n  panes: [\n    { content: sidebar, label: 'Folders', size: '25%', min: 160, max: '50%', collapsible: true },\n    { content, label: 'Messages', min: 240 },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  sessionStorage.setItem('mail-split', JSON.stringify((event as CustomEvent<SplitterChangeDetail>).detail.sizes));\n});"
+    }
+  ]
+}

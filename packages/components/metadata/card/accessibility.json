@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "component": "card",
+  "pattern": "HTML <article> named by its heading; interactive cards use the block-link pattern (Inclusive Components 'Cards'): one real link on the title, stretched over the card with a pseudo-element.",
+  "roles": [
+    { "element": "titled card root", "role": "article (native <article>)" },
+    { "element": "untitled card root", "role": "none (generic <div>)" },
+    { "element": "title", "role": "heading, level 2 to 6 (headingLevel, default 3)" },
+    { "element": "interactive title", "role": "link (native <a href>) inside the heading" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "<article>", "value": "id of the title heading" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Interactive card", "action": "One tab stop: the title link. Other controls inside the card (for example footer buttons) are separate tab stops after it." },
+    { "key": "Enter", "context": "Title link focused", "action": "Follows the link (native)." },
+    { "key": "Tab / Shift+Tab", "context": "Non-interactive card", "action": "The card itself is not focusable; focus moves through any controls in its content." }
+  ],
+  "focus": "Interactive cards draw the focus indicator on the whole card (:has(.aui-card__link:focus-visible)) and underline the title; the link's own outline is suppressed so only one indicator shows.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.4.4", "2.4.7", "2.5.3", "4.1.2"],
+  "notes": [
+    "Screen readers announce only the title as the link name, not the whole card content.",
+    "The media area is visually first but after the header in source order, so the heading is reached first when navigating by heading or reading.",
+    "Section containers are <div>s, not <header>/<footer>, so untitled cards never create banner or contentinfo landmarks.",
+    "Consumers must give informative images in media a text alternative, or alt=\"\" when decorative."
+  ],
+  "knownCaveats": [
+    "Mouse text selection inside interactive cards is limited by the link overlay.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

@@ -1,0 +1,112 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  // The group is the control boundary; it hugs its unit segments.
+  .aui-duration-picker__group {
+    @include aui.control-surface;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: aui.token('space-2');
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-within {
+      border-color: aui.token('color-focus-ring');
+      box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+    }
+  }
+
+  .aui-duration-picker__unit {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+
+  // Widths are explicit in ch units (tabular digits) so segments hug their content.
+  .aui-duration-picker__segment {
+    box-sizing: content-box;
+    inline-size: 2.5ch;
+    min-inline-size: 0;
+    padding: aui.token('space-1') 2px;
+    margin: 0;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    caret-color: transparent;
+
+    &::placeholder {
+      color: aui.token('color-text-muted');
+      opacity: 1;
+    }
+
+    &:focus {
+      outline: none;
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+    }
+
+    &:focus-visible {
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: 0;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+  }
+
+  // The largest unit may have more digits (for example 120 hours).
+  .aui-duration-picker__unit:first-child .aui-duration-picker__segment {
+    inline-size: 3.5ch;
+  }
+
+  .aui-duration-picker__unit-label {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+    white-space: nowrap;
+  }
+
+  .aui-duration-picker--invalid .aui-duration-picker__group {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-duration-picker--readonly .aui-duration-picker__group {
+    background: aui.token('color-surface-sunken');
+  }
+
+  .aui-duration-picker--disabled .aui-duration-picker__group {
+    background: aui.token('color-disabled-bg');
+    border-color: aui.token('color-border');
+
+    .aui-duration-picker__unit-label {
+      color: aui.token('color-text-disabled');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-duration-picker__group:focus-within {
+      outline: 2px solid Highlight;
+    }
+
+    .aui-duration-picker__segment:focus {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-duration-picker--disabled .aui-duration-picker__unit-label {
+      color: GrayText;
+    }
+  }
+}

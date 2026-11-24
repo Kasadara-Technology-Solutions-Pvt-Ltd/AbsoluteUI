@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "name": "calendar-heatmap",
+  "displayName": "Calendar Heatmap",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { CalendarHeatmap } from '@absoluteui/components/calendar-heatmap';",
+  "styleImport": "@absoluteui/components/calendar-heatmap/style.css",
+  "purpose": "Accessible SVG calendar heatmap: one square per day in a week-by-weekday grid (weeks as columns, weekdays as rows starting at the locale's first day of the week) over a calendar year or a range, with month labels. Fills encode values in discrete steps listed in the legend. With a business calendar, non-working days get a dashed outline and holidays a dot and their name, so a quiet weekend never reads as missing activity. Day and week keyboard navigation, value tooltips, a summary, and a data table are built in.",
+  "whenToUse": [
+    "Daily activity over a year: absences, commits, sales, support tickets.",
+    "Spotting weekly and seasonal patterns, and how they relate to working days and holidays."
+  ],
+  "whenNotToUse": [
+    "Exact comparison of a few days: use Bar Chart.",
+    "Hourly patterns: use Heatmap (weekday by hour).",
+    "More than three years: aggregate by week or month."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/helpers",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "with business calendar (non-working days and holidays marked)",
+    "day without value",
+    "empty (no data: No data)",
+    "day focused (tooltip)",
+    "day hovered",
+    "table open"
+  ],
+  "responsive": "The width follows the container (ResizeObserver); day squares are sized to fit all weeks in the width (and seven rows in the height). Month labels are thinned when crowded; weekday labels show every other row (auto). Wide data tables scroll in a focusable region.",
+  "rtl": "direction rtl puts the first week on the right and the weekday labels on the right, and swaps ArrowLeft/ArrowRight (previous / next week).",
+  "theme": "Steps mix color-chart-<slot> into color-surface at 15-100%; days without value use color-surface-sunken; non-working days get a dashed color-border-strong outline; holiday dots use color-text; hover and focus outline color-text. Forced colors: outlined squares (Canvas / CanvasText), Highlight on focus.",
+  "timezone": "Dates are PlainDate values (calendar days without a time zone), so no time zone conversion happens.",
+  "security": "All text (title, description, labels, values, legend, tooltip, table) is set with textContent; SVG is built with createElementNS; positions and per-item colors are written through the CSSOM (style.setProperty) or as SVG geometry. No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "CalendarHeatmap.create for one year (365 days) with a business calendar, including the first render",
+        "budget": "< 60 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "One to three years (up to 1,098 days); every day is a focusable SVG rect."
+  },
+  "limitations": [
+    "Daily values only (PlainDate); no hourly breakdown.",
+    "Discrete sequential steps (3-9) of one palette slot.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "More than 1,098 days.",
+    "Diverging scales.",
+    "Vertical (weeks as rows) layout."
+  ],
+  "antiPatterns": [
+    "Hiding the legend and the data table together (lightness would be the only cue).",
+    "Comparing activity across weekends without a business calendar (zero weekends look like missing data)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/calendar-heatmap: AuiCalendarHeatmap component (<aui-calendar-heatmap>).",
+    "react": "@absoluteui/react/calendar-heatmap: AuiCalendarHeatmap component.",
+    "vue": "@absoluteui/vue/calendar-heatmap: AuiCalendarHeatmap component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

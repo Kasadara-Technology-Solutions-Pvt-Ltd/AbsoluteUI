@@ -1,0 +1,7 @@
+[
+  { "title": "Working days and hours", "text": "Define working weekdays and hours, with different hours per weekday." },
+  { "title": "Holidays", "text": "One-off and yearly holidays, named and announced." },
+  { "title": "Exceptions", "text": "Mark single days as working or non-working with a reason." },
+  { "title": "Editable", "text": "Toggle days between working and non-working with the keyboard or pointer." },
+  { "title": "Shared engine", "text": "The same definition drives the business calendar of the date pickers and the calendar." }
+]

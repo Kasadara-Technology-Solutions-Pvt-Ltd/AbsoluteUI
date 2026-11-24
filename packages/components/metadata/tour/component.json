@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "name": "tour",
+  "displayName": "Tour",
+  "category": "Overlays",
+  "package": "@absoluteui/components",
+  "import": "import { Tour } from '@absoluteui/components/tour';",
+  "styleImport": "@absoluteui/components/tour/style.css",
+  "purpose": "Product tour and onboarding: a sequence of steps, each anchored to an element of the page (or centered), with a spotlight that dims the page around the target, Next, Back, Skip, and Finish buttons, and progress such as '2 of 5'. Every step is a dialog (non-modal by default, modal on request); focus moves into the step and returns when the tour ends; a step whose target is missing is skipped with an event.",
+  "whenToUse": [
+    "First-time guidance through a new screen or feature.",
+    "Explaining a changed layout after a release.",
+    "Walking through a multi-part workflow where each part is a visible control."
+  ],
+  "whenNotToUse": [
+    "Information users need every time: put it in the interface or in help text.",
+    "A single hint next to one control: use Popover or Tooltip.",
+    "A blocking question: use Dialog."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities"],
+  "states": ["inactive", "active (anchored step)", "active (centered step)", "modal", "non-modal", "without spotlight", "first step (no Back)", "last step (Finish, no Skip)", "with progress dots"],
+  "responsive": "The panel is at most 24rem wide (narrower on small viewports), flips and shifts to stay in the viewport, and scrolls when taller than the available space; targets are scrolled into view.",
+  "rtl": "Placements -start and -end follow the writing direction; ArrowRight and ArrowLeft are mirrored; the button row mirrors.",
+  "theme": "Component tokens tour-bg, tour-radius, tour-shadow (panel), tour-backdrop (dimmed page), tour-spotlight-radius and tour-spotlight-ring (cut-out), tour-dot-color and tour-dot-active (progress dots). Text and progress pairs are in the contrast gate. Forced colors draw the spotlight as a Highlight outline, since shadows are not painted.",
+  "timezone": "Not applicable.",
+  "security": "Titles and string content are set as text; Node content is inserted as given (the application owns it). Positions are set through the CSSOM, never as style attributes, so the component runs under a strict CSP.",
+  "dataHandling": "No persistence, network access, or telemetry. Remembering that a user finished the tour is up to the application (listen to aui-finish and aui-skip).",
+  "performance": {
+    "budgets": [
+      { "metric": "Tour.create with 10 steps", "budget": "< 2 ms average in headless Chromium" },
+      { "metric": "Step change (resolve target, position, focus)", "budget": "< 16 ms (one frame) without onBeforeShow" }
+    ],
+    "testedScale": "Up to 30 steps per tour; one active tour per page."
+  },
+  "limitations": [
+    "One target per step; the spotlight is a rounded rectangle around it.",
+    "In modal mode the spotlighted element is shown but not interactive.",
+    "Targets inside closed shadow roots or other documents (iframes) cannot be found by selector; pass a function that returns the element."
+  ],
+  "unsupported": [
+    "Steps that wait for the user to perform an action on the target (listen to the target yourself and call next()).",
+    "Rich text (HTML) strings as content: pass a Node."
+  ],
+  "antiPatterns": [
+    "Long tours (more than about seven steps): split them by feature.",
+    "Starting a tour on every visit: store completion and start it once.",
+    "Pointing at elements that are not visible without explanation."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/tour: AuiTour component (<aui-tour>).",
+    "react": "@absoluteui/react/tour: AuiTour component.",
+    "vue": "@absoluteui/vue/tour: AuiTour component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

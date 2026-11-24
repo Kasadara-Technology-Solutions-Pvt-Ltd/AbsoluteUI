@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/tabs",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiTabs",
+      "description": "AbsoluteUI Tabs: `<aui-tabs>`.\nTwo-way: `[(value)]`.",
+      "selector": "aui-tabs",
+      "exportAs": [
+        "auiTabs"
+      ],
+      "source": "generated",
+      "component": "tabs",
+      "configKey": "tabs",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the tablist (aria-label)."
+        },
+        {
+          "name": "tabs",
+          "type": "readonly TabItem[]",
+          "required": true,
+          "description": "Tabs in order. Ids must be unique; they are consumer keys, not DOM ids."
+        },
+        {
+          "name": "activation",
+          "type": "TabsActivation",
+          "required": false,
+          "default": "automatic",
+          "configurable": true,
+          "description": "automatic selects on focus; manual needs Enter or Space."
+        },
+        {
+          "name": "orientation",
+          "type": "TabsOrientation",
+          "required": false,
+          "default": "horizontal",
+          "configurable": true,
+          "description": "Layout and arrow keys (Left/Right or Up/Down)."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Mirrors Left/Right in rtl. An ancestor dir=rtl also mirrors."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string",
+          "change": "valueChange",
+          "description": "Selected tab id. Default: the first enabled tab."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "TabsChangeDetail",
+          "event": "aui-change",
+          "description": "The user selected a different tab."
+        }
+      ],
+      "methods": [
+        {
+          "name": "panel",
+          "signature": "panel(id: string): HTMLDivElement | null | undefined",
+          "description": "The tabpanel for a tab id, for consumers to fill."
+        },
+        {
+          "name": "select",
+          "signature": "select(id: string): void",
+          "description": "Select programmatically (no events)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Tabs pattern (automatic and manual activation), with native buttons as tabs.",
+        "source": "packages/components/metadata/tabs/accessibility.json"
+      },
+      "limitations": [
+        "Panels are always in the DOM (hidden when inactive); lazy content is the consumer's responsibility, for example on aui-change.",
+        "Tabs cannot be closed, reordered, or added by the user.",
+        "No scroll buttons for an overflowing tablist; it scrolls natively (wheel, touch, keyboard focus)."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiTabs } from '@absoluteui/angular/tabs';\n\n@Component({\n  selector: 'app-account',\n  imports: [AuiTabs],\n  template: `<aui-tabs label=\"Account\" [tabs]=\"tabs\" [value]=\"selected\" (changed)=\"selected = $event.value\"></aui-tabs>`,\n})\nexport class AccountComponent {\n  readonly tabs = [\n    { id: 'overview', label: 'Overview', content: 'Plan, usage, and contacts.' },\n    { id: 'billing', label: 'Billing', content: 'Invoices and payment methods.' },\n  ];\n  selected = 'overview';\n}"
+    }
+  ]
+}

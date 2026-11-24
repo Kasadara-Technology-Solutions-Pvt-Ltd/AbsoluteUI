@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "component": "select",
+  "pattern": "WAI-ARIA APG Select-Only Combobox pattern: a non-editable combobox that controls a single-select listbox.",
+  "roles": [
+    { "element": "combobox element (div, tabindex=0)", "role": "combobox" },
+    { "element": "listbox container", "role": "listbox" },
+    { "element": "each option", "role": "option" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "combobox", "value": "Label id, then the combobox's own id (name = label + selected label)" },
+    { "attribute": "aria-haspopup", "element": "combobox", "value": "listbox" },
+    { "attribute": "aria-expanded", "element": "combobox", "value": "true when the listbox is shown" },
+    { "attribute": "aria-controls", "element": "combobox", "value": "listbox id" },
+    { "attribute": "aria-activedescendant", "element": "combobox", "value": "id of the active option while open; removed when closed" },
+    { "attribute": "aria-required / aria-readonly / aria-disabled", "element": "combobox", "value": "\"true\" when required, readOnly, or disabled" },
+    { "attribute": "aria-describedby", "element": "combobox", "value": "Help text and visible error message ids" },
+    { "attribute": "aria-invalid", "element": "combobox", "value": "\"true\" only while an error message is shown" },
+    { "attribute": "aria-labelledby", "element": "listbox", "value": "Label id" },
+    { "attribute": "aria-selected", "element": "option", "value": "\"true\" for the selected option, \"false\" otherwise" },
+    { "attribute": "aria-disabled", "element": "option", "value": "\"true\" for disabled options" }
+  ],
+  "keyboard": [
+    { "key": "Enter / Space / Alt+ArrowDown", "context": "Closed", "action": "Opens; activates the selected option or the first enabled option." },
+    { "key": "ArrowDown", "context": "Closed", "action": "Opens; activates the selected option or the first enabled option." },
+    { "key": "ArrowUp", "context": "Closed", "action": "Opens; activates the selected option or the last enabled option." },
+    { "key": "Home / End", "context": "Any", "action": "Opens if needed; activates the first / last enabled option." },
+    { "key": "Printable characters", "context": "Any", "action": "Typeahead: opens if needed and activates the next option whose label starts with the typed text; repeated characters cycle; Space continues a query in progress." },
+    { "key": "ArrowDown / ArrowUp", "context": "Open", "action": "Moves the active option, skipping disabled options, without wrapping." },
+    { "key": "PageDown / PageUp", "context": "Open", "action": "Moves the active option by 10." },
+    { "key": "Enter / Space / Alt+ArrowUp", "context": "Open", "action": "Selects the active option, closes, emits aui-change if the value changed." },
+    { "key": "Escape", "context": "Open", "action": "Closes without changing the value; does not reach a surrounding Dialog." },
+    { "key": "Tab / Shift+Tab", "context": "Open", "action": "Selects the active option, closes, and moves focus." },
+    { "key": "Tab / Shift+Tab", "context": "Closed", "action": "Moves focus to and from the combobox (not in the tab order when disabled)." }
+  ],
+  "focus": "DOM focus always stays on the combobox; options are never focused (pointer interaction with the popup is prevented from moving focus). The combobox shows a focus-visible outline; the active option has a visible outline that does not rely on color alone and is scrolled into view.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.4.3", "2.4.7", "2.5.3", "3.2.2", "3.3.1", "3.3.2", "4.1.2"],
+  "notes": [
+    "The label is a <label> associated through aria-labelledby because a div is not labelable; clicking the label focuses the combobox.",
+    "The required asterisk is aria-hidden; required state is conveyed by aria-required.",
+    "Errors appear after the first blur by default so users are not interrupted.",
+    "Disabled selects use aria-disabled and tabindex=-1, per the APG guidance for disabled comboboxes."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending."
+  ]
+}

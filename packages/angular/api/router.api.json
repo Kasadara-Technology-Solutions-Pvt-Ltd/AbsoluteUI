@@ -1,0 +1,9 @@
+{
+  "entry": "@absoluteui/angular/router",
+  "declarations": {
+    "AuiRouterItem": "export type AuiRouterItem<T> = T extends unknown ? 'items' extends keyof T ? Omit<T, 'items'> & Partial<AuiRouterTarget> & RouterChildren<T> : T & Partial<AuiRouterTarget> : never;",
+    "AuiRouterNav": "export declare class AuiRouterNav {\n    #private;\n    constructor();\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiRouterNav, never>;\n    static ɵdir: i0.ɵɵDirectiveDeclaration<AuiRouterNav, \"aui-sidebar[auiRouterNav], aui-breadcrumb[auiRouterNav], aui-stepper[auiRouterNav], aui-tabs[auiRouterNav], aui-menu-bar[auiRouterNav], button[auiMenu][auiRouterNav]\", [\n        \"auiRouterNav\"\n    ], {}, {}, never, never, true, never>;\n}",
+    "AuiRouterTarget": "export interface AuiRouterTarget {\n    routerLink: string | readonly unknown[];\n    queryParams?: Params | null;\n    fragment?: string;\n    queryParamsHandling?: QueryParamsHandling | null;\n    preserveFragment?: boolean;\n    state?: Record<string, unknown>;\n    replaceUrl?: boolean;\n    skipLocationChange?: boolean;\n    activeOptions?: Partial<IsActiveMatchOptions>;\n}"
+  },
+  "reexports": []
+}

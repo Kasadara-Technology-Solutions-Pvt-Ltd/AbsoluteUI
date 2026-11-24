@@ -1,0 +1,6 @@
+[
+  { "title": "Trading days", "text": "With a business calendar, weekends and holidays take no space on the axis." },
+  { "title": "Direction by shape", "text": "Rising candles are hollow and falling ones filled, so color is never the only cue." },
+  { "title": "Volume and averages", "text": "An optional volume pane and up to four moving averages with legend toggles." },
+  { "title": "Zoom and crosshair", "text": "Toolbar, keyboard, wheel, and drag zoom with a crosshair on the focused session." }
+]

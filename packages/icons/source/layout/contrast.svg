@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="contrast" data-outline-fills="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <path d="M12 3a9 9 0 0 1 0 18z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 5a7 7 0 0 0 0 14z"/>
+    </g>
+  </g>
+</svg>

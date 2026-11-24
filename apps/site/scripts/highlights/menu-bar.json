@@ -1,0 +1,6 @@
+[
+  { "title": "Application menus", "text": "A horizontal bar of commands and menus with submenus, checkboxes, and radio groups." },
+  { "title": "Full keyboard support", "text": "Arrow keys move between menus while one is open, and typeahead jumps to items." },
+  { "title": "One select event", "text": "Every chosen command arrives as a single event on the host, wherever it sits." },
+  { "title": "Custom rendering", "text": "Render items yourself while the bar keeps roles, focus, and keyboard handling." }
+]

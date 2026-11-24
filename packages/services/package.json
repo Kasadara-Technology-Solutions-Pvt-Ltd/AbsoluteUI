@@ -1,0 +1,84 @@
+{
+  "name": "@absoluteui/services",
+  "version": "0.13.0",
+  "private": true,
+  "description": "AbsoluteUI services: storage, HTTP, files, downloads, ZIP, clipboard, environment, crypto, and logging for the browser.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/kasadara/_packaging/AbsoluteUI/npm/registry/"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./env": {
+      "types": "./dist/env/index.d.ts",
+      "default": "./dist/env/index.js"
+    },
+    "./storage": {
+      "types": "./dist/storage/index.d.ts",
+      "default": "./dist/storage/index.js"
+    },
+    "./http": {
+      "types": "./dist/http/index.d.ts",
+      "default": "./dist/http/index.js"
+    },
+    "./http-mock": {
+      "types": "./dist/http-mock/index.d.ts",
+      "default": "./dist/http-mock/index.js"
+    },
+    "./crypto": {
+      "types": "./dist/crypto/index.d.ts",
+      "default": "./dist/crypto/index.js"
+    },
+    "./logger": {
+      "types": "./dist/logger/index.d.ts",
+      "default": "./dist/logger/index.js"
+    },
+    "./cache": {
+      "types": "./dist/cache/index.d.ts",
+      "default": "./dist/cache/index.js"
+    },
+    "./bus": {
+      "types": "./dist/bus/index.d.ts",
+      "default": "./dist/bus/index.js"
+    },
+    "./scheduler": {
+      "types": "./dist/scheduler/index.d.ts",
+      "default": "./dist/scheduler/index.js"
+    },
+    "./file": {
+      "types": "./dist/file/index.d.ts",
+      "default": "./dist/file/index.js"
+    },
+    "./download": {
+      "types": "./dist/download/index.d.ts",
+      "default": "./dist/download/index.js"
+    },
+    "./zip": {
+      "types": "./dist/zip/index.d.ts",
+      "default": "./dist/zip/index.js"
+    },
+    "./upload": {
+      "types": "./dist/upload/index.d.ts",
+      "default": "./dist/upload/index.js"
+    },
+    "./clipboard": {
+      "types": "./dist/clipboard/index.d.ts",
+      "default": "./dist/clipboard/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@absoluteui/helpers": "0.13.0"
+  }
+}

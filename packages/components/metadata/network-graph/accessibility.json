@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "component": "network-graph",
+  "pattern": "SVG node-link diagram as a named, described group (role=\"group\" with aria-roledescription \"network graph\") of role=\"img\" nodes with roving focus and neighbor navigation; legend of group toggle buttons; zoom toolbar; adjacency-list data table.",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription \"network graph\" (localized), named by the title"
+    },
+    {
+      "element": "nodes (path.aui-network-graph__node)",
+      "role": "img with an aria-label: label, group, connection count, and up to five neighbors"
+    },
+    {
+      "element": "legend",
+      "role": "list of toggle buttons (aria-pressed) for groups"
+    },
+    {
+      "element": "data table",
+      "role": "table (native): node, group, connections, connected to"
+    },
+    {
+      "element": "edges, arrowheads, labels, tooltip",
+      "role": "aria-hidden (the adjacency is in names and the table)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized \"network graph\""
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active mark",
+      "value": "0 on exactly one mark (roving); other marks have none"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each mark",
+      "value": "Localized: label, group, connection count, and up to five neighbors"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowLeft / ArrowRight / ArrowUp / ArrowDown",
+      "context": "Node focused",
+      "action": "The connected node closest to that direction (within 60 degrees); nothing happens when there is none."
+    },
+    {
+      "key": "PageDown / PageUp",
+      "context": "Node focused",
+      "action": "Next / previous node in data order (reaches nodes without connections)."
+    },
+    {
+      "key": "Home / End",
+      "context": "Node focused",
+      "action": "First / last node in data order."
+    },
+    {
+      "key": "Shift + Arrow keys",
+      "context": "Node focused",
+      "action": "Move the node 10px and pin it (the keyboard alternative to dragging, aui-node-pin)."
+    },
+    {
+      "key": "U",
+      "context": "Node focused, pinned",
+      "action": "Unpin the node (aui-node-pin)."
+    },
+    {
+      "key": "+ / = and - / _",
+      "context": "Mark focused, zoom on",
+      "action": "Zoom in / out around the focused mark (announced politely, aui-zoom)."
+    },
+    {
+      "key": "0",
+      "context": "Mark focused, zoom on",
+      "action": "Reset the zoom."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Mark focused",
+      "action": "Fires aui-point-click with source \"keyboard\"."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "One tab stop for the plot (the active mark), the zoom buttons, the legend buttons, then the Show data table button and the table region."
+    }
+  ],
+  "focus": "Roving focus: one node is in the tab sequence and keeps the last visited node across re-renders, layout, and zoom. Focusing a node highlights it, its neighbors, and its edges.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.2.2",
+    "2.3.3",
+    "2.4.3",
+    "2.4.7",
+    "2.5.7",
+    "4.1.2"
+  ],
+  "notes": [
+    "Groups differ by color and marker shape; each node name carries its group and neighbors; the adjacency table lists every connection.",
+    "The layout animation stops by itself (about five seconds at most) and never runs with reduced motion (WCAG 2.2.2, 2.3.3).",
+    "Dragging has single-pointer and keyboard alternatives: Shift+Arrow moves and pins, U unpins (WCAG 2.5.7)."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "Directional navigation depends on the layout; PageUp / PageDown always reach every node."
+  ]
+}

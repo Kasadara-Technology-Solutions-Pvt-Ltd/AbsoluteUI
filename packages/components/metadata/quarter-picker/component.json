@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "name": "quarter-picker",
+  "displayName": "Quarter Picker",
+  "category": "Form Inputs / Date and Time",
+  "package": "@absoluteui/components",
+  "import": "import { QuarterPicker } from '@absoluteui/components/quarter-picker';",
+  "styleImport": "@absoluteui/components/quarter-picker/style.css",
+  "purpose": "Enter a calendar quarter (PlainYearQuarter; Q1 is January to March) in quarter and year segments ordered by a localizable pattern message, or pick one from a non-modal dialog popup with a row of the four quarters of a year (each showing its months, paged by year), with min/max bounds, unavailable quarters, localized validation, and native form submission as YYYY-Qn.",
+  "whenToUse": [
+    "A calendar quarter: quarterly reports, targets, filings, or reviews.",
+    "Users should be able to type a quarter quickly and also see which months each quarter covers.",
+    "Quarter fields with bounds or unavailable quarters (for example quarters not yet closed)."
+  ],
+  "whenNotToUse": [
+    "Fiscal quarters of a year that does not start in January: the value and month hints are calendar quarters.",
+    "A month or a specific day: use Month Picker, Date Picker, or Date Input.",
+    "A whole year: use Year Picker.",
+    "A range of quarters: use two Quarter Pickers and a cross-field rule."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["empty", "segment focused", "partial (incomplete)", "valid", "invalid (message shown)", "open", "cell focused", "cell selected", "current quarter", "cell disabled", "disabled", "read-only", "required"],
+  "responsive": "The group hugs its segments and the button, up to 100% of the container; segments wrap inside the group in very narrow containers. The popup is positioned under the group (bottom-start) by the positioning engine, is at most the viewport width minus a gutter, caps its height to the available space, and scrolls when taller. Density tokens adjust the control height.",
+  "rtl": "Segment order and literals come from the localizable `pattern` message (English: `Q{quarter} {year}`). Segments render as an LTR-isolated run in every direction, and ArrowLeft/ArrowRight in segments follow that visual order (not mirrored). The button sits at the inline end of the group. The popup and grid take the resolved direction: ArrowLeft/ArrowRight in the grid are mirrored, the page chevrons are flipped, and the popup aligns to the inline start of the group.",
+  "theme": "Control surface, border, focus, error, hover, selected, primary, and sunken-surface role tokens. The focused segment uses the selected pair; the selected quarter uses color-primary / color-on-primary; the current quarter is bold with an inset strong border; unavailable quarters are muted and struck through, so no state relies on color alone. The month hint uses font-size-xs and color-text-muted. Forced-colors mode uses Highlight for the focused segment and the selected quarter, a CanvasText outline for the current quarter, GrayText for disabled cells and buttons, and a CanvasText popup border.",
+  "timezone": "Values are PlainYearQuarter (no timezone) and never shift. The configured timezone (default UTC, never the host zone) only decides the current quarter: the cell marked aria-current, the quarter focused when the popup opens on an empty field, and the starting year for ArrowUp/ArrowDown in an empty year segment. The advanced `today` option pins it to a fixed PlainDate.",
+  "security": "Label, help text, segment names, cell text, month hints, headings, and messages are rendered with textContent and Intl formatting; no HTML parsing. Validation messages never include the entered value; range messages include only the formatted bounds. The popup uses the Popover API; no inline handlers. CSP-safe: positioning writes styles through the CSSOM.",
+  "dataHandling": "No persistence, network access, or telemetry. When `name` is set, a hidden input carries YYYY-Qn (for example 2026-Q3); it is empty while the entry is empty or fails a built-in check, and disabled (not submitted) while the picker is disabled. A read-only picker is submitted.",
+  "performance": {
+    "budgets": [
+      { "metric": "QuarterPicker.create, per instance (100 instances)", "budget": "< 5 ms average in headless Chromium" }
+    ],
+    "testedScale": "100 instances per page in the performance test; the popup grid (4 cells) is created once per picker and re-rendered per page."
+  },
+  "limitations": [
+    "Calendar quarters only (Q1 is January to March); a fiscal-year start is not supported.",
+    "Gregorian calendar only; years 1 to 9999.",
+    "Only ASCII digits are accepted in segments; other characters are removed.",
+    "Segment order and literals come from the `pattern` message, not from Intl; locales without registered quarterPicker messages use the English pattern and labels.",
+    "Single quarters only; ranges need two pickers. The popup has no Cancel/OK buttons: picking commits.",
+    "Segment arrow navigation follows visual order and is not mirrored in RTL, because segments render as an LTR run.",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ],
+  "unsupported": [
+    "Fiscal quarters or custom quarter-to-month mappings.",
+    "Rendering HTML in the label, help text, cells, or messages.",
+    "Custom cell content or a custom grid layout."
+  ],
+  "antiPatterns": [
+    "Using a Quarter Picker for fiscal quarters that do not start in January; the month hints would be wrong.",
+    "Storing the displayed quarter text instead of the PlainYearQuarter or its YYYY-Qn form value.",
+    "Making the grid the only entry path; the segments stay available for keyboard and screen-reader users.",
+    "Relying on the host timezone for the current quarter; configure `timezone`."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/quarter-picker: AuiQuarterPicker directive ([auiQuarterPicker]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/quarter-picker: AuiQuarterPicker component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/quarter-picker: AuiQuarterPicker component with v-model."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

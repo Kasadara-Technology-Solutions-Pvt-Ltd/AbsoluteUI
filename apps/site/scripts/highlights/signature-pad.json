@@ -1,0 +1,7 @@
+[
+  { "title": "Natural strokes", "text": "Smoothed curves whose width follows pen pressure or drawing speed, sharp on high-DPI screens." },
+  { "title": "Typed alternative", "text": "A Type mode for keyboard and screen-reader users renders the name as the signature." },
+  { "title": "Undo and clear", "text": "Remove the last stroke or start over, with spoken confirmation." },
+  { "title": "PNG and SVG", "text": "Export data URLs or submit them with a native form." },
+  { "title": "Resize safe", "text": "Points are stored relative to the pad, so the signature rescales with the layout." }
+]

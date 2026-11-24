@@ -1,0 +1,176 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// The close button uses the Button styles (load @absoluteui/components/button/style.css too).
+@layer aui.components {
+  .aui-bottom-sheet {
+    --aui-bottom-sheet-offset: 0px;
+
+    box-sizing: border-box;
+    position: fixed;
+    inset: auto 0 0;
+    margin: 0 auto;
+    padding: 0;
+    inline-size: min(100vw, #{aui.token('drawer-width-lg')});
+    max-inline-size: 100vw;
+    block-size: auto;
+    max-block-size: 90dvh;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-block-end: 0;
+    border-start-start-radius: aui.token('radius-lg');
+    border-start-end-radius: aui.token('radius-lg');
+    box-shadow: aui.token('shadow-lg');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    overflow: hidden;
+    transform: translateY(100%);
+    // display/overlay transition discretely so the exit slide plays before the element
+    // leaves the top layer. Removed for reduced motion and data-aui-animation='none'.
+    @include aui.transition(transform, block-size, display, overlay, $duration: aui.token('duration-normal'));
+    transition-behavior: allow-discrete;
+
+    &[open] {
+      display: flex;
+      flex-direction: column;
+      transform: translateY(var(--aui-bottom-sheet-offset));
+
+      @starting-style {
+        transform: translateY(100%);
+      }
+    }
+
+    &::backdrop {
+      background: aui.token('color-backdrop');
+      opacity: 0;
+      @include aui.transition(opacity, display, overlay, $duration: aui.token('duration-normal'));
+      transition-behavior: allow-discrete;
+    }
+
+    &[open]::backdrop {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+  }
+
+  // Snap points: the height is a fraction of the viewport height.
+  .aui-bottom-sheet--snapped {
+    block-size: calc(100dvh * var(--aui-bottom-sheet-snap, 0.5));
+    max-block-size: 100dvh;
+  }
+
+  // While dragging, the sheet follows the pointer without transitions.
+  .aui-bottom-sheet--dragging {
+    transition: none;
+    user-select: none;
+
+    &.aui-bottom-sheet--snapped {
+      block-size: var(--aui-bottom-sheet-live-height, calc(100dvh * var(--aui-bottom-sheet-snap, 0.5)));
+    }
+  }
+
+  .aui-bottom-sheet--static,
+  .aui-bottom-sheet--static::backdrop {
+    transition: none;
+  }
+
+  // Non-modal sheets are not in the top layer; keep them above page content.
+  .aui-bottom-sheet--non-modal {
+    z-index: 1000;
+  }
+
+  // Full-width strip: a large touch target (WCAG 2.5.8) that is shown first.
+  .aui-bottom-sheet__handle {
+    order: -1;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    block-size: aui.token('control-height-sm');
+    touch-action: none;
+    cursor: grab;
+    user-select: none;
+
+    &:focus-visible {
+      @include aui.focus-ring(-4px);
+    }
+  }
+
+  .aui-bottom-sheet--dragging .aui-bottom-sheet__handle {
+    cursor: grabbing;
+  }
+
+  .aui-bottom-sheet__grip {
+    inline-size: 2.5rem;
+    block-size: 0.25rem;
+    background: aui.token('color-border-strong');
+    border-radius: aui.token('radius-pill');
+  }
+
+  .aui-bottom-sheet__header {
+    display: flex;
+    flex: none;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: aui.token('space-3');
+    padding: 0 max(#{aui.token('space-5')}, env(safe-area-inset-right)) aui.token('space-2') max(#{aui.token('space-5')}, env(safe-area-inset-left));
+  }
+
+  .aui-bottom-sheet__title {
+    margin: 0;
+    font-size: aui.token('font-size-lg');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-bottom-sheet__close {
+    flex: none;
+    margin-block-start: calc(-1 * #{aui.token('space-1')});
+    margin-inline-end: calc(-1 * #{aui.token('space-2')});
+  }
+
+  .aui-bottom-sheet__description {
+    flex: none;
+    margin: 0;
+    // Physical sides: safe-area insets are physical, also in RTL.
+    padding-left: max(#{aui.token('space-5')}, env(safe-area-inset-left));
+    padding-right: max(#{aui.token('space-5')}, env(safe-area-inset-right));
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // The body scrolls; the bottom padding clears the home indicator (safe area).
+  .aui-bottom-sheet__body {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    padding: aui.token('space-3') max(#{aui.token('space-5')}, env(safe-area-inset-right)) max(#{aui.token('space-5')}, env(safe-area-inset-bottom)) max(#{aui.token('space-5')}, env(safe-area-inset-left));
+    overflow: auto;
+    overscroll-behavior: contain;
+    overflow-wrap: anywhere;
+  }
+
+  @include aui.forced-colors {
+    .aui-bottom-sheet {
+      border-color: CanvasText;
+    }
+
+    .aui-bottom-sheet__grip {
+      background: CanvasText;
+    }
+  }
+}

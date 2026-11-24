@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="time-zone">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="10" cy="10" r="7.5"/>
+      <path d="M2.5 10h15"/>
+      <path d="M10 2.5c2 2 3 4.6 3 7.5s-1 5.5-3 7.5"/>
+      <path d="M10 2.5c-2 2-3 4.6-3 7.5s1 5.5 3 7.5"/>
+      <line x1="17.5" y1="17.49" x2="17.5" y2="17.51" data-knockout="12"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="17.5" cy="17.5" r="4"/>
+      <path d="M17.5 15.5v2l1.25 1"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="10" cy="10" r="7.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="10" cy="10" r="7.5"/>
+      <path d="M2.5 10h15"/>
+      <path d="M10 2.5c2 2 3 4.6 3 7.5s-1 5.5-3 7.5"/>
+      <path d="M10 2.5c-2 2-3 4.6-3 7.5s1 5.5 3 7.5"/>
+      <line x1="17.5" y1="17.49" x2="17.5" y2="17.51" data-knockout="12"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="17.5" cy="17.5" r="4"/>
+      <path d="M17.5 15.5v2l1.25 1"/>
+    </g>
+  </g>
+</svg>

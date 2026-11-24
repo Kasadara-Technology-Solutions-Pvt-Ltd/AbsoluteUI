@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "name": "bar-chart",
+  "displayName": "Bar Chart",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { BarChart } from '@absoluteui/components/bar-chart';",
+  "styleImport": "@absoluteui/components/bar-chart/style.css",
+  "purpose": "Accessible SVG bar and column chart for comparing values across categories: vertical or horizontal, grouped or stacked, with negative values, gaps, optional value labels, a toggleable legend, keyboard-reachable bars with tooltips, a generated summary, and a data table fallback.",
+  "whenToUse": [
+    "Comparing values across discrete categories.",
+    "Stacked: showing totals and their composition.",
+    "Horizontal: long category labels or many categories."
+  ],
+  "whenNotToUse": [
+    "Trends over continuous time: use Line Chart.",
+    "A single part-to-whole breakdown with few parts: Pie Chart may read faster.",
+    "Exact lookup of many values: use Data Table."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "empty (no data)",
+    "all series hidden",
+    "series hidden",
+    "bar focused (tooltip)",
+    "category hovered",
+    "table open",
+    "orientation: vertical | horizontal",
+    "layout: grouped | stacked"
+  ],
+  "responsive": "Width follows the container (ResizeObserver); height is the height option. Category labels are truncated or thinned to fit; horizontal charts reserve at most 40% of the width for labels. Reflows at 320 CSS px.",
+  "rtl": "direction rtl mirrors the category axis of vertical charts and the value axis of horizontal charts (bars grow leftward), puts axis labels on the right, and swaps ArrowLeft/ArrowRight.",
+  "theme": "Bars use color-chart-1..8 by palette slot with a color-surface separator; textures are drawn in color-surface. Gridlines color-chart-grid, axes color-chart-axis, labels color-text-muted, value labels color-text with a color-surface halo. Forced colors use CanvasText, Canvas, and Highlight.",
+  "timezone": "Not applicable (categories are text).",
+  "security": "All text (title, description, labels, values, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; sizes and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "BarChart.create, 50 categories x 4 series (grouped and stacked), including the first render",
+        "budget": "< 30 ms in headless Chromium (e2e performance test, median of 5)"
+      }
+    ],
+    "testedScale": "Up to about 200 bars at once (each bar is one focusable node plus one texture overlay). For hundreds of categories, aggregate first or use a Data Table."
+  },
+  "limitations": [
+    "Every series needs exactly one value per category.",
+    "A fixed valueAxis domain clips bars at its edges.",
+    "Value labels in stacked charts are printed only in segments large enough for them.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Percent-stacked (100%) layout, bullet, waterfall, and combo charts.",
+    "Logarithmic or broken axes.",
+    "Zoom, selection, and export.",
+    "HTML content in labels."
+  ],
+  "antiPatterns": [
+    "Truncating the value axis (valueAxis.min above zero) for bars.",
+    "More than about 8 series per category.",
+    "Relying on color alone by turning patterns off for grouped series."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/bar-chart: AuiBarChart directive ([auiBarChart]).",
+    "react": "@absoluteui/react/bar-chart: AuiBarChart component.",
+    "vue": "@absoluteui/vue/bar-chart: AuiBarChart component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

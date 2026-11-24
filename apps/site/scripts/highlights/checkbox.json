@@ -1,0 +1,6 @@
+[
+  { "title": "Native checkbox", "text": "A restyled native checkbox stays the focus target and the source of truth." },
+  { "title": "Mixed state", "text": "An indeterminate state for parent choices that are partly selected." },
+  { "title": "Required consent", "text": "Required and custom checks with localized messages, for terms and confirmations." },
+  { "title": "Help text", "text": "A description under the label, linked for screen readers." }
+]

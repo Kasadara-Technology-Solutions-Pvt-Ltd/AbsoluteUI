@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "session-warning-dialog",
+  "examples": [
+    {
+      "id": "inactivity",
+      "title": "Warn two minutes before expiry and extend on request",
+      "language": "ts",
+      "code": "import { duration, instant } from '@absoluteui/core';\nimport { SessionWarningDialog } from '@absoluteui/components/session-warning-dialog';\n\nconst warning = SessionWarningDialog.create({ expiresAt: instant(Date.now() + 15 * 60_000), warnBefore: duration(2 * 60_000) });\nwarning.element.addEventListener('aui-extend', () => {\n  void fetch('/api/session/refresh', { method: 'POST' }).then(async (r) => {\n    const body: unknown = await r.json();\n    if (typeof body === 'object' && body !== null && 'expiresAt' in body && typeof body.expiresAt === 'number') {\n      warning.update({ expiresAt: instant(body.expiresAt) });\n    }\n  });\n});\nwarning.element.addEventListener('aui-sign-out', () => {\n  location.assign('/sign-out');\n});"
+    },
+    {
+      "id": "manual",
+      "title": "Open manually with custom texts",
+      "language": "ts",
+      "code": "import { instant } from '@absoluteui/core';\nimport { SessionWarningDialog } from '@absoluteui/components/session-warning-dialog';\n\nconst warning = SessionWarningDialog.create({\n  expiresAt: instant(Date.parse('2026-03-08T12:00:00Z')),\n  title: 'Still working?',\n  message: 'Unsaved changes are kept for 10 minutes after sign-out.',\n});\nwarning.open();"
+    }
+  ]
+}

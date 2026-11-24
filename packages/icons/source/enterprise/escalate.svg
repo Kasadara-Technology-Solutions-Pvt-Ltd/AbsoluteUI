@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="escalate" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 21h4.5v-4.5H12V12h4.5V7.5H21"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M4 12.5L12.5 4"/>
+      <path d="M8 4h4.5v4.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3 21h4.5v-4.5H12V12h4.5V7.5H21V21z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 21h4.5v-4.5H12V12h4.5V7.5H21"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M4 12.5L12.5 4"/>
+      <path d="M8 4h4.5v4.5"/>
+    </g>
+  </g>
+</svg>

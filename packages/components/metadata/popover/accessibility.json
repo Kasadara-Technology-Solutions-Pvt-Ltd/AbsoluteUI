@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "component": "popover",
+  "pattern": "WAI-ARIA APG Disclosure (trigger) with a non-modal Dialog (popup).",
+  "roles": [
+    { "element": "popup div", "role": "dialog (non-modal)" },
+    { "element": "title", "role": "heading level 2" },
+    { "element": "trigger", "role": "button (consumer-provided, native <button> recommended)" }
+  ],
+  "aria": [
+    { "attribute": "aria-haspopup", "element": "trigger", "value": "dialog" },
+    { "attribute": "aria-expanded", "element": "trigger", "value": "true while open, false otherwise" },
+    { "attribute": "aria-controls", "element": "trigger", "value": "id of the popup" },
+    { "attribute": "aria-labelledby", "element": "popup", "value": "id of the title heading (when title is set)" },
+    { "attribute": "aria-label", "element": "popup", "value": "label option (when there is no title)" },
+    { "attribute": "aria-label", "element": "close button", "value": "Localized 'Close'" }
+  ],
+  "keyboard": [
+    { "key": "Enter / Space", "context": "Trigger focused", "action": "Toggles the popup; on open, focus moves per initialFocus." },
+    { "key": "Tab / Shift+Tab", "context": "Popup open", "action": "The popup follows the trigger in the tab order; tabbing past its last control (or back before the trigger) closes it (focus-out)." },
+    { "key": "Escape", "context": "Popup open and topmost, closeOnEscape=true", "action": "Emits cancelable aui-cancel, closes, and returns focus to the trigger." },
+    { "key": "Escape", "context": "Popup open inside a Dialog", "action": "Closes only the popover; a second Escape closes the dialog." },
+    { "key": "Enter / Space", "context": "Close button focused", "action": "Closes and returns focus to the trigger." }
+  ],
+  "focus": "On open, focus moves to the first tabbable element in the popup (initialFocus 'first', falling back to the popup), to the popup itself ('container'), or stays on the trigger ('none'). Escape and the close button return focus to the trigger; an outside pointer or focus moving elsewhere leaves focus where the user put it; a programmatic close moves focus to the trigger only if it was inside the popup.",
+  "wcag": ["1.3.1", "1.3.2", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "4.1.2"],
+  "notes": [
+    "The popup is placed immediately after the trigger in the DOM so reading and tab order match the visual relationship (1.3.2, 2.4.3).",
+    "Non-modal: the rest of the page stays interactive and is not inert.",
+    "Top-layer rendering avoids clipping by overflow containers."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

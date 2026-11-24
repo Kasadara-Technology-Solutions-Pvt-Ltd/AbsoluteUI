@@ -1,0 +1,19 @@
+@use 'sass:map';
+
+/// Breakpoint tokens (SPEC section 12.2). Media queries cannot read custom properties,
+/// so breakpoints are SCSS-level tokens.
+$aui-breakpoints: (
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+);
+
+@mixin up($name) {
+  @if not map.has-key($aui-breakpoints, $name) {
+    @error 'Unknown breakpoint "#{$name}".';
+  }
+  @media (min-width: map.get($aui-breakpoints, $name)) {
+    @content;
+  }
+}

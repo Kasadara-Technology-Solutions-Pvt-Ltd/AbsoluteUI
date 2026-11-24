@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "component": "breadcrumb",
+  "pattern": "WAI-ARIA APG Breadcrumb pattern.",
+  "roles": [
+    { "element": "<nav>", "role": "navigation (native landmark)" },
+    { "element": "<ol>", "role": "list (native)" },
+    { "element": "<a href>", "role": "link (native)" },
+    { "element": "expander <button>", "role": "button (native)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "<nav>", "value": "`label` option or localized 'Breadcrumb'" },
+    { "attribute": "aria-current", "element": "last item", "value": "page" },
+    { "attribute": "aria-hidden", "element": "separator icons, expander ellipsis", "value": "true (decorative)" },
+    { "attribute": "aria-label", "element": "expander button", "value": "Localized 'Show all breadcrumbs'" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Moves between links and the expander button (native tab order)." },
+    { "key": "Enter", "context": "Link focused", "action": "Follows the link; emits cancelable aui-navigate first." },
+    { "key": "Enter / Space", "context": "Expander focused", "action": "Reveals the full trail in place and moves focus to the first revealed item." }
+  ],
+  "focus": "No focus management except after expanding: focus moves to the first revealed item (made programmatically focusable when it is text), so focus never falls back to the document body.",
+  "wcag": ["1.3.1", "2.1.1", "2.4.3", "2.4.4", "2.4.7", "2.4.8", "4.1.2"],
+  "notes": [
+    "The ordered list conveys the number of levels and each item's position.",
+    "Separators are decorative icons, not text characters, so they are not announced."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

@@ -1,0 +1,35 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-marks;
+
+  // Decorative connectors; the stage bars carry the values.
+  .aui-funnel-chart__join {
+    fill: var(--aui-chart-color);
+    fill-opacity: 0.18;
+  }
+
+  .aui-funnel-chart__missing {
+    fill: transparent;
+    stroke: aui.ctoken('chart', 'axis-color');
+    stroke-dasharray: 3 2;
+  }
+
+  .aui-funnel-chart__name {
+    fill: aui.token('color-text');
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  @include aui.forced-colors {
+    .aui-funnel-chart__name {
+      fill: CanvasText;
+    }
+
+    .aui-funnel-chart__join {
+      fill: GrayText;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "component": "cascader",
+  "pattern": "A select-only combobox (a button element with role=combobox and aria-haspopup=\"dialog\") opens a non-modal dialog (WAI-ARIA APG Dialog, non-modal variant) that holds a search box and one WAI-ARIA APG Listbox per level. Levels behave like the columns of a column browser: Up and Down move within a level, the inline arrow keys move between levels. A tree view was not used because only one branch per level is shown at a time.",
+  "roles": [
+    { "element": "trigger", "role": "combobox on a button element (aria-haspopup=dialog, aria-expanded)" },
+    { "element": "popup", "role": "dialog (aria-labelledby the label)" },
+    { "element": "each level", "role": "listbox (aria-label = the level name)" },
+    { "element": "node", "role": "option" },
+    { "element": "search results", "role": "listbox" },
+    { "element": "loading, error, and result count", "role": "status" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "trigger", "value": "the label and the selected path text" },
+    { "attribute": "aria-expanded / aria-controls", "element": "trigger", "value": "popup state / the popup" },
+    { "attribute": "aria-required / aria-invalid / aria-describedby", "element": "trigger", "value": "required, shown validation state, help and error" },
+    { "attribute": "aria-readonly", "element": "trigger", "value": "true when readOnly (the popup does not open)" },
+    { "attribute": "aria-activedescendant", "element": "level listbox", "value": "the active option of the level" },
+    { "attribute": "aria-selected", "element": "option", "value": "true on the selected path (multiple: on selected paths)" },
+    { "attribute": "aria-multiselectable", "element": "level listbox", "value": "true with multiple" },
+    { "attribute": "aria-busy", "element": "level column", "value": "true while its children load" },
+    { "attribute": "aria-label", "element": "chip remove buttons, clear button", "value": "Remove India / Kerala, Clear selection" }
+  ],
+  "keyboard": [
+    { "key": "Enter / Space / ArrowDown", "context": "Trigger", "action": "Open the popup (focus goes to the search box, or the first level)." },
+    { "key": "ArrowDown / ArrowUp / Home / End", "context": "Level", "action": "Move within the level (disabled options are skipped)." },
+    { "key": "ArrowRight (ArrowLeft in RTL)", "context": "Level", "action": "Open the active node's children in the next level (loading them when needed) and move there." },
+    { "key": "ArrowLeft (ArrowRight in RTL)", "context": "Level", "action": "Back to the previous level." },
+    { "key": "Enter", "context": "Level", "action": "Select a leaf (or a node with changeOnSelect); otherwise open its children." },
+    { "key": "Space", "context": "Level", "action": "Select a leaf; open a node's children." },
+    { "key": "Printable characters", "context": "Level", "action": "Type-ahead within the level." },
+    { "key": "ArrowDown", "context": "Search box", "action": "Move into the results (or the levels when the box is empty)." },
+    { "key": "Enter", "context": "Search box / results", "action": "Select the active result." },
+    { "key": "Escape", "context": "Popup", "action": "Close and return focus to the trigger." },
+    { "key": "Tab", "context": "Popup", "action": "Search box, then the levels; tabbing out closes the popup." }
+  ],
+  "focus": "Opening moves focus into the popup; selecting (single) or Escape returns it to the trigger. Only the current level is in the tab sequence. Removing a chip moves focus to the next chip's remove button, or to the trigger.",
+  "wcag": ["1.3.1", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "4.1.2", "4.1.3"],
+  "notes": [
+    "Nodes with children carry a visually hidden \"has more levels\" text, because options cannot expose aria-expanded.",
+    "Selections, removals, loading, and load errors are announced; load errors offer a Retry button that receives focus.",
+    "Give levelLabels so each listbox is named (Country, State, City)."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

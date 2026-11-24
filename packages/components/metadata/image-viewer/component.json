@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "name": "image-viewer",
+  "displayName": "Image Viewer",
+  "category": "Layout and content",
+  "package": "@absoluteui/components",
+  "import": "import { ImageViewer } from '@absoluteui/components/image-viewer';",
+  "styleImport": "@absoluteui/components/image-viewer/style.css",
+  "purpose": "Shows photos, scans, and screenshots inline or in a gallery lightbox (a modal dialog): zoom by wheel, pinch, buttons, and keys; pan by drag and arrow keys; rotate; fit and actual size; previous and next with a thumbnail strip; and a crop mode with aspect ratio presets that produces a canvas and a Blob. Every image needs alt text, and image URLs are limited to safe schemes.",
+  "whenToUse": [
+    "Inspecting scanned documents, receipts, or ID photos that need zoom and rotation.",
+    "A gallery of attachments opened from a list or a file manager.",
+    "Cropping an uploaded photo (profile pictures, document scans) before saving it."
+  ],
+  "whenNotToUse": [
+    "A single decorative image in content: use a plain img.",
+    "A slideshow of marketing content: use Carousel.",
+    "Editing images beyond crop and rotation (filters, drawing)."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "button"],
+  "states": ["inline", "lightbox open", "lightbox closed", "loading", "loaded", "load error", "fitted", "zoomed", "rotated", "cropping", "single image", "gallery with thumbnails"],
+  "responsive": "The stage fills the available inline size (inline height from --aui-image-viewer-height, default 24rem; the lightbox fills the viewport); the toolbar and the crop bar wrap; the thumbnail strip scrolls horizontally; fit recomputes on resize.",
+  "rtl": "The header, toolbar, crop bar, and thumbnails follow the writing direction; previous and next chevrons are mirrored, and ArrowLeft moves to the next image in RTL when the image is not zoomed. Image transforms are physical.",
+  "theme": "Component tokens image-viewer-stage-bg (color-surface-sunken), image-viewer-crop-border (color-focus-ring), image-viewer-crop-overlay (color-backdrop), image-viewer-thumb-selected (color-primary), and image-viewer-radius (radius-md); the text, crop outline, current thumbnail ring, and focus indicator pairs are in the contrast gate. Forced colors draw the crop area and the current thumbnail in Highlight.",
+  "timezone": "Not applicable.",
+  "security": "Image URLs are limited to https:, blob:, raster data:image (png, jpeg, gif, webp, avif, bmp; never svg+xml), and the document's own origin; javascript:, file:, and cross-origin http: URLs throw. Alt text and captions are set as text. Transforms are custom properties set through the CSSOM, never style attributes. Cross-origin images can only be cropped when they are served with CORS and crossOrigin is set; otherwise the crop is refused with aui-error.",
+  "dataHandling": "No persistence, network access beyond loading the given images, or telemetry. Crop output stays in memory (a canvas and a Blob) for the application to upload.",
+  "performance": {
+    "budgets": [
+      { "metric": "ImageViewer.create with 500 images (thumbnails lazy-loaded)", "budget": "< 30 ms in headless Chromium" },
+      { "metric": "Lightbox open and fit", "budget": "< 16 ms (one frame) in headless Chromium" },
+      { "metric": "Zoom or pan step", "budget": "One style update of custom properties; no layout of the image" }
+    ],
+    "testedScale": "500 images per viewer; images up to 8,000 by 8,000 pixels (crop canvases are limited by the browser's canvas size)."
+  },
+  "limitations": [
+    "Rotation is in steps of 90 degrees.",
+    "Crop rectangles are axis aligned; there is no free rotation or perspective correction.",
+    "The download link uses the download attribute, which browsers ignore for cross-origin URLs (they open the image instead)."
+  ],
+  "unsupported": [
+    "SVG images (data:image/svg+xml) and other script-capable formats.",
+    "Image editing beyond crop and rotation."
+  ],
+  "antiPatterns": [
+    "Using the file name as alt text; describe what the image shows.",
+    "Loading full-size originals as thumbnails for large galleries; pass thumbnail URLs.",
+    "Cropping without telling the user the result size; the crop area announces it."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/image-viewer: AuiImageViewer component (<aui-image-viewer>).",
+    "react": "@absoluteui/react/image-viewer: AuiImageViewer component.",
+    "vue": "@absoluteui/vue/image-viewer: AuiImageViewer component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

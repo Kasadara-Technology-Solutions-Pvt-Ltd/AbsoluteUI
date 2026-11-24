@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "component": "box-plot",
+  "pattern": "SVG box plot as a named, described group (role=\"group\" with aria-roledescription \"box plot\") of role=\"img\" boxes with roving focus; data table fallback (native table with every statistic and the outlier values).",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription (localized \"box plot\"), named by the title"
+    },
+    {
+      "element": "boxes",
+      "role": "img with an aria-label: category, series, five-number summary, outlier count"
+    },
+    {
+      "element": "legend",
+      "role": "list (ul) named \"Legend\"; entries are toggle buttons (aria-pressed)"
+    },
+    {
+      "element": "data table",
+      "role": "table (native) with caption, column headers, and row headers; wide tables scroll in a focusable region"
+    },
+    {
+      "element": "axes, whiskers, median lines, outlier dots, textures, tooltip",
+      "role": "aria-hidden (decorative duplicates of the accessible data)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized chart type, \"box plot\""
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each box",
+      "value": "Localized \"{category}, {series}: median {median}, quartiles {q1} to {q3}, whiskers {min} to {max}\", followed by \", {n} outlier(s)\" when there are outliers (for example \"EU, Prod: median 14, quartiles 12 to 16, whiskers 10 to 16, 1 outlier\")"
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active box",
+      "value": "0 on exactly one box (roving); other boxes have none"
+    },
+    {
+      "attribute": "aria-pressed",
+      "element": "legend button",
+      "value": "true while the series is visible"
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowLeft / ArrowRight",
+      "context": "Box focused",
+      "action": "Previous / next category in the same series (mirrored in RTL); categories without a box are skipped."
+    },
+    {
+      "key": "ArrowUp / ArrowDown",
+      "context": "Box focused, more than one visible series",
+      "action": "Same category in the previous / next visible series (nearest box when missing)."
+    },
+    {
+      "key": "ArrowUp / ArrowDown",
+      "context": "Box focused, one visible series",
+      "action": "Previous / next category."
+    },
+    {
+      "key": "Home / End",
+      "context": "Box focused",
+      "action": "First / last box of the series."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Box focused",
+      "action": "Ten boxes back / forward."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "Legend buttons, then one tab stop for the plot (the active box), then the Show data table button and table region."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Legend button",
+      "action": "Shows or hides the series (native button)."
+    }
+  ],
+  "focus": "Roving focus: one box is in the tab sequence and remembers the last visited box (series id and category), also across re-renders (resize, update). Toggling a legend entry keeps focus on its button; toggling the table keeps focus on the table button.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "4.1.2"
+  ],
+  "notes": [
+    "Each box name reads the five-number summary (median, quartiles, whisker ends) and the outlier count.",
+    "Outliers are decorative dots; their values are listed in the Outliers column of the data table.",
+    "The generated summary lists the series and category counts, each series' lowest and highest median with their categories, and hidden series.",
+    "Meaning never depends on color alone: textures on the boxes of the second and later series (patterns option), plus legend keys that repeat them.",
+    "Box outlines are drawn in the series color (3:1 against surfaces); the median line uses the text color.",
+    "Forced colors: medians CanvasText, outlier dots Canvas-filled; focus and hover use Highlight.",
+    "No animation: nothing moves on render; hover and focus emphasis transitions are removed under prefers-reduced-motion and animation: none."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "aria-roledescription support varies; screen readers without it announce \"group\".",
+    "Individual outliers are not focusable; their values are available in the data table only."
+  ]
+}

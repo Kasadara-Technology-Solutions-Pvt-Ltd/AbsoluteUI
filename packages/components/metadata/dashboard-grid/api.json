@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "component": "dashboard-grid",
+  "factory": { "name": "DashboardGrid.create | DashboardCatalog.create", "signature": "DashboardGrid.create(host: HTMLElement, options: DashboardGridOptions): DashboardGrid; DashboardCatalog.create(host: HTMLElement, options: DashboardCatalogOptions): DashboardCatalog. Pure layout functions: collides(a: DashboardItem, b: DashboardItem): boolean; clampItem(item: DashboardItem, columns: number): DashboardItem; sortLayout<T extends Pick<DashboardItem, 'x' | 'y'>>(items: readonly T[]): T[]; compactLayout(items: readonly DashboardItem[], anchored?: ReadonlySet<string>): DashboardItem[]; resolveLayout(items: readonly DashboardItem[], moved: DashboardItem, columns: number, compaction?: DashboardCompaction): DashboardItem[]; findFreeSpot(items: readonly DashboardItem[], w: number, h: number, columns: number): { x: number; y: number }; adaptLayout(items: readonly DashboardItem[], fromColumns: number, columns: number): DashboardItem[]" },
+  "configKey": "dashboardGrid",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Accessible name of the dashboard region (aria-label on the host). Non-empty." },
+    { "name": "items", "type": "readonly DashboardItem[]", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Layout for the widest breakpoint: { id, x, y, w, h, minW?, minH?, maxW?, maxH?, locked?, label? } in column/row units (x, y integers >= 0; w, h integers >= 1; unique ids matching data-aui-item). Clamped to the column count. Narrower breakpoints derive from it unless `layouts` has one. Changing it with update() replaces every stored layout." },
+    { "name": "layouts", "type": "Readonly<Record<string, readonly DashboardItem[]>>", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Saved layouts by breakpoint name (from the layouts getter or aui-layout-change detail.layouts). Entries for unknown breakpoint names are ignored; a layout for the widest breakpoint overrides `items`." },
+    { "name": "breakpoints", "type": "readonly DashboardBreakpoint[]", "default": [{ "name": "lg", "minWidth": 1024, "columns": 12 }, { "name": "md", "minWidth": 640, "columns": 6 }, { "name": "sm", "minWidth": 0, "columns": 1 }], "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "{ name, minWidth (CSS px of the host width, >= 0), columns (integer 1..48) }; unique names; one breakpoint must have minWidth 0." },
+    { "name": "editable", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Edit mode: move handles, resize grips, keyboard moving, and undo/redo shortcuts." },
+    { "name": "historyLimit", "type": "number", "default": 50, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Undo depth, integer 0..500 (0 disables history)." },
+    { "name": "reorderDom", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Keep the item elements in visual reading order (row, then column) in the DOM, so focus order matches the layout. Focus is kept across reordering." },
+    { "name": "rowHeight", "type": "number", "default": 80, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Row height in CSS px, integer 24..600." },
+    { "name": "gap", "type": "number", "default": 16, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Gap between items in CSS px, integer 0..64." },
+    { "name": "compaction", "type": "'vertical' | 'none'", "default": "vertical", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "'vertical': items float up into free space (an item cannot rest below empty space); 'none': items stay where they are put." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the handle names and announcements." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "rtl mirrors ArrowLeft/ArrowRight moves and pointer column mapping." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The enhanced host (role=region)." },
+    { "name": "breakpoint", "type": "DashboardBreakpoint", "description": "Active breakpoint (a copy)." },
+    { "name": "items", "type": "DashboardItem[]", "description": "Items of the active breakpoint (copies; derived when no layout is stored for it)." },
+    { "name": "layouts", "type": "Record<string, DashboardItem[]>", "description": "Every stored layout by breakpoint name (copies); the widest breakpoint is always included. Serializable (JSON)." },
+    { "name": "editable", "type": "boolean", "description": "Edit mode." },
+    { "name": "canUndo | canRedo", "type": "boolean", "description": "Undo / redo history is available." },
+    { "name": "previewCell", "type": "{ x: number; y: number } | null", "description": "Last drop-preview cell of an external drag (the catalog), or null." },
+    { "name": "DashboardCatalog.host", "type": "HTMLElement", "description": "The catalog host (class aui-dashboard-catalog)." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<DashboardGridOptions>): void", "description": "Merge and apply options (validated first; cancels a grab). items, layouts, or breakpoints replace all stored layouts. No event." },
+    { "name": "setEditable", "signature": "setEditable(editable: boolean): void", "description": "Enter or leave edit mode (update({ editable }))." },
+    { "name": "addItem", "signature": "addItem(item: Omit<DashboardItem, 'x' | 'y'> & Partial<Pick<DashboardItem, 'x' | 'y'>>, element?: HTMLElement): DashboardItem", "description": "Add an item to every stored layout: at x/y in the active breakpoint (colliding items are pushed down), or the first free spot without a position; other stored layouts get their first free spot. `element` is given data-aui-item and appended; otherwise the child with the matching data-aui-item is used when it appears (frameworks render it). Returns the placed item; announces it; emits aui-layout-change (reason 'add'). Throws for a duplicate id." },
+    { "name": "removeItem", "signature": "removeItem(id: string, removeElement?: boolean): void", "description": "Remove an item from every layout (compacting with vertical compaction); its element is removed unless removeElement is false (default true). Announces and emits aui-layout-change (reason 'remove'). Unknown ids are ignored." },
+    { "name": "setLayout", "signature": "setLayout(items: readonly DashboardItem[]): void", "description": "Replace the active breakpoint's layout (validated, clamped, compacted with vertical compaction). Undoable; emits aui-layout-change (reason 'set')." },
+    { "name": "undo | redo", "signature": "undo(): boolean; redo(): boolean", "description": "Restore the previous / next layout geometry (items added or removed since keep their state). Returns false when there is nothing to undo/redo. Announces and emits aui-layout-change (reason 'undo' / 'redo')." },
+    { "name": "previewAt", "signature": "previewAt(clientX: number, clientY: number, w: number, h: number): { x: number; y: number } | null", "description": "Show a drop placeholder for an external drag at client coordinates and return its cell, or null (and clear) outside the grid. Used by DashboardCatalog." },
+    { "name": "clearPreview", "signature": "clearPreview(): void", "description": "Remove the drop placeholder." },
+    { "name": "handleFor", "signature": "handleFor(id: string): HTMLButtonElement | null", "description": "The move handle of an item (edit mode only), for focusing." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove handles, grips, placeholder, classes, placement styles, custom properties, role, aria-label, observers, and listeners. Children stay." },
+    { "name": "DashboardCatalog.update", "signature": "update(options: Partial<DashboardCatalogOptions>): void", "description": "Merge, validate, and re-render the template list." },
+    { "name": "DashboardCatalog.add", "signature": "add(templateId: string, at?: { x: number; y: number }): DashboardItem | null", "description": "Add a widget from a template (id '<template id>-<n>', the template's w/h/minW/minH and label) at `at` or the first free spot. Emits the cancelable aui-catalog-add first; returns null when vetoed. Calls `create` for the element, then grid.addItem, then focuses the new item's move handle (edit mode). Throws for an unknown template id." },
+    { "name": "DashboardCatalog.destroy", "signature": "destroy(): void", "description": "Remove the list, listeners, and the host class." }
+  ],
+  "events": [
+    { "name": "aui-layout-change", "detail": "DashboardGridLayoutChangeDetail { reason: 'move' | 'resize' | 'add' | 'remove' | 'undo' | 'redo' | 'set'; breakpoint: string; items: DashboardItem[]; layouts: Record<string, DashboardItem[]>; id: string | null }", "bubbles": true, "cancelable": false, "description": "The layout changed: a drop or keyboard drop that changed positions or sizes (not every live step), addItem, removeItem or removal of the element, setLayout, undo, redo. Save detail.layouts. Dispatched on the grid host." },
+    { "name": "aui-breakpoint-change", "detail": "DashboardGridBreakpointChangeDetail { breakpoint: string; columns: number }", "bubbles": true, "cancelable": false, "description": "The host width crossed into another breakpoint. Dispatched on the grid host." },
+    { "name": "aui-catalog-add", "detail": "DashboardCatalogAddDetail { template: DashboardTemplate; item: DashboardItem }", "bubbles": true, "cancelable": true, "description": "DashboardCatalog: a template is about to be added (click, Enter, Space, drop, or add()). preventDefault() vetoes it. detail.item has the new id and the requested cell (x 0, y 0 when the first free spot will be used). Frameworks render the widget element (data-aui-item = detail.item.id) here. Dispatched on the catalog host." }
+  ],
+  "contentAreas": [
+    { "name": "children with data-aui-item", "description": "Each host child element whose data-aui-item matches an item id is a grid item (the first child per id). The page or framework owns and renders them; the grid positions them, hides elements without an item in the active layout, reorders them within the host, and in edit mode prepends a move handle and appends a resize grip. Removing an element removes its item. Children without data-aui-item are left untouched." }
+  ],
+  "cssClasses": [
+    { "name": "aui-dashboard", "description": "Grid host (display: grid). Custom properties set through the CSSOM: --aui-dashboard-columns, --aui-dashboard-row-height, --aui-dashboard-gap, --aui-dashboard-rows." },
+    { "name": "aui-dashboard--editing", "description": "Host in edit mode." },
+    { "name": "aui-dashboard__item", "description": "Every managed item element (position: relative)." },
+    { "name": "aui-dashboard__item--locked | --dragging", "description": "Locked item (no resize grip) / the grabbed or dragged item (shadow, above others)." },
+    { "name": "aui-dashboard__handle", "description": "Move handle button at the item's top inline-end corner (aria-pressed while grabbed)." },
+    { "name": "aui-dashboard__resize", "description": "Pointer-only resize grip at the bottom inline-end corner (aria-hidden)." },
+    { "name": "aui-dashboard__placeholder", "description": "Drop target preview while moving, resizing, or dragging from the catalog (aria-hidden)." },
+    { "name": "aui-dashboard-catalog", "description": "Catalog host." },
+    { "name": "aui-dashboard-catalog__list | __entry | __template | __icon | __text | __label | __description", "description": "Catalog list (ul), entry (li), template button, icon, and texts." },
+    { "name": "aui-dashboard-catalog__template--dragging", "description": "Template button while it is dragged." }
+  ],
+  "iconSlots": [
+    { "name": "move handle", "default": "grip" },
+    { "name": "catalog template (DashboardTemplate.icon)", "default": "none" }
+  ]
+}

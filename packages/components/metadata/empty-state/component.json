@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "empty-state",
+  "displayName": "Empty State",
+  "category": "Feedback",
+  "package": "@absoluteui/components",
+  "import": "import { EmptyState } from '@absoluteui/components/empty-state';",
+  "styleImport": "@absoluteui/components/empty-state/style.css",
+  "purpose": "Explains why a table, list, search, or page has nothing to show and offers the next step: a decorative icon or illustration, a title (a heading at a chosen level, or plain text inside tables and lists), a description, and up to two actions rendered as AbsoluteUI buttons or links. Three sizes; with live, a search that matches nothing is announced.",
+  "whenToUse": [
+    "A table or list with no rows yet (first use) or no rows for the current filters.",
+    "A search with no results.",
+    "A page or panel waiting for a selection, such as the detail pane of a master-detail layout."
+  ],
+  "whenNotToUse": [
+    "Errors that need attention: use Alert or Inline Message.",
+    "Content that is still loading: use Skeleton or Spinner.",
+    "Short hints inside a form field: use help text."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["icon", "illustration", "no media", "with actions", "without actions", "live", "sm", "md", "lg"],
+  "responsive": "Centered and fluid; text wraps at a readable measure and the actions wrap under each other on narrow containers.",
+  "rtl": "Centered layout; the action order follows the writing direction.",
+  "theme": "Component tokens empty-state-icon-color (color-text-muted) and empty-state-icon-size (icon-size-xl). Title uses color-text, the description color-text-muted; both are in the contrast gate. Actions are Buttons (primary and secondary).",
+  "timezone": "Not applicable.",
+  "security": "Title and description are set as text; action hrefs are limited to http(s) and relative URLs; the illustration Node is inserted as given (the application owns it).",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "EmptyState.create with an icon and two actions", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "One per table, list, or page."
+  },
+  "limitations": [
+    "At most two actions.",
+    "The icon and illustration are decorative; put meaning in the title and description."
+  ],
+  "unsupported": [
+    "Rich text (HTML) in the description: compose your own content Node next to it."
+  ],
+  "antiPatterns": [
+    "Blaming the user ('You did not add anything'); say what is empty and what to do.",
+    "Showing an empty state while data is still loading."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/empty-state: AuiEmptyState component (<aui-empty-state>).",
+    "react": "@absoluteui/react/empty-state: AuiEmptyState component.",
+    "vue": "@absoluteui/vue/empty-state: AuiEmptyState component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

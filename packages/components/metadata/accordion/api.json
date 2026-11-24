@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "component": "accordion",
+  "factory": { "name": "Accordion.create", "signature": "Accordion.create(host: HTMLElement, options: AccordionOptions): Accordion" },
+  "configKey": "accordion",
+  "options": [
+    { "name": "items", "type": "readonly { id: string; title: string; content: Node | string; disabled?: boolean }[]", "required": true, "globallyConfigurable": false, "description": "Items with unique ids. Titles and string content render as text." },
+    { "name": "value", "type": "readonly string[]", "default": "[]", "required": false, "globallyConfigurable": false, "description": "Expanded item ids (at most one when multiple is false)." },
+    { "name": "icons", "type": "Partial<{ expand: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "multiple", "type": "boolean", "default": false, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Allow several panels open at once; otherwise expanding one collapses the others." },
+    { "name": "collapsible", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Single mode: the open panel can be collapsed. When false its header is aria-disabled." },
+    { "name": "headingLevel", "type": "2 | 3 | 4 | 5 | 6", "default": 3, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Heading element wrapping each header button." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "value", "type": "string[]", "description": "Expanded item ids, in item order." },
+    { "name": "options", "type": "Readonly<AccordionOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "panel", "signature": "panel(id: string): HTMLDivElement | null", "description": "Content container of an item's panel." },
+    { "name": "expand", "signature": "expand(id: string): void", "description": "Expand programmatically (no events); collapses others in single mode." },
+    { "name": "collapse", "signature": "collapse(id: string): void", "description": "Collapse programmatically (no events), even when not collapsible." },
+    { "name": "toggle", "signature": "toggle(id: string): void", "description": "Expand or collapse programmatically (no events)." },
+    { "name": "update", "signature": "update(options: Partial<AccordionOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: string[]; id: string; expanded: boolean }", "bubbles": true, "cancelable": false, "description": "The user expanded or collapsed an item." }
+  ],
+  "contentAreas": [
+    { "name": "panel", "description": "Item content (the `content` option, or accordion.panel(id))." }
+  ],
+  "cssClasses": [
+    { "name": "aui-accordion", "description": "Host." },
+    { "name": "aui-accordion--animated", "description": "Set after the first toggle; enables the expand transition." },
+    { "name": "aui-accordion__item", "description": "Item wrapper." },
+    { "name": "aui-accordion__item--expanded | --disabled", "description": "Item state modifiers." },
+    { "name": "aui-accordion__heading", "description": "Heading element (h2 to h6)." },
+    { "name": "aui-accordion__trigger", "description": "Header button." },
+    { "name": "aui-accordion__title", "description": "Header text." },
+    { "name": "aui-accordion__icon", "description": "Expand indicator (rotates when expanded)." },
+    { "name": "aui-accordion__panel", "description": "Panel (region when six items or fewer)." },
+    { "name": "aui-accordion__clip", "description": "Grid row that clips content during the height transition." },
+    { "name": "aui-accordion__content", "description": "Content container." }
+  ],
+  "iconSlots": [
+    { "name": "expand", "default": "chevron-down" }
+  ]
+}

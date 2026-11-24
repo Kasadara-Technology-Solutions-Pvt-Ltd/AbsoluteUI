@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="user-circle">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+      <circle cx="12" cy="9.75" r="3"/>
+      <path d="M6.35 19a5.65 4.25 0 0 1 11.3 0"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="12" cy="9.75" r="3"/>
+      <path d="M6.35 19a5.65 4.25 0 0 1 11.3 0A9 9 0 0 1 6.35 19z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+      <circle cx="12" cy="9.75" r="3"/>
+      <path d="M6.35 19a5.65 4.25 0 0 1 11.3 0"/>
+    </g>
+  </g>
+</svg>

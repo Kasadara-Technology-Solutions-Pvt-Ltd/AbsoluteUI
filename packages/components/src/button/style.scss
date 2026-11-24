@@ -1,0 +1,201 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: aui.token('space-2');
+    box-sizing: border-box;
+    min-block-size: aui.ctoken('button', 'height');
+    min-inline-size: aui.token('touch-target-min');
+    padding-block: 0;
+    padding-inline: aui.ctoken('button', 'padding-x');
+    margin: 0;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.ctoken('button', 'font-weight');
+    line-height: aui.token('line-height-tight');
+    text-decoration: none;
+    white-space: nowrap;
+    color: aui.ctoken('button', 'fg');
+    background: aui.ctoken('button', 'bg');
+    border: aui.token('border-width') solid aui.ctoken('button', 'border-color');
+    border-radius: aui.ctoken('button', 'radius');
+    cursor: pointer;
+    user-select: none;
+    @include aui.transition(background-color, border-color, color, box-shadow);
+
+    // `display` above would otherwise override the hidden attribute.
+    &[hidden] {
+      display: none;
+    }
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:active {
+      background: aui.token('color-active');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    .aui-icon {
+      flex: none;
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+      // Clicks target the button itself: toggle buttons replace their icon when pressed, so an
+      // icon event target would already be detached when the click bubbles to delegated handlers.
+      pointer-events: none;
+    }
+  }
+
+  // Toggle buttons (R13-5): the pressed state uses the selection colors and a stronger
+  // boundary, so it differs in more than hue; aria-pressed carries it to assistive technology.
+  .aui-button--pressed,
+  .aui-button--pressed:hover {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    border-color: aui.token('color-selected-indicator');
+    box-shadow: inset 0 0 0 aui.token('border-width') aui.token('color-selected-indicator');
+  }
+
+  .aui-button--primary {
+    color: aui.ctoken('button', 'primary-fg');
+    background: aui.ctoken('button', 'primary-bg');
+    border-color: aui.ctoken('button', 'primary-bg');
+
+    &:hover {
+      background: aui.token('color-primary-hover');
+      border-color: aui.token('color-primary-hover');
+    }
+
+    &:active {
+      background: aui.token('color-primary-active');
+      border-color: aui.token('color-primary-active');
+    }
+  }
+
+  .aui-button--outline {
+    color: aui.token('color-primary');
+    background: transparent;
+    border-color: aui.token('color-primary');
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+  }
+
+  .aui-button--full-width {
+    display: flex;
+    inline-size: 100%;
+  }
+
+  .aui-button--ghost {
+    color: aui.token('color-primary');
+    background: transparent;
+    border-color: transparent;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+  }
+
+  .aui-button--danger {
+    color: aui.token('color-on-danger');
+    background: aui.token('color-danger-fill');
+    border-color: aui.token('color-danger-fill');
+
+    &:hover,
+    &:active {
+      background: aui.token('color-danger-fill-hover');
+      border-color: aui.token('color-danger-fill-hover');
+    }
+  }
+
+  .aui-button--sm {
+    min-block-size: aui.token('control-height-sm');
+    padding-inline: aui.token('space-3');
+    font-size: aui.token('font-size-xs');
+  }
+
+  .aui-button--lg {
+    min-block-size: aui.token('control-height-lg');
+    padding-inline: aui.token('space-5');
+    font-size: aui.token('font-size-md');
+
+    .aui-icon {
+      inline-size: aui.icon-size('md');
+      block-size: aui.icon-size('md');
+      font-size: aui.icon-size('md');
+    }
+  }
+
+  .aui-button--icon-only {
+    padding-inline: 0;
+    inline-size: aui.ctoken('button', 'height');
+
+    &.aui-button--sm {
+      inline-size: aui.token('control-height-sm');
+    }
+
+    &.aui-button--lg {
+      inline-size: aui.token('control-height-lg');
+    }
+  }
+
+  .aui-button:disabled,
+  .aui-button[aria-disabled='true']:not([data-loading]) {
+    color: aui.token('color-text-disabled');
+    background: aui.token('color-disabled-bg');
+    border-color: aui.token('color-border');
+    cursor: not-allowed;
+  }
+
+  .aui-button[data-loading] {
+    cursor: progress;
+  }
+
+  .aui-button__spinner {
+    animation: aui-button-spin 0.8s linear infinite;
+
+    @include aui.reduced-motion {
+      animation: none;
+    }
+  }
+
+  @keyframes aui-button-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-button {
+      border-color: ButtonText;
+    }
+
+    .aui-button--pressed,
+    .aui-button--pressed:hover {
+      color: HighlightText;
+      background: Highlight;
+      border-color: Highlight;
+    }
+
+    .aui-button:disabled,
+    .aui-button[aria-disabled='true'] {
+      color: GrayText;
+      border-color: GrayText;
+    }
+
+    .aui-button:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="cut">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="7" cy="17" r="3"/>
+      <circle cx="17" cy="17" r="3"/>
+      <path d="M8.8 14.6L17 4"/>
+      <path d="M15.2 14.6L7 4"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="7" cy="17" r="3.75"/>
+      <circle cx="7" cy="17" r="1.75"/>
+      <circle cx="17" cy="17" r="3.75"/>
+      <circle cx="17" cy="17" r="1.75"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <line x1="9.3" y1="13.7" x2="17" y2="4" data-outline-width="2.5"/>
+      <line x1="14.7" y1="13.7" x2="7" y2="4" data-outline-width="2.5"/>
+    </g>
+  </g>
+</svg>

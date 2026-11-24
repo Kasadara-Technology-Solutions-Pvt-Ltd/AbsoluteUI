@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "component": "pivot-grid",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Sales by region and quarter (local engine)",
+      "language": "ts",
+      "code": "import { PivotGrid, type PivotField } from '@absoluteui/components/pivot-grid';\n\ninterface Sale {\n  region: string;\n  city: string;\n  date: string;\n  amount: number;\n}\n\nconst sales: Sale[] = [\n  { region: 'North', city: 'Oslo', date: '2026-01-15', amount: 1200 },\n  { region: 'North', city: 'Bergen', date: '2026-04-02', amount: 800 },\n  { region: 'South', city: 'Rome', date: '2026-02-20', amount: 1500 },\n];\n\nconst fields: PivotField<Sale>[] = [\n  { id: 'region', label: 'Region' },\n  { id: 'city', label: 'City' },\n  // Group dates by quarter in the accessor (the key is text such as 'Q1').\n  { id: 'quarter', label: 'Quarter', value: (s) => `Q${String(Math.ceil(Number(s.date.slice(5, 7)) / 3))}` },\n  { id: 'amount', label: 'Amount', numberFormat: { style: 'currency', currency: 'EUR' } },\n];\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst grid = PivotGrid.create(host, {\n  caption: 'Sales 2026',\n  fields,\n  data: sales,\n  layout: { rows: ['region', 'city'], columns: ['quarter'], values: [{ field: 'amount', aggregate: 'sum' }] },\n});\nvoid grid.ready.then(() => {\n  host.dataset.total = String(grid.toMatrix().values.at(-1)?.at(-1) ?? '');\n});"
+    },
+    {
+      "id": "server",
+      "title": "Server-side aggregation with lazy groups",
+      "language": "ts",
+      "code": "import { PivotGrid, type PivotDataSource, type PivotGridLoadErrorDetail, type PivotMembersResult, type PivotQueryResult } from '@absoluteui/components/pivot-grid';\n\n// The server answers the query contract: one cell per requested (row path, column path) with records.\n// The grid validates every answer before it renders it.\nconst source: PivotDataSource = {\n  query: async (query, signal) => {\n    const response = await fetch('/api/pivot/query', { method: 'POST', body: JSON.stringify(query), headers: { 'content-type': 'application/json' }, signal });\n    if (!response.ok) throw new Error(`Pivot query failed: ${String(response.status)}`);\n    return (await response.json()) as PivotQueryResult;\n  },\n  members: async (request, signal) => {\n    const response = await fetch('/api/pivot/members', { method: 'POST', body: JSON.stringify(request), headers: { 'content-type': 'application/json' }, signal });\n    if (!response.ok) throw new Error(`Pivot members failed: ${String(response.status)}`);\n    return (await response.json()) as PivotMembersResult;\n  },\n};\n\nconst host = document.querySelector<HTMLElement>('#orders-pivot');\nif (host) {\n  PivotGrid.create(host, {\n    caption: 'Orders',\n    fields: [{ id: 'country', label: 'Country' }, { id: 'customer', label: 'Customer' }, { id: 'year', label: 'Year' }, { id: 'total', label: 'Total' }],\n    dataSource: source,\n    // Only the top level loads first; each group loads when it is expanded.\n    expandDepth: 0,\n    requestTimeoutMs: 15_000,\n    virtual: true,\n    layout: { rows: ['country', 'customer'], columns: ['year'], values: [{ field: 'total', aggregate: 'sum' }] },\n  });\n  host.addEventListener('aui-load-error', (event) => {\n    const { request } = (event as CustomEvent<PivotGridLoadErrorDetail>).detail;\n    host.dataset.failed = request;\n  });\n}"
+    },
+    {
+      "id": "field-list",
+      "title": "Let users build the pivot, and save the layout",
+      "language": "ts",
+      "code": "import { PivotFieldList, PivotGrid, type PivotGridLayoutChangeDetail, type PivotLayout } from '@absoluteui/components/pivot-grid';\n\ninterface Ticket {\n  team: string;\n  priority: 'low' | 'high';\n  status: string;\n  hours: number;\n}\n\nconst tickets: Ticket[] = [\n  { team: 'Core', priority: 'high', status: 'open', hours: 5 },\n  { team: 'Web', priority: 'low', status: 'closed', hours: 2 },\n];\nlet saved: PivotLayout | null = null;\n\nconst listHost = document.createElement('div');\nconst gridHost = document.createElement('div');\ndocument.body.append(listHost, gridHost);\n\nconst grid = PivotGrid.create(gridHost, {\n  caption: 'Tickets',\n  fields: [\n    { id: 'team', label: 'Team' },\n    { id: 'priority', label: 'Priority', formatMember: (key) => (key === 'high' ? 'High' : 'Low') },\n    { id: 'status', label: 'Status', areas: ['rows', 'columns', 'filters'] },\n    { id: 'hours', label: 'Hours', aggregate: 'average' },\n  ],\n  data: tickets,\n  layout: saved ?? { rows: ['team'], columns: ['priority'], values: [{ field: 'hours', aggregate: 'sum' }] },\n});\nPivotFieldList.create(listHost, { grid, label: 'Pivot fields' });\ngridHost.addEventListener('aui-layout-change', (event) => {\n  saved = (event as CustomEvent<PivotGridLayoutChangeDetail>).detail.layout;\n});"
+    },
+    {
+      "id": "export",
+      "title": "CSV download and chart data",
+      "language": "ts",
+      "code": "import { downloadCsv, PivotGrid } from '@absoluteui/components/pivot-grid';\nimport { BarChart } from '@absoluteui/components/bar-chart';\nimport { Button } from '@absoluteui/components/button';\n\nconst rows = [\n  { product: 'A', month: '2026-01', units: 10 },\n  { product: 'B', month: '2026-01', units: 4 },\n  { product: 'A', month: '2026-02', units: 7 },\n];\nconst host = document.createElement('div');\nconst chartHost = document.createElement('div');\ndocument.body.append(host, chartHost);\nconst grid = PivotGrid.create(host, {\n  caption: 'Units by product',\n  fields: [{ id: 'product', label: 'Product' }, { id: 'month', label: 'Month' }, { id: 'units', label: 'Units' }],\n  data: rows,\n  grandTotals: 'none',\n  layout: { rows: ['product'], columns: ['month'], values: [{ field: 'units', aggregate: 'sum' }] },\n});\nvoid grid.ready.then(() => {\n  const matrix = grid.toMatrix();\n  BarChart.create(chartHost, {\n    label: 'Units by product',\n    categories: matrix.rows.map((r) => r.labels.join(' / ')),\n    series: matrix.columns.map((c, j) => ({ id: `c${String(j)}`, label: c.labels.join(' / '), values: matrix.values.map((row) => row[j] ?? null) })),\n  });\n  const button = document.createElement('button');\n  button.type = 'button';\n  button.textContent = 'Download CSV';\nButton.enhance(button);\n  button.addEventListener('click', () => {\n    downloadCsv(grid.toCsv({ bom: true }), 'units.csv');\n  });\n  host.before(button);\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Row totals only and compact cells for every pivot",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { pivotGrid: { grandTotals: 'rows', columnSubtotals: false, requestTimeoutMs: 20_000, density: 'compact' } } });"
+    }
+  ]
+}

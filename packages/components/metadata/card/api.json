@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "component": "card",
+  "factory": { "name": "Card.create | Surface.apply", "signature": "Card.create(host: HTMLElement, options?: CardOptions): Card; Surface.apply(el: HTMLElement, options?: SurfaceOptions): SurfaceHandle" },
+  "configKey": "card",
+  "options": [
+    { "name": "title", "type": "string", "required": false, "globallyConfigurable": false, "description": "Card heading and the <article>'s accessible name (aria-labelledby). Without a title the card is a <div>." },
+    { "name": "subtitle", "type": "string", "required": false, "globallyConfigurable": false, "description": "Supporting line under the title (text only)." },
+    { "name": "content", "type": "Node | string", "required": false, "globallyConfigurable": false, "description": "Body content; strings render as text. Omit to fill card.body directly." },
+    { "name": "footer", "type": "Node", "required": false, "globallyConfigurable": false, "description": "Footer content such as actions or metadata." },
+    { "name": "media", "type": "Node", "required": false, "globallyConfigurable": false, "description": "Image or illustration, shown above the header while the header stays first in source order." },
+    { "name": "interactive", "type": "{ href: string }", "required": false, "globallyConfigurable": false, "description": "Block-link mode: the title becomes the only link and its ::after covers the card. Requires title; href must be http(s) or relative." },
+    { "name": "variant", "type": "'flat' | 'raised' | 'sunken'", "default": "flat", "required": false, "globallyConfigurable": false, "description": "Surface treatment (Card and Surface.apply)." },
+    { "name": "padded", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Surface.apply only: space-inset padding." },
+    { "name": "headingLevel", "type": "2 | 3 | 4 | 5 | 6", "default": 3, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Heading level of the card title; match it to the surrounding outline." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Card: consumer host; its children are replaced by the card." },
+    { "name": "element", "type": "HTMLElement", "description": "Card: root <article> (titled) or <div>. Replaced when the title is added or removed." },
+    { "name": "body", "type": "HTMLDivElement", "description": "Card: body content area." },
+    { "name": "footer", "type": "HTMLDivElement", "description": "Card: footer area (hidden while empty)." },
+    { "name": "media", "type": "HTMLDivElement", "description": "Card: media area (hidden while empty)." },
+    { "name": "options", "type": "Readonly<CardOptions> | Readonly<SurfaceOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<CardOptions>): void", "description": "Merge, validate, and apply options. Content areas are replaced only when their option is passed; pass undefined to remove title, subtitle, or interactive." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Card: remove the card element and the configuration subscription. SurfaceHandle: remove the classes it added." }
+  ],
+  "events": [],
+  "contentAreas": [
+    { "name": "body", "description": "card.body (or the content option)." },
+    { "name": "footer", "description": "card.footer (or the footer option)." },
+    { "name": "media", "description": "card.media (or the media option)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-surface", "description": "Bordered panel on color-surface with radius-md." },
+    { "name": "aui-surface--raised | --sunken | --padded", "description": "Surface modifiers." },
+    { "name": "aui-card", "description": "Card root (combined with aui-surface)." },
+    { "name": "aui-card--interactive", "description": "Block-link card: hover and focus-visible states on the card." },
+    { "name": "aui-card__header", "description": "Title and subtitle." },
+    { "name": "aui-card__title", "description": "Heading (h2 to h6)." },
+    { "name": "aui-card__link", "description": "Interactive title link; its ::after covers the card." },
+    { "name": "aui-card__subtitle", "description": "Supporting text." },
+    { "name": "aui-card__media", "description": "Media area, visually first." },
+    { "name": "aui-card__body", "description": "Body content." },
+    { "name": "aui-card__footer", "description": "Footer, a wrapping row." }
+  ],
+  "iconSlots": []
+}

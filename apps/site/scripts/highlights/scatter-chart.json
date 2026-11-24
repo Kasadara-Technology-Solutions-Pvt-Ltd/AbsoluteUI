@@ -1,0 +1,7 @@
+[
+  { "title": "Scatter or bubble", "text": "Plot x and y points; a size per point turns it into a bubble chart." },
+  { "title": "Zoom and pan", "text": "Zoom along x or both axes, with an optional crosshair through the active point." },
+  { "title": "Keyboard points", "text": "One tab stop; points ordered by x, Up and Down switch series." },
+  { "title": "Data table fallback", "text": "A generated summary of ranges and a table with the exact values." },
+  { "title": "Not color alone", "text": "Series differ by color and marker shape." }
+]

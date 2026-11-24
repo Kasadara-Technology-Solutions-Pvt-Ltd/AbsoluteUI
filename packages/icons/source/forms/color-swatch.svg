@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="color-swatch">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M10 4v13a4 4 0 0 1-8 0V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+      <path d="M10 9l3.6-3.6a1 1 0 0 1 1.4 0l3.6 3.6a1 1 0 0 1 0 1.4L10 19"/>
+      <path d="M7 21h13a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-3"/>
+      <path d="M6 17h.01"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M10 4v13a4 4 0 0 1-8 0V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M10 4v13a4 4 0 0 1-8 0V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+      <path d="M10 9l3.6-3.6a1 1 0 0 1 1.4 0l3.6 3.6a1 1 0 0 1 0 1.4L10 19"/>
+      <path d="M7 21h13a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-3"/>
+      <path d="M6 17h.01"/>
+    </g>
+  </g>
+</svg>

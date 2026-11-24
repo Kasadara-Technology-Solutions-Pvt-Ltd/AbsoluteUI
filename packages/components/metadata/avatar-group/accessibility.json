@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "component": "avatar-group",
+  "pattern": "Named group of images: role=group with aria-label; each avatar is role=img named by its person; the overflow chip is role=img named 'N more'.",
+  "roles": [
+    { "element": "host", "role": "group" },
+    { "element": "avatar", "role": "img" },
+    { "element": "overflow chip", "role": "img" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "host", "value": "the label option" },
+    { "attribute": "aria-label", "element": "overflow chip", "value": "'{count} more' (localized)" }
+  ],
+  "keyboard": [
+    { "key": "None", "context": "Any", "action": "Not focusable; read in document order by assistive technology." }
+  ],
+  "focus": "Never receives or moves focus.",
+  "wcag": ["1.1.1", "1.3.1", "1.4.3", "1.4.11"],
+  "notes": [
+    "The overflow chip says how many people are not shown; provide the full list elsewhere when users need the names."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

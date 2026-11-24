@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "button-group",
+  "examples": [
+    {
+      "id": "create",
+      "title": "Attached group with an action handler",
+      "language": "ts",
+      "code": "import { ButtonGroup, type ButtonGroupActionDetail } from '@absoluteui/components/button-group';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nButtonGroup.create(host, {\n  label: 'Pagination',\n  size: 'sm',\n  buttons: [\n    { icon: 'chevron-left', label: 'Previous page', value: 'prev' },\n    { icon: 'chevron-right', label: 'Next page', value: 'next' },\n  ],\n});\nhost.addEventListener('aui-action', (event) => {\n  const { value } = (event as CustomEvent<ButtonGroupActionDetail>).detail;\n  host.dataset.last = value;\n});"
+    },
+    {
+      "id": "enhance",
+      "title": "Enhance existing native buttons, spaced and wrapping",
+      "language": "ts",
+      "code": "import { ButtonGroup } from '@absoluteui/components/button-group';\n\nconst element = document.createElement('div');\nfor (const text of ['Copy', 'Paste', 'Duplicate']) {\n  const button = document.createElement('button');\n  button.type = 'button';\n  button.textContent = text;\n  element.append(button);\n}\ndocument.body.append(element);\nButtonGroup.enhance(element, { label: 'Clipboard', attached: false });"
+    },
+    {
+      "id": "global-config",
+      "title": "Spaced groups by default",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { buttonGroup: { attached: false } } });"
+    }
+  ]
+}

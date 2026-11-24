@@ -1,0 +1,22 @@
+export { Chat, chatConfig } from './chat.js';
+export type {
+  ChatOptions,
+  ChatConfig,
+  ChatIcons,
+  ChatRole,
+  ChatMessage,
+  ChatMessageStatus,
+  ChatFeedback,
+  ChatFormat,
+  ChatAuthor,
+  ChatAttachment,
+  ChatSuggestion,
+  ChatStreamSource,
+  ChatStreamInit,
+  ChatSendDetail,
+  ChatStopDetail,
+  ChatRetryDetail,
+  ChatFeedbackDetail,
+  ChatSuggestionDetail,
+  ChatAttachmentOpenDetail,
+} from './chat.js';

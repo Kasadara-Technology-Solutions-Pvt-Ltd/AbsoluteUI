@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "checkbox",
+  "displayName": "Checkbox",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { Checkbox } from '@absoluteui/components/checkbox';",
+  "styleImport": "@absoluteui/components/checkbox/style.css",
+  "purpose": "A single on/off choice built on a native <input type=\"checkbox\">, restyled with appearance: none, with label, help text, mixed (indeterminate) state, required validation, and localized messages.",
+  "whenToUse": [
+    "A single independent yes/no choice that is submitted with a form, such as accepting terms or opting into a newsletter.",
+    "A \"select all\" parent that shows a mixed state when only some children are selected.",
+    "A choice that must be confirmed before continuing (required)."
+  ],
+  "whenNotToUse": [
+    "Several related choices: use Checkbox Group.",
+    "One choice from a set of mutually exclusive options: use Radio Group.",
+    "A setting that takes effect immediately: use Switch."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["default", "hover", "focus-visible", "checked", "indeterminate", "disabled", "disabled checked", "required", "invalid"],
+  "responsive": "The box stays fixed-size; the label wraps next to it and help text aligns with the label. The row is at least touch-target-min tall and the label extends the hit target.",
+  "rtl": "Logical properties: the box sits at the inline start and help text is indented from the inline start in both directions. The check and minus marks are not mirrored.",
+  "theme": "Unchecked: color-surface box with a color-border-strong boundary. Checked or mixed: color-primary fill with a color-on-primary mark. Invalid: color-error-fg boundary. High-contrast themes widen border-width. Forced-colors mode uses Canvas, CanvasText, Highlight, HighlightText, and GrayText with forced-color-adjust: none so the box and mark stay visible.",
+  "timezone": "Not applicable.",
+  "security": "Label, help text, and messages are rendered with textContent. Validation messages never include the value. CSP-safe: no inline styles or HTML strings.",
+  "dataHandling": "No persistence, network access, or telemetry. The native input carries the value for form submission when `name` is set and the box is checked.",
+  "performance": {
+    "budgets": [
+      { "metric": "Checkbox.create, per instance (1,000 instances)", "budget": "< 1 ms average in headless Chromium (target; not yet covered by the performance test)" }
+    ],
+    "testedScale": "Unit-tested per instance; not yet included in the 1,000-instance performance test."
+  },
+  "limitations": [
+    "The mixed state is presentational: the user toggling clears it, and it is never submitted.",
+    "The box itself is 1.25rem; the 24px minimum target is met by the row and the clickable label, not the box alone."
+  ],
+  "unsupported": [
+    "Rendering HTML (for example links) inside the label; place links in surrounding content instead.",
+    "A read-only checkbox (native checkboxes have no read-only state)."
+  ],
+  "antiPatterns": [
+    "Using a checkbox for a setting that applies immediately (use Switch).",
+    "Using the mixed state as a third submitted value.",
+    "Hiding the label; the visible label is the larger click target."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/checkbox: AuiCheckbox directive ([auiCheckbox]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/checkbox: AuiCheckbox component; controlled (checked/defaultChecked + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/checkbox: AuiCheckbox component with v-model."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

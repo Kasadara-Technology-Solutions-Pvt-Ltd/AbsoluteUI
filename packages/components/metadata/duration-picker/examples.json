@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "duration-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required estimate in quarter hours, up to 8 hours",
+      "language": "ts",
+      "code": "import { duration } from '@absoluteui/core';\nimport { DurationPicker } from '@absoluteui/components/duration-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst estimate = DurationPicker.create(host, {\n  label: 'Estimate',\n  name: 'estimate',\n  required: true,\n  min: duration(15 * 60_000),\n  max: duration(8 * 3_600_000),\n  step: duration(15 * 60_000),\n});\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(estimate.validity.valid);\n});"
+    },
+    {
+      "id": "minutes-seconds",
+      "title": "Minutes and seconds from an ISO 8601 value, with custom validation",
+      "language": "ts",
+      "code": "import { durationToString, parseDuration } from '@absoluteui/core';\nimport { DurationPicker, type DurationPickerChangeDetail } from '@absoluteui/components/duration-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDurationPicker.create(host, {\n  label: 'Lap time',\n  fields: ['minutes', 'seconds'],\n  value: parseDuration('PT1M30S'),\n  validate: (value) => (value !== null && value.milliseconds === 0 ? 'Enter a lap time above zero.' : null),\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<DurationPickerChangeDetail>).detail;\n  host.dataset.lap = value ? durationToString(value) : '';\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Global units and validation timing",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { durationPicker: { fields: ['days', 'hours', 'minutes'], validationTiming: 'input' } } });"
+    }
+  ]
+}

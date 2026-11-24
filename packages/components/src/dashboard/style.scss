@@ -1,0 +1,417 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Dashboard (R18). Pair with the dashboard-grid and dashboard-widget stylesheets.
+@layer aui.components {
+  .aui-dashboard-root {
+    --aui-dashboard-accent: #{aui.token('color-primary')};
+
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-4');
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    color: aui.token('color-text');
+  }
+
+  .aui-dashboard-root__grid {
+    min-inline-size: 0;
+  }
+
+  // Toolbar (R18-10): variables on the inline start, actions on the inline end; wraps on narrow screens.
+  .aui-dashboard-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: aui.token('space-3');
+  }
+
+  .aui-dashboard-toolbar__variables,
+  .aui-dashboard-toolbar__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+  }
+
+  .aui-dashboard-toolbar__variable {
+    min-inline-size: min(100%, 12rem);
+  }
+
+  .aui-dashboard-toolbar__edit {
+    display: flex;
+    align-items: center;
+    min-block-size: aui.token('touch-target-min');
+    padding-inline-start: aui.token('space-2');
+  }
+
+  .aui-dashboard-toolbar [hidden] {
+    display: none;
+  }
+
+  // Kiosk (S8): no toolbar or page tabs, only the kiosk bar.
+  .aui-dashboard-kiosk {
+    display: flex;
+    justify-content: flex-end;
+    gap: aui.token('space-2');
+  }
+
+  .aui-dashboard-root--kiosk {
+    padding: aui.token('space-4');
+    background: aui.token('color-bg');
+
+    > .aui-dashboard-toolbar {
+      display: none;
+    }
+
+    > .aui-dashboard-root__pages > .aui-tabs > [role='tablist'] {
+      display: none;
+    }
+  }
+
+  .aui-dashboard-root--editing .aui-dashboard-root__grid {
+    outline: aui.token('border-width') dashed aui.token('color-border-strong');
+    outline-offset: aui.token('space-2');
+  }
+
+  // Accent tokens (R18-12): definitions name a role, never a CSS value.
+  [data-aui-accent='primary'] {
+    --aui-dashboard-accent: #{aui.token('color-primary')};
+  }
+
+  [data-aui-accent='neutral'] {
+    --aui-dashboard-accent: #{aui.token('color-text-muted')};
+  }
+
+  [data-aui-accent='info'] {
+    --aui-dashboard-accent: #{aui.token('color-info-fg')};
+  }
+
+  [data-aui-accent='success'] {
+    --aui-dashboard-accent: #{aui.token('color-success-fg')};
+  }
+
+  [data-aui-accent='warning'] {
+    --aui-dashboard-accent: #{aui.token('color-warning-fg')};
+  }
+
+  [data-aui-accent='danger'] {
+    --aui-dashboard-accent: #{aui.token('color-error-fg')};
+  }
+
+  [data-aui-accent='chart-1'] {
+    --aui-dashboard-accent: #{aui.token('color-chart-1')};
+  }
+
+  [data-aui-accent='chart-2'] {
+    --aui-dashboard-accent: #{aui.token('color-chart-2')};
+  }
+
+  [data-aui-accent='chart-3'] {
+    --aui-dashboard-accent: #{aui.token('color-chart-3')};
+  }
+
+  [data-aui-accent='chart-4'] {
+    --aui-dashboard-accent: #{aui.token('color-chart-4')};
+  }
+
+  [data-aui-accent='chart-5'] {
+    --aui-dashboard-accent: #{aui.token('color-chart-5')};
+  }
+
+  [data-aui-accent='chart-6'] {
+    --aui-dashboard-accent: #{aui.token('color-chart-6')};
+  }
+
+  [data-aui-accent='chart-7'] {
+    --aui-dashboard-accent: #{aui.token('color-chart-7')};
+  }
+
+  [data-aui-accent='chart-8'] {
+    --aui-dashboard-accent: #{aui.token('color-chart-8')};
+  }
+
+  .aui-dashboard-widget {
+    position: relative;
+
+    &[data-aui-accent] {
+      border-block-start: aui.token('border-width-strong') solid var(--aui-dashboard-accent);
+    }
+
+    &[data-aui-surface='subtle'] {
+      background: aui.token('color-surface-sunken');
+    }
+
+    &[data-aui-surface='transparent'] {
+      background: transparent;
+    }
+
+    &[data-aui-border='false'] {
+      border-color: transparent;
+    }
+
+    &[data-aui-shadow='false'] {
+      box-shadow: none;
+    }
+
+    &[data-aui-shadow='true'] {
+      box-shadow: aui.token('shadow-md');
+    }
+
+    // Header hidden: the heading stays for screen readers (the region keeps its name).
+    &[data-aui-header='false'] > .aui-widget__header {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    &[data-aui-padding='0'] {
+      padding: 0;
+    }
+
+    &[data-aui-padding='1'] {
+      padding: aui.token('space-1');
+    }
+
+    &[data-aui-padding='2'] {
+      padding: aui.token('space-2');
+    }
+
+    &[data-aui-padding='3'] {
+      padding: aui.token('space-4');
+    }
+
+    &[data-aui-padding='4'] {
+      padding: aui.token('space-6');
+    }
+
+    // Threshold tones (S5): a border, plus the value color, never color alone (the value text says it).
+    &[data-aui-tone='success'] {
+      border-color: aui.token('color-success-fg');
+    }
+
+    &[data-aui-tone='warning'] {
+      border-color: aui.token('color-warning-fg');
+    }
+
+    &[data-aui-tone='danger'] {
+      border-color: aui.token('color-error-fg');
+    }
+
+    &[data-aui-tone='info'] {
+      border-color: aui.token('color-info-fg');
+    }
+  }
+
+  // The widget clips; its body scrolls when content is taller (tables, long lists), so the
+  // footer stays below the content instead of overlapping it.
+  .aui-dashboard-widget.aui-widget {
+    overflow: hidden;
+  }
+
+  .aui-dashboard-widget__body {
+    flex: 1;
+    min-block-size: 0;
+    min-inline-size: 0;
+    overflow: auto;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-dashboard-widget__state {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: aui.token('space-2');
+    text-align: center;
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  [data-aui-status='error'] > .aui-dashboard-widget__state {
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-dashboard-widget__message {
+    margin: 0;
+  }
+
+  .aui-dashboard-widget__retry {
+    min-block-size: aui.token('touch-target-min');
+    padding-inline: aui.token('space-3');
+    font: inherit;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: aui.token('focus-ring-offset');
+    }
+  }
+
+  .aui-dashboard-widget__footer {
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+
+    &[data-aui-stale='true'] {
+      color: aui.token('color-warning-fg');
+    }
+  }
+
+  // Widget builder and JSON editor (dashboard/builder), rendered inside a Drawer.
+  .aui-dashboard-builder {
+    display: grid;
+    gap: aui.token('space-4');
+  }
+
+  .aui-dashboard-builder__form,
+  .aui-dashboard-builder__json,
+  .aui-dashboard-builder__type-fields {
+    display: grid;
+    gap: aui.token('space-4');
+    padding-block: aui.token('space-3');
+  }
+
+  .aui-dashboard-builder__group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+    gap: aui.token('space-3');
+    margin: 0;
+    padding: aui.token('space-3');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+
+    > legend {
+      padding-inline: aui.token('space-1');
+      font-weight: aui.token('font-weight-semibold');
+    }
+  }
+
+  .aui-dashboard-builder__http {
+    display: contents;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-dashboard-builder__message[hidden] {
+    display: none;
+  }
+
+  // Built-in KPI and progress widgets sit inside a titled widget: no card inside the card, and the
+  // inner label (the widget title again) is visually hidden; it stays the component's accessible name.
+  .aui-dashboard-kpi .aui-stat-card__body {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .aui-dashboard-kpi .aui-stat-card__label,
+  .aui-dashboard-progress .aui-progress-bar__label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .aui-dashboard-progress .aui-progress-bar__header {
+    justify-content: flex-end;
+  }
+
+  // Built-in list and text widgets.
+  .aui-dashboard-list {
+    display: grid;
+    gap: aui.token('space-1');
+    margin: 0;
+    padding-inline-start: aui.token('space-5');
+  }
+
+  .aui-dashboard-list__item {
+    display: list-item;
+
+    > * {
+      vertical-align: baseline;
+    }
+  }
+
+  .aui-dashboard-list__label {
+    font: inherit;
+    color: inherit;
+    text-align: start;
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+
+  button.aui-dashboard-list__label {
+    color: aui.token('color-link');
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: aui.token('focus-ring-offset');
+    }
+  }
+
+  .aui-dashboard-list__value {
+    float: inline-end;
+    font-variant-numeric: tabular-nums;
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-dashboard-text {
+    margin: 0 0 aui.token('space-2');
+    white-space: pre-line;
+    line-height: aui.token('line-height-relaxed');
+  }
+
+  @media (forced-colors: active) {
+    .aui-dashboard-widget[data-aui-accent] {
+      border-block-start-color: CanvasText;
+    }
+  }
+
+  @media print {
+    .aui-dashboard-widget__retry,
+    .aui-dashboard-toolbar,
+    .aui-dashboard-handle,
+    .aui-widget__actions {
+      display: none !important;
+    }
+
+    .aui-dashboard-widget {
+      break-inside: avoid;
+      box-shadow: none;
+    }
+  }
+}

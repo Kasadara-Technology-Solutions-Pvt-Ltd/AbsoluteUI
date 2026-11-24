@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "component": "transfer-list",
+  "pattern": "WAI-ARIA APG Listbox (multi-select, recommended selection model): each list is role=listbox with aria-multiselectable; focus stays on the listbox and aria-activedescendant names the active option; aria-selected marks checked options.",
+  "roles": [
+    { "element": "body", "role": "group (aria-labelledby the label)" },
+    { "element": "each list", "role": "listbox" },
+    { "element": "item", "role": "option" },
+    { "element": "count", "role": "status" },
+    { "element": "move controls", "role": "button" }
+  ],
+  "aria": [
+    { "attribute": "aria-multiselectable", "element": "listbox", "value": "true" },
+    { "attribute": "aria-labelledby / aria-describedby", "element": "listbox", "value": "the list title / its item count" },
+    { "attribute": "aria-activedescendant", "element": "listbox", "value": "the active option while it is rendered" },
+    { "attribute": "aria-selected", "element": "option", "value": "true when checked" },
+    { "attribute": "aria-setsize / aria-posinset", "element": "option", "value": "position in the filtered list (rows are windowed)" },
+    { "attribute": "aria-disabled", "element": "option / listbox", "value": "true for disabled items / a disabled control" },
+    { "attribute": "aria-readonly", "element": "listbox", "value": "true when readOnly" },
+    { "attribute": "aria-required / aria-invalid", "element": "Selected listbox", "value": "required and the shown validation state" },
+    { "attribute": "aria-label", "element": "move buttons, search boxes", "value": "Move checked items to Selected, Search Available, and so on" }
+  ],
+  "keyboard": [
+    { "key": "ArrowDown / ArrowUp", "context": "List", "action": "Move the active option." },
+    { "key": "Home / End / Page Up / Page Down", "context": "List", "action": "First, last, or a page of options." },
+    { "key": "Space", "context": "List", "action": "Check or uncheck the active option." },
+    { "key": "Shift + ArrowDown / ArrowUp / Space", "context": "List", "action": "Check the range from the anchor to the active option." },
+    { "key": "Ctrl/Cmd + A", "context": "List", "action": "Check all visible options (again: uncheck all)." },
+    { "key": "Enter", "context": "List", "action": "Move the checked options (or the active one) to the other list." },
+    { "key": "Printable characters", "context": "List", "action": "Type-ahead to an option." },
+    { "key": "ArrowDown", "context": "Search box", "action": "Move focus into the list." },
+    { "key": "Tab", "context": "Control", "action": "Search, list, buttons, search, list, in reading order." }
+  ],
+  "focus": "Focus stays on the listbox; the active option is shown with an outline. After a button moves the last items and disables itself, focus returns to the source list.",
+  "wcag": ["1.3.1", "1.4.11", "2.1.1", "2.4.7", "2.5.7", "4.1.2", "4.1.3"],
+  "notes": [
+    "Moves are announced (\"2 items moved to Selected\"); counts are polite status messages.",
+    "Dragging is optional and always has a single-pointer and keyboard alternative: check items and press a move button (WCAG 2.5.7).",
+    "Windowed rows carry aria-setsize and aria-posinset so screen readers announce the position in the full list."
+  ],
+  "knownCaveats": [
+    "When the active option is scrolled out of the rendered window with the mouse, the listbox has no active descendant until the next key press.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "component": "multi-select",
+  "pattern": "WAI-ARIA APG Combobox pattern (editable, list autocomplete, no automatic selection) with a multi-selectable listbox; selected values as a list of chips with remove buttons.",
+  "roles": [
+    {
+      "element": "input",
+      "role": "combobox"
+    },
+    {
+      "element": "listbox container",
+      "role": "listbox (aria-multiselectable=true)"
+    },
+    {
+      "element": "each option, including Select all",
+      "role": "option"
+    },
+    {
+      "element": "selected values",
+      "role": "list of listitems; each remove control is a native button"
+    },
+    {
+      "element": "toggle button",
+      "role": "button (native, tabindex=-1)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-expanded",
+      "element": "input and toggle",
+      "value": "true when the listbox is shown"
+    },
+    {
+      "attribute": "aria-controls",
+      "element": "input and toggle",
+      "value": "listbox id"
+    },
+    {
+      "attribute": "aria-activedescendant",
+      "element": "input",
+      "value": "id of the active option; removed when none"
+    },
+    {
+      "attribute": "aria-multiselectable",
+      "element": "listbox",
+      "value": "true"
+    },
+    {
+      "attribute": "aria-selected",
+      "element": "option",
+      "value": "true for selected options; for Select all, when every enabled option shown is selected"
+    },
+    {
+      "attribute": "aria-disabled",
+      "element": "option",
+      "value": "true for disabled options and, once maxSelected is reached, unselected ones"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "chip list and remove buttons",
+      "value": "\"Selected: {label}\" and \"Remove {label}\" (localized)"
+    },
+    {
+      "attribute": "aria-invalid / aria-required / aria-describedby",
+      "element": "input",
+      "value": "Reflect invalid, required, description, and error text"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowDown / ArrowUp",
+      "context": "Closed",
+      "action": "Opens and activates the first / last enabled option."
+    },
+    {
+      "key": "Alt+ArrowDown",
+      "context": "Closed",
+      "action": "Opens without activating an option."
+    },
+    {
+      "key": "ArrowDown / ArrowUp",
+      "context": "Open",
+      "action": "Moves the active option, skipping unavailable options, wrapping."
+    },
+    {
+      "key": "PageDown / PageUp, Ctrl+Home / Ctrl+End",
+      "context": "Open",
+      "action": "Moves the active option by 10 / to the first or last."
+    },
+    {
+      "key": "Enter",
+      "context": "Open with an active option",
+      "action": "Toggles it (Select all toggles the options shown); the list stays open unless closeOnSelect."
+    },
+    {
+      "key": "Backspace",
+      "context": "Empty input",
+      "action": "Removes the last selected value."
+    },
+    {
+      "key": "Escape",
+      "context": "Open / closed with text",
+      "action": "Closes the listbox / clears the text."
+    },
+    {
+      "key": "Tab",
+      "context": "Any",
+      "action": "Closes the listbox and moves focus (chip remove buttons are tab stops before the input)."
+    },
+    {
+      "key": "Printable characters",
+      "context": "Any",
+      "action": "Edits the text, opens, and filters (or loads)."
+    }
+  ],
+  "focus": "DOM focus stays on the input while choosing; options are never focused. Chip remove buttons take focus with Tab; after removing a value focus returns to the input.",
+  "wcag": [
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.11",
+    "2.1.1",
+    "2.4.7",
+    "2.5.8",
+    "3.3.1",
+    "3.3.2",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "Selecting and removing values is announced (\"{label} selected\", \"{label} removed\") through the shared polite live region, as are result counts, loading errors, and reaching the maximum.",
+    "Selection is shown with a check mark and aria-selected, never by color alone."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending."
+  ]
+}

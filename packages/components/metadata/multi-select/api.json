@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 1,
+  "component": "multi-select",
+  "factory": {
+    "name": "MultiSelect.create",
+    "signature": "MultiSelect.create(host: HTMLElement, options: MultiSelectOptions): MultiSelect"
+  },
+  "configKey": "multiSelect",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Visible label and accessible name."
+    },
+    {
+      "name": "options",
+      "type": "readonly MultiSelectOption[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "{ value, label, disabled?, description? } with unique values."
+    },
+    {
+      "name": "value",
+      "type": "readonly string[]",
+      "default": [],
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Selected values in selection order; unknown and duplicate values are dropped."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Form field name: one hidden input per selected value."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Input placeholder while nothing is selected (never replaces the label)."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Help text referenced by aria-describedby."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "At least one value; value-missing after touch or reportValidity()."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Disables the input, toggle, and chip remove buttons."
+    },
+    {
+      "name": "readOnly",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Shows the value; the list does not open and chips have no remove buttons."
+    },
+    {
+      "name": "invalid",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Consumer-managed invalid state (shown immediately)."
+    },
+    {
+      "name": "errorMessage",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Message shown when invalid is true (text only)."
+    },
+    {
+      "name": "maxSelected",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Most values that can be selected (integer >= 1); unselected options become unavailable once reached, and reaching it is announced."
+    },
+    {
+      "name": "selectAll",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A \"Select all\" option that toggles every enabled option shown (up to maxSelected)."
+    },
+    {
+      "name": "filter",
+      "type": "'contains' | 'startsWith' | 'none'",
+      "default": "contains",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Diacritic- and case-insensitive filtering of options while typing."
+    },
+    {
+      "name": "closeOnSelect",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Close the list after each toggle."
+    },
+    {
+      "name": "openOnFocus",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Open the list when the input gains focus or is clicked."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Messages and filtering locale."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Popup alignment."
+    },
+    {
+      "name": "renderOption",
+      "type": "(option: MultiSelectOption, context: MultiSelectRenderContext) => Node",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Custom option content; the label stays the accessible name. Nodes are released with releaseNode when dropped."
+    },
+    {
+      "name": "loadOptions",
+      "type": "(query: string, context: MultiSelectLoadContext) => Promise<readonly MultiSelectOption[]>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Load options for the typed text instead of filtering options; debounced, aborted by a newer query or closing; loading and errors are shown and announced."
+    },
+    {
+      "name": "loadDelay",
+      "type": "number",
+      "default": 250,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Milliseconds between the last keystroke and loadOptions (0 to 5000)."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ expand: IconRef; selected: IconRef; remove: IconRef; error: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "Consumer-provided host (children are owned by the component)."
+    },
+    {
+      "name": "input",
+      "type": "HTMLInputElement",
+      "description": "The combobox input."
+    },
+    {
+      "name": "listbox",
+      "type": "HTMLDivElement",
+      "description": "The multi-selectable listbox."
+    },
+    {
+      "name": "value",
+      "type": "string[]",
+      "description": "Selected values in selection order (a copy)."
+    },
+    {
+      "name": "selectedOptions",
+      "type": "MultiSelectOption[]",
+      "description": "Options of the selected values."
+    },
+    {
+      "name": "isOpen",
+      "type": "boolean",
+      "description": "Whether the listbox is shown."
+    },
+    {
+      "name": "name",
+      "type": "string | null",
+      "description": "Form field name."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Accessible label."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Disabled state."
+    },
+    {
+      "name": "validity",
+      "type": "FieldValidity",
+      "description": "{ valid, error, message }."
+    },
+    {
+      "name": "dirty",
+      "type": "boolean",
+      "description": "The value differs from the initial value."
+    },
+    {
+      "name": "touched",
+      "type": "boolean",
+      "description": "Focus has left the control."
+    }
+  ],
+  "methods": [
+    {
+      "name": "setValue",
+      "signature": "setValue(value: readonly string[]): void",
+      "description": "Programmatic selection (no aui-change); unknown values are dropped."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<MultiSelectOptions>): void",
+      "description": "Merge and apply options."
+    },
+    {
+      "name": "open",
+      "signature": "open(): void",
+      "description": "Show the listbox."
+    },
+    {
+      "name": "close",
+      "signature": "close(): void",
+      "description": "Hide the listbox."
+    },
+    {
+      "name": "focus",
+      "signature": "focus(): void",
+      "description": "Focus the input."
+    },
+    {
+      "name": "getFormValue",
+      "signature": "getFormValue(): string[]",
+      "description": "The selected values."
+    },
+    {
+      "name": "reportValidity",
+      "signature": "reportValidity(): boolean",
+      "description": "Show messages now and return validity."
+    },
+    {
+      "name": "setCustomError",
+      "signature": "setCustomError(message: string | null): void",
+      "description": "External error; null clears it."
+    },
+    {
+      "name": "reset",
+      "signature": "reset(): void",
+      "description": "Restore the initial value and clear touched/submitted state (no aui-change)."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove the component, listeners, and released nodes."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-change",
+      "detail": "{ value: string[]; added: string[]; removed: string[] }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the selection (option, Select all, chip remove, or Backspace)."
+    },
+    {
+      "name": "aui-input",
+      "detail": "{ query: string }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user edited the input text."
+    },
+    {
+      "name": "aui-open",
+      "detail": "null",
+      "bubbles": false,
+      "cancelable": false,
+      "description": "The listbox opened."
+    },
+    {
+      "name": "aui-close",
+      "detail": "null",
+      "bubbles": false,
+      "cancelable": false,
+      "description": "The listbox closed."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-multi-select",
+      "description": "Host."
+    },
+    {
+      "name": "aui-multi-select__control",
+      "description": "The input-like boundary around chips, input, and toggle."
+    },
+    {
+      "name": "aui-multi-select__chip | __chip-label | __remove",
+      "description": "Selected value chip, its label, and its remove button."
+    },
+    {
+      "name": "aui-multi-select__input | __toggle",
+      "description": "Combobox input and list toggle."
+    },
+    {
+      "name": "aui-multi-select__popup | __listbox | __option | __option--active | __option--all | __check",
+      "description": "Top-layer popup, listbox, options, active option, Select all, and selection mark."
+    },
+    {
+      "name": "aui-multi-select--invalid | --disabled",
+      "description": "State modifiers on the host."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "expand",
+      "default": "chevron-down"
+    },
+    {
+      "name": "selected",
+      "default": "check"
+    },
+    {
+      "name": "remove",
+      "default": "close"
+    },
+    {
+      "name": "error",
+      "default": "alert-circle"
+    }
+  ]
+}

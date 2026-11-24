@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/radar-chart",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiRadarChart",
+      "description": "AbsoluteUI RadarChart: `<aui-radar-chart>`.\nTwo-way: `[(hiddenSeries)]`.",
+      "selector": "aui-radar-chart",
+      "exportAs": [
+        "auiRadarChart"
+      ],
+      "source": "generated",
+      "component": "radar-chart",
+      "configKey": "radarChart",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby); also the data table caption."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (axes, scale, each series' highest and lowest axis, hidden series)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for values in tooltips, vertex labels, the data table, the summary, and ring ticks (ticks use fixed fraction digits)."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat everywhere except ring ticks."
+        },
+        {
+          "name": "axes",
+          "type": "readonly string[]",
+          "required": true,
+          "description": "Axis names, clockwise from the top. At least three."
+        },
+        {
+          "name": "series",
+          "type": "readonly ChartSeries[]",
+          "required": true,
+          "description": "Series: { id, label, values: (number | null)[], color?: 1-8 } with exactly one value per axis. null, NaN, and infinities are drawn at the center and read \"No value\"."
+        },
+        {
+          "name": "valueAxis",
+          "type": "ValueAxisInput",
+          "required": false,
+          "description": "Shared radial scale { min?, max?, tickCount? (2-20, default 4 rings) }. min defaults to 0, or the data minimum when negative; max to the data maximum; nice-rounded unless min or max is fixed. label and includeZero are validated but not used by the radar chart."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "auto: legend of toggle buttons when there is more than one series."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table fallback (one row per axis, one column per series): behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Dash patterns on the polygon outlines so series never differ by color alone (always on in forced colors); marker shapes differ regardless."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+        },
+        {
+          "name": "fill",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Fill each polygon with a translucent (12%) series color; the outline and vertices carry the data."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Axes keep clockwise order in RTL (like pie charts); rtl swaps ArrowLeft/ArrowRight so forward follows the reading direction."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Ids of series hidden initially; update() replaces the hidden set."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "seriesToggled",
+          "payload": "ChartSeriesToggleDetail",
+          "event": "aui-series-toggle",
+          "description": "The user toggled a legend entry (pointer or keyboard). Not emitted for update() or setSeriesVisible()."
+        },
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Show or hide a series programmatically; emits no event."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG radar chart as a named, described group (role=\"group\" with aria-roledescription \"radar chart\") of role=\"img\" vertices with two-dimensional roving focus (around the axes, between series); legend of toggle buttons; data table fallback with one row per axis.",
+        "source": "packages/components/metadata/radar-chart/accessibility.json"
+      },
+      "limitations": [
+        "One shared radial scale for all axes; no per-axis scales.",
+        "Missing values are drawn at the center (no gaps in the polygon).",
+        "valueAxis.label and valueAxis.includeZero are accepted but not used.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiRadarChart } from '@absoluteui/angular/radar-chart';\nimport type { ChartSeries } from '@absoluteui/components/radar-chart';\n\n@Component({\n  selector: 'app-skills',\n  imports: [AuiRadarChart],\n  template: `<aui-radar-chart label=\"Skills\" [axes]=\"axes\" [series]=\"series\"></aui-radar-chart>`,\n})\nexport class SkillsComponent {\n  readonly axes = ['Speed', 'Power', 'Range', 'Armor'];\n  readonly series: ChartSeries[] = [{ id: 'a', label: 'Alpha', values: [3, 5, 2, 4] }, { id: 'b', label: 'Beta', values: [4, 2, 5, 1] }];\n}"
+    }
+  ]
+}

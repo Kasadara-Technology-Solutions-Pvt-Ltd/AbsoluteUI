@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "text-input",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required email field",
+      "language": "ts",
+      "code": "import { TextInput } from '@absoluteui/components/text-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst email = TextInput.create(host, { label: 'Email', type: 'email', name: 'email', required: true, autocomplete: 'email' });\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(email.validity.valid);\n});"
+    },
+    {
+      "id": "counter",
+      "title": "Character counter with custom validation",
+      "language": "ts",
+      "code": "import { TextInput } from '@absoluteui/components/text-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nTextInput.create(host, {\n  label: 'Username',\n  maxLength: 20,\n  showCounter: true,\n  validate: (value) => (value.includes(' ') ? 'Usernames cannot contain spaces.' : null),\n});"
+    },
+    {
+      "id": "password",
+      "title": "Password with reveal toggle and clipboard policy",
+      "language": "ts",
+      "code": "import { TextInput } from '@absoluteui/components/text-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nTextInput.create(host, { label: 'New password', type: 'password', autocomplete: 'new-password', minLength: 12, clipboard: 'block-copy' });"
+    },
+    {
+      "id": "global-config",
+      "title": "Show messages on first input (Mode B)",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { textInput: { validationTiming: 'input' } } });"
+    }
+  ]
+}

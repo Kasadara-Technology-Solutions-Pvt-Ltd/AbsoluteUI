@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="album">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="6" y="2.5" width="15" height="13" rx="2"/>
+      <path d="M3 7v11.5A2.5 2.5 0 0 0 5.5 21H17"/>
+      <path d="M7 13l3.5-3.5 3 3 2-2 4.5 4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="16.5" cy="6.75" r="1.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="6" y="2.5" width="15" height="13" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="6" y="2.5" width="15" height="13" rx="2"/>
+      <path d="M3 7v11.5A2.5 2.5 0 0 0 5.5 21H17"/>
+      <path d="M7 13l3.5-3.5 3 3 2-2 4.5 4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="16.5" cy="6.75" r="1.5"/>
+    </g>
+  </g>
+</svg>

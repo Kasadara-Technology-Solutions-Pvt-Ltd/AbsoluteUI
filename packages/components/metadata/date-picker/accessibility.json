@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "component": "date-picker",
+  "pattern": "WAI-ARIA APG Date Picker Dialog, non-modal variant: a labelled segmented date field (Date Input), a button with aria-haspopup=dialog, and a role=dialog popup containing the Calendar grid.",
+  "roles": [
+    { "element": "segment group", "role": "group (Date Input)" },
+    { "element": "calendar button", "role": "button (native), aria-haspopup=dialog" },
+    { "element": "popup", "role": "dialog (aria-modal=false)" },
+    { "element": "calendar", "role": "grid (Calendar)" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "calendar button", "value": "\"Choose date\", or \"Change date, <long date>\" when a date is set" },
+    { "attribute": "aria-expanded", "element": "calendar button", "value": "\"true\" while the popup is open" },
+    { "attribute": "aria-controls", "element": "calendar button", "value": "Popup id" },
+    { "attribute": "aria-label", "element": "popup", "value": "Localized \"Choose date\"" },
+    { "attribute": "aria-modal", "element": "popup", "value": "\"false\" (non-modal; the page stays reachable)" }
+  ],
+  "keyboard": [
+    { "key": "Enter / Space", "context": "Calendar button", "action": "Open (or close) the calendar; focus moves to the selected day, else today." },
+    { "key": "Alt+ArrowDown", "context": "Date segment focused", "action": "Open the calendar (the segment value does not change)." },
+    { "key": "Calendar keys", "context": "Day focused", "action": "Arrows, Home/End, PageUp/PageDown, Shift+PageUp/PageDown as in Calendar." },
+    { "key": "Enter / Space", "context": "Day focused", "action": "Pick the day, close the popup (closeOnSelect), and focus the calendar button." },
+    { "key": "Escape", "context": "Popup open", "action": "Close the popup and return focus to the calendar button. Inside a Dialog, only the popup closes." },
+    { "key": "Tab / Shift+Tab", "context": "Popup open", "action": "Moves through month buttons and the day; leaving the popup (other than to the calendar button) closes it." },
+    { "key": "Date Input keys", "context": "Segment focused", "action": "As in Date Input." }
+  ],
+  "focus": "Opening moves focus into the grid; closing with focus inside the popup returns it to the calendar button. Outside pointer presses close the popup. Moving focus between the segments, button, and popup does not mark the field touched.",
+  "wcag": ["1.3.1", "1.4.3", "1.4.11", "1.4.13", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "3.3.1", "3.3.2", "3.3.3", "4.1.2", "4.1.3"],
+  "notes": [
+    "The segments remain the primary input; the calendar is an alternative (APG).",
+    "The popup is non-modal: focus is not trapped, and the rest of the page stays reachable.",
+    "A typed day rejected by isDateDisabled produces a localized validation message, so the typed and picked paths agree."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior of the popup (dialog announcement, month changes) has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

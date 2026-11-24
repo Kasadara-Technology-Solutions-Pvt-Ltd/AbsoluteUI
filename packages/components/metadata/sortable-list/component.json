@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "name": "sortable-list",
+  "displayName": "Sortable List",
+  "category": "Drag, Drop and Interaction",
+  "package": "@absoluteui/components",
+  "import": "import { SortableList } from '@absoluteui/components/sortable-list';",
+  "styleImport": "@absoluteui/components/sortable-list/style.css",
+  "purpose": "A labelled, vertical, reorderable list with two equivalent input paths: pointer drag (mouse, pen, touch through pointer events; never HTML5 drag and drop) and keyboard reordering on each item's handle button (Space or Enter grabs, arrow keys, Home and End move, Space or Enter drops, Escape or leaving the handle cancels). Every step is announced through the assertive live region. The moved item never leaves the DOM (its siblings move around it), so focus and pointer capture survive. The new order is reported with aui-change; persisting it is the consumer's job.",
+  "whenToUse": [
+    "Letting users set the order of a short list, such as priorities, playlist tracks, or dashboard widgets.",
+    "Ordering that must be operable by keyboard, pointer, and touch alike."
+  ],
+  "whenNotToUse": [
+    "Sorting data by a column value: use Data Table sorting.",
+    "Moving items between two lists (for example, available and selected): use a transfer list pattern; drag between lists is not supported.",
+    "Grids or horizontal layouts: only vertical lists are supported.",
+    "Very long lists where users must scroll while dragging: the list does not auto-scroll; offer move-to-position controls instead.",
+    "Choosing one item: use a radio group or listbox."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["idle", "handle hover", "handle focus-visible", "grabbed (keyboard)", "dragging (pointer)", "item disabled", "list disabled"],
+  "responsive": "Items fill the list width; content wraps (overflow-wrap: anywhere). The handle button is a control-height-sm square. dragFrom 'handle' keeps touch scrolling on item content; dragFrom 'item' sets touch-action: none on movable items, so the page cannot be scrolled by touching them.",
+  "rtl": "Logical properties throughout; the handle sits at the inline start. Vertical lists only, so direction does not change reordering: ArrowUp and ArrowLeft always move toward the start of the list, ArrowDown and ArrowRight toward the end, in LTR and RTL.",
+  "theme": "Items use color-surface, color-border and radius-md. A grabbed item uses color-selected with color-selected-text; a pointer-dragged item adds shadow-lg. Forced-colors mode uses CanvasText borders, Highlight/HighlightText for the grabbed item, and GrayText for disabled handles.",
+  "timezone": "Not applicable.",
+  "security": "The list label, item labels, announcements, and string content are rendered with textContent, never parsed as HTML. Node content is inserted as provided (the consumer owns it). The drag offset is applied as a CSS custom property through the CSSOM, so it is CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. The component reports the new order; the consumer stores it.",
+  "performance": {
+    "budgets": [
+      { "metric": "SortableList.create with 500 items", "budget": "< 100 ms in headless Chromium" },
+      { "metric": "One keyboard move with 500 items", "budget": "< 16 ms in headless Chromium" }
+    ],
+    "testedScale": "500 items for the performance budgets; 4 items in the behavior unit tests."
+  },
+  "limitations": [
+    "Vertical lists only.",
+    "No auto-scroll during a pointer drag; the dragged item is clamped to the list's visible bounds.",
+    "No drag between lists and no nesting.",
+    "update() and global configuration changes re-render in the order of the items option; after a reorder, pass the new order back with update({ items }) or the DOM order reverts on the next re-render.",
+    "Item content is inserted once per item and re-inserted only when the item's content (or, without content, its label) changes by identity.",
+    "Announcements are English by default; register messages for other locales.",
+    "Every pointer-driven position change is announced assertively, which can be verbose while dragging over many items."
+  ],
+  "unsupported": [
+    "HTML5 drag and drop (draggable, dataTransfer); files or external data cannot be dropped.",
+    "Horizontal or grid layouts.",
+    "Dragging between lists, nested lists, and multi-item selection.",
+    "Auto-scrolling of the page or a scroll container during a pointer drag.",
+    "Rendering HTML strings as labels or content (pass a Node instead)."
+  ],
+  "antiPatterns": [
+    "Hiding the handle: it is the keyboard path and the default pointer path.",
+    "Interactive controls inside items with dragFrom 'item' for touch users: touch scrolling over items is disabled.",
+    "Duplicate or index-based ids: ids must be unique and stable.",
+    "Persisting on every announcement: persist on aui-change only."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/sortable-list: generated AuiSortableList directive ([auiSortableList] on an empty host); inputs mirror the options, output auiChange.",
+    "react": "@absoluteui/react/sortable-list: AuiSortableList component.",
+    "vue": "@absoluteui/vue/sortable-list: AuiSortableList component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

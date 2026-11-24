@@ -1,0 +1,23 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Default vertical rhythm for stacked fields. Layered, so any consumer layout wins.
+  .aui-form {
+    display: grid;
+    gap: aui.token('space-4');
+    font-family: aui.token('font-family-sans');
+    color: aui.token('color-text');
+  }
+
+  .aui-form[aria-busy='true'] {
+    cursor: progress;
+  }
+
+  .aui-form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+  }
+}

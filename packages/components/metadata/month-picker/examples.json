@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "month-picker",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required month with bounds",
+      "language": "ts",
+      "code": "import { plainYearMonth } from '@absoluteui/core';\nimport { MonthPicker } from '@absoluteui/components/month-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst picker = MonthPicker.create(host, {\n  label: 'Billing month',\n  name: 'billingMonth',\n  required: true,\n  min: plainYearMonth(2024, 1),\n  max: plainYearMonth(2026, 12),\n});\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(picker.validity.valid);\n});"
+    },
+    {
+      "id": "unavailable-months",
+      "title": "Unavailable months, custom validation, and the change detail",
+      "language": "ts",
+      "code": "import { plainYearMonthToString } from '@absoluteui/core';\nimport { MonthPicker, type MonthPickerChangeDetail } from '@absoluteui/components/month-picker';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nMonthPicker.create(host, {\n  label: 'Report month',\n  isMonthDisabled: (value) => value.month === 12,\n  validate: (value) => (value !== null && value.year < 2020 ? 'Reports start in 2020.' : null),\n  closeOnSelect: false,\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<MonthPickerChangeDetail>).detail;\n  host.dataset.month = value ? plainYearMonthToString(value) : '';\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Global timezone and month picker defaults",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\nimport '@absoluteui/components/month-picker';\n\nconfigureAbsoluteUI({ common: { timezone: 'Europe/Berlin' }, components: { monthPicker: { closeOnSelect: false, validationTiming: 'submit' } } });"
+    }
+  ]
+}

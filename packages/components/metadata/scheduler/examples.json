@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "scheduler",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "A team week with a daily standup",
+      "language": "ts",
+      "code": "import { parseInstant, parseRecurrenceRule, plainDate } from '@absoluteui/core';\nimport { Scheduler, type SchedulerEvent, type SchedulerEventActivateDetail } from '@absoluteui/components/scheduler';\n\nconst at = (text: string) => parseInstant(text) ?? parseInstant('1970-01-01T00:00:00Z')!;\nconst events: SchedulerEvent[] = [\n  { id: 'standup', title: 'Standup', start: at('2026-09-28T08:00:00Z'), end: at('2026-09-28T08:15:00Z'), timeZone: 'Europe/London', recurrence: parseRecurrenceRule('FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR') },\n  { id: 'review', title: 'Design review', start: at('2026-09-29T13:00:00Z'), end: at('2026-09-29T14:30:00Z'), location: 'Room 4', color: 3 },\n  { id: 'offsite', title: 'Offsite', start: plainDate(2026, 10, 1), end: plainDate(2026, 10, 2) },\n];\nconst host = document.createElement('div');\ndocument.body.append(host);\nScheduler.create(host, { label: 'Team calendar', events, timezone: 'Europe/London', date: plainDate(2026, 9, 29) });\nhost.addEventListener('aui-event-activate', (event) => {\n  host.dataset.open = (event as CustomEvent<SchedulerEventActivateDetail>).detail.event.id;\n});"
+    },
+    {
+      "id": "editing",
+      "title": "Editing with save and rollback",
+      "language": "ts",
+      "code": "import { Scheduler, type SchedulerEvent, type SchedulerEventChangeDetail, type SchedulerSlotActivateDetail } from '@absoluteui/components/scheduler';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst scheduler = Scheduler.create(host, { label: 'Bookings', events: [] as SchedulerEvent[], editable: true, recurringEditScope: 'ask', timezone: 'America/New_York' });\nhost.addEventListener('aui-event-change', (event) => {\n  const { changes } = (event as CustomEvent<SchedulerEventChangeDetail>).detail;\n  void fetch('/api/events', { method: 'PATCH', body: JSON.stringify(changes) }).then((r) => {\n    if (!r.ok) scheduler.undo();\n  }, () => scheduler.undo());\n});\nhost.addEventListener('aui-slot-activate', (event) => {\n  const { start, end, resourceId } = (event as CustomEvent<SchedulerSlotActivateDetail>).detail;\n  host.dataset.create = JSON.stringify({ start, end, resourceId });\n});"
+    },
+    {
+      "id": "timeline",
+      "title": "Rooms timeline from a range data source",
+      "language": "ts",
+      "code": "import { Scheduler, type SchedulerEvent, type SchedulerLoadErrorDetail } from '@absoluteui/components/scheduler';\n\nconst host = document.querySelector<HTMLElement>('#rooms');\nif (host) {\n  Scheduler.create(host, {\n    label: 'Rooms',\n    view: 'timeline',\n    resources: [{ id: 'r1', label: 'Room 1' }, { id: 'r2', label: 'Room 2', color: 2 }],\n    businessCalendar: { workingDays: [1, 2, 3, 4, 5] },\n    dayStartHour: 7,\n    dayEndHour: 20,\n    loadEvents: async (range, signal) => {\n      const url = `/api/bookings?from=${encodeURIComponent(new Date(range.start.epochMilliseconds).toISOString())}&to=${encodeURIComponent(new Date(range.end.epochMilliseconds).toISOString())}`;\n      const response = await fetch(url, { signal });\n      if (!response.ok) throw new Error(`Bookings request failed: ${String(response.status)}`);\n      return (await response.json()) as SchedulerEvent[];\n    },\n  });\n  host.addEventListener('aui-load-error', (event) => {\n    host.dataset.failed = String((event as CustomEvent<SchedulerLoadErrorDetail>).detail.error);\n  });\n}"
+    },
+    {
+      "id": "global-config",
+      "title": "Global slot size and working hours",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { scheduler: { slotDuration: 15, dayStartHour: 7, dayEndHour: 21, scrollToHour: 9 } } });"
+    }
+  ]
+}

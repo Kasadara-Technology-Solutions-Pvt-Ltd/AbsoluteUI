@@ -1,0 +1,60 @@
+{
+  "$comment": "Blocks (docs/PLAN-MARKETING-REDESIGN.md section 6, M3). Each block has frames/blocks/<id>.ts (TypeScript, runs in a live frame, type-checked) and frames/blocks/angular/<id>.component.ts (Angular, compiled with ngc in strict template mode, MR-2). `components` lists the stylesheets the frame loads; `body` is the frame page markup the TypeScript fills.",
+  "categories": [
+    { "id": "dash", "label": "Dashboards" },
+    { "id": "data", "label": "Data" },
+    { "id": "auth", "label": "Sign-in" },
+    { "id": "forms", "label": "Forms" },
+    { "id": "sched", "label": "Scheduling" }
+  ],
+  "blocks": [
+    {
+      "id": "dashboard",
+      "title": "Analytics dashboard",
+      "description": "Stat cards, a trend and a regional chart, and a table of pending approvals.",
+      "category": "dash",
+      "components": ["sparkline", "stat-card", "line-chart", "bar-chart", "data-table"],
+      "body": "<main class=\"block\"><header class=\"block-head\"><div><h1>Overview</h1><p>October 2026, all regions</p></div></header><section class=\"stats4\" aria-label=\"Key metrics\"><div id=\"revenue\"></div><div id=\"customers\"></div><div id=\"churn\"></div><div id=\"tickets\"></div></section><section class=\"block-row\"><div class=\"panel\" id=\"trend\"></div><div class=\"panel\" id=\"regions\"></div></section><section class=\"panel\" id=\"approvals\"></section></main>"
+    },
+    {
+      "id": "crm",
+      "title": "CRM data grid",
+      "description": "Accounts with search, per-column filters, multi-column sorting, selection, a pinned column, and paging.",
+      "category": "data",
+      "components": ["data-table"],
+      "body": "<main class=\"block\"><header class=\"block-head\"><div><h1>Accounts</h1><p>64 accounts across four regions</p></div></header><div id=\"accounts\"></div></main>"
+    },
+    {
+      "id": "sign-in",
+      "title": "Sign-in with one-time code",
+      "description": "Email and password, then a one-time code, with validation and an error summary.",
+      "category": "auth",
+      "components": ["text-input", "password-input", "otp-input", "button", "form"],
+      "body": "<main class=\"block-auth\"><div class=\"auth-panel\"><div class=\"auth-brand\"><span></span>Acme Workspace</div><form id=\"sign-in\" class=\"rows\"><h1>Sign in</h1><p class=\"muted\">Use your work email and password.</p></form><form id=\"verify\" class=\"rows\" hidden><h1>Enter your code</h1><p class=\"muted\">We sent a code to your authenticator app.</p></form></div><div class=\"auth-art\" aria-hidden=\"true\"></div></main>"
+    },
+    {
+      "id": "settings",
+      "title": "Settings form",
+      "description": "Fieldsets with text, select, and switch controls, validated by Form with an error summary.",
+      "category": "forms",
+      "components": ["fieldset", "text-input", "select", "switch", "button", "form"],
+      "body": "<main class=\"block\"><header class=\"block-head\"><div><h1>Settings</h1><p>Manage your profile and notifications.</p></div></header><form id=\"settings\" class=\"rows\"><fieldset id=\"profile\" class=\"fields\"></fieldset><fieldset id=\"notifications\" class=\"rows\"></fieldset><div id=\"actions\" class=\"row row-end\"></div></form></main>"
+    },
+    {
+      "id": "scheduler",
+      "title": "Team scheduler",
+      "description": "Week view with a recurring standup, working hours, a holiday calendar, and drag to reschedule.",
+      "category": "sched",
+      "components": ["scheduler"],
+      "body": "<main class=\"block\"><div id=\"calendar\"></div></main>"
+    },
+    {
+      "id": "gantt",
+      "title": "Project Gantt",
+      "description": "Phases, dependencies, and the critical path, scheduled on business days.",
+      "category": "sched",
+      "components": ["gantt"],
+      "body": "<main class=\"block\"><div id=\"plan\"></div></main>"
+    }
+  ]
+}

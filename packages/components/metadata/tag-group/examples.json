@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "tag-group",
+  "examples": [
+    {
+      "id": "filters",
+      "title": "Removable applied filters",
+      "language": "ts",
+      "code": "import { TagGroup, type TagGroupRemoveDetail } from '@absoluteui/components/tag-group';\n\nconst host = document.createElement('div');\nconst status = document.createElement('p');\ndocument.body.append(host, status);\nconst filters = TagGroup.create(host, {\n  label: 'Applied filters',\n  removable: true,\n  items: [\n    { value: 'london', label: 'Location: London' },\n    { value: 'remote', label: 'Remote' },\n    { value: 'senior', label: 'Level: Senior' },\n  ],\n});\nhost.addEventListener('aui-remove', (event) => {\n  const { item } = (event as CustomEvent<TagGroupRemoveDetail>).detail;\n  status.textContent = `${String(filters.items.length - 1)} filters applied (removed ${item.label})`;\n});"
+    },
+    {
+      "id": "select",
+      "title": "Selectable categories",
+      "language": "ts",
+      "code": "import { TagGroup, type TagGroupChangeDetail } from '@absoluteui/components/tag-group';\n\nconst host = document.createElement('div');\nconst result = document.createElement('p');\ndocument.body.append(host, result);\nTagGroup.create(host, {\n  label: 'Categories',\n  selection: 'multiple',\n  value: ['design'],\n  items: [\n    { value: 'design', label: 'Design' },\n    { value: 'engineering', label: 'Engineering' },\n    { value: 'sales', label: 'Sales' },\n    { value: 'legal', label: 'Legal', disabled: true },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  result.textContent = `Showing: ${(event as CustomEvent<TagGroupChangeDetail>).detail.value.join(', ') || 'all'}`;\n});"
+    }
+  ]
+}

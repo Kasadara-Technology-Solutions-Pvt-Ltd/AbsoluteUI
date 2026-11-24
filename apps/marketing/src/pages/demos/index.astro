@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import PageHero from '../../components/PageHero.astro';
+import demos from '../../generated/demos.json';
+---
+
+<Base title="Demos" description="Reference applications built entirely with AbsoluteUI components." path="/demos/">
+  <PageHero eyebrow="Demos" title="Reference applications" lead="Complete applications built with AbsoluteUI for every control, so you can judge the components in real workflows, not isolated samples." />
+
+  <section class="section section-tight" aria-label="Demo applications">
+    <div class="container">
+      <div class="cards cards-2">
+        {
+          demos.map((d) => (
+            <a class="gallery-card" href={`/demos/${d.id}/`}>
+              <div class="gallery-preview">
+                {d.screens[0]?.src ? (
+                  <img src={d.screens[0].src} alt="" width="1600" height="1000" loading="lazy" />
+                ) : (
+                  <div class="gallery-placeholder">
+                    <Icon name="image" />
+                  </div>
+                )}
+              </div>
+              <div class="gallery-body">
+                <h2 class="h3">{d.name}</h2>
+                <p>{d.summary}</p>
+                <span class="text-link gallery-cta">
+                  View walkthrough <Icon name="arrow" />
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

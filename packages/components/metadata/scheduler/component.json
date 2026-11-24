@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "name": "scheduler",
+  "displayName": "Scheduler",
+  "category": "Advanced Enterprise",
+  "package": "@absoluteui/components",
+  "import": "import { Scheduler } from '@absoluteui/components/scheduler';",
+  "styleImport": "@absoluteui/components/scheduler/style.css",
+  "purpose": "Show and edit events in day, week, work-week, month, agenda, and resource timeline views (SPEC section 18.19 Scheduler, Calendar Scheduler, Timeline Scheduler): recurring series with exceptions, timezone-aware wall-clock layout, business hours and holidays from a Business Calendar definition, pointer and keyboard editing with recurring scopes and undo, and events from memory or a range data source (loadEvents).",
+  "whenToUse": [
+    "Team calendars, room or equipment booking, shift or appointment planning.",
+    "Resource planning where rows are people, rooms, or machines (timeline view).",
+    "Any calendar where events repeat and timezones and DST must be exact."
+  ],
+  "whenNotToUse": [
+    "Project plans with dependencies: use Gantt.",
+    "Picking a date: use Date Picker; picking a time range: Schedule Picker.",
+    "Tens of thousands of events in one visible range: aggregate on the server first."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "day",
+    "week",
+    "work week",
+    "month",
+    "agenda",
+    "timeline",
+    "loading",
+    "load error",
+    "editable",
+    "cut (move pending)",
+    "dragging",
+    "selection",
+    "recurring scope dialog"
+  ],
+  "responsive": "The toolbar wraps. Grids scroll in two dimensions inside the body (WCAG 1.4.10 allows two-dimensional scrolling for data grids): day columns keep at least 6rem, timeline columns 3rem, month cells 6rem; row headers and column headers stay sticky. Views can be limited with `views` for narrow layouts (agenda reads well at 320 px).",
+  "rtl": "The direction option mirrors columns, timeline time flow, chevrons, and Left/Right keys (Shift+Left/Right resizing follows the reading direction).",
+  "theme": "Events use the chart palette (color 1..8, from the event, else its resource) as a left bar and an 18 % tint over the surface with body text; non-working time uses the sunken surface; holidays use the warning foreground; the current time is a line in the error foreground. Forced colors: events are outlined in CanvasText, non-working time is hatched, selection uses Highlight. The recurring-scope prompt uses Dialog (import dialog and button styles).",
+  "timezone": "Every view is laid out in the configured timezone (UTC unless configured, section 8.1): timed events are Instants positioned by their wall-clock time in that zone; all-day events are PlainDate (inclusive last day). Series expand in the event's timeZone (default the scheduler zone), so a 09:00 series stays at 09:00 across DST; slots in a DST gap resolve with the disambiguation policy (compatible by default). Moves keep the real duration and the wall-clock time on the target day.",
+  "security": "Titles, locations, and descriptions are rendered with textContent; renderEvent content is the application's. No HTML parsing; CSP-safe (custom properties through the CSSOM).",
+  "dataHandling": "No persistence or telemetry. loadEvents is called per visible range with an AbortSignal (superseded ranges are aborted, requestTimeoutMs times out), answers are validated (SCHEDULER_DATA_SOURCE) and cached per range until an edit or refresh(). Edits are emitted as the cancelable aui-event-change with the changes and every event; call undo() or update({ events }) to roll back after a failed save.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "Scheduler.create, week view with 300 events",
+        "budget": "< 120 ms in headless Chromium (e2e performance test)"
+      },
+      {
+        "metric": "Next period, month view with 1,000 events (200 recurring)",
+        "budget": "< 120 ms in headless Chromium (e2e performance test)"
+      },
+      {
+        "metric": "Timeline with 500 resources and 2,000 events, create",
+        "budget": "< 150 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Up to 1,000 occurrences in a visible range and 500 timeline resources (rows are virtualized above 60 resources). Series are expanded per visible range, fast-forwarded without COUNT."
+  },
+  "limitations": [
+    "Multi-day timed events appear as one segment per day in time views (not in the all-day row).",
+    "All-day and timed events do not convert by dragging between the all-day row and the time grid.",
+    "The timeline shows one day (slots), one week, or one month (days); no custom zoom levels.",
+    "Month cells show monthEventLimit rows and \"+N more\" (which opens the day view).",
+    "Deleting only emits aui-event-delete; the application removes the event.",
+    "No drag and drop from outside the scheduler, no event creation UI (aui-slot-activate asks the application).",
+    "Recurrence follows the RRULE subset of @absoluteui/core.",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ],
+  "unsupported": [
+    "Rendering HTML in titles or locations.",
+    "Events without an end, negative durations.",
+    "Several resources per event."
+  ],
+  "antiPatterns": [
+    "Sending local wall-clock strings to the server instead of Instants and a timeZone.",
+    "Re-creating the scheduler on every change instead of update({ events }).",
+    "Interactive elements inside renderEvent content (the event is already a button)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/scheduler: AuiScheduler directive ([auiScheduler]) with inputs for every option and outputs for every event.",
+    "react": "@absoluteui/react/scheduler: AuiScheduler component with props for every option and on* callbacks for events.",
+    "vue": "@absoluteui/vue/scheduler: AuiScheduler component with props for every option and emits for events."
+  },
+  "versionIntroduced": "0.6.0",
+  "deprecated": null
+}

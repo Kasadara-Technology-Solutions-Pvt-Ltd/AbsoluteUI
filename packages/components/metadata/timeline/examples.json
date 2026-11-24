@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "timeline",
+  "examples": [
+    {
+      "id": "activity",
+      "title": "Document activity grouped by day",
+      "language": "ts",
+      "code": "import { instant } from '@absoluteui/core';\nimport { Timeline, type TimelineActionDetail } from '@absoluteui/components/timeline';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nTimeline.create(host, {\n  label: 'Document activity',\n  timezone: 'Europe/London',\n  now: instant(Date.UTC(2026, 10, 23, 15)),\n  items: [\n    { id: 'a3', title: 'Policy approved', tone: 'success', time: instant(Date.UTC(2026, 10, 23, 14, 5)), avatar: { name: 'Ada Lovelace' } },\n    { id: 'a2', title: 'Review requested', tone: 'info', time: instant(Date.UTC(2026, 10, 23, 9, 30)), actions: [{ id: 'open', label: 'Open review' }] },\n    { id: 'a1', title: 'Draft uploaded', time: instant(Date.UTC(2026, 10, 20, 16, 0)), description: 'leave-policy.docx, 48 kB' },\n  ],\n});\nhost.addEventListener('aui-action', (event) => {\n  const { itemId, actionId } = (event as CustomEvent<TimelineActionDetail>).detail;\n  host.dataset.last = `${itemId}:${actionId}`;\n});"
+    },
+    {
+      "id": "load-more",
+      "title": "Collapsed older items and load more",
+      "language": "ts",
+      "code": "import { instant } from '@absoluteui/core';\nimport { Timeline, type TimelineItem } from '@absoluteui/components/timeline';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst start = Date.UTC(2026, 10, 23, 12);\nconst page = (from: number): TimelineItem[] => Array.from({ length: 10 }, (_, i) => ({ id: `e${String(from + i)}`, title: `Event ${String(from + i)}`, time: instant(start - (from + i) * 3_600_000) }));\nlet loaded = 10;\nTimeline.create(host, {\n  label: 'Audit log',\n  timeFormat: 'relative',\n  now: instant(start),\n  items: page(0),\n  initialVisible: 5,\n  loadMore: async ({ signal }) => {\n    await new Promise((resolve) => setTimeout(resolve, 100));\n    if (signal.aborted) return [];\n    const next = loaded < 30 ? page(loaded) : [];\n    loaded += next.length;\n    return next;\n  },\n});"
+    },
+    {
+      "id": "horizontal",
+      "title": "Horizontal milestones with a business calendar",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { createBusinessCalendar } from '@absoluteui/components/business-calendar';\nimport { Timeline } from '@absoluteui/components/timeline';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst calendar = createBusinessCalendar({ holidays: [{ name: 'Christmas Day', date: plainDate(2026, 12, 25), yearly: true }] });\nTimeline.create(host, {\n  label: 'Onboarding plan',\n  orientation: 'horizontal',\n  order: 'oldest-first',\n  businessCalendar: calendar,\n  items: [\n    { id: 'offer', title: 'Offer signed', tone: 'success', time: plainDate(2026, 12, 1) },\n    { id: 'laptop', title: 'Laptop shipped', tone: 'info', time: plainDate(2026, 12, 14) },\n    { id: 'office', title: 'Office closed', tone: 'warning', time: plainDate(2026, 12, 25) },\n    { id: 'start', title: 'First day', time: plainDate(2027, 1, 4) },\n  ],\n});"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="gauge">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 16a8 8 0 0 1 16 0"/>
+      <path d="M3 19.5h18"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 16l4-5"/>
+      <path d="M12 16h.01"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M4 16a8 8 0 0 1 16 0z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 16a8 8 0 0 1 16 0"/>
+      <path d="M3 19.5h18"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 16l4-5"/>
+      <path d="M12 16h.01"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="success" data-paint="fill" data-opacity="0.3">
+      <path d="M4 16a8 8 0 0 1 16 0z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 16a8 8 0 0 1 16 0"/>
+      <path d="M3 19.5h18"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 16l4-5"/>
+      <path d="M12 16h.01"/>
+    </g>
+  </g>
+</svg>

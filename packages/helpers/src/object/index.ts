@@ -1,0 +1,51 @@
+/**
+ * Object helpers (docs/PLAN-HELPERS.md section 2 `object`): shallow transforms, deep paths,
+ * merge, clone, freeze, equality, diff/apply and flatten. Prototype-pollution safe (section 5).
+ */
+export { type Path, type PathSegment, MAX_PATH_LENGTH, parsePath, formatPath } from './path.js';
+export {
+  pick,
+  omit,
+  pickBy,
+  omitBy,
+  mapKeys,
+  mapValues,
+  mapEntries,
+  filterKeys,
+  filterValues,
+  invert,
+  invertBy,
+  renameKeys,
+  type CompactObjectOptions,
+  compactObject,
+  defaults,
+  typedKeys,
+  typedValues,
+  typedEntries,
+  typedFromEntries,
+  isShallowEqual,
+  getOwn,
+  size,
+  countValuesBy,
+  type SortKeysOptions,
+  sortKeys,
+  objectToMap,
+  mapToObject,
+} from './basic.js';
+export {
+  deepGet,
+  deepHas,
+  deepSet,
+  deepSetInPlace,
+  deepUnset,
+  type DeepMergeOptions,
+  deepMerge,
+  deepMergeAll,
+  type DeepCloneOptions,
+  deepClone,
+  type DeepReadonly,
+  deepFreeze,
+  type DeepEqualOptions,
+  deepEqual,
+} from './deep.js';
+export { type DiffChange, diff, applyDiff, type FlattenOptions, flattenObject, type UnflattenOptions, unflattenObject } from './diff.js';

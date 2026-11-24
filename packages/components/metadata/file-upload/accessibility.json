@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "component": "file-upload",
+  "pattern": "Native <input type=\"file\"> opened by a native <button>; the drop zone is an enhancement (WCAG 2.5.7: dragging is never required).",
+  "roles": [
+    {
+      "element": "chooser",
+      "role": "button (native)"
+    },
+    {
+      "element": "native input",
+      "role": "hidden; not in the tab order"
+    },
+    {
+      "element": "selected files",
+      "role": "list (native <ul>, aria-label \"Selected files\")"
+    },
+    {
+      "element": "remove buttons",
+      "role": "button (native), named \"Remove {file}\""
+    },
+    {
+      "element": "icons",
+      "role": "none (aria-hidden=true)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "chooser",
+      "value": "Label id and button-text id (\"Attachments Choose files\")"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "chooser",
+      "value": "Help text, constraint hint, \"Required\", visible error, and rejection ids"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "remove button",
+      "value": "Remove {file name}"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "Moves between the chooser button and each remove button."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Chooser focused",
+      "action": "Opens the native file chooser."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Remove button focused",
+      "action": "Removes the file; focus moves to the next remove button, else the previous one, else the chooser."
+    }
+  ],
+  "focus": "The chooser button and remove buttons show a :focus-visible outline in color-focus-ring. After a drop, focus moves to the chooser button so the result is reachable.",
+  "wcag": [
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.11",
+    "2.1.1",
+    "2.4.7",
+    "2.5.7",
+    "2.5.8",
+    "3.3.1",
+    "3.3.2",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "A button cannot carry aria-required, so \"Required\" is a visually hidden description.",
+    "Rejections are announced politely: \"{file} was not added. {reason}\" or \"{count} files were not added.\"",
+    "Removal is announced: \"{file} removed\".",
+    "Errors are text with an icon, never color alone."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Native drag and drop has no keyboard equivalent by design; the chooser button is the keyboard and screen-reader path."
+  ]
+}

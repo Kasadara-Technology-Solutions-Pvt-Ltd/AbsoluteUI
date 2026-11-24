@@ -1,0 +1,713 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/data-table",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDataTable",
+      "description": "AbsoluteUI DataTable: `<aui-data-table>`.\nTwo-way: `[(sort)]`, `[(selected)]`, `[(page)]`, `[(pageSize)]`, `[(filters)]`, `[(search)]`, `[(expanded)]`, `[(hiddenColumns)]`, `[(columnOrder)]`, `[(columnWidths)]`, `[(pinnedColumns)]`, `[(collapsedGroups)]`.\nTemplates: AuiCell, AuiRowDetail, AuiHeader, AuiEmpty, AuiGroupHeader, AuiEditor (`@absoluteui/angular/templates`).",
+      "selector": "aui-data-table",
+      "exportAs": [
+        "auiDataTable"
+      ],
+      "source": "generated",
+      "component": "data-table",
+      "configKey": "dataTable",
+      "inputs": [
+        {
+          "name": "caption",
+          "type": "string",
+          "required": true,
+          "description": "Table caption; the accessible name of the table and its scroll region."
+        },
+        {
+          "name": "hideCaption",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the caption (it stays the accessible name)."
+        },
+        {
+          "name": "columns",
+          "type": "readonly DataTableColumn<Row>[]",
+          "required": false,
+          "description": "Column definitions: id, header, accessor, and optional type, currency, format, render, sortable, compare, align, width, rowHeader; since 0.3.0 also filter, filterOptions, searchable, hideable, resizable, minWidth, maxWidth, exportable, exportValue; since 0.9.0 also aggregate, renderHeader, editable, editor, editOptions, validate, renderEditor."
+        },
+        {
+          "name": "rows",
+          "type": "readonly Row[]",
+          "required": true,
+          "description": "All rows (client mode) or the current page (server mode)."
+        },
+        {
+          "name": "rowId",
+          "type": "(row: Row) => string",
+          "required": true,
+          "description": "Stable, unique, non-empty id per row. Duplicates throw DATA_TABLE_ROW_ID."
+        },
+        {
+          "name": "isRowSelectable",
+          "type": "((row: Row) => boolean)",
+          "required": false,
+          "description": "Rows returning false get a disabled selection input and are skipped by select all and range selection."
+        },
+        {
+          "name": "pageSizes",
+          "type": "readonly number[]",
+          "required": false,
+          "description": "Render a 'Rows per page' select in the composed Pagination."
+        },
+        {
+          "name": "mode",
+          "type": "DataTableMode",
+          "required": false,
+          "default": "client",
+          "description": "client filters, sorts, and pages rows locally; server renders rows as the current page and only emits events."
+        },
+        {
+          "name": "total",
+          "type": "number",
+          "required": false,
+          "description": "Server mode: total rows across all pages (required when paged)."
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "aria-busy on the region, an announced 'Loading' status, skeleton rows when empty, otherwise an overlay over existing rows."
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "required": false,
+          "default": "No results (localized)",
+          "description": "Text shown when there are no rows (also when filters match nothing)."
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Since 0.3.0. Render a labelled search field in a role=search toolbar above the table."
+        },
+        {
+          "name": "filterRow",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Since 0.3.0. Render the filter row when a visible column has a filter; false keeps filters programmatic."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Since 0.3.0. Resize handles (focusable separators) on column headers for pointer drag and arrow keys; a column's resizable overrides it."
+        },
+        {
+          "name": "renderDetail",
+          "type": "((row: Row, doc: Document) => string | Node)",
+          "required": false,
+          "description": "Since 0.3.0. Row detail content; enables a disclosure button per row. Called when a row is first expanded; returned Nodes are consumer-owned, strings are text. Not combinable with virtual."
+        },
+        {
+          "name": "isRowExpandable",
+          "type": "((row: Row) => boolean)",
+          "required": false,
+          "description": "Since 0.3.0. Rows returning false get no disclosure button."
+        },
+        {
+          "name": "virtual",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Since 0.3.0. Windowed rendering of the current page inside the scroll region (single-line rows of uniform height); aria-rowcount and aria-rowindex describe the full set."
+        },
+        {
+          "name": "rowHeight",
+          "type": "number",
+          "required": false,
+          "default": "40",
+          "description": "Since 0.3.0. Virtual mode: initial row height estimate in CSS pixels (16 to 500), replaced by the measured height."
+        },
+        {
+          "name": "groupBy",
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Group rows by these column ids, nested in order (since 0.9.0). Client mode only; not with virtual."
+        },
+        {
+          "name": "renderGroupHeader",
+          "type": "((group: DataTableGroup<Row>, doc: Document) => Node)",
+          "required": false,
+          "description": "Custom group header content (since 0.9.0); decorative, released with releaseNode when dropped."
+        },
+        {
+          "name": "showTotals",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show the totals row when a column aggregates or totals is set (since 0.9.0)."
+        },
+        {
+          "name": "totals",
+          "type": "Readonly<Record<string, unknown>>",
+          "required": false,
+          "description": "Server mode: totals by column id, computed by the server (since 0.9.0)."
+        },
+        {
+          "name": "renderEmpty",
+          "type": "((doc: Document) => Node)",
+          "required": false,
+          "description": "Custom empty-state content (since 0.9.0); replaces emptyMessage, released with releaseNode when dropped."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<DataTableIcons>",
+          "required": false,
+          "description": "Icon slot overrides (expand and collapse since 0.3.0)."
+        },
+        {
+          "name": "selection",
+          "type": "DataTableSelection",
+          "required": false,
+          "default": "none",
+          "configurable": true,
+          "description": "Row selection: radios (single) or checkboxes with select all (multiple)."
+        },
+        {
+          "name": "stickyHeader",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Keep the header rows (and the filter row) visible while the scroll region scrolls."
+        },
+        {
+          "name": "sortCycle",
+          "type": "DataTableSortCycle",
+          "required": false,
+          "default": "tri-state",
+          "configurable": true,
+          "description": "tri-state: ascending, descending, unsorted. bi-state: ascending, descending."
+        },
+        {
+          "name": "multiSort",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Since 0.3.0. Shift+click or Shift+Enter/Space on a sort button adds the column to the sort (or cycles it in place)."
+        },
+        {
+          "name": "filterDelay",
+          "type": "number",
+          "required": false,
+          "default": "250",
+          "configurable": true,
+          "description": "Since 0.3.0. Milliseconds (0 to 5000) between the last keystroke in a text or number filter or the search field and filtering; Enter, blur, and select/date changes apply immediately."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Messages, number/date formatting, text collation, and case-insensitive matching."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "IANA timezone for datetime columns: formatting and date filters."
+        },
+        {
+          "name": "density",
+          "type": "Density",
+          "required": false,
+          "default": "comfortable",
+          "configurable": true,
+          "description": "Cell padding."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Passed to the composed Pagination (mirrors its chevrons)."
+        }
+      ],
+      "models": [
+        {
+          "name": "sort",
+          "type": "DataTableSort | readonly DataTableSort[] | null",
+          "change": "sortChange",
+          "description": "Current sort; each column must be sortable and appear once. An array (since 0.3.0) sorts by several columns, first entry first."
+        },
+        {
+          "name": "selected",
+          "type": "readonly string[]",
+          "change": "selectedChange",
+          "description": "Selected row ids."
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "change": "pageChange",
+          "description": "Current page, 1-based; clamped to the page count."
+        },
+        {
+          "name": "filters",
+          "type": "Readonly<Record<string, DataTableFilter>>",
+          "change": "filtersChange",
+          "description": "Since 0.3.0. Active column filters by column id; each filter type must match the column's filter kind (text, number, date, enum). JSON-safe."
+        },
+        {
+          "name": "search",
+          "type": "string",
+          "change": "searchChange",
+          "description": "Since 0.3.0. Global search text: every whitespace-separated term must appear in the displayed text of some visible, searchable column (case-insensitive)."
+        },
+        {
+          "name": "hiddenColumns",
+          "type": "readonly string[]",
+          "change": "hiddenColumnsChange",
+          "description": "Since 0.3.0. Hidden column ids; at least one column stays visible."
+        },
+        {
+          "name": "columnOrder",
+          "type": "readonly string[]",
+          "change": "columnOrderChange",
+          "description": "Since 0.3.0. Display order by column id; unlisted columns follow in definition order."
+        },
+        {
+          "name": "columnWidths",
+          "type": "Readonly<Record<string, number>>",
+          "change": "columnWidthsChange",
+          "description": "Since 0.3.0. Border-box column widths in CSS pixels, clamped to each column's minWidth/maxWidth. Any entry switches the table to a fixed layout."
+        },
+        {
+          "name": "pinnedColumns",
+          "type": "DataTablePinnedColumns",
+          "change": "pinnedColumnsChange",
+          "description": "Since 0.3.0. Sticky columns at the inline start and end edges, outermost first (logical edges, so right-to-left layouts mirror). Pinned columns move to their edge; start pins also pin the selection and disclosure columns."
+        },
+        {
+          "name": "expanded",
+          "type": "readonly string[]",
+          "change": "expandedChange",
+          "description": "Since 0.3.0. Expanded row ids (pruned like the selection)."
+        },
+        {
+          "name": "collapsedGroups",
+          "type": "readonly string[]",
+          "change": "collapsedGroupsChange",
+          "description": "Collapsed group keys; groups are expanded by default (since 0.9.0)."
+        },
+        {
+          "name": "pageSize",
+          "type": "number | null",
+          "change": "pageSizeChange",
+          "description": "Rows per page (1 to 1,000,000); null renders all rows without pagination."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "selectionChange",
+          "payload": "DataTableSelectionChangeDetail",
+          "event": "aui-selection-change",
+          "description": "The user changed the selection (row input, select all, or Shift+click range)."
+        },
+        {
+          "name": "filterChange",
+          "payload": "DataTableFilterChangeDetail",
+          "event": "aui-filter-change",
+          "description": "Since 0.3.0. The user changed a column filter or the global search. The page returns to 1. In server mode load matching rows (read table.getState() for the full query)."
+        },
+        {
+          "name": "columnsChange",
+          "payload": "DataTableColumnsChangeDetail",
+          "event": "aui-columns-change",
+          "description": "Since 0.3.0. The user showed or hid a column (column chooser) or resized one (on release, or per resize key)."
+        },
+        {
+          "name": "expandChange",
+          "payload": "DataTableExpandChangeDetail",
+          "event": "aui-expand-change",
+          "description": "Since 0.3.0. The user expanded or collapsed a row."
+        },
+        {
+          "name": "groupToggled",
+          "payload": "DataTableGroupToggleDetail",
+          "event": "aui-group-toggle",
+          "description": "The user expanded or collapsed a group (since 0.9.0)."
+        },
+        {
+          "name": "cellEdit",
+          "payload": "DataTableCellEditDetail<Row>",
+          "event": "aui-cell-edit",
+          "description": "The user committed an inline edit (since 0.9.0); update rows with value."
+        }
+      ],
+      "properties": [
+        {
+          "name": "rowCount",
+          "type": "Signal<number>",
+          "description": "Read-only: Since 0.3.0. Rows matching the filters and search across all pages (client mode), or total (server mode)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setRows",
+          "signature": "setRows(rows: readonly Row[], total?: number | undefined): void",
+          "description": "Replace rows (and the server-mode total)."
+        },
+        {
+          "name": "getSelected",
+          "signature": "getSelected(): string[] | undefined",
+          "description": "Selected row ids."
+        },
+        {
+          "name": "setSelected",
+          "signature": "setSelected(ids: readonly string[]): void",
+          "description": "Replace the selection without events. Unknown (client mode) and unselectable ids are dropped."
+        },
+        {
+          "name": "clearSelection",
+          "signature": "clearSelection(): void",
+          "description": "Clear the selection without events."
+        },
+        {
+          "name": "getState",
+          "signature": "getState(): DataTableState | undefined",
+          "description": "Since 0.3.0. JSON-safe snapshot: { version: 1, sort, filters, search, columns: { order, hidden, widths, pinned }, page, pageSize, collapsedGroups (since 0.9.0) }."
+        },
+        {
+          "name": "setState",
+          "signature": "setState(state: DataTableStateInput): void",
+          "description": "Since 0.3.0. Restore a snapshot or any subset of it (omitted parts are unchanged). Validates untrusted input (DATA_TABLE_STATE on malformed structure, state unchanged); unknown column ids and values a column cannot take are dropped. Emits nothing."
+        },
+        {
+          "name": "toCsv",
+          "signature": "toCsv(options?: DataTableCsvOptions | undefined): string | undefined",
+          "description": "Since 0.3.0. RFC 4180 CSV of visible/all/named columns and filtered/page/selected/all rows, formatted or raw values, with formula-injection protection. No side effects."
+        },
+        {
+          "name": "toCsvBlob",
+          "signature": "toCsvBlob(options?: DataTableCsvOptions | undefined): Blob | undefined",
+          "description": "Since 0.3.0. toCsv() as a text/csv;charset=utf-8 Blob."
+        }
+      ],
+      "templates": [
+        "AuiCell",
+        "AuiRowDetail",
+        "AuiHeader",
+        "AuiEmpty",
+        "AuiGroupHeader",
+        "AuiEditor"
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Table pattern using a native HTML <table> (not the Grid pattern) with sortable column headers (APG 'Sortable Table' example): header buttons plus aria-sort on the primary sorted column. Since 0.3.0: column resize handles follow the APG Window Splitter pattern (focusable separator with value); row expansion follows the APG Disclosure pattern; the column chooser is an APG Menu Button with menuitemcheckbox items; virtual rows use aria-rowcount/aria-rowindex.",
+        "source": "packages/components/metadata/data-table/accessibility.json"
+      },
+      "limitations": [
+        "Plain table semantics, not an ARIA grid: no cell-by-cell arrow-key navigation or cell selection. Inline editing (since 0.9.0) opens one cell editor at a time; editable cells are tab stops.",
+        "No column reorder by drag or nested grids (column order is programmatic: columnOrder, setState). Grouping and aggregation (since 0.9.0) run in client mode only and not with virtual.",
+        "Pointer resizing needs a drag; the single-pointer alternatives are the keyboard handle (focus it, then arrow keys) and columnWidths/setState. WCAG 2.5.7 conformance of the pointer path relies on those alternatives and is flagged for review.",
+        "Select all applies to the current page (every row of it in virtual mode); there is no 'select all N results' affordance. Filters do not change the selection: rows filtered out stay selected.",
+        "Shift+click range selection works within the current page only.",
+        "Virtual scrolling needs a scroll region with a bounded height (70vh by default) and single-line rows of uniform height; it cannot be combined with renderDetail.",
+        "Enum filters in the filter row choose one value; several values (values: [...]) are programmatic and shown as 'n selected'.",
+        "Text filters and search are case-insensitive substring matches on the displayed text; accents and punctuation are significant.",
+        "Filters and search do not run in server mode; the consumer applies them (aui-filter-change, getState()).",
+        "The sticky header sticks within the scroll region; give the region a max-block-size for it to take effect on long tables.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiDataTableColumnChooser",
+      "description": "Angular binding for DataTableColumnChooser (since 0.3.0):\n`<button type=\"button\" [auiDataTableColumnChooser]=\"table\">Columns</button>` where `table` is an\n`<aui-data-table #table=\"auiDataTable\">` reference. Options are read once at creation.",
+      "selector": "button[auiDataTableColumnChooser]",
+      "exportAs": [
+        "auiDataTableColumnChooser"
+      ],
+      "source": "generated",
+      "component": "data-table",
+      "configKey": "dataTable",
+      "inputs": [
+        {
+          "name": "auiDataTableColumnChooser",
+          "type": "AuiDataTable<Row>",
+          "required": true,
+          "description": "The table whose columns the menu shows and hides: a `#table=\"auiDataTable\"` reference."
+        },
+        {
+          "name": "menuLabel",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name of the menu (default \"Columns\")."
+        },
+        {
+          "name": "placement",
+          "type": "\"bottom\" | \"top\" | \"top-start\" | \"top-end\" | \"bottom-start\" | \"bottom-end\" | \"left\" | \"left-start\" | \"left-end\" | \"right\" | \"right-start\" | \"right-end\"",
+          "required": false,
+          "description": "Menu position relative to the button."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Passed to the composed Pagination (mirrors its chevrons)."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Table pattern using a native HTML <table> (not the Grid pattern) with sortable column headers (APG 'Sortable Table' example): header buttons plus aria-sort on the primary sorted column. Since 0.3.0: column resize handles follow the APG Window Splitter pattern (focusable separator with value); row expansion follows the APG Disclosure pattern; the column chooser is an APG Menu Button with menuitemcheckbox items; virtual rows use aria-rowcount/aria-rowindex.",
+        "source": "packages/components/metadata/data-table/accessibility.json"
+      },
+      "limitations": [
+        "Plain table semantics, not an ARIA grid: no cell-by-cell arrow-key navigation or cell selection. Inline editing (since 0.9.0) opens one cell editor at a time; editable cells are tab stops.",
+        "No column reorder by drag or nested grids (column order is programmatic: columnOrder, setState). Grouping and aggregation (since 0.9.0) run in client mode only and not with virtual.",
+        "Pointer resizing needs a drag; the single-pointer alternatives are the keyboard handle (focus it, then arrow keys) and columnWidths/setState. WCAG 2.5.7 conformance of the pointer path relies on those alternatives and is flagged for review.",
+        "Select all applies to the current page (every row of it in virtual mode); there is no 'select all N results' affordance. Filters do not change the selection: rows filtered out stay selected.",
+        "Shift+click range selection works within the current page only.",
+        "Virtual scrolling needs a scroll region with a bounded height (70vh by default) and single-line rows of uniform height; it cannot be combined with renderDetail.",
+        "Enum filters in the filter row choose one value; several values (values: [...]) are programmatic and shown as 'n selected'.",
+        "Text filters and search are case-insensitive substring matches on the displayed text; accents and punctuation are significant.",
+        "Filters and search do not run in server mode; the consumer applies them (aui-filter-change, getState()).",
+        "The sticky header sticks within the scroll region; give the region a max-block-size for it to take effect on long tables.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    },
+    {
+      "kind": "directive",
+      "name": "AuiColumn",
+      "selector": "aui-column",
+      "exportAs": [],
+      "source": "generated",
+      "component": "data-table",
+      "configKey": "dataTable",
+      "inputs": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": "Column id; defaults to `field`."
+        },
+        {
+          "name": "field",
+          "type": "string",
+          "required": false,
+          "description": "Row property shown in the column (when no `accessor` is bound)."
+        },
+        {
+          "name": "header",
+          "type": "string",
+          "required": true,
+          "description": "Header text and the column's accessible name."
+        },
+        {
+          "name": "accessor",
+          "type": "((row: Row) => unknown)",
+          "required": false,
+          "description": "Raw value used for sorting and default rendering (instead of `field`)."
+        },
+        {
+          "name": "type",
+          "type": "DataTableColumnType",
+          "required": false,
+          "description": "Typed formatting and sorting: text (default), number, currency (needs `currency`), date (PlainDate), datetime (Instant, shown in the configured time zone), or boolean."
+        },
+        {
+          "name": "currency",
+          "type": "string",
+          "required": false,
+          "description": "ISO 4217 code for `type=\"currency\"`, for example EUR."
+        },
+        {
+          "name": "format",
+          "type": "((value: unknown, row: Row) => string)",
+          "required": false,
+          "description": "Cell text (rendered as text, never HTML); overrides typed formatting."
+        },
+        {
+          "name": "sortable",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether users can sort by this column (default true)."
+        },
+        {
+          "name": "compare",
+          "type": "((a: Row, b: Row) => number)",
+          "required": false,
+          "description": "Custom comparator (ascending)."
+        },
+        {
+          "name": "align",
+          "type": "DataTableAlign",
+          "required": false,
+          "description": "Cell alignment; default end for number and currency columns, otherwise start."
+        },
+        {
+          "name": "width",
+          "type": "string",
+          "required": false,
+          "description": "CSS length: a number followed by px, rem, em, %, or ch."
+        },
+        {
+          "name": "rowHeader",
+          "type": "boolean",
+          "required": false,
+          "description": "Render cells as row headers (`th scope=\"row\"`); default: the first column."
+        },
+        {
+          "name": "filter",
+          "type": "DataTableFilterKind",
+          "required": false,
+          "description": "Filter kind: text, number, date, or enum (number needs a number or currency column, date a date or datetime column, enum `filterOptions` or a boolean column)."
+        },
+        {
+          "name": "filterOptions",
+          "type": "readonly DataTableFilterOption[]",
+          "required": false,
+          "description": "Options of an enum filter (default for boolean columns: Yes / No)."
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Since 0.3.0. Render a labelled search field in a role=search toolbar above the table."
+        },
+        {
+          "name": "hideable",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the column chooser may hide the column (default true)."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Since 0.3.0. Resize handles (focusable separators) on column headers for pointer drag and arrow keys; a column's resizable overrides it."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "required": false,
+          "description": "Minimum resize width in pixels (default 64)."
+        },
+        {
+          "name": "maxWidth",
+          "type": "number",
+          "required": false,
+          "description": "Maximum resize width in pixels (default 960)."
+        },
+        {
+          "name": "exportable",
+          "type": "boolean",
+          "required": false,
+          "description": "Include the column in CSV exports (default true)."
+        },
+        {
+          "name": "exportValue",
+          "type": "((row: Row) => string | number | boolean | null)",
+          "required": false,
+          "description": "CSV cell value; overrides the formatted or raw value."
+        },
+        {
+          "name": "aggregate",
+          "type": "DataTableAggregate<Row>",
+          "required": false,
+          "description": "Aggregate shown in group headers and the totals row: sum, avg, min, max, count, or a function of the values and rows."
+        },
+        {
+          "name": "editable",
+          "type": "boolean | ((row: Row) => boolean)",
+          "required": false,
+          "description": "Inline editing: `editable` (bare attribute) or a function of the row."
+        },
+        {
+          "name": "editor",
+          "type": "DataTableEditorKind",
+          "required": false,
+          "description": "Built-in inline editor: text, number, date, select, or checkbox (default from `type`)."
+        },
+        {
+          "name": "editOptions",
+          "type": "readonly DataTableFilterOption[]",
+          "required": false,
+          "description": "Choices of the select editor."
+        },
+        {
+          "name": "validate",
+          "type": "((value: unknown, row: Row) => string | null)",
+          "required": false,
+          "description": "Validate an edited value; return a message to keep the editor open with an error."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "templates": [
+        "AuiCell",
+        "AuiRowDetail",
+        "AuiHeader",
+        "AuiEmpty",
+        "AuiGroupHeader",
+        "AuiEditor"
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Table pattern using a native HTML <table> (not the Grid pattern) with sortable column headers (APG 'Sortable Table' example): header buttons plus aria-sort on the primary sorted column. Since 0.3.0: column resize handles follow the APG Window Splitter pattern (focusable separator with value); row expansion follows the APG Disclosure pattern; the column chooser is an APG Menu Button with menuitemcheckbox items; virtual rows use aria-rowcount/aria-rowindex.",
+        "source": "packages/components/metadata/data-table/accessibility.json"
+      },
+      "limitations": [
+        "Plain table semantics, not an ARIA grid: no cell-by-cell arrow-key navigation or cell selection. Inline editing (since 0.9.0) opens one cell editor at a time; editable cells are tab stops.",
+        "No column reorder by drag or nested grids (column order is programmatic: columnOrder, setState). Grouping and aggregation (since 0.9.0) run in client mode only and not with virtual.",
+        "Pointer resizing needs a drag; the single-pointer alternatives are the keyboard handle (focus it, then arrow keys) and columnWidths/setState. WCAG 2.5.7 conformance of the pointer path relies on those alternatives and is flagged for review.",
+        "Select all applies to the current page (every row of it in virtual mode); there is no 'select all N results' affordance. Filters do not change the selection: rows filtered out stay selected.",
+        "Shift+click range selection works within the current page only.",
+        "Virtual scrolling needs a scroll region with a bounded height (70vh by default) and single-line rows of uniform height; it cannot be combined with renderDetail.",
+        "Enum filters in the filter row choose one value; several values (values: [...]) are programmatic and shown as 'n selected'.",
+        "Text filters and search are case-insensitive substring matches on the displayed text; accents and punctuation are significant.",
+        "Filters and search do not run in server mode; the consumer applies them (aui-filter-change, getState()).",
+        "The sticky header sticks within the scroll region; give the region a max-block-size for it to take effect on long tables.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    }
+  ],
+  "constants": [
+    {
+      "name": "AUI_DATA_TABLE",
+      "type": "readonly [typeof AuiDataTable, typeof AuiColumn, typeof AuiCell, typeof AuiHeader, typeof AuiRowDetail, typeof AuiEmpty, typeof AuiGroupHeader, typeof AuiEditor]",
+      "description": "The table, `<aui-column>`, and its templates, for `imports`."
+    }
+  ],
+  "reexports": [
+    "AuiCell",
+    "AuiEditor",
+    "AuiEmpty",
+    "AuiGroupHeader",
+    "AuiHeader",
+    "AuiRowDetail"
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, signal } from '@angular/core';\nimport { AuiDataTable, AuiDataTableColumnChooser } from '@absoluteui/angular/data-table';\nimport { AuiButton } from '@absoluteui/angular/button';\nimport type { DataTableColumn, DataTableFilter, DataTableFilterChangeDetail, DataTableSort } from '@absoluteui/components/data-table';\n\ninterface User { id: string; name: string; email: string }\n\n/** Server mode: the table reports sort, paging, and filters; the component loads the page. */\n@Component({\n  selector: 'app-users-table',\n  imports: [AuiDataTable, AuiDataTableColumnChooser, AuiButton],\n  template: `<button type=\"button\" auiButton [auiDataTableColumnChooser]=\"users\">Columns</button>\n    <aui-data-table #users=\"auiDataTable\" caption=\"Users\" mode=\"server\" selection=\"multiple\" [multiSort]=\"true\" [searchable]=\"true\"\n      [columns]=\"columns\" [rows]=\"rows()\" [rowId]=\"rowId\" [total]=\"total()\" [loading]=\"loading()\" [pageSizes]=\"[25, 50, 100]\"\n      [(sort)]=\"sort\" [(page)]=\"page\" [(pageSize)]=\"pageSize\" [(selected)]=\"selected\"\n      (sortChange)=\"load()\" (pageChange)=\"load()\" (pageSizeChange)=\"load()\" (filterChange)=\"onFilter($event)\" />`,\n})\nexport class UsersTableComponent {\n  readonly columns: DataTableColumn<User>[] = [\n    { id: 'name', header: 'Name', accessor: (u) => u.name, filter: 'text' },\n    { id: 'email', header: 'Email', accessor: (u) => u.email, filter: 'text' },\n  ];\n  readonly rows = signal<User[]>([]);\n  readonly total = signal(0);\n  readonly loading = signal(true);\n  readonly sort = signal<DataTableSort | readonly DataTableSort[] | null>(null);\n  readonly page = signal(1);\n  readonly pageSize = signal<number | null>(25);\n  readonly selected = signal<readonly string[]>([]);\n  filters: Readonly<Record<string, DataTableFilter>> = {};\n  search = '';\n  readonly rowId = (u: User): string => u.id;\n\n  onFilter(change: DataTableFilterChangeDetail): void {\n    this.filters = change.filters;\n    this.search = change.search;\n    this.page.set(1);\n    this.load();\n  }\n\n  load(): void {\n    this.loading.set(true);\n    // Request the page for this.sort(), this.page(), this.pageSize(), this.filters, and this.search,\n    // then set rows, total, and loading.\n  }\n}"
+    }
+  ]
+}

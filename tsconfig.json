@@ -1,0 +1,62 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@absoluteui/core": [
+        "./packages/core/src/index.ts"
+      ],
+      "@absoluteui/helpers": [
+        "./packages/helpers/src/index.ts"
+      ],
+      "@absoluteui/helpers/*": [
+        "./packages/helpers/src/*/index.ts"
+      ],
+      "@absoluteui/services": [
+        "./packages/services/src/index.ts"
+      ],
+      "@absoluteui/services/*": [
+        "./packages/services/src/*/index.ts"
+      ],
+      "@absoluteui/utilities": [
+        "./packages/utilities/src/index.ts"
+      ],
+      "@absoluteui/theme": [
+        "./packages/theme/src/index.ts"
+      ],
+      "@absoluteui/theme/designer": [
+        "./packages/theme/src/designer/index.ts"
+      ],
+      "@absoluteui/icons": [
+        "./packages/icons/src/index.ts"
+      ],
+      "@absoluteui/components/*": [
+        "./packages/components/src/*/index.ts"
+      ]
+    }
+  },
+  "include": [
+    "packages/*/src",
+    "packages/*/test",
+    "tests",
+    "vitest.config.ts",
+    "vitest.angular.config.ts",
+    "vitest.mcp.config.ts",
+    "playwright.config.ts",
+    "apps/theme-designer",
+    "apps/site/src/scripts",
+    "apps/site/src/examples",
+    "apps/site/src/showcases", "apps/site/src/playground",
+    "apps/marketing/frames",
+    "apps/marketing/src/lib",
+    "apps/demo-hrms/server",
+    "apps/demo-hrms/client"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "apps/marketing/frames/blocks/angular"
+  ]
+}

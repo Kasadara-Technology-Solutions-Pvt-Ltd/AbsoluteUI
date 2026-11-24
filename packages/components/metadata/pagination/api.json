@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "component": "pagination",
+  "factory": { "name": "Pagination.create", "signature": "Pagination.create(host: HTMLElement, options: PaginationOptions): Pagination" },
+  "configKey": "pagination",
+  "options": [
+    { "name": "page", "type": "number", "default": 1, "required": false, "globallyConfigurable": false, "description": "Current page, 1-based; clamped to 1..pageCount." },
+    { "name": "pageCount", "type": "number", "required": false, "globallyConfigurable": false, "description": "Number of pages. Provide either pageCount or total." },
+    { "name": "total", "type": "number", "required": false, "globallyConfigurable": false, "description": "Total items; the page count is derived from pageSize. Enables the summary." },
+    { "name": "pageSize", "type": "number", "required": false, "globallyConfigurable": false, "description": "Items per page. Required with total unless pageSizes is set (then defaults to its first entry)." },
+    { "name": "pageSizes", "type": "readonly number[]", "required": false, "globallyConfigurable": false, "description": "Render a native 'Rows per page' select with these sizes." },
+    { "name": "label", "type": "string", "default": "Pagination (localized)", "required": false, "globallyConfigurable": false, "description": "Accessible name of the <nav>." },
+    { "name": "icons", "type": "Partial<{ previous: IconRef; next: IconRef; first: IconRef; last: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "siblingCount", "type": "number", "default": 1, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Pages shown on each side of the current page (0 to 10)." },
+    { "name": "boundaryCount", "type": "number", "default": 1, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Pages always shown at the start and end (0 to 10)." },
+    { "name": "showFirstLast", "type": "boolean", "default": false, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Render first/last page buttons." },
+    { "name": "showSummary", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show 'Showing 11-20 of 57' when total is known." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message and number-formatting locale." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "rtl mirrors the direction icons." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "nav", "type": "HTMLElement", "description": "The <nav> landmark." },
+    { "name": "page", "type": "number", "description": "Current page (1 when there are no pages)." },
+    { "name": "pageCount", "type": "number", "description": "Number of pages (given or derived from total and pageSize)." },
+    { "name": "pageSize", "type": "number | null", "description": "Items per page, or null when only pageCount is known." },
+    { "name": "options", "type": "Readonly<PaginationOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setPage", "signature": "setPage(page: number): void", "description": "Go to a page programmatically (clamped; no events, no announcement)." },
+    { "name": "update", "signature": "update(options: Partial<PaginationOptions>): void", "description": "Merge and apply options. Passing pageCount drops total and vice versa." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, and subscriptions." },
+    { "name": "getPageItems", "signature": "getPageItems(page: number, pageCount: number, siblingCount?: number, boundaryCount?: number): (number | 'ellipsis')[]", "description": "Pure helper (module export): the page numbers and ellipses to render." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ page: number; pageSize: number | null }", "bubbles": true, "cancelable": false, "description": "The user changed the page or the page size." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-pagination", "description": "Host (size container)." },
+    { "name": "aui-pagination--rtl", "description": "Configured rtl direction." },
+    { "name": "aui-pagination__nav", "description": "The <nav> landmark." },
+    { "name": "aui-pagination__summary", "description": "Result summary." },
+    { "name": "aui-pagination__controls", "description": "Buttons row." },
+    { "name": "aui-pagination__button", "description": "Any pagination button." },
+    { "name": "aui-pagination__first | __previous | __next | __last", "description": "Direction buttons." },
+    { "name": "aui-pagination__pages", "description": "List of page items." },
+    { "name": "aui-pagination__item", "description": "A page item <li>." },
+    { "name": "aui-pagination__page", "description": "A page button; [aria-current=page] for the current one." },
+    { "name": "aui-pagination__ellipsis", "description": "Decorative gap marker." },
+    { "name": "aui-pagination__compact", "description": "'Page 3 of 10' text shown in narrow containers." },
+    { "name": "aui-pagination__size | __size-label | __size-select", "description": "Rows-per-page field." }
+  ],
+  "iconSlots": [
+    { "name": "previous", "default": "chevron-left" },
+    { "name": "next", "default": "chevron-right" },
+    { "name": "first", "default": "chevrons-left" },
+    { "name": "last", "default": "chevrons-right" }
+  ]
+}

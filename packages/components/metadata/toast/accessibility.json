@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "component": "toast",
+  "pattern": "Notification region (labelled section landmark) with announcements through shared visually hidden live regions (WCAG 4.1.3); toasts are not live regions themselves, to avoid double announcements.",
+  "roles": [
+    { "element": "<section class=aui-toaster>", "role": "region (named 'Notifications')" },
+    { "element": "<ol>", "role": "list" },
+    { "element": "toast", "role": "group, labelled by its text" },
+    { "element": "icon", "role": "none (aria-hidden=true)" },
+    { "element": "action and dismiss buttons", "role": "button (native)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "region", "value": "Localized 'Notifications'" },
+    { "attribute": "aria-labelledby", "element": "toast", "value": "id of the text block (tone prefix, title, message)" },
+    { "attribute": "aria-label", "element": "dismiss button", "value": "Localized 'Dismiss notification'" },
+    { "attribute": "aria-live", "element": "shared live regions (announce())", "value": "polite for info/success, assertive for warning/error" }
+  ],
+  "keyboard": [
+    { "key": "Alt+T (configurable hotkey)", "context": "Anywhere, toasts visible", "action": "Moves focus to the newest toast; timers pause while focus is inside." },
+    { "key": "Tab / Shift+Tab", "context": "Focus in a toast", "action": "Moves through the action and dismiss buttons and between toasts." },
+    { "key": "Escape", "context": "Focus in a toast", "action": "Dismisses that toast and returns focus to where it was before entering the region." },
+    { "key": "Enter / Space", "context": "Action button focused", "action": "Runs onAction, then closes the toast (reason action)." },
+    { "key": "Enter / Space", "context": "Dismiss button focused", "action": "Closes the toast (reason dismiss) and returns focus." }
+  ],
+  "focus": "Toasts never take focus on their own. The hotkey focuses the newest toast (tabindex=-1, visible focus ring). When a focused toast closes, focus returns to the element focused before entering the region, else to the newest remaining toast.",
+  "wcag": ["1.3.1", "1.3.2", "1.4.1", "1.4.3", "1.4.11", "1.4.13", "2.1.1", "2.2.1", "2.4.3", "2.4.7", "4.1.2", "4.1.3"],
+  "notes": [
+    "Timers pause while the pointer is over the region or focus is inside it (WCAG 2.2.1); error toasts persist until dismissed by default.",
+    "Tone is conveyed by an icon and a visually hidden, localized prefix, never by color alone; the prefix is part of the announcement.",
+    "DOM order matches visual order (newest nearest the viewport edge).",
+    "While a modal dialog is open, the region moves inside it so new toasts are above the dialog and not inert."
+  ],
+  "knownCaveats": [
+    "Announcements use the shared live regions in document.body, which are outside an open modal dialog; screen readers may not announce toasts while a modal is open.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

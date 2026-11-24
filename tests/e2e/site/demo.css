@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  font-family: var(--aui-font-family-sans);
+  color: var(--aui-color-text);
+  background: var(--aui-color-bg);
+}
+
+.demo {
+  max-inline-size: 56rem;
+  margin-inline: auto;
+  padding: 1rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#combobox-host,
+#date-host,
+#datetime-host {
+  max-inline-size: 20rem;
+  margin-block-end: 1rem;
+}
+
+.demo-form {
+  max-inline-size: 32rem;
+}
+
+.demo-pickers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.demo-stack {
+  display: grid;
+  gap: 1rem;
+  min-inline-size: 0;
+}
+
+.demo-virtual .aui-data-table__region {
+  max-block-size: 16rem;
+}
+
+.demo-detail {
+  margin: 0;
+}
+/* R2 navigation page: app shell with the sidebar beside the content. */
+.demo-shell {
+  display: flex;
+  align-items: stretch;
+  min-block-size: 100dvh;
+}
+
+.demo-shell > .demo {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.demo-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px dashed var(--aui-color-border-strong);
+  border-radius: 6px;
+}
+
+.demo-sortable {
+  max-inline-size: 28rem;
+}
+.demo-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.demo-charts > h2 {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+/* R3 dashboard page: catalog beside the grid, wider main column. */
+.demo-wide {
+  max-inline-size: 100rem;
+}
+
+.demo-dashboard {
+  display: grid;
+  grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 48rem) {
+  .demo-dashboard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* R3 phase 2 pivot page: field list beside the grid. */
+.demo-pivot {
+  display: grid;
+  grid-template-columns: minmax(14rem, 22rem) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.demo-pivot .aui-pivot__region {
+  max-block-size: 42rem;
+}
+
+@media (max-width: 48rem) {
+  .demo-pivot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* R11 Data Grid page: the grid fills a fixed-height box. */
+.demo-grid-host {
+  block-size: 420px;
+}
+
+/* An aligned totals grid under the main grid (G7f). */
+.demo-grid-host--short {
+  block-size: 120px;
+}

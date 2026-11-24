@@ -1,0 +1,6 @@
+[
+  { "title": "Four tones", "text": "Info, success, warning, and error, each with its own icon and color." },
+  { "title": "Actions", "text": "Optional buttons report their value, so the alert can offer the next step." },
+  { "title": "Dismissible", "text": "A close button removes the alert through a dismiss event you can cancel." },
+  { "title": "Live announcements", "text": "Choose polite or assertive announcement for alerts that appear later." }
+]

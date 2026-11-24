@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "component": "rich-text-editor",
+  "pattern": "Multi-line textbox (contenteditable, role=textbox, aria-multiline) with an associated WAI-ARIA toolbar (roving tabindex) and a labelled link editor group.",
+  "roles": [
+    { "element": "content (.aui-rte__content)", "role": "textbox (aria-multiline=true)" },
+    { "element": "toolbar (.aui-rte__toolbar)", "role": "toolbar (aria-label \"Formatting\", aria-controls = content id)" },
+    { "element": "toolbar tools", "role": "button (native); toggle tools carry aria-pressed" },
+    { "element": "toolbar separators", "role": "separator (aria-orientation=vertical)" },
+    { "element": "link panel (.aui-rte__link-panel)", "role": "group (aria-label \"Link\")" },
+    { "element": "link address", "role": "textbox (native input type=url with <label for>)" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "content", "value": "Id of the visible label" },
+    { "attribute": "aria-describedby", "element": "content", "value": "Help text, counter, and visible error message ids" },
+    { "attribute": "aria-invalid", "element": "content", "value": "\"true\" only while an error message is shown" },
+    { "attribute": "aria-required", "element": "content", "value": "\"true\" when required" },
+    { "attribute": "aria-readonly", "element": "content", "value": "\"true\" when readOnly" },
+    { "attribute": "aria-disabled", "element": "content", "value": "\"true\" when disabled (the content is also removed from the tab order)" },
+    { "attribute": "aria-placeholder", "element": "content", "value": "The placeholder text, when set" },
+    { "attribute": "aria-pressed", "element": "toggle tools (block types, marks, lists, quote, code block, alignment)", "value": "\"true\" when the format applies at the selection" },
+    { "attribute": "aria-disabled", "element": "toolbar tools", "value": "\"true\" when read-only/disabled, nothing to undo/redo, or marks/link inside a code block (tools stay focusable)" },
+    { "attribute": "aria-label", "element": "toolbar tools", "value": "Localized command name (also the title tooltip)" },
+    { "attribute": "aria-invalid / aria-describedby", "element": "link address", "value": "Set when the URL policy rejects the address; describes it with the link error message" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Outside a list item", "action": "Moves focus between the toolbar (one tab stop), the content, and the rest of the page (native)." },
+    { "key": "Tab / Shift+Tab", "context": "Selection entirely in list items", "action": "Indents / outdents the list items (depth 0-4)." },
+    { "key": "Escape, then Tab / Shift+Tab", "context": "Content", "action": "Leaves the editor instead of indenting (no keyboard trap)." },
+    { "key": "Enter", "context": "Content", "action": "Splits the block into a new paragraph or list item; at the end of a heading starts a paragraph; in an empty list item outdents or leaves the list; in an empty quote leaves it; in a code block inserts a line break and on an empty last line leaves it; after a line of ``` (Markdown shortcuts) creates a code block." },
+    { "key": "Shift+Enter", "context": "Content", "action": "Inserts a line break within the block (browser insertLineBreak)." },
+    { "key": "Backspace", "context": "Start of a block", "action": "List item: outdents, then becomes a paragraph; heading, quote, or empty code block: becomes a paragraph; otherwise merges with the previous block." },
+    { "key": "Backspace / Delete and their word/line variants (for example Ctrl+Backspace)", "context": "Content", "action": "Deletes a grapheme cluster, word, or line (as the browser reports it) through the model; Delete at the end of a block merges the next block." },
+    { "key": "Mod+B / Mod+I / Mod+U", "context": "Content", "action": "Toggles bold / italic / underline on the selection, or for the next typed text when the selection is collapsed." },
+    { "key": "Mod+Shift+X / Mod+E", "context": "Content", "action": "Toggles strikethrough / inline code." },
+    { "key": "Mod+K", "context": "Content", "action": "Opens the link panel for the selection or the link at the caret." },
+    { "key": "Mod+Shift+7 / Mod+Shift+8", "context": "Content", "action": "Toggles numbered / bulleted list." },
+    { "key": "Mod+Alt+0 / Mod+Alt+1 / Mod+Alt+2 / Mod+Alt+3", "context": "Content", "action": "Normal text / heading 1 / heading 2 / heading 3 (heading toggles back to normal text)." },
+    { "key": "Mod+Shift+L / Mod+Shift+E / Mod+Shift+R / Mod+Shift+J", "context": "Content", "action": "Align start / center / end / justify." },
+    { "key": "Mod+Z", "context": "Content", "action": "Undo." },
+    { "key": "Mod+Shift+Z / Mod+Y", "context": "Content", "action": "Redo." },
+    { "key": "Alt+F10", "context": "Content (rich mode)", "action": "Moves focus to the toolbar (its current tab-stop tool)." },
+    { "key": "ArrowLeft / ArrowRight", "context": "Toolbar", "action": "Previous / next tool in DOM order, wrapping (roving tabindex)." },
+    { "key": "Home / End", "context": "Toolbar", "action": "First / last tool." },
+    { "key": "Enter / Space", "context": "Toolbar tool", "action": "Runs the command and returns focus to the content (the Link tool opens the link panel)." },
+    { "key": "Escape", "context": "Toolbar", "action": "Returns focus to the content." },
+    { "key": "Enter", "context": "Link address", "action": "Applies the link (or shows the error when the URL policy rejects it); focus returns to the content." },
+    { "key": "Escape", "context": "Link panel address", "action": "Closes the panel without changes; focus returns to the content." },
+    { "key": "Tab / Shift+Tab", "context": "Link panel", "action": "Moves between the address, Apply, Remove link, and Cancel buttons (native)." }
+  ],
+  "focus": "The surface shows the focus indicator when the content has :focus-visible (border and 1px ring in color-focus-ring). Toolbar tools and link panel buttons use a focus-ring-width outline in color-focus-ring. Focus returns to the content with the previous selection after toolbar commands and when the link panel closes.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.10", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "2.5.8", "3.3.1", "3.3.2", "3.3.3", "4.1.2", "4.1.3"],
+  "notes": [
+    "Mod is Ctrl on Windows and Linux and Cmd on Apple platforms.",
+    "The required asterisk is aria-hidden; required state is conveyed by aria-required.",
+    "Errors appear after focus leaves the component by default, then update live.",
+    "Formatting changes from toolbar clicks, block type changes, undo/redo, and link add/remove are announced through a polite live region.",
+    "Pressed tools use selected colors plus a border, so the state is not conveyed by color alone.",
+    "Clicking the label focuses the content; toolbar mouse presses keep the editor's selection.",
+    "axe WCAG 2.2 AA passes in the default, dark, and high-contrast themes with the link panel open and the invalid state shown (e2e)."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior (reading of formatted content, toolbar state, announcements) has not yet been manually verified with NVDA, JAWS, and VoiceOver.",
+    "IME composition and mobile virtual keyboards have been tested only in Chromium.",
+    "Toolbar arrow keys are not mirrored in right-to-left layouts.",
+    "The character counter is not announced through a live region; it is referenced by aria-describedby."
+  ]
+}

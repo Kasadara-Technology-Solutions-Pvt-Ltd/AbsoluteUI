@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="activity" data-animations="draw:loading">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3 12h4l3-7 4 14 3-7h4"/>
+    </g>
+  </g>
+</svg>

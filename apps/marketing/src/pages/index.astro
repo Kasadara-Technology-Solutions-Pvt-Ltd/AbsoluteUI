@@ -1,0 +1,327 @@
+---
+// Home (docs/PLAN-MARKETING-REDESIGN.md section 4; design baseline: the revised mockup, M9).
+import Base from '../layouts/Base.astro';
+import LaunchHero from '../components/LaunchHero.astro';
+import Icon from '../components/Icon.astro';
+import Code from '../components/Code.astro';
+import InstallTabs from '../components/InstallTabs.astro';
+import LiveFrame from '../components/LiveFrame.astro';
+import accents from '../generated/accents.json';
+import legal from '../generated/legal.json';
+import { ANGULAR_DOCS, GET_STARTED, docs, n, stats } from '../site';
+
+const ev = stats.evidence;
+
+const heroTs = `import '@absoluteui/theme/absolute-default.css';
+import '@absoluteui/components/data-table/style.css';
+import { configureAbsoluteUI } from '@absoluteui/core';
+import { startThemeRuntime } from '@absoluteui/theme';
+import { DataTable } from '@absoluteui/components/data-table';
+
+configureAbsoluteUI({ common: { locale: 'en-IN', timezone: 'Asia/Kolkata' } });
+startThemeRuntime();
+
+DataTable.create(host, {
+  caption: 'Orders', columns, rows,
+  rowId: (o) => o.id,
+  selection: 'multiple',
+  searchable: true,
+});`;
+
+const heroNg = `import { Component, signal } from '@angular/core';
+import { AuiDataTable } from '@absoluteui/angular/data-table';
+
+@Component({
+  selector: 'app-orders',
+  imports: [AuiDataTable],
+  template: \`<aui-data-table caption="Orders" selection="multiple"
+    [searchable]="true" [columns]="columns" [rows]="rows()"
+    [rowId]="rowId" />\`,
+})
+export class OrdersComponent {
+  readonly rows = signal(orders);
+  readonly columns = orderColumns;
+  readonly rowId = (o: Order) => o.id;
+}`;
+
+const flagship = [
+  { id: 'grid', name: 'Data Grid', sub: 'Editing, formulas, charts, export', frame: '/frames/flag-grid.html', image: '/media/components/data-grid.jpg', chips: ['Grouped and pinned columns', 'Floating filters', 'Cell editing and formulas', 'Excel, CSV, and PDF export'], doc: 'data-grid', minHeight: 470 },
+  { id: 'table', name: 'Data Table', sub: 'Sort, filter, select, page', frame: '/frames/proof.html', image: '/media/components/data-table.jpg', chips: ['Server mode', 'Virtual rows', 'CSV export'], doc: 'data-table', minHeight: 560 },
+  { id: 'sched', name: 'Scheduler', sub: 'Day, week, month, resources', frame: '/frames/flag-sched.html', image: '/media/components/scheduler.jpg', chips: ['Resource timeline', 'Recurrence', 'Time zones'], doc: 'scheduler', minHeight: 520 },
+  { id: 'gantt', name: 'Gantt', sub: 'Dependencies on business days', frame: '/frames/flag-gantt.html', image: '/media/components/gantt.jpg', chips: ['Dependencies', 'Milestones', 'Business days'], doc: 'gantt', minHeight: 360 },
+  { id: 'pivot', name: 'Pivot Grid', sub: 'Cross-tabulate and aggregate', frame: '/frames/flag-pivot.html', image: '/media/components/pivot-grid.jpg', chips: ['Server data source', 'Totals', 'Sorting'], doc: 'pivot-grid', minHeight: 440 },
+  { id: 'charts', name: 'Charts', sub: '15 accessible chart types', frame: '/frames/flag-charts.html', image: '/media/components/line-chart.jpg', chips: ['A data table for every chart', 'Patterns', 'Export'], doc: null, minHeight: 360 },
+] as const;
+
+const story = [
+  { id: 'install', num: '01 / Install', title: 'Add three packages', text: 'Core, theme, and the components you use. Each component is its own subpath import.', lang: 'sh', label: 'Terminal', image: '/media/components/data-table.jpg', code: `# npm, or Azure Artifacts with a scoped .npmrc\nnpm install @absoluteui/components @absoluteui/core @absoluteui/theme\n\n# Angular\nnpm install @absoluteui/angular` },
+  { id: 'configure', num: '02 / Configure', title: 'Locale, time zone, and your business calendar', text: 'Weekends and holidays apply to the Scheduler and Gantt, and to business-day arithmetic in the helpers.', lang: 'ts', label: 'main.ts', image: '/media/components/business-calendar.jpg', code: `import { configureAbsoluteUI } from '@absoluteui/core';\nimport { createBusinessCalendar, fixedHoliday } from '@absoluteui/helpers/business-calendar';\n\nconfigureAbsoluteUI({ common: { locale: 'en-IN', timezone: 'Asia/Kolkata' } });\n\nconst calendar = createBusinessCalendar({\n  holidays: [fixedHoliday('Gandhi Jayanti', 10, 2)],\n});` },
+  { id: 'theme', num: '03 / Theme', title: 'Your brand, checked for contrast', text: 'Design tokens and component tokens; the Theme Designer derives every mode from a few seed colours.', lang: 'css', label: 'theme.css', image: '/media/designer/designer-colors.png', code: `/* Exported by the Theme Designer */\n[data-aui-theme="acme"] {\n  --aui-color-primary: #0f766e;\n  --aui-color-focus-ring: #0d9488;\n  --aui-radius-md: 0.5rem;\n}` },
+  { id: 'ship', num: '04 / Ship', title: 'Under a strict security policy', text: 'No inline styles or scripts, Trusted Types enforced, HTML sanitized. Nothing to relax for AbsoluteUI.', lang: 'html', label: 'index.html', image: '/media/demos/peoplehub/dashboard.png', code: `<meta http-equiv="Content-Security-Policy"\n  content="default-src 'self'; script-src 'self'; style-src 'self';\n           require-trusted-types-for 'script'; trusted-types absoluteui">` },
+] as const;
+
+const enterprise = [
+  { icon: 'lock', tone: '', title: 'Secure by default', text: 'Strict Content Security Policy, Trusted Types, sanitized HTML.', href: docs('/docs/getting-started/security/') },
+  { icon: 'package', tone: 'g', title: 'Zero runtime dependencies', text: 'Nothing third-party ships with the packages. Nothing to audit but us.', href: '/enterprise/' },
+  { icon: 'shield', tone: 'c', title: 'Accessibility tested', text: 'WCAG 2.2 AA checks, keyboard flows, forced colours, reduced motion.', href: '/accessibility/' },
+  { icon: 'gauge', tone: 's', title: 'Performance budgets', text: 'Measured on every release; the build fails when a budget is exceeded.', href: '/performance/' },
+  { icon: 'calendar', tone: 'l', title: 'Business-ready dates', text: 'Time zones, recurrence, fiscal periods, weekends, and holidays built in.', href: docs('/docs/guides/business-calendars/') },
+  { icon: 'server', tone: '', title: 'Server rendering safe', text: 'Every entry point imports in Node.js without a DOM.', href: docs('/docs/guides/helpers-and-services/') },
+] as const;
+---
+
+<Base title="Enterprise UI components with zero dependencies" description={`${stats.components} accessible, themeable enterprise UI components for TypeScript and Angular, with zero runtime dependencies. Free to use, forever.`} path="/">
+  <LaunchHero />
+
+  <!-- Product code and live demo follow the full-screen opening. -->
+  <section class="hero" id="in-action" aria-labelledby="in-action-title">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="badge"><span class="badge-dot" aria-hidden="true"></span>{stats.version} | {stats.components} components | Angular support</span>
+        <h2 id="in-action-title">From a few lines of code<br /><span class="accent">to a complete interface.</span></h2>
+        <p class="lead">From your first form to your most demanding data grid. {stats.components} accessible, themeable components for TypeScript and Angular. Zero runtime dependencies.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href={GET_STARTED}>Get started <Icon name="arrow" /></a>
+          <a class="btn btn-secondary" href="/components/">Browse components</a>
+        </div>
+        <p class="hero-assurance"><span><Icon name="check" />Accessible by design</span><span><Icon name="check" />Free for commercial use</span></p>
+        <InstallTabs id="hero-install" />
+      </div>
+
+      <div class="cr" data-tabs>
+        <div class="cr-bar">
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="seg" role="tablist" aria-label="Code language">
+            <button type="button" role="tab" id="hero-tab-ts" aria-controls="hero-code-ts" aria-selected="true" data-tab="ts">TypeScript</button>
+            <button type="button" role="tab" id="hero-tab-ng" aria-controls="hero-code-ng" aria-selected="false" data-tab="ng">Angular</button>
+          </div>
+          <span class="spacer"></span>
+          <span class="token" data-panel="ts">orders.ts</span>
+          <span class="token" data-panel="ng" hidden>orders.component.ts</span>
+        </div>
+        <div id="hero-code-ts" role="tabpanel" aria-labelledby="hero-tab-ts" data-panel="ts"><Code code={heroTs} bare /></div>
+        <div id="hero-code-ng" role="tabpanel" aria-labelledby="hero-tab-ng" data-panel="ng" hidden><Code code={heroNg} bare /></div>
+        <div class="cr-result">
+          <span class="live-tag">Live</span>
+          <LiveFrame src="/frames/hero-table.html" title="The data table rendered by the code above" minHeight={300} mobileImage="/media/components/data-table.jpg" mobileAlt="Data table with selection and search" fullHref="/frames/hero-table.html" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Proof band -->
+  <section class="section-tight" aria-label="Facts">
+    <div class="container">
+      <div class="proof">
+        <div><b>{stats.components}</b><span>Components</span><a href="/components/">Browse <span aria-hidden="true">&rarr;</span></a></div>
+        <div><b>{stats.runtimeDependencies}</b><span>Runtime dependencies</span><a href="/enterprise/">Supply chain <span aria-hidden="true">&rarr;</span></a></div>
+        <div><b>AA</b><span>WCAG 2.2, tested on every release</span><a href="/accessibility/">Results <span aria-hidden="true">&rarr;</span></a></div>
+        {ev && <div><b>{n(ev.e2e.passed)}/{n(ev.e2e.total)}</b><span>End-to-end tests passed</span><a href="/accessibility/">Evidence <span aria-hidden="true">&rarr;</span></a></div>}
+        {ev && <div><b>{n(ev.performance.within)}/{n(ev.performance.total)}</b><span>Performance budgets met</span><a href="/performance/">Report <span aria-hidden="true">&rarr;</span></a></div>}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Your stack -->
+  <section class="section" aria-labelledby="stack">
+    <div class="container">
+      <div class="head head-center">
+        <p class="eyebrow">Your stack</p>
+        <h2 id="stack">Use it with plain TypeScript, or natively in Angular</h2>
+        <p class="lead">One component set, one theme, one accessibility contract. The Angular package wraps every component with signals, forms integration, and server rendering.</p>
+      </div>
+      <div class="stack-cards">
+        <div class="stack-card">
+          <span class="stack-logo stack-logo-ts" aria-hidden="true">TS</span>
+          <div>
+            <h3>TypeScript and JavaScript</h3>
+            <p class="muted">Framework-neutral controllers that render into elements you own. Minified ES modules, one import per component.</p>
+            <ul class="checklist"><li><Icon name="check" />Works with any bundler</li><li><Icon name="check" />Subpath imports, tree-shakeable</li><li><Icon name="check" />Server-rendering safe</li></ul>
+            <p class="mt-4"><a class="link-arrow" href={GET_STARTED}>Installation guide <span aria-hidden="true">&rarr;</span></a></p>
+          </div>
+        </div>
+        <div class="stack-card">
+          <span class="stack-logo stack-logo-ng" aria-hidden="true">NG</span>
+          <div>
+            <h3>Angular</h3>
+            <p class="muted">Standalone components and directives with signal inputs, two-way models, and providers for configuration.</p>
+            <ul class="checklist"><li><Icon name="check" />Reactive and template-driven forms</li><li><Icon name="check" />Server rendering and hydration</li><li><Icon name="check" /><code>@absoluteui/angular</code></li></ul>
+            <p class="mt-4"><a class="link-arrow" href={ANGULAR_DOCS}>Angular guide <span aria-hidden="true">&rarr;</span></a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Flagship components -->
+  <section class="section section-white" id="flagship" aria-labelledby="flagship-title">
+    <div class="container">
+      <div class="head">
+        <p class="eyebrow">Flagship components</p>
+        <h2 id="flagship-title">Complex interfaces. Beautifully simple.</h2>
+        <p class="lead">Built for data-heavy enterprise screens, keyboard operable, and announced to screen readers.</p>
+      </div>
+      <div class="flag" data-tabs>
+        <div class="flag-list" role="tablist" aria-label="Flagship components" aria-orientation="vertical">
+          {
+            flagship.map((f, i) => (
+              <button type="button" role="tab" id={`flag-tab-${f.id}`} aria-controls={`flag-panel-${f.id}`} aria-selected={String(i === 0)} data-tab={f.id}>
+                <b>{f.name}</b>
+                <span>{f.sub}</span>
+              </button>
+            ))
+          }
+        </div>
+        <div>
+          {
+            flagship.map((f, i) => (
+              <div class="flag-view" id={`flag-panel-${f.id}`} role="tabpanel" aria-labelledby={`flag-tab-${f.id}`} data-panel={f.id} hidden={i !== 0}>
+                <LiveFrame src={f.frame} title={`Live ${f.name} demo`} minHeight={f.minHeight} mobileImage={f.image} mobileAlt={f.name} fullHref={f.frame} />
+                <div class="chips">
+                  {f.chips.map((c) => (
+                    <span class="chip">{c}</span>
+                  ))}
+                </div>
+                <a class="link-arrow" href={f.doc ? docs(`/docs/components/${f.doc}/`) : docs('/docs/guides/charts/')}>
+                  {f.doc ? `${f.name} documentation` : 'Charts guide'} <span aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Scroll story -->
+  <section class="section" id="start" aria-labelledby="story-title">
+    <div class="container">
+      <div class="head">
+        <p class="eyebrow">From install to production</p>
+        <h2 id="story-title">Four steps, no surprises</h2>
+      </div>
+      <div class="story" data-story>
+        <ol class="steps" role="list">
+          {
+            story.map((s, i) => (
+              <li class:list={['step', i === 0 && 'is-active']} data-step={s.id} tabindex="0">
+                <span class="step-num">{s.num}</span>
+                <h3>{s.title}</h3>
+                <p class="muted">{s.text}</p>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="story-sticky">
+          {
+            story.map((s, i) => (
+              <div class="story-panel stack" data-story-panel={s.id} hidden={i !== 0}>
+                <div class="stack">
+                  <Code code={s.code} lang={s.lang} label={s.label} class="story-code" />
+                  <div class="story-preview">
+                    <img src={s.image} alt="" loading="lazy" width="1600" height="1000" />
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Theme showcase -->
+  <section class="section section-white" id="themes" aria-labelledby="themes-title" data-showcase>
+    <div class="container themes">
+      <div class="stack-lg">
+        <p class="eyebrow">Theming</p>
+        <h2 id="themes-title">One token change. Every component follows.</h2>
+        <p class="lead">Pick an accent: the live preview re-themes, and the tokens below are what the Theme Designer engine derived for it. Every pair is checked against WCAG 2.2 AA.</p>
+        <div class="swatches" role="group" aria-label="Accent colour">
+          {
+            accents.map((a, i) => (
+              <button type="button" class:list={['swatch', `swatch-${a.id}`]} aria-pressed={String(i === 0)} aria-label={a.label} data-accent={a.id} />
+            ))
+          }
+        </div>
+        {
+          accents.map((a, i) => (
+            <div class="tokens" data-accent-tokens={a.id} hidden={i !== 0}>
+              {Object.entries(a.tokens).map(([k, v]) => (
+                <div>
+                  --aui-{k}: {v};
+                </div>
+              ))}
+            </div>
+          ))
+        }
+        <a class="link-arrow" href="/designer/">Open the Theme Designer <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <LiveFrame src="/frames/showcase.html" title="Live application preview for the theme showcase" scaled width={1040} height={760} mobileImage="/media/demos/peoplehub/dashboard.png" mobileAlt="Themed application dashboard" />
+    </div>
+  </section>
+
+  <!-- 7. Blocks teaser -->
+  <section class="section" aria-labelledby="blocks-title">
+    <div class="container">
+      <div class="head-split">
+        <div class="stack">
+          <p class="eyebrow">Blocks</p>
+          <h2 id="blocks-title">Whole screens, built with AbsoluteUI</h2>
+          <p class="lead">Dashboards, sign-in, settings, schedulers: live, responsive, with the code for TypeScript and Angular.</p>
+        </div>
+        <a class="btn btn-secondary" href="/blocks/">Browse all blocks</a>
+      </div>
+      <div class="cards">
+        <a class="block-card" href="/blocks/#dashboard"><div class="block-thumb"><img src="/media/blocks/dashboard.jpg" alt="" loading="lazy" width="1280" height="800" /></div><div class="block-body"><h3>Analytics dashboard</h3><p>Stat cards, trend and regional charts, and an approvals table.</p></div></a>
+        <a class="block-card" href="/blocks/#sign-in"><div class="block-thumb"><img src="/media/blocks/sign-in.jpg" alt="" loading="lazy" width="1280" height="800" /></div><div class="block-body"><h3>Sign-in with one-time code</h3><p>Password, one-time code, and validation.</p></div></a>
+        <a class="block-card" href="/blocks/#scheduler"><div class="block-thumb"><img src="/media/blocks/scheduler.jpg" alt="" loading="lazy" width="1280" height="800" /></div><div class="block-body"><h3>Team scheduler</h3><p>Week view with working hours and holidays.</p></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Enterprise grid -->
+  <section class="section section-white" id="enterprise" aria-labelledby="enterprise-title">
+    <div class="container">
+      <div class="head head-center"><p class="eyebrow">Built for enterprise</p><h2 id="enterprise-title">Beautiful on the surface. Solid underneath.</h2></div>
+      <div class="cards">
+        {
+          enterprise.map((e) => (
+            <a class="card" href={e.href}>
+              <span class:list={['ficon', e.tone && `ficon-${e.tone}`]}>
+                <Icon name={e.icon} />
+              </span>
+              <h3>{e.title}</h3>
+              <p>{e.text}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Call to action -->
+  <section class="section" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta">
+        <div class="stack">
+          <h2 id="cta-title">Your next great product starts here.</h2>
+          <p>AbsoluteUI is open source under the Apache License 2.0, Kasadara's contribution to the open-source community. Use it in commercial and non-commercial products at no cost.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href={GET_STARTED}>Get started</a>
+          <a class="btn btn-secondary" href={legal.repository} rel="noopener">View on GitHub</a>
+          <a class="btn btn-secondary" href="/license/">License overview</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    import { initStory } from '../lib/story';
+    import { initShowcase } from '../lib/showcase';
+    initStory();
+    initShowcase();
+  </script>
+</Base>

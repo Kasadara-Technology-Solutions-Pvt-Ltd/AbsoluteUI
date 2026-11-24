@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/form-field",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiFormField",
+      "description": "AbsoluteUI Form Field around a projected native control:\n`<aui-form-field label=\"ZIP\"><input formControlName=\"zip\" required></aui-form-field>`.\nThe native control keeps Angular's own value accessor; AbsoluteUI adds the label,\nhelp text, and localized validation messages.",
+      "selector": "aui-form-field",
+      "exportAs": [
+        "auiFormField"
+      ],
+      "source": "hand-written",
+      "component": "form-field",
+      "configKey": "formField",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name (<label for> the control)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Sets the native required property and the indicator. When omitted, the control's own required attribute is used."
+        },
+        {
+          "name": "validate",
+          "type": "((value: FormFieldValue) => string | null)",
+          "required": false,
+          "description": "Consumer validation after native constraints; return a message to mark the value invalid. string[] for <select multiple>."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message and number-formatting locale."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<FormFieldIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "valueInput",
+          "payload": "FormFieldChangeDetail",
+          "event": "aui-input",
+          "description": "Native input event on the control."
+        },
+        {
+          "name": "changed",
+          "payload": "FormFieldChangeDetail",
+          "event": "aui-change",
+          "description": "Native change event on the control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean",
+          "description": "Show messages now; true when valid."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user edits."
+        },
+        {
+          "name": "refresh",
+          "signature": "refresh(): void",
+          "description": "Re-read the control's constraints after changing them outside AbsoluteUI."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the wrapped control."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Clear touched state and messages."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Native form control with a <label for> association (HTML); the consumer's element keeps its native role.",
+        "source": "packages/components/metadata/form-field/accessibility.json"
+      },
+      "limitations": [
+        "Constraint attributes are read on each render; after changing attributes or the value in code, call refresh().",
+        "The initial value for dirty and reset() is captured at creation.",
+        "No character counter; use Text Input or Textarea for that."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { AuiFormField } from '@absoluteui/angular/form-field';\n\n@Component({\n  selector: 'app-guests',\n  imports: [ReactiveFormsModule, AuiFormField],\n  template: `\n    <aui-form-field label=\"Number of guests\" description=\"Up to 8 people\" [required]=\"true\">\n      <input type=\"number\" name=\"guests\" min=\"1\" max=\"8\" [formControl]=\"guests\" />\n    </aui-form-field>`,\n})\nexport class GuestsComponent {\n  readonly guests = new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1), Validators.max(8)] });\n}"
+    }
+  ]
+}

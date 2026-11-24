@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/command-palette",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCommandPalette",
+      "description": "AbsoluteUI CommandPalette: `<aui-command-palette>`.",
+      "selector": "aui-command-palette",
+      "exportAs": [
+        "auiCommandPalette"
+      ],
+      "source": "generated",
+      "component": "command-palette",
+      "configKey": "commandPalette",
+      "inputs": [
+        {
+          "name": "commands",
+          "type": "readonly Command[]",
+          "required": true,
+          "description": "Commands: { id, label, keywords?, group?, description?, shortcut?, icon?, children?, disabled?, run? }."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": "Command palette",
+          "description": "Accessible name of the dialog."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": "Type a command or search",
+          "description": "Search field placeholder."
+        },
+        {
+          "name": "providers",
+          "type": "readonly CommandProvider[]",
+          "required": false,
+          "description": "Async searches ({ id, label, search(query, { signal }), minQueryLength? }), listed after the commands."
+        },
+        {
+          "name": "recent",
+          "type": "readonly string[]",
+          "required": false,
+          "default": "[]",
+          "description": "Command ids shown in the Recent section while the query is empty."
+        },
+        {
+          "name": "recentLimit",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "description": "Most recent commands remembered (0 hides the section)."
+        },
+        {
+          "name": "maxResults",
+          "type": "number",
+          "required": false,
+          "default": "50",
+          "description": "Most results per section."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<CommandPaletteIcons>",
+          "required": false,
+          "description": "Search, loading, back, and submenu icons."
+        },
+        {
+          "name": "shortcut",
+          "type": "string | null",
+          "required": false,
+          "default": "Mod+K",
+          "configurable": true,
+          "description": "Hotkey that opens and closes the palette (matchesHotkey syntax; Mod is Cmd on Apple platforms, Ctrl elsewhere); null for none."
+        },
+        {
+          "name": "debounce",
+          "type": "number",
+          "required": false,
+          "default": "200",
+          "configurable": true,
+          "description": "Milliseconds between the last keystroke and provider searches (0 to 2000)."
+        },
+        {
+          "name": "overscan",
+          "type": "number",
+          "required": false,
+          "default": "6",
+          "configurable": true,
+          "description": "Rows rendered beyond each edge of the visible area."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of messages and matching."
+        },
+        {
+          "name": "density",
+          "type": "Density",
+          "required": false,
+          "default": "comfortable",
+          "configurable": true,
+          "description": "Row height."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "selected",
+          "payload": "CommandPaletteSelectDetail",
+          "event": "aui-select",
+          "description": "A command was chosen: { id, command, path, query, providerId }; preventDefault() skips command.run. The palette closes first."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "The palette opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "The palette closed."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(options?: { page?: string; query?: string; } | undefined): void | undefined",
+          "description": "Open, optionally on a command's nested page and with a query."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Close and restore focus."
+        },
+        {
+          "name": "toggle",
+          "signature": "toggle(): void",
+          "description": "Open or close."
+        },
+        {
+          "name": "setQuery",
+          "signature": "setQuery(query: string): void",
+          "description": "Replace the search text and search."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Modal dialog (native <dialog>, inert background) containing a WAI-ARIA 1.2 combobox whose listbox is always shown: focus stays in the search field and aria-activedescendant points at the active option. Section headers are presentational rows; the active option always stays rendered while the list is virtualized.",
+        "source": "packages/components/metadata/command-palette/accessibility.json"
+      },
+      "limitations": [
+        "Rows have one height per density; long labels are truncated with an ellipsis.",
+        "Providers are searched at the top level only, not on nested pages.",
+        "The default shortcut Ctrl+K overrides the browser's search shortcut while the page has focus; set shortcut to another hotkey or null."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiCommandPalette } from '@absoluteui/angular/command-palette';\nimport type { Command, CommandPaletteSelectDetail } from '@absoluteui/components/command-palette';\n\n@Component({\n  selector: 'app-shell-search',\n  imports: [AuiCommandPalette],\n  template: `<aui-command-palette [commands]=\"commands\" (selected)=\"onSelect($event)\"></aui-command-palette>`,\n})\nexport class ShellSearchComponent {\n  readonly commands: Command[] = [{ id: 'home', label: 'Go to dashboard', group: 'Navigation' }];\n  last = '';\n  onSelect(detail: CommandPaletteSelectDetail): void {\n    this.last = detail.id;\n  }\n}"
+    }
+  ]
+}

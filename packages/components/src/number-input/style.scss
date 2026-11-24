@@ -1,0 +1,101 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  // The control boundary wraps the input and stepper buttons so they read as one field.
+  .aui-number-input__control {
+    @include aui.control-surface;
+    display: flex;
+    align-items: stretch;
+    padding-inline: 0;
+    overflow: hidden;
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-within {
+      border-color: aui.token('color-focus-ring');
+      box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+    }
+  }
+
+  .aui-number-input__input {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    padding-block: 0;
+    padding-inline: aui.token('control-padding-x');
+    margin: 0;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+
+    &::placeholder {
+      color: aui.token('color-text-muted');
+      opacity: 1;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-number-input__stepper {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: aui.token('control-height-md');
+    padding: 0;
+    margin: 0;
+    color: aui.token('color-text-muted');
+    background: transparent;
+    border: 0;
+    border-inline-start: aui.token('border-width') solid aui.token('color-border');
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      color: aui.token('color-text');
+      background: aui.token('color-hover');
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-number-input--invalid .aui-number-input__control {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-number-input--disabled .aui-number-input__control {
+    background: aui.token('color-disabled-bg');
+    border-color: aui.token('color-border');
+  }
+
+  .aui-number-input:has(.aui-number-input__input:read-only:not(:disabled)) .aui-number-input__control {
+    background: aui.token('color-surface-sunken');
+  }
+
+  @include aui.forced-colors {
+    .aui-number-input__control:focus-within {
+      outline: 2px solid Highlight;
+    }
+
+    .aui-number-input__stepper:disabled {
+      color: GrayText;
+    }
+  }
+}

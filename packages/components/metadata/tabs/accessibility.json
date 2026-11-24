@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "component": "tabs",
+  "pattern": "WAI-ARIA APG Tabs pattern (automatic and manual activation), with native buttons as tabs.",
+  "roles": [
+    { "element": "tab container", "role": "tablist" },
+    { "element": "<button>", "role": "tab" },
+    { "element": "panel", "role": "tabpanel" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "tablist", "value": "`label` option" },
+    { "attribute": "aria-orientation", "element": "tablist", "value": "horizontal | vertical" },
+    { "attribute": "aria-selected", "element": "tab", "value": "true on the selected tab, false otherwise" },
+    { "attribute": "aria-controls", "element": "tab", "value": "id of its tabpanel" },
+    { "attribute": "aria-labelledby", "element": "tabpanel", "value": "id of its tab" },
+    { "attribute": "tabindex", "element": "tabpanel", "value": "0 when the panel contains no focusable element" },
+    { "attribute": "disabled", "element": "tab", "value": "Native disabled for disabled tabs (skipped by arrow keys)" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Focus outside the tablist", "action": "Moves focus to the selected tab (single tab stop)." },
+    { "key": "Tab", "context": "Tab focused", "action": "Moves focus into the active panel (or its first focusable element)." },
+    { "key": "ArrowRight / ArrowLeft", "context": "Horizontal tablist", "action": "Next / previous enabled tab, wrapping; mirrored in RTL. Automatic mode also selects it." },
+    { "key": "ArrowDown / ArrowUp", "context": "Vertical tablist", "action": "Next / previous enabled tab, wrapping. Automatic mode also selects it." },
+    { "key": "Home / End", "context": "Tab focused", "action": "First / last enabled tab. Automatic mode also selects it." },
+    { "key": "Enter / Space", "context": "Tab focused (manual activation)", "action": "Selects the focused tab." }
+  ],
+  "focus": "One tab stop on the selected tab. In manual mode focus can move without selecting; when focus leaves the tablist, the tab stop returns to the selected tab. Re-rendering never moves or blurs the focused tab.",
+  "wcag": ["1.3.1", "1.4.1", "2.1.1", "2.4.3", "2.4.7", "4.1.2"],
+  "notes": [
+    "Selection is conveyed by aria-selected, an indicator bar, and heavier weight (not color alone).",
+    "Inactive panels use the hidden attribute, so they are removed from the accessibility tree."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

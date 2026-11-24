@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/collapsible",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCollapsible",
+      "description": "AbsoluteUI Collapsible: `<aui-collapsible>`.",
+      "selector": "aui-collapsible",
+      "exportAs": [
+        "auiCollapsible"
+      ],
+      "source": "generated",
+      "component": "collapsible",
+      "configKey": "collapsible",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Trigger text."
+        },
+        {
+          "name": "content",
+          "type": "string | Node",
+          "required": true,
+          "description": "Region content; strings are rendered as text."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Initial state; with update(), sets the state."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Blocks toggling (aria-disabled; the trigger stays focusable)."
+        },
+        {
+          "name": "headingLevel",
+          "type": "CollapsibleHeadingLevel | null",
+          "required": false,
+          "description": "Wrap the trigger in a heading of this level."
+        },
+        {
+          "name": "variant",
+          "type": "CollapsibleVariant",
+          "required": false,
+          "default": "plain",
+          "configurable": true,
+          "description": "plain: text trigger; bordered: full-width trigger in a bordered surface."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<CollapsibleIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "CollapsibleChangeDetail",
+          "event": "aui-change",
+          "description": "The user toggled the content: { open }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "show",
+          "signature": "show(): void",
+          "description": "Show the content (no event)."
+        },
+        {
+          "name": "hide",
+          "signature": "hide(): void",
+          "description": "Hide the content (no event)."
+        },
+        {
+          "name": "toggle",
+          "signature": "toggle(): void",
+          "description": "Toggle the content (no event)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Disclosure: a button with aria-expanded and aria-controls shows and hides one content region.",
+        "source": "packages/components/metadata/collapsible/accessibility.json"
+      },
+      "limitations": [
+        "Hidden content is not found by the browser's find in page.",
+        "The open state is not remembered across page loads (store it in the application if needed)."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { CollapsibleChangeDetail } from '@absoluteui/components/collapsible';\nimport { AuiCollapsible } from '@absoluteui/angular/collapsible';\n\n@Component({\n  selector: 'app-delivery-help',\n  imports: [AuiCollapsible],\n  template: `<aui-collapsible label=\"How is the delivery date calculated?\" [content]=\"help\" [open]=\"open\" (changed)=\"onToggle($event)\"></aui-collapsible>`,\n})\nexport class DeliveryHelpComponent {\n  open = false;\n  readonly help = 'Orders placed before 14:00 on a business day ship the same day.';\n\n  onToggle(detail: CollapsibleChangeDetail): void {\n    this.open = detail.open;\n  }\n}"
+    }
+  ]
+}

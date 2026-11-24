@@ -1,0 +1,72 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-scroll-area {
+    --_aui-scroll-fade: #{aui.ctoken('scroll-area', 'fade-size')};
+    --_aui-fade-top: 0px;
+    --_aui-fade-bottom: 0px;
+    --_aui-fade-left: 0px;
+    --_aui-fade-right: 0px;
+
+    box-sizing: border-box;
+    max-block-size: var(--aui-scroll-area-max-block-size, none);
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-scroll-area--vertical {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .aui-scroll-area--horizontal {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .aui-scroll-area--both {
+    overflow: auto;
+  }
+
+  // Edge fades: a mask that is opaque in the middle and fades only at edges with hidden content.
+  .aui-scroll-area--shadows {
+    &[data-aui-scroll-top] {
+      --_aui-fade-top: var(--_aui-scroll-fade);
+    }
+
+    &[data-aui-scroll-bottom] {
+      --_aui-fade-bottom: var(--_aui-scroll-fade);
+    }
+
+    &[data-aui-scroll-left] {
+      --_aui-fade-left: var(--_aui-scroll-fade);
+    }
+
+    &[data-aui-scroll-right] {
+      --_aui-fade-right: var(--_aui-scroll-fade);
+    }
+
+    mask-image:
+      linear-gradient(to bottom, transparent 0, #000 var(--_aui-fade-top), #000 calc(100% - var(--_aui-fade-bottom)), transparent 100%),
+      linear-gradient(to right, transparent 0, #000 var(--_aui-fade-left), #000 calc(100% - var(--_aui-fade-right)), transparent 100%);
+    mask-composite: intersect;
+
+    // A mask also clips the element's own outline: keep the focus ring whole while focused.
+    &:focus-visible {
+      mask-image: none;
+    }
+  }
+
+  // Forced colors: masks can hide content against system colors, so the fades are off.
+  @include aui.forced-colors {
+    .aui-scroll-area--shadows {
+      mask-image: none;
+    }
+  }
+}

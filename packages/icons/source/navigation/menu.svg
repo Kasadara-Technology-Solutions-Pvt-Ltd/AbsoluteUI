@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="menu" data-animations="morph:on-change" data-morph-icon="close">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 6L20 6" data-morph-to="M6 6L18 18"/>
+      <path d="M4 12L20 12" data-morph-to="none"/>
+      <path d="M4 18L20 18" data-morph-to="M6 18L18 6"/>
+    </g>
+  </g>
+</svg>

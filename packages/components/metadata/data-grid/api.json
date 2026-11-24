@@ -1,0 +1,1379 @@
+{
+  "schemaVersion": 1,
+  "component": "data-grid",
+  "factory": {
+    "name": "DataGrid.create",
+    "signature": "DataGrid.create<Row>(host: HTMLElement, options: DataGridOptions<Row>): DataGrid<Row>"
+  },
+  "configKey": "dataGrid",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Accessible name of the grid."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Accessible description of the grid (aria-describedby)."
+    },
+    {
+      "name": "columns",
+      "type": "readonly (DataGridColumn<Row> | DataGridColumnGroup<Row>)[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Columns and column groups (nested). Column: id, header, accessor or field, type, currency, format, render, align, width, minWidth, maxWidth, flex, resizable, movable, pinned, lockPinned, lockPosition, hidden, sortable, compare, headerTooltip, wrapHeader, wrapText, rowDrag (this column holds the row drag handle; default the first data column), tooltip (true, a text, or (value, row) => text; with the tooltips accessory), spanRows (true or (a, b) => boolean: merge equal adjacent values), colSpan (row => columns covered), cellClass, cellClassRules, flashOnChange, copyValue, exportable, formula (a calculated column with the formulas option: [Column] is the same row, A1 references and functions as in spreadsheets; read-only), formulas (cell formulas: values that are text starting with = are evaluated; editing shows the formula; fill, Ctrl+D, and paste of copied cells move relative A1 references), excel (Excel export: style, cellStyle(row), numberFormat, formula(row, ref), link(row), image(row), width) (false leaves the column out of CSV and Excel exports of visible or all columns), aggregate, showAs, groupable, groupHierarchy, editable, setValue, parseValue, editor, required, validate, filter, filterValue, filterCaseSensitive, filterAccentSensitive, filterValues, businessCalendar, searchable, visibleWhen. Group: id, header, children, collapsible, collapsed, headerTooltip."
+    },
+    {
+      "name": "rows",
+      "type": "readonly Row[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Row data (never mutated)."
+    },
+    {
+      "name": "rowId",
+      "type": "(row: Row) => string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Stable, unique, non-empty id per row."
+    },
+    {
+      "name": "rowHeight",
+      "type": "number | ((row: Row) => number)",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Row height in pixels (16 to 1000), or a function of the row. Default by density: 32, 40, or 48."
+    },
+    {
+      "name": "autoRowHeight",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Measure rendered rows and let them grow to their content (with wrapText columns); the scroll position stays anchored."
+    },
+    {
+      "name": "layout",
+      "type": "'fill' | 'auto'",
+      "default": "fill",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "fill: fills the host (which needs a height). auto: grows with its rows up to the host max-block-size."
+    },
+    {
+      "name": "sort",
+      "type": "DataGridSort | readonly DataGridSort[] | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Current sort by priority: { column, direction: \"ascending\" | \"descending\" }."
+    },
+    {
+      "name": "pageSize",
+      "type": "number | null",
+      "default": null,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Rows per page (1 to 1,000,000); null shows every row in one virtualized grid."
+    },
+    {
+      "name": "pageSizes",
+      "type": "readonly number[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Offer a \"Rows per page\" choice with these sizes."
+    },
+    {
+      "name": "page",
+      "type": "number",
+      "default": 1,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Current page, 1-based (clamped)."
+    },
+    {
+      "name": "filters",
+      "type": "DataGridFilters",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Active column filters by column id (JSON models: text, number, bigint, date with relative and business ranges, boolean, set). Validated; DATA_GRID_FILTER on malformed models."
+    },
+    {
+      "name": "quickFilter",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Rows must contain every word in some searchable visible column (case- and accent-insensitive)."
+    },
+    {
+      "name": "externalFilter",
+      "type": "(row: Row) => boolean",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Application filter applied with the others; call refreshFilters() when its result may change."
+    },
+    {
+      "name": "floatingFilters",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A header row of compact filter controls under the column headers: text contains, number syntax (5, >5, <=10, !=0, 5..10), date, boolean choice, set summary; complex filters show a read-only summary."
+    },
+    {
+      "name": "searchBox",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A search box above the grid (role search) that sets the quick filter as the user types."
+    },
+    {
+      "name": "advancedFilter",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "An expression bar with type-ahead suggestions and a builder dialog replaces the column filter UI; column filters stop applying while it is on."
+    },
+    {
+      "name": "advancedFilterModel",
+      "type": "DataGridAdvancedFilter | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "The advanced filter: { join, items } of conditions { column, filter } and nested groups. Validated (DATA_GRID_FILTER); conditions on unknown columns are dropped."
+    },
+    {
+      "name": "rowSelection",
+      "type": "DataGridRowSelection<Row> | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Row selection: { mode: 'single' | 'multiple', checkboxes (default true; a checkbox column pinned first), headerCheckbox (default true), selectAll: 'filtered' (default) | 'all' | 'page', clickToSelect (default false), selectable(row) }."
+    },
+    {
+      "name": "selected",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Selected row ids (unknown and unselectable ids are dropped; kept by id across sort, filter, paging, and updates)."
+    },
+    {
+      "name": "cellSelection",
+      "type": "boolean | DataGridCellSelection",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Cell ranges: drag, Ctrl+drag adds, Shift+click and Shift+arrows extend, Ctrl+A selects all; { multiple (default true), columnSelection (header Enter or click selects the column; sorting moves to Alt), fillHandle (drag the corner to fill a series; Alt repeats or counts; double-click fills down) }."
+    },
+    {
+      "name": "copyHeaders",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Copy column headers above copied cells."
+    },
+    {
+      "name": "readOnlyEdits",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Writes (paste, cut, Delete, fill, edits) are only requested: aui-cells-change reports them with applied: false and the application applies them."
+    },
+    {
+      "name": "clickToEdit",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A single click on an editable cell starts editing (otherwise Enter, F2, typing, Backspace, or a double-click)."
+    },
+    {
+      "name": "enterMovesDown",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Enter commits an edit and moves to the cell below."
+    },
+    {
+      "name": "invalidEdit",
+      "type": "'block' | 'revert'",
+      "default": "block",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "An invalid edit keeps the editor open with an announced message (block), or is discarded (revert). Focus leaving the editor discards an invalid value."
+    },
+    {
+      "name": "undoLimit",
+      "type": "number",
+      "default": 20,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Undo steps kept for edits, paste, cut, Delete, fill, and bulk edit (0 turns undo off); cleared when the application replaces or updates rows."
+    },
+    {
+      "name": "editMode",
+      "type": "'cell' | 'row'",
+      "default": "cell",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "row: editing opens every editable cell of the row; Tab moves within it; Enter commits the row as one write and one undo step."
+    },
+    {
+      "name": "validateRow",
+      "type": "(values, row) => Record<string, string> | string | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Row mode: cross-field validation; a message (or messages by column) blocks the commit."
+    },
+    {
+      "name": "groupBy",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Group the rows by these columns (in level order). The grid becomes a treegrid with a generated group column (key, count, expansion); grouped columns hide (hideGroupedColumns)."
+    },
+    {
+      "name": "groupDefaultExpanded",
+      "type": "number",
+      "default": 0,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Levels expanded by default (0: all collapsed; -1: all expanded)."
+    },
+    {
+      "name": "groupTotals",
+      "type": "'bottom' | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A total row after each expanded group."
+    },
+    {
+      "name": "grandTotal",
+      "type": "'top' | 'bottom' | 'pinnedTop' | 'pinnedBottom' | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A grand total row at the top or bottom of the rows, or pinned above or below them (pinnedTop, pinnedBottom); flat grids too."
+    },
+    {
+      "name": "groupDisplay",
+      "type": "'column' | 'columns' | 'rows'",
+      "default": "column",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "One generated group column indented by level, one per level (named after the grouped column; date parts in parentheses), or rows: group rows drawn as one cell across the row (no group column; not for tree data or pivot mode)."
+    },
+    {
+      "name": "stickyGroupRows",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "While grouped, the group rows of the topmost row stay under the header as their groups scroll (copies hidden from assistive technology; their toggles work)."
+    },
+    {
+      "name": "fullWidthRow",
+      "type": "{ isFullWidth: (row: Row) => boolean; render: (row: Row, context: { doc, rowId }) => Node } | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Rows drawn as one cell across every column (it stays in view while the rows scroll sideways); never edited, filled, or part of ranges."
+    },
+    {
+      "name": "groupColumn",
+      "type": "{ header?: string; width?: number }",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Header text and width of the generated group column."
+    },
+    {
+      "name": "hideGroupedColumns",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Hide grouped columns while grouped."
+    },
+    {
+      "name": "expanded",
+      "type": "Readonly<Record<string, boolean>>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Group rows expanded or collapsed explicitly, by group id."
+    },
+    {
+      "name": "groupPanel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A panel above the grid lists the row groups: move earlier, move later, remove, add a groupable column; dropping a groupable header on it groups by that column; pills can be dragged to reorder, or out of the panel to remove (the buttons are the keyboard path)."
+    },
+    {
+      "name": "aggregateFilteredOnly",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Aggregates use only the rows that pass the filters; false aggregates every row of each group."
+    },
+    {
+      "name": "accessories",
+      "type": "readonly DataGridAccessory<Row>[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Accessories from @absoluteui/components/data-grid/accessories: columnMenu(), contextMenu(), columnChooser() (built on Context Menu and Dialog, outside the core bundle). The grid must be in the document when they attach."
+    },
+    {
+      "name": "headerNames",
+      "type": "Readonly<Record<string, string>>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Header names set by the user, by column or column group id (part of the columns state as headers)."
+    },
+    {
+      "name": "pinnedTopRows",
+      "type": "readonly Row[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Rows always shown above the body in a section named \"Pinned to top\" (never sorted, filtered, grouped, selected, or edited; at most 1000)."
+    },
+    {
+      "name": "pinnedBottomRows",
+      "type": "readonly Row[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Rows always shown below the body in a section named \"Pinned to bottom\"."
+    },
+    {
+      "name": "pinned",
+      "type": "Readonly<Record<string, \"top\" | \"bottom\">>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Rows pinned to the top or bottom by id (they also stay in the body; filters hide the pinned copy)."
+    },
+    {
+      "name": "formulas",
+      "type": "DataGridFormulaEngine",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "The formula engine for calculated columns: formulaEngine({ functions?, calendar? }) from @absoluteui/components/data-grid/formulas (our own parser and evaluator; no eval). Results recalculate when rows change; errors show their code (#DIV/0!, #REF!, ...) with the meaning read out."
+    },
+    {
+      "name": "fileDrop",
+      "type": "{ onFiles: (files) => void; accept?: string[]; label?: string }",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Files dropped on the grid: an overlay (aui-data-grid__file-drop, default text \"Drop files to load\") shows while files are over it; files matching accept (extensions such as .csv, MIME types such as text/csv or text/*; default all) go to onFiles, others are announced. Pointer only: offer a file input too. With parseCsv from @absoluteui/helpers/csv, coerceCsvValues, and inferColumns an app can load a dropped CSV with generated columns."
+    },
+    {
+      "name": "rowDragging",
+      "type": "boolean | { managed?: boolean; multiRow?: boolean; canDrag?: (row) => boolean; nativeData?: (rows) => Record<string, string> }",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Row dragging: a drag handle in the rowDrag column (pointer: a drop line, or a target row in parent-id tree data), and Ctrl+Shift+ArrowUp / ArrowDown on a handle cell (in trees Ctrl+Shift+ArrowRight / ArrowLeft indent and outdent); announced. managed: the grid moves the rows (one undo step) while not sorted, filtered, grouped, pivoted, or server-side; multiRow: dragging a selected row drags every selected row; canDrag limits the rows. nativeData: the handle uses native drag and drop and the drag carries that data (MIME type to text) to other apps; drops on the rows and on zones work as with the pointer. Drop zones: addRowDropZone, rowDropZone."
+    },
+    {
+      "name": "rowNumbers",
+      "type": "boolean | { width?: number; resizable?: boolean }",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A leading column numbering the rows by display position (width 32 to 200, default 56); with cell ranges a click on a number selects the row's cells; resizable adds a handle (drag, or Alt+ArrowUp / Alt+ArrowDown on the number) that sets the row's height."
+    },
+    {
+      "name": "datasource",
+      "type": "DataGridDatasource<Row> | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Server row model: { getRows(request, signal) => Promise<{ rows, rowCount? }> } (request: start, end, sort, filters, quickFilter, advancedFilter, groupBy, groupKeys); with groupBy the top level loads group rows and each expanded group loads its own rows; rows load in blocks as they scroll into view, and sort, filters, the quick filter, and the advanced filter run on the server (rows is ignored; pass []). An unknown rowCount grows block by block until a short block."
+    },
+    {
+      "name": "blockSize",
+      "type": "number",
+      "default": 100,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Rows per datasource request (1 to 10000)."
+    },
+    {
+      "name": "maxBlocks",
+      "type": "number | null",
+      "default": null,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Loaded blocks kept; the least recently used are released (null keeps all)."
+    },
+    {
+      "name": "blockLoadDelay",
+      "type": "number",
+      "default": 50,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Milliseconds to wait before loading while scrolling (0 to 5000)."
+    },
+    {
+      "name": "maxConcurrentLoads",
+      "type": "number",
+      "default": 2,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Datasource requests at a time (1 to 20)."
+    },
+    {
+      "name": "initialRowCount",
+      "type": "number",
+      "default": 0,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Rows assumed before the first answer (the scrollbar size)."
+    },
+    {
+      "name": "getChildCount",
+      "type": "(row: Row) => number | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Server groups: the number of rows below a group row (shown with its key); null when unknown."
+    },
+    {
+      "name": "purgeClosedGroups",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Server groups: collapsing a group releases its loaded rows (they load again when it expands)."
+    },
+    {
+      "name": "pivot",
+      "type": "DataGridPivot | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Pivot mode: { rows, columns, values: [{ column, aggregate: sum | count | avg | min | max | distinctCount }] }; rows group by the row fields, a column group per column key holds a result column per value, with total columns; the data columns hide."
+    },
+    {
+      "name": "pivotPanel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "A panel above the grid edits the pivot: rows, columns, and values zones with pills (move, remove; an aggregate per value) and pickers; pills can be dragged within and between zones (a value keeps its aggregate, a new value gets sum or count) or out of the panel to remove."
+    },
+    {
+      "name": "pivotMaxColumns",
+      "type": "number",
+      "default": 1000,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Most generated pivot result columns (1 to 100000); more are left out, announced, and reported by getPivotTruncation()."
+    },
+    {
+      "name": "detail",
+      "type": "DataGridDetail<Row> | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Master/detail: { render(row, { doc, rowId }) => Node, height (px, default 300, or auto), isMaster(row), keep (collapsed details kept, default 10), expandedByDefault, destroy(node, row) }; a generated toggle column expands a detail row under each master row."
+    },
+    {
+      "name": "treeData",
+      "type": "DataGridTreeData<Row> | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Tree data: exactly one of serverGroup with serverKey (with a datasource: parents load their children from the server when expanded), getPath (row => string[]; missing levels become filler rows), parentIdField (self-referential; missing parents and cycles become root rows), or childrenField (nested rows); label names the column that labels rows in the group column. groupBy is ignored."
+    },
+    {
+      "name": "treeFilter",
+      "type": "\"ancestors\" | \"subtree\"",
+      "default": "ancestors",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Filtering keeps the ancestors of matching rows; subtree also keeps the rows below a matching row."
+    },
+    {
+      "name": "flashChanges",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Highlight cells whose displayed text changes when rows are updated (setRows, transactions); columns can opt in with flashOnChange."
+    },
+    {
+      "name": "flashDuration",
+      "type": "number",
+      "default": 800,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Milliseconds a changed cell stays highlighted (100 to 10000)."
+    },
+    {
+      "name": "rowClassRules",
+      "type": "Readonly<Record<string, (row: Row) => boolean>>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Classes added to a row while their predicate is true (re-evaluated on every render)."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Busy state: aria-busy and an announced loading overlay; rows stay in place."
+    },
+    {
+      "name": "emptyMessage",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Text of the single grid cell shown when there are no rows. Default \"No rows to show\"."
+    },
+    {
+      "name": "multiSort",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Shift+click and Shift+Enter add a column to the sort."
+    },
+    {
+      "name": "sortCycle",
+      "type": "'tri-state' | 'bi-state'",
+      "default": "tri-state",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "tri-state: ascending, descending, unsorted. bi-state: ascending, descending."
+    },
+    {
+      "name": "overscan",
+      "type": "number",
+      "default": 8,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Rows rendered beyond each edge of the viewport (0 to 200)."
+    },
+    {
+      "name": "transactionDelay",
+      "type": "number",
+      "default": 50,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Milliseconds between applying queued applyTransactionAsync batches (0 to 10000)."
+    },
+    {
+      "name": "animateRows",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Rows glide to their new position after a sort or update (off with reduced motion or animation none)."
+    },
+    {
+      "name": "filterDelay",
+      "type": "number",
+      "default": 250,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Milliseconds after typing stops before a typed filter value applies (0 to 10000); Enter applies at once."
+    },
+    {
+      "name": "maxFilterConditions",
+      "type": "number",
+      "default": 2,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Conditions offered per text, number, and date filter in the filter panel (1 to 10)."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Formatting, collation, and messages locale."
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "default": "UTC",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "IANA time zone for datetime columns."
+    },
+    {
+      "name": "density",
+      "type": "'compact' | 'comfortable' | 'spacious'",
+      "default": "comfortable",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Row and header heights and cell padding."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Layout direction (pinned sides, arrow keys, resizing mirror)."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<DataGridIcons>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides (sortAscending, sortDescending, sortNone, expand, collapse, loading, filter, drag)."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "Consumer-provided host (children are owned by the grid)."
+    },
+    {
+      "name": "element",
+      "type": "HTMLDivElement",
+      "description": "The element with role=\"grid\"."
+    },
+    {
+      "name": "rowCount",
+      "type": "number",
+      "description": "Rows displayed (the current page when paging)."
+    },
+    {
+      "name": "sort",
+      "type": "DataGridSort[]",
+      "description": "Current sort by priority (a copy)."
+    },
+    {
+      "name": "focusedCell",
+      "type": "DataGridCellPosition | null",
+      "description": "The cell or header holding the tab stop: { rowId, column } or { rowId: null, column, level }."
+    },
+    {
+      "name": "filteredRowCount",
+      "type": "number",
+      "description": "Rows that pass the filters (before paging)."
+    },
+    {
+      "name": "editingCell",
+      "type": "{ rowId, column } | null",
+      "description": "The cell being edited."
+    },
+    {
+      "name": "canUndo",
+      "type": "boolean",
+      "description": "An undo step is available."
+    },
+    {
+      "name": "canRedo",
+      "type": "boolean",
+      "description": "A redo step is available."
+    },
+    {
+      "name": "isBatchEditing",
+      "type": "boolean",
+      "description": "A batch is collecting pending values."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<DataGridOptions<Row>>): void",
+      "description": "Merge and apply options."
+    },
+    {
+      "name": "setRows",
+      "signature": "setRows(rows: readonly Row[]): void",
+      "description": "Replace the rows; sort, focus, and scroll position are kept."
+    },
+    {
+      "name": "applyTransaction",
+      "signature": "applyTransaction(tx: DataGridTransaction<Row>): DataGridTransactionResult",
+      "description": "Add, update (by id), and remove (by id) rows; sort is re-applied and rows keep their identity. Emits aui-rows-change; unknown ids are reported in missing."
+    },
+    {
+      "name": "applyTransactionAsync",
+      "signature": "applyTransactionAsync(tx: DataGridTransaction<Row>): void",
+      "description": "Queue a transaction; queued ones are applied together every transactionDelay ms."
+    },
+    {
+      "name": "flushTransactions",
+      "signature": "flushTransactions(): void",
+      "description": "Apply queued transactions now."
+    },
+    {
+      "name": "getFilters",
+      "signature": "getFilters(): DataGridFilters",
+      "description": "Active column filters (copies)."
+    },
+    {
+      "name": "setFilter",
+      "signature": "setFilter(column: string, filter: DataGridFilter | null): void",
+      "description": "Set or clear one column filter (validated; emits nothing)."
+    },
+    {
+      "name": "setQuickFilter",
+      "signature": "setQuickFilter(text: string): void",
+      "description": "Set the quick filter text (emits nothing)."
+    },
+    {
+      "name": "refreshFilters",
+      "signature": "refreshFilters(): void",
+      "description": "Re-run the filters (for example after the external filter changed)."
+    },
+    {
+      "name": "getAdvancedFilter",
+      "signature": "getAdvancedFilter(): DataGridAdvancedFilter | null",
+      "description": "The advanced filter model (a copy)."
+    },
+    {
+      "name": "setAdvancedFilter",
+      "signature": "setAdvancedFilter(filter: DataGridAdvancedFilter | null): void",
+      "description": "Set or clear the advanced filter model (validated; emits nothing)."
+    },
+    {
+      "name": "getSelected",
+      "signature": "getSelected(): string[]",
+      "description": "Selected row ids, in source order."
+    },
+    {
+      "name": "getSelectedRows",
+      "signature": "getSelectedRows(): Row[]",
+      "description": "Selected rows, in source order."
+    },
+    {
+      "name": "setSelected",
+      "signature": "setSelected(ids: readonly string[]): void",
+      "description": "Replace the selection (validated; emits nothing)."
+    },
+    {
+      "name": "selectAll",
+      "signature": "selectAll(scope?: 'filtered' | 'all' | 'page'): void",
+      "description": "Select every selectable row in the scope (default: rowSelection.selectAll; emits nothing)."
+    },
+    {
+      "name": "clearSelection",
+      "signature": "clearSelection(): void",
+      "description": "Clear the selection (emits nothing)."
+    },
+    {
+      "name": "getCellRanges",
+      "signature": "getCellRanges(): DataGridCellRange[]",
+      "description": "Cell ranges (copies), the active one last."
+    },
+    {
+      "name": "addCellRange",
+      "signature": "addCellRange(range: DataGridCellRange): void",
+      "description": "Add a range of displayed rows and visible columns (validated; emits nothing)."
+    },
+    {
+      "name": "clearCellRanges",
+      "signature": "clearCellRanges(): void",
+      "description": "Clear the cell ranges (emits nothing)."
+    },
+    {
+      "name": "copySelection",
+      "signature": "copySelection(): Promise<string>",
+      "description": "Copy the ranges, else the selected rows, else the focused cell, with the asynchronous Clipboard API; returns the tab-separated text."
+    },
+    {
+      "name": "startEditing",
+      "signature": "startEditing(rowId: string, column: string): boolean",
+      "description": "Start editing a displayed, editable cell."
+    },
+    {
+      "name": "stopEditing",
+      "signature": "stopEditing(cancel?: boolean): void",
+      "description": "Commit the open edit (an invalid value is discarded) or cancel it."
+    },
+    {
+      "name": "undo",
+      "signature": "undo(): boolean",
+      "description": "Undo the last applied write or managed row move."
+    },
+    {
+      "name": "redo",
+      "signature": "redo(): boolean",
+      "description": "Redo the last undone write."
+    },
+    {
+      "name": "startBatch",
+      "signature": "startBatch(): void",
+      "description": "Collect writes as pending values (shown and spoken as edited; sorting and filtering keep committed data)."
+    },
+    {
+      "name": "commitBatch",
+      "signature": "commitBatch(): void",
+      "description": "Apply the pending values as one transaction and one undo step (source batch)."
+    },
+    {
+      "name": "cancelBatch",
+      "signature": "cancelBatch(): void",
+      "description": "Discard the pending values."
+    },
+    {
+      "name": "expandAll",
+      "signature": "expandAll(): void",
+      "description": "Expand every group row (emits nothing)."
+    },
+    {
+      "name": "collapseAll",
+      "signature": "collapseAll(): void",
+      "description": "Collapse every group row (emits nothing)."
+    },
+    {
+      "name": "setExpanded",
+      "signature": "setExpanded(groupId: string, expanded: boolean): boolean",
+      "description": "Expand or collapse one group row (emits nothing)."
+    },
+    {
+      "name": "getGroups",
+      "signature": "getGroups(): DataGridGroup[]",
+      "description": "The current groups: ids, columns, keys, counts, aggregates, and children."
+    },
+    {
+      "name": "moveRow",
+      "signature": "moveRow(id: string, parentId: string | null, index: number): boolean",
+      "description": "Tree data with parentIdField: move a row under another parent (null: a root) at a position among its new siblings; the row is a shallow copy (never mutated); false for unknown ids, moves into its own subtree, and other tree modes. Emits aui-rows-change."
+    },
+    {
+      "name": "alignWith",
+      "signature": "alignWith(other: DataGrid<Other>): () => void",
+      "description": "Keep another grid's columns (order, widths, pinning, visibility, collapsed groups) and horizontal scroll in step with this one, both ways (for example a totals grid under the main grid); the other grid takes this grid's columns now. Returns a function ending it; destroying either grid ends it."
+    },
+    {
+      "name": "addRowDropZone",
+      "signature": "addRowDropZone(zone: DataGridRowDropZone<Row>): () => void",
+      "description": "Let rows dragged from this grid drop on an element outside it: { element, label, onDrop, onDragEnter?, onDragMove?, onDragLeave? }, each called with { rowIds, rows, x, y, grid }. The element gets aui-data-grid-drop-zone--active while rows are over it; the cell menu's Send to submenu lists zones by label (the keyboard path, x and y null). Returns a function removing the zone."
+    },
+    {
+      "name": "rowDropZone",
+      "signature": "rowDropZone(options?: { label?: string; move?: boolean }): DataGridRowDropZone<Row>",
+      "description": "A zone for another grid's addRowDropZone adding the dropped rows to this grid (at the drop line when its rows are in source order, else at the end; ids already present are skipped); move removes the added rows from the source grid."
+    },
+    {
+      "name": "setColumnHeader",
+      "signature": "setColumnHeader(id: string, header: string | null): boolean",
+      "description": "Rename a column or column group (null restores its defined header); false for unknown ids. Emits aui-columns-change (rename)."
+    },
+    {
+      "name": "resetColumns",
+      "signature": "resetColumns(): void",
+      "description": "Undo the user's column changes (order, widths, pinning, visibility, collapsed groups, names). Emits aui-columns-change (reset)."
+    },
+    {
+      "name": "pinRow",
+      "signature": "pinRow(rowId: string, side: \"top\" | \"bottom\" | null): boolean",
+      "description": "Pin a row by id to the top or bottom, or unpin it; false for unknown ids (emits nothing)."
+    },
+    {
+      "name": "getPinnedRows",
+      "signature": "getPinnedRows(): { top: string[]; bottom: string[] }",
+      "description": "Ids of the rows pinned by id, by section, in pin order."
+    },
+    {
+      "name": "setRowHeight",
+      "signature": "setRowHeight(rowId: string, height: number | null): void",
+      "description": "Set a row's height in px (16 to 2000), or null for its default height (emits nothing)."
+    },
+    {
+      "name": "applyServerTransaction",
+      "signature": "applyServerTransaction(tx: DataGridServerTransaction<Row>): DataGridTransactionResult",
+      "description": "Server row model: apply changes the server already holds to the loaded rows (add at addIndex, update, remove by id; later rows shift; rowCount corrects the total); rows that are not loaded are reported missing. Emits aui-rows-change."
+    },
+    {
+      "name": "getServerSelection",
+      "signature": "getServerSelection(): { selectAll: boolean; toggled: string[] }",
+      "description": "Server row model: the selection state; with selectAll, toggled lists the rows not selected."
+    },
+    {
+      "name": "setServerSelection",
+      "signature": "setServerSelection(state: { selectAll: boolean; toggled: string[] }): void",
+      "description": "Server row model: set the selection state (multiple selection only; emits nothing)."
+    },
+    {
+      "name": "refresh",
+      "signature": "refresh(options?: { purge?: boolean; route?: readonly unknown[] }): void",
+      "description": "Server row model: reload the loaded blocks; purge drops them first (loading rows show)."
+    },
+    {
+      "name": "retryLoads",
+      "signature": "retryLoads(): void",
+      "description": "Server row model: load failed blocks again (never done automatically)."
+    },
+    {
+      "name": "setRowCount",
+      "signature": "setRowCount(count: number, known?: boolean): void",
+      "description": "Server row model: set the row count; known false keeps growing it as blocks arrive."
+    },
+    {
+      "name": "isRowCountKnown",
+      "signature": "isRowCountKnown(): boolean",
+      "description": "Server row model: whether the total row count is known (always true for client rows)."
+    },
+    {
+      "name": "getPivot",
+      "signature": "getPivot(): DataGridPivot | null",
+      "description": "Pivot mode: the current pivot, or null."
+    },
+    {
+      "name": "setPivot",
+      "signature": "setPivot(pivot: DataGridPivot | null): void",
+      "description": "Pivot mode: set the pivot; null leaves pivot mode (emits nothing)."
+    },
+    {
+      "name": "getPivotTruncation",
+      "signature": "getPivotTruncation(): { shown: number; total: number } | null",
+      "description": "Pivot mode: result columns shown and in total when pivotMaxColumns left some out, else null."
+    },
+    {
+      "name": "setDetailExpanded",
+      "signature": "setDetailExpanded(rowId: string, expanded: boolean): boolean",
+      "description": "Master/detail: expand or collapse a master row's details; false for rows without details (emits nothing)."
+    },
+    {
+      "name": "isDetailExpanded",
+      "signature": "isDetailExpanded(rowId: string): boolean",
+      "description": "Master/detail: whether a master row's details are expanded."
+    },
+    {
+      "name": "getTreeOrphans",
+      "signature": "getTreeOrphans(): string[]",
+      "description": "Tree data: ids of rows whose parent is missing or would form a cycle (shown as root rows)."
+    },
+    {
+      "name": "toCsv",
+      "signature": "toCsv(options?: DataGridCsvOptions<Row>): string",
+      "description": "RFC 4180 CSV with formula-injection protection (text starting with =, +, -, @, a tab, or a carriage return is prefixed with a quote; numbers the grid formats itself are trusted). Options: columns (visible, all, or ids), rows (filtered: across pages with group rows and totals, every group expanded; page; selected and all, ignoring filters; range: the active cell range), groups (rows or none), header, columnGroups (group rows above the header), pinned, values (formatted or raw), indent (per level for group and tree labels), delimiter, lineEnding, bom, escapeFormulas, and value(cell) for custom values. With a datasource only loaded rows exist."
+    },
+    {
+      "name": "toCsvBlob",
+      "signature": "toCsvBlob(options?: DataGridCsvOptions<Row>): Blob",
+      "description": "toCsv() as a text/csv Blob; downloadCsv from the Data Table entry saves it."
+    },
+    {
+      "name": "cellAddress",
+      "signature": "cellAddress(rowId: string, column: string): string | null",
+      "description": "A cell's stable A1 address for formulas (column letters by column definition order, row numbers by source row order), or null without formula columns."
+    },
+    {
+      "name": "cellFormula",
+      "signature": "cellFormula(rowId: string, column: string): string | null",
+      "description": "A cell's formula: the calculated column's formula or the cell formula; null for plain values."
+    },
+    {
+      "name": "getExportData",
+      "signature": "getExportData(options?: DataGridExportOptions): DataGridExportData<Row>",
+      "description": "The rows and columns of an export for exporters such as toXlsx in @absoluteui/components/data-grid/export: the toCsv choices (columns, rows, groups, pinned), raw values (aggregates as numbers), display text (text: \"needed\" formats only where required), group levels, column group header runs, and the expansion state. No side effects."
+    },
+    {
+      "name": "print",
+      "signature": "print(options?: DataGridPrintOptions): void",
+      "description": "Print the rows as a static table shown only in print media (the page itself is hidden while printing): the toCsv row and column choices (columns, rows, groups, pinned), a title (default: the grid label) as the caption, column group headers repeated on every page, group and total rows, the grid direction, and print colors. The table is removed after afterprint. More than 20,000 rows throws DATA_GRID_PRINT (page the grid or export CSV)."
+    },
+    {
+      "name": "getState",
+      "signature": "getState(): DataGridState",
+      "description": "Serializable view state: sort, columns (order, widths, pinned, hidden, collapsed groups), page, page size; includes details (master rows expanded or collapsed), pinnedRows (pinned by id), and pivot."
+    },
+    {
+      "name": "setState",
+      "signature": "setState(state: unknown): void",
+      "description": "Restore a view state; untrusted input is validated (DATA_GRID_STATE), unknown ids are dropped; emits nothing."
+    },
+    {
+      "name": "getColumnsState",
+      "signature": "getColumnsState(): DataGridColumnsState",
+      "description": "The columns section of the state."
+    },
+    {
+      "name": "moveColumn",
+      "signature": "moveColumn(id: string, target: string, position?: 'before' | 'after'): boolean",
+      "description": "Move a column or group next to a sibling with the same parent group."
+    },
+    {
+      "name": "setColumnPinned",
+      "signature": "setColumnPinned(id: string, pinned: DataGridPinned | null): boolean",
+      "description": "Pin to the start or end edge, or unpin."
+    },
+    {
+      "name": "setColumnHidden",
+      "signature": "setColumnHidden(id: string, hidden: boolean): boolean",
+      "description": "Hide or show a column (one always stays visible)."
+    },
+    {
+      "name": "autoSizeColumns",
+      "signature": "autoSizeColumns(ids?: readonly string[]): void",
+      "description": "Size columns to their header and rendered cells."
+    },
+    {
+      "name": "fitColumns",
+      "signature": "fitColumns(): void",
+      "description": "Scale the visible columns to the viewport width."
+    },
+    {
+      "name": "focusCell",
+      "signature": "focusCell(rowId: string, column: string): boolean",
+      "description": "Move focus to a cell, scrolling it into view."
+    },
+    {
+      "name": "scrollToRow",
+      "signature": "scrollToRow(rowId: string): boolean",
+      "description": "Scroll a row into view."
+    },
+    {
+      "name": "scrollToColumn",
+      "signature": "scrollToColumn(column: string): boolean",
+      "description": "Scroll a column into view."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove the grid, listeners, and released nodes."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-sort-change",
+      "detail": "{ sort: DataGridSort[] }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the sort."
+    },
+    {
+      "name": "aui-rows-change",
+      "detail": "{ added, updated, removed, missing }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A transaction (sync or batched) changed the rows."
+    },
+    {
+      "name": "aui-filter-change",
+      "detail": "{ filters, quickFilter, advancedFilter }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed a column filter, the quick filter, or the advanced filter; the row count is announced."
+    },
+    {
+      "name": "aui-columns-change",
+      "detail": "{ reason, columns: DataGridColumnsState }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user (or a method) resized, moved, pinned, hid, auto-sized, or fitted columns, or toggled a column group."
+    },
+    {
+      "name": "aui-page-change",
+      "detail": "{ page, pageSize }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the page or the page size."
+    },
+    {
+      "name": "aui-cell-focus",
+      "detail": "{ rowId: string | null, column }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "Focus moved to another cell or header."
+    },
+    {
+      "name": "aui-cell-activate",
+      "detail": "{ rowId, column, row }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "Enter on a cell without widgets, or a double click."
+    },
+    {
+      "name": "aui-selection-change",
+      "detail": "{ selected, added, removed, reason }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the row selection ('user', 'select-all'), or selected rows were removed ('rows'); the count is announced for user changes."
+    },
+    {
+      "name": "aui-range-change",
+      "detail": "{ ranges, finished }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the cell ranges (finished is false while a drag extends the range)."
+    },
+    {
+      "name": "aui-cells-change",
+      "detail": "{ changes: [{ rowId, column, oldValue, newValue }], source, applied, rejected }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "Cells were written by an edit, bulk edit, paste, cut, Delete, fill, undo, or redo (one transaction; with readOnlyEdits only requested, applied: false); rejected lists pasted text a column could not convert."
+    },
+    {
+      "name": "aui-row-group-toggle",
+      "detail": "{ groupId, expanded }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user expanded or collapsed a group row (announced with its row count)."
+    },
+    {
+      "name": "aui-group-change",
+      "detail": "{ groupBy }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the row groups in the group panel (announced)."
+    },
+    {
+      "name": "aui-detail-toggle",
+      "detail": "{ rowId, expanded }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user expanded or collapsed a master row's details (announced)."
+    },
+    {
+      "name": "aui-row-pin",
+      "detail": "{ rowId, pinned }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user pinned or unpinned a row (announced)."
+    },
+    {
+      "name": "aui-row-drag-start",
+      "detail": "{ rowIds }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user started dragging rows with a drag handle."
+    },
+    {
+      "name": "aui-row-drop",
+      "detail": "{ rowIds, targetId, position, source }",
+      "bubbles": true,
+      "cancelable": true,
+      "description": "Rows were dropped before, after, or (tree data) inside a target row, by pointer or keyboard; cancel to keep the order. Managed grids then move the rows."
+    },
+    {
+      "name": "aui-row-resize",
+      "detail": "{ rowId, height }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user resized a row with its row number handle (announced)."
+    },
+    {
+      "name": "aui-pivot-change",
+      "detail": "{ pivot }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed the pivot in the pivot panel (announced)."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-data-grid",
+      "description": "Host; aui-data-grid--compact / --spacious / --auto modifiers."
+    },
+    {
+      "name": "aui-data-grid__viewport",
+      "description": "The single scroll container (both axes)."
+    },
+    {
+      "name": "aui-data-grid__head | __header-row | __header-cell | __group-header",
+      "description": "Sticky header rows, leaf and group header cells."
+    },
+    {
+      "name": "aui-data-grid__body | __row | __cell",
+      "description": "Virtualized rows and cells; __cell--end / --center alignment, --wrap, --pinned-start / --pinned-end."
+    },
+    {
+      "name": "aui-data-grid__resize | __drop-indicator",
+      "description": "Column resize handle and column drop position."
+    },
+    {
+      "name": "aui-data-grid__overlay | __empty | __pager",
+      "description": "Loading overlay, empty-state cell, pagination host."
+    },
+    {
+      "name": "aui-data-grid__filter-button | __header-cell--filtered",
+      "description": "Filter button in filterable headers (--active while filtered) and the filtered header state."
+    },
+    {
+      "name": "aui-data-grid__filter-panel",
+      "description": "The filter panel (non-modal dialog in the top layer): __filter-title, __filter-form, __filter-condition, __filter-join, __filter-set, __filter-values, __filter-clear."
+    },
+    {
+      "name": "aui-data-grid__floating-row | __floating-cell | __floating-control",
+      "description": "Floating filter row, its cells, and their compact controls."
+    },
+    {
+      "name": "aui-data-grid__toolbar | __search | __search-input",
+      "description": "Toolbar (role search) with the quick filter search box."
+    },
+    {
+      "name": "aui-data-grid__advanced | __advanced-input | __advanced-list | __advanced-option | __advanced-error",
+      "description": "Advanced filter expression bar: combobox field, suggestion listbox, and error message."
+    },
+    {
+      "name": "aui-data-grid__builder-dialog | __builder-group | __builder-condition | __builder-tools",
+      "description": "Builder dialog (a Dialog): groups as fieldsets, condition rows, item buttons."
+    },
+    {
+      "name": "aui-data-grid__row--selected | __select-input | __select-all | __select-header",
+      "description": "Selected rows, row checkboxes, the Select all checkbox, and the selection column header."
+    },
+    {
+      "name": "aui-data-grid__cell--range | --range-top | --range-bottom | --range-start | --range-end",
+      "description": "Cells inside cell ranges and the range edges."
+    },
+    {
+      "name": "aui-data-grid__fill-handle | __cell--fill",
+      "description": "The fill handle in the range corner and the cells a fill drag would cover."
+    },
+    {
+      "name": "aui-data-grid__cell--editing | __editor | __editor--popup | __editor-control | __edit-error",
+      "description": "The edited cell, the editor (inline or a popup over the cell), its control, and the validation message."
+    },
+    {
+      "name": "aui-data-grid__row--editing | __cell--pending",
+      "description": "The row edited in row mode, and cells with pending batch values."
+    },
+    {
+      "name": "aui-data-grid__row--group | __row--total | __group-cell | __group-toggle",
+      "description": "Group and total rows, the group column cell (indented by level), and the expansion toggle."
+    },
+    {
+      "name": "aui-data-grid__group-panel | __group-panel--drop | __group-pill | __group-pill-button | __group-add",
+      "description": "The group panel, its drop state, pills and their buttons, and the add picker."
+    },
+    {
+      "name": "aui-data-grid__select-group",
+      "description": "A group row checkbox (tri-state over its rows)."
+    },
+    {
+      "name": "aui-data-grid__pivot-panel | __pivot-zone | __pivot-aggregate",
+      "description": "Pivot panel with a zone per area (--drop when empty and a pill is over it) and the aggregate select of value pills."
+    },
+    {
+      "name": "aui-data-grid__detail-toggle | __row--detail | __detail-cell | __detail-content",
+      "description": "Master/detail: the toggle, the detail row, its spanning cell, and the content wrapper."
+    },
+    {
+      "name": "aui-data-grid__row--loading | __skeleton | __cell--failed | __retry",
+      "description": "Server rows not loaded yet (skeleton bars), a failed block, and its Retry button."
+    },
+    {
+      "name": "aui-data-grid__row-number | __row-resizer",
+      "description": "Row number cells and the row height handle."
+    },
+    {
+      "name": "aui-data-grid__pinned | __row--pinned",
+      "description": "Pinned row sections (--top, --bottom) and their rows."
+    },
+    {
+      "name": "aui-data-grid__row--full | __full-cell | __sticky | __row--sticky",
+      "description": "Full-width rows and their cell; the sticky group rows section and its rows."
+    },
+    {
+      "name": "aui-data-grid__drag-handle | __drag-ghost | __drop-line | __row--drop-inside | aui-data-grid--dragging",
+      "description": "Row dragging: the handle (--disabled when canDrag refuses), the ghost, the drop line, a row to drop into, the grid while dragging."
+    },
+    {
+      "name": "aui-data-grid-drop-zone--active",
+      "description": "On a drop zone element while dragged rows are over it (styled by the application)."
+    },
+    {
+      "name": "aui-data-grid__header-button | __column-menu-button | __header-input",
+      "description": "Header buttons (the column menu button) and the header rename field."
+    },
+    {
+      "name": "aui-data-grid__chooser | __chooser-search | __chooser-list | __chooser-item | __chooser-move",
+      "description": "Column chooser (a Dialog) and its list."
+    },
+    {
+      "name": "aui-data-grid__main | __side | __side-tabs | __side-tab | __side-panel",
+      "description": "Side bar beside the rows (--start, --end; width --aui-data-grid-side-width), its tabs and panels."
+    },
+    {
+      "name": "aui-data-grid__status-bar | __status-panel | __toolbar-slot | __toolbar-items | __toolbar-button",
+      "description": "Status bar panels (data-panel) and the toolbar with its buttons."
+    },
+    {
+      "name": "aui-data-grid__find | __find-input | __cell--find | __cell--find-active",
+      "description": "Find field and the matched cells (the current match marked)."
+    },
+    {
+      "name": "aui-data-grid__cell--note | __note-text | __note-meta",
+      "description": "A cell with a note (the corner mark) and the note dialog content."
+    },
+    {
+      "name": "aui-data-grid__cell--formula-error | __formula-editor | __formula-input | __formula-hint | __formula-list | __formula-option",
+      "description": "Formula error cells; the formula editor, its hint (--problem), and its suggestions list (on body)."
+    },
+    {
+      "name": "aui-data-grid__formula-bar | __formula-address | __formula-text",
+      "description": "The formula bar (formulaBar())."
+    },
+    {
+      "name": "aui-data-grid__sparkline",
+      "description": "A sparkline in a cell (sparklineColumn())."
+    },
+    {
+      "name": "aui-data-grid-chart | __tools | __field | __close | __body | __chart | __empty",
+      "description": "Range and pivot chart panel docked below the grid."
+    },
+    {
+      "name": "aui-data-grid__file-drop",
+      "description": "The overlay shown while files are dragged over the grid."
+    },
+    {
+      "name": "aui-data-grid-print | __table | __row--group | __row--total | __cell--end",
+      "description": "The print table (a child of body while printing)."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "sortAscending",
+      "default": "arrow-up"
+    },
+    {
+      "name": "sortDescending",
+      "default": "arrow-down"
+    },
+    {
+      "name": "sortNone",
+      "default": "arrow-up-down"
+    },
+    {
+      "name": "expand",
+      "default": "chevron-right"
+    },
+    {
+      "name": "collapse",
+      "default": "chevron-down"
+    },
+    {
+      "name": "loading",
+      "default": "spinner"
+    },
+    {
+      "name": "filter",
+      "default": "filter"
+    },
+    {
+      "name": "drag",
+      "default": "grip"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "component": "virtual-list",
+  "factory": { "name": "VirtualList.create", "signature": "VirtualList.create<Item>(host: HTMLElement, options: VirtualListOptions<Item>): VirtualList<Item>" },
+  "configKey": "virtualList",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the list." },
+    { "name": "items", "type": "readonly Item[]", "required": true, "globallyConfigurable": false, "description": "The items (up to 1,000,000; the total height must stay under the browser limit, about 17.9 million px in Firefox); only the visible ones are rendered." },
+    { "name": "renderItem", "type": "(item: Item, index: number) => Node", "required": true, "globallyConfigurable": false, "description": "Content of one item; called whenever the item is rendered." },
+    { "name": "itemKey", "type": "(item: Item, index: number) => string", "required": false, "globallyConfigurable": false, "description": "Stable key per item, used by value. Default: the index." },
+    { "name": "itemText", "type": "(item: Item, index: number) => string", "required": false, "globallyConfigurable": false, "description": "Type-ahead text. Default: strings, numbers, or the item's label property." },
+    { "name": "itemHeight", "type": "number", "required": false, "globallyConfigurable": false, "description": "Item height in pixels (the estimate with variableHeight). Default by density: 32, 40, or 48." },
+    { "name": "variableHeight", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Measure every rendered item instead of a fixed height." },
+    { "name": "height", "type": "string | null", "default": "20rem", "required": false, "globallyConfigurable": false, "description": "Block size of the scroll area as a CSS length, or null to fill the host." },
+    { "name": "selection", "type": "'none' | 'single' | 'multiple'", "default": "none", "required": false, "globallyConfigurable": false, "description": "none renders a plain list; single and multiple render a listbox." },
+    { "name": "value", "type": "readonly string[]", "default": "[]", "required": false, "globallyConfigurable": false, "description": "Keys of the selected items." },
+    { "name": "selectionFollowsFocus", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Single selection: moving focus with the keyboard also selects." },
+    { "name": "isDisabled", "type": "(item: Item, index: number) => boolean", "required": false, "globallyConfigurable": false, "description": "Items that cannot be selected or focused." },
+    { "name": "empty", "type": "Node | string", "required": false, "globallyConfigurable": false, "description": "Shown instead of the list when there are no items (for example an Empty State host)." },
+    { "name": "loadMore", "type": "(() => Promise<void> | void) | null", "required": false, "globallyConfigurable": false, "description": "Infinite scroll: called near the end; resolve after appending items with update({ items })." },
+    { "name": "hasMore", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "More items can be loaded (with loadMore)." },
+    { "name": "loadMoreThreshold", "type": "number", "default": "10", "required": false, "globallyConfigurable": false, "description": "Items from the end at which loading starts." },
+    { "name": "overscan", "type": "number", "default": "5", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Items rendered beyond each edge of the visible area (0 to 100)." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the status messages." },
+    { "name": "density", "type": "'compact' | 'comfortable' | 'spacious'", "default": "comfortable", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Default item height when itemHeight is not set." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "value", "type": "readonly string[]", "description": "Keys of the selected items." },
+    { "name": "range", "type": "WindowRange", "description": "The visible items { start, end } (end exclusive)." },
+    { "name": "activeIndex", "type": "number", "description": "Index of the focusable item in a listbox, or -1." },
+    { "name": "options", "type": "Readonly<VirtualListOptions<Item>>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "scrollToIndex", "signature": "scrollToIndex(index: number, align?: 'auto' | 'start' | 'center' | 'end'): void", "description": "Scroll so the item is visible (auto: only as far as needed)." },
+    { "name": "focusItem", "signature": "focusItem(index: number): void", "description": "Focus an item of a listbox, scrolling it into view." },
+    { "name": "getItemElement", "signature": "getItemElement(index: number): HTMLElement | null", "description": "The rendered element of an item, or null." },
+    { "name": "setValue", "signature": "setValue(value: readonly string[]): void", "description": "Select by keys (no event)." },
+    { "name": "refresh", "signature": "refresh(): void", "description": "Render the visible items again after item objects changed in place." },
+    { "name": "update", "signature": "update(options: Partial<VirtualListOptions<Item>>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, observers, and listeners." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "VirtualListChangeDetail", "bubbles": true, "cancelable": false, "description": "The user changed the selection: { value, index }." },
+    { "name": "aui-range-change", "detail": "VirtualListRangeChangeDetail", "bubbles": true, "cancelable": false, "description": "The visible range changed: { start, end, renderedStart, renderedEnd } (for lazy loading)." }
+  ],
+  "contentAreas": [
+    { "name": "renderItem", "description": "Each item's content (a Node)." },
+    { "name": "empty", "description": "Content shown when there are no items." }
+  ],
+  "cssClasses": [
+    { "name": "aui-virtual-list", "description": "Host." },
+    { "name": "aui-virtual-list--selectable | --variable | --fill | --empty", "description": "Listbox mode, measured heights, fill the host, no items." },
+    { "name": "aui-virtual-list__viewport", "description": "Scroll container (role=list or listbox)." },
+    { "name": "aui-virtual-list__canvas", "description": "Full-height positioning layer (role=none)." },
+    { "name": "aui-virtual-list__item | __item--selected | __item--active", "description": "A rendered item (role=listitem or option), selected, and the focusable one." },
+    { "name": "aui-virtual-list__empty", "description": "Empty content." },
+    { "name": "aui-virtual-list__status | __status--visible | __status--error", "description": "Load-more status (role=status)." }
+  ],
+  "iconSlots": []
+}

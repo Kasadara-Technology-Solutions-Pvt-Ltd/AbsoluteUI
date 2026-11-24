@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="highlighter" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M14.5 4.5l5 5L11 18l-5-5z"/>
+      <path d="M7.75 15.75L4.5 19h3.5l1.5-1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 21h8.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M14.5 4.5l5 5L11 18l-5-5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M14.5 4.5l5 5L11 18l-5-5z"/>
+      <path d="M7.75 15.75L4.5 19h3.5l1.5-1.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 21h8.5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M14.5 4.5l5 5L11 18l-5-5z"/>
+      <path d="M7.75 15.75L4.5 19h3.5l1.5-1.5"/>
+    </g>
+    <g data-layer="accent" data-role="warning" data-paint="fill">
+      <rect x="11" y="19.5" width="10" height="3" rx="1.5"/>
+    </g>
+  </g>
+</svg>

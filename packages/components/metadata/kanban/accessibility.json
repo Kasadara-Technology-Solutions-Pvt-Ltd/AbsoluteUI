@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "component": "kanban",
+  "pattern": "Headed lists: a named group (the board) containing column headings and, with swimlanes, labelled sections; each cell is a named list (role=list) of focusable list items (cards) with aria-posinset and aria-setsize. One roving tab stop covers all cards; arrow keys move between cards and columns. Moves follow the Sortable List grab-and-move model (Space picks up, arrows move, Space drops, Escape cancels) with live-region announcements, plus a single-pointer path through the toolbar (WCAG 2.5.7). No deprecated ARIA drag-and-drop attributes.",
+  "roles": [
+    { "element": "toolbar <div>", "role": "group, named '{label} controls'" },
+    { "element": "board <div>", "role": "group, named by aria-label" },
+    { "element": "column title", "role": "heading (aria-level = headingLevel), text: name and count" },
+    { "element": "column handle, column toggle, lane toggle, toolbar buttons", "role": "button (native)" },
+    { "element": "swimlane <section>", "role": "region (named by its heading)" },
+    { "element": "swimlane header", "role": "heading containing the toggle button" },
+    { "element": "cell <ul>", "role": "list, named '{column}' or '{column}, {lane}'" },
+    { "element": "card <li>", "role": "listitem, focusable, described by the instructions" },
+    { "element": "grip, spacer <li>", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "board / toolbar / cell list", "value": "`label` / '{label} controls' / column and swimlane names" },
+    { "attribute": "aria-level", "element": "column and swimlane headings", "value": "headingLevel (default 3)" },
+    { "attribute": "aria-posinset / aria-setsize", "element": "card", "value": "Position in its cell and the cell size (also in virtual cells)" },
+    { "attribute": "aria-busy", "element": "card", "value": "true while its move is saved" },
+    { "attribute": "aria-describedby", "element": "card / column handle", "value": "Visually hidden instructions" },
+    { "attribute": "aria-expanded", "element": "column toggle / lane toggle", "value": "false when collapsed" },
+    { "attribute": "aria-pressed", "element": "Move button / column handle", "value": "true while a card is picked / the column is picked up" },
+    { "attribute": "aria-disabled", "element": "toolbar buttons", "value": "true when Move, Undo, or Redo is not possible (buttons stay focusable)" },
+    { "attribute": "tabindex", "element": "card", "value": "0 on the roving card, -1 on the others" },
+    { "attribute": "live region", "element": "shared live regions", "value": "Assertive: picked up, each keyboard move ('{column}, position 2 of 5'), dropped, cancelled, refused (locked, full column), save failed. Polite: undone, redone." }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Board", "action": "Toolbar buttons, column handles and toggles, swimlane toggles, then one tab stop for the cards." },
+    { "key": "ArrowDown / ArrowUp", "context": "Card focused", "action": "Next / previous card in the cell; past the end, the first (last) card of the same column in the next (previous) swimlane." },
+    { "key": "ArrowRight / ArrowLeft (swapped in RTL)", "context": "Card focused", "action": "The card at the same position (or the last one) in the next non-empty expanded column of the swimlane." },
+    { "key": "Home / End", "context": "Card focused", "action": "First / last card of the cell; with Ctrl, of the board." },
+    { "key": "Enter", "context": "Card focused", "action": "Activate (aui-card-activate)." },
+    { "key": "Space", "context": "Card focused (editable)", "action": "Pick the card up (refused and announced for locked cards and cards being saved)." },
+    { "key": "ArrowUp / ArrowDown", "context": "Card picked up", "action": "Move one position; past the edges into the previous / next swimlane." },
+    { "key": "ArrowLeft / ArrowRight", "context": "Card picked up", "action": "Move to the adjacent expanded column that accepts it (full columns under 'block', locked columns, and canMove vetoes are skipped)." },
+    { "key": "Home / End", "context": "Card picked up", "action": "Move to the first / last position of the cell." },
+    { "key": "Space / Enter", "context": "Card picked up", "action": "Drop: dispatch aui-card-move, apply, save." },
+    { "key": "Escape / Tab", "context": "Card picked up", "action": "Cancel; the card returns (Escape does not close an enclosing overlay)." },
+    { "key": "Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z or Ctrl/Cmd+Y", "context": "Card focused (editable)", "action": "Undo / redo." },
+    { "key": "Space or Enter, ArrowLeft / ArrowRight, Home / End, Space or Enter, Escape", "context": "Column handle", "action": "Pick the column up, move it, drop it, or cancel." },
+    { "key": "Escape", "context": "Single-pointer move pending", "action": "Cancel the pending move." }
+  ],
+  "focus": "One roving tab stop over the cards (the last focused card, else the first). A picked-up card keeps focus while it moves (it is re-focused after each re-render). After a drop or undo, focus stays on the card. Collapsing a column or swimlane moves the roving stop to the first visible card. Virtual cells keep the focused card rendered; if it scrolls out, focus moves to the first card in view.",
+  "wcag": ["1.3.1 Info and Relationships", "1.4.1 Use of Color", "1.4.10 Reflow (two-dimensional board scrolls in its own container)", "1.4.11 Non-text Contrast", "2.1.1 Keyboard", "2.1.2 No Keyboard Trap", "2.4.3 Focus Order", "2.4.6 Headings and Labels", "2.4.7 Focus Visible", "2.5.7 Dragging Movements", "2.5.8 Target Size (Minimum)", "4.1.2 Name, Role, Value", "4.1.3 Status Messages"],
+  "notes": [
+    "WIP state is text ('3 of 5', 'Over limit'), not color alone.",
+    "Locked and saving states are part of the card text (', Locked', ', Saving').",
+    "The single-pointer path: select a card, press Move, then click a card (to place it before) or an empty part of a cell (to place it last)."
+  ],
+  "knownCaveats": [
+    "Pointer drags are announced at pick-up and drop only.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

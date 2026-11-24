@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "heatmap",
+  "examples": [
+    {
+      "id": "sequential",
+      "title": "Sequential heatmap with axis titles",
+      "language": "ts",
+      "code": "import { Heatmap } from '@absoluteui/components/heatmap';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nHeatmap.create(host, {\n  label: 'Support tickets by weekday and hour',\n  columns: ['9:00', '12:00', '15:00', '18:00'],\n  rows: ['Mon', 'Tue', 'Wed'],\n  values: [\n    [4, 12, 9, 3],\n    [6, 15, null, 2],\n    [5, 11, 8, 4],\n  ],\n  colorScale: { color: 3, steps: 4 },\n  xAxis: { label: 'Hour' },\n  yAxis: { label: 'Weekday' },\n  height: 240,\n});"
+    },
+    {
+      "id": "diverging",
+      "title": "Diverging scale around zero with percent values",
+      "language": "ts",
+      "code": "import { Heatmap } from '@absoluteui/components/heatmap';\n\nconst host = document.querySelector<HTMLElement>('#change');\nif (host) {\n  const chart = Heatmap.create(host, {\n    label: 'Change from last year',\n    columns: ['Q1', 'Q2', 'Q3', 'Q4'],\n    rows: ['North', 'South', 'East'],\n    values: [\n      [0.12, 0.05, -0.03, 0.08],\n      [-0.1, -0.04, 0.02, 0.01],\n      [0.03, 0.09, 0.15, -0.06],\n    ],\n    colorScale: { type: 'diverging', midpoint: 0, negative: 2, positive: 1, steps: 3 },\n    valueFormat: { style: 'percent', maximumFractionDigits: 0 },\n    dataTable: 'visible',\n  });\n  chart.update({ cellLabels: 'none' });\n}"
+    }
+  ]
+}

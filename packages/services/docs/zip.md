@@ -1,0 +1,1 @@
+Re-exports the ZIP writer and reader, which moved to [`@absoluteui/helpers/zip`](/docs/api/helpers/zip/) so that components can use them. Existing imports from `@absoluteui/services/zip` keep working; new code should import from `@absoluteui/helpers/zip`. Error codes are `HLP_ZIP_*` (they were `SVC_ZIP_*`).

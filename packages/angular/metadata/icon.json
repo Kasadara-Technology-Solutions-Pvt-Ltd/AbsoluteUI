@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/icon",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiIcon",
+      "description": "AbsoluteUI icon outlet: `<aui-icon name=\"calendar\" size=\"sm\" />`.\n`name` is a registered icon name, a name resolved by the icon provider\n(`provideAbsoluteUI({ icons })`), or an inline icon definition such as an icon of\n`@absoluteui/icons/set`. Decorative unless `label` is set. Vector icons also take\n`variant`, `colors`, `layers`, `overlays`, `container`, stroke, transform, and\nanimation inputs: colors, layers, stroke width, size, label, and `animationState`\nupdate the rendered icon in place; the other inputs render it again. Animations run\nin the browser only (the server renders the static icon) and stop when the\ncomponent is destroyed.",
+      "selector": "aui-icon",
+      "exportAs": [
+        "auiIcon"
+      ],
+      "source": "hand-written",
+      "inputs": [
+        {
+          "name": "name",
+          "type": "IconRef",
+          "required": true,
+          "description": "Registered icon name, or an icon definition (an icon of `@absoluteui/icons/set`, or one from an icon library adapter)."
+        },
+        {
+          "name": "size",
+          "type": "number | IconSize",
+          "required": false,
+          "description": "Theme size xs to xl, a CSS length such as '20px', or a number of pixels (default: the surrounding icon size, or 1em)."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Accessible name. Omit for decorative icons; label icon-only buttons on the button instead."
+        },
+        {
+          "name": "variant",
+          "type": "IconVariantName",
+          "required": false,
+          "description": "Variant of a vector icon (default `'outline'`); the icon must provide it."
+        },
+        {
+          "name": "colors",
+          "type": "Readonly<Partial<Record<IconColorRole, string>>>",
+          "required": false,
+          "description": "Role colors (CSS colors, validated), for example `{ accent: 'var(--aui-color-success-fg)' }`."
+        },
+        {
+          "name": "layers",
+          "type": "Readonly<Partial<Record<IconLayerName, IconLayerOverride>>>",
+          "required": false,
+          "description": "Per-layer overrides: `color`, `opacity`, `hidden`."
+        },
+        {
+          "name": "overlays",
+          "type": "readonly IconOverlayPlacement[]",
+          "required": false,
+          "description": "Up to two overlays (`@absoluteui/icons/set` overlays), one per anchor."
+        },
+        {
+          "name": "container",
+          "type": "\"circle\" | \"square\"",
+          "required": false,
+          "description": "Draws the icon inside a circle or square."
+        },
+        {
+          "name": "strokeWidth",
+          "type": "number",
+          "required": false,
+          "description": "Outline stroke width in icon units, 0.5 to 4 (default: the inherited `--aui-icon-stroke-width`, else 2)."
+        },
+        {
+          "name": "strokeScaling",
+          "type": "\"scale\" | \"fixed\"",
+          "required": false,
+          "description": "`'fixed'` keeps strokes at their width in CSS pixels at any size."
+        },
+        {
+          "name": "rotate",
+          "type": "0 | 90 | 180 | 270",
+          "required": false
+        },
+        {
+          "name": "flip",
+          "type": "\"horizontal\" | \"vertical\" | \"both\"",
+          "required": false
+        },
+        {
+          "name": "dir",
+          "type": "\"ltr\" | \"rtl\" | \"auto\"",
+          "required": false,
+          "description": "`'auto'` (default) mirrors directional icons in right-to-left layouts; `'ltr'` or `'rtl'` force a direction."
+        },
+        {
+          "name": "animation",
+          "type": "AuiIconAnimation",
+          "required": false,
+          "description": "An animation the icon lists (static by default; reduced motion is honored)."
+        },
+        {
+          "name": "animationState",
+          "type": "IconAnimationState",
+          "required": false,
+          "description": "State for state-driven triggers: `loading`, `success`, and `error` play; `idle` stops."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [
+        {
+          "name": "play",
+          "signature": "play(): void",
+          "description": "Plays the animation (for `manual` and `on-change` triggers)."
+        },
+        {
+          "name": "stop",
+          "signature": "stop(): void",
+          "description": "Stops the animation and shows the static end state."
+        }
+      ],
+      "serverRendering": "server"
+    }
+  ],
+  "types": [
+    {
+      "name": "AuiIconColors",
+      "description": "Role colors for one icon instance."
+    },
+    {
+      "name": "AuiIconLayers",
+      "description": "Per-layer color, opacity, or visibility for one icon instance."
+    },
+    {
+      "name": "AuiIconAnimation",
+      "description": "Animation of an `aui-icon`; `host` defaults to the `aui-icon` element (hover, focus, and press triggers)."
+    }
+  ]
+}

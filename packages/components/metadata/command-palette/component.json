@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "command-palette",
+  "displayName": "Command Palette",
+  "category": "Navigation",
+  "package": "@absoluteui/components",
+  "import": "import { CommandPalette } from '@absoluteui/components/command-palette';",
+  "styleImport": "@absoluteui/components/command-palette/style.css",
+  "purpose": "Keyboard-first command search in a modal dialog, opened with Ctrl+K (Cmd+K on Apple platforms; configurable) or a button: a search field over a grouped, virtualized listbox driven by aria-activedescendant. Fuzzy matching highlights matched characters; sections for recent commands, command groups, and async providers (debounced and aborted on each keystroke) with a loading state; nested pages for commands with children (Backspace goes back); an Empty State when nothing matches; shortcuts shown with Kbd. Commands are plain data with an optional run callback.",
+  "whenToUse": [
+    "Applications with many pages and actions where power users want to jump anywhere from the keyboard.",
+    "Global search that combines local commands with server results (people, records, documents)."
+  ],
+  "whenNotToUse": [
+    "As the only way to reach a feature: every command must also be reachable through visible navigation.",
+    "Choosing a value in a form: use Combobox or Select.",
+    "A short menu of actions for one object: use Menu or Context Menu."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["closed", "open", "recent", "filtering", "loading", "provider failed", "no results", "nested page", "disabled command"],
+  "responsive": "The dialog is 40rem wide at most and never wider than the viewport minus a gutter; the result list grows with its content up to 24rem or 55% of the viewport height and then scrolls.",
+  "rtl": "The field, results, and footer follow the writing direction; the back and submenu chevrons are mirrored.",
+  "theme": "Component tokens command-palette-radius (radius-lg), -bg (color-surface), -shadow (shadow-lg), -backdrop (color-backdrop), and -option-radius (radius-sm). The active result uses color-selected and color-selected-text plus a start-edge bar; matches are semibold and underlined. Forced colors use Highlight and HighlightText.",
+  "timezone": "Not applicable.",
+  "security": "Labels, descriptions, and section headers are rendered as text; matches are marked with <mark> elements built from text nodes. Commands run the application's own callbacks; provider results are validated before rendering.",
+  "dataHandling": "Recent command ids are kept in memory only (read them from the recent property to persist them). No network access of its own; providers are the application's functions and receive an AbortSignal.",
+  "performance": {
+    "budgets": [
+      { "metric": "Filtering 10,000 commands per keystroke", "budget": "< 30 ms in headless Chromium" },
+      { "metric": "Rendered result rows", "budget": "visible rows + 2 x overscan + 1" }
+    ],
+    "testedScale": "10,000 commands with nested pages; at most 100,000 commands. maxResults (default 50) limits each section."
+  },
+  "limitations": [
+    "Rows have one height per density; long labels are truncated with an ellipsis.",
+    "Providers are searched at the top level only, not on nested pages.",
+    "The default shortcut Ctrl+K overrides the browser's search shortcut while the page has focus; set shortcut to another hotkey or null."
+  ],
+  "unsupported": [
+    "Rich (HTML) labels or custom row renderers.",
+    "Several palettes listening to the same shortcut on one page."
+  ],
+  "antiPatterns": [
+    "Commands that only exist in the palette (keep them discoverable in the visible UI).",
+    "Providers that ignore the AbortSignal and keep stale requests running."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/command-palette: AuiCommandPalette component (<aui-command-palette>).",
+    "react": "@absoluteui/react/command-palette: AuiCommandPalette component.",
+    "vue": "@absoluteui/vue/command-palette: AuiCommandPalette component."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

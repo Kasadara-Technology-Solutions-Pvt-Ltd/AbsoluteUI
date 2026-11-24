@@ -1,0 +1,7 @@
+[
+  { "title": "Running totals", "text": "Changes float from the running total; total steps drop to the baseline." },
+  { "title": "Connectors and labels", "text": "Dashed connectors between steps and signed value labels." },
+  { "title": "Keyboard steps", "text": "One tab stop through every step with a tooltip on focus and hover." },
+  { "title": "Data table fallback", "text": "A summary of start, end, and largest moves, and a table of change and running total." },
+  { "title": "Not color alone", "text": "Increase, decrease, and total differ by texture, sign, and name as well as color." }
+]

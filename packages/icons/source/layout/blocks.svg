@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="blocks">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/>
+      <rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/>
+      <rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>
+      <path d="M17 3.4l3.6 3.6-3.6 3.6-3.6-3.6z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <rect x="3" y="3" width="8" height="8" rx="2"/>
+      <rect x="3" y="13" width="8" height="8" rx="2"/>
+      <rect x="13" y="13" width="8" height="8" rx="2"/>
+      <path d="M17 3.4l3.6 3.6-3.6 3.6-3.6-3.6z" transform="translate(17 7) scale(1.15) translate(-17 -7)"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M17 3.4l3.6 3.6-3.6 3.6-3.6-3.6z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/>
+      <rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/>
+      <rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>
+      <path d="M17 3.4l3.6 3.6-3.6 3.6-3.6-3.6z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill">
+      <path d="M17 3.4l3.6 3.6-3.6 3.6-3.6-3.6z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/>
+      <rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/>
+      <rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>
+      <path d="M17 3.4l3.6 3.6-3.6 3.6-3.6-3.6z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "number-input",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Quantity with bounds",
+      "language": "ts",
+      "code": "import { NumberInput } from '@absoluteui/components/number-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst quantity = NumberInput.create(host, { label: 'Quantity', name: 'quantity', value: 1, min: 1, max: 99, required: true });\nhost.addEventListener('aui-change', () => {\n  host.dataset.quantity = String(quantity.value ?? '');\n});"
+    },
+    {
+      "id": "currency",
+      "title": "Price in euros, German locale",
+      "language": "ts",
+      "code": "import { NumberInput } from '@absoluteui/components/number-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nNumberInput.create(host, {\n  label: 'Preis',\n  name: 'price',\n  locale: 'de-DE',\n  min: 0,\n  step: 0.01,\n  format: { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 },\n});"
+    },
+    {
+      "id": "percent",
+      "title": "Percentage (typed 15 means 0.15)",
+      "language": "ts",
+      "code": "import { NumberInput } from '@absoluteui/components/number-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nNumberInput.create(host, {\n  label: 'Discount',\n  min: 0,\n  max: 1,\n  step: 0.001,\n  format: { style: 'percent', maximumFractionDigits: 1 },\n  validate: (value) => (value !== null && value > 0.5 ? 'Discounts above 50% need approval.' : null),\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Hide stepper buttons globally",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { numberInput: { showSteppers: false, validationTiming: 'blur' } } });"
+    }
+  ]
+}

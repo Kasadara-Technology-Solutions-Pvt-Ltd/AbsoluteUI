@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "component": "chat",
+  "examples": [
+    {
+      "id": "assistant",
+      "title": "Assistant with a streamed reply",
+      "language": "ts",
+      "code": "import { Chat, type ChatSendDetail } from '@absoluteui/components/chat';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chat = Chat.create(host, { label: 'Conversation with the assistant', suggestions: [{ id: 'leave', label: 'How many leave days do I have?' }] });\n\n// Any async iterable of text chunks works: here a generator that waits between words.\nasync function* reply(text: string, signal: AbortSignal): AsyncGenerator<string> {\n  for (const word of text.split(' ')) {\n    await new Promise((resolve) => setTimeout(resolve, 60));\n    if (signal.aborted) return;\n    yield `${word} `;\n  }\n}\n\nhost.addEventListener('aui-send', (event) => {\n  const { text } = (event as CustomEvent<ChatSendDetail>).detail;\n  void chat.stream((signal) => reply(`You asked: **${text}**. Here is what I found.`, signal));\n});"
+    },
+    {
+      "id": "fetch",
+      "title": "Stream a server response (ReadableStream)",
+      "language": "ts",
+      "code": "import { Chat, type ChatSendDetail, type ChatRetryDetail } from '@absoluteui/components/chat';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chat = Chat.create(host, { label: 'Assistant' });\n\nfunction ask(question: string, id?: string): void {\n  void chat.stream(async function* (signal) {\n    // Stop aborts the request too.\n    const response = await fetch('/api/answer', { method: 'POST', body: JSON.stringify({ question }), signal });\n    if (!response.ok || !response.body) throw new Error(String(response.status));\n    const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();\n    for (;;) {\n      const { done, value } = await reader.read();\n      if (done) return;\n      yield value;\n    }\n  }, id === undefined ? {} : { id });\n}\n\nhost.addEventListener('aui-send', (event) => {\n  ask((event as CustomEvent<ChatSendDetail>).detail.text);\n});\nhost.addEventListener('aui-retry', (event) => {\n  const { id, prompt } = (event as CustomEvent<ChatRetryDetail>).detail;\n  if (prompt) ask(prompt.text, id);\n});"
+    },
+    {
+      "id": "people",
+      "title": "A conversation between people",
+      "language": "ts",
+      "code": "import { instant } from '@absoluteui/core';\nimport { Chat } from '@absoluteui/components/chat';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chat = Chat.create(host, {\n  label: 'Chat with Grace Hopper',\n  authors: { assistant: { name: 'Grace Hopper' } },\n  assistantFormat: 'text',\n  feedback: false,\n  messages: [\n    { id: '1', role: 'assistant', text: 'Did you get the onboarding checklist?', timestamp: instant(Date.UTC(2026, 10, 20, 9, 30)) },\n    { id: '2', role: 'user', text: 'Yes, thank you. One question about the laptop.', timestamp: instant(Date.UTC(2026, 10, 20, 9, 32)) },\n  ],\n});\nchat.update({ typing: 'Grace Hopper' });"
+    },
+    {
+      "id": "business-calendar",
+      "title": "Day separators with holidays",
+      "language": "ts",
+      "code": "import { instant, plainDate } from '@absoluteui/core';\nimport { createBusinessCalendar } from '@absoluteui/components/business-calendar';\nimport { Chat } from '@absoluteui/components/chat';\n\nconst calendar = createBusinessCalendar({ holidays: [{ date: plainDate(2026, 12, 25), name: 'Christmas Day', yearly: true }] });\nconst host = document.createElement('div');\ndocument.body.append(host);\nChat.create(host, {\n  label: 'Support conversation',\n  businessCalendar: calendar,\n  timezone: 'Europe/London',\n  messages: [{ id: '1', role: 'user', text: 'Is anyone working today?', timestamp: instant(Date.UTC(2026, 11, 25, 10)) }],\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Plain text replies and no avatars everywhere",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { chat: { assistantFormat: 'text', showAvatars: false } } });"
+    }
+  ]
+}

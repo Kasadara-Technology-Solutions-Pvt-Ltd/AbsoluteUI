@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "name": "badge",
+  "displayName": "Badge",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { Badge } from '@absoluteui/components/badge';",
+  "styleImport": "@absoluteui/components/badge/style.css",
+  "purpose": "Short static label such as 'Active', 'Beta', or '3 new' that classifies the content next to it. The label text carries the meaning; tone colors, the optional dot, and the optional icon are decorative. Never interactive.",
+  "whenToUse": [
+    "Status or category of an item in a list, table cell, card, or heading: Active, Draft, Overdue, Beta.",
+    "A count that belongs to a label, such as '3 new' beside a section title."
+  ],
+  "whenNotToUse": [
+    "Tags the user can remove or select: use Tag Group.",
+    "Status that changes while the user works and must be announced: use Inline Message with live set.",
+    "Messages that need explanation or actions: use Alert."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["neutral", "info", "success", "warning", "error", "subtle", "outline", "sm", "md", "dot", "icon"],
+  "responsive": "Inline-flex pill limited to its container width; a long label is truncated with an ellipsis.",
+  "rtl": "Logical properties: the dot or icon sits at the inline start in both directions.",
+  "theme": "Subtle: color-{tone}-subtle fill with color-text label; outline: color-surface fill with a color-{tone}-fg boundary; neutral uses color-surface-sunken and color-border-strong. Label pairs are in the contrast gate. Component tokens: badge-radius, badge-padding-x, badge-font-weight. Forced-colors mode draws a CanvasText boundary and dot.",
+  "timezone": "Not applicable.",
+  "security": "The label is rendered with textContent; never parsed as HTML. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Badge.create, per instance", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "Unit-tested per instance; not data-driven."
+  },
+  "limitations": [
+    "Text only: no links or rich content.",
+    "Long labels are truncated; keep labels to one or two words."
+  ],
+  "unsupported": [
+    "Interactive badges (click, remove, select): use Tag Group or Button.",
+    "Rendering HTML or Nodes as the label."
+  ],
+  "antiPatterns": [
+    "Conveying meaning by tone color alone (the label must make sense without it).",
+    "Using a badge as a button or link."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/badge: AuiBadge component (<aui-badge>).",
+    "react": "@absoluteui/react/badge: AuiBadge component.",
+    "vue": "@absoluteui/vue/badge: AuiBadge component."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="palette">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2a1.8 1.8 0 0 1 1.8-1.8h1.9A4.5 4.5 0 0 0 21 10.5C21 6.4 17 3 12 3z"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="7.5" cy="11.5" r="1.25"/>
+      <circle cx="9.5" cy="7.25" r="1.25"/>
+      <circle cx="14" cy="6.75" r="1.25"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <circle cx="17.25" cy="10" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2a1.8 1.8 0 0 1 1.8-1.8h1.9A4.5 4.5 0 0 0 21 10.5C21 6.4 17 3 12 3z" transform="translate(12 12) scale(1.06) translate(-12 -12)"/>
+      <circle cx="7.5" cy="11.5" r="1.5"/>
+      <circle cx="9.5" cy="7.25" r="1.5"/>
+      <circle cx="14" cy="6.75" r="1.5"/>
+      <circle cx="17.25" cy="10" r="1.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2a1.8 1.8 0 0 1 1.8-1.8h1.9A4.5 4.5 0 0 0 21 10.5C21 6.4 17 3 12 3z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2a1.8 1.8 0 0 1 1.8-1.8h1.9A4.5 4.5 0 0 0 21 10.5C21 6.4 17 3 12 3z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <circle cx="7.5" cy="11.5" r="1.25"/>
+      <circle cx="9.5" cy="7.25" r="1.25"/>
+      <circle cx="14" cy="6.75" r="1.25"/>
+      <circle cx="17.25" cy="10" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2a1.8 1.8 0 0 1 1.8-1.8h1.9A4.5 4.5 0 0 0 21 10.5C21 6.4 17 3 12 3z"/>
+    </g>
+    <g data-layer="secondary" data-role="accent" data-paint="fill">
+      <circle cx="7.5" cy="11.5" r="1.25"/>
+      <circle cx="9.5" cy="7.25" r="1.25"/>
+      <circle cx="14" cy="6.75" r="1.25"/>
+    </g>
+    <g data-layer="accent" data-role="warning" data-paint="fill">
+      <circle cx="17.25" cy="10" r="1.25"/>
+    </g>
+  </g>
+</svg>

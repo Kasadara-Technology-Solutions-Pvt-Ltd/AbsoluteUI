@@ -1,0 +1,7 @@
+[
+  { "title": "Date and time together", "text": "One field for a calendar date and a time of day, returned as an exact instant." },
+  { "title": "Time zone handling", "text": "Shows wall-clock time in a chosen time zone and resolves daylight saving gaps explicitly." },
+  { "title": "Business calendar", "text": "Weekends and holidays are marked and can be made unselectable." },
+  { "title": "Time steps", "text": "Suggested times in steps from one minute to twelve hours, on a 12 or 24 hour clock." },
+  { "title": "Form ready", "text": "Limits, validation, custom errors, and native form submission." }
+]

@@ -1,0 +1,30 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-masked-input__input {
+    @include aui.control-surface;
+    @include aui.text-control-states;
+    display: block;
+    inline-size: 100%;
+    min-inline-size: 0;
+    margin: 0;
+    // Slots and literals line up while typing.
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-visible {
+      box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-masked-input__input:focus-visible {
+      outline: 2px solid Highlight;
+    }
+  }
+}

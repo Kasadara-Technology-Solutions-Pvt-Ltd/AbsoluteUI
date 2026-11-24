@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "checkbox",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required terms checkbox",
+      "language": "ts",
+      "code": "import { Checkbox } from '@absoluteui/components/checkbox';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst terms = Checkbox.create(host, { label: 'I accept the terms and conditions', name: 'terms', value: 'accepted', required: true });\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(terms.validity.valid);\n});"
+    },
+    {
+      "id": "select-all",
+      "title": "Select-all parent with a mixed state",
+      "language": "ts",
+      "code": "import { Checkbox } from '@absoluteui/components/checkbox';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst all = Checkbox.create(host, { label: 'Select all files', indeterminate: true });\nfunction syncSelectAll(selected: number, total: number): void {\n  all.setChecked(selected === total, selected > 0 && selected < total);\n}\nsyncSelectAll(3, 5);"
+    },
+    {
+      "id": "global-config",
+      "title": "Show messages on first change (Mode B)",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { checkbox: { validationTiming: 'input' } } });"
+    }
+  ]
+}

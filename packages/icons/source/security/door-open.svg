@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="door-open">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M13 4h4.5a1 1 0 0 1 1 1v15"/>
+      <path d="M3 20.5h18"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M5 20V5.5L13 3v17.5z"/>
+      <path d="M10 12h.01"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M5 20V5.5L13 3v17.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M13 4h4.5a1 1 0 0 1 1 1v15"/>
+      <path d="M3 20.5h18"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M5 20V5.5L13 3v17.5z"/>
+      <path d="M10 12h.01"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "tree-view",
+  "examples": [
+    {
+      "id": "documents",
+      "title": "Documents with lazy folders, drag-and-drop, and rename",
+      "language": "ts",
+      "code": "import { TreeView, type TreeNode, type TreeViewMoveDetail } from '@absoluteui/components/tree-view';\n\nconst nodes: TreeNode[] = [\n  { id: 'policies', label: 'Policies', children: [\n    { id: 'leave', label: 'Leave policy.pdf', icon: 'file' },\n    { id: 'travel', label: 'Travel policy.pdf', icon: 'file' },\n  ] },\n  { id: 'archive', label: 'Archive', hasChildren: true },\n];\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst tree = TreeView.create(host, {\n  label: 'Documents',\n  nodes,\n  selection: 'single',\n  expanded: ['policies'],\n  draggable: true,\n  renamable: true,\n  // Files (nodes with the file icon) cannot contain other nodes.\n  canDrop: (_source, target, position) => position !== 'inside' || target?.icon !== 'file',\n  loadChildren: async (node, { signal }) => {\n    const res = await fetch(`/api/folders/${encodeURIComponent(node.id)}`, { signal });\n    return (await res.json()) as TreeNode[];\n  },\n});\nhost.addEventListener('aui-move', (event) => {\n  const { id, parentId, index } = (event as CustomEvent<TreeViewMoveDetail>).detail;\n  host.dataset.lastMove = `${id} -> ${parentId ?? 'root'} at ${String(index)}`;\n});\nvoid tree.expand('archive');"
+    },
+    {
+      "id": "checkboxes",
+      "title": "Tri-state checkboxes and filtering",
+      "language": "ts",
+      "code": "import { TreeView, type TreeViewChangeDetail } from '@absoluteui/components/tree-view';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst tree = TreeView.create(host, {\n  label: 'Locations',\n  checkboxes: true,\n  checked: ['berlin'],\n  expanded: ['emea'],\n  nodes: [\n    { id: 'emea', label: 'Europe', children: [\n      { id: 'berlin', label: 'Berlin' },\n      { id: 'paris', label: 'Paris' },\n    ] },\n    { id: 'apac', label: 'Asia Pacific', children: [{ id: 'sydney', label: 'Sydney' }] },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { checked, indeterminate } = (event as CustomEvent<TreeViewChangeDetail>).detail;\n  host.dataset.checked = `${String(checked.length)} checked, ${String(indeterminate.length)} mixed`;\n});\ntree.update({ filter: 'par' });"
+    }
+  ]
+}

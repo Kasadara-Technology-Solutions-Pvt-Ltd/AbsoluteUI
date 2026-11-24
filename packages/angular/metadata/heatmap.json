@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/heatmap",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiHeatmap",
+      "description": "AbsoluteUI Heatmap: `<aui-heatmap>`.\nTwo-way: `[(hiddenSeries)]`.",
+      "selector": "aui-heatmap",
+      "exportAs": [
+        "auiHeatmap"
+      ],
+      "source": "generated",
+      "component": "heatmap",
+      "configKey": "heatmap",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby); also the data table caption."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (matrix size, lowest and highest value with their cells)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for cell labels, legend step ranges, tooltips, the data table, and the summary."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat everywhere."
+        },
+        {
+          "name": "columns",
+          "type": "readonly string[]",
+          "required": true,
+          "description": "Column labels (x axis), in order (mirrored in RTL)."
+        },
+        {
+          "name": "rows",
+          "type": "readonly string[]",
+          "required": true,
+          "description": "Row labels (y axis), top to bottom."
+        },
+        {
+          "name": "values",
+          "type": "readonly (readonly (number | null)[])[]",
+          "required": true,
+          "description": "values[row][column]: exactly one array per row and one value per column. null, NaN, and infinities are empty cells (\"No value\")."
+        },
+        {
+          "name": "colorScale",
+          "type": "HeatmapColorScale",
+          "required": false,
+          "description": "{ type?: 'sequential' | 'diverging' (default sequential), color?: 1-8 (sequential slot, default 1), negative?: 1-8 (default 2), positive?: 1-8 (default 1), midpoint?: number (diverging center, default 0), min?, max? (fixed domain; default the nice-rounded data extent), steps?: 3-9 (per side for diverging, default 5) }. Values outside a fixed domain use the first or last step."
+        },
+        {
+          "name": "xAxis",
+          "type": "{ label?: string; }",
+          "required": false,
+          "description": "Column axis title (drawn below the plot)."
+        },
+        {
+          "name": "yAxis",
+          "type": "{ label?: string; }",
+          "required": false,
+          "description": "Row axis title (drawn beside the row labels); also the header of the data table's first column (default \"Row\")."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Legend listing every color step with its value range; auto and show both show it, hide removes it. Entries are not toggle buttons."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table fallback with the exact matrix: behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus (cell name and value)."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Shared chart option (toggles aui-chart--patterns); heatmap cells and step swatches are not textured, so it has no visible effect."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000); the width follows the container. Cells share the plot evenly."
+        },
+        {
+          "name": "cellLabels",
+          "type": "HeatmapCellLabels",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Values printed inside cells: auto and always print them where the formatted value fits (always skips cells that are too small); none prints no values."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors the columns (first column at the right), puts the row labels on the right, and swaps ArrowLeft/ArrowRight."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Shared chart option; a heatmap has no series, so it has no effect."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Shared chart method; a heatmap has no series, so it only re-renders."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG matrix chart as a named, described group (role=\"group\" with aria-roledescription \"heatmap\") of role=\"img\" cells with two-dimensional roving focus; a legend listing every color step with its value range; data table fallback with the exact matrix.",
+        "source": "packages/components/metadata/heatmap/accessibility.json"
+      },
+      "limitations": [
+        "Discrete steps only (3-9, per side for diverging); no continuous color ramp.",
+        "One palette slot (sequential) or two (diverging); no custom color stops.",
+        "cellLabels 'always' prints values only where they fit, like 'auto'.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiHeatmap } from '@absoluteui/angular/heatmap';\n\n@Component({\n  selector: 'app-tickets',\n  imports: [AuiHeatmap],\n  template: `<aui-heatmap label=\"Tickets by weekday and hour\" [columns]=\"columns\" [rows]=\"rows\" [values]=\"values\"></aui-heatmap>`,\n})\nexport class TicketsComponent {\n  readonly columns = ['9', '12', '15'];\n  readonly rows = ['Mon', 'Tue'];\n  readonly values = [[1, 5, 9], [null, 4, 2]];\n}"
+    }
+  ]
+}

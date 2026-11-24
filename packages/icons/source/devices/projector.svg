@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="projector">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="8" width="19" height="9" rx="2"/>
+      <path d="M5.5 17v2.5"/>
+      <path d="M18.5 17v2.5"/>
+      <path d="M6 12.5h4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="16" cy="12.5" r="2.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="2.5" y="8" width="19" height="9" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="8" width="19" height="9" rx="2"/>
+      <path d="M5.5 17v2.5"/>
+      <path d="M18.5 17v2.5"/>
+      <path d="M6 12.5h4"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="16" cy="12.5" r="2.5"/>
+    </g>
+  </g>
+</svg>

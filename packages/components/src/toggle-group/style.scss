@@ -1,0 +1,73 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the Button stylesheet (@absoluteui/components/button/style.css).
+@layer aui.components {
+  .aui-toggle-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+    vertical-align: middle;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-toggle-group--vertical {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+
+  // Segmented control: shared boundaries, rounded only at the ends.
+  .aui-toggle-group--attached {
+    flex-wrap: nowrap;
+    gap: 0;
+
+    > .aui-button {
+      border-radius: 0;
+    }
+
+    > .aui-button:first-child {
+      border-start-start-radius: aui.ctoken('button', 'radius');
+      border-end-start-radius: aui.ctoken('button', 'radius');
+    }
+
+    > .aui-button:last-child {
+      border-start-end-radius: aui.ctoken('button', 'radius');
+      border-end-end-radius: aui.ctoken('button', 'radius');
+    }
+
+    > .aui-button + .aui-button {
+      margin-inline-start: calc(-1 * aui.token('border-width'));
+    }
+
+    // The focused and pressed buttons draw their boundary above their neighbours.
+    > .aui-button:focus-visible,
+    > .aui-button--pressed {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .aui-toggle-group--attached.aui-toggle-group--vertical {
+    > .aui-button:first-child {
+      border-start-start-radius: aui.ctoken('button', 'radius');
+      border-start-end-radius: aui.ctoken('button', 'radius');
+      border-end-start-radius: 0;
+    }
+
+    > .aui-button:last-child {
+      border-end-start-radius: aui.ctoken('button', 'radius');
+      border-end-end-radius: aui.ctoken('button', 'radius');
+      border-start-end-radius: 0;
+    }
+
+    > .aui-button + .aui-button {
+      margin-inline-start: 0;
+      margin-block-start: calc(-1 * aui.token('border-width'));
+    }
+  }
+}

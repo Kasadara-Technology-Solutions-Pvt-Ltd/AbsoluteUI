@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="logs" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="3" width="16" height="18" rx="2"/>
+      <path d="M8 7h8"/>
+      <path d="M8 10.5h8"/>
+      <path d="M8 14h5"/>
+      <path d="M8 17.5h7"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="4" y="3" width="16" height="18" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="4" y="3" width="16" height="18" rx="2"/>
+      <path d="M8 7h8"/>
+      <path d="M8 10.5h8"/>
+      <path d="M8 14h5"/>
+      <path d="M8 17.5h7"/>
+    </g>
+  </g>
+</svg>

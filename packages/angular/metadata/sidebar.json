@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/sidebar",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSidebar",
+      "description": "AbsoluteUI Sidebar: `<aui-sidebar>`.\nTwo-way: `[(value)]`, `[(expanded)]`, `[(collapsed)]`.",
+      "selector": "aui-sidebar",
+      "exportAs": [
+        "auiSidebar"
+      ],
+      "source": "generated",
+      "component": "sidebar",
+      "configKey": "sidebar",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the <nav> (aria-label) and the drawer title, e.g. \"Main\". Must not be empty."
+        },
+        {
+          "name": "items",
+          "type": "readonly SidebarItem[]",
+          "required": true,
+          "description": "Navigation tree (at least one item; groups need at least one child). Ids are unique across the whole tree; labels are non-empty. Links without href render as buttons."
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Render the collapse (rail) toggle in the footer."
+        },
+        {
+          "name": "breakpoint",
+          "type": "number",
+          "required": false,
+          "default": "768",
+          "configurable": true,
+          "description": "Integer 0..4096: viewport width in CSS px below which the sidebar becomes a modal drawer. 0 never switches."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "'rtl' sets dir=\"rtl\" on the <nav> and footer; tooltips and the drawer also follow an inherited rtl direction."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<SidebarIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string",
+          "change": "valueChange",
+          "description": "Active (current page) item id; must be a non-group item. Default: no active item."
+        },
+        {
+          "name": "collapsed",
+          "type": "boolean",
+          "change": "collapsedChange",
+          "description": "Icon rail: labels are visually hidden and shown as tooltips. Inline mode only; forced to false when collapsible is false."
+        },
+        {
+          "name": "expanded",
+          "type": "readonly string[]",
+          "change": "expandedChange",
+          "description": "Expanded group ids. Every id must be a group id."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "navigate",
+          "payload": "SidebarNavigateDetail",
+          "event": "aui-navigate",
+          "description": "The user activated an enabled item (unmodified primary click, Enter, or Space on a button). preventDefault stops link navigation, the active change, and the drawer close."
+        },
+        {
+          "name": "changed",
+          "payload": "SidebarChangeDetail",
+          "event": "aui-change",
+          "description": "The active item changed after an uncanceled aui-navigate. Not emitted when the active item is activated again."
+        },
+        {
+          "name": "groupToggled",
+          "payload": "SidebarExpandedChangeDetail",
+          "event": "aui-expanded-change",
+          "description": "The user toggled a group. value lists all expanded group ids in tree order."
+        },
+        {
+          "name": "modeChange",
+          "payload": "SidebarModeChangeDetail",
+          "event": "aui-mode-change",
+          "description": "The viewport crossed the breakpoint after creation. The initial mode is not reported."
+        }
+      ],
+      "properties": [
+        {
+          "name": "mode",
+          "type": "Signal<SidebarMode>",
+          "description": "Read-only: 'drawer' below the breakpoint, otherwise 'inline'."
+        },
+        {
+          "name": "isOpen",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the drawer is open (always false inline)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Open the drawer; focus moves into it. No-op in inline mode."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Close the drawer; focus returns to the element focused before open(). No-op when closed or inline."
+        },
+        {
+          "name": "toggle",
+          "signature": "toggle(): void",
+          "description": "close() when open, otherwise open()."
+        },
+        {
+          "name": "select",
+          "signature": "select(id: string): void",
+          "description": "Mark a non-group item active and expand its groups. No events; does not close the drawer. Throws SIDEBAR_OPTIONS for an unknown or group id."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Disclosure Navigation: a navigation landmark with lists of links, groups as disclosure buttons (aria-expanded + aria-controls), and aria-current=\"page\" on the active item. Drawer mode uses the Drawer (modal <dialog>) pattern; the rail uses Tooltip as the accessible name.",
+        "source": "packages/components/metadata/sidebar/accessibility.json"
+      },
+      "limitations": [
+        "No arrow-key navigation between items; every enabled item and group button is a separate Tab stop.",
+        "The drawer breakpoint follows the viewport width, not the width of the sidebar's container.",
+        "The application must render its own menu button to open the drawer; the sidebar's collapse toggle is hidden in drawer mode.",
+        "The collapsed (rail) state applies inline only; it is ignored in drawer mode and forced to false when collapsible is false.",
+        "Disabled items get no rail tooltip, so in the icon rail they show only their icon or initial.",
+        "select() does not close the drawer; call close() after it.",
+        "Nothing is persisted; collapsed and expanded state reset when the sidebar is recreated unless the application passes them back."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, inject, viewChild } from '@angular/core';\nimport { Router } from '@angular/router';\nimport type { SidebarItem, SidebarNavigateDetail } from '@absoluteui/components/sidebar';\nimport { AuiSidebar } from '@absoluteui/angular/sidebar';\nimport { AuiButton } from '@absoluteui/angular/button';\n\n@Component({\n  selector: 'app-shell-nav',\n  imports: [AuiSidebar, AuiButton],\n  template: `\n    @if (mode !== 'inline') {\n      <button type=\"button\" auiButton variant=\"ghost\" (click)=\"sidebar.toggle()\">Menu</button>\n    }\n    <aui-sidebar #sidebar=\"auiSidebar\" label=\"Main\" [items]=\"items\" [value]=\"active\" [(collapsed)]=\"collapsed\"\n      (modeChange)=\"mode = $event.mode\"\n      (aui-navigate)=\"go($event)\"></aui-sidebar>\n  `,\n})\nexport class ShellNavComponent {\n  private readonly router = inject(Router);\n  private readonly sidebarRef = viewChild.required<AuiSidebar>('sidebar');\n  readonly items: SidebarItem[] = [\n    { id: 'inbox', label: 'Inbox', href: '/inbox' },\n    { id: 'archive', label: 'Archive', href: '/archive' },\n  ];\n  active = 'inbox';\n  collapsed = false;\n  mode: 'inline' | 'drawer' = 'inline';\n\n  go(event: Event): void {\n    const { id, item } = (event as CustomEvent<SidebarNavigateDetail>).detail;\n    if (item.href === undefined) return;\n    event.preventDefault();\n    this.active = id;\n    void this.router.navigateByUrl(item.href);\n    this.sidebarRef().close();\n  }\n}"
+    }
+  ]
+}

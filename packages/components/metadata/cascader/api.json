@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "component": "cascader",
+  "factory": { "name": "Cascader.create", "signature": "Cascader.create(host: HTMLElement, options: CascaderOptions): Cascader" },
+  "configKey": "cascader",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label; names the trigger and the popup." },
+    { "name": "hideLabel", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Visually hide the label." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text, referenced by the trigger." },
+    { "name": "options", "type": "readonly CascaderOption[]", "required": true, "globallyConfigurable": false, "description": "The tree { value, label, children?, isLeaf?, disabled? }; sibling values are unique." },
+    { "name": "value", "type": "CascaderValue", "required": false, "globallyConfigurable": false, "description": "A path of values (or null); a list of paths with multiple." },
+    { "name": "multiple", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Select several paths, shown as removable chips." },
+    { "name": "changeOnSelect", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Any node can be selected, not only leaves." },
+    { "name": "loadChildren", "type": "(option: CascaderOption, context: CascaderLoadContext) => Promise<readonly CascaderOption[]>", "required": false, "globallyConfigurable": false, "description": "Loads a node's children when it opens; aborted when the popup closes." },
+    { "name": "searchable", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Show a search box in the popup." },
+    { "name": "maxResults", "type": "number", "default": "50", "required": false, "globallyConfigurable": false, "description": "Maximum search results (1 to 1000)." },
+    { "name": "levelLabels", "type": "readonly string[]", "required": false, "globallyConfigurable": false, "description": "Accessible names of the levels (default Level 1, Level 2, ...)." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Trigger text when nothing is selected (default Select)." },
+    { "name": "clearable", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Show a clear button for a single selection that is not required." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name: one hidden input per path with its leaf value." },
+    { "name": "required", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "A selection is required." },
+    { "name": "disabled", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Disable the control." },
+    { "name": "readOnly", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Show the value; the popup does not open." },
+    { "name": "validate", "type": "(value: CascaderValue) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<CascaderIcons>", "required": false, "globallyConfigurable": false, "description": "Icon overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages appear." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of messages and search matching." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Reading direction for arrow keys and popup alignment." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "trigger", "type": "HTMLButtonElement", "description": "The trigger button." },
+    { "name": "value", "type": "CascaderValue", "description": "A path or null; a list of paths with multiple (copies)." },
+    { "name": "open", "type": "boolean", "description": "Whether the popup is open." },
+    { "name": "validity", "type": "FieldValidity", "description": "Current validity." },
+    { "name": "dirty", "type": "boolean", "description": "The value differs from the initial value." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control once." },
+    { "name": "options", "type": "Readonly<CascaderOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: CascaderValue): void", "description": "Set the value (no event)." },
+    { "name": "show", "signature": "show(): void", "description": "Open the popup and focus the search box (or the first level)." },
+    { "name": "close", "signature": "close(restoreFocus?: boolean): void", "description": "Close the popup; pending loads are aborted." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | string[] | null", "description": "Leaf values for Form serialization." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "Show or clear an external error." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the trigger." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear messages." },
+    { "name": "update", "signature": "update(options: Partial<CascaderOptions>): void", "description": "Merge and apply options; an invalid update leaves the previous state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close, abort loads, remove rendering, listeners, and the form registration." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "CascaderValueDetail", "bubbles": true, "cancelable": false, "description": "The selection changed: { value, labels, validity }." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "The popup opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "The popup closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-cascader", "description": "Host (with aui-field)." },
+    { "name": "aui-cascader--multiple | --disabled | --invalid", "description": "State modifiers." },
+    { "name": "aui-cascader__control | __trigger | __text | __text--placeholder | __caret", "description": "The trigger and its parts." },
+    { "name": "aui-cascader__clear", "description": "Clear button." },
+    { "name": "aui-cascader__chips | __chip | __chip-remove", "description": "Selected paths with multiple." },
+    { "name": "aui-cascader__popup", "description": "The popup (role=dialog, top layer)." },
+    { "name": "aui-cascader__search", "description": "Search box." },
+    { "name": "aui-cascader__columns | __column | __list", "description": "Level columns and their listboxes." },
+    { "name": "aui-cascader__option | __option--active | __option--expanded | __option-label | __next", "description": "An option, the active and expanded states, label, and next-level chevron." },
+    { "name": "aui-cascader__results | __result-list", "description": "Search results." },
+    { "name": "aui-cascader__status | __status--loading | __status--error | __spinner | __retry", "description": "Loading, error, empty, and result-count text." }
+  ],
+  "iconSlots": [
+    { "name": "expand", "default": "chevron-down" },
+    { "name": "next", "default": "chevron-right" },
+    { "name": "remove", "default": "close" },
+    { "name": "loading", "default": "spinner" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

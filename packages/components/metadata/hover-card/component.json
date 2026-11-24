@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "name": "hover-card",
+  "displayName": "Hover Card",
+  "category": "Overlays",
+  "package": "@absoluteui/components",
+  "import": "import { HoverCard } from '@absoluteui/components/hover-card';",
+  "styleImport": "@absoluteui/components/hover-card/style.css",
+  "purpose": "A rich, non-modal preview shown while a trigger (usually a link) is hovered or has keyboard focus, meeting WCAG 1.4.13: dismissible with Escape, hoverable, and persistent until pointer and focus leave both trigger and card. The card is inserted right after the trigger and rendered in the top layer, so Tab moves from the trigger into interactive card content; the trigger references it with aria-describedby by default. It never opens on touch and only one hover card is visible at a time.",
+  "whenToUse": [
+    "Supplementary previews of a linked object: a user profile, a repository, a document summary.",
+    "Richer content than a Tooltip allows (headings, images, links), where the same information is reachable by following the trigger."
+  ],
+  "whenNotToUse": [
+    "Essential information or actions: touch users never see hover cards; put them on the page or behind the link.",
+    "Short text hints: use Tooltip.",
+    "Content the user must open deliberately or interact with at length (forms): use Popover.",
+    "Triggers that are not focusable: keyboard users could never open the card."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities"],
+  "states": ["hidden", "pending (show delay running)", "visible", "hiding (hide delay running)", "dismissed (Escape; stays hidden until pointer or focus leaves and returns)"],
+  "responsive": "Width max-content up to min(22rem, 100vw - 2 x space-2); height capped by popover-max-height and the available space, then the card scrolls (overscroll contained). The positioning engine flips and shifts to stay in the viewport.",
+  "rtl": "`start`/`end` placements are logical and mirror with direction 'rtl' (option or global direction). An inherited dir=rtl alone does not change placement resolution.",
+  "theme": "Surface, border, radius-lg, shadow-lg, link, and focus-ring role tokens. The open fade uses @starting-style and is removed under reduced motion or global animation 'none' (aui-hover-card--static). Forced-colors mode draws a CanvasText border.",
+  "timezone": "Not applicable.",
+  "security": "String content is rendered as text (textContent), never parsed as HTML. Node content is inserted as given, so the consumer owns its safety. CSP-safe: positioning uses the CSSOM.",
+  "dataHandling": "No persistence, network access, or telemetry. Content is inserted once at construction and again only when update() passes content.",
+  "performance": {
+    "budgets": [
+      { "metric": "HoverCard.show()", "budget": "< 16 ms (one frame) in headless Chromium" }
+    ],
+    "testedScale": "One visible hover card at a time by design; many closed instances per page (four listeners on the trigger, three on the card, one configuration subscription each)."
+  },
+  "limitations": [
+    "Touch pointers never show the card; it must not hold essential information or actions.",
+    "Keyboard focus uses the same showDelay as hover (default 600 ms); focus from a pointer click (not :focus-visible) does not show it.",
+    "Only one hover card is visible at a time per loaded copy of the module.",
+    "The card is inserted immediately after the trigger, so it inherits the trigger's container styles; a trigger inside inline text puts a div into that inline context.",
+    "With describe true (default), screen readers read the whole card text as the trigger's description; set describe false for long or highly interactive cards.",
+    "The gap between trigger and card is fixed at 8px. The close animation is not played."
+  ],
+  "unsupported": [
+    "Opening on tap or long press.",
+    "HTML strings as content (pass a Node).",
+    "Modal behavior or focus trapping: use Dialog.",
+    "Opening on click: use Popover."
+  ],
+  "antiPatterns": [
+    "Putting actions or information only in a hover card.",
+    "Hover cards on non-focusable elements.",
+    "Very short showDelay values that open cards while the pointer merely crosses the trigger."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/hover-card: AuiHoverCard directive on the trigger ([auiHoverCard]=\"templateRef\", hoverCardPlacement, hoverCardShowDelay, hoverCardHideDelay, hoverCardDescribe, hoverCardDirection); outputs auiOpen, auiClose; show() and hide() methods.",
+    "react": "@absoluteui/react/hover-card: AuiHoverCard component.",
+    "vue": "@absoluteui/vue/hover-card: AuiHoverCard component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

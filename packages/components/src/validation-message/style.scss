@@ -1,0 +1,42 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-validation-message {
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-1');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+    overflow-wrap: anywhere;
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-icon {
+      flex: none;
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      margin-block-start: 0.15em;
+    }
+  }
+
+  .aui-validation-message--error {
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-validation-message--warning {
+    color: aui.token('color-warning-fg');
+  }
+
+  .aui-validation-message--success {
+    color: aui.token('color-success-fg');
+  }
+
+  .aui-validation-message--info {
+    color: aui.token('color-info-fg');
+  }
+}

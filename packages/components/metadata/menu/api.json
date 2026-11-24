@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "component": "menu",
+  "factory": { "name": "Menu.create", "signature": "Menu.create(trigger: HTMLButtonElement, options: MenuOptions): Menu" },
+  "configKey": "menu",
+  "options": [
+    { "name": "items", "type": "readonly MenuItem[]", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Items: action (with optional submenu items), checkbox, radio, separator, and group. Ids are unique across the whole tree." },
+    { "name": "label", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Menu aria-label. Default: the menu is labelled by the trigger (aria-labelledby)." },
+    { "name": "renderItem", "type": "(item: MenuSelectableItem, context: MenuRenderContext) => Node", "required": false, "globallyConfigurable": false, "description": "Custom item content (since 0.9.0); the label stays the accessible name and typeahead text. Nodes are reused per item and released with releaseNode when dropped." },
+    { "name": "icons", "type": "Partial<{ submenu: IconRef; checked: IconRef; radio: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "placement", "type": "Placement", "default": "bottom-start", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Top-level popup placement relative to the trigger. Submenus always use right-start (left-start in RTL)." },
+    { "name": "closeOnSelect", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Close after activating a checkbox or radio item. Action items always close the menu." },
+    { "name": "typeahead", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Printable characters move focus to the next item whose label starts with them." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Submenu side, submenu arrow keys, and chevron mirroring." }
+  ],
+  "properties": [
+    { "name": "trigger", "type": "HTMLButtonElement", "description": "The menu button." },
+    { "name": "element", "type": "HTMLDivElement", "description": "Top-level role=menu popup (popover=manual), inserted after the trigger." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the top-level menu is open." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(focus?: 'first' | 'last'): void", "description": "Open and focus the first (default) or last enabled item." },
+    { "name": "close", "signature": "close(): void", "description": "Close all levels; focus returns to the trigger when it was inside the menu. No aui-select." },
+    { "name": "update", "signature": "update(options: Partial<MenuOptions>): void", "description": "Merge and apply options; new items reset checkbox/radio state and close open submenus." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close, remove all popups, trigger attributes, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-select", "detail": "{ id: string; item: MenuSelectableItem; checked?: boolean }", "bubbles": true, "cancelable": false, "description": "Dispatched on the trigger when the user activates an enabled item. checked is the new state for checkbox and radio items." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "Dispatched on the menu element after the top level opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "Dispatched on the menu element after all levels closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-menu", "description": "Menu popup (top level and submenus)." },
+    { "name": "aui-menu--submenu", "description": "Submenu popup." },
+    { "name": "aui-menu--has-check", "description": "Level contains checkbox/radio items; reserves the check column." },
+    { "name": "aui-menu__item", "description": "Menu item (menuitem, menuitemcheckbox, menuitemradio)." },
+    { "name": "aui-menu__item--danger", "description": "Destructive action tone." },
+    { "name": "aui-menu__check | __icon | __text | __label | __description | __shortcut | __submenu-icon", "description": "Item parts." },
+    { "name": "aui-menu__separator", "description": "role=separator." },
+    { "name": "aui-menu__group | __group-label", "description": "role=group and its visible label." }
+  ],
+  "iconSlots": [
+    { "name": "submenu", "default": "chevron-right" },
+    { "name": "checked", "default": "check" },
+    { "name": "radio", "default": "check" }
+  ]
+}

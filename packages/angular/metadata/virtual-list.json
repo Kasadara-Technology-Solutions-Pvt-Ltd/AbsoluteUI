@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/virtual-list",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiVirtualList",
+      "description": "AbsoluteUI VirtualList: `<aui-virtual-list>`.\nTwo-way: `[(value)]`.",
+      "selector": "aui-virtual-list",
+      "exportAs": [
+        "auiVirtualList"
+      ],
+      "source": "generated",
+      "component": "virtual-list",
+      "configKey": "virtualList",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the list."
+        },
+        {
+          "name": "items",
+          "type": "readonly Item[]",
+          "required": true,
+          "description": "The items (up to 1,000,000; the total height must stay under the browser limit, about 17.9 million px in Firefox); only the visible ones are rendered."
+        },
+        {
+          "name": "renderItem",
+          "type": "(item: Item, index: number) => Node",
+          "required": true,
+          "description": "Content of one item; called whenever the item is rendered."
+        },
+        {
+          "name": "itemKey",
+          "type": "((item: Item, index: number) => string)",
+          "required": false,
+          "description": "Stable key per item, used by value. Default: the index."
+        },
+        {
+          "name": "itemText",
+          "type": "((item: Item, index: number) => string)",
+          "required": false,
+          "description": "Type-ahead text. Default: strings, numbers, or the item's label property."
+        },
+        {
+          "name": "itemHeight",
+          "type": "number",
+          "required": false,
+          "description": "Item height in pixels (the estimate with variableHeight). Default by density: 32, 40, or 48."
+        },
+        {
+          "name": "variableHeight",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Measure every rendered item instead of a fixed height."
+        },
+        {
+          "name": "height",
+          "type": "string | null",
+          "required": false,
+          "default": "20rem",
+          "description": "Block size of the scroll area as a CSS length, or null to fill the host."
+        },
+        {
+          "name": "selection",
+          "type": "VirtualListSelection",
+          "required": false,
+          "default": "none",
+          "description": "none renders a plain list; single and multiple render a listbox."
+        },
+        {
+          "name": "selectionFollowsFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Single selection: moving focus with the keyboard also selects."
+        },
+        {
+          "name": "isDisabled",
+          "type": "((item: Item, index: number) => boolean)",
+          "required": false,
+          "description": "Items that cannot be selected or focused."
+        },
+        {
+          "name": "empty",
+          "type": "string | Node",
+          "required": false,
+          "description": "Shown instead of the list when there are no items (for example an Empty State host)."
+        },
+        {
+          "name": "loadMore",
+          "type": "(() => void | Promise<void>) | null",
+          "required": false,
+          "description": "Infinite scroll: called near the end; resolve after appending items with update({ items })."
+        },
+        {
+          "name": "hasMore",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "More items can be loaded (with loadMore)."
+        },
+        {
+          "name": "loadMoreThreshold",
+          "type": "number",
+          "required": false,
+          "default": "10",
+          "description": "Items from the end at which loading starts."
+        },
+        {
+          "name": "overscan",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "configurable": true,
+          "description": "Items rendered beyond each edge of the visible area (0 to 100)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the status messages."
+        },
+        {
+          "name": "density",
+          "type": "Density",
+          "required": false,
+          "default": "comfortable",
+          "configurable": true,
+          "description": "Default item height when itemHeight is not set."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "readonly string[]",
+          "change": "valueChange",
+          "description": "Keys of the selected items."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "VirtualListChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the selection: { value, index }."
+        },
+        {
+          "name": "rangeChange",
+          "payload": "VirtualListRangeChangeDetail",
+          "event": "aui-range-change",
+          "description": "The visible range changed: { start, end, renderedStart, renderedEnd } (for lazy loading)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "scrollToIndex",
+          "signature": "scrollToIndex(index: number, align?: VirtualListAlign | undefined): void",
+          "description": "Scroll so the item is visible (auto: only as far as needed)."
+        },
+        {
+          "name": "focusItem",
+          "signature": "focusItem(index: number): void",
+          "description": "Focus an item of a listbox, scrolling it into view."
+        },
+        {
+          "name": "getItemElement",
+          "signature": "getItemElement(index: number): HTMLElement | null | undefined",
+          "description": "The rendered element of an item, or null."
+        },
+        {
+          "name": "refresh",
+          "signature": "refresh(): void",
+          "description": "Render the visible items again after item objects changed in place."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Listbox (single and multiple selection, roving focus, type-ahead) when selectable; a plain list (role=list) otherwise. Items carry aria-posinset and aria-setsize because only part of the list is rendered.",
+        "source": "packages/components/metadata/virtual-list/accessibility.json"
+      },
+      "limitations": [
+        "Vertical lists only.",
+        "The total height (items x item height) must stay under the browser's maximum element height, about 17.9 million px in Firefox.",
+        "Only rendered items exist in the DOM, so the browser's find-in-page and printing see only those.",
+        "Variable heights are estimated until an item has been rendered once, so the scrollbar can adjust while scrolling."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiVirtualList } from '@absoluteui/angular/virtual-list';\n\ninterface Person { id: string; name: string }\n\n@Component({\n  selector: 'app-people',\n  imports: [AuiVirtualList],\n  template: `<aui-virtual-list label=\"People\" selection=\"single\" [items]=\"people\" [itemKey]=\"key\" [renderItem]=\"render\"></aui-virtual-list>`,\n})\nexport class PeopleComponent {\n  readonly people: Person[] = Array.from({ length: 10_000 }, (_, i) => ({ id: String(i), name: `Person ${String(i + 1)}` }));\n  readonly key = (p: Person): string => p.id;\n  readonly render = (p: Person): Node => document.createTextNode(p.name);\n}"
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-recurrence-picker__fieldset {
+    display: grid;
+    gap: aui.token('space-3');
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .aui-recurrence-picker__fieldset > .aui-field__label {
+    margin-block-end: aui.token('space-1');
+  }
+
+  .aui-recurrence-picker__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-recurrence-picker__row--month,
+  .aui-recurrence-picker__row--end {
+    display: grid;
+    gap: aui.token('space-2');
+  }
+
+  .aui-recurrence-picker__legend,
+  .aui-recurrence-picker__label {
+    padding: 0;
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-recurrence-picker__legend {
+    margin-block-end: aui.token('space-1');
+  }
+
+  .aui-recurrence-picker__select,
+  .aui-recurrence-picker__number {
+    @include aui.control-surface;
+    @include aui.text-control-states;
+  }
+
+  .aui-recurrence-picker__select {
+    max-inline-size: 100%;
+    cursor: pointer;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-recurrence-picker__number {
+    inline-size: 6ch;
+    box-sizing: content-box;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .aui-recurrence-picker__unit {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-recurrence-picker__weekday {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: aui.token('touch-target-min');
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    font: inherit;
+    font-weight: aui.token('font-weight-medium');
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-pill');
+    cursor: pointer;
+    @include aui.transition(background-color, color);
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    // Pressed days: filled, plus a heavier border (not color alone; aria-pressed carries the state).
+    &[aria-pressed='true'] {
+      color: aui.token('color-on-primary');
+      background: aui.token('color-primary');
+      border-color: aui.token('color-primary');
+      border-width: aui.token('border-width-strong');
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      background: aui.token('color-disabled-bg');
+      border-color: aui.token('color-border');
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-recurrence-picker__choice {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+  }
+
+  .aui-recurrence-picker__radio-label {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-block-size: aui.token('touch-target-min');
+    cursor: pointer;
+  }
+
+  .aui-recurrence-picker__radio {
+    inline-size: aui.token('icon-size-sm');
+    block-size: aui.token('icon-size-sm');
+    margin: 0;
+    accent-color: aui.token('color-primary');
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-recurrence-picker__until {
+    flex: 1 1 14rem;
+    min-inline-size: 0;
+  }
+
+  .aui-recurrence-picker__summary {
+    margin: 0;
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-recurrence-picker__preview {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+
+    p {
+      margin: 0 0 aui.token('space-1');
+    }
+  }
+
+  .aui-recurrence-picker__preview-list {
+    display: grid;
+    gap: aui.token('space-1');
+    margin: 0;
+    padding-inline-start: aui.token('space-4');
+  }
+
+  @include aui.forced-colors {
+    .aui-recurrence-picker__weekday[aria-pressed='true'] {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+      border-color: HighlightText;
+    }
+
+    .aui-recurrence-picker__weekday:disabled {
+      color: GrayText;
+    }
+  }
+}

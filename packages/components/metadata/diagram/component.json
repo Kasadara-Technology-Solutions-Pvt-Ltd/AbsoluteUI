@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "name": "diagram",
+  "displayName": "Diagram",
+  "category": "Data visualization",
+  "package": "@absoluteui/components",
+  "import": "import { Diagram, type DiagramModel } from '@absoluteui/components/diagram';",
+  "styleImport": "@absoluteui/components/diagram/style.css",
+  "purpose": "A flowchart and diagram editor and viewer rendered in SVG from a JSON model: nodes (rectangle, rounded, ellipse, diamond, parallelogram, cylinder, document, or custom SVG from renderShape) with labels, positions, sizes, and ports; edges with straight, orthogonal, or curved routing, arrowheads, dashes, and labels; optional groups. Auto-layout is layered (Sugiyama style) or tree, in four directions, and can keep pinned or hand-moved nodes (keepPositions). Nodes form a multi-select listbox with one roving tab stop: arrow keys move focus to the nearest node in that direction. In edit mode nodes are added from a palette (click or drag), moved by pointer with grid snap and alignment guides, by keyboard (M, arrows), or by a single pointer (Move selection); connected by dragging from a port, by keyboard (C on the source, C or Enter on the target), or the Connect button; edges are reconnected by dragging their end handles; labels are edited inline (plain text); selections are copied, pasted, and deleted; marquee and Shift-click select several items; every edit is undoable. A text alternative table lists nodes and connections. Pan by dragging the background, Pan tool, or arrow keys on the canvas; zoom with Ctrl/Cmd + wheel, +/-, and fit. diagramToSvg, diagramToPng, and downloadDiagram export the drawing.",
+  "whenToUse": [
+    "Showing or designing a process, workflow, or decision flow (approval routes, onboarding steps, state machines).",
+    "Letting users build a small graph visually, with a keyboard path for every edit.",
+    "Laying out a graph automatically from data (layoutDiagram) and letting people adjust it."
+  ],
+  "whenNotToUse": [
+    "Reporting hierarchies with one manager per person: use Organization Chart.",
+    "Schedules and dependencies over time: use Gantt.",
+    "Thousands of nodes or force-directed networks: the diagram renders every node and is sized for hundreds."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["view mode / edit mode", "selected nodes and edges", "focused node or connection", "move mode (keyboard)", "connecting (keyboard, toolbar, or port drag)", "placing (single-pointer move)", "Pan tool on", "dragging (move, connect, reconnect, marquee, pan)", "editing a label", "locked node", "zoomed / panned", "text alternative shown / hidden"],
+  "responsive": "The viewport has a fixed block size (30rem by default, set it with CSS) and clips the drawing; the view is panned and zoomed instead of scrolling, so the page reflows at 320 px while the diagram keeps its layout. Toolbar and palette wrap; their buttons are touch-target-min. fit() scales the drawing into any viewport. Touch drags on the canvas pan or select (touch-action: none).",
+  "rtl": "direction 'rtl' mirrors auto-layout (LR becomes right to left; top-down layouts are mirrored horizontally) and the reading order of nodes (right to left within a row). Arrow keys are spatial and are not swapped: ArrowLeft always moves to the node on the left. Toolbar and palette follow the inline direction.",
+  "theme": "Nodes use the diagram-node-bg fill and diagram-node-border outline; connectors use diagram-edge-color; the canvas uses diagram-canvas-bg with diagram-grid-color dots in edit mode. Selected nodes use color-selected with a color-selected-text outline three px wide (not color alone); selected edges are color-selected-text and thicker. Focus uses color-focus-ring rings around nodes and along connectors. Forced-colors mode uses CanvasText outlines and lines, Canvas fills, and Highlight for selection and focus. Nothing animates, so reduced motion needs no change.",
+  "timezone": "Not applicable.",
+  "security": "Labels render through textContent in SVG text; the inline editor is a plain text input (no HTML). Custom shapes come from renderShape as SVG elements the application builds (the application owns their safety; strings are not accepted). The model is validated before use (unique ids, known nodes, ports, and groups, finite numbers in range, JSON-primitive data). Positions are written as SVG attributes and the editor position through the CSSOM (CSP-safe). Export writes presentation attributes only and needs img-src blob: for PNG.",
+  "dataHandling": "No persistence, network access, or telemetry of its own: every edit emits aui-change with the whole model (detail.model) and the model getter returns copies for saving. The clipboard is kept inside the instance (the system clipboard is not used). Nothing is uploaded by export; files are saved through temporary object URLs.",
+  "performance": {
+    "budgets": [
+      { "metric": "Diagram.create with 300 nodes and 400 edges (layered layout included)", "budget": "< 250 ms in headless Chromium, first layout and paint included (e2e performance test; 184 ms measured in a desktop Chromium pane)" },
+      { "metric": "layoutDiagram (layered) for a 500-node flowchart (499 edges)", "budget": "< 50 ms in headless Chromium (e2e performance test; 12 ms measured in Node 24)" },
+      { "metric": "layoutDiagram (layered) for 500 nodes and 700 edges, 200 of them long cross edges", "budget": "< 250 ms (worst case measured: 110 to 160 ms in Node 24)" },
+      { "metric": "One drag frame moving a node with 300 nodes rendered", "budget": "< 8 ms (only the moved nodes and their edges are updated)" }
+    ],
+    "testedScale": "300 nodes and 400 edges for the create and drag budgets, 500 nodes for the layout budgets; 4 to 12 nodes in the behavior unit tests. Every node and edge is an SVG element (no virtualization): keep diagrams to a few hundred nodes."
+  },
+  "limitations": [
+    "Edges are routed between their end points only; they do not avoid other nodes (layered layout keeps most edges clear).",
+    "Every node and edge is rendered (no virtualization); sized for hundreds of nodes.",
+    "Groups are drawn as boxes around their members; swimlanes and nested groups are not provided.",
+    "Nodes are resized through the model (updateNode), not by dragging handles.",
+    "A plain mouse wheel scrolls the page; zooming needs Ctrl/Cmd + wheel, the toolbar, or keys. Pinch zoom is not provided.",
+    "Reconnecting by keyboard means deleting the connection and connecting again.",
+    "Export draws custom shapes as rounded rectangles.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Free drawing, freehand connectors, and edge waypoints set by the user.",
+    "Rich text or HTML in labels.",
+    "Collaborative editing (the model is the application's to merge).",
+    "Printing across pages."
+  ],
+  "antiPatterns": [
+    "Passing a new model on every framework render: update({ model }) clears undo history and interaction state; keep the model from aui-change instead.",
+    "Interactive content inside renderShape: the node is the control.",
+    "Relying on pointer drags alone: keep the keyboard flows (C, M, Enter) and the toolbar visible to users.",
+    "Putting meaning only in shape or color: give every node a label that says what it is."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/diagram: generated AuiDiagram (inputs mirror DiagramOptions; outputs for aui-change, aui-select, aui-node-activate, aui-zoom; model two-way through aui-change).",
+    "react": "@absoluteui/react/diagram: generated AuiDiagram (props = DiagramOptions + onChange, onSelect, onNodeActivate, onZoom; ref receives the Diagram).",
+    "vue": "@absoluteui/vue/diagram: generated AuiDiagram (emits change, select, nodeActivate, zoom; template ref exposes controller)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

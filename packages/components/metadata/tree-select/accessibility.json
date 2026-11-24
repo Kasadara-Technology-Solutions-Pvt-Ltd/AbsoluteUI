@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "component": "tree-select",
+  "pattern": "WAI-ARIA 1.2 combobox with a tree popup (aria-haspopup=tree). The field keeps focus while typing; Down Arrow moves DOM focus into the popup tree, which follows the APG tree pattern (see Tree View); Escape returns focus to the field.",
+  "roles": [
+    { "element": "input", "role": "combobox" },
+    { "element": "popup tree", "role": "tree" },
+    { "element": "node", "role": "treeitem" },
+    { "element": "tags", "role": "list (ul) with labelled remove buttons" }
+  ],
+  "aria": [
+    { "attribute": "aria-haspopup", "element": "combobox", "value": "tree" },
+    { "attribute": "aria-expanded", "element": "combobox and open button", "value": "true while the popup is open" },
+    { "attribute": "aria-controls", "element": "combobox and open button", "value": "the tree id" },
+    { "attribute": "aria-required / aria-invalid / aria-describedby", "element": "combobox", "value": "required, error state, and help or error text" },
+    { "attribute": "aria-label", "element": "tree", "value": "\"<label> options\"" },
+    { "attribute": "aria-checked", "element": "treeitem", "value": "true, false, or mixed in multiple mode" },
+    { "attribute": "aria-selected", "element": "treeitem", "value": "true on the chosen node in single mode" }
+  ],
+  "keyboard": [
+    { "key": "Typing", "context": "Field", "action": "Filter the tree (opens the popup); the paths to matches stay visible." },
+    { "key": "Down / Up", "context": "Field", "action": "Open and move focus into the tree (the selected node, or the first or last node)." },
+    { "key": "Alt + Down", "context": "Field", "action": "Open without moving focus." },
+    { "key": "Enter", "context": "Field, popup open", "action": "Move focus into the tree." },
+    { "key": "Escape", "context": "Field", "action": "Close the popup, or clear the search text." },
+    { "key": "Backspace", "context": "Empty field, multiple mode", "action": "Remove the last tag." },
+    { "key": "Tree keys", "context": "Popup tree", "action": "Arrows, Home, End, type-ahead, * (see Tree View); Enter or Space chooses (single) or Space toggles the checkbox (multiple)." },
+    { "key": "Escape / Tab", "context": "Popup tree", "action": "Close the popup and return focus to the field." }
+  ],
+  "focus": "Focus stays on the field until the user moves into the tree; choosing in single mode closes the popup and returns focus to the field. Leaving the control closes the popup and marks it touched (validation shows after blur).",
+  "wcag": ["1.3.1", "1.4.1", "1.4.11", "2.1.1", "2.4.3", "2.4.7", "3.3.1", "3.3.2", "4.1.2", "4.1.3"],
+  "notes": [
+    "Added, removed, and cleared values are announced politely (WCAG 4.1.3).",
+    "Tags have remove buttons named \"Remove <label>\"; the clear button is named \"Clear selection\"."
+  ],
+  "knownCaveats": [
+    "Screen readers announce the popup as a tree only after focus moves into it.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

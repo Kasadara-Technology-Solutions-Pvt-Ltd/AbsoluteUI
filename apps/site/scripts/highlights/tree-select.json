@@ -1,0 +1,6 @@
+[
+  { "title": "A tree in a field", "text": "A combobox whose popup is a Tree View: type to filter, Down Arrow to move into the tree." },
+  { "title": "One or many", "text": "Single choice closes on selection; multiple choice uses tri-state checkboxes and removable tags." },
+  { "title": "Lazy hierarchies", "text": "Children load on expansion; labels of unloaded values come from valueLabels." },
+  { "title": "A real form control", "text": "Required validation, Form integration, a clear button, and hidden inputs for native submission." }
+]

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="ftp" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.6a2 2 0 0 1 1.6.8l1.2 1.6a1 1 0 0 0 .8.4H19a2 2 0 0 1 2 2v3.5"/>
+      <path d="M3 10.5h18"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15.5 21v-6"/>
+      <path d="M13.5 17l2-2 2 2"/>
+      <path d="M20 15v6"/>
+      <path d="M18 19l2 2 2-2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.6a2 2 0 0 1 1.6.8l1.2 1.6a1 1 0 0 0 .8.4H19a2 2 0 0 1 2 2v3.5h-5a4 4 0 0 0-4 4z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3.6a2 2 0 0 1 1.6.8l1.2 1.6a1 1 0 0 0 .8.4H19a2 2 0 0 1 2 2v3.5"/>
+      <path d="M3 10.5h18"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15.5 21v-6"/>
+      <path d="M13.5 17l2-2 2 2"/>
+      <path d="M20 15v6"/>
+      <path d="M18 19l2 2 2-2"/>
+    </g>
+  </g>
+</svg>

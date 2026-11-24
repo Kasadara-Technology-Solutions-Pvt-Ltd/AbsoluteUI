@@ -1,0 +1,307 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-org-chart {
+    display: grid;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-tight');
+  }
+
+  .aui-org-chart__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+  }
+
+  .aui-org-chart__tool {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: aui.token('touch-target-min');
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+
+    &[aria-pressed='true'] {
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+      border-color: aui.token('color-selected-text');
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    svg {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  // The viewport clips the transformed canvas. Set block-size on it to size the chart.
+  .aui-org-chart__viewport {
+    position: relative;
+    block-size: 30rem;
+    overflow: hidden;
+    background: aui.token('color-surface-sunken');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    cursor: grab;
+    // Background drags pan the chart instead of scrolling the page.
+    touch-action: none;
+  }
+
+  .aui-org-chart__viewport--panning {
+    cursor: grabbing;
+  }
+
+  .aui-org-chart__canvas {
+    position: absolute;
+    inset-block-start: 0;
+    left: 0;
+    transform-origin: 0 0;
+  }
+
+  .aui-org-chart__links {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .aui-org-chart__link {
+    fill: none;
+    stroke: aui.token('color-border-strong');
+    stroke-width: 1.5;
+  }
+
+  .aui-org-chart__link--path {
+    stroke: aui.token('color-focus-ring');
+    stroke-width: 3;
+  }
+
+  .aui-org-chart__tree {
+    position: absolute;
+    inset: 0;
+  }
+
+  .aui-org-chart__node {
+    position: absolute;
+    inline-size: var(--aui-org-chart-node-width, 200px);
+    block-size: var(--aui-org-chart-node-height, 72px);
+    // `nodeRadius` / `--aui-chart-node-radius`, else `--aui-chart-corner-radius`, else radius-md.
+    border-radius: var(--aui-chart-node-radius, var(--aui-chart-corner-radius, #{aui.token('radius-md')}));
+    cursor: pointer;
+    transition-property: left, top;
+    transition-duration: aui.token('duration-fast');
+    transition-timing-function: aui.token('easing-standard');
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:focus-visible > .aui-org-chart__card {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-org-chart--editing .aui-org-chart__node:not(.aui-org-chart__node--locked) {
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .aui-org-chart__card {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    box-sizing: border-box;
+    block-size: 100%;
+    padding: aui.token('space-2');
+    overflow: hidden;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: var(--aui-chart-node-radius, var(--aui-chart-corner-radius, #{aui.token('radius-md')}));
+    box-shadow: aui.token('shadow-sm');
+  }
+
+  .aui-org-chart__node:hover > .aui-org-chart__card {
+    background: aui.token('color-hover');
+  }
+
+  // Selected: fill plus a strong border, not color alone.
+  .aui-org-chart__node[aria-selected='true'] > .aui-org-chart__card {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    border-color: aui.token('color-selected-text');
+    border-width: aui.token('border-width-strong');
+  }
+
+  .aui-org-chart__node--path > .aui-org-chart__card {
+    border-color: aui.token('color-focus-ring');
+    border-width: aui.token('border-width-strong');
+  }
+
+  .aui-org-chart__node--cut > .aui-org-chart__card {
+    border-style: dashed;
+    opacity: 0.7;
+  }
+
+  .aui-org-chart__node--dragging {
+    z-index: 2;
+    opacity: 0.9;
+    transition: none;
+
+    > .aui-org-chart__card {
+      box-shadow: aui.token('shadow-lg');
+    }
+  }
+
+  .aui-org-chart__node--drop > .aui-org-chart__card {
+    outline: aui.token('focus-ring-width') dashed aui.token('color-focus-ring');
+    outline-offset: aui.token('focus-ring-offset');
+  }
+
+  .aui-org-chart__node--no-drop > .aui-org-chart__card {
+    outline: aui.token('focus-ring-width') dashed aui.token('color-error-fg');
+    outline-offset: aui.token('focus-ring-offset');
+    cursor: no-drop;
+  }
+
+  .aui-org-chart__node[aria-busy='true'] > .aui-org-chart__card {
+    opacity: 0.6;
+  }
+
+  .aui-org-chart__avatar {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    inline-size: 2.25rem;
+    block-size: 2.25rem;
+    font-weight: aui.token('font-weight-semibold');
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-on-primary');
+    background: aui.token('color-primary');
+    border-radius: aui.token('radius-pill');
+  }
+
+  .aui-org-chart__text {
+    display: grid;
+    min-inline-size: 0;
+  }
+
+  .aui-org-chart__name,
+  .aui-org-chart__title,
+  .aui-org-chart__description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-org-chart__name {
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-org-chart__title,
+  .aui-org-chart__description {
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-xs');
+  }
+
+  .aui-org-chart__node[aria-selected='true'] :is(.aui-org-chart__title, .aui-org-chart__description) {
+    color: inherit;
+  }
+
+  // Separators exist for the accessible name only.
+  .aui-org-chart__sep {
+    @include aui.visually-hidden;
+  }
+
+  // Expand chip: pointer target on the card edge (the treeitem itself takes the keys).
+  .aui-org-chart__toggle {
+    position: absolute;
+    inset-block-end: 0;
+    left: 50%;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    min-inline-size: 1.75rem;
+    min-block-size: 1.5rem;
+    padding-inline: aui.token('space-1');
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-pill');
+    transform: translate(-50%, 50%);
+    cursor: pointer;
+
+    &[hidden] {
+      display: none;
+    }
+
+    svg {
+      inline-size: 0.875rem;
+      block-size: 0.875rem;
+    }
+  }
+
+  .aui-org-chart--horizontal .aui-org-chart__toggle {
+    inset-block: 50% auto;
+    left: 100%;
+    transform: translate(-50%, -50%);
+  }
+
+  .aui-org-chart--horizontal:dir(rtl) .aui-org-chart__toggle {
+    left: 0;
+  }
+
+  @include aui.reduced-motion {
+    .aui-org-chart__node {
+      transition: none;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-org-chart__link {
+      stroke: CanvasText;
+    }
+
+    .aui-org-chart__link--path {
+      stroke: Highlight;
+    }
+
+    .aui-org-chart__node[aria-selected='true'] > .aui-org-chart__card {
+      color: HighlightText;
+      background: Highlight;
+      forced-color-adjust: none;
+    }
+
+    .aui-org-chart__node--path > .aui-org-chart__card {
+      border-color: Highlight;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="list-checks" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M3.5 6.5l1.5 1.5 3-3"/>
+      <path d="M3.5 15.5l1.5 1.5 3-3"/>
+      <path d="M11 7h9"/>
+      <path d="M11 16h9"/>
+    </g>
+  </g>
+</svg>

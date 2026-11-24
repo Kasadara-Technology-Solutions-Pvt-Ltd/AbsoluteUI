@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "component": "inline-message",
+  "factory": { "name": "InlineMessage.create", "signature": "InlineMessage.create(host: HTMLElement, options: InlineMessageOptions): InlineMessage" },
+  "configKey": "inlineMessage",
+  "options": [
+    { "name": "message", "type": "string", "required": true, "globallyConfigurable": false, "description": "Message text." },
+    { "name": "tone", "type": "'info' | 'success' | 'warning' | 'error'", "default": "info", "required": false, "globallyConfigurable": false, "description": "Tone: icon, colors, and hidden tone prefix." },
+    { "name": "live", "type": "'off' | 'polite' | 'assertive'", "default": "off", "required": false, "globallyConfigurable": false, "description": "off: static; polite: role=status; assertive: role=alert." },
+    { "name": "icons", "type": "Partial<InlineMessageIcons>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the tone prefix." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (receives role and classes)." },
+    { "name": "message", "type": "string", "description": "Current message." },
+    { "name": "options", "type": "Readonly<InlineMessageOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<InlineMessageOptions>): void", "description": "Merge and apply options; text changes in place (announced when live)." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, role, classes, and subscriptions." }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-inline-message", "description": "Host." },
+    { "name": "aui-inline-message--info | --success | --warning | --error", "description": "Tone modifiers." },
+    { "name": "aui-inline-message__icon", "description": "Tone icon (decorative)." },
+    { "name": "aui-inline-message__tone", "description": "Visually hidden tone prefix." },
+    { "name": "aui-inline-message__text", "description": "Message text." }
+  ],
+  "iconSlots": [
+    { "name": "info", "default": "info" },
+    { "name": "success", "default": "check-circle" },
+    { "name": "warning", "default": "alert-triangle" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

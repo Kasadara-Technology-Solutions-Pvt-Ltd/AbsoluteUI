@@ -1,0 +1,80 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-button-group {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: aui.token('space-2');
+    max-inline-size: 100%;
+    vertical-align: middle;
+  }
+
+  .aui-button-group--vertical {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  // Attached: shared borders, inner radii removed. Horizontal groups do not wrap
+  // (that would break the shared borders); they scroll horizontally instead.
+  .aui-button-group--attached {
+    gap: 0;
+    flex-wrap: nowrap;
+
+    > .aui-button {
+      position: relative;
+
+      // Raise the hovered/focused button so its full border and focus ring show.
+      &:hover,
+      &:focus-visible {
+        z-index: 1;
+      }
+
+      // Inset ring: the scroll container would clip an outset ring.
+      &:focus-visible {
+        @include aui.focus-ring(calc(-1 * aui.token('focus-ring-width')));
+      }
+    }
+  }
+
+  .aui-button-group--attached.aui-button-group--horizontal {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+
+    > .aui-button {
+      flex: none;
+    }
+
+    > .aui-button:not(:first-child) {
+      margin-inline-start: calc(-1 * aui.token('border-width'));
+      border-start-start-radius: 0;
+      border-end-start-radius: 0;
+    }
+
+    > .aui-button:not(:last-child) {
+      border-start-end-radius: 0;
+      border-end-end-radius: 0;
+    }
+  }
+
+  .aui-button-group--attached.aui-button-group--vertical {
+    > .aui-button:not(:first-child) {
+      margin-block-start: calc(-1 * aui.token('border-width'));
+      border-start-start-radius: 0;
+      border-start-end-radius: 0;
+    }
+
+    > .aui-button:not(:last-child) {
+      border-end-start-radius: 0;
+      border-end-end-radius: 0;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-button-group--attached > .aui-button:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

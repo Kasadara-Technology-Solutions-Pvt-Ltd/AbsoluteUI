@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="eraser" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12.5 3.5l8 8-8.5 8.5-8-8z"/>
+      <path d="M8.5 16.5L17 8"/>
+      <path d="M10 21h11"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M12.5 3.5l8 8-8.5 8.5-8-8z" transform="translate(12.25 11.75) scale(1.05) translate(-12.25 -11.75)"/>
+      <line x1="9" y1="16" x2="16.5" y2="8.5" data-outline-width="1.5"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <line x1="13" y1="21" x2="21" y2="21" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12.5 3.5l4.5 4.5-8.5 8.5-4.5-4.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12.5 3.5l8 8-8.5 8.5-8-8z"/>
+      <path d="M8.5 16.5L17 8"/>
+      <path d="M10 21h11"/>
+    </g>
+  </g>
+</svg>

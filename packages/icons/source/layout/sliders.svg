@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="sliders">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 6h3"/>
+      <path d="M11 6h9"/>
+      <path d="M4 12h9"/>
+      <path d="M17 12h3"/>
+      <path d="M4 18h1"/>
+      <path d="M9 18h11"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="9" cy="6" r="2"/>
+      <circle cx="15" cy="12" r="2"/>
+      <circle cx="7" cy="18" r="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="9" cy="6" r="2"/>
+      <circle cx="15" cy="12" r="2"/>
+      <circle cx="7" cy="18" r="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 6h3"/>
+      <path d="M11 6h9"/>
+      <path d="M4 12h9"/>
+      <path d="M17 12h3"/>
+      <path d="M4 18h1"/>
+      <path d="M9 18h11"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="9" cy="6" r="2"/>
+      <circle cx="15" cy="12" r="2"/>
+      <circle cx="7" cy="18" r="2"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/combo-chart",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiComboChart",
+      "description": "AbsoluteUI ComboChart: `<aui-combo-chart>`.\nTwo-way: `[(hiddenSeries)]`, `[(zoomRange)]`.",
+      "selector": "aui-combo-chart",
+      "exportAs": [
+        "auiComboChart"
+      ],
+      "source": "generated",
+      "component": "combo-chart",
+      "configKey": "comboChart",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (aria-describedby)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format for values in tooltips, labels, the data table, the summary, and axis ticks (ticks use fixed fraction digits)."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value text; overrides valueFormat everywhere except axis ticks."
+        },
+        {
+          "name": "categories",
+          "type": "readonly string[]",
+          "required": true,
+          "description": "Shared categories (x axis), in order."
+        },
+        {
+          "name": "series",
+          "type": "readonly ComboChartSeries[]",
+          "required": true,
+          "description": "Series: { id, label, values: (number | null)[], type: 'bar' | 'line' | 'area', axis?: 'primary' | 'secondary', color?: 1-8 }. values has exactly one entry per category; null, NaN, and infinities are gaps."
+        },
+        {
+          "name": "stacked",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Stack the bar series per axis (positive and negative values stack separately); lines and areas are never stacked."
+        },
+        {
+          "name": "categoryAxis",
+          "type": "{ label?: string; }",
+          "required": false,
+          "description": "Category axis title (also the first table column header; default \"Category\")."
+        },
+        {
+          "name": "primaryAxis",
+          "type": "ComboChartValueAxis",
+          "required": false,
+          "description": "Primary (start-side) value axis: title, fixed domain, tick count (2-20), zero inclusion, and a number format for its values (default: valueFormat). Bars and areas always include zero."
+        },
+        {
+          "name": "secondaryAxis",
+          "type": "ComboChartValueAxis",
+          "required": false,
+          "description": "Secondary (end-side) value axis, shown when a visible series uses it. Tick labels only (no gridlines); its tick count follows the primary axis unless set. format defaults to valueFormat; formatValue overrides both axes."
+        },
+        {
+          "name": "zoom",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Zoom and pan over categories: a Zoom toolbar (Zoom in, Zoom out, Reset zoom), +/= and - and 0 keys on a focused mark, arrow keys past the window edge pan, Ctrl/Cmd + wheel, drag to pan a zoomed chart, Shift + drag to select a range. Turning it off resets the window."
+        },
+        {
+          "name": "annotations",
+          "type": "readonly ChartAnnotation[]",
+          "required": false,
+          "description": "Reference lines ({ type: 'line', axis: 'x' | 'y', value, label?, tone? }) and bands ({ type: 'band', axis, from, to, label?, tone? }); tone: 'neutral' | 'info' | 'success' | 'warning' | 'danger'. x values are category labels or indexes; y values are primary-axis numbers. Drawn under the marks (aria-hidden); listed in the accessible summary."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Legend of toggle buttons; auto and show both display it (also for a single series), hide removes it."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table fallback with the exact data: behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Texture fills (and dash patterns for lines) so marks never differ by color alone (always on in forced colors)."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+        },
+        {
+          "name": "crosshair",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Vertical crosshair line (aria-hidden) on the hovered or focused category."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors the category axis, swaps the primary (right) and secondary (left) axis sides, and swaps ArrowLeft/ArrowRight."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Ids of series hidden initially; update() replaces the hidden set."
+        },
+        {
+          "name": "zoomRange",
+          "type": "ChartZoomRange | null",
+          "change": "zoomRangeChange",
+          "description": "Visible category index window { from, to }; null shows everything. Clamped to the data and to at least two categories. Applied without an aui-zoom event; use with zoom: true."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "seriesToggled",
+          "payload": "ChartSeriesToggleDetail",
+          "event": "aui-series-toggle",
+          "description": "The user toggled a legend entry (pointer or keyboard). Not emitted for update() or setSeriesVisible()."
+        },
+        {
+          "name": "zoomed",
+          "payload": "ChartZoomDetail",
+          "event": "aui-zoom",
+          "description": "The user changed the visible window (toolbar, keys, Ctrl/Cmd + wheel, drag pan, Shift + drag selection). x is a category index range, or null when showing everything. Not emitted for the zoom range options or when the window does not change."
+        },
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Show or hide a series programmatically; emits no event."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG chart as a named, described group (role=\"group\" with aria-roledescription) of role=\"img\" data marks with roving focus; data table fallback (native table). Follows the WAI Complex Images tutorial (short name plus long description) and the roving tabindex technique of WAI-ARIA APG.",
+        "source": "packages/components/metadata/combo-chart/accessibility.json"
+      },
+      "limitations": [
+        "Each series needs exactly one value per category.",
+        "Lines and areas are never stacked; stacking applies to bars per axis.",
+        "Secondary axis draws tick labels only (no gridlines); its tick count follows the primary axis unless set.",
+        "Straight line segments only.",
+        "Axis label widths are estimated (about 0.6 em per character).",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiComboChart } from '@absoluteui/angular/combo-chart';\nimport type { ComboChartSeries } from '@absoluteui/components/combo-chart';\n\n@Component({\n  selector: 'app-revenue-margin',\n  imports: [AuiComboChart],\n  template: `<aui-combo-chart label=\"Revenue and margin\" [categories]=\"quarters\" [series]=\"series\" [zoom]=\"true\" (seriesToggled)=\"hidden = $event.hidden\"></aui-combo-chart>`,\n})\nexport class RevenueMarginComponent {\n  readonly quarters = ['Q1', 'Q2', 'Q3', 'Q4'];\n  readonly series: ComboChartSeries[] = [\n    { id: 'rev', label: 'Revenue', type: 'bar', values: [120, 150, 170, 160] },\n    { id: 'margin', label: 'Margin', type: 'line', axis: 'secondary', values: [0.32, 0.4, 0.38, 0.41] },\n  ];\n  hidden: string[] = [];\n}"
+    }
+  ]
+}

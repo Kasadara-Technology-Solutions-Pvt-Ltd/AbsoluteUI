@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "component": "slider",
+  "factory": { "name": "Slider.create", "signature": "Slider.create(host: HTMLElement, options: SliderOptions): Slider" },
+  "configKey": "slider",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label; names the thumbs." },
+    { "name": "hideLabel", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Visually hide the label." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text, referenced by the thumbs." },
+    { "name": "min", "type": "number", "default": "0", "required": false, "globallyConfigurable": false, "description": "Lower bound." },
+    { "name": "max", "type": "number", "default": "100", "required": false, "globallyConfigurable": false, "description": "Upper bound (greater than min)." },
+    { "name": "step", "type": "number", "default": "1", "required": false, "globallyConfigurable": false, "description": "Values snap to min + n * step." },
+    { "name": "largeStep", "type": "number", "required": false, "globallyConfigurable": false, "description": "Page Up/Page Down step (default: a tenth of the scale in whole steps)." },
+    { "name": "value", "type": "SliderValue", "required": false, "globallyConfigurable": false, "description": "A number, or [start, end] with range." },
+    { "name": "range", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Two thumbs selecting [start, end]." },
+    { "name": "orientation", "type": "'horizontal' | 'vertical'", "default": "horizontal", "required": false, "globallyConfigurable": false, "description": "Layout and key mapping." },
+    { "name": "marks", "type": "boolean | readonly SliderMark[]", "required": false, "globallyConfigurable": false, "description": "true: a tick per step (up to 100); or explicit { value, label? } marks." },
+    { "name": "format", "type": "Intl.NumberFormatOptions", "required": false, "globallyConfigurable": false, "description": "Number format of the value text." },
+    { "name": "valueText", "type": "(value: number) => string", "required": false, "globallyConfigurable": false, "description": "Full value text (overrides format)." },
+    { "name": "disabled", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Disable the slider." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name (hidden inputs; a range submits two values)." },
+    { "name": "showValue", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show the value next to the label." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the value text and thumb names." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "value", "type": "SliderValue", "description": "A number, or [start, end] with range." },
+    { "name": "validity", "type": "ControlValidity", "description": "Valid unless a custom error is set." },
+    { "name": "options", "type": "Readonly<SliderOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: SliderValue): void", "description": "Set the value, snapped and clamped (no event)." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "Show or clear an external error." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the (first) thumb." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear the error." },
+    { "name": "update", "signature": "update(options: Partial<SliderOptions>): void", "description": "Merge and apply options; the value is re-snapped." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, and the form registration." }
+  ],
+  "events": [
+    { "name": "aui-input", "detail": "SliderValueDetail", "bubbles": true, "cancelable": false, "description": "The value changes while dragging or with a key: { value }." },
+    { "name": "aui-change", "detail": "SliderValueDetail", "bubbles": true, "cancelable": false, "description": "The value was committed (pointer release or a key): { value }." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-slider", "description": "Host (with aui-field)." },
+    { "name": "aui-slider--range | --vertical | --disabled | --invalid", "description": "State modifiers." },
+    { "name": "aui-slider__header", "description": "Label and value text." },
+    { "name": "aui-slider__output", "description": "Visible value text (aria-hidden)." },
+    { "name": "aui-slider__control", "description": "Pointer area." },
+    { "name": "aui-slider__track", "description": "Track." },
+    { "name": "aui-slider__fill", "description": "Filled part of the track." },
+    { "name": "aui-slider__thumb", "description": "A thumb (role=slider)." },
+    { "name": "aui-slider__marks", "description": "Tick marks (aria-hidden)." },
+    { "name": "aui-slider__mark | __mark--active | __mark-label", "description": "A tick, an active tick, and its label." }
+  ],
+  "iconSlots": []
+}

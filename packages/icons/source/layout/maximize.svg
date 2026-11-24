@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="maximize">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 9V4h5"/>
+      <path d="M20 9V4h-5"/>
+      <path d="M4 15v5h5"/>
+      <path d="M20 15v5h-5"/>
+    </g>
+  </g>
+</svg>

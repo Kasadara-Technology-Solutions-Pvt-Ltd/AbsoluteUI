@@ -1,0 +1,6 @@
+[
+  { "title": "Determinate or not", "text": "Show a value against a range, or no value for work of unknown length." },
+  { "title": "Readable value", "text": "A localized percentage by default, or your own text for the value." },
+  { "title": "Status tones", "text": "Success, warning, and error tones with icons for finished or failed work." },
+  { "title": "Completion announced", "text": "Screen readers hear once when the work is complete." }
+]

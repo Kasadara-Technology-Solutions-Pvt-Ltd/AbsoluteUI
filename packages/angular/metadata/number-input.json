@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/number-input",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiNumberInput",
+      "description": "AbsoluteUI NumberInput: `<aui-number-input>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-number-input",
+      "exportAs": [
+        "auiNumberInput"
+      ],
+      "source": "generated",
+      "component": "number-input",
+      "configKey": "numberInput",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "number | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name, set on the hidden input that carries the canonical value."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Supplementary hint; never replaces the label."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Empty value is invalid; shows the required indicator."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the input and steppers; the value is not submitted."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Value is focusable and submitted but not editable or steppable."
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "description": "Minimum value; also the step base and the Home target."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "description": "Maximum value; End goes to the largest on-grid value <= max."
+        },
+        {
+          "name": "step",
+          "type": "number | null",
+          "required": false,
+          "default": "1",
+          "description": "Increment and step-validation grid (base min ?? 0). Default 0.01 for percent style. null: any value, increments of 1."
+        },
+        {
+          "name": "format",
+          "type": "NumberInputFormat",
+          "required": false,
+          "description": "Display format (Intl.NumberFormat subset). maximumFractionDigits also rounds the value on commit."
+        },
+        {
+          "name": "validate",
+          "type": "((value: number | null) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<NumberInputIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "showSteppers",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Render increase/decrease buttons (pointer affordance; keyboard users use the arrow keys)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Parsing, formatting, and message locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "number | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valueInput",
+          "payload": "NumberInputInputDetail",
+          "event": "aui-input",
+          "description": "User typed, or stepped (keyboard or stepper buttons, since 0.9.0); value is the parse of the raw text."
+        },
+        {
+          "name": "changed",
+          "payload": "NumberInputValueDetail",
+          "event": "aui-change",
+          "description": "User committed a changed value (blur, Enter, arrow/page/Home/End keys, or a stepper button)."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user edits."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): number | null | undefined",
+          "description": "Value for form serialization."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the input."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Spinbutton pattern on a text <input> with a <label for> association.",
+        "source": "packages/components/metadata/number-input/accessibility.json"
+      },
+      "limitations": [
+        "Values are JavaScript numbers (IEEE 754 doubles): integers beyond 2^53 and more than about 15 significant digits are not exact. Use Text Input for arbitrary-precision decimals.",
+        "Parsing follows the locale strictly: in de-DE a typed '.' is a group separator, so '1.5' is 15.",
+        "Group separators are accepted anywhere in the integer part; their positions are not validated.",
+        "Accounting formats (parentheses for negatives), scientific, engineering, and compact notation are not parsed.",
+        "The canonical value in the hidden input uses JavaScript number serialization, which is exponent notation below 1e-6 and from 1e21.",
+        "With inputMode 'numeric' (maximumFractionDigits 0) some mobile keyboards have no minus key; set min >= 0 or use the default decimal format for signed integers.",
+        "Stepper buttons do not repeat on press-and-hold."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { AuiNumberInput } from '@absoluteui/angular/number-input';\n\n@Component({\n  selector: 'app-order',\n  imports: [ReactiveFormsModule, AuiNumberInput],\n  template: `<aui-number-input label=\"Quantity\" [min]=\"1\" [max]=\"99\" [step]=\"1\" [required]=\"true\" [formControl]=\"quantity\"></aui-number-input>`,\n})\nexport class OrderComponent {\n  readonly quantity = new FormControl<number | null>(1, { validators: [Validators.required, Validators.min(1), Validators.max(99)] });\n}"
+    }
+  ]
+}

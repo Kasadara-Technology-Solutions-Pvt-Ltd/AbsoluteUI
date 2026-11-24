@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/select",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSelect",
+      "description": "AbsoluteUI Select: `<aui-select>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.\nTemplates: AuiItem, AuiSelectedItem (`@absoluteui/angular/templates`).",
+      "selector": "aui-select",
+      "exportAs": [
+        "auiSelect"
+      ],
+      "source": "generated",
+      "component": "select",
+      "configKey": "select",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "string | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name (via aria-labelledby)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "options",
+          "type": "readonly SelectOption[]",
+          "required": true,
+          "description": "{ value, label, disabled?, description? } with unique string values (flat list)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name for the hidden input."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Shown while nothing is selected. Default: localized \"Select an option\"."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "No selection is invalid; sets aria-required and shows the required indicator."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "aria-disabled, removed from the tab order, not submitted."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Focusable and submitted; the listbox does not open."
+        },
+        {
+          "name": "validate",
+          "type": "((value: string | null) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<SelectIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "renderOption",
+          "type": "((option: SelectOption, context: SelectRenderContext) => Node)",
+          "required": false,
+          "description": "Custom option content (since 0.9.0); the label stays the accessible name. Nodes are released with releaseNode when dropped."
+        },
+        {
+          "name": "renderValue",
+          "type": "((option: SelectOption, context: SelectRenderContext) => Node)",
+          "required": false,
+          "description": "Custom content for the selected value (since 0.9.0); the label stays the announced value."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Placeholder and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Listbox alignment direction (applied when the listbox opens)."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "SelectChangeDetail",
+          "event": "aui-change",
+          "description": "User selected a different option."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "Listbox opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "Listbox closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isOpen",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the listbox is shown."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Show the listbox; the selected (or first enabled) option becomes active."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Hide the listbox without changing the value."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); cleared when the user selects a new value."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "Value for form serialization."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the combobox."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Close, restore the initial value, and clear dirty/touched/submitted state."
+        }
+      ],
+      "templates": [
+        "AuiItem",
+        "AuiSelectedItem"
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Select-Only Combobox pattern: a non-editable combobox that controls a single-select listbox.",
+        "source": "packages/components/metadata/select/accessibility.json"
+      },
+      "limitations": [
+        "Options are a flat list; option groups are not available.",
+        "All options are rendered (no virtualization); lists above 1,000 options are untested.",
+        "Single selection only.",
+        "Typeahead matches label prefixes only (case- and accent-insensitive per Intl.Collator base sensitivity)."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { AuiSelect } from '@absoluteui/angular/select';\n\n@Component({\n  selector: 'app-shipping',\n  imports: [ReactiveFormsModule, AuiSelect],\n  template: `<aui-select label=\"Country\" [options]=\"countries\" [required]=\"true\" [formControl]=\"country\"></aui-select>`,\n})\nexport class ShippingComponent {\n  readonly countries = [\n    { value: 'in', label: 'India' },\n    { value: 'gb', label: 'United Kingdom' },\n  ];\n  readonly country = new FormControl<string | null>(null, { validators: [Validators.required] });\n}"
+    }
+  ]
+}

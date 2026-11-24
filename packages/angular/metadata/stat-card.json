@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/stat-card",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiStatCard",
+      "description": "AbsoluteUI StatCard: `<aui-stat-card>`.",
+      "selector": "aui-stat-card",
+      "exportAs": [
+        "auiStatCard"
+      ],
+      "source": "generated",
+      "component": "stat-card",
+      "configKey": "statCard",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Metric name; names the card (group) and, by default, the trend sparkline. Non-empty."
+        },
+        {
+          "name": "value",
+          "type": "string | number | null",
+          "required": true,
+          "description": "A number (formatted with valueFormat or formatValue), preformatted text, or null ('No value')."
+        },
+        {
+          "name": "previous",
+          "type": "number | null",
+          "required": false,
+          "description": "Previous value; the change is computed from it when value is a number (percent: (value - previous) / |previous|, not shown for 0; absolute: value - previous). Finite."
+        },
+        {
+          "name": "delta",
+          "type": "number | null",
+          "required": false,
+          "description": "Explicit change (a ratio for 'percent', units for 'absolute'); wins over previous. Finite."
+        },
+        {
+          "name": "comparisonLabel",
+          "type": "string",
+          "required": false,
+          "description": "Caption after the change, for example 'vs last month' (shown only with a change)."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Supporting text at the bottom."
+        },
+        {
+          "name": "trend",
+          "type": "readonly (number | null)[]",
+          "required": false,
+          "description": "Trend values rendered as a Sparkline (null is a gap); an empty array shows none."
+        },
+        {
+          "name": "trendLabel",
+          "type": "string",
+          "required": false,
+          "description": "Sparkline accessible label. Default: the card label."
+        },
+        {
+          "name": "trendColor",
+          "type": "SparklineColor",
+          "required": false,
+          "default": "1",
+          "description": "Chart palette slot of the sparkline (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8; SparklineColor from @absoluteui/components/sparkline)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format of the value (and of an absolute change)."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom value formatter; wins over valueFormat (also used for an absolute change)."
+        },
+        {
+          "name": "icon",
+          "type": "IconRef",
+          "required": false,
+          "description": "Decorative icon before the label."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "required": false,
+          "description": "Make the whole card a link (http(s) or relative URLs only; others throw). The URL can change with update(), but adding or removing href throws."
+        },
+        {
+          "name": "busy",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show 'Loading' instead of the value (no change) and set aria-busy."
+        },
+        {
+          "name": "sentiment",
+          "type": "StatCardSentiment",
+          "required": false,
+          "default": "higher-is-better",
+          "configurable": true,
+          "description": "Whether an increase is favorable, unfavorable, or neither; decides the color and the spoken 'favorable'/'unfavorable'."
+        },
+        {
+          "name": "deltaFormat",
+          "type": "StatCardDeltaFormat",
+          "required": false,
+          "default": "percent",
+          "configurable": true,
+          "description": "Relative change (percent, max 1 fraction digit) or the difference in value units."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number formatting and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Passed to the trend sparkline."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Static content grouped with role=group and named by its visible label; with href, a single native link wrapping the whole card. The change is spelled out in visually hidden text; the visible signed amount is aria-hidden so it is not read twice.",
+        "source": "packages/components/metadata/stat-card/accessibility.json"
+      },
+      "limitations": [
+        "The trend sparkline needs the Sparkline stylesheet (@absoluteui/components/sparkline/style.css) in addition to the Stat Card stylesheet.",
+        "A percent change from a previous value of 0 is not shown (division by zero); pass delta explicitly if needed.",
+        "The change is computed only when value is a number; with a preformatted string value pass delta.",
+        "href cannot be added or removed after create (recreate the card).",
+        "With formatValue and deltaFormat 'absolute', a positive change is prefixed with '+' and a negative one relies on formatValue to print the minus sign.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiStatCard } from '@absoluteui/angular/stat-card';\n\n@Component({\n  selector: 'app-revenue',\n  imports: [AuiStatCard],\n  template: `<aui-stat-card label=\"Revenue\" [value]=\"48200\" [previous]=\"40100\" [valueFormat]=\"currency\" comparisonLabel=\"vs last month\"></aui-stat-card>`,\n})\nexport class RevenueComponent {\n  readonly currency: Intl.NumberFormatOptions = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 };\n}"
+    }
+  ]
+}

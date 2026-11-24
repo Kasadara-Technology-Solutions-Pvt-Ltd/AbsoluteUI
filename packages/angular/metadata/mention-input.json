@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/mention-input",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiMentionInput",
+      "description": "AbsoluteUI MentionInput: `<aui-mention-input>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-mention-input",
+      "exportAs": [
+        "auiMentionInput"
+      ],
+      "source": "generated",
+      "component": "mention-input",
+      "configKey": "mentionInput",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "MentionInputValue"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Supplementary hint; never replaces the label."
+        },
+        {
+          "name": "triggers",
+          "type": "readonly MentionTrigger[]",
+          "required": true,
+          "description": "Trigger characters with their async providers: { char, provider(query, { signal, trigger }), label?, minChars? }."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name; the hidden input carries the JSON value."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Empty text is invalid; shows the required indicator."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the field."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Focusable and submitted, not editable; no suggestions."
+        },
+        {
+          "name": "multiline",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "true: a textarea; false: a single-line input with the combobox role."
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "description": "Visible rows of the textarea."
+        },
+        {
+          "name": "maxLength",
+          "type": "number",
+          "required": false,
+          "description": "Maximum length in code points (validated, not truncated)."
+        },
+        {
+          "name": "showCounter",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show remaining/over characters; requires maxLength."
+        },
+        {
+          "name": "validate",
+          "type": "((value: MentionInputValue) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<MentionInputIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "debounce",
+          "type": "number",
+          "required": false,
+          "default": "200",
+          "configurable": true,
+          "description": "Milliseconds between the last keystroke and the provider call (0 to 5000)."
+        },
+        {
+          "name": "maxSuggestions",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "configurable": true,
+          "description": "Most suggestions shown at once (1 to 50)."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message and number-formatting locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "MentionInputValue",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valueInput",
+          "payload": "MentionInputValueDetail",
+          "event": "aui-input",
+          "description": "The text or mentions changed: { value, validity }."
+        },
+        {
+          "name": "changed",
+          "payload": "MentionInputValueDetail",
+          "event": "aui-change",
+          "description": "Committed: a mention was inserted, or focus left with a changed value."
+        },
+        {
+          "name": "mentioned",
+          "payload": "MentionInputMentionDetail",
+          "event": "aui-mention",
+          "description": "A suggestion was inserted: { mention }."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error; cleared when the user edits."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): MentionInputValue | undefined",
+          "description": "Value for form serialization."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the field."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Combobox with a listbox popup (list autocomplete). The single-line field is role=combobox with aria-expanded; the textarea keeps its native textbox role (ARIA does not allow combobox on textarea) and exposes aria-autocomplete, aria-controls, and aria-activedescendant.",
+        "source": "packages/components/metadata/mention-input/accessibility.json"
+      },
+      "limitations": [
+        "Mentions are not highlighted inside the field (a native textarea cannot style ranges); they are plain text with tokens in the value.",
+        "Inserting a suggestion replaces the field value programmatically, so the browser's undo history does not include it.",
+        "Queries stop at whitespace: multi-word labels are found by their first word."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { MentionInputValue, MentionTrigger } from '@absoluteui/components/mention-input';\nimport { AuiMentionInput } from '@absoluteui/angular/mention-input';\n\n@Component({\n  selector: 'app-comment',\n  imports: [AuiMentionInput],\n  template: `<aui-mention-input label=\"Comment\" [triggers]=\"triggers\" [(value)]=\"comment\"></aui-mention-input>`,\n})\nexport class CommentComponent {\n  comment: MentionInputValue = { text: '', mentions: [] };\n  readonly triggers: MentionTrigger[] = [{ char: '@', label: '@ for people', provider: (query) => Promise.resolve([{ id: 'u1', label: 'Ana' }].filter((p) => p.label.startsWith(query))) }];\n}"
+    }
+  ]
+}

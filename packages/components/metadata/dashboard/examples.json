@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "component": "dashboard",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Render a JSON definition with built-in widgets",
+      "language": "ts",
+      "code": "import { Dashboard } from '@absoluteui/components/dashboard';\nimport { registerBuiltInWidgets } from '@absoluteui/components/dashboard/widgets';\n\nregisterBuiltInWidgets();\n\nconst host = document.createElement('div');\ndocument.body.append(host);\n\nconst dashboard = Dashboard.create(host, {\n  definition: {\n    schemaVersion: 1,\n    id: 'sales',\n    title: 'Sales',\n    dataSources: {\n      totals: { kind: 'static', data: { revenue: 125000, previous: 110000, regions: [{ region: 'Europe', amount: 70000 }, { region: 'Americas', amount: 55000 }] } },\n    },\n    widgets: [\n      { id: 'revenue', type: 'kpi', title: 'Revenue', source: 'totals', map: { value: '/revenue', previous: '/previous' }, options: { format: { style: 'currency', currency: 'EUR' } }, layout: { x: 0, y: 0, w: 4, h: 2 } },\n      { id: 'regions', type: 'bar-chart', title: 'By region', source: 'totals', map: { rows: '/regions' }, options: { category: 'region', series: [{ field: 'amount', label: 'Revenue' }] }, layout: { x: 4, y: 0, w: 8, h: 4 } },\n    ],\n  },\n});\nconsole.log(dashboard.definition.widgets.length);"
+    },
+    {
+      "id": "api-data",
+      "title": "Widgets from your API: the host fetcher adds authentication; other origins must be allow-listed",
+      "language": "ts",
+      "code": "import { Dashboard, DashboardDataError, type DashboardFetcher } from '@absoluteui/components/dashboard';\nimport { registerBuiltInWidgets } from '@absoluteui/components/dashboard/widgets';\n\nregisterBuiltInWidgets();\n\ndeclare function getAccessToken(): Promise<string>;\n\nconst fetcher: DashboardFetcher = async (request, signal) => {\n  const response = await fetch(request.url, {\n    method: request.method,\n    headers: { ...request.headers, Accept: 'application/json', Authorization: `Bearer ${await getAccessToken()}` },\n    body: request.body ?? null,\n    credentials: request.credentials,\n    redirect: 'error',\n    signal,\n  });\n  if (!response.ok) throw new DashboardDataError('http', 'Request failed', response.status);\n  return response.json() as Promise<unknown>;\n};\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nDashboard.create(host, {\n  fetcher,\n  allowedOrigins: ['https://api.example.com'],\n  timeZone: 'Europe/Berlin',\n  definition: {\n    schemaVersion: 1,\n    id: 'ops',\n    title: 'Operations',\n    variables: [{ id: 'period', kind: 'dateRange', label: 'Period', default: { preset: 'thisMonth' } }],\n    dataSources: {\n      tickets: { url: 'https://api.example.com/tickets/summary', params: { from: '{{period.from}}', to: '{{period.to}}' }, ttl: 60, refresh: 300 },\n    },\n    widgets: [{ id: 'open', type: 'kpi', title: 'Open tickets', source: 'tickets', map: { value: '/open', trend: '/daily' }, actions: { refreshable: true }, layout: { x: 0, y: 0, w: 3, h: 2 } }],\n  },\n});"
+    },
+    {
+      "id": "edit-and-save",
+      "title": "Editable dashboard: store every change, the builder, and templates",
+      "language": "ts",
+      "code": "import { Dashboard, type DashboardChangeDetail } from '@absoluteui/components/dashboard';\nimport { enableDashboardBuilder } from '@absoluteui/components/dashboard/builder';\nimport { registerBuiltInWidgets } from '@absoluteui/components/dashboard/widgets';\n\nregisterBuiltInWidgets();\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst saved = localStorage.getItem('dashboard:home');\nconst dashboard = Dashboard.create(host, {\n  editable: true,\n  definition: saved === null ? { schemaVersion: 1, id: 'home', title: 'Home', widgets: [] } : (JSON.parse(saved) as unknown),\n});\nenableDashboardBuilder(dashboard, {\n  widgetTemplates: [{ id: 'note', label: 'Note', widget: { type: 'text', title: 'Note', options: { text: 'Write here.' } } }],\n});\nhost.addEventListener('aui-dashboard-change', (event) => {\n  const { definition } = (event as CustomEvent<DashboardChangeDetail>).detail;\n  localStorage.setItem('dashboard:home', JSON.stringify(definition));\n  dashboard.markSaved();\n});"
+    },
+    {
+      "id": "custom-widget",
+      "title": "A custom widget type registered in code",
+      "language": "ts",
+      "code": "import { registerWidgetType, type WidgetType } from '@absoluteui/components/dashboard';\n\nconst statusWidget: WidgetType = {\n  label: 'Status',\n  description: 'Service status text.',\n  defaultSize: { w: 3, h: 2 },\n  inputs: [{ name: 'status', label: 'Status', kind: 'text', required: true }],\n  checkOptions: (options) => (Object.keys(options).length === 0 ? [] : [{ path: '', expected: 'no options' }]),\n  create: (context) => ({\n    update: ({ inputs }) => {\n      context.body.textContent = typeof inputs['status'] === 'string' ? inputs['status'] : 'Unknown';\n    },\n    destroy: () => {\n      context.body.replaceChildren();\n    },\n  }),\n};\nregisterWidgetType('acme:status', statusWidget);"
+    },
+    {
+      "id": "validate",
+      "title": "Validate a stored definition before saving it",
+      "language": "ts",
+      "code": "import { checkDefinition, migrateDefinition } from '@absoluteui/components/dashboard';\nimport { definitionSchema } from '@absoluteui/components/dashboard/schema';\n\nconst candidate: unknown = JSON.parse('{\"schemaVersion\":1,\"id\":\"x\",\"title\":\"X\",\"widgets\":[]}');\nconst result = checkDefinition(migrateDefinition(candidate));\nif (!result.ok) for (const issue of result.issues) console.warn(issue.path, issue.expected);\nconsole.log(JSON.stringify(definitionSchema({ widgetTypes: ['kpi', 'text'] })).length);"
+    },
+    {
+      "id": "global-config",
+      "title": "Load every widget immediately and keep 200 undo steps",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { dashboard: { lazy: false, historyLimit: 200 } } });"
+    }
+  ]
+}

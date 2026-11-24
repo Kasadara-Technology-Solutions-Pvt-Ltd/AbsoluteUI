@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/chat",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiChat",
+      "description": "AbsoluteUI Chat: `<aui-chat>`.",
+      "selector": "aui-chat",
+      "exportAs": [
+        "auiChat"
+      ],
+      "source": "generated",
+      "component": "chat",
+      "configKey": "chat",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the conversation log."
+        },
+        {
+          "name": "messages",
+          "type": "readonly ChatMessage[]",
+          "required": false,
+          "default": "[]",
+          "description": "Messages: { id, role, text, format?, timestamp?, author?, attachments?, status?, error?, feedback? }."
+        },
+        {
+          "name": "authors",
+          "type": "Partial<Record<ChatRole, ChatAuthor>>",
+          "required": false,
+          "description": "Default author per role: { name, avatar?, icon? }."
+        },
+        {
+          "name": "suggestions",
+          "type": "readonly ChatSuggestion[]",
+          "required": false,
+          "default": "[]",
+          "description": "Suggestion chips above the composer: { id, label, text? } (hidden while streaming)."
+        },
+        {
+          "name": "typing",
+          "type": "string | null",
+          "required": false,
+          "default": "null",
+          "description": "Name of someone typing (people chats)."
+        },
+        {
+          "name": "composer",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show the composer (Prompt Input)."
+        },
+        {
+          "name": "prompt",
+          "type": "Partial<Omit<PromptInputOptions, \"value\" | \"status\">>",
+          "required": false,
+          "description": "Composer options (placeholder, attachments, accept, triggers, counter, submitKey, ...)."
+        },
+        {
+          "name": "emptyText",
+          "type": "string",
+          "required": false,
+          "description": "Text shown while there are no messages."
+        },
+        {
+          "name": "copyable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Copy action on user and assistant messages (and on code blocks)."
+        },
+        {
+          "name": "feedback",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Thumbs up and down on finished assistant messages."
+        },
+        {
+          "name": "businessCalendar",
+          "type": "BusinessCalendarEngine | null",
+          "required": false,
+          "default": "null",
+          "description": "Names holidays and non-working days in the day separators."
+        },
+        {
+          "name": "today",
+          "type": "PlainDate",
+          "required": false,
+          "description": "Reference day for Today and Yesterday; default today in the timezone."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<ChatIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "assistantFormat",
+          "type": "ChatFormat",
+          "required": false,
+          "default": "markdown",
+          "configurable": true,
+          "description": "Format of assistant and tool messages that do not set format."
+        },
+        {
+          "name": "showTimestamps",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show times and day separators."
+        },
+        {
+          "name": "showAvatars",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show avatars next to messages."
+        },
+        {
+          "name": "maxRenderedMessages",
+          "type": "number",
+          "required": false,
+          "default": "200",
+          "configurable": true,
+          "description": "Most messages in the DOM (integer 20..2000); earlier ones are behind Show earlier messages."
+        },
+        {
+          "name": "headingLevel",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "configurable": true,
+          "description": "Heading level of a Markdown # heading (integer 2..6)."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "IANA timezone of times and day separators."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of labels, times, and dates."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "sent",
+          "payload": "ChatSendDetail",
+          "event": "aui-send",
+          "description": "The user sent a message or chose a suggestion: { text, attachments }; prevent it to keep the text and add no message."
+        },
+        {
+          "name": "stopped",
+          "payload": "ChatStopDetail",
+          "event": "aui-stop",
+          "description": "A streaming reply was stopped (Stop or stop()): { id }."
+        },
+        {
+          "name": "retried",
+          "payload": "ChatRetryDetail",
+          "event": "aui-retry",
+          "description": "Retry on a failed or stopped reply: { id, prompt } (the user message before it)."
+        },
+        {
+          "name": "feedbackGiven",
+          "payload": "ChatFeedbackDetail",
+          "event": "aui-feedback",
+          "description": "The user rated a reply: { id, value: 'up' | 'down' | null }."
+        },
+        {
+          "name": "suggestionChosen",
+          "payload": "ChatSuggestionDetail",
+          "event": "aui-suggestion",
+          "description": "A suggestion chip was chosen: { suggestion }; prevent it to handle it yourself instead of sending its text."
+        },
+        {
+          "name": "attachmentOpened",
+          "payload": "ChatAttachmentOpenDetail",
+          "event": "aui-attachment-open",
+          "description": "An attachment chip was activated: { messageId, attachment }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "addMessage",
+          "signature": "addMessage(message: ChatMessage): void",
+          "description": "Append a message, or replace the message with the same id."
+        },
+        {
+          "name": "updateMessage",
+          "signature": "updateMessage(id: string, patch: Partial<Omit<ChatMessage, \"id\">>): void",
+          "description": "Merge fields into a message."
+        },
+        {
+          "name": "removeMessage",
+          "signature": "removeMessage(id: string): void",
+          "description": "Remove a message (stops it when it is streaming)."
+        },
+        {
+          "name": "clear",
+          "signature": "clear(): void",
+          "description": "Remove every message."
+        },
+        {
+          "name": "stream",
+          "signature": "stream(source: ChatStreamSource | ((signal: AbortSignal) => ChatStreamSource), init?: ChatStreamInit | undefined): Promise<ChatMessage> | undefined",
+          "description": "Stream a reply into a new or existing message; resolves with the final message (complete, stopped, or error)."
+        },
+        {
+          "name": "stop",
+          "signature": "stop(): void",
+          "description": "Stop the streaming reply; emits aui-stop."
+        },
+        {
+          "name": "scrollToLatest",
+          "signature": "scrollToLatest(): void",
+          "description": "Scroll to the newest message and follow new content again."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the composer (or the log without one)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Log (WAI-ARIA role=log) of messages as articles, with a polite live region announcement per finished message; the composer is a labelled multi-line text field.",
+        "source": "packages/components/metadata/chat/accessibility.json"
+      },
+      "limitations": [
+        "The DOM keeps at most maxRenderedMessages messages (default 200); earlier ones are added back in steps by 'Show earlier messages'. The list is not virtualized.",
+        "The Markdown subset has no tables, images, task lists, or HTML; nested lists follow indentation of two or more spaces.",
+        "Code blocks are shown as text without syntax highlighting.",
+        "Announcements read the first 300 characters of a finished reply."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { ChatMessage } from '@absoluteui/components/chat';\nimport { AuiChat } from '@absoluteui/angular/chat';\n\n@Component({\n  selector: 'app-transcript',\n  imports: [AuiChat],\n  template: `<aui-chat label=\"Transcript\" [messages]=\"messages\" [composer]=\"false\"></aui-chat>`,\n})\nexport class TranscriptComponent {\n  readonly messages: ChatMessage[] = [\n    { id: '1', role: 'user', text: 'Where is the travel policy?' },\n    { id: '2', role: 'assistant', text: 'It is under **Policies > Travel**.' },\n  ];\n}"
+    }
+  ]
+}

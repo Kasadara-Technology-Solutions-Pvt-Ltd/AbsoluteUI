@@ -1,0 +1,14 @@
+{
+  "entry": "@absoluteui/angular/overlay",
+  "declarations": {
+    "AUI_DIALOG_DATA": "export declare const AUI_DIALOG_DATA: InjectionToken<unknown>;",
+    "AuiDialogConfig": "export type AuiDialogConfig<D = unknown> = OverlayCommon<D> & Omit<DialogOptions, 'title' | 'description' | 'content'>;",
+    "AuiDialogRef": "export declare abstract class AuiDialogRef<R = unknown> {\n    abstract readonly closed: Promise<AuiOverlayClosed<R>>;\n    abstract close(result?: R): void;\n}",
+    "AuiDialogService": "export declare class AuiDialogService extends OverlayService {\n    open<R = unknown, D = unknown>(content: Type<unknown> | TemplateRef<AuiOverlayTemplateContext<D, R>>, config: AuiDialogConfig<D>): AuiDialogRef<R>;\n    protected loadStyles(loader: AuiStyleLoader): void;\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiDialogService, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "AuiDrawerConfig": "export type AuiDrawerConfig<D = unknown> = OverlayCommon<D> & Omit<DrawerOptions, 'title' | 'description' | 'content'>;",
+    "AuiDrawerService": "export declare class AuiDrawerService extends OverlayService {\n    open<R = unknown, D = unknown>(content: Type<unknown> | TemplateRef<AuiOverlayTemplateContext<D, R>>, config: AuiDrawerConfig<D>): AuiDialogRef<R>;\n    protected loadStyles(loader: AuiStyleLoader): void;\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiDrawerService, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "AuiOverlayClosed": "export interface AuiOverlayClosed<R> {\n    readonly result: R | undefined;\n    readonly returnValue: string;\n}",
+    "AuiOverlayTemplateContext": "export interface AuiOverlayTemplateContext<D, R> {\n    readonly $implicit: D;\n    readonly ref: AuiDialogRef<R>;\n}"
+  },
+  "reexports": []
+}

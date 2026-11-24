@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "pagination",
+  "displayName": "Pagination",
+  "category": "Navigation",
+  "package": "@absoluteui/components",
+  "import": "import { Pagination, getPageItems } from '@absoluteui/components/pagination';",
+  "styleImport": "@absoluteui/components/pagination/style.css",
+  "purpose": "Page navigation for paged data: a labelled <nav> of native buttons (previous/next, optional first/last, page numbers with ellipses), an optional localized result summary, an optional rows-per-page <select>, polite announcements after page changes, and a compact 'Page 3 of 10' layout in narrow containers.",
+  "whenToUse": [
+    "Tables and result lists split into pages, where users need to know and choose their position.",
+    "Server-paged data where the total or page count is known."
+  ],
+  "whenNotToUse": [
+    "Feeds consumed sequentially: use 'Load more' or infinite scrolling with a clear end.",
+    "Fewer items than one page: render the list without pagination.",
+    "Step-by-step processes: use a stepper."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["default", "hover", "focus-visible", "current page", "disabled (at bounds)", "compact (narrow container)", "empty (no pages)"],
+  "responsive": "The host is a size container. Below 30rem of inline space the page numbers are hidden and 'Page 3 of 10' is shown between previous and next. Buttons keep the minimum touch-target size; summary, controls, and the size select wrap.",
+  "rtl": "Logical layout follows the document direction. Direction icons (chevrons) are mirrored when direction is rtl (configured) or the element is in an rtl context (:dir(rtl)).",
+  "theme": "The current page uses color-selected / color-selected-text with a color-primary border and semibold weight (not color alone). Hover uses color-hover; focus uses the shared focus ring. Forced-colors mode renders the current page with Highlight / HighlightText.",
+  "timezone": "Not applicable.",
+  "security": "All text is rendered with textContent. No HTML parsing. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. The component never fetches data; consumers load pages on aui-change.",
+  "performance": {
+    "budgets": [
+      { "metric": "Pagination.create with 10,000 pages", "budget": "< 1 ms in headless Chromium (rendered items are bounded by siblingCount and boundaryCount)" }
+    ],
+    "testedScale": "getPageItems exhaustively tested for page counts 0 to 30 across 7 sibling/boundary combinations; 12,345 items in the unit tests."
+  },
+  "limitations": [
+    "No direct page-number input ('go to page').",
+    "The compact layout breakpoint (30rem container width) is fixed in the stylesheet.",
+    "Changing the page size keeps the first item of the current page visible; consumers wanting page 1 can call setPage(1)."
+  ],
+  "unsupported": [
+    "Cursor-based pagination without a known page count (use previous/next buttons directly).",
+    "Links (href) for page items; pages are buttons that emit aui-change."
+  ],
+  "antiPatterns": [
+    "Hiding previous/next at the bounds instead of disabling them (the layout jumps).",
+    "Pagination for a handful of items.",
+    "Resetting to page 1 on every data refresh."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/pagination: AuiPagination directive ([auiPagination]).",
+    "react": "@absoluteui/react/pagination: AuiPagination component.",
+    "vue": "@absoluteui/vue/pagination: AuiPagination component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

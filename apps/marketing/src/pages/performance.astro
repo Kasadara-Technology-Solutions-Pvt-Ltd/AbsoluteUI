@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { date, docs, n, stats } from '../site';
+
+const ev = stats.evidence;
+const suites = ev
+  ? [...new Set(ev.performance.measurements.map((m) => m.suite))].map((suite) => {
+      const ms = ev.performance.measurements.filter((m) => m.suite === suite);
+      const headroom = ms.map((m) => (m.budget > 0 ? 1 - m.value / m.budget : 0)).sort((a, b) => a - b);
+      return { suite: suite.charAt(0).toUpperCase() + suite.slice(1), count: ms.length, within: ms.filter((m) => m.within).length, minHeadroom: Math.round((headroom[0] ?? 0) * 100) };
+    })
+  : [];
+---
+
+<Base title="Performance" description="AbsoluteUI components declare performance budgets; the release measures every one of them. The latest measured results and environment." path="/performance/">
+  <PageHero eyebrow="Performance" title="Budgets, measured on every release" lead="Components declare performance budgets in their metadata. The end-to-end suite measures them in a production build under a strict CSP and fails the release when one is exceeded." />
+
+  {
+    ev ? (
+      <>
+        <section class="section section-tight" aria-labelledby="summary">
+          <div class="container">
+            <h2 id="summary" class="visually-hidden">Summary</h2>
+            <div class="stat-row">
+              <div class="stat">
+                <span class="stat-value">{n(ev.performance.within)} / {n(ev.performance.total)}</span>
+                <span class="stat-label">Measurements within budget</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">{suites.length}</span>
+                <span class="stat-label">Measured suites</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">{stats.runtimeDependencies}</span>
+                <span class="stat-label">Third-party runtime dependencies</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">{ev.environment.cores} cores</span>
+                <span class="stat-label">{ev.environment.cpu.replace(/\(R\)|\(TM\)/g, '').replace(/\s+/g, ' ')}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="section section-white section-line" aria-labelledby="suites">
+          <div class="container">
+            <div class="head">
+              <h2 id="suites">Results by suite</h2>
+              <p class="lead">Headroom is how far the slowest measurement in a suite stays under its budget.</p>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="visually-hidden">Performance results by suite</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Suite</th>
+                    <th scope="col" class="num">Measurements</th>
+                    <th scope="col" class="num">Within budget</th>
+                    <th scope="col" class="num">Smallest headroom</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {suites.map((s) => (
+                    <tr>
+                      <th scope="row">{s.suite}</th>
+                      <td class="num">{s.count}</td>
+                      <td class="num">{s.within}</td>
+                      <td class="num">{s.minHeadroom}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="muted small">
+              Recorded {date(ev.generatedAt)} at commit <code>{ev.commit}</code>: {ev.environment.os}, Node.js {ev.environment.node}, {ev.environment.browser}. Times are comparable across releases on similar hardware, not with numbers published by other libraries.
+            </p>
+          </div>
+        </section>
+      </>
+    ) : (
+      <section class="section section-tight">
+        <div class="container">
+          <p class="notice"><Icon name="info" />No recorded measurements are available in this build.</p>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section" aria-labelledby="more">
+    <div class="container">
+      <h2 id="more" class="visually-hidden">Reports</h2>
+      <div class="cards cards-2">
+        {
+          stats.reports.performance ? (
+            <a class="download" href={stats.reports.performance} download>
+              <div>
+                <strong>Performance report (PDF)</strong>
+                <span>Every measurement against its budget, with the environment</span>
+              </div>
+              <Icon name="download" />
+            </a>
+          ) : (
+            <p class="notice">The PDF report is generated with the site build.</p>
+          )
+        }
+        <a class="download" href={docs('/docs/quality/performance/')}>
+          <div>
+            <strong>Full results in the docs</strong>
+            <span>Declared budgets and import cost per component</span>
+          </div>
+          <Icon name="external" />
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

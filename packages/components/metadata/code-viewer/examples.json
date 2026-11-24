@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "code-viewer",
+  "examples": [
+    {
+      "id": "code",
+      "title": "Highlighted TypeScript with line highlights",
+      "language": "ts",
+      "code": "import { CodeViewer, type CodeViewerCopyDetail } from '@absoluteui/components/code-viewer';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCodeViewer.create(host, {\n  label: 'Leave request handler',\n  filename: 'leave.ts',\n  language: 'typescript',\n  code: \"export async function requestLeave(days: number): Promise<void> {\\n  if (days <= 0) throw new Error('days must be positive');\\n  await submit({ days });\\n}\\n\",\n  highlightLines: [2],\n});\nhost.addEventListener('aui-copy', (event) => {\n  host.dataset.copied = String((event as CustomEvent<CodeViewerCopyDetail>).detail.text.length);\n});"
+    },
+    {
+      "id": "diff",
+      "title": "Side-by-side diff of two JSON exports",
+      "language": "ts",
+      "code": "import { CodeViewer, type CodeViewerChangeDetail } from '@absoluteui/components/code-viewer';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst viewer = CodeViewer.create(host, {\n  label: 'Policy changes',\n  language: 'json',\n  diff: {\n    original: '{\\n  \"annualLeave\": 20,\\n  \"carryOver\": 5\\n}',\n    modified: '{\\n  \"annualLeave\": 22,\\n  \"carryOver\": 5,\\n  \"sabbatical\": true\\n}',\n    mode: 'split',\n  },\n});\nhost.addEventListener('aui-change', (event) => {\n  host.dataset.mode = (event as CustomEvent<CodeViewerChangeDetail>).detail.mode ?? '';\n});\nviewer.scrollToLine(3);"
+    },
+    {
+      "id": "diff-lines",
+      "title": "Compute a line diff without rendering",
+      "language": "ts",
+      "code": "import { diffLines } from '@absoluteui/components/code-viewer';\n\nconst changes = diffLines('a\\nb\\nc', 'a\\nx\\nc');\nconst summary = changes.filter((line) => line.op !== 'equal').map((line) => `${line.op} ${line.text}`);\ndocument.body.dataset.changes = summary.join(', ');"
+    }
+  ]
+}

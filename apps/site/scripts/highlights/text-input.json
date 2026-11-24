@@ -1,0 +1,7 @@
+[
+  { "title": "Typed text entry", "text": "Text, email, URL, phone, search, and password types with matching keyboards and autocomplete." },
+  { "title": "Shared validation", "text": "Required, length, pattern, and custom checks with localized messages identical in every browser." },
+  { "title": "Counter and addons", "text": "An optional character counter plus prefix and suffix text such as units or domains." },
+  { "title": "Password helpers", "text": "A reveal toggle and a clipboard policy that can block copying or pasting." },
+  { "title": "Message timing", "text": "Show validation on blur, on input, or only on submit." }
+]

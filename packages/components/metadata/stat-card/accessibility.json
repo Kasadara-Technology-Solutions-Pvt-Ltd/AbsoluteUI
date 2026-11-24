@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "component": "stat-card",
+  "pattern": "Static content grouped with role=group and named by its visible label; with href, a single native link wrapping the whole card. The change is spelled out in visually hidden text; the visible signed amount is aria-hidden so it is not read twice.",
+  "roles": [
+    { "element": "card root (no href)", "role": "group, named by the label (aria-labelledby)" },
+    { "element": "card root (href)", "role": "link (native <a href>), named by its content" },
+    { "element": "icon, arrow", "role": "none (decorative icons)" },
+    { "element": "trend", "role": "Sparkline (see sparkline accessibility metadata)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "card root (no href)", "value": "id of the label element" },
+    { "attribute": "aria-busy", "element": "card root", "value": "\"true\" while busy" },
+    { "attribute": "aria-hidden", "element": "visible signed change amount", "value": "\"true\"; the visually hidden text reads '{increase|decrease|no change} of {amount}[, favorable|unfavorable]'" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Card with href", "action": "The card is one tab stop (the link)." },
+    { "key": "Enter", "context": "Card link focused", "action": "Follows the link (native)." },
+    { "key": "Tab / Shift+Tab", "context": "Card without href", "action": "Not focusable; focus passes by." }
+  ],
+  "focus": "A linked card shows a focus-ring-width outline in color-focus-ring with focus-ring-offset. A plain card is not focusable.",
+  "wcag": ["1.1.1", "1.3.1", "1.4.1", "1.4.3", "2.4.4", "2.4.7", "4.1.2"],
+  "notes": [
+    "Favorable/unfavorable is conveyed by text ('increase of 20%, favorable'; the sign is spoken as the direction word) and by the arrow direction, not by color alone (WCAG 1.4.1).",
+    "Sentiment 'neutral' and a zero change omit the favorable/unfavorable wording.",
+    "While busy the value reads 'Loading' and the change is not shown."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "A linked card's accessible name is its whole text content (label, value, spelled-out change, caption, and description), which can be long."
+  ]
+}

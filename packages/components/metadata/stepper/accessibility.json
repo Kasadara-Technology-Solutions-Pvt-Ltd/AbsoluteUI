@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "component": "stepper",
+  "pattern": "Navigation landmark with an ordered list of steps (progress indicator). Reachable steps are native links or buttons; the current step is marked with aria-current=\"step\". Not a tablist.",
+  "roles": [
+    { "element": "<nav>", "role": "navigation" },
+    { "element": "<ol>", "role": "list" },
+    { "element": "<li>", "role": "listitem" },
+    { "element": "reachable step with href", "role": "link (native <a href>)" },
+    { "element": "reachable step without href", "role": "button (native <button type=\"button\">)" },
+    { "element": "current or unreachable step", "role": "none (text <span>)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "<nav>", "value": "`label` option" },
+    { "attribute": "aria-current", "element": "current step control", "value": "step" },
+    { "attribute": "aria-hidden", "element": "step indicator (number or icon)", "value": "true" },
+    { "attribute": "dir", "element": "<nav>", "value": "rtl when direction is 'rtl'; absent otherwise" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Moves between reachable steps (native tab order). The current step and unreachable steps are not Tab stops." },
+    { "key": "Enter", "context": "Reachable step focused", "action": "Emits cancelable aui-navigate; unless prevented, the step becomes current and aui-change is emitted. Links then navigate natively." },
+    { "key": "Space", "context": "Reachable button step focused", "action": "Same as Enter (native button activation)." }
+  ],
+  "focus": "Each reachable step is one Tab stop. After a button step is activated, focus moves to the new current step (tabindex=-1), so focus is not lost when the activated control is re-rendered as text. After a link step is activated, focus is not moved. update() and configuration changes rebuild the list and do not restore focus.",
+  "wcag": ["1.3.1", "1.4.1", "2.1.1", "2.4.3", "2.4.7", "4.1.2"],
+  "notes": [
+    "Step status is conveyed as text: a visually hidden \"Completed\" or \"Error\" inside the step control and a visible \"Optional\" hint, not by color or icon alone.",
+    "The ordered list conveys the number of steps and each step's position.",
+    "Disabled and unreachable steps are plain text, so they are announced but not operable."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Unreachable steps are not exposed as disabled controls; users hear them as text without an explanation of why they cannot be activated."
+  ]
+}

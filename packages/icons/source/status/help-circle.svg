@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="help-circle" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M9.5 9.5a2.5 2.5 0 0 1 5 0c0 1.5-1.2 2-2 2.6-.5.4-.5.9-.5 1.4"/>
+      <path d="M12 16.75h.01"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="12" cy="12" r="10"/>
+      <polyline points="9.5 9.5 9.84 8.25 10.75 7.34 12 7 13.25 7.34 14.16 8.25 14.5 9.5 14.2 10.6 13.3 11.5 12.5 12.1 12.1 12.6 12 13.5" data-outline-width="2"/>
+      <circle cx="12" cy="16.9" r="1.25"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M9.5 9.5a2.5 2.5 0 0 1 5 0c0 1.5-1.2 2-2 2.6-.5.4-.5.9-.5 1.4"/>
+      <path d="M12 16.75h.01"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="info" data-paint="fill" data-opacity="0.2">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="base" data-role="info" data-paint="stroke">
+      <circle cx="12" cy="12" r="9"/>
+    </g>
+    <g data-layer="accent" data-role="info" data-paint="stroke">
+      <path d="M9.5 9.5a2.5 2.5 0 0 1 5 0c0 1.5-1.2 2-2 2.6-.5.4-.5.9-.5 1.4"/>
+      <path d="M12 16.75h.01"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "name": "org-chart",
+  "displayName": "Organization Chart",
+  "category": "Data visualization",
+  "package": "@absoluteui/components",
+  "import": "import { OrgChart, type OrgChartNode } from '@absoluteui/components/org-chart';",
+  "styleImport": "@absoluteui/components/org-chart/style.css",
+  "purpose": "Renders a reporting hierarchy from flat nodes (id, parentId) as a tidy tree, top-down or left-to-right, with elbow connectors and cards (initials, name, title, description, or custom content). The nodes are an ARIA tree with one roving tab stop and tree keyboard navigation (arrows, Home/End, *, typeahead); focus movement pans the view so the node stays visible. Pan by dragging the background, zoom with the toolbar, +/-/0 keys, or Ctrl/Cmd + wheel; fit and center on a node. Reports load lazily (loadChildren) with cancellation and a timeout. search, pathTo, and reveal find a person, expand their managers, and highlight the path. In edit mode nodes are re-parented by pointer drag, Ctrl/Cmd+X then Ctrl/Cmd+V, or the toolbar Move / Move here buttons, with canMove vetoes, locked nodes, and undo/redo. The layout function (layoutOrgChart) is pure; the org-chart-export subpath saves the visible chart as SVG or PNG.",
+  "whenToUse": [
+    "Showing who reports to whom, from a few people to a few thousand visible nodes.",
+    "Letting HR or managers restructure teams by moving people to new managers (edit mode, undo).",
+    "Browsing a large organization by loading teams on demand (loadChildren) and finding people (search, reveal)."
+  ],
+  "whenNotToUse": [
+    "Deep hierarchies that users scan as a list (folders, categories): use a tree view or Tree Grid pattern.",
+    "Networks where a node has several parents (matrix organizations, graphs).",
+    "Hierarchical part-to-whole values: use Treemap."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["collapsed / expanded nodes", "loading reports (aria-busy)", "selected node", "focused node", "highlighted path", "zoomed / panned", "edit mode", "node being moved (cut)", "dragging (valid / invalid drop target)", "locked node"],
+  "responsive": "The viewport has a fixed block size (30rem by default, set it with CSS) and clips the chart; the view is panned and zoomed instead of scrolling, so the page reflows at 320 px while the chart keeps its layout. fit() scales the visible chart into any viewport. Toolbar buttons are touch-target-min squares; touch drags on the background pan (touch-action: none on the viewport).",
+  "rtl": "direction 'rtl' mirrors the layout: in vertical charts the first report is on the right; horizontal charts grow from the right to the left. ArrowLeft/ArrowRight are swapped (Left expands and moves to the first report). Expand chips point in the mirrored direction.",
+  "theme": "Cards use color-surface, color-border-strong, radius-md, and shadow-sm; the selected card uses color-selected with color-selected-text and a border-width-strong border (not color alone). The highlighted path uses color-focus-ring for card borders and thicker connectors. Connectors use color-border-strong. The viewport is color-surface-sunken. Avatars use color-primary with color-on-primary. Forced-colors mode uses CanvasText connectors and Highlight for the path and selection. Position transitions are removed under reduced motion.",
+  "timezone": "Not applicable.",
+  "security": "Labels, titles, and descriptions render through textContent; custom content comes from renderNode as DOM nodes (the application owns its safety). Nodes and loaded reports are validated (unique ids, known parents, no cycles) before use. Positions and transforms are written through the CSSOM only (CSP-safe). The export subpath writes presentation attributes only (no style attributes or classes) and needs img-src blob: for PNG.",
+  "dataHandling": "No persistence, network access, or telemetry of its own: loadChildren is the application's function and receives an AbortSignal; the chart reports edits through aui-node-move (detail.nodes) and the nodes getter. Nothing is uploaded by export; files are saved through temporary object URLs.",
+  "performance": {
+    "budgets": [
+      { "metric": "OrgChart.create with 1,000 visible nodes", "budget": "< 80 ms in headless Chromium (e2e performance test)" },
+      { "metric": "Expand or collapse a node with 1,000 visible nodes", "budget": "< 80 ms in headless Chromium (e2e performance test)" },
+      { "metric": "layoutOrgChart for 5,000 nodes", "budget": "< 60 ms in headless Chromium (e2e performance test)" }
+    ],
+    "testedScale": "1,000 visible nodes (5,000 in the layout budget) for the budgets; 7 nodes in the behavior unit tests. Every visible node is a DOM element (no virtualization): collapse levels (expandDepth) for larger organizations."
+  },
+  "limitations": [
+    "Every visible node is rendered (no virtualization); keep visible nodes to a few thousand with expandDepth and lazy loading.",
+    "Cards have a fixed size (nodeWidth, nodeHeight); long text is truncated with an ellipsis (the full text stays in the accessible name).",
+    "Moves change the manager and append the node last among its new siblings (moveNode takes an index); sibling reordering has no keyboard command.",
+    "A plain mouse wheel scrolls the page; zooming needs Ctrl/Cmd + wheel, the toolbar, or keys. Pinch zoom is not provided.",
+    "Pointer drags start on the background (pan) or, in edit mode, on a node (move); pointer drags are not announced (keyboard and toolbar moves are).",
+    "Export redraws cards with label and title only; custom renderNode content is not exported.",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Nodes with several managers (matrix organizations) or graphs with cycles.",
+    "Assistant or staff positions placed beside a manager, or compact layouts that stack leaf reports vertically.",
+    "Adding, deleting, or renaming nodes inside the chart (change `nodes` with update()).",
+    "Printing the whole chart across pages."
+  ],
+  "antiPatterns": [
+    "Interactive content (links, buttons) inside renderNode: the treeitem is the control; use aui-node-select and a detail panel outside the chart.",
+    "Passing a new nodes array on every framework render: it clears the undo history.",
+    "Expanding everything for thousands of people instead of lazy loading and search.",
+    "Relying on drag alone to move people: keep the keyboard and toolbar paths visible to users."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/org-chart: generated AuiOrgChart directive ([auiOrgChart], inputs mirror OrgChartOptions; outputs auiNodeSelect, auiExpandChange, auiNodeMove, auiZoom, auiLoadError; controllerSignal).",
+    "react": "@absoluteui/react/org-chart: generated AuiOrgChart (props = OrgChartOptions + onNodeSelect, onExpandChange, onNodeMove, onZoom, onLoadError; ref receives the OrgChart).",
+    "vue": "@absoluteui/vue/org-chart: generated AuiOrgChart (emits nodeSelect, expandChange, nodeMove, zoom, loadError; template ref exposes controller)."
+  },
+  "versionIntroduced": "0.5.0",
+  "deprecated": null
+}

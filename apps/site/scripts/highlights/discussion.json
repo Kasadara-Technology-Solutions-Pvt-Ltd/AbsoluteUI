@@ -1,0 +1,8 @@
+[
+  { "title": "Replies at any depth", "text": "Reply to any comment, however deep. Indentation stops at maxIndent and deeper replies say who they answer, so threads stay readable on phones." },
+  { "title": "Mentions everywhere", "text": "Every comment and reply box is a Mention Input: @ suggests people from your directory or from the discussion itself." },
+  { "title": "Character count that blocks", "text": "Set maxLength and every box shows a counter; posting over the limit is blocked and the error is announced." },
+  { "title": "Delete without breaking threads", "text": "An inline confirmation, then a 'This comment was deleted' placeholder when replies exist, or removal when they do not." },
+  { "title": "Who and when", "text": "Author, avatar, and a relative time on every comment, with the absolute date in a <time> element, time-zone and holiday aware." },
+  { "title": "Big threads stay light", "text": "Deep threads start collapsed, top-level comments and replies page in with Show more, and replies can load lazily from your server." }
+]

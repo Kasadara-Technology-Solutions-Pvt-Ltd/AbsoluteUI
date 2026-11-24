@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "component": "popover",
+  "factory": { "name": "Popover.create", "signature": "Popover.create(trigger: HTMLElement, options: PopoverOptions): Popover" },
+  "configKey": "popover",
+  "options": [
+    { "name": "content", "type": "Node | string", "required": true, "globallyConfigurable": false, "description": "Popup content; strings render as text." },
+    { "name": "title", "type": "string", "required": false, "globallyConfigurable": false, "description": "Visible heading; names the popup through aria-labelledby. Either title or label is required." },
+    { "name": "label", "type": "string", "required": false, "globallyConfigurable": false, "description": "aria-label when there is no title." },
+    { "name": "icons", "type": "Partial<{ close: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "placement", "type": "Placement", "default": "bottom-start", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Preferred side and logical alignment; flips and shifts to fit." },
+    { "name": "offset", "type": "number (0..64)", "default": 8, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Gap between trigger and popup, px." },
+    { "name": "closeOnEscape", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Escape requests close (cancelable). Escape is consumed while the popover is topmost either way." },
+    { "name": "closeOnOutsidePointer", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Pointer down outside the popup and trigger requests close (cancelable)." },
+    { "name": "initialFocus", "type": "'first' | 'container' | 'none'", "default": "first", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Where focus goes on open: first tabbable element (falls back to the container), the popup container, or nowhere." },
+    { "name": "showCloseButton", "type": "boolean", "default": false, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Render a localized close button in the header." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Resolves logical start/end placements." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLDivElement", "description": "The popup (div.aui-popover[role=dialog])." },
+    { "name": "body", "type": "HTMLDivElement", "description": "Content container." },
+    { "name": "trigger", "type": "HTMLElement", "description": "The trigger element." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the popup is open." },
+    { "name": "options", "type": "Readonly<PopoverOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(): void", "description": "Show, position, and move focus per initialFocus." },
+    { "name": "close", "signature": "close(): void", "description": "Close programmatically (not cancelable). Focus inside the popup returns to the trigger." },
+    { "name": "toggle", "signature": "toggle(): void", "description": "Open or close programmatically." },
+    { "name": "update", "signature": "update(options: Partial<PopoverOptions>): void", "description": "Merge and apply options; repositions when open." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close if open; remove the popup, trigger ARIA attributes, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "After the popup opened (dispatched on the popup element)." },
+    { "name": "aui-cancel", "detail": "{ reason: 'escape' | 'outside-pointer' | 'focus-out' | 'trigger' | 'close-button' }", "bubbles": false, "cancelable": true, "description": "Before a user-initiated close; preventDefault keeps it open." },
+    { "name": "aui-close", "detail": "{ reason: PopoverCloseReason }", "bubbles": false, "cancelable": false, "description": "After the popup closed." }
+  ],
+  "contentAreas": [
+    { "name": "body", "description": "Popover.body (or the `content` option)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-popover", "description": "Popup element (manual popover, top layer)." },
+    { "name": "aui-popover--static", "description": "Set when animation is disabled globally." },
+    { "name": "aui-popover__header", "description": "Title row with the optional close button." },
+    { "name": "aui-popover__title", "description": "Heading (h2)." },
+    { "name": "aui-popover__close", "description": "Close button." },
+    { "name": "aui-popover__body", "description": "Content container." }
+  ],
+  "iconSlots": [
+    { "name": "close", "default": "close" }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "component": "empty-state",
+  "factory": { "name": "EmptyState.create", "signature": "EmptyState.create(host: HTMLElement, options: EmptyStateOptions): EmptyState" },
+  "configKey": "emptyState",
+  "options": [
+    { "name": "title", "type": "string", "required": true, "globallyConfigurable": false, "description": "Short statement of the state, such as 'No employees match your filters'." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "What to do next or why the area is empty (text)." },
+    { "name": "icon", "type": "IconRef | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Decorative icon above the title." },
+    { "name": "illustration", "type": "Node | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Decorative illustration (image or SVG Node) instead of the icon." },
+    { "name": "headingLevel", "type": "1 | 2 | 3 | 4 | 5 | 6 | null", "default": "3", "required": false, "globallyConfigurable": false, "description": "Heading level of the title, or null for plain text (inside tables and lists)." },
+    { "name": "primaryAction", "type": "EmptyStateAction | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Primary button { label, icon?, href? }." },
+    { "name": "secondaryAction", "type": "EmptyStateAction | null", "default": "null", "required": false, "globallyConfigurable": false, "description": "Secondary button { label, icon?, href? }." },
+    { "name": "live", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Announce the empty state when it appears (role=status)." },
+    { "name": "size", "type": "'sm' | 'md' | 'lg'", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "sm inside tables and lists, md in panels, lg for whole pages." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "options", "type": "Readonly<EmptyStateOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<EmptyStateOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, buttons, and listeners." }
+  ],
+  "events": [
+    { "name": "aui-action", "detail": "EmptyStateActionDetail", "bubbles": true, "cancelable": false, "description": "The user activated an action: { action: 'primary' | 'secondary' }." }
+  ],
+  "contentAreas": [
+    { "name": "illustration", "description": "A decorative image or SVG Node in place of the icon." }
+  ],
+  "cssClasses": [
+    { "name": "aui-empty-state", "description": "Host." },
+    { "name": "aui-empty-state--sm | --md | --lg", "description": "Size." },
+    { "name": "aui-empty-state__media", "description": "Icon or illustration (aria-hidden)." },
+    { "name": "aui-empty-state__title", "description": "Title (heading or paragraph)." },
+    { "name": "aui-empty-state__description", "description": "Description." },
+    { "name": "aui-empty-state__actions", "description": "Action buttons." },
+    { "name": "aui-empty-state__primary | __secondary", "description": "The primary and secondary action." }
+  ],
+  "iconSlots": [
+    { "name": "icon", "default": "none" }
+  ]
+}

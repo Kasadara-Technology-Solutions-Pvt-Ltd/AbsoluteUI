@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "scroll-area",
+  "examples": [
+    {
+      "id": "notes",
+      "title": "Bounded panel with long content",
+      "language": "ts",
+      "code": "import { ScrollArea } from '@absoluteui/components/scroll-area';\n\nconst notes = document.createElement('div');\nfor (let i = 1; i <= 30; i++) {\n  const item = document.createElement('p');\n  item.textContent = `Release 1.${String(i)}: improvements and fixes.`;\n  notes.append(item);\n}\ndocument.body.append(notes);\nScrollArea.enhance(notes, { label: 'Release notes', maxBlockSize: '12rem' });"
+    },
+    {
+      "id": "strip",
+      "title": "Horizontal strip",
+      "language": "ts",
+      "code": "import { ScrollArea } from '@absoluteui/components/scroll-area';\nimport { Badge } from '@absoluteui/components/badge';\n\nconst strip = document.createElement('div');\nstrip.style.display = 'flex';\nstrip.style.gap = '0.5rem';\nfor (const label of ['Design', 'Engineering', 'Finance', 'Legal', 'Marketing', 'Operations', 'People', 'Product', 'Sales', 'Support']) {\n  const host = document.createElement('span');\n  strip.append(host);\n  Badge.create(host, { label, variant: 'outline' });\n}\ndocument.body.append(strip);\nScrollArea.enhance(strip, { label: 'Departments', orientation: 'horizontal' });"
+    }
+  ]
+}

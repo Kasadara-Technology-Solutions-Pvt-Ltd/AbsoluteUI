@@ -1,0 +1,6 @@
+[
+  { "title": "Deterministic layout", "text": "A seeded force simulation that settles and stops; reduced motion skips the animation." },
+  { "title": "Neighbor navigation", "text": "Arrow keys move to the connected node in that direction; neighbors light up on focus." },
+  { "title": "Pin by drag or key", "text": "Drag a node or press Shift with an arrow key to pin it; U unpins." },
+  { "title": "Adjacency table", "text": "Every connection, with weights, in an accessible table." }
+]

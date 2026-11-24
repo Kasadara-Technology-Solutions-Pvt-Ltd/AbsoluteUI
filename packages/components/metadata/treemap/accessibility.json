@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "component": "treemap",
+  "pattern": "SVG treemap as a named, described group (role=\"group\" with aria-roledescription \"treemap\") of role=\"img\" tiles in size order with roving focus; one level shown at a time with drill-down (Enter/Space, click), Backspace and a breadcrumb (nav \"Treemap path\") to go up, a polite announcement of the shown level, and a data table of the whole hierarchy.",
+  "roles": [
+    {
+      "element": "svg.aui-chart__svg",
+      "role": "group with aria-roledescription \"treemap\" (localized), named by the title"
+    },
+    {
+      "element": "tiles (rect.aui-treemap__tile)",
+      "role": "img with an aria-label: label, value, share of the shown level, and the item count for groups"
+    },
+    {
+      "element": "breadcrumb (nav.aui-treemap__path)",
+      "role": "navigation named \"Treemap path\" with an ordered list: ancestor buttons, then the current level (aria-current=\"location\"); shown only below the top level"
+    },
+    {
+      "element": "data table",
+      "role": "table (native) with caption, column headers (Name, Value, Share of parent), and row headers (the name path); wide tables scroll in a focusable region"
+    },
+    {
+      "element": "printed labels, textures, tooltip",
+      "role": "aria-hidden (decorative duplicates of the accessible data)"
+    }
+  ],
+  "aria": [
+    {
+      "attribute": "aria-labelledby",
+      "element": "svg",
+      "value": "id of the visible (or visually hidden) title"
+    },
+    {
+      "attribute": "aria-describedby",
+      "element": "svg",
+      "value": "description id (when provided) and the generated summary id"
+    },
+    {
+      "attribute": "aria-roledescription",
+      "element": "svg",
+      "value": "Localized \"treemap\""
+    },
+    {
+      "attribute": "aria-label",
+      "element": "each tile",
+      "value": "Localized \"{label}: {value} ({percent})\", groups \"{label}: {value} ({percent}), {count} items\", for example \"Engineering: 50 (50%), 2 items\""
+    },
+    {
+      "attribute": "tabindex",
+      "element": "active tile",
+      "value": "0 on exactly one tile (roving); other tiles have none"
+    },
+    {
+      "attribute": "aria-label",
+      "element": "breadcrumb nav",
+      "value": "Localized \"Treemap path\""
+    },
+    {
+      "attribute": "aria-current",
+      "element": "current breadcrumb item",
+      "value": "location"
+    },
+    {
+      "attribute": "live region (polite)",
+      "element": "document",
+      "value": "\"Showing {path}\" after each drill, for example \"Showing All / Engineering\""
+    },
+    {
+      "attribute": "aria-expanded / aria-controls",
+      "element": "Show data table button",
+      "value": "Table open state and the table region id"
+    }
+  ],
+  "keyboard": [
+    {
+      "key": "ArrowRight / ArrowDown",
+      "context": "Tile focused",
+      "action": "Next tile in size order (largest first); ArrowLeft/ArrowRight are swapped in RTL."
+    },
+    {
+      "key": "ArrowLeft / ArrowUp",
+      "context": "Tile focused",
+      "action": "Previous tile."
+    },
+    {
+      "key": "Home / End",
+      "context": "Tile focused",
+      "action": "Largest / smallest tile."
+    },
+    {
+      "key": "PageUp / PageDown",
+      "context": "Tile focused",
+      "action": "Ten tiles back / forward."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Group tile focused (drillDown on)",
+      "action": "Opens the group; focus moves to its largest tile. Ignored on leaf tiles."
+    },
+    {
+      "key": "Backspace",
+      "context": "Tile focused below the top level (drillDown on)",
+      "action": "Goes up one level; focus moves to the group you came from."
+    },
+    {
+      "key": "Enter / Space",
+      "context": "Breadcrumb button",
+      "action": "Shows that level (native button); focus moves into the tiles."
+    },
+    {
+      "key": "Escape",
+      "context": "Tooltip visible",
+      "action": "Hides the tooltip without moving focus (WCAG 1.4.13); it returns on the next move."
+    },
+    {
+      "key": "Tab / Shift+Tab",
+      "context": "Any",
+      "action": "Breadcrumb buttons (below the top level), then one tab stop for the plot (the active tile), then the Show data table button and table region."
+    }
+  ],
+  "focus": "Roving focus over the tiles of the shown level in size order. Drilling down moves focus to the largest tile; going up (Backspace, breadcrumb, drillTo) moves it to the group you came from, when focus was in the chart. Re-renders (resize, update) keep focus on the same tile.",
+  "wcag": [
+    "1.1.1",
+    "1.3.1",
+    "1.4.1",
+    "1.4.3",
+    "1.4.10",
+    "1.4.11",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "2.4.7",
+    "4.1.2",
+    "4.1.3"
+  ],
+  "notes": [
+    "The generated summary names the shown path (below the top level), the item count, the total, and the three largest items with their shares, for example \"Showing All / Engineering. treemap, 2 items, total 50. Largest: Web (60%) and API (40%).\"",
+    "Tiles are keyboard-reachable in size order (largest first), matching the squarified layout, which places large tiles first.",
+    "Tiles are separated by a surface-colored gap, so neighbors need no mutual contrast; textures (patterns) and printed labels are the non-color cues.",
+    "The data table lists the whole hierarchy (not only the shown level), so every value is reachable without drilling.",
+    "Forced colors: tiles use CanvasText with Canvas separators and textures; focus uses Highlight; breadcrumb buttons use LinkText.",
+    "No animation."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver, TalkBack) is pending.",
+    "aria-roledescription support varies; screen readers without it announce \"group\".",
+    "Whether a tile opens is conveyed by its item count in the accessible name, not by a role; Backspace is not discoverable without documentation (the breadcrumb is the visible alternative)."
+  ]
+}

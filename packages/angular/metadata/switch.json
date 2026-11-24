@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/switch",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSwitch",
+      "description": "AbsoluteUI Switch: `<aui-switch>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(checked)]` without forms.",
+      "selector": "aui-switch",
+      "exportAs": [
+        "auiSwitch"
+      ],
+      "source": "generated",
+      "component": "switch",
+      "configKey": "switch",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "boolean"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name; clicking it toggles the switch."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": "on",
+          "description": "Submitted value when on."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text referenced by aria-describedby."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the switch."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<SwitchIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When a custom error message first appears; afterwards it updates live."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message locale."
+        }
+      ],
+      "models": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "change": "checkedChange",
+          "description": "The checked: `[(checked)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "SwitchChangeDetail",
+          "event": "aui-change",
+          "description": "The user toggled the switch."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show a custom error now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error, for example a failed save; cleared when the user toggles."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "`value` when on, otherwise null."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the switch."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial state and clear dirty/touched/submitted state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Native <input type=\"checkbox\" role=\"switch\"> with a <label for> association (WAI-ARIA APG Switch).",
+        "source": "packages/components/metadata/switch/accessibility.json"
+      },
+      "limitations": [
+        "No `required` or `validate` option: a switch is a setting, not a question. Use setCustomError to report a failed save.",
+        "No built-in on/off text inside the track; the label must describe the setting.",
+        "The track is 2.25rem by 1.25rem; the 24px minimum target is met by the row and the clickable label, not the track alone."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { AuiSwitch } from '@absoluteui/angular/switch';\n\n@Component({\n  selector: 'app-settings',\n  imports: [ReactiveFormsModule, AuiSwitch],\n  template: `<aui-switch label=\"Email notifications\" description=\"Weekly summary\" [formControl]=\"notifications\"></aui-switch>`,\n})\nexport class SettingsComponent {\n  readonly notifications = new FormControl(false, { nonNullable: true });\n}"
+    }
+  ]
+}

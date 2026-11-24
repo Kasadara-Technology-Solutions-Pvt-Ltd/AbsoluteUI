@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/toggle-group",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiToggleGroup",
+      "description": "AbsoluteUI ToggleGroup: `<aui-toggle-group>`.\nImplements ControlValueAccessor; `[(value)]` without forms.",
+      "selector": "aui-toggle-group",
+      "exportAs": [
+        "auiToggleGroup"
+      ],
+      "source": "generated",
+      "component": "toggle-group",
+      "configKey": "toggleGroup",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": false,
+        "valueType": "string[]"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the group."
+        },
+        {
+          "name": "items",
+          "type": "readonly ToggleGroupItem[]",
+          "required": true,
+          "description": "Buttons: { value, label, icon?, iconOnly?, disabled? } (1 to 100, unique values)."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Allow several pressed items."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Single mode: one item stays pressed."
+        },
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\"",
+          "required": false,
+          "default": "horizontal",
+          "description": "Layout and arrow-key axis."
+        },
+        {
+          "name": "attached",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Join the buttons into one segmented control."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable every button."
+        },
+        {
+          "name": "size",
+          "type": "ButtonSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Button size."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "string[]",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "ToggleGroupChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the pressed items: { value, changed }."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the button in the tab sequence."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA toggle buttons (button with aria-pressed) in a named group, with roving tabindex as in the APG toolbar pattern.",
+        "source": "packages/components/metadata/toggle-group/accessibility.json"
+      },
+      "limitations": [
+        "Not a form control: the value is not submitted with a form (use Radio Group or Checkbox Group for form values).",
+        "Changing items re-creates the buttons."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { ToggleGroupItem } from '@absoluteui/components/toggle-group';\nimport { AuiToggleGroup } from '@absoluteui/angular/toggle-group';\n\n@Component({\n  selector: 'app-view-switch',\n  imports: [AuiToggleGroup],\n  template: `<aui-toggle-group label=\"View\" [items]=\"views\" [required]=\"true\" [attached]=\"true\" [(value)]=\"view\"></aui-toggle-group>`,\n})\nexport class ViewSwitchComponent {\n  view: string[] = ['list'];\n  readonly views: ToggleGroupItem[] = [{ value: 'list', label: 'List' }, { value: 'grid', label: 'Grid' }];\n}"
+    }
+  ]
+}

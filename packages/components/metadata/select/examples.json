@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "select",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required select in a form",
+      "language": "ts",
+      "code": "import { Select } from '@absoluteui/components/select';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst country = Select.create(host, {\n  label: 'Country',\n  name: 'country',\n  required: true,\n  options: [\n    { value: 'in', label: 'India' },\n    { value: 'gb', label: 'United Kingdom' },\n    { value: 'us', label: 'United States' },\n  ],\n});\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(country.validity.valid);\n});"
+    },
+    {
+      "id": "descriptions",
+      "title": "Option descriptions, disabled options, and custom validation",
+      "language": "ts",
+      "code": "import { Select, type SelectChangeDetail } from '@absoluteui/components/select';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nSelect.create(host, {\n  label: 'Plan',\n  value: 'team',\n  options: [\n    { value: 'free', label: 'Free', description: 'Up to 3 projects' },\n    { value: 'team', label: 'Team', description: 'Unlimited projects' },\n    { value: 'enterprise', label: 'Enterprise', description: 'Contact sales', disabled: true },\n  ],\n  validate: (value) => (value === 'free' ? 'The free plan does not include SSO.' : null),\n});\nhost.addEventListener('aui-change', (event) => {\n  const detail = (event as CustomEvent<SelectChangeDetail>).detail;\n  host.dataset.plan = detail.value ?? '';\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Show messages only on submit",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { select: { validationTiming: 'submit' } } });"
+    }
+  ]
+}

@@ -1,0 +1,967 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use 'functions' as fn;
+
+/// Cascade layer order. Every AbsoluteUI stylesheet begins with this statement so
+/// load order never changes layer precedence (SPEC section 11.3).
+@mixin layer-order {
+  @layer aui.base, aui.components, aui.theme;
+}
+
+/// Visible focus indicator (WCAG 2.2 2.4.7 / 2.4.11). Applied on :focus-visible only.
+@mixin focus-ring($offset: fn.token('focus-ring-offset')) {
+  outline: fn.token('focus-ring-width') solid fn.token('color-focus-ring');
+  outline-offset: $offset;
+}
+
+/// Short, purposeful transitions that are removed under reduced motion (SPEC section 13.6, section 16.2).
+/// Pass `$duration` (for example the duration-normal token) for longer moves; never set
+/// `transition-duration` after the include, because Sass emits declarations that follow
+/// nested rules after them, which would override the reduced-motion rule.
+@mixin transition($properties...) {
+  $duration: map.get(meta.keywords($properties), 'duration');
+  @if not $duration {
+    $duration: fn.token('duration-fast');
+  }
+  transition-property: $properties;
+  transition-duration: $duration;
+  transition-timing-function: fn.token('easing-standard');
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  :where([data-aui-animation='none']) & {
+    transition: none;
+  }
+}
+
+/// Entry and exit fade for top-layer popups (Popover API; SPEC section 16.2). `display` and
+/// `overlay` transition discretely, so the popup stays in the top layer until the exit
+/// fade ends. Removed under reduced motion and `data-aui-animation='none'`.
+@mixin popup-motion {
+  opacity: 0;
+  // A closing popup ignores the pointer while it fades out.
+  pointer-events: none;
+  transition-property: opacity, display, overlay;
+  transition-duration: fn.token('duration-fast');
+  transition-timing-function: fn.token('easing-standard');
+  transition-behavior: allow-discrete;
+
+  &:popover-open {
+    opacity: 1;
+    pointer-events: auto;
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
+  :where([data-aui-animation='none']) & {
+    transition: none;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+/// Windows High Contrast / forced colors (SPEC section 13, section 29).
+@mixin forced-colors {
+  @media (forced-colors: active) {
+    @content;
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/// Field chrome shared by R1 form controls: label, required indicator, help text,
+/// validation message, character counter (SPEC section 18.8). Emits `.aui-field__*` rules.
+@mixin field-chrome {
+  .aui-field {
+    display: grid;
+    gap: fn.token('space-1');
+    min-inline-size: 0;
+    font-family: fn.token('font-family-sans');
+    color: fn.token('color-text');
+  }
+
+  .aui-field__label {
+    padding: 0;
+    font-size: fn.token('font-size-sm');
+    font-weight: fn.token('font-weight-medium');
+    line-height: fn.token('line-height-tight');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-field__required {
+    margin-inline-start: fn.token('space-1');
+    color: fn.token('color-error-fg');
+  }
+
+  .aui-field__description,
+  .aui-field__counter {
+    font-size: fn.token('font-size-sm');
+    color: fn.token('color-text-muted');
+  }
+
+  .aui-field__counter--over {
+    color: fn.token('color-error-fg');
+    font-weight: fn.token('font-weight-medium');
+  }
+
+  .aui-field__error {
+    display: flex;
+    align-items: flex-start;
+    gap: fn.token('space-1');
+    font-size: fn.token('font-size-sm');
+    color: fn.token('color-error-fg');
+
+    .aui-icon {
+      flex: none;
+      inline-size: fn.icon-size('sm');
+      block-size: fn.icon-size('sm');
+      margin-block-start: 0.1em;
+    }
+  }
+
+  .aui-field__required[hidden],
+  .aui-field__description[hidden],
+  .aui-field__counter[hidden],
+  .aui-field__error[hidden] {
+    display: none;
+  }
+}
+
+/// Interactive states for text-like controls (placeholder, focus, disabled, read-only, invalid).
+@mixin text-control-states {
+  &::placeholder {
+    color: fn.token('color-text-muted');
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: fn.token('focus-ring-width') solid fn.token('color-focus-ring');
+    outline-offset: 0;
+    border-color: fn.token('color-focus-ring');
+  }
+
+  &:disabled {
+    color: fn.token('color-text-disabled');
+    background: fn.token('color-disabled-bg');
+    border-color: fn.token('color-border');
+    cursor: not-allowed;
+  }
+
+  &:read-only:not(:disabled) {
+    background: fn.token('color-surface-sunken');
+  }
+
+  &[aria-invalid='true'] {
+    border-color: fn.token('color-error-fg');
+  }
+}
+
+/// Shared form-control surface used by inputs, combobox, date input. Components with
+/// component tokens (SPEC section 10.2) pass `fn.ctoken()` references for the overridable parts.
+@mixin control-surface(
+  $height: fn.token('control-height-md'),
+  $padding-x: fn.token('control-padding-x'),
+  $bg: fn.token('color-surface'),
+  $border-color: fn.token('color-border-strong'),
+  $radius: fn.token('radius-md')
+) {
+  box-sizing: border-box;
+  min-block-size: $height;
+  padding-inline: $padding-x;
+  font: inherit;
+  font-size: fn.token('font-size-md');
+  line-height: fn.token('line-height-normal');
+  color: fn.token('color-text');
+  background: $bg;
+  border: fn.token('border-width') solid $border-color;
+  border-radius: $radius;
+}
+
+/// Chart chrome shared by Line, Bar, and Pie charts (SPEC section 18.18): header, legend,
+/// plot, axes, series colors, patterns, focus and hover states, tooltip, empty state,
+/// and the data table fallback. Emits `.aui-chart*` rules. Series colors are applied by
+/// palette-slot classes (`aui-chart__series--c1..8`) through `--aui-chart-color`.
+/// Look and feel (R20-15): the `chart` component tokens (`--aui-chart-1..8`, grid, axis,
+/// text, tooltip, line width) and the plain hooks `--aui-chart-grid-dash`,
+/// `--aui-chart-area-opacity`, `--aui-chart-animation-duration`, `--aui-chart-line-join`.
+/// Corner rounding (R20-22): mark radii (`--aui-chart-corner-radius`, `-bar-`, `-cell-`,
+/// `-slice-`, `-box-`, `-node-`, `-swatch-radius`) are read by the charts and written as SVG
+/// geometry; the tooltip and controls read `fn.corner-ctoken()` chains here.
+@mixin chart-chrome {
+  .aui-chart {
+    display: grid;
+    gap: fn.token('space-3');
+    min-inline-size: 0;
+    font-family: fn.ctoken('chart', 'font-family');
+    color: fn.token('color-text');
+  }
+
+  // Legend placement (`theme.legendPosition`); the reading order stays title, legend, plot.
+  .aui-chart--legend-bottom {
+    .aui-chart__body,
+    .aui-chart__summary {
+      order: 1;
+    }
+
+    .aui-chart__legend {
+      order: 2;
+    }
+
+    .aui-chart__data {
+      order: 3;
+    }
+  }
+
+  .aui-chart--legend-start,
+  .aui-chart--legend-end {
+    grid-template-columns: max-content minmax(0, 1fr);
+    grid-template-areas: 'header header' 'legend body' 'data data';
+    align-items: start;
+
+    .aui-chart__header {
+      grid-area: header;
+    }
+
+    .aui-chart__legend {
+      grid-area: legend;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      max-inline-size: 16em;
+    }
+
+    .aui-chart__body {
+      grid-area: body;
+    }
+
+    .aui-chart__data {
+      grid-area: data;
+    }
+  }
+
+  .aui-chart--legend-end {
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-areas: 'header header' 'body legend' 'data data';
+  }
+
+  .aui-chart__header {
+    display: grid;
+    gap: fn.token('space-1');
+    min-inline-size: 0;
+  }
+
+  .aui-chart__title {
+    font-size: fn.ctoken('chart', 'title-font-size');
+    font-weight: fn.token('font-weight-semibold');
+    line-height: fn.token('line-height-tight');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-chart__title--hidden,
+  .aui-chart__data--hidden,
+  .aui-chart__table caption {
+    @include visually-hidden;
+  }
+
+  .aui-chart__description {
+    margin: 0;
+    font-size: fn.token('font-size-sm');
+    line-height: fn.token('line-height-normal');
+    color: fn.token('color-text-muted');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-chart__description[hidden],
+  .aui-chart__legend[hidden],
+  .aui-chart__empty[hidden],
+  .aui-chart__tooltip[hidden],
+  .aui-chart__data[hidden],
+  .aui-chart__table-scroll[hidden] {
+    display: none;
+  }
+
+  .aui-chart__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fn.token('space-1') fn.ctoken('chart', 'legend-gap');
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: fn.ctoken('chart', 'legend-font-size');
+    line-height: fn.token('line-height-tight');
+  }
+
+  .aui-chart__legend-entry {
+    display: flex;
+    min-inline-size: 0;
+  }
+
+  .aui-chart__legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: fn.token('space-2');
+    min-inline-size: 0;
+    min-block-size: fn.token('touch-target-min');
+    padding-block: 0;
+    padding-inline: fn.token('space-1');
+    font: inherit;
+    color: fn.token('color-text');
+    text-align: start;
+    background: none;
+    border: 0;
+    border-radius: fn.corner-ctoken('chart', 'control-radius');
+    overflow-wrap: anywhere;
+  }
+
+  button.aui-chart__legend-item {
+    cursor: pointer;
+
+    &:hover {
+      background: fn.token('color-hover');
+    }
+
+    &:focus-visible {
+      outline: fn.token('focus-ring-width') solid fn.token('color-focus-ring');
+      outline-offset: fn.token('focus-ring-offset');
+    }
+  }
+
+  // Hidden series: strike-through and muted text (the state is also aria-pressed="false").
+  .aui-chart__legend-item--hidden {
+    color: fn.token('color-text-muted');
+
+    .aui-chart__legend-label {
+      text-decoration: line-through;
+    }
+
+    .aui-chart__swatch {
+      opacity: 0.35;
+    }
+  }
+
+  .aui-chart__legend-detail {
+    color: fn.token('color-text-muted');
+    font-variant-numeric: tabular-nums;
+  }
+
+  .aui-chart__swatch {
+    flex: none;
+    inline-size: 1.5em;
+    block-size: 1em;
+    overflow: visible;
+  }
+
+  .aui-chart__series--c1 {
+    --aui-chart-color: var(--aui-chart-series-color, #{fn.ctoken('chart', '1')});
+  }
+
+  .aui-chart__series--c2 {
+    --aui-chart-color: var(--aui-chart-series-color, #{fn.ctoken('chart', '2')});
+  }
+
+  .aui-chart__series--c3 {
+    --aui-chart-color: var(--aui-chart-series-color, #{fn.ctoken('chart', '3')});
+  }
+
+  .aui-chart__series--c4 {
+    --aui-chart-color: var(--aui-chart-series-color, #{fn.ctoken('chart', '4')});
+  }
+
+  .aui-chart__series--c5 {
+    --aui-chart-color: var(--aui-chart-series-color, #{fn.ctoken('chart', '5')});
+  }
+
+  .aui-chart__series--c6 {
+    --aui-chart-color: var(--aui-chart-series-color, #{fn.ctoken('chart', '6')});
+  }
+
+  .aui-chart__series--c7 {
+    --aui-chart-color: var(--aui-chart-series-color, #{fn.ctoken('chart', '7')});
+  }
+
+  .aui-chart__series--c8 {
+    --aui-chart-color: var(--aui-chart-series-color, #{fn.ctoken('chart', '8')});
+  }
+
+  .aui-chart__swatch-line {
+    fill: none;
+    stroke: var(--aui-chart-color);
+    stroke-width: 2;
+  }
+
+  .aui-chart__swatch-marker,
+  .aui-chart__swatch-fill {
+    fill: var(--aui-chart-color);
+  }
+
+  // Dash patterns and texture fills apply with the `patterns` option, and always in forced colors.
+  .aui-chart--patterns {
+    .aui-chart__dash--2 {
+      stroke-dasharray: 6 3;
+    }
+
+    .aui-chart__dash--3 {
+      stroke-dasharray: 2 3;
+    }
+
+    .aui-chart__dash--4 {
+      stroke-dasharray: 9 3 2 3;
+    }
+
+    .aui-chart__pattern {
+      display: inline;
+    }
+  }
+
+  .aui-chart__pattern {
+    display: none;
+    pointer-events: none;
+  }
+
+  .aui-chart__pattern-tile {
+    fill: fn.token('color-surface');
+    stroke: fn.token('color-surface');
+    stroke-width: 1.5;
+  }
+
+  .aui-chart__body {
+    position: relative;
+    min-inline-size: 0;
+    block-size: var(--aui-chart-height, 300px);
+  }
+
+  // Geometry is computed in physical coordinates, so the SVG's direction is fixed.
+  .aui-chart__svg {
+    position: absolute;
+    inset: 0;
+    display: block;
+    overflow: visible;
+    font-size: fn.ctoken('chart', 'font-size');
+    direction: ltr;
+  }
+
+  .aui-chart__gridline {
+    stroke: fn.ctoken('chart', 'grid-color');
+    stroke-width: 1;
+    stroke-dasharray: var(--aui-chart-grid-dash, none);
+    shape-rendering: crispEdges;
+  }
+
+  // `theme.gridLines: false`.
+  .aui-chart--no-grid .aui-chart__gridline {
+    display: none;
+  }
+
+  .aui-chart__axis-line,
+  .aui-chart__zero-line {
+    stroke: fn.ctoken('chart', 'axis-color');
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+  }
+
+  .aui-chart__tick-label,
+  .aui-chart__axis-title {
+    fill: fn.ctoken('chart', 'text-color');
+    font-variant-numeric: tabular-nums;
+  }
+
+  // Annotations (decorative; listed in the summary): reference lines and bands under the marks.
+  .aui-chart__annotations {
+    --aui-chart-annotation-color: #{fn.token('color-text-muted')};
+
+    pointer-events: none;
+  }
+
+  .aui-chart__annotation--info {
+    --aui-chart-annotation-color: #{fn.token('color-info-fg')};
+  }
+
+  .aui-chart__annotation--success {
+    --aui-chart-annotation-color: #{fn.token('color-success-fg')};
+  }
+
+  .aui-chart__annotation--warning {
+    --aui-chart-annotation-color: #{fn.token('color-warning-fg')};
+  }
+
+  .aui-chart__annotation--danger {
+    --aui-chart-annotation-color: #{fn.token('color-error-fg')};
+  }
+
+  .aui-chart__annotation-line {
+    stroke: var(--aui-chart-annotation-color);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 4;
+    shape-rendering: crispEdges;
+  }
+
+  .aui-chart__annotation-band {
+    fill: var(--aui-chart-annotation-color);
+    fill-opacity: var(--aui-chart-band-opacity, 0.1);
+  }
+
+  .aui-chart__annotation-label {
+    fill: var(--aui-chart-annotation-color);
+    font-weight: fn.token('font-weight-medium');
+    paint-order: stroke;
+    stroke: fn.ctoken('chart', 'label-halo-color');
+    stroke-width: 3px;
+    stroke-linejoin: round;
+  }
+
+  // `theme.gradient`: the series color fading toward the baseline.
+  .aui-chart__gradient-stop {
+    stop-color: var(--aui-chart-color);
+    stop-opacity: 1;
+  }
+
+  .aui-chart__gradient-stop--end {
+    stop-opacity: 0.15;
+  }
+
+  // `theme.animation` (opt-in): marks fade and grow in on the render after a data or option change.
+  @keyframes aui-chart-enter {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+
+  .aui-chart--animate.aui-chart--entering .aui-chart__layer > g:not(.aui-chart__grid, .aui-chart__axis, .aui-chart__crosshair) {
+    transform-box: view-box;
+    transform-origin: 50% 100%;
+    animation: aui-chart-enter var(--aui-chart-animation-duration, 400ms) #{fn.token('easing-standard')} both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aui-chart--animate.aui-chart--entering .aui-chart__layer > g {
+      animation: none;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-chart--animate.aui-chart--entering .aui-chart__layer > g {
+    animation: none;
+  }
+
+  .aui-chart__axis-title {
+    font-weight: fn.token('font-weight-medium');
+  }
+
+  // A surface-colored halo keeps value labels readable over any series color (text on surface).
+  .aui-chart__value-label {
+    fill: fn.ctoken('chart', 'label-color');
+    font-variant-numeric: tabular-nums;
+    paint-order: stroke;
+    stroke: fn.ctoken('chart', 'label-halo-color');
+    stroke-width: 3px;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+
+  .aui-chart__mark {
+    outline: none;
+    transition-property: transform, stroke-width;
+    transition-duration: fn.token('duration-fast');
+    transition-timing-function: fn.token('easing-standard');
+  }
+
+  // Wins over the charts' hover and active emphasis.
+  .aui-chart .aui-chart__mark:focus-visible {
+    stroke: fn.token('color-focus-ring');
+    stroke-width: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aui-chart__mark {
+      transition: none;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-chart__mark {
+    transition: none;
+  }
+
+  .aui-chart__empty {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: fn.token('font-size-sm');
+    color: fn.token('color-text-muted');
+  }
+
+  // Positioned with a physical translate computed from plot coordinates.
+  .aui-chart__tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: grid;
+    gap: fn.token('space-1');
+    box-sizing: border-box;
+    max-inline-size: min(#{fn.token('tooltip-max-width')}, 100%);
+    padding-block: fn.token('space-2');
+    padding-inline: fn.token('space-3');
+    font-size: fn.token('font-size-sm');
+    line-height: fn.token('line-height-tight');
+    color: fn.ctoken('chart', 'tooltip-fg');
+    background: fn.ctoken('chart', 'tooltip-bg');
+    border: fn.token('border-width') solid fn.ctoken('chart', 'tooltip-border-color');
+    border-radius: fn.corner-ctoken('chart', 'tooltip-radius');
+    box-shadow: fn.ctoken('chart', 'tooltip-shadow');
+  }
+
+  .aui-chart__tooltip-title {
+    font-weight: fn.token('font-weight-semibold');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-chart__tooltip-rows {
+    display: grid;
+    gap: fn.token('space-1');
+  }
+
+  .aui-chart__tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: fn.token('space-2');
+    min-inline-size: 0;
+  }
+
+  .aui-chart__tooltip-label {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-chart__tooltip-value {
+    margin-inline-start: auto;
+    padding-inline-start: fn.token('space-3');
+    font-weight: fn.token('font-weight-medium');
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .aui-chart__data {
+    display: grid;
+    gap: fn.token('space-2');
+    justify-items: start;
+    min-inline-size: 0;
+  }
+
+  .aui-chart__table-toggle {
+    min-block-size: fn.token('touch-target-min');
+    padding: 0;
+    font: inherit;
+    font-size: fn.token('font-size-sm');
+    color: fn.token('color-link');
+    text-decoration: underline;
+    background: none;
+    border: 0;
+    border-radius: fn.corner-ctoken('chart', 'control-radius');
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: fn.token('focus-ring-width') solid fn.token('color-focus-ring');
+      outline-offset: fn.token('focus-ring-offset');
+    }
+  }
+
+  .aui-chart__table-scroll {
+    justify-self: stretch;
+    max-inline-size: 100%;
+    overflow: auto;
+    border-radius: fn.corner-ctoken('chart', 'control-radius');
+
+    &:focus-visible {
+      outline: fn.token('focus-ring-width') solid fn.token('color-focus-ring');
+      outline-offset: fn.token('focus-ring-offset');
+    }
+  }
+
+  .aui-chart__table {
+    border-collapse: collapse;
+    font-size: fn.token('font-size-sm');
+    line-height: fn.token('line-height-tight');
+
+    th,
+    td {
+      padding-block: fn.token('space-1');
+      padding-inline: fn.token('space-3');
+      text-align: start;
+      border-block-end: fn.token('border-width') solid fn.token('color-border');
+    }
+
+    thead th {
+      font-weight: fn.token('font-weight-semibold');
+      background: fn.token('color-surface-sunken');
+    }
+
+    tbody th {
+      font-weight: fn.token('font-weight-regular');
+    }
+
+    .aui-chart__cell--numeric {
+      text-align: end;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  // Forced colors: series share CanvasText and differ by marker shape, dash pattern,
+  // and texture (always shown here); focus uses Highlight.
+  @media (forced-colors: active) {
+    .aui-chart [class*='aui-chart__series--c'] {
+      --aui-chart-color: CanvasText;
+    }
+
+    .aui-chart .aui-chart__pattern {
+      display: inline;
+    }
+
+    .aui-chart .aui-chart__dash--2 {
+      stroke-dasharray: 6 3;
+    }
+
+    .aui-chart .aui-chart__dash--3 {
+      stroke-dasharray: 2 3;
+    }
+
+    .aui-chart .aui-chart__dash--4 {
+      stroke-dasharray: 9 3 2 3;
+    }
+
+    .aui-chart__pattern-tile {
+      fill: Canvas;
+      stroke: Canvas;
+    }
+
+    .aui-chart__gridline {
+      stroke: GrayText;
+    }
+
+    .aui-chart__axis-line,
+    .aui-chart__zero-line {
+      stroke: CanvasText;
+    }
+
+    .aui-chart__tick-label,
+    .aui-chart__axis-title,
+    .aui-chart__value-label,
+    .aui-chart__annotation-label {
+      fill: CanvasText;
+    }
+
+    .aui-chart__value-label,
+    .aui-chart__annotation-label {
+      stroke: Canvas;
+    }
+
+    .aui-chart__annotation-line {
+      stroke: CanvasText;
+    }
+
+    .aui-chart__annotation-band {
+      fill: GrayText;
+    }
+
+    .aui-chart .aui-chart__mark:focus-visible {
+      stroke: Highlight;
+    }
+
+    .aui-chart__tooltip {
+      border-color: CanvasText;
+    }
+  }
+}
+
+/// Chart interaction chrome (R3): toolbar with tool buttons (zoom), crosshair lines,
+/// the range-selection brush, and pan cursors. Emits `.aui-chart__toolbar`,
+/// `.aui-chart__tool`, `.aui-chart__crosshair*`, `.aui-chart__brush` rules.
+@mixin chart-interaction {
+  .aui-chart__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: fn.token('space-2');
+  }
+
+  .aui-chart__toolbar[hidden] {
+    display: none;
+  }
+
+  .aui-chart__zoom {
+    display: inline-flex;
+    gap: fn.token('space-1');
+  }
+
+  .aui-chart__tool {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: fn.token('touch-target-min');
+    min-block-size: fn.token('touch-target-min');
+    padding: fn.token('space-1');
+    font: inherit;
+    font-size: fn.token('font-size-sm');
+    color: fn.token('color-text');
+    background: fn.token('color-surface');
+    border: fn.token('border-width') solid fn.token('color-border-strong');
+    border-radius: fn.corner-ctoken('chart', 'control-radius');
+    cursor: pointer;
+
+    &:hover {
+      background: fn.token('color-hover');
+    }
+
+    &:focus-visible {
+      outline: fn.token('focus-ring-width') solid fn.token('color-focus-ring');
+      outline-offset: fn.token('focus-ring-offset');
+    }
+
+    &[aria-disabled='true'] {
+      color: fn.token('color-text-muted');
+      cursor: default;
+      background: fn.token('color-surface');
+    }
+
+    svg {
+      inline-size: 1em;
+      block-size: 1em;
+    }
+  }
+
+  .aui-chart__crosshair-line {
+    stroke: fn.ctoken('chart', 'axis-color');
+    stroke-width: 1;
+    stroke-dasharray: 4 3;
+    shape-rendering: crispEdges;
+    pointer-events: none;
+  }
+
+  .aui-chart__brush {
+    fill: fn.token('color-focus-ring');
+    fill-opacity: 0.12;
+    stroke: fn.token('color-focus-ring');
+    stroke-width: 1;
+    pointer-events: none;
+  }
+
+  // Vertical page scrolling stays native; horizontal gestures pan a zoomed chart.
+  .aui-chart--zoomable .aui-chart__body {
+    touch-action: pan-y;
+  }
+
+  .aui-chart--zoomed .aui-chart__svg {
+    cursor: grab;
+  }
+
+  @media (forced-colors: active) {
+    .aui-chart__crosshair-line {
+      stroke: CanvasText;
+    }
+
+    .aui-chart__brush {
+      fill: Highlight;
+      stroke: Highlight;
+    }
+
+    .aui-chart__tool {
+      border-color: ButtonText;
+    }
+
+    .aui-chart__tool[aria-disabled='true'] {
+      color: GrayText;
+    }
+  }
+}
+
+/// Shared mark styles for the R3 charts: bars (`.aui-chart__bar`), lines and areas
+/// (`.aui-chart__line`, `.aui-chart__area`), point markers (`.aui-chart__point`), and
+/// connector lines (`.aui-chart__connector`). Colors come from `--aui-chart-color`.
+@mixin chart-marks {
+  // A surface-colored separator keeps adjacent segments apart without relying on the
+  // contrast between two series colors.
+  .aui-chart__bar {
+    fill: var(--aui-chart-color);
+    fill-opacity: var(--aui-chart-series-fill-opacity, 1);
+    stroke: fn.token('color-surface');
+    stroke-width: 1;
+  }
+
+  .aui-chart__bar.aui-chart__mark--hover,
+  .aui-chart__bar.aui-chart__mark--active {
+    stroke: fn.token('color-text');
+    stroke-width: 2;
+  }
+
+  .aui-chart__line {
+    fill: none;
+    stroke: var(--aui-chart-color);
+    stroke-width: var(--aui-chart-series-line-width, #{fn.ctoken('chart', 'line-width')});
+    stroke-linejoin: var(--aui-chart-line-join, round);
+    stroke-linecap: round;
+  }
+
+  // Decorative: the line carries the data, so the translucent fill has no contrast requirement.
+  .aui-chart__area {
+    fill: var(--aui-chart-color);
+    fill-opacity: var(--aui-chart-series-fill-opacity, var(--aui-chart-area-opacity, 0.12));
+    stroke: none;
+  }
+
+  .aui-chart__point {
+    fill: var(--aui-chart-color);
+    stroke: fn.token('color-surface');
+    stroke-width: 1;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .aui-chart__point.aui-chart__mark--hover,
+  .aui-chart__point.aui-chart__mark--active {
+    transform: scale(1.5);
+  }
+
+  .aui-chart__connector {
+    fill: none;
+    stroke: fn.token('color-chart-axis');
+    stroke-width: 1;
+    stroke-dasharray: 3 2;
+    shape-rendering: crispEdges;
+  }
+
+  @media (forced-colors: active) {
+    .aui-chart__bar,
+    .aui-chart__point {
+      stroke: Canvas;
+    }
+
+    .aui-chart__bar.aui-chart__mark--hover,
+    .aui-chart__bar.aui-chart__mark--active {
+      stroke: Highlight;
+    }
+
+    .aui-chart__connector {
+      stroke: CanvasText;
+    }
+  }
+}

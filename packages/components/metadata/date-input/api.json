@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "component": "date-input",
+  "factory": { "name": "DateInput.create", "signature": "DateInput.create(host: HTMLElement, options: DateInputOptions): DateInput" },
+  "configKey": "dateInput",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Group label and accessible name." },
+    { "name": "value", "type": "PlainDate | Instant | null", "default": null, "required": false, "globallyConfigurable": false, "description": "PlainDate for date granularity; Instant for minute granularity." },
+    { "name": "min", "type": "PlainDate | Instant | null", "required": false, "globallyConfigurable": false, "description": "Inclusive lower bound." },
+    { "name": "max", "type": "PlainDate | Instant | null", "required": false, "globallyConfigurable": false, "description": "Inclusive upper bound." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name for the ISO 8601 hidden input." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Empty value is invalid (value-missing)." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables all segments." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Prevents editing." },
+    { "name": "trailing", "type": "HTMLElement", "required": false, "globallyConfigurable": false, "description": "Advanced: element appended inside the group boundary after the segments (used by Date Picker for its calendar button). Focus moving into it does not mark the field touched." },
+    { "name": "formControl", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Advanced, read at creation: false skips registration with Form, for composite controls such as Date Picker that register themselves." },
+    { "name": "granularity", "type": "'date' | 'minute'", "default": "date", "required": false, "globallyConfigurable": true, "mutability": "init-only", "description": "Value type and segments." },
+    { "name": "hourCycle", "type": "'auto' | 'h12' | 'h23'", "default": "auto", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "12/24-hour clock; auto follows the locale." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Segment order, labels, messages, formatting." },
+    { "name": "timezone", "type": "string (IANA)", "default": "UTC", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Zone for minute granularity." },
+    { "name": "disambiguation", "type": "'compatible' | 'earlier' | 'later' | 'reject'", "default": "compatible", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "DST policy for nonexistent/ambiguous local times." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Arrow-key segment navigation direction." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer-provided host (children are owned by the component)." },
+    { "name": "group", "type": "HTMLDivElement", "description": "role=group container of the segments." },
+    { "name": "value", "type": "PlainDate | Instant | null", "description": "Current valid value, or null when empty/invalid." },
+    { "name": "validity", "type": "{ valid: boolean; error: DateInputError | null; localTimeStatus: 'exact' | 'ambiguous' | 'nonexistent' | null }", "description": "Validation state." },
+    { "name":  "name", "type":  "string | null", "description":  "Form field name." },
+    { "name":  "label", "type":  "string", "description":  "Label text." },
+    { "name":  "disabled", "type":  "boolean", "description":  "Disabled state." },
+    { "name":  "dirty", "type":  "boolean", "description":  "Value differs from the initial value." },
+    { "name":  "touched", "type":  "boolean", "description":  "Focus has left the control at least once." },
+    { "name": "localValue", "type": "PlainDateTime | null", "description": "Minute granularity: the complete wall-clock date and time in the segments, even when the zone rejects it; else null." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: PlainDate | Instant | null): void", "description": "Programmatic value (no aui-change)." },
+    { "name": "setLocalValue", "signature": "setLocalValue(value: PlainDateTime | null): void", "description": "Minute granularity, for composite controls: write a wall-clock date-time resolved as if typed (timezone, disambiguation, DST hint or error). No aui-change." },
+    { "name": "update", "signature": "update(options: Partial<DateInputOptions>): void", "description": "Merge and apply options; init-only options throw." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages immediately; returns validity." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove listeners, subscriptions, and rendered children." },
+    { "name":  "setCustomError", "signature":  "setCustomError(message: string | null): void", "description":  "External error (server, cross-field rule); cleared when the user changes the value." },
+    { "name":  "focus", "signature":  "focus(): void", "description":  "Focus the control." },
+    { "name":  "reset", "signature":  "reset(): void", "description":  "Restore the initial value and clear touched/submitted state (no aui-change)." },
+    { "name":  "getFormValue", "signature":  "getFormValue(): string | null", "description":  "ISO 8601 value (YYYY-MM-DD or instant with Z), or null when empty or invalid." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: PlainDate | Instant | null; validity: DateInputValidity }", "bubbles": true, "cancelable": false, "description": "User edit changed the value or validity." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-date-input", "description": "Host." },
+    { "name": "aui-date-input--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-date-input__label", "description": "Group label." },
+    { "name": "aui-date-input__group", "description": "role=group control surface." },
+    { "name": "aui-date-input__segment", "description": "Segment input; --year/--month/--day/--hour/--minute/--dayPeriod modifiers." },
+    { "name": "aui-date-input__separator", "description": "Locale separator (aria-hidden)." },
+    { "name": "aui-date-input__description | __hint | __error", "description": "Help, timezone/DST hint, and error text." }
+  ],
+  "iconSlots": []
+}

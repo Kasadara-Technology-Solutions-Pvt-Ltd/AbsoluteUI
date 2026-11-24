@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "component": "quarter-picker",
+  "pattern": "Segmented quarter field in a labelled group with a button that opens a non-modal dialog popup (WAI-ARIA APG date picker dialog pattern, non-modal variant) containing a paged role=grid of quarters with a roving tabindex.",
+  "roles": [
+    { "element": "segment container", "role": "group" },
+    { "element": "each segment (input type=text, inputmode=numeric)", "role": "textbox (native)" },
+    { "element": "choose quarter button", "role": "button (native), aria-haspopup=dialog" },
+    { "element": "popup", "role": "dialog (aria-modal=false)" },
+    { "element": "previous / next year buttons", "role": "button (native)" },
+    { "element": "quarter grid", "role": "grid" },
+    { "element": "grid row", "role": "row" },
+    { "element": "quarter cell", "role": "gridcell" },
+    { "element": "pattern literals and icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "group", "value": "Label id" },
+    { "attribute": "aria-describedby", "element": "group", "value": "Help text and visible error message ids" },
+    { "attribute": "aria-label", "element": "segment", "value": "Localized segment name (\"Quarter\", \"Year\")" },
+    { "attribute": "aria-invalid", "element": "segment", "value": "\"true\" only while an error message is shown" },
+    { "attribute": "aria-label", "element": "button", "value": "\"Choose quarter\", or \"Change quarter, {value}\" (for example \"Change quarter, Q2 2026\") when a value is set" },
+    { "attribute": "aria-haspopup", "element": "button", "value": "dialog" },
+    { "attribute": "aria-expanded", "element": "button", "value": "\"true\" while the popup is open" },
+    { "attribute": "aria-controls", "element": "button", "value": "Popup id" },
+    { "attribute": "aria-label", "element": "popup", "value": "Localized \"Choose quarter\"" },
+    { "attribute": "aria-modal", "element": "popup", "value": "\"false\" (non-modal; the page stays reachable)" },
+    { "attribute": "aria-live", "element": "heading", "value": "polite (announces the year when the page changes)" },
+    { "attribute": "aria-label", "element": "previous / next buttons", "value": "\"Previous year\" / \"Next year\"" },
+    { "attribute": "aria-disabled", "element": "previous / next buttons", "value": "\"true\" when the page reaches min/max or year 1/9999 (focus stays on the button)" },
+    { "attribute": "aria-labelledby", "element": "grid", "value": "Heading id" },
+    { "attribute": "aria-label", "element": "cell", "value": "Quarter, year, and months, for example \"Q2 2026, April to June\"" },
+    { "attribute": "aria-selected", "element": "cell", "value": "\"true\" on the selected quarter only (absent otherwise)" },
+    { "attribute": "aria-current", "element": "cell", "value": "\"date\" on the current quarter (configured timezone or today option)" },
+    { "attribute": "aria-disabled", "element": "cell", "value": "\"true\" for quarters outside min/max or rejected by isQuarterDisabled" }
+  ],
+  "keyboard": [
+    { "key": "Digits", "context": "Quarter segment", "action": "Enters one digit and advances to the next segment; 0 and 5-9 are invalid. Non-digits are removed." },
+    { "key": "Digits", "context": "Year segment", "action": "Enters up to four digits and advances when full; fewer than four digits is incomplete." },
+    { "key": "/ - . , : Space", "context": "Segment (not read-only)", "action": "Advances to the next segment." },
+    { "key": "ArrowUp / ArrowDown", "context": "Segment (not read-only)", "action": "Quarter increments or decrements with wrap (1-4); the year stops at 1 and 9999. An empty quarter starts at 1 (Up) or 4 (Down); an empty year starts at the current year." },
+    { "key": "ArrowLeft / ArrowRight", "context": "Caret at the segment edge, or text selected", "action": "Previous or next segment in the visual order of the LTR-isolated segment run (not mirrored in RTL)." },
+    { "key": "Backspace", "context": "Empty segment", "action": "Moves to the previous segment." },
+    { "key": "Alt+ArrowDown", "context": "Segment", "action": "Opens the popup without changing the segment." },
+    { "key": "Tab / Shift+Tab", "context": "Group", "action": "Moves through the segments, then the button." },
+    { "key": "Enter / Space", "context": "Button", "action": "Opens the popup (or closes it when open); focus moves to the selected quarter, else the current quarter, clamped to min/max." },
+    { "key": "ArrowRight / ArrowLeft", "context": "Quarter cell", "action": "Next / previous quarter (mirrored in RTL), crossing into the adjacent year." },
+    { "key": "ArrowDown / ArrowUp", "context": "Quarter cell", "action": "Same quarter in the next / previous year (the grid has one row of four)." },
+    { "key": "Home / End", "context": "Quarter cell", "action": "Q1 / Q4 of the shown year." },
+    { "key": "PageDown / PageUp", "context": "Quarter cell", "action": "Same quarter in the next / previous year." },
+    { "key": "Shift+PageDown / Shift+PageUp", "context": "Quarter cell", "action": "Same quarter 10 years later / earlier." },
+    { "key": "Enter / Space", "context": "Quarter cell", "action": "Picks the quarter unless it is disabled; with closeOnSelect (default) the popup closes and focus returns to the button, otherwise focus stays on the cell. Emits aui-change if the value or validity changed." },
+    { "key": "Enter / Space", "context": "Previous / next year button", "action": "Shows the previous / next year; no-op while aria-disabled." },
+    { "key": "Escape", "context": "Popup open", "action": "Closes the popup without changing the value; focus inside the popup returns to the button. Only the topmost overlay responds, so a surrounding Dialog stays open." },
+    { "key": "Tab / Shift+Tab", "context": "Popup", "action": "Moves between the previous and next year buttons and the focused quarter; focus leaving the popup (other than to the choose button) closes it." }
+  ],
+  "focus": "Each segment and the button are tab stops. Opening moves focus to one quarter cell (roving tabindex: exactly one cell has tabindex=0). Movement is clamped to min/max and years 1-9999; disabled quarters stay focusable. Picking with closeOnSelect, Escape, and closing through the button return focus to the button; focus is moved before the popup hides, so it never falls to the document body. A pointer press outside the popup and the button closes it. Moving focus between the segments, button, and popup does not mark the field touched.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "3.2.2", "3.3.1", "3.3.2", "4.1.2", "4.1.3"],
+  "notes": [
+    "The label is a <label> associated through aria-labelledby because a group is not labelable; clicking the label focuses the first segment.",
+    "The required asterisk is aria-hidden; each segment carries the native required state.",
+    "Each cell's accessible name includes its months (for example \"Q2 2026, April to June\"), matching the visible month hint.",
+    "The segments remain the primary input; the grid is an alternative, and a typed quarter rejected by isQuarterDisabled gets a localized message so both paths agree.",
+    "The popup is non-modal: focus is not trapped and the rest of the page stays reachable."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior (dialog announcement, page changes, cell states) has not yet been manually verified with NVDA, JAWS, and VoiceOver.",
+    "Segment arrow navigation follows visual order and is not mirrored in RTL, because segments render as an LTR run."
+  ]
+}

@@ -1,0 +1,7 @@
+[
+  { "title": "Start and end fields", "text": "Two segmented date fields with a shared calendar popup." },
+  { "title": "Range limits", "text": "Minimum and maximum dates and range lengths in days." },
+  { "title": "Business calendar", "text": "Weekends and holidays are marked and can be made unselectable." },
+  { "title": "One or two months", "text": "Shows one or two months, or picks automatically by available space." },
+  { "title": "Form ready", "text": "Submits start and end through hidden inputs, with validation and custom errors." }
+]

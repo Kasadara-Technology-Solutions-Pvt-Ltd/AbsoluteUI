@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="payroll">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="5.5" width="19" height="13" rx="2"/>
+      <path d="M5.5 9h.01"/>
+      <path d="M18.5 15h.01"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="12" cy="10.5" r="2"/>
+      <path d="M8.75 15.5a3.25 2.5 0 0 1 6.5 0"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="2.5" y="5.5" width="19" height="13" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="5.5" width="19" height="13" rx="2"/>
+      <path d="M5.5 9h.01"/>
+      <path d="M18.5 15h.01"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="12" cy="10.5" r="2"/>
+      <path d="M8.75 15.5a3.25 2.5 0 0 1 6.5 0"/>
+    </g>
+  </g>
+</svg>

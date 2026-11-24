@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="carousel">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="6.5" y="4" width="11" height="12" rx="2"/>
+      <path d="M3 6.5v7"/>
+      <path d="M21 6.5v7"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M10 20h.01"/>
+      <path d="M12 20h.01"/>
+      <path d="M14 20h.01"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="6.5" y="4" width="11" height="12" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="6.5" y="4" width="11" height="12" rx="2"/>
+      <path d="M3 6.5v7"/>
+      <path d="M21 6.5v7"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M10 20h.01"/>
+      <path d="M12 20h.01"/>
+      <path d="M14 20h.01"/>
+    </g>
+  </g>
+</svg>

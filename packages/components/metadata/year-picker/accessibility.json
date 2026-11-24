@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "component": "year-picker",
+  "pattern": "Single-segment year field in a labelled group with a button that opens a non-modal dialog popup (WAI-ARIA APG date picker dialog pattern, non-modal variant) containing a paged role=grid of years with a roving tabindex.",
+  "roles": [
+    { "element": "segment container", "role": "group" },
+    { "element": "year segment (input type=text, inputmode=numeric)", "role": "textbox (native)" },
+    { "element": "choose year button", "role": "button (native), aria-haspopup=dialog" },
+    { "element": "popup", "role": "dialog (aria-modal=false)" },
+    { "element": "previous / next 10 years buttons", "role": "button (native)" },
+    { "element": "year grid", "role": "grid" },
+    { "element": "grid row", "role": "row" },
+    { "element": "year cell", "role": "gridcell" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "group", "value": "Label id" },
+    { "attribute": "aria-describedby", "element": "group", "value": "Help text and visible error message ids" },
+    { "attribute": "aria-label", "element": "segment", "value": "Localized \"Year\"" },
+    { "attribute": "aria-invalid", "element": "segment", "value": "\"true\" only while an error message is shown" },
+    { "attribute": "aria-label", "element": "button", "value": "\"Choose year\", or \"Change year, {value}\" (for example \"Change year, 2026\") when a value is set" },
+    { "attribute": "aria-haspopup", "element": "button", "value": "dialog" },
+    { "attribute": "aria-expanded", "element": "button", "value": "\"true\" while the popup is open" },
+    { "attribute": "aria-controls", "element": "button", "value": "Popup id" },
+    { "attribute": "aria-label", "element": "popup", "value": "Localized \"Choose year\"" },
+    { "attribute": "aria-modal", "element": "popup", "value": "\"false\" (non-modal; the page stays reachable)" },
+    { "attribute": "aria-live", "element": "heading", "value": "polite (announces the decade, for example \"2020 - 2029\", when the page changes)" },
+    { "attribute": "aria-label", "element": "previous / next buttons", "value": "\"Previous 10 years\" / \"Next 10 years\"" },
+    { "attribute": "aria-disabled", "element": "previous / next buttons", "value": "\"true\" when the page reaches min/max or year 1/9999 (focus stays on the button)" },
+    { "attribute": "aria-labelledby", "element": "grid", "value": "Heading id" },
+    { "attribute": "aria-label", "element": "cell", "value": "Formatted year, for example \"2026\" (absent on the empty year-0 slot)" },
+    { "attribute": "aria-selected", "element": "cell", "value": "\"true\" on the selected year only (absent otherwise)" },
+    { "attribute": "aria-current", "element": "cell", "value": "\"date\" on the current year (configured timezone or today option)" },
+    { "attribute": "aria-disabled", "element": "cell", "value": "\"true\" for years outside min/max or rejected by isYearDisabled" }
+  ],
+  "keyboard": [
+    { "key": "Digits", "context": "Year segment", "action": "Enters up to four digits; fewer than four digits is incomplete (year 5 is typed 0005). Non-digits are removed." },
+    { "key": "ArrowUp / ArrowDown", "context": "Year segment (not read-only)", "action": "Increments or decrements the year, stopping at 1 and 9999; an empty segment starts at the current year." },
+    { "key": "Alt+ArrowDown", "context": "Year segment", "action": "Opens the popup without changing the segment." },
+    { "key": "Tab / Shift+Tab", "context": "Group", "action": "Moves from the segment to the button." },
+    { "key": "Enter / Space", "context": "Button", "action": "Opens the popup (or closes it when open); focus moves to the selected year, else the current year, clamped to min/max." },
+    { "key": "ArrowRight / ArrowLeft", "context": "Year cell", "action": "Next / previous year (mirrored in RTL), crossing into the adjacent decade." },
+    { "key": "ArrowDown / ArrowUp", "context": "Year cell", "action": "Plus / minus 5 years (next / previous row), crossing into the adjacent decade." },
+    { "key": "Home / End", "context": "Year cell", "action": "First / last year of the row." },
+    { "key": "PageDown / PageUp", "context": "Year cell", "action": "Plus / minus 10 years (next / previous decade)." },
+    { "key": "Shift+PageDown / Shift+PageUp", "context": "Year cell", "action": "Plus / minus 100 years." },
+    { "key": "Enter / Space", "context": "Year cell", "action": "Picks the year unless it is disabled; with closeOnSelect (default) the popup closes and focus returns to the button, otherwise focus stays on the cell. Emits aui-change if the value or validity changed." },
+    { "key": "Enter / Space", "context": "Previous / next 10 years button", "action": "Shows the previous / next decade; no-op while aria-disabled." },
+    { "key": "Escape", "context": "Popup open", "action": "Closes the popup without changing the value; focus inside the popup returns to the button. Only the topmost overlay responds, so a surrounding Dialog stays open." },
+    { "key": "Tab / Shift+Tab", "context": "Popup", "action": "Moves between the previous and next buttons and the focused year; focus leaving the popup (other than to the choose button) closes it." }
+  ],
+  "focus": "The segment and the button are tab stops. Opening moves focus to one year cell (roving tabindex: exactly one cell has tabindex=0; the empty year-0 slot is never focusable). Movement is clamped to min/max and years 1-9999; disabled years stay focusable. Picking with closeOnSelect, Escape, and closing through the button return focus to the button; focus is moved before the popup hides, so it never falls to the document body. A pointer press outside the popup and the button closes it. Moving focus between the segment, button, and popup does not mark the field touched.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "3.2.2", "3.3.1", "3.3.2", "4.1.2", "4.1.3"],
+  "notes": [
+    "The label is a <label> associated through aria-labelledby because a group is not labelable; clicking the label focuses the segment.",
+    "The required asterisk is aria-hidden; the segment carries the native required state.",
+    "The segment remains the primary input; the grid is an alternative, and a typed year rejected by isYearDisabled gets a localized message so both paths agree.",
+    "The popup is non-modal: focus is not trapped and the rest of the page stays reachable.",
+    "Errors appear after focus leaves the whole control by default."
+  ],
+  "knownCaveats": [
+    "Screen-reader behavior (dialog announcement, page changes, cell states) has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

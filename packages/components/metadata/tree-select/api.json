@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "component": "tree-select",
+  "factory": { "name": "TreeSelect.create", "signature": "TreeSelect.create(host: HTMLElement, options: TreeSelectOptions): TreeSelect" },
+  "configKey": "treeSelect",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label (accessible name)." },
+    { "name": "nodes", "type": "readonly TreeNode[]", "required": true, "globallyConfigurable": false, "description": "The tree (see Tree View)." },
+    { "name": "mode", "type": "'single' | 'multiple'", "default": "single", "required": false, "globallyConfigurable": false, "description": "Single choice or multiple choice with checkboxes and tags." },
+    { "name": "value", "type": "readonly string[]", "default": "[]", "required": false, "globallyConfigurable": false, "description": "Selected node ids (at most one in single mode)." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name; one hidden input per selected id." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Placeholder while nothing is selected." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text below the field." },
+    { "name": "required", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "At least one value is required." },
+    { "name": "disabled", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Not interactive and not submitted by Form." },
+    { "name": "readOnly", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Focusable, but the value cannot change." },
+    { "name": "invalid", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Show errorMessage as an external error." },
+    { "name": "errorMessage", "type": "string", "required": false, "globallyConfigurable": false, "description": "Message shown while invalid is true." },
+    { "name": "clearable", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Show a button that clears the selection." },
+    { "name": "selectableParents", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Single mode: parents can be chosen; otherwise choosing a parent opens it." },
+    { "name": "cascade", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Multiple mode: checking a parent checks its descendants." },
+    { "name": "expanded", "type": "readonly string[]", "required": false, "globallyConfigurable": false, "description": "Ids expanded in the popup tree (paths to the value are expanded too)." },
+    { "name": "loadChildren", "type": "((node: TreeNode, context: TreeViewLoadContext) => Promise<readonly TreeNode[]>) | null", "required": false, "globallyConfigurable": false, "description": "Lazy children (see Tree View)." },
+    { "name": "valueLabels", "type": "Readonly<Record<string, string>>", "required": false, "globallyConfigurable": false, "description": "Labels of selected ids whose nodes are not loaded yet." },
+    { "name": "popupHeight", "type": "string", "default": "16rem", "required": false, "globallyConfigurable": false, "description": "Block size of the tree in the popup." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Popup placement and tree arrow keys." },
+    { "name": "density", "type": "'compact' | 'comfortable' | 'spacious'", "required": false, "globallyConfigurable": false, "description": "Row height of the popup tree." },
+    { "name": "icons", "type": "Partial<TreeSelectIcons>", "required": false, "globallyConfigurable": false, "description": "Expand, clear, remove, and error icons." },
+    { "name": "openOnFocus", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Open the popup when the field receives focus." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of messages and filtering." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element." },
+    { "name": "input", "type": "HTMLInputElement", "description": "The search field (role=combobox)." },
+    { "name": "value", "type": "string[]", "description": "Selected node ids." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the popup is open." },
+    { "name": "tree", "type": "TreeView | null", "description": "The Tree View in the popup." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Accessible label." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "Current validity." },
+    { "name": "dirty", "type": "boolean", "description": "The value differs from the initial value." },
+    { "name": "touched", "type": "boolean", "description": "The field lost focus at least once." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(): void", "description": "Open the popup." },
+    { "name": "close", "signature": "close(): void", "description": "Close the popup." },
+    { "name": "setValue", "signature": "setValue(value: readonly string[]): void", "description": "Set the value (no aui-change)." },
+    { "name": "getFormValue", "signature": "getFormValue(): string[] | string | null", "description": "The id (single) or ids (multiple) for Form." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error; null clears it." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the field." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear interaction state." },
+    { "name": "update", "signature": "update(options: Partial<TreeSelectOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering and listeners." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "TreeSelectChangeDetail", "bubbles": true, "cancelable": false, "description": "The user changed the value: { value, added, removed }." },
+    { "name": "aui-input", "detail": "{ query: string }", "bubbles": true, "cancelable": false, "description": "The search text changed." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "The popup opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "The popup closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-tree-select", "description": "Host." },
+    { "name": "aui-tree-select--multiple | --invalid | --disabled", "description": "Multiple mode, invalid, disabled." },
+    { "name": "aui-tree-select__label | __control | __input", "description": "Label, field boundary, and search input." },
+    { "name": "aui-tree-select__tags | __tag | __tag-label | __remove", "description": "Selected value tags (multiple)." },
+    { "name": "aui-tree-select__clear | __toggle", "description": "Clear and open buttons." },
+    { "name": "aui-tree-select__popup | __tree", "description": "Top-layer popup and the Tree View host." },
+    { "name": "aui-tree-select__description | __error | __values", "description": "Help text, error message, hidden inputs." }
+  ],
+  "iconSlots": [
+    { "name": "expand", "default": "chevron-down" },
+    { "name": "clear", "default": "close" },
+    { "name": "remove", "default": "close" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "component": "combobox",
+  "factory": { "name": "Combobox.create", "signature": "Combobox.create(host: HTMLElement, options: ComboboxOptions): Combobox" },
+  "configKey": "combobox",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name." },
+    { "name": "options", "type": "readonly ComboboxOption[]", "required": true, "globallyConfigurable": false, "description": "{ value, label, disabled?, description? } with unique values." },
+    { "name": "value", "type": "string | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Selected value." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name for the hidden input." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Input placeholder (supplementary; never replaces the label)." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Sets required and aria-required." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the input and toggle." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Prevents opening and editing." },
+    { "name": "invalid", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Sets aria-invalid and shows errorMessage." },
+    { "name": "errorMessage", "type": "string", "required": false, "globallyConfigurable": false, "description": "Validation message shown when invalid." },
+    { "name": "icons", "type": "Partial<{ expand: IconRef; selected: IconRef; error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "renderOption", "type": "(option: ComboboxOption, context: ComboboxRenderContext) => Node", "required": false, "globallyConfigurable": false, "description": "Custom option content (since 0.9.0); the label stays the accessible name. Nodes are released with releaseNode when dropped." },
+    { "name": "loadOptions", "type": "(query: string, context: ComboboxLoadContext) => Promise<readonly ComboboxOption[]>", "required": false, "globallyConfigurable": false, "description": "Load options for the typed text instead of filtering options (since 0.9.0); debounced, stale requests aborted, loading and errors announced." },
+    { "name": "loadDelay", "type": "number", "default": "250", "required": false, "globallyConfigurable": false, "description": "Milliseconds between the last keystroke and loadOptions (0-5000)." },
+    { "name": "filter", "type": "'contains' | 'startsWith' | 'none'", "default": "contains", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Filtering strategy." },
+    { "name": "openOnFocus", "type": "boolean", "default": false, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Open the listbox on focus/click." },
+    { "name": "clearOnEscape", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Escape with a closed listbox clears the value." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Messages and filtering locale." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Popup alignment direction." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer-provided host (children are owned by the component)." },
+    { "name": "input", "type": "HTMLInputElement", "description": "The combobox input." },
+    { "name": "listbox", "type": "HTMLDivElement", "description": "The listbox element." },
+    { "name": "value", "type": "string | null", "description": "Selected value." },
+    { "name": "selectedOption", "type": "ComboboxOption | null", "description": "Selected option." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the listbox is shown." },
+    { "name":  "validity", "type":  "FieldValidity", "description":  "{ valid, error, message }. invalid/errorMessage options take precedence over the required check." },
+    { "name":  "name", "type":  "string | null", "description":  "Form field name." },
+    { "name":  "label", "type":  "string", "description":  "Label text." },
+    { "name":  "disabled", "type":  "boolean", "description":  "Disabled state." },
+    { "name":  "dirty", "type":  "boolean", "description":  "Value differs from the initial value." },
+    { "name":  "touched", "type":  "boolean", "description":  "Focus has left the control at least once." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: string | null): void", "description": "Programmatic selection (no aui-change). Unknown values clear the selection." },
+    { "name": "update", "signature": "update(options: Partial<ComboboxOptions>): void", "description": "Merge and apply options." },
+    { "name": "open", "signature": "open(): void", "description": "Show the listbox." },
+    { "name": "close", "signature": "close(): void", "description": "Hide the listbox." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close, remove listeners, subscriptions, and rendered children." },
+    { "name":  "reportValidity", "signature":  "reportValidity(): boolean", "description":  "Show messages now and return validity." },
+    { "name":  "setCustomError", "signature":  "setCustomError(message: string | null): void", "description":  "External error (server, cross-field rule); cleared when the user changes the value." },
+    { "name":  "focus", "signature":  "focus(): void", "description":  "Focus the control." },
+    { "name":  "reset", "signature":  "reset(): void", "description":  "Restore the initial value and clear touched/submitted state (no aui-change)." },
+    { "name":  "getFormValue", "signature":  "getFormValue(): string | null", "description":  "Selected value for form serialization." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: string | null; option: ComboboxOption | null }", "bubbles": true, "cancelable": false, "description": "User changed the selection." },
+    { "name": "aui-input", "detail": "{ query: string }", "bubbles": true, "cancelable": false, "description": "User edited the input text." },
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "Listbox opened." },
+    { "name": "aui-close", "detail": "null", "bubbles": false, "cancelable": false, "description": "Listbox closed." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-combobox", "description": "Host." },
+    { "name": "aui-combobox--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-combobox__label", "description": "Visible label." },
+    { "name": "aui-combobox__control", "description": "Input and toggle wrapper (popup anchor)." },
+    { "name": "aui-combobox__input", "description": "Combobox input." },
+    { "name": "aui-combobox__toggle", "description": "Show-options button (not in tab order)." },
+    { "name": "aui-combobox__popup", "description": "Top-layer popover container." },
+    { "name": "aui-combobox__listbox", "description": "Listbox." },
+    { "name": "aui-combobox__option", "description": "Option; --active marks the active descendant." },
+    { "name": "aui-combobox__empty", "description": "Empty-results message." },
+    { "name": "aui-combobox__description | __error", "description": "Help and error text." }
+  ],
+  "iconSlots": [
+    { "name": "expand", "default": "chevron-down" },
+    { "name": "selected", "default": "check" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

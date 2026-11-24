@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "slider",
+  "examples": [
+    {
+      "id": "volume",
+      "title": "Single value with marks",
+      "language": "ts",
+      "code": "import { Slider } from '@absoluteui/components/slider';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nSlider.create(host, {\n  label: 'Volume',\n  value: 40,\n  step: 10,\n  marks: true,\n  valueText: (v) => `${String(v)}%`,\n});"
+    },
+    {
+      "id": "price-range",
+      "title": "Price range with formatted values",
+      "language": "ts",
+      "code": "import { Slider, type SliderValueDetail } from '@absoluteui/components/slider';\n\nconst host = document.createElement('div');\nconst summary = document.createElement('p');\ndocument.body.append(host, summary);\nSlider.create(host, {\n  label: 'Price',\n  range: true,\n  min: 0,\n  max: 500,\n  step: 10,\n  value: [50, 300],\n  format: { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 },\n  marks: [{ value: 0, label: 'Free' }, { value: 500, label: 'Max' }],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<SliderValueDetail>).detail;\n  if (Array.isArray(value)) summary.textContent = `Searching ${String(value[0])} to ${String(value[1])} EUR`;\n});"
+    },
+    {
+      "id": "working-hours",
+      "title": "Working hours as times of day",
+      "language": "ts",
+      "code": "import { formatPlainTime, plainTime } from '@absoluteui/core';\nimport { Slider } from '@absoluteui/components/slider';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\n// Minutes since midnight, shown as times of day.\nSlider.create(host, {\n  label: 'Working hours',\n  range: true,\n  min: 0,\n  max: 23 * 60 + 30,\n  step: 30,\n  value: [9 * 60, 17 * 60],\n  largeStep: 120,\n  valueText: (m) => formatPlainTime(plainTime(Math.floor(m / 60), m % 60), { timeStyle: 'short' }),\n});"
+    }
+  ]
+}

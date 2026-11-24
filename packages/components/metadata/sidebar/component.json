@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "name": "sidebar",
+  "displayName": "Sidebar",
+  "category": "Navigation",
+  "package": "@absoluteui/components",
+  "import": "import { Sidebar } from '@absoluteui/components/sidebar';",
+  "styleImport": "@absoluteui/components/sidebar/style.css",
+  "purpose": "Application side navigation: a labelled <nav> with a list of links (buttons for items without an href) and nested groups that expand as disclosures (WAI-ARIA APG Disclosure Navigation). The active item carries aria-current=\"page\". The sidebar can collapse to an icon rail whose labels are shown as tooltips, and below a viewport breakpoint it moves into a modal Drawer that the application opens from its own menu button. Activation emits a cancelable aui-navigate for client-side routers.",
+  "whenToUse": [
+    "Primary or secondary navigation of an application with more destinations than fit in a top bar.",
+    "Hierarchical navigation with one or two levels of groups.",
+    "Layouts that need a compact icon rail on desktop and a drawer on small screens."
+  ],
+  "whenNotToUse": [
+    "A handful of top-level destinations: use a top navigation bar or tabs.",
+    "Actions or commands (not destinations): use Menu or buttons.",
+    "Showing the current page's position in a hierarchy: use Breadcrumb.",
+    "Deep trees (more than three levels) or file-system-like hierarchies: use a tree view."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "@absoluteui/components/drawer", "@absoluteui/components/tooltip", "@absoluteui/components/button"],
+  "states": ["inline", "collapsed (icon rail)", "drawer (closed)", "drawer (open)", "item active (aria-current=page)", "item hover", "item focus-visible", "item disabled", "group expanded", "group collapsed", "collapsed group containing the active item"],
+  "responsive": "Inline width is --aui-sidebar-width (default 16rem), or --aui-sidebar-rail-width in the icon rail. When the viewport is narrower than `breakpoint` CSS px (default 768; 0 disables), the <nav> moves into a modal start-edge Drawer (size sm) titled with the label, the host is display:none, and the application opens the drawer with open() or toggle(). Mode follows a matchMedia query on the viewport, not the container.",
+  "rtl": "Logical properties throughout: the border sits on the inline-end edge, nested lists indent from the inline start. direction: 'rtl' sets dir=\"rtl\" on the <nav> and the footer. The collapse chevrons are mirrored under :dir(rtl), rail tooltips open to the left in RTL (right in LTR), and the drawer opens from the right edge in RTL.",
+  "theme": "Surface, border, hover, and selected role tokens. The active item uses color-selected background, color-selected-text, and semibold weight (not color alone). Forced-colors mode draws the active item in Highlight/HighlightText, disabled items in GrayText, and the border in CanvasText.",
+  "timezone": "Not applicable.",
+  "security": "Labels are rendered with textContent, never parsed as HTML. Each href is parsed with the URL standard against document.baseURI; only http(s) and scheme-less URLs are accepted, otherwise SIDEBAR_OPTIONS is thrown without echoing the value. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Active item, expanded groups, collapsed state, and mode live in memory and are reported through events; the application persists them if needed.",
+  "performance": {
+    "budgets": [
+      { "metric": "Sidebar.create with 200 items in nested groups", "budget": "< 50 ms (headless Chromium)" }
+    ],
+    "testedScale": "4 top-level items with a group nested two levels deep in the unit tests."
+  },
+  "limitations": [
+    "No arrow-key navigation between items; every enabled item and group button is a separate Tab stop.",
+    "The drawer breakpoint follows the viewport width, not the width of the sidebar's container.",
+    "The application must render its own menu button to open the drawer; the sidebar's collapse toggle is hidden in drawer mode.",
+    "The collapsed (rail) state applies inline only; it is ignored in drawer mode and forced to false when collapsible is false.",
+    "Disabled items get no rail tooltip, so in the icon rail they show only their icon or initial.",
+    "select() does not close the drawer; call close() after it.",
+    "Nothing is persisted; collapsed and expanded state reset when the sidebar is recreated unless the application passes them back."
+  ],
+  "unsupported": [
+    "Rendering HTML strings or custom nodes in labels.",
+    "Hrefs with schemes other than http and https.",
+    "Groups that are also links (a group is a disclosure button only).",
+    "Badges, counters, or secondary actions inside items.",
+    "Resizing the sidebar by dragging."
+  ],
+  "antiPatterns": [
+    "Mixing destinations and commands in the same sidebar.",
+    "Marking a group as the active item (only non-group items can be active).",
+    "Rail mode without icons for most items (the first-letter fallback is hard to scan).",
+    "Handling aui-navigate with preventDefault but not calling select() afterwards, which leaves the previous item active."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/sidebar: generated AuiSidebar directive ([auiSidebar] on an empty host); inputs mirror the options, outputs auiNavigate, auiChange, auiExpandedChange, auiCollapsedChange, auiModeChange.",
+    "react": "@absoluteui/react/sidebar: AuiSidebar component.",
+    "vue": "@absoluteui/vue/sidebar: AuiSidebar component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

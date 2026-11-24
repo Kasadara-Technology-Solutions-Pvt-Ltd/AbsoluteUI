@@ -1,0 +1,34 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-interaction;
+
+  // A surface-colored separator keeps adjacent (stacked) segments apart without relying
+  // on the contrast between two series colors.
+  .aui-bar-chart__bar {
+    fill: var(--aui-chart-color);
+    fill-opacity: var(--aui-chart-series-fill-opacity, 1);
+    stroke: aui.token('color-surface');
+    stroke-width: 1;
+  }
+
+  .aui-bar-chart__bar.aui-chart__mark--hover,
+  .aui-bar-chart__bar.aui-chart__mark--active {
+    stroke: aui.token('color-text');
+    stroke-width: 2;
+  }
+
+  @include aui.forced-colors {
+    .aui-bar-chart__bar {
+      stroke: Canvas;
+    }
+
+    .aui-bar-chart__bar.aui-chart__mark--hover,
+    .aui-bar-chart__bar.aui-chart__mark--active {
+      stroke: Highlight;
+    }
+  }
+}

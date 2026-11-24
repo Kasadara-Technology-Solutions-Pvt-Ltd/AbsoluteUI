@@ -1,0 +1,6 @@
+[
+  { "title": "Accessible tab panels", "text": "Tabs and panels are linked for screen readers, with roving focus on the tab list." },
+  { "title": "Automatic or manual", "text": "Activate tabs as focus moves, or only when users press Enter or Space." },
+  { "title": "Two orientations", "text": "Horizontal or vertical layouts with the matching arrow key mapping and RTL support." },
+  { "title": "Disabled tabs", "text": "Disabled tabs stay visible and are skipped by keyboard navigation." }
+]

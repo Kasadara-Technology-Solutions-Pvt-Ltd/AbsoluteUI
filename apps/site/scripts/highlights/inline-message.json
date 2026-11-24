@@ -1,0 +1,5 @@
+[
+  { "title": "Next to the content", "text": "A short status line placed beside the field or section it is about." },
+  { "title": "Four tones", "text": "Info, success, warning, and error with matching icons and colors." },
+  { "title": "Live region option", "text": "Announce changes politely or assertively, or stay silent for static text." }
+]

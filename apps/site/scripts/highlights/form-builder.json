@@ -1,0 +1,7 @@
+[
+  { "title": "Palette and canvas", "text": "Add 18 field types by click, Enter, or drag; reorder fields by pointer or keyboard." },
+  { "title": "Properties panel", "text": "Label, name, required, validation, options, help text, width, and visibility conditions." },
+  { "title": "Live preview", "text": "The Preview tab renders the document with Schema Form, ready to submit." },
+  { "title": "JSON in and out", "text": "See the schema and UI schema, paste a document, and import it after validation." },
+  { "title": "Undo and redo", "text": "Every change is undoable, also with Ctrl+Z and Ctrl+Y; invalid edits never reach your app." }
+]

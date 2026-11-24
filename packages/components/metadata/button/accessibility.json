@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "component": "button",
+  "pattern": "WAI-ARIA APG Button pattern, implemented with a native <button>.",
+  "roles": [
+    { "element": "host <button>", "role": "button (native)" },
+    { "element": "icon <svg>", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-disabled", "element": "host", "value": "\"true\" while loading (button remains focusable)" },
+    { "attribute": "aria-label", "element": "host", "value": "Set from `label`; includes ', Loading' while loading" }
+  ],
+  "keyboard": [
+    { "key": "Enter", "context": "Button focused", "action": "Activates (native). Blocked while loading." },
+    { "key": "Space", "context": "Button focused", "action": "Activates on key release (native). Blocked while loading." },
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Moves focus to/from the button; loading buttons stay in the tab order." }
+  ],
+  "focus": "Native focus. Visible :focus-visible outline using color-focus-ring (>= 3:1 against surfaces).",
+  "wcag": ["1.4.3", "1.4.11", "2.1.1", "2.4.7", "2.5.3", "2.5.8", "4.1.2"],
+  "notes": [
+    "The loading state is conveyed through visually hidden text in the accessible name rather than aria-busy, which buttons do not reliably announce.",
+    "Disabled (native) buttons are removed from the tab order by the browser; loading buttons are not."
+  ],
+  "knownCaveats": [
+    "Screen-reader announcement of the name change when loading starts while focused has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ]
+}

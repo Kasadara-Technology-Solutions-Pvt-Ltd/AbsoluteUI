@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="asterisk">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M6 12h12"/>
+      <path d="M9 6.8l6 10.4"/>
+      <path d="M9 17.2l6-10.4"/>
+    </g>
+  </g>
+</svg>

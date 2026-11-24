@@ -1,0 +1,6 @@
+[
+  { "title": "Related actions", "text": "Groups buttons under one accessible label, attached or spaced apart." },
+  { "title": "Horizontal or vertical", "text": "Lays the buttons out in a row or a column." },
+  { "title": "One action event", "text": "Every button reports its value through a single action event on the group." },
+  { "title": "Shared size", "text": "One size option keeps every button in the group consistent." }
+]

@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "name": "checkbox-group",
+  "displayName": "Checkbox Group",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { CheckboxGroup } from '@absoluteui/components/checkbox-group';",
+  "styleImport": "@absoluteui/components/checkbox-group/style.css",
+  "purpose": "Several related, independent choices in a <fieldset> + <legend>, built on native checkboxes that share one field name, with group help text, required and min/max selection validation, and one localized validation message.",
+  "whenToUse": [
+    "Choosing any number of options from a short, visible list (roughly 2 to 10).",
+    "Selections with a minimum or maximum count, such as \"pick up to three topics\"."
+  ],
+  "whenNotToUse": [
+    "Exactly one choice: use Radio Group.",
+    "Long or searchable lists: use a multi-select Combobox or Listbox.",
+    "A single yes/no choice: use Checkbox."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["default", "hover", "focus-visible", "checked", "disabled (group)", "disabled (option)", "required", "invalid"],
+  "responsive": "Vertical by default. `orientation: 'horizontal'` lays options out in a wrapping row. Labels and option help text wrap; each row is at least touch-target-min tall.",
+  "rtl": "Logical properties and flex layout: boxes sit at the inline start and horizontal options flow from the inline start in both directions.",
+  "theme": "Same box visuals as Checkbox: color-surface box with a color-border-strong boundary; checked uses a color-primary fill with a color-on-primary check mark. Invalid: color-error-fg boundaries. Forced-colors mode uses Canvas, CanvasText, Highlight, HighlightText, and GrayText with forced-color-adjust: none.",
+  "timezone": "Not applicable.",
+  "security": "Legend, option labels, help text, and messages are rendered with textContent. Validation messages never include selected values. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. With `name`, every checked native checkbox submits `name=value`, matching native form serialization.",
+  "performance": {
+    "budgets": [
+      { "metric": "CheckboxGroup.create with 10 options, per instance", "budget": "< 2 ms average in headless Chromium (target; not yet covered by the performance test)" }
+    ],
+    "testedScale": "Unit-tested with up to 4 options per group; intended for short lists (up to about 20 options)."
+  },
+  "limitations": [
+    "minSelected and maxSelected apply once anything is selected; an empty optional group is valid (HTML constraint semantics). Use `required` to demand a selection.",
+    "Selection-count messages have singular and plural forms only; languages with more plural categories need a custom validate message.",
+    "Group-level help text and errors are referenced from the fieldset; some screen readers announce fieldset descriptions only when entering the group."
+  ],
+  "unsupported": [
+    "HTML inside option labels or the legend.",
+    "A mixed \"select all\" row inside the group (compose a Checkbox with the group instead).",
+    "Nested groups."
+  ],
+  "antiPatterns": [
+    "Using a checkbox group for mutually exclusive options.",
+    "Very long lists without search.",
+    "Hiding the legend when the options do not make sense on their own."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/checkbox-group: AuiCheckboxGroup directive ([auiCheckboxGroup]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/checkbox-group: AuiCheckboxGroup component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/checkbox-group: AuiCheckboxGroup component with v-model."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

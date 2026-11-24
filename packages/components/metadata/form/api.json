@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "component": "form",
+  "factory": { "name": "Form.create", "signature": "Form.create(element: HTMLFormElement, options?: FormOptions): Form" },
+  "configKey": "form",
+  "options": [
+    { "name": "rules", "type": "readonly CrossFieldRule[]", "default": [], "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Cross-field rules { fields, validate(values), target? }. Run on validate/submit and live on every edit after the first submit. The first failing rule per target wins." },
+    { "name": "validate", "type": "AsyncFormValidator", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "(values, signal) => Promise<FormErrors>. Runs on submit after constraints and rules pass. Rejection or timeout reports reason 'async-failed'." },
+    { "name": "summaryTitle", "type": "string", "required": false, "globallyConfigurable": false, "description": "Error summary heading. Default: localized \"There is a problem\". Applied when the summary is created, on update(), and on global configuration changes." },
+    { "name": "summaryHost", "type": "HTMLElement", "required": false, "globallyConfigurable": false, "description": "Element that hosts the error summary. Read only when the summary is first created (on the first failed submission); changing it afterwards has no effect. Default: a <div> inserted as the form's first child on the first failed submit (removed on destroy)." },
+    { "name": "focusOnInvalid", "type": "'summary' | 'first-field'", "default": "summary", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Where focus moves after a failed submission. Without a summary, focus always goes to the first invalid field." },
+    { "name": "errorSummary", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Render an error summary on failed submission. When false, messages that belong to no field are announced assertively." },
+    { "name": "submitMode", "type": "'event' | 'native'", "default": "event", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "'event': emit aui-submit only. 'native': then call HTMLFormElement.submit() unless aui-submit was prevented (the submitter's name/value is included)." },
+    { "name": "asyncTimeoutMs", "type": "number", "default": 10000, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Async validator timeout in ms (integer 100..120000). On timeout the signal aborts with a TimeoutError." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the summary heading and form-level messages." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLFormElement", "description": "The managed native form." },
+    { "name": "controls", "type": "FormControl[]", "description": "Registered controls inside the form, in document order (computed on access)." },
+    { "name": "state", "type": "FormState", "description": "Frozen { dirty, touched, submitting, submitCount, valid }; valid ignores disabled controls." },
+    { "name": "errorSummary", "type": "ErrorSummary | null", "description": "The summary, created lazily on the first failed submission; null until then or when errorSummary is false." }
+  ],
+  "methods": [
+    { "name": "getValues", "signature": "getValues(): FormValues", "description": "Frozen values by name: enabled named controls first, then plain named native elements outside controls. Unchecked checkboxes/radios, buttons, files, and :disabled elements (including disabled-fieldset descendants) are skipped; repeated names become arrays." },
+    { "name": "validate", "signature": "validate(): boolean", "description": "Apply rules, show every control's messages and the summary, and return validity. Does not run the async validator or emit events." },
+    { "name": "submit", "signature": "submit(): void", "description": "requestSubmit(): runs the full submit pipeline." },
+    { "name": "setErrors", "signature": "setErrors(errors: FormErrors): void", "description": "Apply external (server) errors by field name, show them, and move focus. Unknown names and disabled controls are listed in the summary as plain text without a link. Replaces earlier external errors; each clears when the user edits the field or on the next submit." },
+    { "name": "clearErrors", "signature": "clearErrors(): void", "description": "Clear every rule and external error this form set, and hide the summary." },
+    { "name": "reset", "signature": "reset(): void", "description": "Abort pending async validation, reset every control and plain native element to its initial value, clear state and the summary, emit aui-reset." },
+    { "name": "update", "signature": "update(options: Partial<FormOptions>): void", "description": "Merge and validate options; summaryTitle and locale are applied to an existing summary, and rules re-run (skipping unrendered targets) if the form was already submitted. Invalid options leave the previous options in place." },
+    { "name": "registerFormControl", "signature": "registerFormControl(control: FormControl): () => void", "description": "Standalone export (not a Form method): register a custom control implementing FormControl so any Form containing control.host discovers it. Marks the host with data-aui-control; call the returned function on destroy to unregister." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Abort async validation, remove listeners and subscriptions, destroy the summary (and remove its host if Form created it), and restore the form's original noValidate value." }
+  ],
+  "events": [
+    { "name": "aui-submit", "detail": "{ values: FormValues }", "bubbles": false, "cancelable": true, "description": "All validation passed. Prevent it to stop a native submission (submitMode 'native')." },
+    { "name": "aui-invalid", "detail": "{ errors: readonly FormErrorEntry[]; reason: 'constraints' | 'async' | 'async-failed' }", "bubbles": false, "cancelable": false, "description": "Submission stopped: constraint or rule errors, async validator errors, or async validator rejection/timeout." },
+    { "name": "aui-state-change", "detail": "FormState", "bubbles": false, "cancelable": false, "description": "dirty, touched, submitting, submitCount, or valid changed (deduplicated)." },
+    { "name": "aui-reset", "detail": "null", "bubbles": false, "cancelable": false, "description": "The form was reset (reset() or a native reset)." }
+  ],
+  "contentAreas": [
+    { "name": "controls", "description": "Consumer-owned children: AbsoluteUI controls, Form Field hosts, plain native elements, and buttons." }
+  ],
+  "cssClasses": [
+    { "name": "aui-form", "description": "Added to the <form>: single-column grid with a space-4 gap." },
+    { "name": "aui-form[aria-busy='true']", "description": "Async validation in progress (progress cursor)." },
+    { "name": "aui-form__actions", "description": "Optional consumer wrapper for buttons: wrapping flex row." }
+  ],
+  "iconSlots": []
+}

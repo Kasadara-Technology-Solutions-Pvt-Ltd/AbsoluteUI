@@ -1,0 +1,126 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-stat-card {
+    display: block;
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    color: aui.token('color-text');
+  }
+
+  .aui-stat-card__body {
+    display: grid;
+    gap: aui.token('space-1');
+    box-sizing: border-box;
+    block-size: 100%;
+    padding: aui.token('space-inset');
+    color: inherit;
+    text-decoration: none;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-lg');
+  }
+
+  .aui-stat-card__link {
+    cursor: pointer;
+
+    &:hover {
+      border-color: aui.token('color-border-strong');
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: aui.token('focus-ring-offset');
+    }
+  }
+
+  .aui-stat-card__top {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+  }
+
+  .aui-stat-card__icon {
+    flex: none;
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-stat-card__label {
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-medium');
+    color: aui.token('color-text-muted');
+    overflow-wrap: anywhere;
+  }
+
+  .aui-stat-card__value {
+    font-size: aui.token('font-size-xl');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-stat-card__change {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-stat-card__delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2em;
+    font-weight: aui.token('font-weight-medium');
+    font-variant-numeric: tabular-nums;
+  }
+
+  .aui-stat-card__delta--good {
+    color: aui.token('color-success-fg');
+  }
+
+  .aui-stat-card__delta--bad {
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-stat-card__delta--neutral {
+    color: aui.token('color-text');
+  }
+
+  .aui-stat-card__arrow {
+    inline-size: 1em;
+    block-size: 1em;
+  }
+
+  .aui-stat-card__sr {
+    @include aui.visually-hidden;
+  }
+
+  // Needs the Sparkline stylesheet too; this sizes the sparkline to the card width.
+  .aui-stat-card .aui-stat-card__trend {
+    display: block;
+    inline-size: 100%;
+    block-size: 2rem;
+  }
+
+  .aui-stat-card__description {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  @include aui.forced-colors {
+    .aui-stat-card__body {
+      border-color: CanvasText;
+    }
+
+    .aui-stat-card__delta--good,
+    .aui-stat-card__delta--bad,
+    .aui-stat-card__delta--neutral {
+      color: CanvasText;
+    }
+  }
+}

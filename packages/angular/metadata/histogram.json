@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/histogram",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiHistogram",
+      "description": "AbsoluteUI Histogram: `<aui-histogram>`.\nTwo-way: `[(hiddenSeries)]`.",
+      "selector": "aui-histogram",
+      "exportAs": [
+        "auiHistogram"
+      ],
+      "source": "generated",
+      "component": "histogram",
+      "configKey": "histogram",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the title; it stays the accessible name."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+        },
+        {
+          "name": "summary",
+          "type": "string",
+          "required": false,
+          "description": "Replaces the generated accessible summary (aria-describedby)."
+        },
+        {
+          "name": "valueFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format of bin boundaries (x axis ticks, bar labels, tooltips, table, summary) when binFormat is not set. Counts always use the plain locale number format."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Custom text for bin boundaries (x axis ticks included) when binFormat is not set. Counts are not affected."
+        },
+        {
+          "name": "values",
+          "type": "readonly (number | null)[]",
+          "required": true,
+          "description": "Raw values to bin; null, NaN, and infinities are ignored (counted as missing)."
+        },
+        {
+          "name": "bins",
+          "type": "number | \"auto\" | readonly number[]",
+          "required": false,
+          "default": "auto",
+          "description": "auto: Sturges' rule on nice boundaries; a number (integer 1-500): about that many bins on nice boundaries; an array: 2-501 ascending thresholds (bin edges)."
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "description": "Lower edge of the binned domain (finite); with auto or count bins it becomes the exact first edge. Default: a nice boundary at or below the data minimum. Ignored for binning when bins is an array of thresholds (still validated). Values outside the bins are counted and named in the summary."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "description": "Upper edge of the binned domain (finite, greater than min); with auto or count bins it becomes the exact last edge. Default: a nice boundary at or above the data maximum. Ignored for binning when bins is an array of thresholds."
+        },
+        {
+          "name": "color",
+          "type": "ChartColor",
+          "required": false,
+          "default": "1",
+          "description": "Palette slot 1-8 of the bars."
+        },
+        {
+          "name": "binFormat",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format of bin boundaries (axis, labels, tooltips, table, summary). Default: formatValue, else valueFormat."
+        },
+        {
+          "name": "xAxis",
+          "type": "{ label?: string; }",
+          "required": false,
+          "description": "X axis title (also the first table column header; default \"Bin\")."
+        },
+        {
+          "name": "yAxis",
+          "type": "ValueAxisInput",
+          "required": false,
+          "description": "Count axis: title (default \"Count\", always drawn), fixed domain (bars taller than max are clipped), and tick count (2-20). Only integer ticks are printed. includeZero is accepted but has no effect (the count axis starts at zero unless min is set)."
+        },
+        {
+          "name": "annotations",
+          "type": "readonly ChartAnnotation[]",
+          "required": false,
+          "description": "Reference lines ({ type: 'line', axis: 'x' | 'y', value, label?, tone? }) and bands ({ type: 'band', axis, from, to, label?, tone? }); tone: 'neutral' | 'info' | 'success' | 'warning' | 'danger'. x values are data values (bin scale); y values are counts. Drawn under the marks (aria-hidden); listed in the accessible summary."
+        },
+        {
+          "name": "theme",
+          "type": "ChartTheme",
+          "required": false,
+          "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+        },
+        {
+          "name": "renderTooltip",
+          "type": "ChartTooltipRenderer",
+          "required": false,
+          "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+        },
+        {
+          "name": "syncGroup",
+          "type": "string",
+          "required": false,
+          "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+        },
+        {
+          "name": "legend",
+          "type": "ChartLegendMode",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Accepted for the shared configuration; a histogram never shows a legend (the legend list stays empty and hidden)."
+        },
+        {
+          "name": "dataTable",
+          "type": "ChartTableMode",
+          "required": false,
+          "default": "toggle",
+          "configurable": true,
+          "description": "Data table fallback with the exact data: behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+        },
+        {
+          "name": "tooltip",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Tooltip on pointer hover and keyboard focus."
+        },
+        {
+          "name": "patterns",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "configurable": true,
+          "description": "Toggles the aui-chart--patterns host class; the single bar series draws no texture."
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "configurable": true,
+          "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Number and message locale."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors the x axis (lowest bin at the right), puts the count axis on the right, and swaps ArrowLeft/ArrowRight."
+        }
+      ],
+      "models": [
+        {
+          "name": "hiddenSeries",
+          "type": "readonly string[]",
+          "change": "hiddenSeriesChange",
+          "description": "Accepted and validated (string[]) for the shared chart contract; a histogram has one data set, so it has no effect."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pointClicked",
+          "payload": "ChartPointClickDetail",
+          "event": "aui-point-click",
+          "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setSeriesVisible",
+          "signature": "setSeriesVisible(id: string, visible: boolean): void",
+          "description": "Inherited from the shared chart controller; no visible effect."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "SVG chart as a named, described group (role=\"group\" with aria-roledescription) of role=\"img\" data marks with roving focus; data table fallback (native table). Follows the WAI Complex Images tutorial (short name plus long description) and the roving tabindex technique of WAI-ARIA APG.",
+        "source": "packages/components/metadata/histogram/accessibility.json"
+      },
+      "limitations": [
+        "One data set per chart (no overlaid distributions).",
+        "Bins are lower-inclusive; the last bin is also upper-inclusive.",
+        "Only integer count ticks are printed.",
+        "Manual screen-reader verification is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiHistogram } from '@absoluteui/angular/histogram';\n\n@Component({\n  selector: 'app-latency',\n  imports: [AuiHistogram],\n  template: `<aui-histogram label=\"Response times\" [values]=\"values\" [bins]=\"thresholds\"></aui-histogram>`,\n})\nexport class LatencyComponent {\n  readonly values: (number | null)[] = [120, 135, 160, 180, 210, 240, 250, 310];\n  readonly thresholds: number[] = [100, 150, 200, 250, 300, 350];\n}"
+    }
+  ]
+}

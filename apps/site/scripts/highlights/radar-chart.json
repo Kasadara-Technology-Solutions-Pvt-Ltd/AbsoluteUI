@@ -1,0 +1,7 @@
+[
+  { "title": "Compare profiles", "text": "One closed polygon per series across several axes, with optional fill." },
+  { "title": "Keyboard vertices", "text": "Left and Right move around the axes, Up and Down between series." },
+  { "title": "Legend toggles", "text": "Legend buttons show and hide series." },
+  { "title": "Data table fallback", "text": "A generated summary and a table with one row per axis." },
+  { "title": "Not color alone", "text": "Marker shapes and dash patterns as non-color cues." }
+]

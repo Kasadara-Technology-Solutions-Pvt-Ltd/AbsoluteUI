@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/org-chart",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiOrgChart",
+      "description": "AbsoluteUI OrgChart: `<aui-org-chart>`.\nTwo-way: `[(nodes)]`.\nTemplates: AuiItem (`@absoluteui/angular/templates`).",
+      "selector": "aui-org-chart",
+      "exportAs": [
+        "auiOrgChart"
+      ],
+      "source": "generated",
+      "component": "org-chart",
+      "configKey": "orgChart",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the tree (aria-label); the toolbar is named '{label} controls'. Non-empty."
+        },
+        {
+          "name": "expanded",
+          "type": "readonly string[]",
+          "required": false,
+          "description": "Explicitly expanded node ids (overrides expandDepth). Read the current set from the expanded getter."
+        },
+        {
+          "name": "selected",
+          "type": "string | null",
+          "required": false,
+          "description": "Selected node id (aria-selected=true)."
+        },
+        {
+          "name": "renderNode",
+          "type": "((node: Readonly<OrgChartNode>, context: OrgChartRenderContext) => Node)",
+          "required": false,
+          "description": "Card content ({ depth, expanded, childCount, doc } context). Return non-interactive content: the treeitem is the control and its text is its accessible name. Default: initials, label, title, description."
+        },
+        {
+          "name": "loadChildren",
+          "type": "((node: Readonly<OrgChartNode>, signal: AbortSignal) => Promise<readonly OrgChartNode[]>)",
+          "required": false,
+          "description": "Loads the reports of a node with hasChildren on its first expansion (validated; each parentId must be a known or returned node). Rejections and timeouts keep the node collapsed, announce the failure, and emit aui-load-error."
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Edit mode: re-parent nodes by pointer drag onto the new manager, Ctrl/Cmd+X then Ctrl/Cmd+V, or the toolbar Move / Move here buttons; undo and redo."
+        },
+        {
+          "name": "canMove",
+          "type": "((node: Readonly<OrgChartNode>, parent: Readonly<OrgChartNode> | null) => boolean)",
+          "required": false,
+          "description": "Veto a move (edit mode and moveNode). Cycles and locked nodes are always refused."
+        },
+        {
+          "name": "historyLimit",
+          "type": "number",
+          "required": false,
+          "default": "50",
+          "description": "Undo depth, integer 0..500 (0 disables history)."
+        },
+        {
+          "name": "nodeRadius",
+          "type": "number",
+          "required": false,
+          "description": "Card corner radius in CSS px, 0..50. Unset: --aui-chart-node-radius, else --aui-chart-corner-radius, else the theme's radius-md. Written as --aui-chart-node-radius through the CSSOM; the SVG export keeps it."
+        },
+        {
+          "name": "orientation",
+          "type": "OrgChartOrientation",
+          "required": false,
+          "default": "vertical",
+          "configurable": true,
+          "description": "'vertical': managers above their reports (top-down); 'horizontal': managers at the inline start, reports toward the inline end."
+        },
+        {
+          "name": "nodeWidth",
+          "type": "number",
+          "required": false,
+          "default": "200",
+          "configurable": true,
+          "description": "Card width in CSS px, integer 80..600."
+        },
+        {
+          "name": "nodeHeight",
+          "type": "number",
+          "required": false,
+          "default": "72",
+          "configurable": true,
+          "description": "Card height in CSS px, integer 32..400."
+        },
+        {
+          "name": "siblingGap",
+          "type": "number",
+          "required": false,
+          "default": "24",
+          "configurable": true,
+          "description": "Space between neighboring cards of a level, integer 4..400 CSS px."
+        },
+        {
+          "name": "levelGap",
+          "type": "number",
+          "required": false,
+          "default": "48",
+          "configurable": true,
+          "description": "Space between levels (connector length), integer 16..400 CSS px."
+        },
+        {
+          "name": "expandDepth",
+          "type": "number",
+          "required": false,
+          "default": "2",
+          "configurable": true,
+          "description": "Levels expanded initially when `expanded` is not given (integer 0..64; 0 shows only the top-level nodes)."
+        },
+        {
+          "name": "minZoom",
+          "type": "number",
+          "required": false,
+          "default": "0.2",
+          "configurable": true,
+          "description": "Smallest zoom factor, 0.05..1."
+        },
+        {
+          "name": "maxZoom",
+          "type": "number",
+          "required": false,
+          "default": "2",
+          "configurable": true,
+          "description": "Largest zoom factor, 1..8."
+        },
+        {
+          "name": "requestTimeoutMs",
+          "type": "number",
+          "required": false,
+          "default": "30000",
+          "configurable": true,
+          "description": "loadChildren timeout in ms (integer 100..600000); the signal is aborted with a TimeoutError."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of search, typeahead, report counts, zoom percentages, and messages."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors the layout (first report on the right; horizontal charts grow to the left) and swaps ArrowLeft/ArrowRight."
+        }
+      ],
+      "models": [
+        {
+          "name": "nodes",
+          "type": "readonly OrgChartNode[]",
+          "change": "nodesChange",
+          "description": "Flat nodes: { id (unique), parentId (manager id or null for a top-level node), label (name), title?, description?, hasChildren? (reports exist but load through loadChildren), locked? (cannot be moved in edit mode) }. Validated: unique ids, known parents, no cycles (ORG_CHART_OPTIONS). Sibling order follows the array. Replacing it with update() clears the undo history."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "nodeSelected",
+          "payload": "OrgChartNodeSelectDetail",
+          "event": "aui-node-select",
+          "description": "A node was selected by click, Enter, or Space."
+        },
+        {
+          "name": "expandChange",
+          "payload": "OrgChartExpandChangeDetail",
+          "event": "aui-expand-change",
+          "description": "A node was expanded (after its reports loaded) or collapsed through the UI or setExpanded."
+        },
+        {
+          "name": "nodeMoved",
+          "payload": "OrgChartNodeMoveDetail",
+          "event": "aui-node-move",
+          "description": "A node got a new manager (drag, paste, toolbar, moveNode, undo, redo). Save detail.nodes or send the change to the server."
+        },
+        {
+          "name": "zoomed",
+          "payload": "OrgChartZoomDetail",
+          "event": "aui-zoom",
+          "description": "The zoom changed through the toolbar, keys, Ctrl/Cmd + wheel, or zoomTo (fit does not emit)."
+        },
+        {
+          "name": "loadError",
+          "payload": "OrgChartLoadErrorDetail",
+          "event": "aui-load-error",
+          "description": "loadChildren rejected, timed out, or returned invalid nodes."
+        }
+      ],
+      "properties": [
+        {
+          "name": "canUndo",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Move history is available."
+        },
+        {
+          "name": "canRedo",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Move history is available."
+        },
+        {
+          "name": "scale",
+          "type": "Signal<number>",
+          "description": "Read-only: Current zoom factor."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setExpanded",
+          "signature": "setExpanded(id: string, expanded: boolean): Promise<void> | undefined",
+          "description": "Expand (loading lazy reports first) or collapse a node. Emits aui-expand-change."
+        },
+        {
+          "name": "expandAll",
+          "signature": "expandAll(): void",
+          "description": "Expand every node with loaded reports (lazy nodes are not loaded) / collapse all."
+        },
+        {
+          "name": "collapseAll",
+          "signature": "collapseAll(): void",
+          "description": "Expand every node with loaded reports (lazy nodes are not loaded) / collapse all."
+        },
+        {
+          "name": "search",
+          "signature": "search(query: string): string[] | undefined",
+          "description": "Ids whose label, title, or description contains the text (case-insensitive, locale-aware), in tree order, including collapsed nodes."
+        },
+        {
+          "name": "pathTo",
+          "signature": "pathTo(id: string): string[] | undefined",
+          "description": "Ids from the top-level node down to the node."
+        },
+        {
+          "name": "reveal",
+          "signature": "reveal(id: string, options?: { focus?: boolean; select?: boolean; highlight?: boolean; } | undefined): void | undefined",
+          "description": "Expand the node's managers, center it, highlight its path (cards and connectors; default on), focus it (default) and optionally select it; announces 'Path: A, B, C.'"
+        },
+        {
+          "name": "clearHighlight",
+          "signature": "clearHighlight(): void",
+          "description": "Remove the path highlight."
+        },
+        {
+          "name": "select",
+          "signature": "select(id: string | null): void",
+          "description": "Select a node without emitting aui-node-select."
+        },
+        {
+          "name": "centerOn",
+          "signature": "centerOn(id: string): void",
+          "description": "Center the view on a visible node (keeps the zoom)."
+        },
+        {
+          "name": "fit",
+          "signature": "fit(): void",
+          "description": "Scale (at most 100 %) and center the whole visible chart in the viewport; announces the zoom."
+        },
+        {
+          "name": "zoomTo",
+          "signature": "zoomTo(scale: number): void",
+          "description": "Zoom around the viewport center, clamped to minZoom..maxZoom; announces 'Zoom {percent}' and emits aui-zoom."
+        },
+        {
+          "name": "moveNode",
+          "signature": "moveNode(id: string, parentId: string | null, index?: number | undefined): boolean | undefined",
+          "description": "Re-parent a node (index among the new siblings, default last; null parent = top level). Returns false (and announces) when refused: cycle, locked node, or canMove. Undoable; emits aui-node-move."
+        },
+        {
+          "name": "undo",
+          "signature": "undo(): boolean | undefined",
+          "description": "Undo / redo the last move (parent and position). Announce and emit aui-node-move (reason 'undo' / 'redo'); false when there is nothing to undo/redo."
+        },
+        {
+          "name": "redo",
+          "signature": "redo(): boolean | undefined",
+          "description": "Undo / redo the last move (parent and position). Announce and emit aui-node-move (reason 'undo' / 'redo'); false when there is nothing to undo/redo."
+        }
+      ],
+      "templates": [
+        "AuiItem"
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Tree View (single select) with flat treeitems carrying aria-level, aria-setsize, and aria-posinset, kept in DOM reading order, with one roving tab stop. Connectors are decorative SVG. Moves in edit mode use cut/paste keys and toolbar buttons (no deprecated ARIA drag-and-drop attributes) with live-region announcements.",
+        "source": "packages/components/metadata/org-chart/accessibility.json"
+      },
+      "limitations": [
+        "Every visible node is rendered (no virtualization); keep visible nodes to a few thousand with expandDepth and lazy loading.",
+        "Cards have a fixed size (nodeWidth, nodeHeight); long text is truncated with an ellipsis (the full text stays in the accessible name).",
+        "Moves change the manager and append the node last among its new siblings (moveNode takes an index); sibling reordering has no keyboard command.",
+        "A plain mouse wheel scrolls the page; zooming needs Ctrl/Cmd + wheel, the toolbar, or keys. Pinch zoom is not provided.",
+        "Pointer drags start on the background (pan) or, in edit mode, on a node (move); pointer drags are not announced (keyboard and toolbar moves are).",
+        "Export redraws cards with label and title only; custom renderNode content is not exported.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { OrgChartNode, OrgChartNodeSelectDetail } from '@absoluteui/components/org-chart';\nimport { AuiOrgChart } from '@absoluteui/angular/org-chart';\n\n@Component({\n  selector: 'app-org',\n  imports: [AuiOrgChart],\n  template: `<aui-org-chart label=\"Company\" [nodes]=\"nodes\" orientation=\"horizontal\" (nodeSelected)=\"open($event)\"></aui-org-chart>`,\n})\nexport class OrgComponent {\n  readonly nodes: OrgChartNode[] = [\n    { id: 'ceo', parentId: null, label: 'Ada Lovelace', title: 'CEO' },\n    { id: 'cto', parentId: 'ceo', label: 'Grace Hopper', title: 'CTO' },\n  ];\n\n  open(detail: OrgChartNodeSelectDetail): void {\n    // show detail.node in a side panel\n  }\n}"
+    }
+  ]
+}

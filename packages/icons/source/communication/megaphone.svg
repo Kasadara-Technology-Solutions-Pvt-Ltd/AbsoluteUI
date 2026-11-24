@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="megaphone" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 10v4a1 1 0 0 0 1 1h2l8 4.5V4.5L7 9H5a1 1 0 0 0-1 1z"/>
+      <path d="M7 15l1.5 5.5"/>
+      <path d="M18.5 9a4 4 0 0 1 0 6"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M4 10v4a1 1 0 0 0 1 1h2l8 4.5V4.5L7 9H5a1 1 0 0 0-1 1z" transform="translate(9.5 12) scale(1.08) translate(-9.5 -12)"/>
+      <line x1="7.5" y1="16" x2="8.75" y2="20.5" data-outline-width="2"/>
+      <polyline points="18.5 9 19.65 9.23 20.62 9.88 21.27 10.85 21.5 12 21.27 13.15 20.62 14.12 19.65 14.77 18.5 15" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M4 10v4a1 1 0 0 0 1 1h2l8 4.5V4.5L7 9H5a1 1 0 0 0-1 1z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 10v4a1 1 0 0 0 1 1h2l8 4.5V4.5L7 9H5a1 1 0 0 0-1 1z"/>
+      <path d="M7 15l1.5 5.5"/>
+      <path d="M18.5 9a4 4 0 0 1 0 6"/>
+    </g>
+  </g>
+</svg>

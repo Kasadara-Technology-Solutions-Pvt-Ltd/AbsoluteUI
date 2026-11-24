@@ -1,0 +1,145 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Surface: bordered panel on color-surface. The border keeps it visible in forced-colors mode.
+  .aui-surface {
+    box-sizing: border-box;
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    background: aui.ctoken('card', 'bg');
+    border: aui.token('border-width') solid aui.ctoken('card', 'border-color');
+    border-radius: aui.ctoken('card', 'radius');
+  }
+
+  .aui-surface--raised {
+    box-shadow: aui.ctoken('card', 'shadow');
+  }
+
+  .aui-surface--sunken {
+    background: aui.token('color-surface-sunken');
+  }
+
+  .aui-surface--padded {
+    padding: aui.ctoken('card', 'padding');
+  }
+
+  // Card: sections stack vertically; media is first visually but after the header in source order.
+  .aui-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-card__header {
+    display: grid;
+    gap: aui.token('space-1');
+    padding: aui.ctoken('card', 'padding');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-card__title {
+    margin: 0;
+    font-size: aui.token('font-size-lg');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+    overflow-wrap: break-word;
+  }
+
+  .aui-card__subtitle {
+    margin: 0;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-card__media {
+    order: -1;
+
+    > :where(img, video, svg, picture) {
+      display: block;
+      inline-size: 100%;
+      block-size: auto;
+    }
+  }
+
+  .aui-card__body {
+    flex: 1 1 auto;
+    padding: aui.ctoken('card', 'padding');
+  }
+
+  .aui-card__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-2');
+    padding: aui.ctoken('card', 'padding');
+  }
+
+  // Adjacent padded sections share one inset of space instead of two.
+  :is(.aui-card__header:not([hidden]), .aui-card__body:not(:empty)) ~ :is(.aui-card__body, .aui-card__footer) {
+    padding-block-start: 0;
+  }
+
+  // Empty areas collapse so a title-only card has no stray padding.
+  .aui-card__media:empty,
+  .aui-card__body:empty,
+  .aui-card__footer:empty {
+    display: none;
+  }
+
+  // Block link: the title link's ::after covers the card; the card shows the focus ring.
+  .aui-card--interactive {
+    position: relative;
+    @include aui.transition(border-color, box-shadow);
+
+    &:hover {
+      border-color: aui.token('color-border-strong');
+      box-shadow: aui.token('shadow-md');
+    }
+
+    &:has(.aui-card__link:focus-visible) {
+      @include aui.focus-ring;
+    }
+
+    // Other controls inside an interactive card stay clickable above the overlay.
+    :where(a, button, input, select, textarea, summary, [tabindex]):not(.aui-card__link) {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  .aui-card__link {
+    color: aui.token('color-link');
+    text-decoration: none;
+    outline: none;
+
+    &::after {
+      position: absolute;
+      inset: 0;
+      content: '';
+    }
+
+    .aui-card--interactive:hover &,
+    &:focus-visible {
+      text-decoration-line: underline;
+      text-underline-offset: 0.15em;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-card__link {
+      color: LinkText;
+    }
+
+    .aui-card--interactive:has(.aui-card__link:focus-visible) {
+      outline-color: Highlight;
+    }
+  }
+}

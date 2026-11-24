@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "component": "calendar",
+  "factory": { "name": "Calendar.create", "signature": "Calendar.create(host: HTMLElement, options?: CalendarOptions): Calendar" },
+  "configKey": "calendar",
+  "options": [
+    { "name": "value", "type": "PlainDate | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Selected day (single mode; not used in range mode)." },
+    { "name": "selectionMode", "type": "'single' | 'range'", "default": "single", "required": false, "globallyConfigurable": false, "description": "Since 0.3.0. 'range': the first pick sets an anchor, the second completes the range (in either order); value is not used." },
+    { "name": "range", "type": "Range<PlainDate> | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Since 0.3.0. Selected inclusive range in range mode (start <= end)." },
+    { "name": "minDays", "type": "number", "required": false, "globallyConfigurable": false, "description": "Since 0.3.0. Range mode: minimum range length in days, counting the first and last day (integer 1-100000); shorter ends are disabled while the anchor is pending." },
+    { "name": "maxDays", "type": "number", "required": false, "globallyConfigurable": false, "description": "Since 0.3.0. Range mode: maximum range length in days, counting the first and last day (integer 1-100000); longer ends are disabled while the anchor is pending." },
+    { "name": "visibleMonths", "type": "number", "default": 1, "required": false, "globallyConfigurable": false, "description": "Since 0.3.0. Consecutive months shown side by side (integer 1-3). Outside days are never shown with more than one month." },
+    { "name": "min", "type": "PlainDate | null", "required": false, "globallyConfigurable": false, "description": "Inclusive lower bound; earlier days are disabled and focus never moves before it." },
+    { "name": "max", "type": "PlainDate | null", "required": false, "globallyConfigurable": false, "description": "Inclusive upper bound." },
+    { "name": "isDateDisabled", "type": "(date: PlainDate) => boolean", "required": false, "globallyConfigurable": false, "description": "Disable individual days (focusable, not selectable)." },
+    { "name": "businessCalendar", "type": "BusinessCalendarEngine | null", "required": false, "globallyConfigurable": false, "description": "Business calendar (since 0.9.0): non-working days and holidays are marked and named in the calendar." },
+    { "name": "disableNonWorking", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "With businessCalendar: non-working days cannot be picked or typed (since 0.9.0)." },
+    { "name": "focusedDate", "type": "PlainDate", "required": false, "globallyConfigurable": false, "description": "Initially focused day and visible month. Default: value, else the range start, else today (clamped to min/max)." },
+    { "name": "firstDayOfWeek", "type": "1 | 2 | 3 | 4 | 5 | 6 | 7", "required": false, "globallyConfigurable": false, "description": "ISO weekday of the first column (1 = Monday, 7 = Sunday). Default: the locale's first day of week." },
+    { "name": "label", "type": "string", "required": false, "globallyConfigurable": false, "description": "Grid accessible name. Default: the visible month-year heading (aria-labelledby). With several months each grid is named '{label}, {month}'." },
+    { "name": "today", "type": "PlainDate", "required": false, "globallyConfigurable": false, "description": "Advanced: fixed 'today' instead of the current date in timezone (tests, server rendering)." },
+    { "name": "icons", "type": "Partial<{ previous: IconRef; next: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides; mirrored in RTL." },
+    { "name": "showOutsideDays", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show days of the adjacent months in the first and last week (one visible month only)." },
+    { "name": "showWeekNumbers", "type": "boolean", "default": false, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show ISO 8601 week numbers as row headers." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Heading, weekday names, day numbers, cell names, and first day of week." },
+    { "name": "timezone", "type": "string (IANA)", "default": "UTC", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Zone used only to determine today." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Grid direction and ArrowLeft/ArrowRight mirroring." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "grid", "type": "HTMLTableElement", "description": "The table role=grid of the first visible month." },
+    { "name": "grids", "type": "readonly HTMLTableElement[]", "description": "Since 0.3.0. All month grids, first to last (one per visible month)." },
+    { "name": "value", "type": "PlainDate | null", "description": "Selected day (single mode)." },
+    { "name": "range", "type": "Range<PlainDate> | null", "description": "Since 0.3.0. Range mode: the selected range (not the pending anchor)." },
+    { "name": "rangeAnchor", "type": "PlainDate | null", "description": "Since 0.3.0. Range mode: the first picked day while the range is incomplete, else null." },
+    { "name": "focusedDate", "type": "PlainDate", "description": "Day holding the roving tab stop." },
+    { "name": "visibleMonth", "type": "{ year: number; month: number }", "description": "First visible month (1-12)." },
+    { "name": "today", "type": "PlainDate", "description": "Current date in the configured timezone, or the today option." },
+    { "name": "options", "type": "Readonly<CalendarOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: PlainDate | null): void", "description": "Programmatic selection (no events); a date also becomes the focused day." },
+    { "name": "setRange", "signature": "setRange(range: Range<PlainDate> | null): void", "description": "Since 0.3.0. Range mode: programmatic range (no events); a pending anchor is discarded and the first day becomes the focused day." },
+    { "name": "goTo", "signature": "goTo(date: PlainDate): void", "description": "Show the month of date (scrolling the visible months as needed) and make it the focused day (no events)." },
+    { "name": "focus", "signature": "focus(): void", "description": "Move DOM focus to the focused day." },
+    { "name": "update", "signature": "update(options: Partial<CalendarOptions>): void", "description": "Merge and apply options; changing range, selectionMode, minDays, or maxDays discards a pending anchor." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ value: PlainDate; range?: Range<PlainDate> }", "bubbles": true, "cancelable": false, "description": "Single mode: the user selected a day (click, Enter, or Space), including re-selecting the current day. Range mode: the user picked the last day; range is the completed range (the first pick emits nothing)." },
+    { "name": "aui-navigate", "detail": "{ month: { year: number; month: number } }", "bubbles": true, "cancelable": false, "description": "The user changed the visible months (keyboard, month buttons, or an outside day); month is the first visible month." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-calendar", "description": "Host; --multi modifier with more than one visible month." },
+    { "name": "aui-calendar__months | __month", "description": "Since 0.3.0. With several months: flex container (wraps when narrow) and one panel (header and grid) per month." },
+    { "name": "aui-calendar__header | __heading", "description": "Header and month-year heading (the first heading is a polite live region)." },
+    { "name": "aui-calendar__nav | __prev | __next", "description": "Month navigation buttons (previous in the first header, next in the last)." },
+    { "name": "aui-calendar__nav-spacer", "description": "Since 0.3.0. Placeholder for the missing navigation button in inner month headers." },
+    { "name": "aui-calendar__grid", "description": "table role=grid." },
+    { "name": "aui-calendar__weekday | __week-header | __week-number", "description": "Column headers and week-number row headers." },
+    { "name": "aui-calendar__day", "description": "Day gridcell; --today, --selected, --outside, --disabled, --empty modifiers; since 0.3.0 --in-range, --range-start, --range-end, and --preview (pending range) in range mode." }
+  ],
+  "iconSlots": [
+    { "name": "previous", "default": "chevron-left" },
+    { "name": "next", "default": "chevron-right" }
+  ]
+}

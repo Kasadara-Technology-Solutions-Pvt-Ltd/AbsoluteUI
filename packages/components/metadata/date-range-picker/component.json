@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "name": "date-range-picker",
+  "displayName": "Date Range Picker",
+  "category": "Form Inputs / Date and Time",
+  "package": "@absoluteui/components",
+  "import": "import { DateRangePicker } from '@absoluteui/components/date-range-picker';",
+  "styleImport": "@absoluteui/components/date-range-picker/style.css",
+  "purpose": "Inclusive date range field: two segmented Date Inputs (start and end, date granularity) with visually hidden own labels inside one labelled role=group, plus a calendar button that opens a range-selecting Calendar (one or two months) in a non-modal dialog popup. Typing and picking produce the same Range<PlainDate> value, which is set only when both dates are valid and every range constraint passes. The picker is the form control Form discovers.",
+  "whenToUse": [
+    "Inclusive date ranges such as stays, trips, leave requests, and report periods.",
+    "Ranges with bounds, unavailable days, or a minimum or maximum length in days."
+  ],
+  "whenNotToUse": [
+    "A single date: use Date Picker.",
+    "Two unrelated dates that do not form a range: use two Date Pickers.",
+    "Ranges of exact moments with a time of day: not supported (use two Date Inputs with minute granularity).",
+    "An always-visible range calendar: use Calendar with selectionMode 'range'."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["empty", "partial (one date, or an incomplete date)", "valid", "invalid (Date Input errors, incomplete range, reversed, too short, too long, unavailable day, custom)", "open", "open with a pending first day", "disabled", "read-only"],
+  "responsive": "The start and end fields sit on one line and wrap below each other when space runs out. The popup is positioned under the fields by the positioning engine, flips above when there is no room, and scrolls when taller than the available height. months 'auto' shows two months when the viewport is at least 40rem wide at open time, else one; the Calendar's months wrap when the popup is narrow.",
+  "rtl": "Segment order follows the locale; the calendar button sits at the inline end of the end field. The popup aligns to the fields' inline start, and the calendar mirrors arrows and chevrons.",
+  "theme": "Date Input and Calendar tokens plus surface, border, shadow, hover, and focus tokens for the popup and button. Forced-colors mode draws a CanvasText popup border and a GrayText disabled button.",
+  "timezone": "Values are PlainDate ranges (no timezone). The configured timezone (default UTC, never the host zone) only determines 'today' in the calendar, which is focused when the fields are empty.",
+  "security": "All text via textContent and Intl formatting; no HTML parsing. The popup uses the Popover API (top layer), no inline styles or handlers. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. When `name` is set, a hidden input carries the ISO 8601 interval (YYYY-MM-DD/YYYY-MM-DD); `startName` and `endName` add hidden inputs with each date (YYYY-MM-DD) for native form posts.",
+  "performance": {
+    "budgets": [
+      { "metric": "DateRangePicker.create, per instance (100 instances)", "budget": "< 15 ms average in headless Chromium" }
+    ],
+    "testedScale": "Two Date Inputs and one calendar per picker, created once; the calendar is reused on every open."
+  },
+  "limitations": [
+    "Gregorian calendar only; years 1-9999 (Date Input range).",
+    "A range may include disabled days: isDateDisabled is checked on the start and end days only.",
+    "minDays and maxDays count both the start and the end day.",
+    "Validation messages follow Date Input timing (incomplete, required, and range or custom messages after the field is touched or on reportValidity); validationTiming is not supported.",
+    "validity reports one error at a time; a range error is shown on the field it concerns.",
+    "Closing the popup with only the first day picked discards that pick; the previous range stays.",
+    "No Cancel/OK buttons: picking the last day commits the range.",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ],
+  "unsupported": [
+    "Time of day (minute granularity) in either field.",
+    "Open-ended ranges (only one date set) as a valid value.",
+    "More than two months in the popup.",
+    "Rendering HTML in the label, help text, or messages."
+  ],
+  "antiPatterns": [
+    "Making the calendar the only way to enter the dates; the segments stay available for keyboard and screen-reader users.",
+    "Registering the inner Date Inputs with Form separately; the picker is the form control.",
+    "Relying on the host timezone for 'today'; configure `timezone`."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/date-range-picker: AuiDateRangePicker directive ([auiDateRangePicker]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/date-range-picker: AuiDateRangePicker component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/date-range-picker: AuiDateRangePicker component with v-model."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

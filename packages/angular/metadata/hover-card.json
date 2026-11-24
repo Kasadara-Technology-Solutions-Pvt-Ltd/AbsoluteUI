@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/hover-card",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiHoverCard",
+      "description": "AbsoluteUI Hover Card on its trigger:\n`<a href=\"/u/ada\" [auiHoverCard]=\"card\">Ada</a><ng-template #card>...</ng-template>`.\nThe template is rendered as an embedded view, so its bindings stay live.",
+      "selector": "[auiHoverCard]",
+      "exportAs": [
+        "auiHoverCard"
+      ],
+      "source": "hand-written",
+      "component": "hover-card",
+      "configKey": "hoverCard",
+      "inputs": [
+        {
+          "name": "auiHoverCard",
+          "type": "TemplateRef<unknown>",
+          "required": true,
+          "description": "The card content: an `<ng-template>` reference."
+        },
+        {
+          "name": "hoverCardPlacement",
+          "type": "Placement",
+          "required": false,
+          "default": "bottom",
+          "configurable": true,
+          "description": "Preferred side and logical alignment; flips and shifts to fit."
+        },
+        {
+          "name": "hoverCardShowDelay",
+          "type": "number",
+          "required": false,
+          "default": "600",
+          "configurable": true,
+          "description": "Delay before showing on hover or keyboard focus, ms. 0 shows synchronously."
+        },
+        {
+          "name": "hoverCardHideDelay",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "configurable": true,
+          "description": "Grace period after the pointer leaves trigger and card before hiding, ms. Always asynchronous, so the pointer can move onto the card."
+        },
+        {
+          "name": "hoverCardDescribe",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "The trigger references the card with aria-describedby (added to existing ids). Set false for long or highly interactive cards."
+        },
+        {
+          "name": "hoverCardDirection",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Resolves logical start/end placements."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "opened",
+          "payload": "null",
+          "event": "aui-open",
+          "description": "After the card became visible (dispatched on the card element)."
+        },
+        {
+          "name": "closed",
+          "payload": "HoverCardCloseDetail",
+          "event": "aui-close",
+          "description": "After the card was hidden. 'programmatic' covers hide(), destroy(), and another hover card showing."
+        }
+      ],
+      "methods": [
+        {
+          "name": "show",
+          "signature": "show(): void",
+          "description": "Show the card now (without the hover delay)."
+        },
+        {
+          "name": "hide",
+          "signature": "hide(): void",
+          "description": "Hide the card."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Supplementary preview disclosed on hover or keyboard focus, meeting WCAG 1.4.13 Content on Hover or Focus; the card is a generic container in DOM order right after the trigger (not a dialog, not a tooltip).",
+        "source": "packages/components/metadata/hover-card/accessibility.json"
+      },
+      "limitations": [
+        "Touch pointers never show the card; it must not hold essential information or actions.",
+        "Keyboard focus uses the same showDelay as hover (default 600 ms); focus from a pointer click (not :focus-visible) does not show it.",
+        "Only one hover card is visible at a time per loaded copy of the module.",
+        "The card is inserted immediately after the trigger, so it inherits the trigger's container styles; a trigger inside inline text puts a div into that inline context.",
+        "With describe true (default), screen readers read the whole card text as the trigger's description; set describe false for long or highly interactive cards.",
+        "The gap between trigger and card is fixed at 8px. The close animation is not played."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiHoverCard } from '@absoluteui/angular/hover-card';\n\n@Component({\n  selector: 'app-author',\n  imports: [AuiHoverCard],\n  template: `\n    <a href=\"/u/ada\" [auiHoverCard]=\"card\" hoverCardPlacement=\"bottom-start\" (closed)=\"closed()\">Ada</a>\n    <ng-template #card>\n      <p>Ada Lovelace, mathematician.</p>\n      <a href=\"/u/ada/posts\">Posts</a>\n    </ng-template>\n  `,\n})\nexport class AuthorComponent {\n  closed(): void {}\n}"
+    }
+  ]
+}

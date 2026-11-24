@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="volume" data-mirror="true" data-animations="reveal:on-change">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M11 5L6 9H3v6h3l5 4z"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="stroke">
+      <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+      <path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M11 5L6 9H3v6h3l5 4z" transform="translate(7 12) scale(1.08) translate(-7 -12)"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <polyline points="15.5 8.5 16.12 9.25 16.57 10.11 16.85 11.03 16.95 12 16.85 12.97 16.57 13.89 16.12 14.75 15.5 15.5" data-outline-width="2.25"/>
+      <polyline points="18.61 5.49 19.4 6.4 20.07 7.4 20.6 8.48 20.99 9.62 21.22 10.8 21.3 12 21.22 13.2 20.99 14.38 20.6 15.52 20.07 16.6 19.4 17.6 18.61 18.51" data-outline-width="2.25"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M11 5L6 9H3v6h3l5 4z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M11 5L6 9H3v6h3l5 4z"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+      <path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+    </g>
+  </g>
+</svg>

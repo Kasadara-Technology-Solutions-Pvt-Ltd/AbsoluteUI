@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "component": "layout",
+  "examples": [
+    {
+      "id": "stack",
+      "title": "Vertical stack with a token gap",
+      "language": "ts",
+      "code": "import { Stack } from '@absoluteui/components/layout';\n\nconst list = document.createElement('div');\ndocument.body.append(list);\nconst stack = Stack.apply(list, { gap: 6 });\nstack.update({ align: 'start' });"
+    },
+    {
+      "id": "auto-grid",
+      "title": "Responsive auto-fit grid",
+      "language": "ts",
+      "code": "import { Container, Grid } from '@absoluteui/components/layout';\n\nconst page = document.createElement('main');\nconst tiles = document.createElement('div');\npage.append(tiles);\ndocument.body.append(page);\nContainer.apply(page, { size: 'xl' });\nconst grid = Grid.apply(tiles, { minColumnWidth: '14rem', gap: 4 });\n// Later, when the view is removed:\ngrid.destroy();"
+    },
+    {
+      "id": "toolbar",
+      "title": "Wrapping row with a vertical divider",
+      "language": "ts",
+      "code": "import { Divider, Flex } from '@absoluteui/components/layout';\nimport { Button } from '@absoluteui/components/button';\n\nconst toolbar = document.createElement('div');\nconst save = document.createElement('button');\nsave.textContent = 'Save';\nButton.enhance(save);\nconst share = document.createElement('button');\nshare.textContent = 'Share';\nButton.enhance(share);\ntoolbar.append(save, Divider.create({ orientation: 'vertical' }), share);\ndocument.body.append(toolbar);\nFlex.apply(toolbar, { gap: 2, align: 'center', justify: 'end' });"
+    },
+    {
+      "id": "labelled-divider",
+      "title": "Labelled divider between sign-in options",
+      "language": "ts",
+      "code": "import { Divider } from '@absoluteui/components/layout';\n\ndocument.body.append(Divider.create({ label: 'or' }));"
+    },
+    {
+      "id": "global-config",
+      "title": "Change the default gap globally",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { layout: { defaultGap: 3 } } });"
+    }
+  ]
+}

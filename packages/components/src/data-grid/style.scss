@@ -1,0 +1,1816 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Cell padding follows the instance density (private custom properties, not tokens).
+  .aui-data-grid {
+    --_aui-data-grid-pad-inline: #{aui.token('space-3')};
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+    block-size: 100%;
+    min-block-size: 0;
+    overflow: hidden;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+    background: aui.ctoken('data-grid', 'bg');
+    border: aui.token('border-width') solid aui.ctoken('data-grid', 'border-color');
+    border-radius: aui.ctoken('data-grid', 'radius');
+  }
+
+  .aui-data-grid--compact {
+    --_aui-data-grid-pad-inline: #{aui.token('space-2')};
+  }
+
+  .aui-data-grid--spacious {
+    --_aui-data-grid-pad-inline: #{aui.token('space-4')};
+  }
+
+  // `layout: auto`: grows with the rows; a max-block-size on the host bounds it.
+  .aui-data-grid--auto {
+    block-size: auto;
+  }
+
+  .aui-data-grid__viewport {
+    position: relative;
+    flex: 1 1 auto;
+    min-block-size: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .aui-data-grid__grid {
+    position: relative;
+    min-inline-size: 100%;
+  }
+
+  .aui-data-grid__head {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 3;
+    min-inline-size: 100%;
+    background: aui.ctoken('data-grid', 'header-bg');
+    border-block-end: aui.token('border-width') solid aui.token('color-border-strong');
+  }
+
+  .aui-data-grid__header-row {
+    display: flex;
+    min-inline-size: 100%;
+    block-size: var(--aui-data-grid-header-row-height, 44px);
+  }
+
+  .aui-data-grid__header-cell,
+  .aui-data-grid__header-filler {
+    position: relative;
+    display: flex;
+    flex: none;
+    box-sizing: border-box;
+    align-items: center;
+    gap: aui.token('space-1');
+    block-size: 100%;
+    padding-inline: var(--_aui-data-grid-pad-inline);
+    background: aui.ctoken('data-grid', 'header-bg');
+  }
+
+  .aui-data-grid__header-cell {
+    overflow: hidden;
+    font-weight: aui.token('font-weight-semibold');
+    border-inline-end: aui.token('border-width') solid aui.ctoken('data-grid', 'row-border-color');
+    outline: none;
+  }
+
+  // A leaf header spanning header rows extends down over the fillers below it.
+  .aui-data-grid__header-filler {
+    background: none;
+  }
+
+  .aui-data-grid__header-cell--span {
+    z-index: 1;
+    align-self: flex-start;
+    block-size: calc(var(--aui-data-grid-span, 1) * 100%);
+  }
+
+  .aui-data-grid__group-header {
+    justify-content: center;
+    border-block-end: aui.token('border-width') solid aui.ctoken('data-grid', 'row-border-color');
+  }
+
+  .aui-data-grid__header-cell--sortable,
+  .aui-data-grid__group-header[aria-expanded] {
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+  }
+
+  .aui-data-grid__header-cell--wrap .aui-data-grid__header-label {
+    white-space: normal;
+  }
+
+  .aui-data-grid__header-label {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-data-grid__sort-icon,
+  .aui-data-grid__group-icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    font-size: aui.icon-size('sm');
+  }
+
+  .aui-data-grid__sort-icon--none {
+    opacity: 0.4;
+  }
+
+  [dir='rtl'] .aui-data-grid__group-icon {
+    transform: scaleX(-1);
+  }
+
+  .aui-data-grid__sort-priority {
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-data-grid__resize {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: -4px;
+    z-index: 2;
+    inline-size: 8px;
+    cursor: col-resize;
+    touch-action: none;
+
+    &::after {
+      position: absolute;
+      inset-block: 25%;
+      inset-inline-start: 3px;
+      inline-size: 2px;
+      content: '';
+      background: transparent;
+    }
+
+    &:hover::after,
+    &.aui-data-grid__resize--active::after {
+      background: aui.token('color-primary');
+    }
+  }
+
+  .aui-data-grid__body {
+    position: relative;
+    min-inline-size: 100%;
+  }
+
+  .aui-data-grid__row {
+    position: absolute;
+    inset-inline-start: 0;
+    display: flex;
+    min-inline-size: 100%;
+    background: aui.ctoken('data-grid', 'bg');
+    border-block-end: aui.token('border-width') solid aui.ctoken('data-grid', 'row-border-color');
+    box-sizing: border-box;
+
+    &:hover > .aui-data-grid__cell {
+      background: aui.token('color-hover');
+    }
+  }
+
+  // After a sort or update, rendered rows glide to their new position (none with reduced motion).
+  .aui-data-grid--animating .aui-data-grid__row {
+    @include aui.transition(inset-block-start, $duration: aui.token('duration-normal'));
+  }
+
+  // A changed value is highlighted, then fades back (instant with reduced motion).
+  .aui-data-grid__cell {
+    @include aui.transition(background-color, $duration: aui.token('duration-normal'));
+  }
+
+  .aui-data-grid__cell--changed,
+  .aui-data-grid__row:hover > .aui-data-grid__cell--changed {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+  }
+
+  // Row selection (G3a): selected rows plus the checked checkbox (not color alone).
+  .aui-data-grid__row--selected > .aui-data-grid__cell,
+  .aui-data-grid__row--selected:hover > .aui-data-grid__cell {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+  }
+
+  .aui-data-grid__select-input,
+  .aui-data-grid__select-all {
+    inline-size: 1rem;
+    block-size: 1rem;
+    margin: 0;
+    cursor: pointer;
+    accent-color: aui.token('color-primary');
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(2px);
+    }
+  }
+
+  .aui-data-grid__select-header {
+    justify-content: center;
+  }
+
+  // Cell ranges (G3b): tinted cells with a border around each range (logical edges, so RTL mirrors).
+  .aui-data-grid__cell--range,
+  .aui-data-grid__row:hover > .aui-data-grid__cell--range {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+  }
+
+  .aui-data-grid__cell--range:not(.aui-data-grid__cell--pinned-start, .aui-data-grid__cell--pinned-end) {
+    position: relative;
+  }
+
+  .aui-data-grid__cell--range::after {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: '';
+    border: 0 solid aui.token('color-primary');
+  }
+
+  .aui-data-grid__cell--range-top::after {
+    border-block-start-width: 2px;
+  }
+
+  .aui-data-grid__cell--range-bottom::after {
+    border-block-end-width: 2px;
+  }
+
+  .aui-data-grid__cell--range-start::after {
+    border-inline-start-width: 2px;
+  }
+
+  .aui-data-grid__cell--range-end::after {
+    border-inline-end-width: 2px;
+  }
+
+  // Editing (G4a): the editor fills the cell; popup editors and messages float over the grid.
+  .aui-data-grid__cell--editing {
+    padding: 0;
+  }
+
+  .aui-data-grid__editor {
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .aui-data-grid__editor-control {
+    box-sizing: border-box;
+    inline-size: 100%;
+    block-size: 100%;
+    min-inline-size: 0;
+    padding-inline: var(--_aui-data-grid-pad-inline, #{aui.token('space-2')});
+    margin: 0;
+    font: inherit;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: 2px solid aui.token('color-primary');
+    border-radius: 0;
+    outline: none;
+
+    &[type='checkbox'] {
+      inline-size: 1rem;
+      block-size: 1rem;
+      margin-inline: auto;
+      accent-color: aui.token('color-primary');
+    }
+
+    &[aria-invalid='true'] {
+      border-color: aui.token('color-error-fg');
+    }
+  }
+
+  .aui-data-grid__editor--popup {
+    inline-size: auto;
+    block-size: auto;
+    padding: aui.token('space-1');
+    margin: 0;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    box-shadow: aui.ctoken('data-grid', 'panel-shadow');
+
+    textarea.aui-data-grid__editor-control {
+      inline-size: min(24rem, calc(100vw - 2 * #{aui.token('space-4')}));
+      padding-block: aui.token('space-1');
+      resize: vertical;
+    }
+  }
+
+  // List editors (data-grid/editors): a Combobox or Multi Select fills the cell; its label is for assistive technology.
+  .aui-data-grid__list-editor {
+    inline-size: 100%;
+    min-inline-size: 0;
+
+    .aui-combobox__label,
+    .aui-multi-select__label {
+      @include aui.visually-hidden;
+    }
+  }
+
+  // Row grouping (G5a): the group column indents by level; group and total rows stand out (weight, background, rule).
+  .aui-data-grid__group-cell {
+    display: flex;
+    gap: aui.token('space-1');
+    align-items: center;
+    min-inline-size: 0;
+    padding-inline-start: calc(var(--aui-data-grid-group-level, 0) * 1.25rem);
+  }
+
+  .aui-data-grid__group-toggle {
+    display: inline-flex;
+    flex: none;
+    cursor: pointer;
+  }
+
+  // Row spans: the first cell of a span covers the rows below it.
+  .aui-data-grid__cell--span-rows {
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    background: aui.token('color-surface');
+  }
+
+  // Full-width rows: one cell that stays in view while the rows scroll sideways.
+  .aui-data-grid__full-cell {
+    position: sticky;
+    inset-inline-start: 0;
+    box-sizing: border-box;
+  }
+
+  // Sticky group rows: an overlay under the header (no height of its own; its rows cover the body's).
+  .aui-data-grid__sticky {
+    position: sticky;
+    z-index: 2;
+    block-size: 0;
+    overflow: visible;
+  }
+
+  .aui-data-grid__row--sticky {
+    box-shadow: 0 1px 0 aui.token('color-border-strong');
+  }
+
+  // Pinned rows: sections that stay under the header and at the bottom edge while the body scrolls.
+  .aui-data-grid__pinned {
+    position: sticky;
+    z-index: 2;
+    min-inline-size: 100%;
+    background: aui.token('color-surface');
+  }
+
+  .aui-data-grid__pinned--top {
+    border-block-end: aui.token('border-width') solid aui.token('color-border-strong');
+  }
+
+  .aui-data-grid__pinned--bottom {
+    inset-block-end: 0;
+    border-block-start: aui.token('border-width') solid aui.token('color-border-strong');
+  }
+
+  .aui-data-grid__row--pinned > .aui-data-grid__cell {
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  // Find: matches on the warning tint, the current one outlined; notes: a corner mark (and a hidden text).
+  .aui-data-grid__cell--find,
+  .aui-data-grid__cell--find-active {
+    background: aui.token('color-warning-subtle');
+    color: aui.token('color-text');
+  }
+
+  .aui-data-grid__cell--find-active {
+    outline: 2px solid aui.token('color-warning-fg');
+    outline-offset: -2px;
+  }
+
+  .aui-data-grid__cell--note {
+    position: relative;
+  }
+
+  .aui-data-grid__cell--note::after {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    border-block-start: 10px solid aui.token('color-info-fg');
+    border-inline-start: 10px solid transparent;
+    content: '';
+    pointer-events: none;
+  }
+
+  .aui-data-grid__find {
+    display: flex;
+    gap: aui.token('space-1');
+    align-items: center;
+  }
+
+  .aui-data-grid__find-input {
+    min-inline-size: 10rem;
+    min-block-size: 32px;
+    font: inherit;
+  }
+
+  .aui-data-grid__find-count {
+    min-inline-size: 7rem;
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+  }
+
+  .aui-data-grid__find-button {
+    min-inline-size: 32px;
+    min-block-size: 32px;
+  }
+
+  .aui-data-grid__note-text {
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-inline-size: min(28rem, 80vw);
+    font: inherit;
+  }
+
+  .aui-data-grid__note-meta {
+    margin: aui.token('space-1') 0 0;
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+  }
+
+  // Side bar: the rows and the side slots share a row.
+  .aui-data-grid__main {
+    display: flex;
+    flex: 1 1 auto;
+    min-block-size: 0;
+  }
+
+  .aui-data-grid__main > .aui-data-grid__viewport {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+  }
+
+  .aui-data-grid__side {
+    display: flex;
+    flex: none;
+    min-block-size: 0;
+  }
+
+  .aui-data-grid__side-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-1');
+    padding: aui.token('space-1');
+    border-inline-start: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-data-grid__side--start .aui-data-grid__side-tabs {
+    order: -1;
+    border-inline-start: 0;
+    border-inline-end: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-data-grid__side-tab {
+    min-block-size: 32px;
+    padding: aui.token('space-1') aui.token('space-2');
+    border: aui.token('border-width') solid transparent;
+    border-radius: aui.token('radius-sm');
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .aui-data-grid__side-tab[aria-expanded='true'] {
+    border-color: aui.token('color-border-strong');
+    background: aui.token('color-surface-sunken');
+  }
+
+  .aui-data-grid__side-panel {
+    display: grid;
+    align-content: start;
+    gap: aui.token('space-2');
+    inline-size: var(--aui-data-grid-side-width, 18rem);
+    padding: aui.token('space-2');
+    overflow: auto;
+    border-inline-start: aui.token('border-width') solid aui.token('color-border');
+  }
+
+  .aui-data-grid__side-panel[hidden] {
+    display: none;
+  }
+
+  .aui-data-grid__side-heading {
+    margin: 0;
+    font-size: aui.token('font-size-md');
+  }
+
+  .aui-data-grid__filter-section-toggle {
+    display: flex;
+    justify-content: space-between;
+    inline-size: 100%;
+    min-block-size: 32px;
+    padding-inline: aui.token('space-1');
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .aui-data-grid__filter-panel--inline {
+    position: static;
+    inset: auto;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  // Status bar (below the grid) and toolbar buttons (in the toolbar above it).
+  .aui-data-grid__status-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1') aui.token('space-4');
+    padding: aui.token('space-1') aui.token('space-2');
+    border-block-start: aui.token('border-width') solid aui.token('color-border');
+    color: aui.token('color-text-muted');
+    font-size: aui.token('font-size-sm');
+    font-variant-numeric: tabular-nums;
+  }
+
+  .aui-data-grid__status-bar:empty {
+    display: none;
+  }
+
+  .aui-data-grid__toolbar-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+    align-items: center;
+  }
+
+  .aui-data-grid__toolbar-button {
+    display: inline-flex;
+    gap: aui.token('space-1');
+    align-items: center;
+    min-block-size: 32px;
+    padding-inline: aui.token('space-2');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-sm');
+    background: aui.token('color-surface');
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .aui-data-grid__toolbar-button:focus-visible {
+    @include aui.focus-ring(2px);
+  }
+
+  .aui-data-grid__toolbar-separator {
+    align-self: stretch;
+    inline-size: aui.token('border-width');
+    background: aui.token('color-border');
+  }
+
+  // Column chooser (a Dialog): search, Show all, and a row per column with its checkbox and move buttons.
+  .aui-data-grid__chooser {
+    display: grid;
+    gap: aui.token('space-2');
+    min-inline-size: min(24rem, 80vw);
+  }
+
+  .aui-data-grid__chooser-list {
+    display: grid;
+    gap: aui.token('space-1');
+    max-block-size: 50vh;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    list-style: none;
+  }
+
+  .aui-data-grid__chooser-item {
+    display: flex;
+    gap: aui.token('space-1');
+    align-items: center;
+  }
+
+  .aui-data-grid__chooser-item > label {
+    flex: 1 1 auto;
+  }
+
+  .aui-data-grid__chooser-move {
+    min-inline-size: 24px;
+    min-block-size: 24px;
+  }
+
+  // Accessory header buttons (column menu) and the in-place header name field.
+  .aui-data-grid__header-button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: 24px;
+    min-block-size: 24px;
+    padding: 0;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .aui-data-grid__header-button:hover {
+    background: aui.token('color-surface-sunken');
+  }
+
+  .aui-data-grid__header-input {
+    min-inline-size: 0;
+    flex: 1 1 auto;
+    font: inherit;
+  }
+
+  // Range and pivot charts (data-grid/charts): a panel docked below the grid, resizable vertically.
+  .aui-data-grid-chart {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-2');
+    block-size: 22rem;
+    min-block-size: 12rem;
+    padding: aui.token('space-2');
+    margin-block-start: aui.token('space-2');
+    overflow: auto;
+    resize: vertical;
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    background: aui.token('color-surface');
+    color: aui.token('color-text');
+  }
+
+  .aui-data-grid-chart__tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-3');
+    align-items: center;
+  }
+
+  .aui-data-grid-chart__field {
+    display: inline-flex;
+    gap: aui.token('space-2');
+    align-items: center;
+  }
+
+  .aui-data-grid-chart__close {
+    min-inline-size: 1.5rem;
+    min-block-size: 1.5rem;
+    margin-inline-start: auto;
+    color: aui.token('color-text');
+    background: transparent;
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+  }
+
+  .aui-data-grid-chart__body,
+  .aui-data-grid-chart__chart {
+    flex: 1 1 auto;
+    min-block-size: 0;
+  }
+
+  // Sparklines in cells (sparklineColumn in data-grid/charts): the chart fills the cell's text line.
+  .aui-data-grid__sparkline {
+    display: block;
+    inline-size: 100%;
+    block-size: 1.25rem;
+  }
+
+  // Formula editor: the field, the argument hint under it, and the suggestions list (on the body: cells clip).
+  .aui-data-grid__formula-editor {
+    position: relative;
+    inline-size: 100%;
+  }
+
+  .aui-data-grid__formula-input {
+    inline-size: 100%;
+    font-family: aui.token('font-family-mono');
+  }
+
+  .aui-data-grid__formula-hint:empty {
+    display: none;
+  }
+
+  .aui-data-grid__formula-hint {
+    position: absolute;
+    z-index: 4;
+    inset-block-start: 100%;
+    inset-inline-start: 0;
+    padding: aui.token('space-1') aui.token('space-2');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    background: aui.token('color-surface');
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-mono');
+    font-size: aui.token('font-size-sm');
+    white-space: nowrap;
+  }
+
+  .aui-data-grid__formula-hint--problem {
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-data-grid__formula-list {
+    position: fixed;
+    z-index: 20;
+    max-block-size: 16rem;
+    padding: aui.token('space-1') 0;
+    margin: 0;
+    overflow-y: auto;
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    background: aui.token('color-surface');
+    color: aui.token('color-text');
+    box-shadow: aui.ctoken('data-grid', 'panel-shadow');
+    list-style: none;
+  }
+
+  .aui-data-grid__formula-option {
+    display: flex;
+    gap: aui.token('space-3');
+    justify-content: space-between;
+    padding: aui.token('space-1') aui.token('space-2');
+    cursor: pointer;
+  }
+
+  .aui-data-grid__formula-option[aria-selected='true'] {
+    background: aui.token('color-hover');
+    outline: 2px solid aui.token('color-focus-ring');
+    outline-offset: -2px;
+  }
+
+  .aui-data-grid__formula-option-detail {
+    color: aui.token('color-text-muted');
+    font-family: aui.token('font-family-mono');
+    font-size: aui.token('font-size-sm');
+  }
+
+  // Formula bar (formulaBar() accessory): the address and the formula of the focused cell.
+  .aui-data-grid__formula-bar {
+    display: flex;
+    gap: aui.token('space-2');
+    align-items: center;
+    min-inline-size: 16rem;
+  }
+
+  .aui-data-grid__formula-address {
+    min-inline-size: 4rem;
+    padding: aui.token('space-1') aui.token('space-2');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    font-family: aui.token('font-family-mono');
+  }
+
+  .aui-data-grid__formula-text {
+    font-family: aui.token('font-family-mono');
+  }
+
+  // Formula errors (calculated columns): the code in the error color.
+  .aui-data-grid__cell--formula-error {
+    color: aui.token('color-error-fg');
+  }
+
+  // Printing (print()): the static table shows only in print, alone, in print colors (system colors in a light scheme).
+  .aui-data-grid-print {
+    display: none;
+  }
+
+  @media print {
+    body > :not(.aui-data-grid-print) {
+      display: none !important;
+    }
+
+    .aui-data-grid-print {
+      display: block;
+      color-scheme: light;
+      color: CanvasText;
+      background: Canvas;
+      font-family: aui.token('font-family-sans');
+      font-size: 10pt;
+    }
+
+    .aui-data-grid-print__table {
+      inline-size: 100%;
+      border-collapse: collapse;
+    }
+
+    .aui-data-grid-print__table caption {
+      margin-block-end: 0.5em;
+      font-size: 12pt;
+      font-weight: aui.token('font-weight-semibold');
+      text-align: start;
+    }
+
+    // Header rows repeat on every page; rows do not split across pages.
+    .aui-data-grid-print__table thead {
+      display: table-header-group;
+    }
+
+    .aui-data-grid-print__table tr {
+      break-inside: avoid;
+    }
+
+    .aui-data-grid-print__table th,
+    .aui-data-grid-print__table td {
+      padding: 2pt 4pt;
+      border: 0.5pt solid CanvasText;
+      text-align: start;
+      vertical-align: top;
+    }
+
+    .aui-data-grid-print__table td {
+      padding-inline-start: calc(4pt + var(--aui-data-grid-print-level, 0) * 1em);
+    }
+
+    .aui-data-grid-print__table .aui-data-grid-print__cell--end {
+      text-align: end;
+    }
+
+    .aui-data-grid-print__row--group,
+    .aui-data-grid-print__row--total {
+      font-weight: aui.token('font-weight-semibold');
+    }
+  }
+
+  // Files dragged over the grid: an overlay covering it.
+  .aui-data-grid__file-drop {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inset: 0;
+    border: 2px dashed aui.token('color-primary');
+    background: aui.token('color-surface');
+    color: aui.token('color-text');
+    font-weight: aui.token('font-weight-medium');
+    pointer-events: none;
+  }
+
+  // Row dragging: the handle (decorative), the ghost following the pointer, the drop line, a row to drop into.
+  .aui-data-grid__drag-handle {
+    display: inline-flex;
+    flex: none;
+    margin-inline-end: aui.token('space-1');
+    color: aui.token('color-text-muted');
+    cursor: grab;
+    touch-action: none;
+  }
+
+  .aui-data-grid__drag-handle--disabled {
+    visibility: hidden;
+  }
+
+  .aui-data-grid--dragging,
+  .aui-data-grid--dragging * {
+    cursor: grabbing;
+  }
+
+  .aui-data-grid__drag-ghost {
+    position: fixed;
+    z-index: 10;
+    padding: aui.token('space-1') aui.token('space-2');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    background: aui.token('color-surface');
+    color: aui.token('color-text');
+    box-shadow: aui.ctoken('data-grid', 'panel-shadow');
+    pointer-events: none;
+  }
+
+  .aui-data-grid__drop-line {
+    position: absolute;
+    z-index: 3;
+    inset-inline-start: 0;
+    block-size: 2px;
+    background: aui.token('color-primary');
+    pointer-events: none;
+  }
+
+  .aui-data-grid__row--drop-inside > .aui-data-grid__cell {
+    box-shadow: inset 0 0 0 2px aui.token('color-primary');
+  }
+
+  // Row numbers: muted, with a resize handle along the bottom edge of the number cell.
+  .aui-data-grid__row-number {
+    color: aui.token('color-text-muted');
+    font-variant-numeric: tabular-nums;
+  }
+
+  [data-column='aui-row-number'] {
+    position: relative;
+  }
+
+  .aui-data-grid__row-resizer {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    block-size: 6px;
+    cursor: row-resize;
+    touch-action: none;
+  }
+
+  // Server rows: a skeleton bar per cell while a block loads; failed rows show the message and Retry.
+  .aui-data-grid__skeleton {
+    display: block;
+    inline-size: 70%;
+    block-size: 0.75em;
+    border-radius: aui.token('radius-sm');
+    background: aui.token('color-border');
+  }
+
+  .aui-data-grid__cell--failed {
+    gap: aui.token('space-2');
+    color: aui.token('color-error-fg');
+    overflow: visible;
+  }
+
+  .aui-data-grid__retry {
+    min-block-size: 24px;
+    padding-inline: aui.token('space-2');
+    font: inherit;
+    cursor: pointer;
+  }
+
+  // Master/detail: the toggle, and a detail row whose single cell stays in view while the rows scroll sideways.
+  .aui-data-grid__detail-toggle {
+    display: inline-flex;
+    cursor: pointer;
+  }
+
+  .aui-data-grid__detail-cell {
+    position: sticky;
+    inset-inline-start: 0;
+    box-sizing: border-box;
+    min-block-size: 100%;
+    padding: aui.token('space-3');
+    overflow: auto;
+    background: aui.ctoken('data-grid', 'header-bg');
+  }
+
+  .aui-data-grid__detail-cell:focus-visible {
+    outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+    outline-offset: calc(-1 * #{aui.token('focus-ring-width')});
+  }
+
+  // Tree data: a leaf keeps a toggle-sized space so its label lines up with its siblings'.
+  .aui-data-grid__group-spacer {
+    display: inline-flex;
+    flex: none;
+    visibility: hidden;
+  }
+
+  .aui-data-grid__row--group > .aui-data-grid__cell,
+  .aui-data-grid__row--total > .aui-data-grid__cell {
+    font-weight: aui.token('font-weight-semibold');
+    background: aui.ctoken('data-grid', 'header-bg');
+  }
+
+  .aui-data-grid__row--total > .aui-data-grid__cell {
+    border-block-start: aui.token('border-width') solid aui.token('color-border-strong');
+  }
+
+  // Group panel (G5b): pills for the row groups, a picker to add one; a header dropped here groups by it.
+  .aui-data-grid__group-panel {
+    display: flex;
+    flex: 1 1 20rem;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    align-items: center;
+    min-block-size: aui.token('control-height-sm');
+    padding: aui.token('space-1') aui.token('space-2');
+    border: aui.token('border-width') dashed aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+  }
+
+  .aui-data-grid__group-panel--drop {
+    background: aui.token('color-hover');
+    border-color: aui.token('color-primary');
+    border-style: solid;
+  }
+
+  .aui-data-grid__group-panel-label {
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-data-grid__group-panel-empty {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-data-grid__group-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .aui-data-grid__group-pill {
+    display: inline-flex;
+    gap: aui.token('space-1');
+    align-items: center;
+    padding-inline: aui.token('space-2') aui.token('space-1');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+  }
+
+  // Pill dragging: the pill text is the grip; the drop point is a bar before or after a pill.
+  .aui-data-grid__group-pill > span {
+    cursor: grab;
+    touch-action: none;
+  }
+
+  // The dragged pill keeps its text contrast (no opacity).
+  .aui-data-grid__group-pill--dragging {
+    border-style: dashed;
+  }
+
+  .aui-data-grid__group-pill--drop-before {
+    box-shadow: inset 2px 0 0 aui.token('color-primary');
+  }
+
+  .aui-data-grid__group-pill--drop-after {
+    box-shadow: inset -2px 0 0 aui.token('color-primary');
+  }
+
+  [dir='rtl'] .aui-data-grid__group-pill--drop-before {
+    box-shadow: inset -2px 0 0 aui.token('color-primary');
+  }
+
+  [dir='rtl'] .aui-data-grid__group-pill--drop-after {
+    box-shadow: inset 2px 0 0 aui.token('color-primary');
+  }
+
+  .aui-data-grid__pivot-zone--drop {
+    outline: 2px solid aui.token('color-primary');
+  }
+
+  .aui-data-grid__drag-ghost--remove {
+    text-decoration: line-through;
+  }
+
+  // At least 24 by 24 CSS pixels (WCAG 2.5.8).
+  .aui-data-grid__group-pill-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    padding: 0;
+    color: aui.token('color-text');
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+
+    &:hover:not(:disabled) {
+      background: aui.token('color-hover');
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+  }
+
+  .aui-data-grid__group-pill-icon {
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    font-size: aui.icon-size('sm');
+  }
+
+  [dir='rtl'] .aui-data-grid__group-pill-icon {
+    transform: scaleX(-1);
+  }
+
+  .aui-data-grid__group-add {
+    inline-size: auto;
+  }
+
+  // Full-row editing: the edited row is outlined.
+  .aui-data-grid__row--editing {
+    z-index: 1;
+    outline: 2px solid aui.token('color-primary');
+    outline-offset: -2px;
+  }
+
+  // Batch editing: pending values are marked by a corner triangle plus italics (not color alone), and spoken as edited.
+  .aui-data-grid__cell--pending {
+    position: relative;
+    font-style: italic;
+
+    &::before {
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline-start: 0;
+      content: '';
+      border-block-start: 8px solid aui.token('color-primary');
+      border-inline-end: 8px solid transparent;
+    }
+  }
+
+  .aui-data-grid__edit-error {
+    max-inline-size: 20rem;
+    padding: aui.token('space-1') aui.token('space-2');
+    margin: 0;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-error-fg');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-error-fg');
+    border-radius: aui.token('radius-sm');
+  }
+
+  // Fill (G3c): the handle in the range corner and the cells a fill drag would cover.
+  .aui-data-grid__fill-handle {
+    position: absolute;
+    inset-block-end: -1px;
+    inset-inline-end: -1px;
+    z-index: 2;
+    inline-size: 8px;
+    block-size: 8px;
+    cursor: crosshair;
+    touch-action: none;
+    background: aui.token('color-primary');
+    border: 1px solid aui.ctoken('data-grid', 'bg');
+  }
+
+  .aui-data-grid__cell--fill {
+    outline: 1px dashed aui.token('color-primary');
+    outline-offset: -1px;
+  }
+
+  .aui-data-grid__row--auto {
+    align-items: stretch;
+  }
+
+  .aui-data-grid__cell {
+    display: flex;
+    flex: none;
+    box-sizing: border-box;
+    align-items: center;
+    min-inline-size: 0;
+    padding-inline: var(--_aui-data-grid-pad-inline);
+    overflow: hidden;
+    background: aui.ctoken('data-grid', 'bg');
+    outline: none;
+  }
+
+  .aui-data-grid__cell--wrap .aui-data-grid__text {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-data-grid__cell--wrap {
+    padding-block: aui.token('space-2');
+  }
+
+  .aui-data-grid__cell--end {
+    justify-content: flex-end;
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+  }
+
+  .aui-data-grid__cell--center {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .aui-data-grid__text {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  // Pinned columns stay at their edge (logical, so right-to-left mirrors) above the scrolling cells.
+  .aui-data-grid__cell--pinned-start,
+  .aui-data-grid__cell--pinned-end {
+    position: sticky;
+    z-index: 1;
+  }
+
+  .aui-data-grid__header-cell.aui-data-grid__cell--pinned-start,
+  .aui-data-grid__header-cell.aui-data-grid__cell--pinned-end,
+  .aui-data-grid__header-filler.aui-data-grid__cell--pinned-start,
+  .aui-data-grid__header-filler.aui-data-grid__cell--pinned-end {
+    z-index: 2;
+  }
+
+  .aui-data-grid__header-cell--span.aui-data-grid__cell--pinned-start,
+  .aui-data-grid__header-cell--span.aui-data-grid__cell--pinned-end {
+    z-index: 3;
+  }
+
+  .aui-data-grid__cell--pinned-start + .aui-data-grid__spacer,
+  .aui-data-grid__cell--pinned-start:has(+ :not(.aui-data-grid__cell--pinned-start)) {
+    box-shadow: 1px 0 0 aui.token('color-border-strong');
+  }
+
+  [dir='rtl'] .aui-data-grid__cell--pinned-start:has(+ :not(.aui-data-grid__cell--pinned-start)) {
+    box-shadow: -1px 0 0 aui.token('color-border-strong');
+  }
+
+  // The first pinned-end cell pushes the end section to the far edge when the grid is narrower than the viewport.
+  .aui-data-grid__spacer + .aui-data-grid__cell--pinned-end,
+  .aui-data-grid__header-cell:not(.aui-data-grid__cell--pinned-end) + .aui-data-grid__cell--pinned-end,
+  .aui-data-grid__header-filler:not(.aui-data-grid__cell--pinned-end) + .aui-data-grid__cell--pinned-end {
+    margin-inline-start: auto;
+    box-shadow: -1px 0 0 aui.token('color-border-strong');
+  }
+
+  [dir='rtl'] .aui-data-grid__spacer + .aui-data-grid__cell--pinned-end {
+    box-shadow: 1px 0 0 aui.token('color-border-strong');
+  }
+
+  .aui-data-grid__spacer {
+    flex: none;
+  }
+
+  .aui-data-grid__cell:focus-visible,
+  .aui-data-grid__header-cell:focus-visible {
+    z-index: 2;
+    outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+    outline-offset: calc(-1 * #{aui.token('focus-ring-width')});
+  }
+
+  .aui-data-grid__empty-row {
+    position: sticky;
+    inset-inline-start: 0;
+    display: flex;
+    inline-size: 100%;
+  }
+
+  .aui-data-grid__empty {
+    flex: 1 1 auto;
+    padding: aui.token('space-6') aui.token('space-4');
+    color: aui.token('color-text-muted');
+    text-align: center;
+  }
+
+  .aui-data-grid__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    gap: aui.token('space-2');
+    align-items: center;
+    justify-content: center;
+    color: aui.token('color-text');
+    background: color-mix(in srgb, #{aui.ctoken('data-grid', 'bg')} 70%, transparent);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-data-grid__spinner {
+    inline-size: aui.icon-size('md');
+    block-size: aui.icon-size('md');
+    font-size: aui.icon-size('md');
+  }
+
+  // Column drag: the dragged header dims; a line marks the drop position.
+  .aui-data-grid__header-cell--dragging {
+    opacity: 0.6;
+  }
+
+  .aui-data-grid__drop-indicator {
+    position: absolute;
+    z-index: 5;
+    inline-size: 3px;
+    pointer-events: none;
+    background: #{aui.token('color-primary')};
+  }
+
+  .aui-data-grid__visually-hidden {
+    @include aui.visually-hidden;
+  }
+
+  // ---- Filtering (G2b) ----------------------------------------------------------------------
+
+  // Filter button in filterable headers: muted until the column is filtered.
+  .aui-data-grid__filter-button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: calc(#{aui.icon-size('sm')} + 2 * #{aui.token('space-1')});
+    block-size: calc(#{aui.icon-size('sm')} + 2 * #{aui.token('space-1')});
+    padding: 0;
+    margin-inline-start: auto;
+    color: aui.token('color-text-muted');
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+
+    &:hover {
+      color: aui.token('color-text');
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+  }
+
+  // Filtered: color plus a dot, so the state never depends on color alone.
+  .aui-data-grid__filter-button--active {
+    position: relative;
+    color: aui.token('color-primary');
+
+    &::after {
+      position: absolute;
+      inset-block-start: 1px;
+      inset-inline-end: 1px;
+      inline-size: 6px;
+      block-size: 6px;
+      content: '';
+      background: currentColor;
+      border-radius: 50%;
+    }
+  }
+
+  .aui-data-grid__filter-icon {
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    font-size: aui.icon-size('sm');
+  }
+
+  // Native filter controls (panel, floating row, search box).
+  .aui-data-grid__filter-control {
+    box-sizing: border-box;
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: aui.token('control-height-sm');
+    padding-inline: aui.token('space-2');
+    margin: 0;
+    font: inherit;
+    font-weight: aui.token('font-weight-regular');
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    &[aria-invalid='true'] {
+      border-color: aui.token('color-error-fg');
+    }
+
+    &[readonly] {
+      color: aui.token('color-text-muted');
+      background: aui.token('color-surface-sunken');
+    }
+  }
+
+  // Floating filter row: one compact control per filterable column.
+  .aui-data-grid__floating-cell {
+    position: relative;
+    display: flex;
+    flex: none;
+    box-sizing: border-box;
+    align-items: center;
+    block-size: 100%;
+    padding-inline: var(--_aui-data-grid-pad-inline);
+    background: aui.ctoken('data-grid', 'header-bg');
+    border-block-start: aui.token('border-width') solid aui.ctoken('data-grid', 'row-border-color');
+    border-inline-end: aui.token('border-width') solid aui.ctoken('data-grid', 'row-border-color');
+    outline: none;
+
+    &:focus-visible {
+      z-index: 2;
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: calc(-1 * #{aui.token('focus-ring-width')});
+    }
+  }
+
+  .aui-data-grid__floating-cell.aui-data-grid__cell--pinned-start,
+  .aui-data-grid__floating-cell.aui-data-grid__cell--pinned-end {
+    z-index: 2;
+  }
+
+  .aui-data-grid__floating-cell:not(.aui-data-grid__cell--pinned-end) + .aui-data-grid__cell--pinned-end {
+    margin-inline-start: auto;
+    box-shadow: -1px 0 0 aui.token('color-border-strong');
+  }
+
+  .aui-data-grid__floating-summary {
+    overflow: hidden;
+    text-align: start;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  // Filter panel: a non-modal dialog in the top layer.
+  .aui-data-grid__filter-panel {
+    box-sizing: border-box;
+    inline-size: max-content;
+    min-inline-size: min(16rem, calc(100vw - 2 * #{aui.token('space-4')}));
+    max-inline-size: min(22rem, calc(100vw - 2 * #{aui.token('space-4')}));
+    max-block-size: var(--aui-available-height, calc(100dvh - 2 * #{aui.token('space-4')}));
+    padding: aui.token('space-3');
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    box-shadow: aui.ctoken('data-grid', 'panel-shadow');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-normal');
+    overflow: auto;
+
+    @include aui.popup-motion;
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+  }
+
+  .aui-data-grid__filter-panel--static {
+    transition: none;
+  }
+
+  .aui-data-grid__filter-title {
+    margin: 0 0 aui.token('space-2');
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+  }
+
+  .aui-data-grid__filter-form,
+  .aui-data-grid__filter-conditions,
+  .aui-data-grid__filter-condition,
+  .aui-data-grid__filter-set {
+    display: grid;
+    gap: aui.token('space-2');
+  }
+
+  .aui-data-grid__filter-condition[hidden],
+  .aui-data-grid__filter-join[hidden],
+  .aui-data-grid__filter-note[hidden] {
+    display: none;
+  }
+
+  .aui-data-grid__filter-radios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1') aui.token('space-3');
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  .aui-data-grid__filter-legend {
+    padding: 0;
+    margin-block-end: aui.token('space-1');
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  // The AND/OR choice reads from its radios; its legend is for assistive technology.
+  .aui-data-grid__filter-join .aui-data-grid__filter-legend {
+    @include aui.visually-hidden;
+  }
+
+  .aui-data-grid__filter-choice {
+    display: flex;
+    gap: aui.token('space-2');
+    align-items: center;
+    min-block-size: aui.token('control-height-sm');
+    cursor: pointer;
+
+    input {
+      flex: none;
+      margin: 0;
+      accent-color: aui.token('color-primary');
+    }
+
+    span {
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .aui-data-grid__filter-values {
+    display: grid;
+    max-block-size: 15rem;
+    padding-inline-start: aui.token('space-3');
+    overflow: auto;
+  }
+
+  .aui-data-grid__filter-blank,
+  .aui-data-grid__filter-note {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-data-grid__filter-note {
+    margin: 0;
+    font-size: aui.token('font-size-xs');
+  }
+
+  .aui-data-grid__filter-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .aui-data-grid__filter-clear {
+    min-block-size: aui.token('control-height-sm');
+    padding-inline: aui.token('space-3');
+    font: inherit;
+    color: aui.token('color-text');
+    cursor: pointer;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+  }
+
+  // Quick filter search box above the grid.
+  .aui-data-grid__toolbar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    padding: aui.token('space-2') var(--_aui-data-grid-pad-inline);
+    border-block-end: aui.token('border-width') solid aui.ctoken('data-grid', 'row-border-color');
+  }
+
+  .aui-data-grid__search {
+    display: flex;
+    gap: aui.token('space-2');
+    align-items: center;
+    inline-size: min(100%, 20rem);
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-data-grid__search-input {
+    flex: 1 1 auto;
+  }
+
+  // ---- Advanced filter (G2c) ----------------------------------------------------------------
+
+  .aui-data-grid__toolbar {
+    flex-wrap: wrap;
+    gap: aui.token('space-2') aui.token('space-4');
+  }
+
+  .aui-data-grid__advanced {
+    display: flex;
+    flex: 1 1 28rem;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    align-items: center;
+    min-inline-size: 0;
+  }
+
+  .aui-data-grid__advanced-label {
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-data-grid__advanced-field {
+    position: relative;
+    flex: 1 1 16rem;
+    min-inline-size: min(12rem, 100%);
+  }
+
+  .aui-data-grid__advanced-input {
+    font-family: aui.token('font-family-mono');
+  }
+
+  // Suggestions under the field (the combobox popup).
+  .aui-data-grid__advanced-list {
+    position: absolute;
+    inset-block-start: calc(100% + 2px);
+    inset-inline-start: 0;
+    z-index: 6;
+    box-sizing: border-box;
+    min-inline-size: 100%;
+    max-block-size: 15rem;
+    padding: aui.token('space-1');
+    overflow: auto;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    box-shadow: aui.ctoken('data-grid', 'panel-shadow');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-data-grid__advanced-option {
+    padding: aui.token('space-1') aui.token('space-2');
+    font-family: aui.token('font-family-mono');
+    white-space: pre;
+    cursor: pointer;
+    border-radius: aui.token('radius-sm');
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &[aria-selected='true'] {
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+    }
+  }
+
+  .aui-data-grid__advanced-error {
+    flex-basis: 100%;
+    margin: 0;
+    color: aui.token('color-error-fg');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Builder dialog content (the dialog itself is a Dialog in the document body).
+  .aui-data-grid__builder {
+    display: grid;
+    gap: aui.token('space-3');
+    font-size: aui.token('font-size-sm');
+  }
+
+  .aui-data-grid__builder-group {
+    display: grid;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    padding: aui.token('space-2') aui.token('space-3') aui.token('space-3');
+    margin: 0;
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+  }
+
+  .aui-data-grid__builder-legend {
+    padding-inline: aui.token('space-1');
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-data-grid__builder-group > .aui-data-grid__filter-control {
+    inline-size: auto;
+    justify-self: start;
+  }
+
+  .aui-data-grid__builder-items {
+    display: grid;
+    gap: aui.token('space-2');
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .aui-data-grid__builder-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    align-items: flex-start;
+  }
+
+  .aui-data-grid__builder-item > .aui-data-grid__builder-group {
+    flex: 1 1 100%;
+  }
+
+  .aui-data-grid__builder-condition {
+    display: flex;
+    flex: 1 1 24rem;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+
+    > .aui-data-grid__filter-control {
+      flex: 1 1 8rem;
+      inline-size: auto;
+    }
+  }
+
+  .aui-data-grid__builder-tools,
+  .aui-data-grid__builder-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+  }
+
+  .aui-data-grid__builder-button {
+    min-block-size: aui.token('control-height-sm');
+    padding-inline: aui.token('space-2');
+    font: inherit;
+    color: aui.token('color-text');
+    cursor: pointer;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+
+    &:hover:not(:disabled) {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(0);
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+      border-color: aui.token('color-border');
+    }
+  }
+
+  .aui-data-grid__builder-empty {
+    margin: 0;
+    color: aui.token('color-text-muted');
+  }
+
+  @include aui.forced-colors {
+    .aui-data-grid,
+    .aui-data-grid__head,
+    .aui-data-grid__row {
+      border-color: CanvasText;
+    }
+
+    .aui-data-grid__header-cell {
+      border-color: CanvasText;
+    }
+
+    .aui-data-grid__cell:focus-visible,
+    .aui-data-grid__header-cell:focus-visible,
+    .aui-data-grid__floating-cell:focus-visible {
+      outline-color: Highlight;
+    }
+
+    .aui-data-grid__filter-panel,
+    .aui-data-grid__advanced-list {
+      border-color: CanvasText;
+    }
+
+    .aui-data-grid__cell--range::after {
+      border-color: Highlight;
+    }
+
+    .aui-data-grid__fill-handle {
+      background: Highlight;
+    }
+
+    .aui-data-grid__cell--fill {
+      outline-color: Highlight;
+    }
+
+    .aui-data-grid__advanced-option[aria-selected='true'] {
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-data-grid__filter-button--active {
+      color: Highlight;
+    }
+
+    .aui-data-grid__resize--active::after {
+      background: Highlight;
+    }
+  }
+}

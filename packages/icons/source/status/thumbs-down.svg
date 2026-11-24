@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="thumbs-down">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 10.5H4.5a1 1 0 0 0-1 1V19a1 1 0 0 0 1 1H7z" transform="translate(0 24) scale(1 -1)"/>
+      <path d="M7 10.5l3.5-6.5a2 2 0 0 1 2.5 2.4L12.3 9.5h5.2a2 2 0 0 1 2 2.3l-1.2 6.5a2 2 0 0 1-2 1.7H7z" transform="translate(0 24) scale(1 -1)"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M5.5 9.5H3.5a1 1 0 0 0-1 1V20a1 1 0 0 0 1 1h2z" transform="translate(0 24) scale(1 -1)"/>
+      <path d="M7 10.5l3.5-6.5a2 2 0 0 1 2.5 2.4L12.3 9.5h5.2a2 2 0 0 1 2 2.3l-1.2 6.5a2 2 0 0 1-2 1.7H7z" transform="translate(0 24) scale(1 -1)"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M7 10.5l3.5-6.5a2 2 0 0 1 2.5 2.4L12.3 9.5h5.2a2 2 0 0 1 2 2.3l-1.2 6.5a2 2 0 0 1-2 1.7H7z" transform="translate(0 24) scale(1 -1)"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 10.5H4.5a1 1 0 0 0-1 1V19a1 1 0 0 0 1 1H7z" transform="translate(0 24) scale(1 -1)"/>
+      <path d="M7 10.5l3.5-6.5a2 2 0 0 1 2.5 2.4L12.3 9.5h5.2a2 2 0 0 1 2 2.3l-1.2 6.5a2 2 0 0 1-2 1.7H7z" transform="translate(0 24) scale(1 -1)"/>
+    </g>
+  </g>
+</svg>

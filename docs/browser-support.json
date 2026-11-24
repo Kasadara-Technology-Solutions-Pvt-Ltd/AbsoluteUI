@@ -1,0 +1,50 @@
+{
+  "$comment": "Browser support matrix (SPEC section 3.2, R15-1). `minimum` must equal the newest version any required feature needs, per the web-features dataset (dev dependency); `check:browsers` fails otherwise, and when the published packages use a catalogued feature that is neither within the minimum nor declared with a fallback. The docs site page and the package READMEs are generated from this file.",
+  "browsers": {
+    "chrome": { "name": "Chrome", "minimum": "116" },
+    "edge": { "name": "Edge", "minimum": "116" },
+    "firefox": { "name": "Firefox", "minimum": "125" },
+    "safari": { "name": "Safari (macOS)", "minimum": "17" },
+    "safari_ios": { "name": "Safari (iOS and iPadOS)", "minimum": "18.3" }
+  },
+  "tested": {
+    "engines": ["Chromium", "Firefox", "WebKit"],
+    "how": "The end-to-end suite runs in Playwright's builds of Chromium, Firefox, and WebKit (current stable engines). Screenshot comparisons and performance budgets run in Chromium only."
+  },
+  "knownDifferences": [
+    "Closing menus, popovers, and bottom sheets fade or slide out in Chromium only; Firefox and Safari close them at once (the CSS overlay transition is Chromium-only).",
+    "Safari skips links on Tab unless the user holds Option or turns on Press Tab to highlight each item; shortcuts use Cmd where other platforms use Ctrl.",
+    "Date range text follows each browser’s ICU data, so spacing around the dash can differ (for example 5–11 Oct or 5 – 11 Oct)."
+  ],
+  "features": [
+    { "id": "popover", "name": "Popover API and top layer", "detect": "showPopover\\(|hidePopover\\(|['\"]popover['\"]|:popover-open" },
+    { "id": "cascade-layers", "name": "CSS cascade layers", "detect": "@layer\\b" },
+    { "id": "has", "name": "CSS :has()", "detect": ":has\\(" },
+    { "id": "color-mix", "name": "CSS color-mix()", "detect": "color-mix\\(" },
+    { "id": "container-queries", "name": "CSS container queries", "detect": "@container\\b|container-type\\s*:" },
+    { "id": "intl-segmenter", "name": "Intl.Segmenter", "detect": "Intl\\.Segmenter" },
+    { "id": "structured-clone", "name": "structuredClone()", "detect": "\\bstructuredClone\\(" },
+    { "id": "object-hasown", "name": "Object.hasOwn()", "detect": "Object\\.hasOwn\\(" },
+    { "id": "dialog", "name": "<dialog> modal", "detect": "\\.showModal\\(" },
+    { "id": "inert", "name": "inert attribute", "detect": "['\"]inert['\"]|\\.inert\\s*=" },
+    { "id": "focus-visible", "name": "CSS :focus-visible", "detect": ":focus-visible" },
+    { "id": "constructed-stylesheets", "name": "Constructable stylesheets", "detect": "adoptedStyleSheets|new CSSStyleSheet\\(" },
+    { "id": "compression-streams", "name": "CompressionStream", "detect": "\\bCompressionStream\\b|\\bDecompressionStream\\b" },
+    { "id": "array-findlast", "name": "Array findLast()", "detect": "\\.findLast(Index)?\\(" },
+    { "id": "logical-properties", "name": "CSS logical properties", "detect": "inset-inline|margin-inline|padding-inline|inline-size" },
+    { "id": "transition-behavior", "name": "CSS transition-behavior: allow-discrete", "detect": "allow-discrete", "fallback": "Exit animations of dialogs, sheets, and disclosures are skipped; they close without animating." },
+    { "id": "overlay", "name": "CSS overlay transition", "detect": "transition\\([^)]*\\boverlay\\b|transition[^;]*\\boverlay\\b", "fallback": "Closing menus, popovers, and sheets leave the top layer at once instead of fading out." },
+    { "id": "starting-style", "name": "CSS @starting-style", "detect": "@starting-style", "fallback": "Entry transitions are skipped; elements appear without animating." },
+    { "id": "field-sizing", "name": "CSS field-sizing", "detect": "field-sizing", "fallback": "Auto-growing text areas keep a fixed height and scroll." },
+    { "id": "eyedropper", "name": "EyeDropper API", "detect": "EyeDropper", "fallback": "The Color Picker eyedropper button is not shown; colors are picked with the area, sliders, swatches, or typed values." },
+    { "id": "trusted-types", "name": "Trusted Types", "detect": "trustedTypes", "fallback": "Sanitized HTML is assigned as a string; enforcement depends on the browser." },
+    { "id": "array-group", "name": "Object.groupBy()", "detect": "Object\\.groupBy", "fallback": "A built-in implementation gives the same result." },
+    { "id": "promise-withresolvers", "name": "Promise.withResolvers()", "detect": "Promise\\.withResolvers", "fallback": "A built-in implementation gives the same result." },
+    { "id": "intl-duration-format", "name": "Intl.DurationFormat", "detect": "Intl\\.DurationFormat|DurationFormat", "fallback": "Durations are formatted with Intl.NumberFormat and Intl.ListFormat." },
+    { "id": "file-system-access", "name": "File System Access (save picker)", "detect": "showSaveFilePicker", "fallback": "Files are saved as a normal download." },
+    { "id": "anchor-positioning", "name": "CSS anchor positioning", "detect": "anchor-name|position-anchor" },
+    { "id": "light-dark", "name": "CSS light-dark()", "detect": "light-dark\\(" },
+    { "id": "scrollend", "name": "scrollend event", "detect": "['\"]scrollend['\"]" },
+    { "id": "set-methods", "name": "Set methods (union, intersection)", "detect": "new Set\\([^)]*\\)\\.(union|intersection|difference|symmetricDifference)\\(" }
+  ]
+}

@@ -1,0 +1,207 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the Button stylesheet (@absoluteui/components/button/style.css).
+@layer aui.components {
+  @include aui.field-chrome;
+
+  // The box looks like one control: chips, the text field, and the toolbar share its border.
+  .aui-prompt-input__box {
+    position: relative;
+    display: grid;
+    gap: aui.token('space-1');
+    padding: aui.token('space-2');
+    background: aui.ctoken('prompt-input', 'bg');
+    border: aui.token('border-width') solid aui.ctoken('prompt-input', 'border-color');
+    border-radius: aui.ctoken('prompt-input', 'radius');
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-within {
+      border-color: aui.token('color-focus-ring');
+      box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+    }
+  }
+
+  .aui-prompt-input--invalid .aui-prompt-input__box {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-prompt-input--disabled .aui-prompt-input__box {
+    background: aui.token('color-disabled-bg');
+    border-color: aui.token('color-border');
+  }
+
+  .aui-prompt-input--dragover .aui-prompt-input__box {
+    border-style: dashed;
+    border-color: aui.token('color-primary');
+  }
+
+  // The text field itself has no border: the box draws it, and focus shows on the box.
+  .aui-prompt-input__textarea {
+    box-sizing: border-box;
+    display: block;
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: calc(var(--aui-prompt-input-rows, 1) * 1lh + 2 * #{aui.token('space-1')});
+    max-block-size: calc(var(--aui-prompt-input-max-rows, 8) * 1lh + 2 * #{aui.token('space-1')});
+    padding: aui.token('space-1') aui.ctoken('prompt-input', 'padding-x');
+    margin: 0;
+    overflow-y: auto;
+    font: inherit;
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    color: aui.token('color-text');
+    background: transparent;
+    border: 0;
+    resize: none;
+    overflow-wrap: break-word;
+
+    &::placeholder {
+      color: aui.token('color-text-muted');
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-prompt-input--auto-native .aui-prompt-input__textarea {
+    field-sizing: content;
+  }
+
+  .aui-prompt-input__toolbar {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+  }
+
+  .aui-prompt-input__spacer {
+    flex: 1 1 auto;
+  }
+
+  .aui-prompt-input__file,
+  .aui-prompt-input__attach[hidden] {
+    display: none;
+  }
+
+  .aui-prompt-input__toolbar .aui-field__counter {
+    white-space: nowrap;
+  }
+
+  .aui-prompt-input__attachments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-prompt-input__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    max-inline-size: 100%;
+    padding-inline-start: aui.token('space-2');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text');
+    background: aui.token('color-surface-sunken');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-pill');
+
+    .aui-icon {
+      flex: none;
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-prompt-input__chip-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .aui-prompt-input__chip-size {
+    color: aui.token('color-text-muted');
+    white-space: nowrap;
+  }
+
+  .aui-prompt-input__hint {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Suggestions open above the box, so they never cover what the user is about to read below.
+  .aui-prompt-input__suggestions {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: calc(100% + #{aui.token('space-1')});
+    z-index: 2;
+    max-block-size: 16rem;
+    padding: aui.token('space-1');
+    margin: 0;
+    overflow-y: auto;
+    list-style: none;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.ctoken('prompt-input', 'radius');
+    box-shadow: aui.token('shadow-md');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-prompt-input__suggestion {
+    display: grid;
+    gap: 0.125rem;
+    padding: aui.token('space-2');
+    cursor: pointer;
+    border-radius: aui.token('radius-sm');
+  }
+
+  .aui-prompt-input__suggestion--active {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    outline: aui.token('border-width') solid aui.token('color-selected-text');
+    outline-offset: -1px;
+  }
+
+  .aui-prompt-input__suggestion-description {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+
+    .aui-prompt-input__suggestion--active > & {
+      color: inherit;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-prompt-input__box:focus-within {
+      outline: 2px solid Highlight;
+    }
+
+    .aui-prompt-input__suggestion--active {
+      color: HighlightText;
+      background: Highlight;
+      forced-color-adjust: none;
+    }
+  }
+}

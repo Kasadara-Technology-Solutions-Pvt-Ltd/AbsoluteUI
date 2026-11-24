@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="user-plus">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9" cy="7" r="3.5"/>
+      <path d="M2.5 20a6.5 5.5 0 0 1 10-4.64"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M18 15v6"/>
+      <path d="M15 18h6"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <circle cx="9" cy="7" r="4.5"/>
+      <path d="M2 20.5a7 6 0 0 1 10.5-5.2V20.5z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <path d="M16.875 15h2.25v1.875H21v2.25h-1.875V21h-2.25v-1.875H15v-2.25h1.875z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="9" cy="7" r="3.5"/>
+      <path d="M2.5 20a6.5 5.5 0 0 1 10-4.64V20z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9" cy="7" r="3.5"/>
+      <path d="M2.5 20a6.5 5.5 0 0 1 10-4.64"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M18 15v6"/>
+      <path d="M15 18h6"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+[
+  { "title": "Year grid", "text": "Pick a year from a paged grid or type it." },
+  { "title": "Limits and disabled years", "text": "Earliest and latest years plus a function to block any year." },
+  { "title": "Current year marked", "text": "The current year is highlighted, with a configurable today." },
+  { "title": "Form ready", "text": "Validation, custom errors, and native form submission." }
+]

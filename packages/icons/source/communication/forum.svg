@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="forum">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="6.5" cy="15" r="1.75"/>
+      <circle cx="17.5" cy="15" r="1.75"/>
+      <path d="M3 21a3.5 2.75 0 0 1 7 0"/>
+      <path d="M14 21a3.5 2.75 0 0 1 7 0"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M7.5 2.5h9a2 2 0 0 1 2 2v3.5a2 2 0 0 1-2 2H14l-2 2-2-2H7.5a2 2 0 0 1-2-2V4.5a2 2 0 0 1 2-2z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M7.5 2.5h9a2 2 0 0 1 2 2v3.5a2 2 0 0 1-2 2H14l-2 2-2-2H7.5a2 2 0 0 1-2-2V4.5a2 2 0 0 1 2-2z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="6.5" cy="15" r="1.75"/>
+      <circle cx="17.5" cy="15" r="1.75"/>
+      <path d="M3 21a3.5 2.75 0 0 1 7 0"/>
+      <path d="M14 21a3.5 2.75 0 0 1 7 0"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M7.5 2.5h9a2 2 0 0 1 2 2v3.5a2 2 0 0 1-2 2H14l-2 2-2-2H7.5a2 2 0 0 1-2-2V4.5a2 2 0 0 1 2-2z"/>
+    </g>
+  </g>
+</svg>

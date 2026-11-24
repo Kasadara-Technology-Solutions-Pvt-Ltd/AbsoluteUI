@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "component": "layout",
+  "factory": { "name": "Stack.apply | Flex.apply | Grid.apply | Container.apply | Divider.create", "signature": "Stack.apply(el: HTMLElement, options?: StackOptions): LayoutHandle<StackOptions>; Flex.apply(el: HTMLElement, options?: FlexOptions): LayoutHandle<FlexOptions>; Grid.apply(el: HTMLElement, options?: GridOptions): LayoutHandle<GridOptions>; Container.apply(el: HTMLElement, options?: ContainerOptions): LayoutHandle<ContainerOptions>; Divider.create(options?: DividerOptions, doc?: Document): HTMLElement" },
+  "configKey": "layout",
+  "options": [
+    { "name": "gap", "type": "0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12", "required": false, "globallyConfigurable": false, "description": "Stack, Flex, Grid: gap step mapped to the space-N token. Defaults to the configured defaultGap." },
+    { "name": "align", "type": "'start' | 'center' | 'end' | 'stretch' | 'baseline'", "required": false, "globallyConfigurable": false, "description": "Stack, Flex: cross-axis alignment (aui-align-*)." },
+    { "name": "justify", "type": "'start' | 'center' | 'end' | 'between' | 'around' | 'evenly'", "required": false, "globallyConfigurable": false, "description": "Flex: main-axis distribution (aui-justify-*)." },
+    { "name": "wrap", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "description": "Flex: wrap items onto new lines (false adds aui-flex--nowrap)." },
+    { "name": "direction", "type": "'row' | 'row-reverse'", "default": "row", "required": false, "globallyConfigurable": false, "description": "Flex: row follows the writing direction; row-reverse adds aui-flex--reverse." },
+    { "name": "columns", "type": "1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 'auto'", "default": "auto", "required": false, "globallyConfigurable": false, "description": "Grid: fixed column count or responsive auto-fit mode." },
+    { "name": "minColumnWidth", "type": "string", "default": "16rem", "required": false, "globallyConfigurable": false, "description": "Grid auto mode: minimum column width as a strict CSS length (for example '12rem'); sets --aui-grid-min." },
+    { "name": "size", "type": "'sm' | 'md' | 'lg' | 'xl'", "default": "lg", "required": false, "globallyConfigurable": false, "description": "Container: maximum inline size from container-width-* tokens." },
+    { "name": "orientation", "type": "'horizontal' | 'vertical'", "default": "horizontal", "required": false, "globallyConfigurable": false, "description": "Divider: <hr> when horizontal, role=separator with aria-orientation when vertical." },
+    { "name": "label", "type": "string", "required": false, "globallyConfigurable": false, "description": "Divider: short centered text; also the separator's accessible name. Horizontal only." },
+    { "name": "decorative", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Divider: hide from assistive technology. Cannot be combined with label." },
+    { "name": "defaultGap", "type": "0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12", "default": 4, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Gap applied by Stack, Flex, and Grid helpers when gap is omitted." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLElement", "description": "LayoutHandle: the consumer element the helper applies to." },
+    { "name": "options", "type": "Readonly<O>", "description": "LayoutHandle: current options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<O>): void", "description": "Merge, validate, and apply options. Invalid options throw and leave the element unchanged." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove the classes and custom properties this helper added, restore displaced classes and custom property values, and unsubscribe. Idempotent." },
+    { "name": "isCssLength", "signature": "isCssLength(value: unknown): value is string", "description": "The strict CSS length check used for minColumnWidth." }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-container", "description": "Centered, width-capped region with space-4 inline padding (default width container-width-lg)." },
+    { "name": "aui-container--sm | --md | --lg | --xl", "description": "Container maximum inline size." },
+    { "name": "aui-stack", "description": "Flex column with a gap (default space-4)." },
+    { "name": "aui-flex", "description": "Flex row that wraps, with a gap (default space-4)." },
+    { "name": "aui-inline", "description": "Like aui-flex with align-items: center, for inline clusters such as tags or buttons." },
+    { "name": "aui-flex--nowrap | aui-flex--reverse", "description": "Flex modifiers." },
+    { "name": "aui-grid", "description": "CSS grid with a gap (default space-4)." },
+    { "name": "aui-grid--cols-1 ... aui-grid--cols-12", "description": "Fixed equal-width columns." },
+    { "name": "aui-grid--auto", "description": "Responsive auto-fit columns of at least var(--aui-grid-min, 16rem), never wider than the container." },
+    { "name": "aui-gap-0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12", "description": "Gap utilities mapped to space-N tokens." },
+    { "name": "aui-align-start | center | end | stretch | baseline", "description": "align-items utilities." },
+    { "name": "aui-justify-start | center | end | between | around | evenly", "description": "justify-content utilities." },
+    { "name": "aui-divider", "description": "Horizontal separator line (<hr> or role=separator)." },
+    { "name": "aui-divider--vertical", "description": "Vertical separator line; stretches to the row height." },
+    { "name": "aui-divider--labelled | aui-divider__label", "description": "Horizontal divider with centered text." },
+    { "name": "--aui-grid-min", "description": "Custom property: minimum column width in auto mode (default 16rem)." }
+  ],
+  "iconSlots": []
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "component": "toggle-group",
+  "factory": { "name": "ToggleGroup.create", "signature": "ToggleGroup.create(host: HTMLElement, options: ToggleGroupOptions): ToggleGroup" },
+  "configKey": "toggleGroup",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name of the group." },
+    { "name": "items", "type": "readonly ToggleGroupItem[]", "required": true, "globallyConfigurable": false, "description": "Buttons: { value, label, icon?, iconOnly?, disabled? } (1 to 100, unique values)." },
+    { "name": "value", "type": "readonly string[]", "required": false, "globallyConfigurable": false, "description": "Pressed values; at most one in single mode." },
+    { "name": "multiple", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Allow several pressed items." },
+    { "name": "required", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Single mode: one item stays pressed." },
+    { "name": "orientation", "type": "'horizontal' | 'vertical'", "default": "horizontal", "required": false, "globallyConfigurable": false, "description": "Layout and arrow-key axis." },
+    { "name": "attached", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Join the buttons into one segmented control." },
+    { "name": "disabled", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Disable every button." },
+    { "name": "size", "type": "'sm' | 'md' | 'lg'", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Button size." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (role=group)." },
+    { "name": "value", "type": "readonly string[]", "description": "Pressed values, in item order." },
+    { "name": "options", "type": "Readonly<ToggleGroupOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: readonly string[]): void", "description": "Set the pressed values (no event)." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the button in the tab sequence." },
+    { "name": "update", "signature": "update(options: Partial<ToggleGroupOptions>): void", "description": "Merge and apply options; new items re-create the buttons." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Destroy the buttons and remove attributes, classes, and listeners." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "ToggleGroupChangeDetail", "bubbles": true, "cancelable": false, "description": "The user changed the pressed items: { value, changed }." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-toggle-group", "description": "Host (role=group)." },
+    { "name": "aui-toggle-group--vertical", "description": "Vertical orientation." },
+    { "name": "aui-toggle-group--attached", "description": "Segmented control." },
+    { "name": "aui-toggle-group__item", "description": "Each button (also aui-button)." }
+  ],
+  "iconSlots": []
+}

@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/slider",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSlider",
+      "description": "AbsoluteUI Slider: `<aui-slider>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-slider",
+      "exportAs": [
+        "auiSlider"
+      ],
+      "source": "generated",
+      "component": "slider",
+      "configKey": "slider",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "SliderValue"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label; names the thumbs."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text, referenced by the thumbs."
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Lower bound."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": "Upper bound (greater than min)."
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "Values snap to min + n * step."
+        },
+        {
+          "name": "largeStep",
+          "type": "number",
+          "required": false,
+          "description": "Page Up/Page Down step (default: a tenth of the scale in whole steps)."
+        },
+        {
+          "name": "range",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Two thumbs selecting [start, end]."
+        },
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\"",
+          "required": false,
+          "default": "horizontal",
+          "description": "Layout and key mapping."
+        },
+        {
+          "name": "marks",
+          "type": "boolean | readonly SliderMark[]",
+          "required": false,
+          "description": "true: a tick per step (up to 100); or explicit { value, label? } marks."
+        },
+        {
+          "name": "format",
+          "type": "NumberFormatOptions",
+          "required": false,
+          "description": "Number format of the value text."
+        },
+        {
+          "name": "valueText",
+          "type": "((value: number) => string)",
+          "required": false,
+          "description": "Full value text (overrides format)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable the slider."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name (hidden inputs; a range submits two values)."
+        },
+        {
+          "name": "showValue",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the value next to the label."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the value text and thumb names."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "SliderValue",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valueInput",
+          "payload": "SliderValueDetail",
+          "event": "aui-input",
+          "description": "The value changes while dragging or with a key: { value }."
+        },
+        {
+          "name": "changed",
+          "payload": "SliderValueDetail",
+          "event": "aui-change",
+          "description": "The value was committed (pointer release or a key): { value }."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "Show or clear an external error."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the (first) thumb."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear the error."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Slider and Multi-Thumb Slider: each thumb is role=slider with aria-valuenow, aria-valuemin, aria-valuemax, and aria-valuetext.",
+        "source": "packages/components/metadata/slider/accessibility.json"
+      },
+      "limitations": [
+        "Always has a value, so it is never 'missing'; use setCustomError (or Form rules) for range rules.",
+        "Vertical sliders hide marks."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { SliderValue } from '@absoluteui/components/slider';\nimport { AuiSlider } from '@absoluteui/angular/slider';\n\n@Component({\n  selector: 'app-price-filter',\n  imports: [AuiSlider],\n  template: `<aui-slider label=\"Price\" [range]=\"true\" [min]=\"0\" [max]=\"500\" [step]=\"10\" [format]=\"eur\" [(value)]=\"price\"></aui-slider>`,\n})\nexport class PriceFilterComponent {\n  price: SliderValue = [50, 300];\n  readonly eur: Intl.NumberFormatOptions = { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 };\n}"
+    }
+  ]
+}

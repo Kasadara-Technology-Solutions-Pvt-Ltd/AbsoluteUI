@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "component": "schedule-picker",
+  "factory": {
+    "name": "SchedulePicker.create",
+    "signature": "SchedulePicker.create(host: HTMLElement, options: SchedulePickerOptions): SchedulePicker"
+  },
+  "configKey": "schedulePicker",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Legend of the fieldset (required accessible name)."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visually hide the legend."
+    },
+    {
+      "name": "value",
+      "type": "ScheduleValue | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Timed ({ allDay: false, start: Instant, end: Instant, timeZone, recurrence }) or all-day ({ allDay: true, start: PlainDate, end: PlainDate (inclusive), timeZone, recurrence })."
+    },
+    {
+      "name": "allowAllDay",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Offer the all-day checkbox."
+    },
+    {
+      "name": "timeZones",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Timezones offered in a select; omitted: no select."
+    },
+    {
+      "name": "recurrence",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "init-only",
+      "description": "Embed a Recurrence Picker (read at creation)."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Form field name of the hidden input (iCalendar text)."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Help text referenced by the fieldset."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "An empty schedule is invalid."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Disables every part; not submitted."
+    },
+    {
+      "name": "firstDayOfWeek",
+      "type": "IsoWeekday",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "First column of the calendars and weekday toggles."
+    },
+    {
+      "name": "validate",
+      "type": "(value: ScheduleValue | null) => string | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Consumer validation after built-in checks."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ error: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    },
+    {
+      "name": "validationTiming",
+      "type": "'blur' | 'input' | 'submit'",
+      "default": "blur",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "When validation messages first appear."
+    },
+    {
+      "name": "defaultDuration",
+      "type": "number",
+      "default": 60,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Minutes of a new timed schedule after switching off all-day."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Month and weekday names, dates, numbers, the first day of the week, and messages."
+    },
+    {
+      "name": "timezone",
+      "type": "string",
+      "default": "UTC",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Timezone of the wall-clock times when the value has none and no select is shown."
+    },
+    {
+      "name": "disambiguation",
+      "type": "'compatible' | 'earlier' | 'later' | 'reject'",
+      "default": "compatible",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "DST policy for wall-clock times in a gap or overlap (SPEC section 8.5)."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Reading direction; Left/Right arrow keys and chevrons follow it."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "Consumer host."
+    },
+    {
+      "name": "fieldset",
+      "type": "HTMLFieldSetElement",
+      "description": "The labelled fieldset."
+    },
+    {
+      "name": "startPicker / endPicker",
+      "type": "DateTimePicker",
+      "description": "Timed pickers (hidden while all-day)."
+    },
+    {
+      "name": "startDatePicker / endDatePicker",
+      "type": "DatePicker",
+      "description": "All-day pickers (hidden while timed)."
+    },
+    {
+      "name": "recurrencePicker",
+      "type": "RecurrencePicker | null",
+      "description": "The embedded Recurrence Picker."
+    },
+    {
+      "name": "value",
+      "type": "ScheduleValue | null",
+      "description": "Current schedule; null when empty or invalid."
+    },
+    {
+      "name": "validity",
+      "type": "SchedulePickerValidity",
+      "description": "{ valid, error, message }."
+    },
+    {
+      "name": "timeZone",
+      "type": "string",
+      "description": "The timezone of the wall-clock times."
+    },
+    {
+      "name": "name",
+      "type": "string | null",
+      "description": "Form field name."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Legend text."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Disabled state."
+    },
+    {
+      "name": "dirty",
+      "type": "boolean",
+      "description": "The iCalendar text differs from the initial value."
+    },
+    {
+      "name": "touched",
+      "type": "boolean",
+      "description": "Focus has left the control."
+    },
+    {
+      "name": "options",
+      "type": "Readonly<SchedulePickerOptions>",
+      "description": "Current options."
+    }
+  ],
+  "methods": [
+    {
+      "name": "setValue",
+      "signature": "setValue(value: ScheduleValue | null): void",
+      "description": "Programmatic value (no events)."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<SchedulePickerOptions>): void",
+      "description": "Merge and apply options (recurrence cannot change)."
+    },
+    {
+      "name": "reportValidity",
+      "signature": "reportValidity(): boolean",
+      "description": "Show messages now and return validity."
+    },
+    {
+      "name": "setCustomError",
+      "signature": "setCustomError(message: string | null): void",
+      "description": "External error; cleared on the next edit."
+    },
+    {
+      "name": "getFormValue",
+      "signature": "getFormValue(): string | null",
+      "description": "iCalendar text, or null."
+    },
+    {
+      "name": "focus",
+      "signature": "focus(): void",
+      "description": "Focus the start."
+    },
+    {
+      "name": "reset",
+      "signature": "reset(): void",
+      "description": "Restore the initial value."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, inner pickers, listeners, and registration."
+    },
+    {
+      "name": "scheduleToString / parseSchedule",
+      "signature": "scheduleToString(value: ScheduleValue): string; parseSchedule(text: string, disambiguation?: Disambiguation): ScheduleValue | null",
+      "description": "Module functions: iCalendar text of a schedule and back."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-change",
+      "detail": "{ value: ScheduleValue | null; validity: SchedulePickerValidity }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The user changed a part of the schedule or its validity error."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-field aui-schedule-picker | --invalid | --disabled | --all-day",
+      "description": "Host and state modifiers."
+    },
+    {
+      "name": "aui-schedule-picker__fieldset | __range | __part | __part--start | --end | --start-date | --end-date",
+      "description": "Fieldset and picker hosts."
+    },
+    {
+      "name": "aui-schedule-picker__duration",
+      "description": "Duration text (referenced by the fieldset)."
+    },
+    {
+      "name": "aui-schedule-picker__row | __row--zone | __check | __checkbox | __label | __select",
+      "description": "All-day checkbox and timezone select."
+    },
+    {
+      "name": "aui-schedule-picker__recurrence",
+      "description": "Host of the embedded Recurrence Picker."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "error",
+      "default": "alert-circle"
+    }
+  ]
+}

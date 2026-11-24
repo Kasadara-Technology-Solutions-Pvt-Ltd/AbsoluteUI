@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "name": "treemap",
+  "displayName": "Treemap",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { Treemap } from '@absoluteui/components/treemap';",
+  "styleImport": "@absoluteui/components/treemap/style.css",
+  "purpose": "Accessible SVG treemap for hierarchical part-to-whole data: nested rectangles laid out with the squarified algorithm (area proportional to value), one level at a time with drill-down (click, Enter/Space) and a breadcrumb and Backspace to go up, keyboard-reachable tiles in size order with printed labels and tooltips, a generated summary, and a data table of the whole hierarchy.",
+  "whenToUse": [
+    "Part-to-whole breakdowns with many items or a hierarchy (budgets, disk usage, portfolio composition).",
+    "Showing which items dominate a total when a pie would have too many slices."
+  ],
+  "whenNotToUse": [
+    "Precise comparison of values: use Bar Chart (areas compare poorly).",
+    "Few parts of one total: use Pie Chart or Bar Chart.",
+    "Data with negative values (not plotted)."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "top level",
+    "drilled into a group (breadcrumb shown)",
+    "drill-down off",
+    "empty (no positive values: No data)",
+    "tile focused (tooltip)",
+    "tile hovered",
+    "table open"
+  ],
+  "responsive": "The width follows the container (ResizeObserver) and the height is the height option; the layout is recomputed on resize. Tile labels are printed only in tiles at least 3em wide and 1.6em tall (values from 3em tall) and are truncated to fit. The breadcrumb wraps. Reflows at 320 CSS px; wide data tables scroll in a focusable region.",
+  "rtl": "direction rtl mirrors the layout horizontally (largest tile at the top right), anchors tile labels at the right, and swaps ArrowLeft/ArrowRight. The breadcrumb, tooltip, and table follow the document direction.",
+  "theme": "Tiles use color-chart-1..8 by palette slot (position in the shown level, or color) with color-surface separators and textures; the hover and focus outline uses color-text; breadcrumb buttons color-link. Forced colors use CanvasText, Canvas, Highlight, and LinkText.",
+  "timezone": "Not applicable.",
+  "security": "All text (title, description, labels, values, breadcrumb, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; sizes and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "Treemap.create with 500 leaves, including the first render",
+        "budget": "< 60 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Hundreds of leaves in total; only the shown level is drawn (one focusable rect per tile), so keep each level to a few dozen items for readable tiles."
+  },
+  "limitations": [
+    "One level is drawn at a time (no nested rendering of grandchildren).",
+    "Zero, negative, and missing values are not plotted and are not listed in the table.",
+    "A group's own positive value replaces the sum of its children.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Nested (multi-level) rendering, sunburst and icicle layouts.",
+    "Custom tile ordering (tiles are always sorted by value).",
+    "Selection and zoom animation."
+  ],
+  "antiPatterns": [
+    "Encoding a second variable only in tile color.",
+    "Turning off tileLabels and dataTable together.",
+    "Levels with hundreds of items (tiles become too small to label or target)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/treemap: AuiTreemap directive ([auiTreemap]).",
+    "react": "@absoluteui/react/treemap: AuiTreemap component.",
+    "vue": "@absoluteui/vue/treemap: AuiTreemap component."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

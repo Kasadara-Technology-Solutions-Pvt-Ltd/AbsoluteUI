@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "component": "tag-group",
+  "pattern": "Grid list (as in the React Aria TagGroup): role=grid with one row per tag and one gridcell per row; roving tabindex over the rows.",
+  "roles": [
+    { "element": "host", "role": "grid (absent while empty)" },
+    { "element": "tag", "role": "row" },
+    { "element": "tag content", "role": "gridcell" },
+    { "element": "remove", "role": "button (native, tabindex -1)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "host", "value": "the label option" },
+    { "attribute": "aria-multiselectable", "element": "host", "value": "true with selection 'multiple'" },
+    { "attribute": "aria-selected", "element": "tag", "value": "true or false when selection is enabled; absent otherwise" },
+    { "attribute": "aria-disabled", "element": "tag", "value": "true for disabled tags" },
+    { "attribute": "aria-label", "element": "remove", "value": "'Remove {label}' (localized)" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Group", "action": "Moves into the group (to the last focused tag) and out of it." },
+    { "key": "Arrow keys", "context": "Tag", "action": "Move to the next or previous enabled tag (reading direction aware)." },
+    { "key": "Home / End", "context": "Tag", "action": "First or last enabled tag." },
+    { "key": "Space / Enter", "context": "Tag (selection enabled)", "action": "Select or deselect the tag." },
+    { "key": "Delete / Backspace", "context": "Tag (removable)", "action": "Remove the tag; focus moves to the next tag, or the previous one at the end." }
+  ],
+  "focus": "One tag in the tab sequence; after a removal, focus moves to the tag that took its place (or the previous tag).",
+  "wcag": ["1.3.1", "1.4.1", "2.1.1", "2.4.3", "4.1.2", "4.1.3"],
+  "notes": [
+    "Removals are announced ('{label} removed') through the polite live region.",
+    "Selected tags differ in more than hue (selection fill and a stronger boundary)."
+  ],
+  "knownCaveats": [
+    "Grid semantics are announced differently by screen readers; manual verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

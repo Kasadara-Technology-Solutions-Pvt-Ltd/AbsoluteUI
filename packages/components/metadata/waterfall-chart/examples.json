@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "waterfall-chart",
+  "examples": [
+    {
+      "id": "bridge",
+      "title": "Profit bridge with an opening total, deltas, and a closing total",
+      "language": "ts",
+      "code": "import { WaterfallChart, type WaterfallStep } from '@absoluteui/components/waterfall-chart';\n\nconst steps: WaterfallStep[] = [\n  { id: 'open', label: 'Opening', kind: 'total', value: 100 },\n  { id: 'sales', label: 'Sales', value: 40 },\n  { id: 'refunds', label: 'Refunds', value: -15 },\n  { id: 'other', label: 'Other', value: null },\n  { id: 'close', label: 'Closing', kind: 'total' },\n];\nconst host = document.createElement('div');\ndocument.body.append(host);\nWaterfallChart.create(host, {\n  label: 'Profit bridge',\n  steps,\n  valueFormat: { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 },\n  valueAxis: { label: 'EUR' },\n});"
+    },
+    {
+      "id": "colors-config",
+      "title": "Custom kind colors and no connectors",
+      "language": "ts",
+      "code": "import { WaterfallChart } from '@absoluteui/components/waterfall-chart';\n\nconst host = document.querySelector<HTMLElement>('#headcount');\nif (host) {\n  const chart = WaterfallChart.create(host, {\n    label: 'Headcount',\n    steps: [\n      { id: 'start', label: 'Start', kind: 'total', value: 250 },\n      { id: 'hires', label: 'Hires', value: 30 },\n      { id: 'leavers', label: 'Leavers', value: -12 },\n      { id: 'end', label: 'End', kind: 'total' },\n    ],\n    colors: { increase: 5, decrease: 6, total: 1 },\n    connectors: false,\n  });\n  host.dataset.summary = chart.summary;\n}"
+    }
+  ]
+}

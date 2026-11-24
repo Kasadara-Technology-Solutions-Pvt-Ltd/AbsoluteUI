@@ -1,0 +1,325 @@
+// Shared styles of Month, Year, and Quarter Picker (internal/period-picker.ts).
+// Each picker's style.scss includes them inside its own `aui.components` layer.
+@use 'aui';
+
+@mixin styles {
+  // The group is the control boundary and the popup anchor; it hugs its segments.
+  .aui-period-picker__group {
+    @include aui.control-surface;
+    display: inline-flex;
+    align-items: center;
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    padding-inline-end: 0;
+    @include aui.transition(border-color, box-shadow);
+
+    &:focus-within {
+      border-color: aui.token('color-focus-ring');
+      box-shadow: 0 0 0 1px aui.token('color-focus-ring');
+    }
+  }
+
+  .aui-period-picker__fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    // Segment order follows the locale; digits read left to right in every direction.
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  // Widths are explicit in ch units (tabular digits) so segments hug their content.
+  .aui-period-picker__segment {
+    box-sizing: content-box;
+    inline-size: 3ch;
+    min-inline-size: 0;
+    padding: aui.token('space-1') 2px;
+    margin: 0;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    caret-color: transparent;
+
+    &::placeholder {
+      color: aui.token('color-text-muted');
+      opacity: 1;
+    }
+
+    &:focus {
+      outline: none;
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+    }
+
+    &:focus-visible {
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: 0;
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+  }
+
+  .aui-period-picker__segment--year {
+    inline-size: 4.5ch;
+  }
+
+  .aui-period-picker__segment--quarter {
+    inline-size: 2ch;
+  }
+
+  .aui-period-picker__separator {
+    padding-inline: 1px;
+    color: aui.token('color-text-muted');
+    white-space: pre;
+  }
+
+  .aui-period-picker__button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    inline-size: aui.token('control-height-md');
+    padding: 0;
+    margin: 0;
+    margin-inline-start: aui.token('space-1');
+    color: aui.token('color-text-muted');
+    background: transparent;
+    border: 0;
+    border-start-end-radius: aui.token('radius-md');
+    border-end-end-radius: aui.token('radius-md');
+    cursor: pointer;
+    @include aui.transition(background-color, color);
+
+    &:hover {
+      color: aui.token('color-text');
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(-2px);
+    }
+
+    &:disabled {
+      color: aui.token('color-text-disabled');
+      background: transparent;
+      cursor: not-allowed;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-period-picker--invalid .aui-period-picker__group {
+    border-color: aui.token('color-error-fg');
+  }
+
+  .aui-period-picker--readonly .aui-period-picker__group {
+    background: aui.token('color-surface-sunken');
+  }
+
+  .aui-period-picker--disabled .aui-period-picker__group {
+    background: aui.token('color-disabled-bg');
+    border-color: aui.token('color-border');
+  }
+
+  // Top-layer popup (Popover API). Position is applied by the positioning engine.
+  .aui-period-picker__popup {
+    @include aui.popup-motion;
+    box-sizing: border-box;
+    max-inline-size: calc(100vw - 2 * #{aui.token('space-2')});
+    max-block-size: var(--aui-available-height, 100dvh);
+    padding: aui.token('space-3');
+    margin: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    box-shadow: aui.token('shadow-md');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+  }
+
+  .aui-period-picker__header {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    margin-block-end: aui.token('space-2');
+  }
+
+  .aui-period-picker__heading {
+    flex: 1 1 auto;
+    font-weight: aui.token('font-weight-semibold');
+    text-align: center;
+  }
+
+  .aui-period-picker__nav {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: aui.token('control-height-sm');
+    block-size: aui.token('control-height-sm');
+    padding: 0;
+    margin: 0;
+    color: aui.token('color-text');
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+    @include aui.transition(background-color);
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      background: transparent;
+      cursor: not-allowed;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  // Chevrons point in the reading direction.
+  .aui-period-picker__popup[dir='rtl'] .aui-period-picker__nav .aui-icon {
+    transform: scaleX(-1);
+  }
+
+  .aui-period-picker__grid {
+    display: grid;
+    gap: 2px;
+  }
+
+  .aui-period-picker__row {
+    display: flex;
+    gap: 2px;
+  }
+
+  .aui-period-picker__cell {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: 4rem;
+    min-block-size: aui.token('control-height-md');
+    padding: aui.token('space-1') aui.token('space-2');
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+    user-select: none;
+    @include aui.transition(background-color);
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-period-picker__cell-hint {
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-period-picker__cell--empty {
+    cursor: default;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  .aui-period-picker__cell--current {
+    font-weight: aui.token('font-weight-bold');
+    box-shadow: inset 0 0 0 aui.token('border-width') aui.token('color-border-strong');
+  }
+
+  .aui-period-picker__cell--selected,
+  .aui-period-picker__cell--selected:hover {
+    color: aui.token('color-on-primary');
+    background: aui.token('color-primary');
+
+    .aui-period-picker__cell-hint {
+      color: inherit;
+    }
+  }
+
+  .aui-period-picker__cell--disabled,
+  .aui-period-picker__cell--disabled:hover {
+    color: aui.token('color-text-disabled');
+    text-decoration: line-through;
+    background: transparent;
+    cursor: not-allowed;
+
+    .aui-period-picker__cell-hint {
+      color: inherit;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-period-picker__group:focus-within {
+      outline: 2px solid Highlight;
+    }
+
+    .aui-period-picker__segment:focus {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-period-picker__popup {
+      border-color: CanvasText;
+    }
+
+    .aui-period-picker__cell--current {
+      box-shadow: none;
+      outline: 1px solid CanvasText;
+      outline-offset: -1px;
+    }
+
+    .aui-period-picker__cell--selected,
+    .aui-period-picker__cell--selected:hover {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-period-picker__cell--disabled,
+    .aui-period-picker__nav[aria-disabled='true'],
+    .aui-period-picker__button:disabled {
+      color: GrayText;
+    }
+
+    .aui-period-picker__cell:focus-visible,
+    .aui-period-picker__nav:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}

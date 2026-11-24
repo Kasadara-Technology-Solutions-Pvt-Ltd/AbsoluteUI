@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "component": "signature-pad",
+  "pattern": "A labelled group with a Draw/Type pair of toggle buttons (aria-pressed), the canvas as role=img whose name describes its content, a native text field for the typed-name alternative, and undo and clear buttons. Drawing is pointer-only, so the typed mode provides the keyboard and screen-reader path (WCAG 2.1.1, 2.5.7).",
+  "roles": [
+    { "element": "box", "role": "group (named by the label)" },
+    { "element": "mode buttons", "role": "button with aria-pressed" },
+    { "element": "canvas", "role": "img" },
+    { "element": "typed field", "role": "textbox (native input)" },
+    { "element": "undo, clear", "role": "button" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "box", "value": "the visible label" },
+    { "attribute": "aria-label", "element": "mode group", "value": "'Signature method'" },
+    { "attribute": "aria-pressed", "element": "Draw / Type", "value": "true for the current mode" },
+    { "attribute": "aria-label", "element": "canvas", "value": "'Signature pad, empty', '... drawn with 3 strokes', or '... typed signature: Ana Ruiz'" },
+    { "attribute": "aria-label", "element": "undo, clear", "value": "'Undo last stroke', 'Clear signature'" },
+    { "attribute": "aria-describedby", "element": "box and typed field", "value": "help text and error" },
+    { "attribute": "aria-invalid", "element": "typed field", "value": "true when invalid in type mode" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Control", "action": "Moves through Draw, Type, the typed field, Undo, and Clear." },
+    { "key": "Enter / Space", "context": "Mode button", "action": "Switch to drawing or typing; Type focuses the name field." },
+    { "key": "Enter / Space", "context": "Undo, Clear", "action": "Remove the last stroke or the whole signature." },
+    { "key": "Typing", "context": "Typed field", "action": "The name is drawn on the pad as the signature." }
+  ],
+  "focus": "Focus never moves into the canvas; Type moves focus to the name field.",
+  "wcag": ["1.1.1", "1.3.1", "1.4.11", "2.1.1", "2.5.7", "3.3.2", "4.1.2"],
+  "notes": [
+    "The typed alternative is always offered, not hidden behind a setting.",
+    "Undo and clear are announced through the polite live region."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

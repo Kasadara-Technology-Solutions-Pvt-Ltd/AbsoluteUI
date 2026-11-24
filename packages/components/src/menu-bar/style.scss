@@ -1,0 +1,86 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Menus opened from the bar use the Menu styles (load @absoluteui/components/menu/style.css too).
+@layer aui.components {
+  .aui-menu-bar {
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-tight');
+    color: aui.token('color-text');
+  }
+
+  .aui-menu-bar__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-1');
+    padding: aui.token('space-1');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+  }
+
+  .aui-menu-bar__entry {
+    display: contents;
+  }
+
+  .aui-menu-bar__item {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-2');
+    min-block-size: aui.token('control-height-sm');
+    padding: aui.token('space-1') aui.token('space-3');
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+    user-select: none;
+
+    &:hover,
+    &[aria-expanded='true'] {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring(calc(-1 * #{aui.token('focus-ring-width')}));
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+      background: transparent;
+    }
+  }
+
+  .aui-menu-bar__icon {
+    flex: none;
+    inline-size: aui.icon-size('sm');
+    block-size: aui.icon-size('sm');
+    font-size: aui.icon-size('sm');
+  }
+
+  .aui-menu-bar__label {
+    overflow-wrap: anywhere;
+  }
+
+  @include aui.forced-colors {
+    .aui-menu-bar__bar {
+      border-color: CanvasText;
+    }
+
+    .aui-menu-bar__item[aria-expanded='true'] {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+
+    .aui-menu-bar__item[aria-disabled='true'] {
+      color: GrayText;
+    }
+  }
+}

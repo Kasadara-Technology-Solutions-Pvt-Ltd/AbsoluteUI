@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "name": "kanban",
+  "displayName": "Kanban Board",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { Kanban, type KanbanCard, type KanbanColumn } from '@absoluteui/components/kanban';",
+  "styleImport": "@absoluteui/components/kanban/style.css",
+  "purpose": "A board of columns (workflow states) and optional swimlanes (rows) holding cards. Columns show counts and work-in-progress limits (warn, or block moves into full columns), collapse to a narrow strip, and reorder by pointer or keyboard. Cards move by pointer drag, by keyboard (Space picks up, arrow keys move between positions, columns, and swimlanes, Space drops, Escape cancels), or with a single pointer (toolbar Move, then click the target card or cell). Every move is dispatched first as the cancelable aui-card-move, applied optimistically, then saved through the optional moveCard callback (cancellable, timed out); a failed save moves the card back and emits aui-move-error. Moves and column reorders are undoable. Cells with many cards render only the cards in view. The model helpers (moveKanbanCard, positionOf, cellCards, columnCounts) are pure.",
+  "whenToUse": [
+    "Tracking work through workflow states (to do, in progress, done) with limits on work in progress.",
+    "Splitting a board by team, priority, or product with swimlanes.",
+    "Letting users re-prioritize and move items with the pointer or the keyboard, saved to a server."
+  ],
+  "whenNotToUse": [
+    "Tabular data with many attributes per item: use Data Table.",
+    "Items that must be scheduled on dates: use Scheduler or Gantt.",
+    "Reordering a single list: use Sortable List."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["card focused", "card picked up (keyboard)", "card dragged (pointer)", "card picked for a single-pointer move", "card saving (aria-busy)", "card locked", "column at or over its WIP limit", "column collapsed", "swimlane collapsed", "column picked up for reordering", "drop target valid / invalid", "empty cell", "virtual cell (only cards in view rendered)", "read-only board (editable: false)"],
+  "responsive": "The board scrolls horizontally and vertically inside its own container (a two-dimensional layout; WCAG 1.4.10 exception) while the page reflows at 320 px. Column widths come from --aui-kanban-column-width (17rem) and --aui-kanban-collapsed-width (3rem); virtual cells scroll within --aui-kanban-list-height (36rem). The column header row is sticky. Toolbar and column buttons are at least touch-target-min; on touch, drags start from the card grip (the rest of the card keeps native scrolling).",
+  "rtl": "direction 'rtl' swaps ArrowLeft/ArrowRight for moving between columns (cards and column reordering); the grid layout follows the document direction. Collapse chevrons point in the mirrored direction.",
+  "theme": "Cards use color-surface, color-border, radius-md, shadow-sm, and an accent stripe from color-chart-1..8 (never the only cue). Picked-up and picked cards use color-selected with color-selected-text. Columns over their limit show a warning icon and the text 'Over limit' in color-warning-fg plus a colored top border. Valid drop cells get a color-focus-ring dashed border, invalid ones color-error-fg. The board background is color-surface-sunken and cells color-bg. Forced-colors mode uses CanvasText borders, Highlight for picked cards and drop targets, and Mark for invalid targets and over-limit columns.",
+  "timezone": "Not applicable.",
+  "security": "Titles, descriptions, tags, and labels render through textContent; custom content comes from renderCard as DOM nodes (the application owns its safety). Options and cards are validated (unique ids, known columns and swimlanes) before use. Positions and drag offsets are written through the CSSOM only (CSP-safe).",
+  "dataHandling": "No persistence, network access, or telemetry of its own: moveCard is the application's function and receives the move, every card (copies), and an AbortSignal. The board reports moves through aui-card-move and aui-column-move and exposes the cards and columns getters for saving.",
+  "performance": {
+    "budgets": [
+      { "metric": "Kanban.create with 8 columns and 1,000 cards", "budget": "< 120 ms in headless Chromium (e2e performance test)" },
+      { "metric": "Keyboard move of a card with 1,000 cards on the board", "budget": "< 40 ms in headless Chromium (e2e performance test)" },
+      { "metric": "Kanban.create with one cell of 5,000 cards (virtual)", "budget": "< 80 ms in headless Chromium (e2e performance test)" }
+    ],
+    "testedScale": "1,000 cards over 8 columns and 5,000 cards in one virtual cell for the budgets; 4 to 500 cards in the behavior unit tests. Columns are not virtualized (tens of columns)."
+  },
+  "limitations": [
+    "Only cards within a cell are virtualized (above virtualThreshold); columns and swimlanes are always rendered.",
+    "WIP limits apply per column across all swimlanes (no per-swimlane limits).",
+    "A card with a pending save cannot be moved again, and undo waits until all saves finish.",
+    "A failed save moves the card back and drops that move from the undo history.",
+    "Pointer drags are not announced step by step (keyboard moves are).",
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ],
+  "unsupported": [
+    "Adding, editing, or deleting cards and columns inside the board (change the options with update()).",
+    "Moving several cards at once.",
+    "Nested swimlanes, or cards spanning several columns."
+  ],
+  "antiPatterns": [
+    "Interactive content (buttons, links) inside renderCard: the card is the focusable item; open a detail view on aui-card-activate instead.",
+    "Passing a new cards array on every framework render: it clears the undo history.",
+    "Using the accent color as the only way to tell cards apart: add tags or text."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/kanban: generated AuiKanban directive ([auiKanban], inputs mirror KanbanOptions; outputs auiCardActivate, auiCardMove, auiMoveError, auiColumnMove, auiCollapseChange; controllerSignal).",
+    "react": "@absoluteui/react/kanban: generated AuiKanban (props = KanbanOptions + onCardActivate, onCardMove, onMoveError, onColumnMove, onCollapseChange; ref receives the Kanban).",
+    "vue": "@absoluteui/vue/kanban: generated AuiKanban (emits cardActivate, cardMove, moveError, columnMove, collapseChange; template ref exposes controller)."
+  },
+  "versionIntroduced": "0.7.0",
+  "deprecated": null
+}

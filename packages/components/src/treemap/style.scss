@@ -1,0 +1,106 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-interaction;
+
+  // Tiles are separated by a surface-colored gap, so neighbors need no mutual contrast.
+  .aui-treemap__tile {
+    fill: var(--aui-chart-color);
+    stroke: aui.token('color-surface');
+    stroke-width: 2;
+  }
+
+  .aui-treemap__tile--group {
+    cursor: pointer;
+  }
+
+  .aui-treemap__tile.aui-chart__mark--hover,
+  .aui-treemap__tile.aui-chart__mark--active {
+    stroke: aui.token('color-text');
+    stroke-width: 3;
+  }
+
+  .aui-treemap__chip {
+    fill: aui.token('color-surface');
+    fill-opacity: 0.92;
+    pointer-events: none;
+  }
+
+  .aui-treemap__label,
+  .aui-treemap__value {
+    fill: aui.token('color-text');
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+  }
+
+  .aui-treemap__label {
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-treemap__path-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-1');
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: aui.token('font-size-sm');
+  }
+
+  .aui-treemap__path-item {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+  }
+
+  .aui-treemap__path-item + .aui-treemap__path-item::before {
+    content: '/';
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-treemap__path-button {
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    font: inherit;
+    color: aui.token('color-link');
+    text-decoration: underline;
+    background: none;
+    border: 0;
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: aui.token('focus-ring-width') solid aui.token('color-focus-ring');
+      outline-offset: aui.token('focus-ring-offset');
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-treemap__tile {
+      stroke: Canvas;
+    }
+
+    .aui-treemap__tile.aui-chart__mark--hover,
+    .aui-treemap__tile.aui-chart__mark--active {
+      stroke: Highlight;
+    }
+
+    .aui-treemap__path-button {
+      color: LinkText;
+    }
+
+    .aui-treemap__chip {
+      fill: Canvas;
+      fill-opacity: 1;
+    }
+
+    .aui-treemap__label,
+    .aui-treemap__value {
+      fill: CanvasText;
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "name": "rich-text-editor",
+  "displayName": "Rich Text Editor",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { RichTextEditor } from '@absoluteui/components/rich-text-editor';",
+  "styleImport": "@absoluteui/components/rich-text-editor/style.css",
+  "purpose": "Formatted multi-line text entry on a contenteditable surface whose content is owned by an internal document model: bold, italic, underline, strikethrough, inline code, headings 1-3, bulleted and numbered lists (nested), links with a URL policy, block quotes, code blocks, and alignment, with undo/redo, sanitized HTML and Markdown input/output, Markdown typing shortcuts, a plain-text mode, and the shared form-control contract (label, help text, required/min/max length, counter, localized validation).",
+  "whenToUse": [
+    "Formatted content that users write themselves: release notes, descriptions, comments, knowledge-base text.",
+    "Values stored as sanitized HTML or Markdown that must round-trip without unsafe markup.",
+    "Multi-paragraph plain text where paragraphs matter and a consistent editing surface with the rich variant is wanted (mode 'plain')."
+  ],
+  "whenNotToUse": [
+    "Unformatted text with no paragraph structure: use Textarea (native, lighter).",
+    "Single-line values: use Text Input.",
+    "Documents that need tables, images, colors, fonts, or embedded media: not supported.",
+    "Code editing with syntax highlighting: code blocks are plain monospace text."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["default", "focus-visible", "empty (placeholder)", "filled", "disabled", "read-only", "required", "invalid", "over limit", "plain mode", "link panel open", "toolbar item pressed", "toolbar item disabled"],
+  "responsive": "Full width of its container. The toolbar wraps onto several lines (reflows at 320 CSS px without horizontal scrolling). The content area is at least `rows` text rows high and scrolls beyond `maxRows`. Toolbar buttons are at least touch-target-min in both dimensions.",
+  "rtl": "Logical properties throughout. The content element gets dir=\"rtl\" when the resolved direction is 'rtl' and dir=\"auto\" otherwise. Alignment is stored as start/center/end/justify; formatJustifyLeft/Right input events map to end/start in rtl. Toolbar arrow keys follow DOM order (ArrowRight = next tool) and are not mirrored in rtl.",
+  "theme": "Surface, border, focus, selected, hover, link, error, disabled, and sunken-surface role tokens. Pressed toolbar tools use selected colors plus a visible border, so the state is not conveyed by color alone. Forced-colors mode uses Highlight/HighlightText for pressed tools, GrayText for disabled tools, CanvasText for the surface border, a Highlight outline on focus, and LinkText for links.",
+  "timezone": "Not applicable.",
+  "security": "Editing never uses innerHTML or document.execCommand: the view builds the DOM with createElement and text nodes from the model. HTML input (value, setHTML, paste, drop) is parsed only through the core sanitizer (inert parse, allowlist rebuild), then mapped to the model, so only supported structure survives; scripts, event handlers, style attributes, and images are dropped. Link URLs pass a URL policy: relative URLs plus `linkSchemes` (default http, https, mailto, tel); javascript, data, and vbscript can never be allowed; rejected links keep their text only. HTML output is generated from the model with escaping and uses data-align, never style attributes. Sizing custom properties are set through the CSSOM. Tested under a strict CSP with Trusted Types (e2e).",
+  "dataHandling": "No persistence, network access, or telemetry. When `name` is set, a hidden input carries the value (in `valueFormat`) for native form submission; Form reads it through getFormValue(). Copy writes text/plain and (rich mode) sanitized model HTML to the clipboard.",
+  "performance": {
+    "budgets": [
+      { "metric": "RichTextEditor.create with a 200-paragraph document", "budget": "< 80 ms in headless Chromium (e2e performance test)" },
+      { "metric": "Typing a character in a 200-paragraph document", "budget": "< 16 ms in headless Chromium (e2e performance test)" }
+    ],
+    "testedScale": "Documents of a few hundred blocks. Each edit re-renders only changed blocks (unchanged block elements are reused)."
+  },
+  "limitations": [
+    "No tables, images, colors, fonts, font sizes, or embedded media; such content is dropped on paste.",
+    "Headings are limited to levels 1-3; deeper headings from HTML or Markdown map to the nearest allowed lower level. Lists nest to depth 4 (five levels).",
+    "Moving text by dragging inside the editor is disabled (it would bypass the model); dropping external text or HTML is supported.",
+    "Markdown output has no alignment (dropped) and writes underline as <u>...</u>.",
+    "Switching mode from 'rich' to 'plain' converts the content to plain text; formatting is lost.",
+    "IME composition and mobile virtual keyboards have been tested only in Chromium.",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver.",
+    "Only the error icon is customizable; toolbar icons are fixed."
+  ],
+  "unsupported": [
+    "Tables, images, horizontal rules, colors, fonts, and inline styles.",
+    "Mentions, collaborative editing, comments, or track changes.",
+    "Syntax highlighting in code blocks.",
+    "Custom block or mark types (the model's formatting set is fixed)."
+  ],
+  "antiPatterns": [
+    "Inserting a stored value elsewhere with innerHTML without sanitizing it: stored HTML can be tampered with after it leaves the editor.",
+    "Using the placeholder as the only label.",
+    "Allowing extra link schemes without reviewing them (the policy blocks script URLs, not every risky scheme).",
+    "Using the rich editor for plain unstructured text where Textarea suffices."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/rich-text-editor: AuiRichTextEditor directive ([auiRichTextEditor]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/rich-text-editor: AuiRichTextEditor component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/rich-text-editor: AuiRichTextEditor component with v-model (string)."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "component": "rich-text-editor",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required HTML field with a character limit",
+      "language": "ts",
+      "code": "import { RichTextEditor } from '@absoluteui/components/rich-text-editor';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst notes = RichTextEditor.create(host, {\n  label: 'Release notes',\n  name: 'notes',\n  required: true,\n  maxLength: 2000,\n  showCounter: true,\n  value: '<p>Fixed <strong>two</strong> bugs.</p>',\n});\nhost.addEventListener('aui-change', () => {\n  host.dataset.valid = String(notes.validity.valid);\n});"
+    },
+    {
+      "id": "markdown",
+      "title": "Markdown value with a reduced toolbar",
+      "language": "ts",
+      "code": "import { RichTextEditor, type RichTextToolbarItem } from '@absoluteui/components/rich-text-editor';\n\nconst toolbar: readonly RichTextToolbarItem[] = ['heading2', 'heading3', '|', 'bold', 'italic', 'code', 'link', '|', 'bulletList', 'orderedList', '|', 'undo', 'redo'];\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst editor = RichTextEditor.create(host, {\n  label: 'Description',\n  valueFormat: 'markdown',\n  headings: [2, 3],\n  toolbar,\n  linkSchemes: ['https', 'mailto'],\n  value: '## Summary\\n\\nSee [the docs](https://example.com/docs).',\n});\nconst html: string = editor.getHTML();\nconst markdown: string = editor.value;\nhost.dataset.length = String(html.length + markdown.length);"
+    },
+    {
+      "id": "plain",
+      "title": "Plain-text mode (paragraphs only, no toolbar)",
+      "language": "ts",
+      "code": "import { RichTextEditor } from '@absoluteui/components/rich-text-editor';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst summary = RichTextEditor.create(host, { label: 'Summary', mode: 'plain', rows: 3, maxRows: 8, placeholder: 'One or two paragraphs' });\nsummary.setText('First paragraph\\nSecond paragraph');"
+    },
+    {
+      "id": "custom-toolbar",
+      "title": "External command buttons driven by formatState",
+      "language": "ts",
+      "code": "import { RichTextEditor } from '@absoluteui/components/rich-text-editor';\nimport { Button } from '@absoluteui/components/button';\n\nconst host = document.createElement('div');\nconst bold = document.createElement('button');\nbold.type = 'button';\nbold.textContent = 'Bold';\nButton.enhance(bold, { size: 'sm' });\ndocument.body.append(bold, host);\nconst editor = RichTextEditor.create(host, { label: 'Comment', toolbar: ['undo', 'redo'] });\n// Keep the editor's selection when the button is pressed with the mouse.\nbold.addEventListener('mousedown', (e) => {\n  e.preventDefault();\n});\nbold.addEventListener('click', () => {\n  editor.command('bold');\n  bold.setAttribute('aria-pressed', String(editor.formatState.marks.includes('bold')));\n});"
+    },
+    {
+      "id": "convert",
+      "title": "Convert Markdown to sanitized HTML without an editor",
+      "language": "ts",
+      "code": "import { richTextFromMarkdown, richTextToHtml } from '@absoluteui/components/rich-text-editor';\n\nconst httpsOnly = (url: string): string | null => (url.startsWith('https://') ? url : null);\nconst doc = richTextFromMarkdown('# Notes\\n\\n- **one**\\n- [two](https://example.com)', httpsOnly);\nconst html: string = richTextToHtml(doc);\ndocument.body.dataset.preview = html;"
+    },
+    {
+      "id": "global-config",
+      "title": "Disable Markdown shortcuts and shorten undo history globally",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { richTextEditor: { markdownShortcuts: false, historyLimit: 50 } } });"
+    }
+  ]
+}

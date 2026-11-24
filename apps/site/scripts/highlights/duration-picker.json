@@ -1,0 +1,6 @@
+[
+  { "title": "Choose the units", "text": "Any combination of days, hours, minutes, and seconds fields." },
+  { "title": "Steps and limits", "text": "Minimum, maximum, and a step that values snap to." },
+  { "title": "Exact durations", "text": "Returns a fixed-length duration in milliseconds, never an ambiguous string." },
+  { "title": "Form ready", "text": "Validation, custom errors, and native form submission." }
+]

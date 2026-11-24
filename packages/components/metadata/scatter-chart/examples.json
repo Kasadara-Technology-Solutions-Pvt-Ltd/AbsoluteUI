@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "scatter-chart",
+  "examples": [
+    {
+      "id": "height-weight",
+      "title": "Two groups with named axes, crosshair, and xy zoom",
+      "language": "ts",
+      "code": "import { ScatterChart, type ScatterChartZoomDetail } from '@absoluteui/components/scatter-chart';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst chart = ScatterChart.create(host, {\n  label: 'Height and weight',\n  series: [\n    { id: 'a', label: 'Group A', points: [{ x: 160, y: 55 }, { x: 175, y: 72 }, { x: 182, y: 80 }] },\n    { id: 'b', label: 'Group B', points: [{ x: 150, y: 48 }, { x: 170, y: 65 }] },\n  ],\n  xAxis: { label: 'Height (cm)' },\n  yAxis: { label: 'Weight (kg)' },\n  crosshair: true,\n  zoom: 'xy',\n});\nhost.addEventListener('aui-zoom', (event) => {\n  const { x, y } = (event as CustomEvent<ScatterChartZoomDetail>).detail;\n  host.dataset.zoomed = String(x !== null || y !== null);\n});\nchart.update({ zoomRange: { from: 155, to: 180 } });"
+    },
+    {
+      "id": "bubbles",
+      "title": "Bubble chart with labelled points and a size dimension",
+      "language": "ts",
+      "code": "import { ScatterChart } from '@absoluteui/components/scatter-chart';\n\nconst host = document.querySelector<HTMLElement>('#markets');\nif (host) {\n  ScatterChart.create(host, {\n    label: 'Markets',\n    series: [{\n      id: 'm',\n      label: 'Markets',\n      color: 4,\n      points: [\n        { x: 2.1, y: 18, size: 120, label: 'North' },\n        { x: 3.4, y: 11, size: 60, label: 'South' },\n        { x: 1.2, y: 25, size: 300, label: 'West' },\n      ],\n    }],\n    xAxis: { label: 'Growth (%)', includeZero: true },\n    yAxis: { label: 'Margin (%)' },\n    sizeLabel: 'Revenue (M)',\n    sizeRange: [6, 30],\n    dataTable: 'visible',\n  });\n}"
+    }
+  ]
+}

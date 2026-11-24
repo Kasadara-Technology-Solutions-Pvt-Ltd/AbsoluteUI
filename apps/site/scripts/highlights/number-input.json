@@ -1,0 +1,7 @@
+[
+  { "title": "Locale aware", "text": "Parses and formats group and decimal separators, locale digits, and minus signs for each locale." },
+  { "title": "Currency, percent, units", "text": "Display formats from Intl.NumberFormat, while the submitted value stays canonical." },
+  { "title": "Stepping", "text": "Arrow keys and optional stepper buttons move the value by the configured step." },
+  { "title": "Range validation", "text": "Minimum, maximum, and step checks with localized messages." },
+  { "title": "Accessible spinbutton", "text": "Exposes the spinbutton role instead of the inconsistent native number input." }
+]

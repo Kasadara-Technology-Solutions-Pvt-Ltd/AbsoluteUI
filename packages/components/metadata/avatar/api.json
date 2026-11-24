@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "component": "avatar",
+  "factory": { "name": "Avatar.create", "signature": "Avatar.create(host: HTMLElement, options: AvatarOptions): Avatar" },
+  "configKey": "avatar",
+  "options": [
+    { "name": "name", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name and source of the initials." },
+    { "name": "src", "type": "string | null", "required": false, "globallyConfigurable": false, "description": "Image URL: http(s), relative, blob:, or a base64 PNG, JPEG, GIF, WebP, or AVIF data URL." },
+    { "name": "icon", "type": "IconRef | null", "required": false, "globallyConfigurable": false, "description": "Icon shown when the name yields no initials." },
+    { "name": "status", "type": "'online' | 'away' | 'busy' | 'offline' | null", "required": false, "globallyConfigurable": false, "description": "Presence dot; its name is part of the accessible name." },
+    { "name": "decorative", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Hide from assistive technology when the name is shown next to it." },
+    { "name": "size", "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl'", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Avatar size." },
+    { "name": "shape", "type": "'circle' | 'square'", "default": "circle", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Avatar shape." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of status names and initials casing." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (receives role, label, and classes)." },
+    { "name": "name", "type": "string", "description": "Current name." },
+    { "name": "shows", "type": "'image' | 'initials' | 'icon'", "description": "What is currently shown." },
+    { "name": "options", "type": "Readonly<AvatarOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<AvatarOptions>): void", "description": "Merge and apply options; a new src is loaded again even after a failure." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, attributes, classes, and subscriptions." }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-avatar", "description": "Host." },
+    { "name": "aui-avatar--xs | --sm | --md | --lg | --xl", "description": "Size modifiers." },
+    { "name": "aui-avatar--circle | --square", "description": "Shape modifiers." },
+    { "name": "aui-avatar--image | --initials | --icon", "description": "What is shown." },
+    { "name": "aui-avatar--status-online | -away | -busy | -offline", "description": "Presence modifiers." },
+    { "name": "aui-avatar__visual", "description": "Image, initials, or icon (aria-hidden)." },
+    { "name": "aui-avatar__image", "description": "The img element." },
+    { "name": "aui-avatar__status", "description": "Presence dot (aria-hidden)." }
+  ],
+  "iconSlots": []
+}

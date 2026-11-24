@@ -1,0 +1,10 @@
+{
+  "entry": "@absoluteui/angular/forms",
+  "declarations": {},
+  "reexports": [
+    "AUI_FORM_ERRORS",
+    "AuiControlState",
+    "AuiFormErrorMessages",
+    "provideAuiFormErrors"
+  ]
+}

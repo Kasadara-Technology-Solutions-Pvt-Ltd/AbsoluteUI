@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "component": "checkbox",
+  "factory": { "name": "Checkbox.create", "signature": "Checkbox.create(host: HTMLElement, options: CheckboxOptions): Checkbox" },
+  "configKey": "checkbox",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name; clicking it toggles the checkbox." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "checked", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Initial checked state; also restored by reset()." },
+    { "name": "indeterminate", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Mixed state (aria-checked=mixed via the native property). Cleared when the user toggles." },
+    { "name": "value", "type": "string", "default": "on", "required": false, "globallyConfigurable": false, "description": "Submitted value when checked." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "The box must be checked; shows the required indicator." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the checkbox." },
+    { "name": "validate", "type": "(checked: boolean) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the state invalid." },
+    { "name": "icons", "type": "Partial<{ checked: IconRef; indeterminate: IconRef; error: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message locale." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "input", "type": "HTMLInputElement", "description": "The native checkbox." },
+    { "name": "checked", "type": "boolean", "description": "Current checked state." },
+    { "name": "indeterminate", "type": "boolean", "description": "Current mixed state." },
+    { "name": "value", "type": "string", "description": "Submitted value when checked." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "dirty", "type": "boolean", "description": "Checked or mixed state differs from the initial state." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<CheckboxOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setChecked", "signature": "setChecked(checked: boolean, indeterminate?: boolean): void", "description": "Programmatic state (no events); clears the mixed state unless given and clears an external custom error." },
+    { "name": "update", "signature": "update(options: Partial<CheckboxOptions>): void", "description": "Merge and apply options." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error; cleared when the user toggles." },
+    { "name": "getFormValue", "signature": "getFormValue(): string | null", "description": "`value` when checked, otherwise null." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the checkbox." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial checked and mixed state and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "{ checked: boolean; value: string; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "The user toggled the checkbox." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-checkbox", "description": "Host." },
+    { "name": "aui-checkbox--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __required | __description | __error", "description": "Shared field chrome." },
+    { "name": "aui-checkbox__row", "description": "Box and label row." },
+    { "name": "aui-checkbox__box", "description": "Positioning wrapper for the input and marks." },
+    { "name": "aui-checkbox__input", "description": "Native checkbox, restyled as the box." },
+    { "name": "aui-checkbox__mark | __mark--checked | __mark--indeterminate", "description": "Decorative check and minus marks." },
+    { "name": "aui-checkbox__label", "description": "The label (also aui-field__label)." }
+  ],
+  "iconSlots": [
+    { "name": "checked", "default": "check" },
+    { "name": "indeterminate", "default": "minus" },
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

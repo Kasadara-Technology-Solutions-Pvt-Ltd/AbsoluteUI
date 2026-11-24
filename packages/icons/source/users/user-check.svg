@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="user-check" data-animations="draw:success:accent">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9" cy="7" r="3.5"/>
+      <path d="M2.5 20a6.5 5.5 0 0 1 10-4.64"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15 18l2 2 4-4.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <circle cx="9" cy="7" r="4.5"/>
+      <path d="M2 20.5a7 6 0 0 1 10.5-5.2V20.5z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <polyline points="15 18 17 20 21 15.5" data-outline-width="2.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="9" cy="7" r="3.5"/>
+      <path d="M2.5 20a6.5 5.5 0 0 1 10-4.64V20z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9" cy="7" r="3.5"/>
+      <path d="M2.5 20a6.5 5.5 0 0 1 10-4.64"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15 18l2 2 4-4.5"/>
+    </g>
+  </g>
+</svg>

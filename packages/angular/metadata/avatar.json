@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/avatar",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiAvatar",
+      "description": "AbsoluteUI Avatar: `<aui-avatar>`.",
+      "selector": "aui-avatar",
+      "exportAs": [
+        "auiAvatar"
+      ],
+      "source": "generated",
+      "component": "avatar",
+      "configKey": "avatar",
+      "inputs": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name and source of the initials."
+        },
+        {
+          "name": "src",
+          "type": "string | null",
+          "required": false,
+          "description": "Image URL: http(s), relative, blob:, or a base64 PNG, JPEG, GIF, WebP, or AVIF data URL."
+        },
+        {
+          "name": "icon",
+          "type": "IconRef | null",
+          "required": false,
+          "description": "Icon shown when the name yields no initials."
+        },
+        {
+          "name": "status",
+          "type": "AvatarStatus | null",
+          "required": false,
+          "description": "Presence dot; its name is part of the accessible name."
+        },
+        {
+          "name": "decorative",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Hide from assistive technology when the name is shown next to it."
+        },
+        {
+          "name": "size",
+          "type": "AvatarSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Avatar size."
+        },
+        {
+          "name": "shape",
+          "type": "AvatarShape",
+          "required": false,
+          "default": "circle",
+          "configurable": true,
+          "description": "Avatar shape."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of status names and initials casing."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Image with a text alternative: role=img on the host, aria-label with the name and presence status.",
+        "source": "packages/components/metadata/avatar/accessibility.json"
+      },
+      "limitations": [
+        "A failed image is not retried until src changes.",
+        "Initials use the first and last word of the name; names written family-name-first show those initials in that order."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiAvatar } from '@absoluteui/angular/avatar';\n\n@Component({\n  selector: 'app-assignee',\n  imports: [AuiAvatar],\n  template: `<aui-avatar [name]=\"name\" size=\"sm\" [status]=\"online ? 'online' : 'offline'\"></aui-avatar>`,\n})\nexport class AssigneeComponent {\n  name = 'Ada Lovelace';\n  online = true;\n}"
+    }
+  ]
+}

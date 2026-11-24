@@ -1,0 +1,124 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  // Word-sized by default; set inline-size / block-size on the host to resize.
+  .aui-sparkline {
+    display: inline-block;
+    inline-size: 6em;
+    block-size: 1.5em;
+    vertical-align: middle;
+  }
+
+  .aui-sparkline--c1 {
+    --aui-sparkline-color: #{aui.ctoken('chart', '1')};
+  }
+
+  .aui-sparkline--c2 {
+    --aui-sparkline-color: #{aui.ctoken('chart', '2')};
+  }
+
+  .aui-sparkline--c3 {
+    --aui-sparkline-color: #{aui.ctoken('chart', '3')};
+  }
+
+  .aui-sparkline--c4 {
+    --aui-sparkline-color: #{aui.ctoken('chart', '4')};
+  }
+
+  .aui-sparkline--c5 {
+    --aui-sparkline-color: #{aui.ctoken('chart', '5')};
+  }
+
+  .aui-sparkline--c6 {
+    --aui-sparkline-color: #{aui.ctoken('chart', '6')};
+  }
+
+  .aui-sparkline--c7 {
+    --aui-sparkline-color: #{aui.ctoken('chart', '7')};
+  }
+
+  .aui-sparkline--c8 {
+    --aui-sparkline-color: #{aui.ctoken('chart', '8')};
+  }
+
+  .aui-sparkline__svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: visible;
+  }
+
+  // Strokes keep their width while the viewBox stretches to the box.
+  .aui-sparkline__line,
+  .aui-sparkline__dot,
+  .aui-sparkline__last,
+  .aui-sparkline__baseline {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .aui-sparkline__line {
+    stroke: var(--aui-sparkline-color);
+    stroke-width: var(--aui-sparkline-line-width, 1.5px);
+    stroke-linejoin: var(--aui-chart-line-join, round);
+    stroke-linecap: round;
+  }
+
+  .aui-sparkline__dot,
+  .aui-sparkline__last {
+    stroke: var(--aui-sparkline-color);
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .aui-sparkline__last {
+    stroke-width: 5;
+  }
+
+  .aui-sparkline__bar {
+    fill: var(--aui-sparkline-color);
+    fill-opacity: 0.55;
+  }
+
+  .aui-sparkline__bar--last {
+    fill-opacity: 1;
+  }
+
+  // `theme.animation` (opt-in): the marks fade in when the sparkline renders.
+  @keyframes aui-sparkline-enter {
+    from {
+      opacity: 0;
+    }
+  }
+
+  .aui-sparkline.aui-chart--animate .aui-sparkline__svg > * {
+    animation: aui-sparkline-enter var(--aui-chart-animation-duration, 400ms) #{aui.token('easing-standard')} both;
+  }
+
+  @include aui.reduced-motion {
+    .aui-sparkline.aui-chart--animate .aui-sparkline__svg > * {
+      animation: none;
+    }
+  }
+
+  :where([data-aui-animation='none']) .aui-sparkline.aui-chart--animate .aui-sparkline__svg > * {
+    animation: none;
+  }
+
+  .aui-sparkline__baseline {
+    stroke: aui.ctoken('chart', 'axis-color');
+    stroke-width: 1;
+  }
+
+  @include aui.forced-colors {
+    .aui-sparkline {
+      --aui-sparkline-color: CanvasText;
+    }
+
+    .aui-sparkline__baseline {
+      stroke: CanvasText;
+    }
+  }
+}

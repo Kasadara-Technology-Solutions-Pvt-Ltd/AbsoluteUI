@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/dashboard-grid",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiDashboardGrid",
+      "description": "AbsoluteUI Dashboard Grid with projected item elements (`data-aui-item` on each child):\n`<aui-dashboard-grid label=\"Overview\" [(items)]=\"items\" [editable]=\"editing\">\n   <aui-dashboard-widget data-aui-item=\"sales\" title=\"Sales\">...</aui-dashboard-widget>\n </aui-dashboard-grid>`.\nThe children stay Angular-managed; the grid positions them and, in edit mode, adds move\nhandles. `[(items)]` and `[(layouts)]` follow user moves and resizes.",
+      "selector": "aui-dashboard-grid",
+      "exportAs": [
+        "auiDashboardGrid"
+      ],
+      "source": "hand-written",
+      "component": "dashboard-grid",
+      "configKey": "dashboardGrid",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the dashboard region (aria-label on the host). Non-empty."
+        },
+        {
+          "name": "breakpoints",
+          "type": "readonly DashboardBreakpoint[]",
+          "required": false,
+          "default": "[object Object],[object Object],[object Object]",
+          "description": "{ name, minWidth (CSS px of the host width, >= 0), columns (integer 1..48) }; unique names; one breakpoint must have minWidth 0."
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Edit mode: move handles, resize grips, keyboard moving, and undo/redo shortcuts."
+        },
+        {
+          "name": "historyLimit",
+          "type": "number",
+          "required": false,
+          "default": "50",
+          "description": "Undo depth, integer 0..500 (0 disables history)."
+        },
+        {
+          "name": "reorderDom",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Keep the item elements in visual reading order (row, then column) in the DOM, so focus order matches the layout. Focus is kept across reordering."
+        },
+        {
+          "name": "rowHeight",
+          "type": "number",
+          "required": false,
+          "default": "80",
+          "configurable": true,
+          "description": "Row height in CSS px, integer 24..600."
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "required": false,
+          "default": "16",
+          "configurable": true,
+          "description": "Gap between items in CSS px, integer 0..64."
+        },
+        {
+          "name": "compaction",
+          "type": "DashboardCompaction",
+          "required": false,
+          "default": "vertical",
+          "configurable": true,
+          "description": "'vertical': items float up into free space (an item cannot rest below empty space); 'none': items stay where they are put."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the handle names and announcements."
+        },
+        {
+          "name": "direction",
+          "type": "Direction",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "rtl mirrors ArrowLeft/ArrowRight moves and pointer column mapping."
+        }
+      ],
+      "models": [
+        {
+          "name": "items",
+          "type": "readonly DashboardItem[]",
+          "change": "itemsChange",
+          "description": "Layout for the widest breakpoint: { id, x, y, w, h, minW?, minH?, maxW?, maxH?, locked?, label? } in column/row units (x, y integers >= 0; w, h integers >= 1; unique ids matching data-aui-item). Clamped to the column count. Narrower breakpoints derive from it unless `layouts` has one. Changing it with update() replaces every stored layout."
+        },
+        {
+          "name": "layouts",
+          "type": "Readonly<Record<string, readonly DashboardItem[]>>",
+          "change": "layoutsChange",
+          "description": "Saved layouts by breakpoint name (from the layouts getter or aui-layout-change detail.layouts). Entries for unknown breakpoint names are ignored; a layout for the widest breakpoint overrides `items`."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "layoutChanged",
+          "payload": "DashboardGridLayoutChangeDetail",
+          "description": "Every layout change with its reason (move, resize, add, remove, undo, redo, set)."
+        },
+        {
+          "name": "breakpointChange",
+          "payload": "DashboardGridBreakpointChangeDetail",
+          "event": "aui-breakpoint-change",
+          "description": "The host width crossed into another breakpoint. Dispatched on the grid host."
+        }
+      ],
+      "methods": [
+        {
+          "name": "addItem",
+          "signature": "addItem(item: Omit<DashboardItem, \"x\" | \"y\"> & Partial<Pick<DashboardItem, \"x\" | \"y\">>, element?: HTMLElement | undefined): DashboardItem | undefined",
+          "description": "Add an item; `element` is the already rendered child (render it first, then add)."
+        },
+        {
+          "name": "removeItem",
+          "signature": "removeItem(id: string, removeElement?: boolean | undefined): void",
+          "description": "Remove an item from every layout; its element is removed too unless `removeElement` is false."
+        },
+        {
+          "name": "undo",
+          "signature": "undo(): boolean",
+          "description": "Undo the last layout change; false when there is nothing to undo."
+        },
+        {
+          "name": "redo",
+          "signature": "redo(): boolean",
+          "description": "Redo the last undone layout change; false when there is nothing to redo."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Labelled region of items with a toggle-button move handle per item (keyboard drag-and-drop pattern, as Sortable List) and live-region announcements. No ARIA drag-and-drop attributes (aria-grabbed and aria-dropeffect are deprecated). The catalog is a labelled list of buttons.",
+        "source": "packages/components/metadata/dashboard-grid/accessibility.json"
+      },
+      "limitations": [
+        "Vertical compaction: an item cannot rest below empty space, and a full-width item cannot pass a half-width neighbor (it floats back); use compaction 'none' for free placement.",
+        "Collisions push items down only, never sideways.",
+        "Undo and redo cover geometry (moves, resizes, setLayout); they do not add back removed items or remove added ones.",
+        "In edit mode Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z, and Ctrl/Cmd+Y are handled on the whole host, including text fields inside widgets.",
+        "Pointer grabs and drops are not announced; keyboard grabs, moves, resizes, drops, and cancels are (assertive).",
+        "The resize grip is pointer-only (aria-hidden); keyboard users resize with Shift+arrow keys on the move handle.",
+        "No auto-scroll while dragging near the viewport edge.",
+        "The breakpoint at create time uses host.clientWidth; a host that is not laid out yet starts at the narrowest breakpoint until the ResizeObserver reports its width.",
+        "update() with items, layouts, or breakpoints replaces all stored layouts.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    },
+    {
+      "kind": "component",
+      "name": "AuiDashboardCatalog",
+      "description": "AbsoluteUI Dashboard Catalog for a Dashboard Grid in the same template:\n`<aui-dashboard-grid #board=\"auiDashboardGrid\" ...>...</aui-dashboard-grid>\n <aui-dashboard-catalog label=\"Widgets\" [templates]=\"templates\" [grid]=\"board\" (catalogAdded)=\"add($event)\"></aui-dashboard-catalog>`.\n`catalogAdded` receives the cancelable DOM event: render the widget for\n`event.detail.item`, or call `event.preventDefault()` to veto. The catalog is created\nwhen the grid exists and re-created when it changes.",
+      "selector": "aui-dashboard-catalog",
+      "exportAs": [
+        "auiDashboardCatalog"
+      ],
+      "source": "hand-written",
+      "component": "dashboard-grid",
+      "configKey": "dashboardGrid",
+      "inputs": [
+        {
+          "name": "grid",
+          "type": "AuiDashboardGrid | null",
+          "required": false,
+          "description": "The grid that receives the widgets: a `#grid=\"auiDashboardGrid\"` reference."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the catalog list."
+        },
+        {
+          "name": "templates",
+          "type": "readonly DashboardTemplate[]",
+          "required": true,
+          "description": "Widget templates offered by the catalog."
+        },
+        {
+          "name": "create",
+          "type": "((template: DashboardTemplate, item: DashboardItem) => HTMLElement | null)",
+          "required": false,
+          "description": "Render the widget element for a new item without Angular; usually leave it unset and render in `catalogAdded`."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Messages locale (defaults to the configured locale)."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "catalogAdded",
+          "payload": "CustomEvent<DashboardCatalogAddDetail>",
+          "event": "aui-catalog-add",
+          "description": "A template was chosen (cancelable DOM event): render the widget for `event.detail.item`, or call `preventDefault()` to veto."
+        }
+      ],
+      "methods": [],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Labelled region of items with a toggle-button move handle per item (keyboard drag-and-drop pattern, as Sortable List) and live-region announcements. No ARIA drag-and-drop attributes (aria-grabbed and aria-dropeffect are deprecated). The catalog is a labelled list of buttons.",
+        "source": "packages/components/metadata/dashboard-grid/accessibility.json"
+      },
+      "limitations": [
+        "Vertical compaction: an item cannot rest below empty space, and a full-width item cannot pass a half-width neighbor (it floats back); use compaction 'none' for free placement.",
+        "Collisions push items down only, never sideways.",
+        "Undo and redo cover geometry (moves, resizes, setLayout); they do not add back removed items or remove added ones.",
+        "In edit mode Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z, and Ctrl/Cmd+Y are handled on the whole host, including text fields inside widgets.",
+        "Pointer grabs and drops are not announced; keyboard grabs, moves, resizes, drops, and cancels are (assertive).",
+        "The resize grip is pointer-only (aria-hidden); keyboard users resize with Shift+arrow keys on the move handle.",
+        "No auto-scroll while dragging near the viewport edge.",
+        "The breakpoint at create time uses host.clientWidth; a host that is not laid out yet starts at the narrowest breakpoint until the ResizeObserver reports its width.",
+        "update() with items, layouts, or breakpoints replaces all stored layouts.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { DashboardGridLayoutChangeDetail, DashboardItem } from '@absoluteui/components/dashboard-grid';\nimport { AuiDashboardGrid } from '@absoluteui/angular/dashboard-grid';\n\n@Component({\n  selector: 'app-overview',\n  imports: [AuiDashboardGrid],\n  template: `\n    <aui-dashboard-grid label=\"Overview\" [items]=\"items\" [editable]=\"true\" (layoutChanged)=\"save($event)\">\n      <section data-aui-item=\"sales\"><h2>Sales</h2></section>\n      <section data-aui-item=\"users\"><h2>Active users</h2></section>\n    </aui-dashboard-grid>`,\n})\nexport class OverviewComponent {\n  readonly items: DashboardItem[] = [\n    { id: 'sales', x: 0, y: 0, w: 6, h: 2 },\n    { id: 'users', x: 6, y: 0, w: 6, h: 2 },\n  ];\n\n  save(detail: DashboardGridLayoutChangeDetail): void {\n    // persist detail.layouts\n  }\n}"
+    }
+  ]
+}

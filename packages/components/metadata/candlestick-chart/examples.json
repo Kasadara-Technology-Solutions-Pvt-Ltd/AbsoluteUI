@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "candlestick-chart",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Candles with volume and a moving average",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { CandlestickChart } from '@absoluteui/components/candlestick-chart';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCandlestickChart.create(host, {\n  label: 'ACME share price',\n  data: [\n    { date: plainDate(2026, 3, 2), open: 100, high: 104, low: 99, close: 103, volume: 12000 },\n    { date: plainDate(2026, 3, 3), open: 103, high: 105, low: 101, close: 102, volume: 9000 },\n    { date: plainDate(2026, 3, 4), open: 102, high: 103, low: 97, close: 98, volume: 15000 },\n    { date: plainDate(2026, 3, 5), open: 98, high: 101, low: 97, close: 100, volume: 11000 },\n  ],\n  movingAverages: [{ period: 2 }],\n  valueFormat: { style: 'currency', currency: 'USD' },\n});"
+    },
+    {
+      "id": "trading-days",
+      "title": "Trading days from a business calendar, zoom on",
+      "language": "ts",
+      "code": "import { plainDate } from '@absoluteui/core';\nimport { createBusinessCalendar } from '@absoluteui/components/business-calendar';\nimport { CandlestickChart } from '@absoluteui/components/candlestick-chart';\n\nconst calendar = createBusinessCalendar({ holidays: [{ date: plainDate(2026, 4, 3), name: 'Good Friday' }] });\nconst host = document.querySelector<HTMLElement>('#equity');\nif (host) {\n  const chart = CandlestickChart.create(host, {\n    label: 'Equity',\n    data: [\n      { date: plainDate(2026, 4, 2), open: 50, high: 52, low: 49, close: 51 },\n      { date: plainDate(2026, 4, 6), open: 51, high: 53, low: 50, close: 52.5 },\n      { date: plainDate(2026, 4, 7), open: 52.5, high: 53, low: 50.5, close: 51 },\n    ],\n    businessCalendar: calendar,\n    type: 'ohlc',\n    zoom: true,\n  });\n  chart.update({ zoomRange: { from: 0, to: 1 } });\n}"
+    }
+  ]
+}

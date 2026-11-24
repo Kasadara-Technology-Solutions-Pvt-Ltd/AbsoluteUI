@@ -1,0 +1,541 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-kanban {
+    --aui-kanban-column-width: 17rem;
+    --aui-kanban-collapsed-width: 3rem;
+    --aui-kanban-list-height: 36rem;
+
+    display: grid;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-tight');
+    color: aui.token('color-text');
+  }
+
+  // ---- toolbar -------------------------------------------------------------------
+
+  .aui-kanban__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-kanban__tool,
+  .aui-kanban__column-handle,
+  .aui-kanban__column-toggle,
+  .aui-kanban__lane-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: aui.token('space-1');
+    min-inline-size: aui.token('touch-target-min');
+    min-block-size: aui.token('touch-target-min');
+    padding: 0 aui.token('space-2');
+    font: inherit;
+    color: aui.token('color-text');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-md');
+    cursor: pointer;
+    @include aui.transition(background-color);
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      background: aui.token('color-surface');
+      border-color: aui.token('color-border');
+      cursor: not-allowed;
+    }
+
+    &[aria-pressed='true'] {
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+      border-color: aui.token('color-selected-text');
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-icon {
+      flex: none;
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-kanban__column-handle,
+  .aui-kanban__column-toggle {
+    padding: 0;
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .aui-kanban__column-handle {
+    cursor: grab;
+    touch-action: none;
+  }
+
+  // ---- board ---------------------------------------------------------------------
+
+  // The board scrolls in both directions (WCAG 1.4.10 exception: a two-dimensional layout).
+  .aui-kanban__board {
+    position: relative;
+    overflow: auto;
+    background: aui.token('color-surface-sunken');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    overscroll-behavior: contain;
+  }
+
+  .aui-kanban__row {
+    display: grid;
+    grid-template-columns: var(--aui-kanban-template, var(--aui-kanban-column-width));
+    gap: aui.token('space-2');
+    inline-size: max-content;
+    min-inline-size: 100%;
+    padding-inline: aui.token('space-2');
+    box-sizing: border-box;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-kanban__columns {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+    padding-block: aui.token('space-2');
+    background: aui.token('color-surface-sunken');
+  }
+
+  .aui-kanban__column-header {
+    display: flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+    padding: aui.token('space-1');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-block-start: aui.token('border-width-strong') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-md');
+    transform: translateX(var(--aui-kanban-drag-x, 0px));
+  }
+
+  .aui-kanban__column-header--held {
+    z-index: 3;
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    border-color: aui.token('color-selected-text');
+    box-shadow: aui.token('shadow-lg');
+
+    .aui-kanban__column-handle {
+      color: inherit;
+    }
+  }
+
+  .aui-kanban__column-header--over {
+    border-block-start-color: aui.token('color-warning-fg');
+  }
+
+  .aui-kanban__column-title {
+    display: flex;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  .aui-kanban__column-name {
+    overflow-wrap: anywhere;
+  }
+
+  .aui-kanban__count {
+    padding: 0 aui.token('space-1');
+    font-weight: aui.token('font-weight-regular');
+    font-variant-numeric: tabular-nums;
+    color: aui.token('color-text-muted');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-pill');
+  }
+
+  .aui-kanban__over {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    font-size: aui.token('font-size-xs');
+    font-weight: aui.token('font-weight-semibold');
+    color: aui.token('color-warning-fg');
+
+    &[hidden] {
+      display: none;
+    }
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  // Collapsed column: a narrow strip with the name running vertically.
+  .aui-kanban__column-header--collapsed {
+    flex-direction: column;
+    align-items: center;
+
+    .aui-kanban__column-title {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      writing-mode: vertical-rl;
+    }
+
+    .aui-kanban__column-handle {
+      display: none;
+    }
+  }
+
+  // ---- swimlanes and cells --------------------------------------------------------
+
+  .aui-kanban__lanes {
+    display: grid;
+    gap: aui.token('space-2');
+    padding-block-end: aui.token('space-2');
+  }
+
+  .aui-kanban__lane {
+    display: grid;
+    gap: aui.token('space-1');
+  }
+
+  .aui-kanban__lane-header {
+    position: sticky;
+    inset-inline-start: 0;
+    z-index: 1;
+    inline-size: max-content;
+    max-inline-size: 100%;
+    margin: 0;
+    padding-inline: aui.token('space-2');
+    font-size: aui.token('font-size-sm');
+    font-weight: aui.token('font-weight-semibold');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-kanban__lane-toggle {
+    font-weight: inherit;
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .aui-kanban__cell {
+    display: grid;
+    align-content: start;
+    min-inline-size: 0;
+    min-block-size: 4rem;
+    padding: aui.token('space-1');
+    background: aui.token('color-bg');
+    border: aui.token('border-width') dashed transparent;
+    border-radius: aui.token('radius-md');
+  }
+
+  .aui-kanban--picking .aui-kanban__cell {
+    cursor: copy;
+  }
+
+  .aui-kanban__cell--drop {
+    border-color: aui.token('color-focus-ring');
+  }
+
+  .aui-kanban__cell--no-drop {
+    border-color: aui.token('color-error-fg');
+    cursor: not-allowed;
+  }
+
+  .aui-kanban__cell--collapsed {
+    align-content: center;
+    justify-items: center;
+  }
+
+  .aui-kanban__list {
+    display: grid;
+    align-content: start;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Virtual cells scroll on their own and render only the cards in view.
+  .aui-kanban__list--virtual {
+    max-block-size: var(--aui-kanban-list-height);
+    overflow-anchor: none;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .aui-kanban__spacer {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .aui-kanban__empty,
+  .aui-kanban__summary {
+    padding: aui.token('space-2');
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-text-muted');
+    text-align: center;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-kanban__summary {
+    writing-mode: vertical-rl;
+  }
+
+  // ---- cards ------------------------------------------------------------------------
+
+  .aui-kanban__card {
+    --aui-kanban-accent: #{aui.token('color-border-strong')};
+
+    position: relative;
+    display: flex;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+    padding: aui.token('space-2') aui.token('space-2') aui.token('space-2') aui.token('space-1');
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-inline-start: 4px solid var(--aui-kanban-accent);
+    border-radius: aui.token('radius-md');
+    box-shadow: aui.token('shadow-sm');
+    cursor: pointer;
+    user-select: none;
+    transform: translate(var(--aui-kanban-drag-x, 0px), var(--aui-kanban-drag-y, 0px));
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      z-index: 1;
+      @include aui.focus-ring(1px);
+    }
+  }
+
+  // Accent stripe (palette slots; the stripe is never the only cue).
+  .aui-kanban__card--accent.aui-kanban__card--c1 {
+    --aui-kanban-accent: #{aui.token('color-chart-1')};
+  }
+
+  .aui-kanban__card--accent.aui-kanban__card--c2 {
+    --aui-kanban-accent: #{aui.token('color-chart-2')};
+  }
+
+  .aui-kanban__card--accent.aui-kanban__card--c3 {
+    --aui-kanban-accent: #{aui.token('color-chart-3')};
+  }
+
+  .aui-kanban__card--accent.aui-kanban__card--c4 {
+    --aui-kanban-accent: #{aui.token('color-chart-4')};
+  }
+
+  .aui-kanban__card--accent.aui-kanban__card--c5 {
+    --aui-kanban-accent: #{aui.token('color-chart-5')};
+  }
+
+  .aui-kanban__card--accent.aui-kanban__card--c6 {
+    --aui-kanban-accent: #{aui.token('color-chart-6')};
+  }
+
+  .aui-kanban__card--accent.aui-kanban__card--c7 {
+    --aui-kanban-accent: #{aui.token('color-chart-7')};
+  }
+
+  .aui-kanban__card--accent.aui-kanban__card--c8 {
+    --aui-kanban-accent: #{aui.token('color-chart-8')};
+  }
+
+  .aui-kanban__card--held,
+  .aui-kanban__card--picked {
+    color: aui.token('color-selected-text');
+    background: aui.token('color-selected');
+    border-color: aui.token('color-selected-text');
+
+    &:hover {
+      background: aui.token('color-selected');
+    }
+
+    &:focus-visible {
+      outline-color: aui.token('color-selected-text');
+    }
+
+    .aui-kanban__description,
+    .aui-kanban__tag {
+      color: inherit;
+    }
+  }
+
+  .aui-kanban__card--dragging {
+    z-index: 4;
+    box-shadow: aui.token('shadow-lg');
+    cursor: grabbing;
+    pointer-events: none;
+  }
+
+  .aui-kanban__card--locked {
+    border-style: solid dashed dashed solid;
+  }
+
+  .aui-kanban__card[aria-busy='true'] {
+    opacity: 0.8;
+  }
+
+  .aui-kanban__grip {
+    display: none;
+    flex: none;
+    align-self: start;
+    color: aui.token('color-text-muted');
+    cursor: grab;
+    touch-action: none;
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-kanban--editable .aui-kanban__card:not(.aui-kanban__card--locked) .aui-kanban__grip {
+    display: inline-flex;
+  }
+
+  .aui-kanban__card-body {
+    display: grid;
+    flex: 1 1 auto;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .aui-kanban__title {
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-kanban__description {
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-kanban__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+  }
+
+  .aui-kanban__tag {
+    padding: 0 aui.token('space-1');
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-text');
+    background: aui.token('color-surface-sunken');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-pill');
+  }
+
+  .aui-kanban__sep,
+  .aui-kanban__instructions {
+    @include aui.visually-hidden;
+  }
+
+  .aui-kanban__state {
+    align-self: start;
+    font-size: aui.token('font-size-xs');
+    color: aui.token('color-text-muted');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-kanban__card--held .aui-kanban__state {
+    color: inherit;
+  }
+
+  @include aui.reduced-motion {
+    .aui-kanban__card,
+    .aui-kanban__column-header {
+      transition: none;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-kanban__card {
+      forced-color-adjust: none;
+      color: CanvasText;
+      background: Canvas;
+      border-color: CanvasText;
+    }
+
+    .aui-kanban__card--held,
+    .aui-kanban__card--picked,
+    .aui-kanban__column-header--held {
+      color: HighlightText;
+      background: Highlight;
+      border-color: Highlight;
+    }
+
+    .aui-kanban__card:focus-visible,
+    .aui-kanban__tool:focus-visible,
+    .aui-kanban__column-handle:focus-visible,
+    .aui-kanban__column-toggle:focus-visible,
+    .aui-kanban__lane-toggle:focus-visible {
+      outline-color: Highlight;
+    }
+
+    .aui-kanban__cell--drop {
+      border-color: Highlight;
+    }
+
+    .aui-kanban__cell--no-drop,
+    .aui-kanban__column-header--over {
+      border-color: Mark;
+    }
+
+    .aui-kanban__tool[aria-disabled='true'] {
+      color: GrayText;
+    }
+
+    .aui-kanban__tool[aria-pressed='true'] {
+      forced-color-adjust: none;
+      color: HighlightText;
+      background: Highlight;
+    }
+  }
+}

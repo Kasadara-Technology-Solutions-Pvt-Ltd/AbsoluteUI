@@ -1,0 +1,6 @@
+[
+  { "title": "Your control stays", "text": "Wraps a native input, textarea, or select in place without cloning or re-creating it." },
+  { "title": "Complete field chrome", "text": "Adds the label, required marker, help text, and validation message with correct ARIA wiring." },
+  { "title": "Localized messages", "text": "Maps the browser's validity state to consistent AbsoluteUI messages in every browser." },
+  { "title": "Form integration", "text": "Registers with Form, so wrapped native fields validate, submit, and reset with the rest." }
+]

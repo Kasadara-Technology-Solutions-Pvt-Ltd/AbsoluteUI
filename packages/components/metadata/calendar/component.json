@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "calendar",
+  "displayName": "Calendar",
+  "category": "Form Inputs / Date and Time",
+  "package": "@absoluteui/components",
+  "import": "import { Calendar } from '@absoluteui/components/calendar';",
+  "styleImport": "@absoluteui/components/calendar/style.css",
+  "purpose": "Month grid for browsing and choosing a PlainDate, or (since 0.3.0) an inclusive date range, following the WAI-ARIA APG date picker grid: localized month heading, previous/next month buttons, a role=grid table with roving tabindex, min/max bounds, consumer-disabled days, optional outside days and ISO week numbers, and (since 0.3.0) one to three consecutive months side by side. 'Today' is the current date in the configured timezone.",
+  "whenToUse": [
+    "An always-visible calendar, for example on a booking or scheduling page.",
+    "Browsing dates where the day of week matters (appointments, deliveries).",
+    "An always-visible range calendar, for example two months on a booking page (selectionMode range, visibleMonths 2)."
+  ],
+  "whenNotToUse": [
+    "A form field for a known date such as a birth date: use Date Input.",
+    "A field with a calendar popup: use Date Picker, which composes Date Input and Calendar.",
+    "A date range field with typing and a popup: use Date Range Picker."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["default", "focused day (focus-visible)", "selected", "today", "outside day", "disabled day", "first/last navigable month (navigation button aria-disabled)", "range selected (start, in range, end)", "range pending (anchor picked, preview)"],
+  "responsive": "Intrinsic size: seven columns of control-height-sm cells (plus one for week numbers) per month. It does not stretch; place a single month in a container at least about 17rem wide or allow horizontal scrolling on very narrow screens. Several months sit side by side and wrap one below the other when the container is narrow.",
+  "rtl": "The grid and header follow the configured direction (dir is set on both). ArrowLeft/ArrowRight are mirrored, and the month chevrons are flipped so they point in the reading direction.",
+  "theme": "Surface, text, hover, primary (selected day and range ends), selected and selected-text (days in a range), border-strong (today ring), focus, and disabled role tokens. Forced-colors mode uses Highlight/HighlightText for the selected day and range ends, a dashed CanvasText outline for days in a range, a CanvasText outline for today, and GrayText for disabled days.",
+  "timezone": "Values are PlainDate (no timezone). The configured timezone (default UTC, never the host zone) is used only to determine 'today' (aria-current=date and the default focused day). The `today` option pins it for tests or server rendering.",
+  "security": "All text is produced by Intl formatting and set with textContent. No HTML parsing. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Calendar.create, per instance (100 instances)", "budget": "< 5 ms average in headless Chromium" },
+      { "metric": "Calendar.create with visibleMonths 2 and selectionMode 'range', per instance (100 instances)", "budget": "< 10 ms average in headless Chromium" }
+    ],
+    "testedScale": "One to three months (up to 42 day cells each) per instance; cells are reused across months."
+  },
+  "limitations": [
+    "Gregorian calendar only.",
+    "A range may include disabled days: only the first and last day are checked; minDays and maxDays count both days.",
+    "At most three visible months; outside days are never shown with more than one month.",
+    "'Today' is computed on render; a calendar left open across midnight updates on the next navigation or configuration change.",
+    "Week numbers are ISO 8601, taken from the Monday of each row, whatever the first day of week."
+  ],
+  "unsupported": [
+    "Custom cell content or HTML in cells.",
+    "More than three visible months.",
+    "Multiple non-contiguous dates (only single and range selection)."
+  ],
+  "antiPatterns": [
+    "Using the calendar as the only way to enter a well-known date (birth dates); provide a Date Input.",
+    "Relying on the host timezone for 'today'; configure `timezone` for the user's zone."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/calendar: AuiCalendar directive ([auiCalendar]) with ControlValueAccessor (no Validator).",
+    "react": "@absoluteui/react/calendar: AuiCalendar component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/calendar: AuiCalendar component with v-model."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

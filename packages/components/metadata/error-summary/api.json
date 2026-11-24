@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "component": "error-summary",
+  "factory": { "name": "ErrorSummary.create", "signature": "ErrorSummary.create(host: HTMLElement, options?: ErrorSummaryOptions): ErrorSummary" },
+  "configKey": "errorSummary",
+  "options": [
+    { "name": "title", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Heading text. Default: localized \"There is a problem\"." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Optional text under the heading." },
+    { "name": "icons", "type": "Partial<{ error: IconRef }>", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Heading icon override." },
+    { "name": "headingLevel", "type": "2 | 3 | 4", "default": 2, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Native heading element level." },
+    { "name": "focusOnShow", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Move focus to the summary when show() displays items. show(items, { focus }) overrides it per call." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the default heading." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; becomes the summary region." },
+    { "name": "items", "type": "readonly ErrorSummaryItem[]", "description": "Items currently shown." },
+    { "name": "isVisible", "type": "boolean", "description": "True while items are shown." }
+  ],
+  "methods": [
+    { "name": "show", "signature": "show(items: readonly ErrorSummaryItem[], options?: { focus?: boolean }): void", "description": "Replace the items and show the summary (an empty list hides it). Focuses and scrolls to the summary unless focus is false or focusOnShow is false. Throws on an empty message before changing anything." },
+    { "name": "clear", "signature": "clear(): void", "description": "Remove all items and hide the summary without moving focus." },
+    { "name": "update", "signature": "update(options: Partial<ErrorSummaryOptions>): void", "description": "Merge options and re-render the heading and description. Invalid options leave the previous options in place." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, attributes, class, and the configuration subscription; unhide the host." }
+  ],
+  "events": [
+    { "name": "aui-navigate", "detail": "{ index: number; message: string }", "bubbles": true, "cancelable": false, "description": "A summary link was activated and focus moved to its target." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-error-summary", "description": "Host (role=region, tabindex=-1)." },
+    { "name": "aui-error-summary__title", "description": "Heading (h2, h3, or h4)." },
+    { "name": "aui-error-summary__icon", "description": "Heading icon." },
+    { "name": "aui-error-summary__description", "description": "Optional text under the heading." },
+    { "name": "aui-error-summary__list", "description": "List of errors." },
+    { "name": "aui-error-summary__link", "description": "Link to a field; items without a target are plain list text." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

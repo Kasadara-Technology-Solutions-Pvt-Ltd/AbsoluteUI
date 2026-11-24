@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "component": "text-input",
+  "factory": { "name": "TextInput.create", "signature": "TextInput.create(host: HTMLElement, options: TextInputOptions): TextInput" },
+  "configKey": "textInput",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible label and accessible name." },
+    { "name": "hideLabel", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Visually hide the label; it remains the accessible name." },
+    { "name": "type", "type": "'text' | 'email' | 'url' | 'tel' | 'password' | 'search'", "default": "text", "required": false, "globallyConfigurable": false, "description": "Native input type. email and url add type validation." },
+    { "name": "value", "type": "string", "default": "", "required": false, "globallyConfigurable": false, "description": "Initial value; also the value restored by reset()." },
+    { "name": "name", "type": "string", "required": false, "globallyConfigurable": false, "description": "Form field name." },
+    { "name": "placeholder", "type": "string", "required": false, "globallyConfigurable": false, "description": "Supplementary hint; never replaces the label." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Empty value is invalid; shows the required indicator." },
+    { "name": "disabled", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Disables the input." },
+    { "name": "readOnly", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Value is focusable and submitted but not editable." },
+    { "name": "minLength", "type": "number", "required": false, "globallyConfigurable": false, "description": "Minimum length in code points." },
+    { "name": "maxLength", "type": "number", "required": false, "globallyConfigurable": false, "description": "Maximum length in code points (validated, not truncated)." },
+    { "name": "pattern", "type": "string", "required": false, "globallyConfigurable": false, "description": "HTML pattern semantics (anchored, v flag)." },
+    { "name": "showCounter", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Show remaining/over characters; requires maxLength." },
+    { "name": "autocomplete", "type": "string", "required": false, "globallyConfigurable": false, "description": "Native autocomplete token. Password default: current-password." },
+    { "name": "inputMode", "type": "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url'", "required": false, "globallyConfigurable": false, "description": "Virtual keyboard hint." },
+    { "name": "spellcheck", "type": "boolean", "required": false, "globallyConfigurable": false, "description": "Default true for type text, false otherwise." },
+    { "name": "prefix", "type": "string", "required": false, "globallyConfigurable": false, "description": "Text addon at the inline start." },
+    { "name": "suffix", "type": "string", "required": false, "globallyConfigurable": false, "description": "Text addon at the inline end." },
+    { "name": "revealable", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "description": "Password inputs: show a reveal/hide toggle button." },
+    { "name": "clipboard", "type": "'allow' | 'block-copy' | 'block-all'", "default": "allow", "required": false, "globallyConfigurable": false, "description": "Clipboard policy for sensitive values." },
+    { "name": "validate", "type": "(value: string) => string | null", "required": false, "globallyConfigurable": false, "description": "Consumer validation; return a message to mark the value invalid." },
+    { "name": "icons", "type": "Partial<{ error: IconRef; reveal: IconRef; conceal: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "validationTiming", "type": "'blur' | 'input' | 'submit'", "default": "blur", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "When validation messages first appear; afterwards they update live." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Message and number-formatting locale." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "input", "type": "HTMLInputElement", "description": "The native input." },
+    { "name": "value", "type": "string", "description": "Current value." },
+    { "name": "name", "type": "string | null", "description": "Form field name." },
+    { "name": "label", "type": "string", "description": "Label text." },
+    { "name": "disabled", "type": "boolean", "description": "Disabled state." },
+    { "name": "validity", "type": "FieldValidity", "description": "{ valid, error, message }; computed on every change." },
+    { "name": "dirty", "type": "boolean", "description": "Value differs from the initial value." },
+    { "name": "touched", "type": "boolean", "description": "Focus has left the control at least once." },
+    { "name": "options", "type": "Readonly<TextInputOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "setValue", "signature": "setValue(value: string): void", "description": "Programmatic value (no events); clears an external custom error." },
+    { "name": "update", "signature": "update(options: Partial<TextInputOptions>): void", "description": "Merge and apply options." },
+    { "name": "reportValidity", "signature": "reportValidity(): boolean", "description": "Show messages now and return validity." },
+    { "name": "setCustomError", "signature": "setCustomError(message: string | null): void", "description": "External error (server, cross-field rule); cleared when the user edits." },
+    { "name": "getFormValue", "signature": "getFormValue(): string", "description": "Value for form serialization." },
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the input." },
+    { "name": "reset", "signature": "reset(): void", "description": "Restore the initial value and clear dirty/touched/submitted state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove rendering, listeners, registration, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-input", "detail": "{ value: string; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "User edited the value." },
+    { "name": "aui-change", "detail": "{ value: string; validity: FieldValidity }", "bubbles": true, "cancelable": false, "description": "User committed the value (native change)." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-field aui-text-input", "description": "Host." },
+    { "name": "aui-text-input--invalid | --disabled", "description": "State modifiers on the host." },
+    { "name": "aui-field__label | __required | __description | __counter | __error", "description": "Shared field chrome." },
+    { "name": "aui-text-input__control", "description": "Control boundary (input, addons, reveal button)." },
+    { "name": "aui-text-input__input", "description": "Native input." },
+    { "name": "aui-text-input__addon | __prefix | __suffix", "description": "Text addons." },
+    { "name": "aui-text-input__reveal", "description": "Password reveal toggle." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" },
+    { "name": "reveal", "default": "eye" },
+    { "name": "conceal", "default": "eye-off" }
+  ]
+}

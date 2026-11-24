@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="play" data-animations="morph:on-change" data-morph-icon="pause">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M8 4.5L14 8.25L20 12L8 19.5Z" data-morph-to="M6.5 5L10 5L10 19L6.5 19Z"/>
+      <path d="M20 12L20 12L20 12L20 12Z" data-morph-to="M14 5L17.5 5L17.5 19L14 19Z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M7.5 5.4a1.5 1.5 0 0 1 2.3-1.3l10.4 6.6a1.5 1.5 0 0 1 0 2.6L9.8 19.9a1.5 1.5 0 0 1-2.3-1.3z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M8 4.5L14 8.25L20 12L8 19.5Z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M8 4.5L14 8.25L20 12L8 19.5Z"/>
+    </g>
+  </g>
+</svg>

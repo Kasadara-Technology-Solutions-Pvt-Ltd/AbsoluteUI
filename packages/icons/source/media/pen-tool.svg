@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="pen-tool">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 21l-6.5-9L9 3.5h6l3.5 8.5z"/>
+      <path d="M12 21v-7.5"/>
+      <circle cx="12" cy="12" r="1.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M12 21l-6.5-9L9 3.5h6l3.5 8.5z" transform="translate(12 12) scale(1.05) translate(-12 -12)"/>
+      <circle cx="12" cy="12" r="1.75"/>
+      <line x1="12" y1="15" x2="12" y2="17.5" data-outline-width="1.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 21l-6.5-9L9 3.5h6l3.5 8.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 21l-6.5-9L9 3.5h6l3.5 8.5z"/>
+      <path d="M12 21v-7.5"/>
+      <circle cx="12" cy="12" r="1.5"/>
+    </g>
+  </g>
+</svg>

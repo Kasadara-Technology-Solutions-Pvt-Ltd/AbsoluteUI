@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "name": "progress-bar",
+  "displayName": "Progress Bar",
+  "category": "Feedback",
+  "package": "@absoluteui/components",
+  "import": "import { ProgressBar } from '@absoluteui/components/progress-bar';",
+  "styleImport": "@absoluteui/components/progress-bar/style.css",
+  "purpose": "Determinate or indeterminate progress indicator (role=\"progressbar\") with a visible label, localized percentage value text, optional help text, and tones that never rely on color alone.",
+  "whenToUse": [
+    "Operations with measurable progress (uploads, imports, multi-step processing).",
+    "Long operations of unknown duration where a labelled indeterminate bar is clearer than a spinner."
+  ],
+  "whenNotToUse": [
+    "Short waits under about a second: use nothing, or a delayed Spinner.",
+    "Showing a static quantity or capacity (disk usage, scores): use a meter.",
+    "Placeholder layout while content loads: use Skeleton."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "indeterminate (value null)",
+    "determinate",
+    "complete (value = max)",
+    "tone: default | success | warning | error"
+  ],
+  "responsive": "Fills the inline size of its container; the label wraps and the value text stays on one line at the inline end.",
+  "rtl": "Logical properties: the fill grows from the inline start, the indeterminate sweep runs toward the inline end, and the value sits at the inline end.",
+  "theme": "Track uses color-surface-sunken with a color-border-strong boundary; fill uses color-primary or the tone foreground token. Forced-colors mode uses Highlight and CanvasText.",
+  "timezone": "Not applicable.",
+  "security": "Label, description, and value text are rendered with textContent. The fill width is written as the --aui-progress custom property through the CSSOM (CSP-safe).",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "setValue() re-render",
+        "budget": "< 1 ms in headless Chromium"
+      }
+    ],
+    "testedScale": "One bar per operation; tested with frequent setValue() calls (every animation frame)."
+  },
+  "limitations": [
+    "Completion is announced once per transition to max; values that stay at max do not re-announce. A bar created at max does not announce.",
+    "Values outside [min, max] are clamped.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Buffered/secondary progress values.",
+    "Circular (ring) progress.",
+    "Rendering HTML in the label or value text."
+  ],
+  "antiPatterns": [
+    "Announcing every value change through a live region.",
+    "Communicating success or failure by color alone (use the tone option, which adds a labelled icon).",
+    "Using a progress bar for a static measurement."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/progress-bar: AuiProgressBar directive ([auiProgressBar]).",
+    "react": "@absoluteui/react/progress-bar: AuiProgressBar component.",
+    "vue": "@absoluteui/vue/progress-bar: AuiProgressBar component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

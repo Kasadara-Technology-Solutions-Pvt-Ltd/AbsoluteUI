@@ -1,0 +1,7 @@
+[
+  { "title": "Sort and search", "text": "Multi-column sorting, a search box, and a filter row work on the client or through your server." },
+  { "title": "Selection and detail", "text": "Single or multiple row selection and expandable detail rows rendered by your code." },
+  { "title": "Grouping with totals", "text": "Group rows by any column and show totals per group." },
+  { "title": "Column control", "text": "Resize, reorder, pin, and hide columns, with a column chooser for users." },
+  { "title": "CSV export", "text": "Download all, filtered, or selected rows as CSV." }
+]

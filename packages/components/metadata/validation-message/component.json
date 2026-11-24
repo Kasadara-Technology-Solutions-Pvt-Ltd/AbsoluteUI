@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "validation-message",
+  "displayName": "Validation Message",
+  "category": "Form Infrastructure",
+  "package": "@absoluteui/components",
+  "import": "import { ValidationMessage } from '@absoluteui/components/validation-message';",
+  "styleImport": "@absoluteui/components/validation-message/style.css",
+  "purpose": "A standalone field message (error, warning, success, or info) for controls that AbsoluteUI does not render itself. It adds its id to the target's aria-describedby and, for errors, sets aria-invalid on the target. AbsoluteUI inputs render the same aui-validation-message markup internally.",
+  "whenToUse": [
+    "Messages for consumer-rendered or third-party controls that should look and behave like AbsoluteUI field messages.",
+    "Non-error field feedback such as an availability check result (success, warning, info)."
+  ],
+  "whenNotToUse": [
+    "AbsoluteUI inputs and Form Field: they render their own messages; use setCustomError() for external errors.",
+    "Form-level or page-level errors: use Error Summary.",
+    "Transient notifications: use a toast."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["hidden (empty message)", "error", "warning", "success", "info"],
+  "responsive": "Flex row of icon and text; long messages wrap anywhere.",
+  "rtl": "Follows the document direction; the icon sits at the inline start.",
+  "theme": "Tone foreground role tokens (color-error-fg, color-warning-fg, color-success-fg, color-info-fg) with a tone icon, so tone is not conveyed by color alone.",
+  "timezone": "Not applicable.",
+  "security": "The message is rendered with textContent and never parsed as HTML. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "ValidationMessage.update", "budget": "No dedicated performance test; re-renders icon and text on each update" }
+    ],
+    "testedScale": "Unit tests cover single messages linked to one target."
+  },
+  "limitations": [
+    "Not a live region: a new message is read when the user moves to the target (through aria-describedby), not when it appears.",
+    "Every update re-creates the icon element.",
+    "No locale option: the message text is consumer-provided."
+  ],
+  "unsupported": [
+    "Rendering HTML or links in the message.",
+    "Describing more than one target with one message."
+  ],
+  "antiPatterns": [
+    "Using a validation message next to an AbsoluteUI input (it duplicates the built-in message).",
+    "Relying on tone color alone; keep the message text explicit.",
+    "Using tone 'error' for advisory text; it marks the target aria-invalid."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/validation-message: AuiValidationMessage directive ([auiValidationMessage]).",
+    "react": "@absoluteui/react/validation-message: AuiValidationMessage component.",
+    "vue": "@absoluteui/vue/validation-message: AuiValidationMessage component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

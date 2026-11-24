@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "tree-select",
+  "displayName": "Tree Select",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { TreeSelect } from '@absoluteui/components/tree-select';",
+  "styleImport": "@absoluteui/components/tree-select/style.css",
+  "purpose": "Form control for choosing one or several nodes of a hierarchy: a combobox-style field (aria-haspopup=tree) whose popup is a Tree View. Typing filters the tree while keeping the paths to matches; Down Arrow moves focus into the tree. Single mode closes on choice; multiple mode uses tri-state checkboxes and shows the values as removable tags. Lazy children, a clear button, required validation, Form integration, and hidden inputs for native submission.",
+  "whenToUse": [
+    "Picking a department, cost center, location, or category from a hierarchy in a form.",
+    "Choosing several nodes of a hierarchy where checking a parent means all of its children (permissions, regions)."
+  ],
+  "whenNotToUse": [
+    "Flat option lists: use Select, Combobox, or Multi Select.",
+    "Browsing or editing a hierarchy outside a form: use Tree View.",
+    "A cascade of dependent levels shown side by side: use separate Selects."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["closed", "open", "filtering", "no matches", "loading children", "load failed", "selected", "multiple tags", "required missing", "invalid", "disabled", "read-only"],
+  "responsive": "Fills the inline size of its container; tags wrap inside the field. The popup matches the field width, flips above the field when there is no room below, and limits its height to the available space.",
+  "rtl": "The field, tags, and buttons follow the writing direction; the tree in the popup mirrors its indentation and arrow keys.",
+  "theme": "Component tokens tree-select-radius, -bg, -border-color, -padding-x, -height, -popup-radius, -popup-shadow, -tag-bg, and -tag-radius; the tree uses the Tree View tokens. Invalid fields use color-error-fg; forced colors keep boundaries visible.",
+  "timezone": "Not applicable.",
+  "security": "Labels are rendered as text; hidden inputs carry node ids as values. No HTML is parsed.",
+  "dataHandling": "No persistence, network access, or telemetry. loadChildren is the application's own function (with an AbortSignal).",
+  "performance": {
+    "budgets": [
+      { "metric": "TreeSelect.create with 5,000 nodes", "budget": "< 30 ms average in headless Chromium" },
+      { "metric": "Rendered treeitems in the popup", "budget": "visible rows + 2 x overscan + 1 (virtualized Tree View)" }
+    ],
+    "testedScale": "10,000 nodes (the popup tree is virtualized); multiple values tested with 200 tags."
+  },
+  "limitations": [
+    "Filtering searches loaded nodes only; lazy children are searched after they are loaded.",
+    "A selected id whose node is not loaded shows its valueLabels entry, or the id itself.",
+    "Multiple mode with cascade stores every checked id (parents and children); tags show the topmost fully checked node."
+  ],
+  "unsupported": [
+    "Free-text values that are not nodes.",
+    "Choosing parents only or leaves only in multiple mode (filter the value in aui-change)."
+  ],
+  "antiPatterns": [
+    "Hiding the label: the visible label is the accessible name.",
+    "Using Tree Select for a flat list of a few options: Select is faster to use."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/tree-select: AuiTreeSelect component (<aui-tree-select>), ControlValueAccessor and [(value)].",
+    "react": "@absoluteui/react/tree-select: AuiTreeSelect component.",
+    "vue": "@absoluteui/vue/tree-select: AuiTreeSelect component (v-model)."
+  },
+  "versionIntroduced": "0.13.0",
+  "deprecated": null
+}

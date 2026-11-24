@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/quarter-picker",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiQuarterPicker",
+      "description": "AbsoluteUI QuarterPicker: `<aui-quarter-picker>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-quarter-picker",
+      "exportAs": [
+        "auiQuarterPicker"
+      ],
+      "source": "generated",
+      "component": "quarter-picker",
+      "configKey": "quarterPicker",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "PlainYearQuarter | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name of the group (via aria-labelledby). Must be a non-empty string."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "min",
+          "type": "PlainYearQuarter | null",
+          "required": false,
+          "default": "null",
+          "description": "Inclusive lower bound (validation and popup). Must not be after max."
+        },
+        {
+          "name": "max",
+          "type": "PlainYearQuarter | null",
+          "required": false,
+          "default": "null",
+          "description": "Inclusive upper bound (validation and popup)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name; a hidden input carries YYYY-Qn."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text (text only) referenced by the group's aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "An empty entry is invalid (value-missing); segments are required and the required indicator is shown."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the segments and the button; the popup does not open and the value is not submitted."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Focusable and submitted, but not editable; the popup does not open."
+        },
+        {
+          "name": "validate",
+          "type": "((value: PlainYearQuarter | null) => string | null)",
+          "required": false,
+          "description": "Consumer validation after the built-in checks; return a non-empty message to mark the value invalid (error 'custom')."
+        },
+        {
+          "name": "isQuarterDisabled",
+          "type": "((value: PlainYearQuarter) => boolean)",
+          "required": false,
+          "description": "Return true to disable a quarter: focusable in the popup but not selectable; typed, it is invalid (error 'unavailable')."
+        },
+        {
+          "name": "today",
+          "type": "PlainDate",
+          "required": false,
+          "description": "Advanced: fixed today instead of the current date in timezone; it decides the current quarter. For tests, server rendering, and demos with a fixed clock."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<PeriodPickerIcons>",
+          "required": false,
+          "description": "Icon slot overrides: calendar, previous, next, error."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Close the popup after a quarter is picked."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Selects the quarterPicker messages (segment pattern, value, cell text and labels), month names in hints, numbers, and messages. A change rebuilds the segments and keeps the entry."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "Zone used only to determine the current quarter (aria-current and default focus)."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Popup and grid direction: grid arrow-key mirroring, chevrons, and popup alignment (applied when the popup opens)."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "PlainYearQuarter | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "QuarterPickerChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the value or its validity error (typing, stepping, a separator, or picking a quarter)."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "The popup opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "The popup closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isOpen",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the popup is open."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Open the popup and focus the selected quarter (or the current quarter), clamped to min/max. No-op when open, disabled, or read-only."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Close the popup; focus inside it returns to the button."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now (for every validation timing) and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); null or '' clears it; cleared when the user edits."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "YYYY-Qn, or null when the value is null."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the first segment."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Close, restore the initial value, and clear dirty/touched/submitted state (no events)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Segmented quarter field in a labelled group with a button that opens a non-modal dialog popup (WAI-ARIA APG date picker dialog pattern, non-modal variant) containing a paged role=grid of quarters with a roving tabindex.",
+        "source": "packages/components/metadata/quarter-picker/accessibility.json"
+      },
+      "limitations": [
+        "Calendar quarters only (Q1 is January to March); a fiscal-year start is not supported.",
+        "Gregorian calendar only; years 1 to 9999.",
+        "Only ASCII digits are accepted in segments; other characters are removed.",
+        "Segment order and literals come from the `pattern` message, not from Intl; locales without registered quarterPicker messages use the English pattern and labels.",
+        "Single quarters only; ranges need two pickers. The popup has no Cancel/OK buttons: picking commits.",
+        "Segment arrow navigation follows visual order and is not mirrored in RTL, because segments render as an LTR run.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { plainYearQuarter, type PlainYearQuarter } from '@absoluteui/core';\nimport { AuiQuarterPicker } from '@absoluteui/angular/quarter-picker';\n\n@Component({\n  selector: 'app-report',\n  imports: [ReactiveFormsModule, AuiQuarterPicker],\n  template: `<aui-quarter-picker label=\"Reporting quarter\" [min]=\"min\" [required]=\"true\" [formControl]=\"quarter\"></aui-quarter-picker>`,\n})\nexport class ReportComponent {\n  readonly min = plainYearQuarter(2024, 1);\n  readonly quarter = new FormControl<PlainYearQuarter | null>(null, { validators: [Validators.required] });\n}"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="schedule" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3" y="6" width="10" height="9" rx="1.5"/>
+      <path d="M6 4v3"/>
+      <path d="M10 4v3"/>
+      <path d="M3 9.5h10"/>
+      <path d="M16 7.5h5"/>
+      <path d="M16 11.5h5"/>
+      <path d="M3 19h18"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="3" y="6" width="10" height="9" rx="1.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3" y="6" width="10" height="9" rx="1.5"/>
+      <path d="M6 4v3"/>
+      <path d="M10 4v3"/>
+      <path d="M3 9.5h10"/>
+      <path d="M16 7.5h5"/>
+      <path d="M16 11.5h5"/>
+      <path d="M3 19h18"/>
+    </g>
+  </g>
+</svg>

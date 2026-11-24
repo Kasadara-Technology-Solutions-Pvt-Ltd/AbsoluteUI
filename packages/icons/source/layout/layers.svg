@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="layers" data-animations="reveal:on-change">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3.5l9 4.5-9 4.5-9-4.5z"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="stroke">
+      <path d="M3 12l9 4.5 9-4.5"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M3 16l9 4.5 9-4.5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M12 3.5l9 4.5-9 4.5-9-4.5z" transform="translate(12 8) scale(1.08) translate(-12 -8)"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <polyline points="3 12.5 12 17 21 12.5" data-outline-width="2"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="fill">
+      <polyline points="3 16.5 12 21 21 16.5" data-outline-width="2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 3.5l9 4.5-9 4.5-9-4.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3.5l9 4.5-9 4.5-9-4.5z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M3 12l9 4.5 9-4.5"/>
+      <path d="M3 16l9 4.5 9-4.5"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.35">
+      <path d="M12 3.5l9 4.5-9 4.5-9-4.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3.5l9 4.5-9 4.5-9-4.5z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M3 12l9 4.5 9-4.5"/>
+      <path d="M3 16l9 4.5 9-4.5"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "name": "time-picker",
+  "displayName": "Time Picker",
+  "category": "Form Inputs",
+  "package": "@absoluteui/components",
+  "import": "import { TimePicker } from '@absoluteui/components/time-picker';",
+  "styleImport": "@absoluteui/components/time-picker/style.css",
+  "purpose": "Enter a wall-clock time of day (PlainTime) in locale-ordered hour, minute, optional second, and day-period segments, or choose one from a listbox of suggested times at a fixed step between optional min and max bounds, with localized validation and native form submission as HH:MM or HH:MM:SS.",
+  "whenToUse": [
+    "A time of day that is not tied to a specific date or timezone: opening hours, a daily reminder, a recurring meeting time.",
+    "The time part of a composite date-time entry, combined with a date and a zone by consumer code or a date-time picker.",
+    "Users should be able to both type a time quickly and pick from common times (for example every 30 minutes)."
+  ],
+  "whenNotToUse": [
+    "An exact moment in time (an instant): use Date Input with minute granularity, which resolves the wall-clock time in an explicit timezone.",
+    "Durations or elapsed times (for example 1 h 30 min): use Number Input or a dedicated duration field.",
+    "A handful of fixed slots that should stay visible: use Radio Group or Select.",
+    "Time ranges that cross midnight in one control: use two pickers and a cross-field rule."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["default", "segment focused", "filled", "incomplete", "open", "option active", "option selected", "disabled", "read-only", "required", "invalid"],
+  "responsive": "The group hugs its segments and the button, up to 100% of the container; segments wrap inside the group in very narrow containers. The listbox is at least as wide as the group, flips above when space below is insufficient, and caps its height to the available space. Density tokens adjust the control height.",
+  "rtl": "Segment order comes from the locale's Intl pattern. Digits and segments render as an LTR-isolated run in every direction (times read left to right), and ArrowLeft/ArrowRight follow that visual order. The button sits at the inline end and the listbox aligns to the inline start of the group (direction option or inherited global direction).",
+  "theme": "Control surface, border, focus, error, selected, hover, and sunken-surface role tokens. The focused segment uses the selected pair; the active option has a focus-ring outline, so it is not conveyed by color alone. Forced-colors mode uses Highlight for the focused segment and the active and selected options.",
+  "timezone": "Not timezone-bound. The value is a PlainTime (wall-clock time of day, SPEC section 8.4) with no date or zone; formatting uses the locale and hour cycle only and never reads the host machine's timezone. Combining it with a date and a timezone is the job of a date-time picker or consumer code.",
+  "security": "Label, help text, day periods, option labels, and messages are rendered with textContent. Validation messages never include the entered value; range messages include only the configured bounds. CSP-safe: positioning writes styles through the CSSOM.",
+  "dataHandling": "No persistence, network access, or telemetry. A hidden input carries HH:MM (HH:MM:SS at second granularity) for native form submission when `name` is set; it is empty while the entry is empty or invalid, and disabled (not submitted) while the picker is disabled.",
+  "performance": {
+    "budgets": [
+      { "metric": "open() with step 1 (1,440 suggestions)", "budget": "< 100 ms in headless Chromium" }
+    ],
+    "testedScale": "1,440 suggestions (step 1 over a whole day) in the unit test."
+  },
+  "limitations": [
+    "min must not be after max: ranges that cross midnight are not supported.",
+    "Suggestions are built on open and are not virtualized; the maximum is 1,440 (step 1).",
+    "Typed values do not have to align with step; step only controls the suggestions.",
+    "Only ASCII digits are accepted in segments; locale digits (for example Arabic-Indic) are not parsed.",
+    "Day periods whose localized forms share a first character (for example Korean 오전/오후) need the full text, Latin a/p, or ArrowUp/ArrowDown.",
+    "Milliseconds are not supported; values must have millisecond 0."
+  ],
+  "unsupported": [
+    "Rendering HTML in the label, help text, options, or messages.",
+    "Timezone conversion or DST handling (the value has no zone).",
+    "Custom suggestion lists or disabled individual suggestions."
+  ],
+  "antiPatterns": [
+    "Using a Time Picker for an exact instant and then interpreting it in the browser's local timezone.",
+    "Storing the displayed 12-hour text instead of the PlainTime or its HH:MM form value.",
+    "Very small steps (for example 1 minute) when users mostly pick common times; prefer typing for precision."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/time-picker: AuiTimePicker directive ([auiTimePicker]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/time-picker: AuiTimePicker component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/time-picker: AuiTimePicker component with v-model."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

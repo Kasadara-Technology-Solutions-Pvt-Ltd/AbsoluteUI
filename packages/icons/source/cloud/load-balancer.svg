@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="load-balancer">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3v6"/>
+      <path d="M12 9l-7 6v4"/>
+      <path d="M12 9v10"/>
+      <path d="M12 9l7 6v4"/>
+      <path d="M3 17l2 2 2-2"/>
+      <path d="M10 17l2 2 2-2"/>
+      <path d="M17 17l2 2 2-2"/>
+    </g>
+  </g>
+</svg>

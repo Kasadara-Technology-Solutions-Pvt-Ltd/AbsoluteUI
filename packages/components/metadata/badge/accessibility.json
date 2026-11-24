@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "badge",
+  "pattern": "Static text: no role; the label is read in document order with the content it classifies.",
+  "roles": [
+    { "element": "host", "role": "none (inline text)" },
+    { "element": "dot and icon", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-hidden", "element": "dot and icon", "value": "true (decorative)" }
+  ],
+  "keyboard": [
+    { "key": "None", "context": "Any", "action": "Not focusable; read in document order by assistive technology." }
+  ],
+  "focus": "Never receives or moves focus.",
+  "wcag": ["1.3.1", "1.4.1", "1.4.3", "1.4.11"],
+  "notes": [
+    "The label carries the meaning; tone colors, the dot, and the icon are decorative, so meaning never depends on color alone.",
+    "A badge that changes while the user works is not announced; use Inline Message with live set for that."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

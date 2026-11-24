@@ -1,0 +1,6 @@
+[
+  { "title": "Segmented time entry", "text": "Hour and minute segments, with optional seconds." },
+  { "title": "Suggested times", "text": "A list of times in configurable steps for quick picking." },
+  { "title": "12 or 24 hours", "text": "The clock follows the locale or a fixed hour cycle." },
+  { "title": "Limits and validation", "text": "Earliest and latest times, required checks, and custom validation." }
+]

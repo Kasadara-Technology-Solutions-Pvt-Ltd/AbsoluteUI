@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "breadcrumb",
+  "displayName": "Breadcrumb",
+  "category": "Navigation",
+  "package": "@absoluteui/components",
+  "import": "import { Breadcrumb } from '@absoluteui/components/breadcrumb';",
+  "styleImport": "@absoluteui/components/breadcrumb/style.css",
+  "purpose": "WAI-ARIA APG Breadcrumb: a labelled <nav> with an ordered list of links to the current page's ancestors, the current page marked with aria-current, optional collapsing behind an expander, validated hrefs, and a cancelable navigate event for client-side routers.",
+  "whenToUse": [
+    "Hierarchical sites or apps where users benefit from seeing and jumping to ancestor pages.",
+    "Deep pages reached from search or links, to show where the page sits."
+  ],
+  "whenNotToUse": [
+    "Flat sites with one or two levels.",
+    "Showing browsing history (breadcrumbs show hierarchy, not the path taken).",
+    "Sequential processes: use a stepper."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["default", "hover", "focus-visible", "current page", "collapsed", "expanded"],
+  "responsive": "Items wrap onto multiple lines; long labels break (overflow-wrap: anywhere). Use maxItems to collapse long trails on small screens.",
+  "rtl": "Logical layout follows the document direction. The chevron separator is mirrored when direction is rtl (configured) or the element is in an rtl context (:dir(rtl)).",
+  "theme": "Links use color-link with an underline; the current page uses color-text and medium weight; separators use color-text-muted. Forced-colors mode uses LinkText and a ButtonText border on the expander.",
+  "timezone": "Not applicable.",
+  "security": "Labels are rendered with textContent. Hrefs are parsed with the URL standard against document.baseURI; only http(s) and scheme-less (relative, path-absolute, query, fragment) URLs are accepted, so javascript:, data:, and other schemes are rejected with a configuration error that does not echo the value. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry. Navigation is native link navigation unless aui-navigate is prevented.",
+  "performance": {
+    "budgets": [
+      { "metric": "Breadcrumb.create with 10 items", "budget": "< 1 ms in headless Chromium" }
+    ],
+    "testedScale": "Trails of up to 6 items in the unit tests."
+  },
+  "limitations": [
+    "Collapsing is by item count (maxItems), not by measured width.",
+    "An expanded trail stays expanded until the items change."
+  ],
+  "unsupported": [
+    "Dropdown menus of collapsed items (the expander reveals them in place).",
+    "Rendering HTML in labels.",
+    "Hrefs with schemes other than http and https."
+  ],
+  "antiPatterns": [
+    "Linking the current page (keep linkCurrent false unless the page has distinct sub-states).",
+    "Using breadcrumbs as the only navigation.",
+    "Truncating labels so ancestors become ambiguous."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/breadcrumb: AuiBreadcrumb directive ([auiBreadcrumb]).",
+    "react": "@absoluteui/react/breadcrumb: AuiBreadcrumb component.",
+    "vue": "@absoluteui/vue/breadcrumb: AuiBreadcrumb component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

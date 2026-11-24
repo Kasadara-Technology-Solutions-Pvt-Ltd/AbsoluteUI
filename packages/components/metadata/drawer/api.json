@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "component": "drawer",
+  "factory": { "name": "Drawer.create", "signature": "Drawer.create(options: DrawerOptions, doc?: Document): Drawer" },
+  "configKey": "drawer",
+  "options": [
+    { "name": "title", "type": "string", "required": true, "globallyConfigurable": false, "description": "Accessible name, rendered as the heading." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Referenced by aria-describedby." },
+    { "name": "content", "type": "Node | string", "required": false, "globallyConfigurable": false, "description": "Body content; strings render as text." },
+    { "name": "actions", "type": "readonly DrawerAction[]", "required": false, "globallyConfigurable": false, "description": "Footer buttons; clicking closes with the action value." },
+    { "name": "modal", "type": "boolean", "default": true, "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "true: showModal() with inert background, backdrop and scroll lock. false: show(); background stays interactive (supplementary panels only)." },
+    { "name": "icons", "type": "Partial<{ close: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "placement", "type": "'start' | 'end' | 'top' | 'bottom'", "default": "end", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Screen edge; start/end follow the writing direction." },
+    { "name": "size", "type": "'sm' | 'md' | 'lg'", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Inline size for side drawers; maximum block size (capped at 85dvh) for top/bottom." },
+    { "name": "closeOnEscape", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Escape requests close (cancelable) when the drawer is the topmost overlay." },
+    { "name": "closeOnBackdrop", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Backdrop click requests close (cancelable). Modal only." },
+    { "name": "showCloseButton", "type": "boolean", "default": true, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Render the header close button." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Maps start/end placement to a physical edge; applied as the element's dir." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLDialogElement", "description": "The native dialog element." },
+    { "name": "body", "type": "HTMLDivElement", "description": "Consumer content area." },
+    { "name": "isOpen", "type": "boolean", "description": "Whether the drawer is open." },
+    { "name": "modal", "type": "boolean", "description": "Whether the drawer was created modal." }
+  ],
+  "methods": [
+    { "name": "open", "signature": "open(): void", "description": "Open (modal: showModal() and scroll lock; non-modal: show()); moves focus inside and captures focus for restoration." },
+    { "name": "close", "signature": "close(returnValue?: string): void", "description": "Close programmatically (not cancelable)." },
+    { "name": "update", "signature": "update(options: DrawerUpdateOptions): void", "description": "Merge and apply options (all except modal)." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Close if open, remove element, listeners, overlay registration, subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-open", "detail": "null", "bubbles": false, "cancelable": false, "description": "After the drawer opened." },
+    { "name": "aui-cancel", "detail": "{ returnValue: string; reason: 'escape' | 'backdrop' | 'close-button' | 'action' }", "bubbles": false, "cancelable": true, "description": "Before a user-initiated close; preventDefault keeps it open." },
+    { "name": "aui-close", "detail": "{ returnValue: string; reason: DrawerCloseReason }", "bubbles": false, "cancelable": false, "description": "After the drawer closed." }
+  ],
+  "contentAreas": [
+    { "name": "body", "description": "Drawer.body (or `content` option)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-drawer", "description": "Native <dialog> element; data-aui-side holds the physical edge (left | right | top | bottom)." },
+    { "name": "aui-drawer--modal | --non-modal", "description": "Modality modifiers." },
+    { "name": "aui-drawer--start | --end | --top | --bottom", "description": "Logical placement modifiers." },
+    { "name": "aui-drawer--sm | --md | --lg", "description": "Size modifiers." },
+    { "name": "aui-drawer__header", "description": "Title row with close button." },
+    { "name": "aui-drawer__title", "description": "Heading (h2)." },
+    { "name": "aui-drawer__close", "description": "Close button." },
+    { "name": "aui-drawer__description", "description": "Description paragraph." },
+    { "name": "aui-drawer__body", "description": "Scrollable content area." },
+    { "name": "aui-drawer__footer", "description": "Action buttons." }
+  ],
+  "iconSlots": [
+    { "name": "close", "default": "close" }
+  ]
+}

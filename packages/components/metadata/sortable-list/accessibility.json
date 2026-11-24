@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "component": "sortable-list",
+  "pattern": "Reorderable list with a toggle-button grab handle per item and live-region announcements (keyboard drag-and-drop pattern). Native list semantics; no ARIA drag-and-drop attributes (aria-grabbed and aria-dropeffect are deprecated).",
+  "roles": [
+    { "element": "<ul>", "role": "list (native)" },
+    { "element": "<li>", "role": "listitem (native)" },
+    { "element": "handle <button>", "role": "button (native, toggle through aria-pressed)" },
+    { "element": "instructions <p>", "role": "none (visually hidden description)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "<ul>", "value": "`label` option" },
+    { "attribute": "aria-label", "element": "handle", "value": "Localized 'Reorder {label}'" },
+    { "attribute": "aria-pressed", "element": "handle", "value": "true while the item is grabbed or dragged, false otherwise" },
+    { "attribute": "aria-describedby", "element": "handle", "value": "id of the visually hidden instructions paragraph" },
+    { "attribute": "disabled", "element": "handle", "value": "Native disabled for disabled items or a disabled list (removed from the tab order)" },
+    { "attribute": "live region", "element": "shared assertive live region (data-aui-live-region='assertive')", "value": "Grabbed / moved / dropped / canceled announcements" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Not grabbed", "action": "Moves between handle buttons (one per enabled item) and interactive item content in document order." },
+    { "key": "Space / Enter", "context": "Handle focused, nothing grabbed, item movable", "action": "Grabs the item (aria-pressed=true); announces 'Grabbed {label}. Current position {position} of {count}.'" },
+    { "key": "Space / Enter", "context": "Grabbed item's handle focused", "action": "Drops the item; announces 'Dropped {label} at position {position} of {count}.'; emits aui-change when the position changed." },
+    { "key": "ArrowUp / ArrowLeft", "context": "Item grabbed", "action": "Moves the item one position toward the start (stops at the first); announces '{label} moved to position {position} of {count}.'" },
+    { "key": "ArrowDown / ArrowRight", "context": "Item grabbed", "action": "Moves the item one position toward the end (stops at the last); announces the new position." },
+    { "key": "Home / End", "context": "Item grabbed", "action": "Moves the item to the first / last position." },
+    { "key": "Escape", "context": "Item grabbed", "action": "Cancels: the item returns to its original position; announces 'Reorder canceled. {label} returned to position {position} of {count}.' Consumed before the overlay stack, so an enclosing dialog stays open." },
+    { "key": "Escape", "context": "Pointer drag in progress", "action": "Cancels the drag and restores the original order; consumed before the overlay stack." },
+    { "key": "Tab / Shift+Tab", "context": "Item grabbed", "action": "Focus leaves the handle, which cancels the reorder (announced)." },
+    { "key": "Other keys", "context": "Item grabbed", "action": "Swallowed (preventDefault) so they do not scroll or type. Keys with Alt, Ctrl, or Meta are ignored by the component." }
+  ],
+  "focus": "Focus stays on the grabbed item's handle throughout a keyboard move because the item element never leaves the DOM (its siblings are moved around it). Leaving the handle (Tab, click elsewhere, window blur) cancels the reorder. Disabled handles are not focusable.",
+  "wcag": ["1.3.1", "2.1.1", "2.4.3", "2.4.7", "2.5.7", "4.1.2", "4.1.3"],
+  "notes": [
+    "Dragging is never the only way to reorder (WCAG 2.5.7): the keyboard path on the handle button works with a single pointer too (activate the handle, then use keys), and move() supports custom move-to controls.",
+    "The grabbed state is conveyed by aria-pressed, a selected background, and a border (not color alone); forced-colors mode uses Highlight.",
+    "Instructions are exposed as the handle's accessible description, not repeated in every announcement.",
+    "Announcements go through the shared assertive live region, which follows an open modal dialog so messages inside dialogs are not lost."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending.",
+    "Some screen readers intercept Space, Enter, and arrow keys in browse mode; users may need focus/forms mode on the handle.",
+    "Pointer drags announce every position change assertively, which can be verbose."
+  ]
+}

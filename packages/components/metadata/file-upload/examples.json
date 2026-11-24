@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "file-upload",
+  "examples": [
+    {
+      "id": "attachments",
+      "title": "Multiple attachments with limits",
+      "language": "ts",
+      "code": "import { FileUpload } from '@absoluteui/components/file-upload';\n\nconst host = document.querySelector<HTMLElement>('#attachments');\nif (host) {\n  const upload = FileUpload.create(host, {\n    label: 'Attachments',\n    name: 'attachments',\n    multiple: true,\n    acceptTypes: ['application/pdf', 'image/*'],\n    acceptExtensions: ['.pdf', '.png', '.jpg'],\n    maxFileSize: 5_000_000,\n    maxFiles: 3,\n  });\n  upload.host.addEventListener('aui-change', () => {\n    const data = new FormData();\n    for (const file of upload.getFormValue()) data.append('attachments', file);\n  });\n}"
+    },
+    {
+      "id": "single-avatar",
+      "title": "Single image without a drop zone",
+      "language": "ts",
+      "code": "import { FileUpload } from '@absoluteui/components/file-upload';\n\nconst host = document.querySelector<HTMLElement>('#avatar');\nif (host) {\n  FileUpload.create(host, { label: 'Profile photo', required: true, acceptTypes: ['image/png', 'image/jpeg'], maxFileSize: 2_000_000, dropZone: false });\n}"
+    }
+  ]
+}

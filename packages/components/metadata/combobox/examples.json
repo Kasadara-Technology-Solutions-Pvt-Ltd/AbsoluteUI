@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "combobox",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Single selection in a form",
+      "language": "ts",
+      "code": "import { Combobox, type ComboboxChangeDetail } from '@absoluteui/components/combobox';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst country = Combobox.create(host, {\n  label: 'Country',\n  name: 'country',\n  options: [\n    { value: 'in', label: 'India' },\n    { value: 'jp', label: 'Japan' },\n    { value: 'de', label: 'Germany' },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<ComboboxChangeDetail>).detail;\n  country.update({ invalid: value === null });\n});"
+    },
+    {
+      "id": "validation",
+      "title": "Required with an error message",
+      "language": "ts",
+      "code": "import { Combobox } from '@absoluteui/components/combobox';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nCombobox.create(host, {\n  label: 'Priority',\n  required: true,\n  invalid: true,\n  errorMessage: 'Choose a priority.',\n  options: [\n    { value: 'high', label: 'High' },\n    { value: 'low', label: 'Low' },\n  ],\n});"
+    }
+  ]
+}

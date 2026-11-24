@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/signature-pad",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiSignaturePad",
+      "description": "AbsoluteUI SignaturePad: `<aui-signature-pad>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-signature-pad",
+      "exportAs": [
+        "auiSignaturePad"
+      ],
+      "source": "generated",
+      "component": "signature-pad",
+      "configKey": "signaturePad",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "SignaturePadValue"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label (required accessible name)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text, referenced by the pad group and the typed field."
+        },
+        {
+          "name": "penColor",
+          "type": "string",
+          "required": false,
+          "description": "Pen color (CSS color); default the --aui-signature-pad-ink token."
+        },
+        {
+          "name": "height",
+          "type": "string",
+          "required": false,
+          "default": "10rem",
+          "description": "Pad height (CSS length)."
+        },
+        {
+          "name": "typedFont",
+          "type": "string",
+          "required": false,
+          "description": "Font family for typed signatures (default a cursive family)."
+        },
+        {
+          "name": "mode",
+          "type": "\"type\" | \"draw\"",
+          "required": false,
+          "default": "draw",
+          "description": "Initial mode."
+        },
+        {
+          "name": "submit",
+          "type": "SignatureFormat",
+          "required": false,
+          "default": "png",
+          "description": "Hidden input format: 'png' or 'svg' data URL."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "A signature must be given."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable the control."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the signature without editing controls."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name (hidden input with the data URL)."
+        },
+        {
+          "name": "validate",
+          "type": "((value: SignaturePadValue) => string | null)",
+          "required": false,
+          "description": "Consumer validation; return a message to mark the value invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<SignaturePadIcons>",
+          "required": false,
+          "description": "Undo, clear, and validation icons."
+        },
+        {
+          "name": "penWidth",
+          "type": "number",
+          "required": false,
+          "default": "2.5",
+          "configurable": true,
+          "description": "Base stroke width in CSS pixels (0.5 to 20)."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages appear."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the messages."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "SignaturePadValue",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "SignaturePadValueDetail",
+          "event": "aui-change",
+          "description": "After a stroke, a typed change, undo, clear, or a mode switch: { value, validity }."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "undo",
+          "signature": "undo(): void",
+          "description": "Remove the last stroke."
+        },
+        {
+          "name": "clear",
+          "signature": "clear(): void",
+          "description": "Remove the signature."
+        },
+        {
+          "name": "toDataURL",
+          "signature": "toDataURL(format?: SignatureFormat | undefined): string | undefined",
+          "description": "PNG (device pixel ratio, transparent) or SVG data URL."
+        },
+        {
+          "name": "toSVG",
+          "signature": "toSVG(): string | undefined",
+          "description": "SVG markup of the signature."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "The submitted data URL, or null when empty."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "Show or clear an external error."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the mode buttons (draw) or the typed field (type)."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear the validation state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "A labelled group with a Draw/Type pair of toggle buttons (aria-pressed), the canvas as role=img whose name describes its content, a native text field for the typed-name alternative, and undo and clear buttons. Drawing is pointer-only, so the typed mode provides the keyboard and screen-reader path (WCAG 2.1.1, 2.5.7).",
+        "source": "packages/components/metadata/signature-pad/accessibility.json"
+      },
+      "limitations": [
+        "The default ink color is read when drawing; after a theme change, a resize or update() redraws with the new color.",
+        "Exported PNGs have a transparent background."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { SignaturePadValue } from '@absoluteui/components/signature-pad';\nimport { AuiSignaturePad } from '@absoluteui/angular/signature-pad';\n\n@Component({\n  selector: 'app-offer-signature',\n  imports: [AuiSignaturePad],\n  template: `<aui-signature-pad label=\"Signature\" [required]=\"true\" [(value)]=\"signature\"></aui-signature-pad>`,\n})\nexport class OfferSignatureComponent {\n  signature: SignaturePadValue = null;\n}"
+    }
+  ]
+}

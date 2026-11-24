@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "name": "avatar",
+  "displayName": "Avatar",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { Avatar } from '@absoluteui/components/avatar';",
+  "styleImport": "@absoluteui/components/avatar/style.css",
+  "purpose": "Picture of a person or entity with fallbacks: the image, then initials from the name, then an optional icon. One image to assistive technology, named after the person and their presence status; decorative when the name is shown next to it.",
+  "whenToUse": [
+    "Identifying people in lists, comments, assignments, and headers.",
+    "Showing presence (online, away, busy, offline) next to a person."
+  ],
+  "whenNotToUse": [
+    "Several people on one record: use Avatar Group.",
+    "Content images or logos that are not identities: use an img element."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons"],
+  "states": ["image", "initials", "icon", "xs", "sm", "md", "lg", "xl", "circle", "square", "online", "away", "busy", "offline", "decorative"],
+  "responsive": "Fixed size per size step (1.5rem to 4rem); initials and the status dot scale with it.",
+  "rtl": "The status dot sits at the bottom inline-end corner (mirrored in RTL).",
+  "theme": "Initials use component tokens avatar-fg on avatar-bg (contrast gate pair); avatar-square-radius for the square shape. Status dots use color-success-fg, color-warning-fg, color-error-fg, and color-text-muted, each with its own shape (busy has a bar, offline is hollow). Forced-colors mode draws a CanvasText boundary.",
+  "timezone": "Not applicable.",
+  "security": "src is validated: http(s), relative, blob:, or base64 data URLs of PNG, JPEG, GIF, WebP, or AVIF images; javascript:, SVG data URLs, and other schemes are rejected. The image has an empty alt, no referrer, and lazy loading. Names are rendered with textContent.",
+  "dataHandling": "Only the img element loads src (no-referrer). No persistence, other network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Avatar.create, per instance", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "Unit-tested per instance; one avatar per row in lists of thousands is expected."
+  },
+  "limitations": [
+    "A failed image is not retried until src changes.",
+    "Initials use the first and last word of the name; names written family-name-first show those initials in that order."
+  ],
+  "unsupported": [
+    "Uploading or cropping images.",
+    "Clickable avatars (wrap the avatar in a link or button that carries the name)."
+  ],
+  "antiPatterns": [
+    "Showing presence by color alone without the status in text where it matters.",
+    "Reading the name twice: set decorative when the name is printed beside the avatar."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/avatar: AuiAvatar component (<aui-avatar>).",
+    "react": "@absoluteui/react/avatar: AuiAvatar component.",
+    "vue": "@absoluteui/vue/avatar: AuiAvatar component."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

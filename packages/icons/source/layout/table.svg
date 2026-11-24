@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="table">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3" y="4" width="18" height="16" rx="2"/>
+      <path d="M3 9h18"/>
+      <path d="M3 14.5h18"/>
+      <path d="M9.5 9v11"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <rect x="2.5" y="3.5" width="19" height="17" rx="2.5"/>
+      <rect x="4.5" y="10" width="4" height="3.5" rx="0.5"/>
+      <rect x="10.5" y="10" width="9" height="3.5" rx="0.5"/>
+      <rect x="4.5" y="15.5" width="4" height="3" rx="0.5"/>
+      <rect x="10.5" y="15.5" width="9" height="3" rx="0.5"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M3 9V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="3" y="4" width="18" height="16" rx="2"/>
+      <path d="M3 9h18"/>
+      <path d="M3 14.5h18"/>
+      <path d="M9.5 9v11"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+[
+  { "title": "Snap points", "text": "Opens at set heights that users switch between by dragging or with the keyboard." },
+  { "title": "Drag to dismiss", "text": "Dragging down closes the sheet, and a close button is always there as well." },
+  { "title": "Modal or not", "text": "Modal sheets make the page inert; non-modal ones leave it usable." },
+  { "title": "Cancelable close", "text": "Escape, backdrop, and drag-down raise a cancel event you can veto." }
+]

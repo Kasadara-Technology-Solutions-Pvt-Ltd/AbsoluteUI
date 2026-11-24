@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "component": "validation-message",
+  "factory": { "name": "ValidationMessage.create", "signature": "ValidationMessage.create(host: HTMLElement, options?: ValidationMessageOptions): ValidationMessage" },
+  "configKey": "validationMessage",
+  "options": [
+    { "name": "message", "type": "string", "default": "", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Message text. Empty hides the message and unlinks the target." },
+    { "name": "tone", "type": "'error' | 'warning' | 'success' | 'info'", "default": "error", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Visual tone and icon. Only 'error' sets aria-invalid on the target." },
+    { "name": "for", "type": "HTMLElement | null", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Control described by the message: receives the host id in aria-describedby while a message is shown, and aria-invalid for errors." },
+    { "name": "icons", "type": "Partial<{ error: IconRef; warning: IconRef; success: IconRef; info: IconRef }>", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Icon overrides per tone." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; receives an id if it has none." },
+    { "name": "message", "type": "string", "description": "Current message ('' when hidden)." },
+    { "name": "tone", "type": "ValidationMessageTone", "description": "Current tone." }
+  ],
+  "methods": [
+    { "name": "setMessage", "signature": "setMessage(message: string, tone?: ValidationMessageTone): void", "description": "Set the message and optionally the tone." },
+    { "name": "clear", "signature": "clear(): void", "description": "Hide the message and unlink the target." },
+    { "name": "update", "signature": "update(options: Partial<ValidationMessageOptions>): void", "description": "Merge and apply options; throws before changing anything on an invalid tone or target." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Unlink the target, remove rendering and classes, and unhide the host." }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-validation-message", "description": "Host (also used by the built-in field error element)." },
+    { "name": "aui-validation-message--error | --warning | --success | --info", "description": "Tone modifiers." },
+    { "name": "aui-validation-message__icon", "description": "Tone icon." },
+    { "name": "aui-validation-message__text", "description": "Message text." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" },
+    { "name": "warning", "default": "alert-triangle" },
+    { "name": "success", "default": "check-circle" },
+    { "name": "info", "default": "info" }
+  ]
+}

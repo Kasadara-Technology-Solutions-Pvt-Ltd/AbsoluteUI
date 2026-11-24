@@ -1,0 +1,372 @@
+{
+  "schemaVersion": 1,
+  "component": "histogram",
+  "factory": {
+    "name": "Histogram.create",
+    "signature": "Histogram.create(host: HTMLElement, options: HistogramOptions): Histogram"
+  },
+  "configKey": "histogram",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby)."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visually hide the title; it stays the accessible name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Replaces the generated accessible summary (aria-describedby)."
+    },
+    {
+      "name": "valueFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Number format of bin boundaries (x axis ticks, bar labels, tooltips, table, summary) when binFormat is not set. Counts always use the plain locale number format."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom text for bin boundaries (x axis ticks included) when binFormat is not set. Counts are not affected."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Accepted and validated (string[]) for the shared chart contract; a histogram has one data set, so it has no effect."
+    },
+    {
+      "name": "values",
+      "type": "readonly (number | null)[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Raw values to bin; null, NaN, and infinities are ignored (counted as missing)."
+    },
+    {
+      "name": "bins",
+      "type": "'auto' | number | readonly number[]",
+      "default": "auto",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "auto: Sturges' rule on nice boundaries; a number (integer 1-500): about that many bins on nice boundaries; an array: 2-501 ascending thresholds (bin edges)."
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Lower edge of the binned domain (finite); with auto or count bins it becomes the exact first edge. Default: a nice boundary at or below the data minimum. Ignored for binning when bins is an array of thresholds (still validated). Values outside the bins are counted and named in the summary."
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Upper edge of the binned domain (finite, greater than min); with auto or count bins it becomes the exact last edge. Default: a nice boundary at or above the data maximum. Ignored for binning when bins is an array of thresholds."
+    },
+    {
+      "name": "color",
+      "type": "ChartColor",
+      "default": 1,
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Palette slot 1-8 of the bars."
+    },
+    {
+      "name": "binFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Number format of bin boundaries (axis, labels, tooltips, table, summary). Default: formatValue, else valueFormat."
+    },
+    {
+      "name": "xAxis",
+      "type": "{ label?: string }",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "X axis title (also the first table column header; default \"Bin\")."
+    },
+    {
+      "name": "yAxis",
+      "type": "{ label?: string; min?: number; max?: number; tickCount?: number; includeZero?: boolean }",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Count axis: title (default \"Count\", always drawn), fixed domain (bars taller than max are clipped), and tick count (2-20). Only integer ticks are printed. includeZero is accepted but has no effect (the count axis starts at zero unless min is set)."
+    },
+    {
+      "name": "annotations",
+      "type": "readonly ChartAnnotation[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Reference lines ({ type: 'line', axis: 'x' | 'y', value, label?, tone? }) and bands ({ type: 'band', axis, from, to, label?, tone? }); tone: 'neutral' | 'info' | 'success' | 'warning' | 'danger'. x values are data values (bin scale); y values are counts. Drawn under the marks (aria-hidden); listed in the accessible summary."
+    },
+    {
+      "name": "theme",
+      "type": "ChartTheme",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+    },
+    {
+      "name": "renderTooltip",
+      "type": "(context: ChartTooltipContext) => Node | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+    },
+    {
+      "name": "syncGroup",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+    },
+    {
+      "name": "legend",
+      "type": "'auto' | 'show' | 'hide'",
+      "default": "auto",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Accepted for the shared configuration; a histogram never shows a legend (the legend list stays empty and hidden)."
+    },
+    {
+      "name": "dataTable",
+      "type": "'toggle' | 'visible' | 'hidden' | 'none'",
+      "default": "toggle",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Data table fallback with the exact data: behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+    },
+    {
+      "name": "tooltip",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Tooltip on pointer hover and keyboard focus."
+    },
+    {
+      "name": "patterns",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Toggles the aui-chart--patterns host class; the single bar series draws no texture."
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "default": 300,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Plot height in CSS px (integer 120-2000); the width follows the container."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Number and message locale."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "rtl mirrors the x axis (lowest bin at the right), puts the count axis on the right, and swaps ArrowLeft/ArrowRight."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "SVGSVGElement",
+      "description": "The plot (svg role=\"group\"), named by the title and described by the summary."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "description": "The generated (or custom) accessible summary."
+    },
+    {
+      "name": "bins",
+      "type": "readonly HistogramBin[]",
+      "description": "Bins of the current data: { from, to, count }; lower-inclusive, the last bin also upper-inclusive."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "string[]",
+      "description": "Always empty."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<HistogramOptions>): void",
+      "description": "Merge, validate, and re-render. Invalid options throw and keep the previous state. Keyboard focus stays on the same mark when it still exists."
+    },
+    {
+      "name": "setSeriesVisible",
+      "signature": "setSeriesVisible(id: string, visible: boolean): void",
+      "description": "Inherited from the shared chart controller; no visible effect."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, host classes, listeners, the resize observer, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-point-click",
+      "detail": "HistogramPointClickDetail = ChartPointClickDetail: { seriesId: string | null; column: number; row: number; label: string; series: string; value: string; source: 'pointer' | 'keyboard' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-chart",
+      "description": "Host (shared chart chrome)."
+    },
+    {
+      "name": "aui-histogram",
+      "description": "Host modifier for this chart type."
+    },
+    {
+      "name": "aui-chart--patterns",
+      "description": "patterns option on: textures (and dash patterns) shown."
+    },
+    {
+      "name": "aui-chart__header / __title / __title--hidden / __description",
+      "description": "Title and description."
+    },
+    {
+      "name": "aui-chart__legend / __legend-entry / __legend-item / __legend-item--hidden / __legend-label",
+      "description": "Legend list (always empty and hidden for a histogram)."
+    },
+    {
+      "name": "aui-chart__swatch",
+      "description": "aria-hidden legend and tooltip key (marker, dash, texture)."
+    },
+    {
+      "name": "aui-chart__body / __svg / __layer",
+      "description": "Plot container (height from --aui-chart-height), SVG, and drawing layer."
+    },
+    {
+      "name": "aui-chart__grid / __gridline / __zero-line / __axis / __axis-line / __tick-label / __axis-title",
+      "description": "Axes (aria-hidden)."
+    },
+    {
+      "name": "aui-chart__series--c1 ... --c8",
+      "description": "Palette slot classes; set --aui-chart-color from color-chart-<n>."
+    },
+    {
+      "name": "aui-chart__mark / __mark--active / __mark--hover",
+      "description": "Focusable data mark and its states."
+    },
+    {
+      "name": "aui-chart__tooltip / __tooltip-title / __tooltip-rows / __tooltip-row / __tooltip-label / __tooltip-value",
+      "description": "Tooltip (aria-hidden; the focused mark carries the same text)."
+    },
+    {
+      "name": "aui-chart__empty",
+      "description": "Empty state text (No data, All series are hidden)."
+    },
+    {
+      "name": "aui-chart__summary",
+      "description": "Hidden summary referenced by aria-describedby."
+    },
+    {
+      "name": "aui-chart__data / __data--hidden / __table-toggle / __table-scroll / __table / __cell--numeric",
+      "description": "Data table fallback."
+    },
+    {
+      "name": "aui-chart__bar / __line / __area / __point / __connector / __value-label",
+      "description": "Shared mark styles (chart-marks): bars, lines, areas, point markers, dashed connectors, printed values."
+    },
+    {
+      "name": "aui-histogram__bars",
+      "description": "Bars group (carries the aui-chart__series--c<n> slot class)."
+    },
+    {
+      "name": "aui-chart--legend-bottom / --legend-start / --legend-end",
+      "description": "theme.legendPosition (top is the default layout)."
+    },
+    {
+      "name": "aui-chart--no-grid / --gradient / --animate / --entering",
+      "description": "theme.gridLines: false, theme.gradient, theme.animation (entering: the render that animates)."
+    },
+    {
+      "name": "aui-chart__annotations / __annotation-line / __annotation-band / __annotation-label / __annotation--<tone>",
+      "description": "Annotations (aria-hidden), drawn under the marks."
+    },
+    {
+      "name": "aui-chart__gradient / __gradient-stop",
+      "description": "Gradient fills (theme.gradient)."
+    },
+    {
+      "name": "aui-chart__tooltip--custom",
+      "description": "Tooltip content comes from renderTooltip."
+    }
+  ],
+  "iconSlots": []
+}

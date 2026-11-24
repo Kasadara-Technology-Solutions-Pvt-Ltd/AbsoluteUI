@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "name": "box-plot",
+  "displayName": "Box Plot",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { BoxPlot } from '@absoluteui/components/box-plot';",
+  "styleImport": "@absoluteui/components/box-plot/style.css",
+  "purpose": "Accessible SVG box plot for comparing distributions per category: boxes from the lower to the upper quartile with a median line, whiskers, and outlier dots. Each datum is precomputed statistics or raw values (type-7 quantiles, Tukey whiskers at 1.5 IQR by default, or min/max). Several series are grouped side by side with a toggleable legend; each box is one keyboard-reachable mark whose name reads the five-number summary and the outlier count, and a data table lists every statistic and the outlier values.",
+  "whenToUse": [
+    "Comparing the spread, skew, and outliers of a measure across categories (for example latency per region).",
+    "Summarizing many raw values per category when individual values do not matter."
+  ],
+  "whenNotToUse": [
+    "Few values per category: show them directly (Scatter Chart) instead of quartiles.",
+    "Audiences unfamiliar with quartiles: a Bar Chart of medians or a Histogram may read faster.",
+    "The shape of one distribution in detail (bimodal data): use Histogram."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "empty (no data)",
+    "all series hidden",
+    "series hidden",
+    "box missing (null datum)",
+    "box focused (tooltip)",
+    "box hovered",
+    "table open"
+  ],
+  "responsive": "Width follows the container (ResizeObserver); height is the height option. Categories share the width in bands; boxes of several series split each band. Category labels are truncated or thinned to fit. Reflows at 320 CSS px.",
+  "rtl": "direction rtl mirrors the category axis (first category on the right) and the order of series within a category, puts the value axis on the right, and swaps ArrowLeft/ArrowRight.",
+  "theme": "Boxes use color-chart-1..8 by palette slot: a translucent fill with a solid outline, whiskers in the series color, the median line in color-text, outlier dots filled with color-surface and outlined in the series color. Gridlines color-chart-grid, axes color-chart-axis, labels color-text-muted. Forced colors use CanvasText, Canvas, and Highlight.",
+  "timezone": "Not applicable (categories are text).",
+  "security": "All text (title, description, labels, values, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; the height and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; raw values are summarized in memory on each render and never stored elsewhere. No persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "BoxPlot.create, 4 series x 50 categories from raw values (100 values each), including the first render",
+        "budget": "< 80 ms in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "Up to about 200 boxes (each box is one focusable node plus whiskers, a median line, an optional texture overlay, and one dot per outlier). Raw values are sorted per box on every render; for very large samples pass precomputed statistics (boxStats) instead."
+  },
+  "limitations": [
+    "Vertical boxes only.",
+    "Every series needs exactly one datum per category.",
+    "whiskers applies to raw values only; precomputed statistics are drawn as given.",
+    "Outliers are decorative dots; their values are listed in the data table and counted in the box name.",
+    "A fixed valueAxis domain clamps boxes, whiskers, and outliers to its edges; valueAxis.includeZero is accepted but has no effect.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Horizontal box plots, notched boxes, violin plots, and mean markers.",
+    "Logarithmic or broken axes.",
+    "HTML content in labels."
+  ],
+  "antiPatterns": [
+    "Box plots of a handful of values per category (quartiles of three values mislead).",
+    "More than about 8 series per category.",
+    "Relying on color alone by turning patterns off for several series."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/box-plot: AuiBoxPlot directive ([auiBoxPlot]).",
+    "react": "@absoluteui/react/box-plot: AuiBoxPlot component.",
+    "vue": "@absoluteui/vue/box-plot: AuiBoxPlot component."
+  },
+  "versionIntroduced": "0.4.0",
+  "deprecated": null
+}

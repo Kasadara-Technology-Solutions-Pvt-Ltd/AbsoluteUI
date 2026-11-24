@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "component": "tour",
+  "factory": { "name": "Tour.create", "signature": "Tour.create(host: HTMLElement, options: TourOptions): Tour" },
+  "configKey": "tour",
+  "options": [
+    { "name": "steps", "type": "readonly TourStep[]", "required": true, "globallyConfigurable": false, "description": "The steps: { id, title, content?, target?, placement?, spotlightPadding?, onBeforeShow? }. target is an Element, a CSS selector, a function returning an Element, or null for a centered step." },
+    { "name": "dots", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Show decorative progress dots under the content." },
+    { "name": "skippable", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Show the Skip button (hidden on the last step)." },
+    { "name": "keyboardNavigation", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": false, "description": "Arrow keys move between steps while focus is on the panel or its buttons (mirrored in RTL)." },
+    { "name": "modal", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Each step is a modal dialog: focus is trapped and the page is blocked." },
+    { "name": "closeOnEscape", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Escape skips the tour." },
+    { "name": "showProgress", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Show the '2 of 5' progress text." },
+    { "name": "spotlight", "type": "boolean", "default": "true", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Dim the page around the target." },
+    { "name": "spotlightPadding", "type": "number", "default": "8", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Space between the target and the spotlight edge, px (0 to 64)." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the button labels and progress text." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "The host element (holds the overlay and panel)." },
+    { "name": "panel", "type": "HTMLDivElement", "description": "The step panel (role=dialog, manual popover)." },
+    { "name": "options", "type": "Readonly<TourOptions>", "description": "Current options." },
+    { "name": "steps", "type": "readonly TourStep[]", "description": "The steps." },
+    { "name": "active", "type": "boolean", "description": "True while a step is shown." },
+    { "name": "index", "type": "number", "description": "Index of the shown step, or -1 when inactive." },
+    { "name": "target", "type": "Element | null", "description": "The element the current step points at (null for a centered step or when inactive)." }
+  ],
+  "methods": [
+    { "name": "start", "signature": "start(index?: number): Promise<void>", "description": "Start (or restart) at index (default 0); steps with a missing target are skipped." },
+    { "name": "next", "signature": "next(): Promise<void>", "description": "Show the next available step; on the last step, finish." },
+    { "name": "back", "signature": "back(): Promise<void>", "description": "Show the previous available step." },
+    { "name": "goTo", "signature": "goTo(index: number): Promise<void>", "description": "Show the step at index (starts the tour when inactive)." },
+    { "name": "skip", "signature": "skip(reason?: 'skip-button' | 'escape' | 'programmatic'): void", "description": "End the tour early and emit aui-skip." },
+    { "name": "finish", "signature": "finish(): void", "description": "End the tour as completed and emit aui-finish." },
+    { "name": "update", "signature": "update(options: Partial<TourOptions>): void", "description": "Merge and apply options; an active tour re-renders the current step." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "End the tour without events and remove rendering and listeners." }
+  ],
+  "events": [
+    { "name": "aui-start", "detail": "TourStartDetail", "bubbles": true, "cancelable": false, "description": "The tour started: { index } of the first shown step." },
+    { "name": "aui-step-change", "detail": "TourStepChangeDetail", "bubbles": true, "cancelable": false, "description": "A step is shown: { index, stepId, previousIndex, direction }." },
+    { "name": "aui-step-missing", "detail": "TourStepMissingDetail", "bubbles": true, "cancelable": false, "description": "A step was skipped because its target is missing, hidden, or its hook failed: { index, stepId, reason }." },
+    { "name": "aui-finish", "detail": "TourFinishDetail", "bubbles": true, "cancelable": false, "description": "The tour ended at its end: { index, completed } (completed is false when no later step could be shown)." },
+    { "name": "aui-skip", "detail": "TourSkipDetail", "bubbles": true, "cancelable": false, "description": "The tour was skipped: { index, stepId, reason }." }
+  ],
+  "contentAreas": [
+    { "name": "steps[].content", "description": "Step text, or a Node the application owns (inserted as given)." }
+  ],
+  "cssClasses": [
+    { "name": "aui-tour", "description": "Host (display: contents)." },
+    { "name": "aui-tour--modal | --centered | --no-spotlight | --static", "description": "Modal steps, a step without a target, no spotlight, animation off." },
+    { "name": "aui-tour__overlay", "description": "Top-layer overlay that holds the spotlight (aria-hidden)." },
+    { "name": "aui-tour__spotlight", "description": "Cut-out around the target; its shadow dims the page." },
+    { "name": "aui-tour__panel", "description": "Step dialog (manual popover)." },
+    { "name": "aui-tour__title", "description": "Step heading." },
+    { "name": "aui-tour__content", "description": "Step content." },
+    { "name": "aui-tour__progress", "description": "Progress text." },
+    { "name": "aui-tour__dots | __dot | __dot--active", "description": "Progress dots." },
+    { "name": "aui-tour__footer | __nav", "description": "Button row." },
+    { "name": "aui-tour__skip | __back | __next | __finish", "description": "The buttons (Next becomes Finish on the last step)." }
+  ],
+  "iconSlots": []
+}

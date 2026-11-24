@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="geofence">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M21.41 13.32A9.5 9.5 0 0 1 19.59 17.72"/>
+      <path d="M17.72 19.59A9.5 9.5 0 0 1 13.32 21.41"/>
+      <path d="M10.68 21.41A9.5 9.5 0 0 1 6.28 19.59"/>
+      <path d="M4.41 17.72A9.5 9.5 0 0 1 2.59 13.32"/>
+      <path d="M2.59 10.68A9.5 9.5 0 0 1 4.41 6.28"/>
+      <path d="M6.28 4.41A9.5 9.5 0 0 1 10.68 2.59"/>
+      <path d="M13.32 2.59A9.5 9.5 0 0 1 17.72 4.41"/>
+      <path d="M19.59 6.28A9.5 9.5 0 0 1 21.41 10.68"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 16.5s-4-3.5-4-7a4 4 0 0 1 8 0c0 3.5-4 7-4 7z"/>
+      <path d="M12 9.5h.01"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="12" r="9.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M21.41 13.32A9.5 9.5 0 0 1 19.59 17.72"/>
+      <path d="M17.72 19.59A9.5 9.5 0 0 1 13.32 21.41"/>
+      <path d="M10.68 21.41A9.5 9.5 0 0 1 6.28 19.59"/>
+      <path d="M4.41 17.72A9.5 9.5 0 0 1 2.59 13.32"/>
+      <path d="M2.59 10.68A9.5 9.5 0 0 1 4.41 6.28"/>
+      <path d="M6.28 4.41A9.5 9.5 0 0 1 10.68 2.59"/>
+      <path d="M13.32 2.59A9.5 9.5 0 0 1 17.72 4.41"/>
+      <path d="M19.59 6.28A9.5 9.5 0 0 1 21.41 10.68"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M12 16.5s-4-3.5-4-7a4 4 0 0 1 8 0c0 3.5-4 7-4 7z"/>
+      <path d="M12 9.5h.01"/>
+    </g>
+  </g>
+</svg>

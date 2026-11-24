@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AbsoluteUI R3 harness: rich text</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/rich-text-editor.css">
+    <link rel="stylesheet" href="/demo.css">
+    <script type="module" src="/rich-text.js"></script>
+  </head>
+  <body>
+    <main class="demo">
+      <h1>AbsoluteUI R3 rich text</h1>
+      <form id="form" class="demo-stack" novalidate>
+        <div id="editor"></div>
+        <div id="plain"></div>
+        <button type="submit">Save</button>
+      </form>
+      <section aria-labelledby="h-output">
+        <h2 id="h-output">Output</h2>
+        <div class="demo-row">
+          <button type="button" id="show-html">Show HTML</button>
+          <button type="button" id="show-md">Show Markdown</button>
+        </div>
+        <pre id="output"></pre>
+      </section>
+      <p>Last event: <output id="last-event">none</output></p>
+    </main>
+  </body>
+</html>

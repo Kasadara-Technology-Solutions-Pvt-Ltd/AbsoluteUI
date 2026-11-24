@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "component": "toggle-group",
+  "pattern": "WAI-ARIA toggle buttons (button with aria-pressed) in a named group, with roving tabindex as in the APG toolbar pattern.",
+  "roles": [
+    { "element": "host", "role": "group" },
+    { "element": "item", "role": "button (native) with aria-pressed" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "host", "value": "the label option" },
+    { "attribute": "aria-pressed", "element": "item", "value": "true when pressed, false otherwise" },
+    { "attribute": "aria-orientation", "element": "host", "value": "vertical when vertical" },
+    { "attribute": "aria-label", "element": "icon-only item", "value": "the item label" }
+  ],
+  "keyboard": [
+    { "key": "Tab", "context": "Group", "action": "Moves focus into the group (to the last focused button) and out of it." },
+    { "key": "ArrowRight / ArrowLeft", "context": "Horizontal", "action": "Move to the next or previous enabled button (reading direction aware, wraps)." },
+    { "key": "ArrowDown / ArrowUp", "context": "Vertical", "action": "Move to the next or previous enabled button (wraps)." },
+    { "key": "Home / End", "context": "Group", "action": "Move to the first or last enabled button." },
+    { "key": "Enter / Space", "context": "Item", "action": "Toggle the button." }
+  ],
+  "focus": "One button in the tab sequence (roving tabindex); clicking a button makes it the tab stop.",
+  "wcag": ["1.3.1", "1.4.1", "2.1.1", "2.4.3", "4.1.2"],
+  "notes": [
+    "The pressed state differs in more than hue (selection fill and a stronger boundary) and is exposed with aria-pressed.",
+    "Required single groups keep one button pressed; pressing it again does nothing."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

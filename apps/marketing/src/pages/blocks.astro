@@ -1,0 +1,107 @@
+---
+// Blocks (docs/PLAN-MARKETING-REDESIGN.md section 6, M3): composed screens built only from
+// AbsoluteUI components. Each block runs live in an isolated frame; its TypeScript and Angular
+// code is the exact source that runs (TypeScript) or compiles under ngc strict templates (Angular).
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Code from '../components/Code.astro';
+import PageHero from '../components/PageHero.astro';
+import data from '../../data/blocks.json';
+import { GET_STARTED } from '../site';
+
+const ts = import.meta.glob<string>('../../frames/blocks/*.ts', { query: '?raw', import: 'default', eager: true });
+const ng = import.meta.glob<string>('../../frames/blocks/angular/*.component.ts', { query: '?raw', import: 'default', eager: true });
+const source = (files: Record<string, string>, file: string): string => {
+  const code = files[file];
+  if (code === undefined) throw new Error(`blocks: missing ${file}`);
+  return code.trimEnd();
+};
+const blocks = data.blocks.map((b) => ({
+  ...b,
+  ts: source(ts, `../../frames/blocks/${b.id}.ts`),
+  ng: source(ng, `../../frames/blocks/angular/${b.id}.component.ts`),
+  packages: ['@absoluteui/components', '@absoluteui/theme'],
+}));
+const count = (id: string): number => blocks.filter((b) => b.category === id).length;
+const DEVICES = [
+  { id: 'desktop', label: 'Desktop width' },
+  { id: 'tablet', label: 'Tablet width (768 pixels)' },
+  { id: 'mobile', label: 'Mobile width (375 pixels)' },
+] as const;
+---
+
+<Base title="Blocks" description="Composed screens built only from AbsoluteUI components: dashboards, data grids, sign-in, forms, and scheduling, with TypeScript and Angular code." path="/blocks/">
+  <PageHero eyebrow="Blocks" title="Screens you can copy" lead="Each block is a working screen made only of AbsoluteUI components. Preview it live at desktop, tablet, and mobile widths, then copy the TypeScript or Angular code." />
+
+  <section class="section-tight" aria-label="Blocks">
+    <div class="container blocks" data-blocks>
+      <div class="cat-tabs" role="group" aria-label="Filter blocks by category">
+        <button type="button" data-cat="all" aria-pressed="true">All ({blocks.length})</button>
+        {
+          data.categories.map((c) => (
+            <button type="button" data-cat={c.id} aria-pressed="false">
+              {c.label} ({count(c.id)})
+            </button>
+          ))
+        }
+      </div>
+      <p class="visually-hidden" data-blocks-status role="status" aria-live="polite"></p>
+
+      {
+        blocks.map((b) => (
+          <article class="viewer" id={b.id} data-block data-cat={b.category} data-tabs aria-labelledby={`${b.id}-title`}>
+            <div class="viewer-head">
+              <div class="viewer-text">
+                <h2 class="viewer-title" id={`${b.id}-title`}>{b.title}</h2>
+                <p class="viewer-desc">{b.description}</p>
+              </div>
+              <div class="viewer-tools">
+                <div class="seg" role="tablist" aria-label={`${b.title}: view`}>
+                  <button type="button" role="tab" id={`${b.id}-tab-preview`} aria-controls={`${b.id}-preview`} aria-selected="true" data-tab="preview">Preview</button>
+                  <button type="button" role="tab" id={`${b.id}-tab-ts`} aria-controls={`${b.id}-ts`} aria-selected="false" data-tab="ts">TypeScript</button>
+                  <button type="button" role="tab" id={`${b.id}-tab-ng`} aria-controls={`${b.id}-ng`} aria-selected="false" data-tab="ng">Angular</button>
+                </div>
+                <div class="dev" role="group" aria-label="Preview width" data-panel="preview">
+                  {
+                    DEVICES.map((d) => (
+                      <button type="button" data-width={d.id} aria-pressed={String(d.id === 'desktop')} aria-label={d.label} title={d.label}>
+                        <Icon name={d.id} />
+                      </button>
+                    ))
+                  }
+                </div>
+                <a class="btn btn-secondary btn-sm" href={`/frames/block-${b.id}.html`} target="_blank" rel="noopener">
+                  Open <Icon name="external" />
+                </a>
+              </div>
+            </div>
+            <div id={`${b.id}-preview`} role="tabpanel" aria-labelledby={`${b.id}-tab-preview`} data-panel="preview" class="stage">
+              <div class="canvas" data-width="desktop">
+                <iframe data-src={`/frames/block-${b.id}.html`} title={`${b.title}, live preview`} loading="lazy" data-min-height="560" height="560" />
+              </div>
+            </div>
+            <div id={`${b.id}-ts`} role="tabpanel" aria-labelledby={`${b.id}-tab-ts`} data-panel="ts" hidden>
+              <Code code={b.ts} lang="ts" label={`frames/blocks/${b.id}.ts`} />
+            </div>
+            <div id={`${b.id}-ng`} role="tabpanel" aria-labelledby={`${b.id}-tab-ng`} data-panel="ng" hidden>
+              <Code code={b.ng} lang="ts" label={`${b.id}.component.ts`} />
+            </div>
+            <p class="viewer-meta">
+              <span class="pkg"><Icon name="package" />npm install {b.packages.join(' ')}</span>
+              <span class="muted small">Components: {b.components.join(', ')}</span>
+            </p>
+          </article>
+        ))
+      }
+
+      <p class="muted">
+        New to AbsoluteUI? <a href={GET_STARTED}>Read the getting started guide</a> for installation, themes, and stylesheets.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { initBlocks } from '../lib/blocks';
+  initBlocks();
+</script>

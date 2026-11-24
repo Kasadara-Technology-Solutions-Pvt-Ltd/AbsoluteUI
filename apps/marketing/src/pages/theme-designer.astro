@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import designerData from '../generated/designer.json';
+import { designer, docs, stats } from '../site';
+
+// About the Theme Designer (docs/PLAN-ONE-SITE.md OS-6): this page is /theme-designer/; the app is /designer/.
+const shots = [
+  { src: designerData.screens[0], title: 'Seeds and derived tokens', caption: 'Pick a few seed colours; every role token is derived for light, dark, and high-contrast modes.' },
+  { src: designerData.screens[1], title: 'Compliance as you edit', caption: 'Contrast, focus visibility, target size, and motion assessed against WCAG 2.2 AA.' },
+  { src: designerData.screens[2], title: 'Export anywhere', caption: 'CSS, SCSS, JSON, TypeScript, and design tokens (DTCG), or a ready-to-install theme package.' },
+];
+const categories = stats.compliance.categories;
+---
+
+<Base title="Theme Designer" description="Design an AbsoluteUI theme from a few seed colours, with WCAG 2.2 AA compliance checked as you edit, and export it to CSS, SCSS, JSON, TypeScript, or design tokens." path="/theme-designer/">
+  <PageHero eyebrow="Theme Designer" title="Design your theme. Keep it accessible." lead="The Theme Designer runs in your browser. Start from your brand colours, preview every component live, and export a theme that passes the same contrast checks as the built-in themes.">
+    <div class="actions">
+      <a class="btn btn-primary" href={designer()}>Open Theme Designer</a>
+      <a class="btn btn-secondary" href={docs('/docs/guides/theming/')}>Theming guide</a>
+    </div>
+  </PageHero>
+
+  <section class="section section-white section-line">
+    <div class="container container-wide">
+      <div class="stack stack-xl">
+        {
+          shots.map((s, i) => (
+            <div class:list={['split', i % 2 === 1 && 'split-reverse']}>
+              <div class="stack stack-xl">
+                <h2>{s.title}</h2>
+                <p class="lead">{s.caption}</p>
+              </div>
+              <figure class="shot">
+                {s.src ? <img src={s.src} alt={`Theme Designer: ${s.title.toLowerCase()}`} width="1600" height="1000" loading="lazy" /> : <div class="shot-missing">Screenshot: {s.title}</div>}
+              </figure>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="baseline">
+    <div class="container">
+      <div class="head">
+        <p class="eyebrow">The built-in theme family</p>
+        <h2 id="baseline">The same engine checks our own themes</h2>
+        <p class="lead">{stats.compliance.statement}</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <caption class="visually-hidden">Token-level assessment of the built-in theme family</caption>
+          <thead><tr><th scope="col">Assessment</th><th scope="col" class="num">Passed</th><th scope="col" class="num">Failed</th><th scope="col" class="num">Warnings</th></tr></thead>
+          <tbody>
+            {
+              categories.map((c) => (
+                <tr>
+                  <th scope="row">{c.label}</th>
+                  <td class="num">{c.passed}</td>
+                  <td class="num">{c.failed}</td>
+                  <td class="num">{c.warnings}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      {
+        stats.compliance.advisories.length > 0 && (
+          <div class="notice">
+            <Icon name="info" />
+            <p>
+              Failures listed above are advisories beyond AA: {stats.compliance.advisories.map((a) => `${a.rule}: ${a.message} (measured ${a.measured}, recommended ${a.expected})`).join('; ')}.
+            </p>
+          </div>
+        )
+      }
+      <p class="muted small">Token-level results describe themes, not the pages built with them. Verify rendered pages as well.</p>
+    </div>
+  </section>
+</Base>

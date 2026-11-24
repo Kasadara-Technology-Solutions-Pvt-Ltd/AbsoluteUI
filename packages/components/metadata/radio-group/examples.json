@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "radio-group",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Required choice with option descriptions",
+      "language": "ts",
+      "code": "import { RadioGroup } from '@absoluteui/components/radio-group';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst shipping = RadioGroup.create(host, {\n  label: 'Shipping speed',\n  name: 'shipping',\n  required: true,\n  options: [\n    { value: 'standard', label: 'Standard', description: '3 to 5 business days' },\n    { value: 'express', label: 'Express', description: 'Next business day' },\n  ],\n});\nhost.addEventListener('aui-change', () => {\n  host.dataset.shipping = shipping.value ?? '';\n});"
+    },
+    {
+      "id": "horizontal",
+      "title": "Horizontal group with a disabled option",
+      "language": "ts",
+      "code": "import { RadioGroup } from '@absoluteui/components/radio-group';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nRadioGroup.create(host, {\n  label: 'Size',\n  orientation: 'horizontal',\n  value: 'm',\n  options: [\n    { value: 's', label: 'Small' },\n    { value: 'm', label: 'Medium' },\n    { value: 'l', label: 'Large', disabled: true },\n  ],\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Show messages only on submit",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { radioGroup: { validationTiming: 'submit' } } });"
+    }
+  ]
+}

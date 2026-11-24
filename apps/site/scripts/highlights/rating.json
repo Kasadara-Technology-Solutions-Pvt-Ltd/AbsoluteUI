@@ -1,0 +1,7 @@
+[
+  { "title": "Half steps", "text": "Whole or half symbols, by pointer half or arrow keys, filled in the reading direction." },
+  { "title": "One tab stop", "text": "The APG slider pattern: arrows, Page, Home, End, and digit keys, announced as \"3.5 of 5\"." },
+  { "title": "Display mode", "text": "A non-interactive image with the same text for tables and cards." },
+  { "title": "Your symbol", "text": "Stars by default, or any icon; captions such as \"Meets expectations\" per step." },
+  { "title": "Form ready", "text": "Required, custom validation, clearable, and a hidden input for native forms." }
+]

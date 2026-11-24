@@ -1,0 +1,380 @@
+{
+  "schemaVersion": 1,
+  "component": "candlestick-chart",
+  "factory": {
+    "name": "CandlestickChart.create",
+    "signature": "CandlestickChart.create(host: HTMLElement, options: CandlestickChartOptions): CandlestickChart"
+  },
+  "configKey": "candlestickChart",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby); also the data table caption."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visually hide the title; it stays the accessible name.",
+      "default": false
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Replaces the generated accessible summary (session count, date range, first and last close with the change, highest high and lowest low, sessions not plotted)."
+    },
+    {
+      "name": "valueFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Number format for prices (tooltips, accessible names, table, summary, ticks)."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom value text; overrides valueFormat everywhere."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Ids of hidden moving averages (legend toggles)."
+    },
+    {
+      "name": "theme",
+      "type": "ChartTheme",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash?; axisColor?; lineWidth?; markerSize?; cornerRadius?; barRadius?; cellRadius?; sliceRadius?; boxRadius?; swatchRadius?; tooltipRadius?; controlRadius?; lineJoin?; areaOpacity?; gradient?; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+    },
+    {
+      "name": "renderTooltip",
+      "type": "(context: ChartTooltipContext) => Node | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+    },
+    {
+      "name": "syncGroup",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Synchronized crosshair: charts with the same group show the crosshair and tooltip at the same column (session index) when one is hovered or focused. Use charts with the same sessions."
+    },
+    {
+      "name": "data",
+      "type": "readonly CandlestickPoint[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Sessions: { date: PlainDate (strictly increasing); open, high, low, close: finite numbers (high >= open, close, low; low <= open, close); volume?: number >= 0 }. At most 20,000."
+    },
+    {
+      "name": "type",
+      "type": "'candle' | 'ohlc'",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Candles (hollow when rising, filled when falling) or OHLC bars (falling bars dashed).",
+      "default": "candle"
+    },
+    {
+      "name": "volume",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Volume pane below the prices when the data has volume.",
+      "default": true
+    },
+    {
+      "name": "movingAverages",
+      "type": "readonly CandlestickMovingAverage[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Up to 4 simple moving averages of the close: { period: 2-250 sessions; id?: string (default \"ma<period>\"); label?: string; color?: 1-8; style?: ChartSeriesStyle }."
+    },
+    {
+      "name": "businessCalendar",
+      "type": "BusinessCalendarEngine | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Business calendar (createBusinessCalendar from @absoluteui/components/business-calendar): the axis counts trading days only, so weekends and holidays take no space; sessions on non-working days are not plotted and are listed in the summary. Without it the axis is a calendar-day axis with gaps."
+    },
+    {
+      "name": "priceAxis",
+      "type": "Omit<ValueAxisInput, 'includeZero'>",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Price axis: { label?, min?, max?, tickCount? (2-20) }."
+    },
+    {
+      "name": "volumeFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Volume format (tooltips, table, pane label). Default compact notation."
+    },
+    {
+      "name": "zoom",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Zoom and pan over time: toolbar buttons, + / - / 0 keys, Ctrl/Cmd + wheel, drag to pan, Shift + drag to select.",
+      "default": false
+    },
+    {
+      "name": "zoomRange",
+      "type": "ChartZoomRange | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Visible axis range { from, to } in axis positions (trading-day or day index from the first session); null shows everything."
+    },
+    {
+      "name": "legend",
+      "type": "'auto' | 'show' | 'hide'",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Legend of the moving averages (toggle buttons): auto shows it when there is at least one average, show always, hide never.",
+      "default": "auto"
+    },
+    {
+      "name": "dataTable",
+      "type": "'toggle' | 'visible' | 'hidden' | 'none'",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Data table fallback (date, open, high, low, close, volume, and every moving average): behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none.",
+      "default": "toggle"
+    },
+    {
+      "name": "tooltip",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Tooltip on pointer hover and keyboard focus.",
+      "default": true
+    },
+    {
+      "name": "patterns",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Dash patterns on the moving averages (WCAG 1.4.1). Candles are always hollow (rising) or filled (falling). Forced-colors mode always shows them.",
+      "default": false
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Plot height in CSS px (integer 120-2000); the width follows the container.",
+      "default": 300
+    },
+    {
+      "name": "crosshair",
+      "type": "boolean",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Crosshair lines (time and price) on the hovered or focused session.",
+      "default": true
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Number, date, and message locale.",
+      "default": "en-US",
+      "inheritedFromCommon": true
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "rtl mirrors the time axis and swaps ArrowLeft/ArrowRight.",
+      "default": "ltr",
+      "inheritedFromCommon": true
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "SVGSVGElement",
+      "description": "The plot (svg role=\"group\"), named by the title and described by the summary."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "description": "The generated (or custom) accessible summary."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "string[]",
+      "description": "Ids of hidden items (legend toggles)."
+    },
+    {
+      "name": "zoomRange",
+      "type": "ChartZoomRange | null",
+      "description": "Visible axis range, or null."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<CandlestickChartOptions>): void",
+      "description": "Merge, validate, and re-render. Invalid options throw and keep the previous state. Keyboard focus stays on the same mark."
+    },
+    {
+      "name": "setSeriesVisible",
+      "signature": "setSeriesVisible(id: string, visible: boolean): void",
+      "description": "Show or hide an item programmatically (no event)."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, host classes, listeners, the resize observer, timers, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-point-click",
+      "detail": "CandlestickChartPointClickDetail = ChartPointClickDetail: { seriesId: string | null; column: number; row: number; label: string; series: string; value: string; source: 'pointer' | 'keyboard' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A candle was activated: pointer click or tap, or Enter / Space on the focused candle. label is the date, column the session index, value the formatted close."
+    },
+    {
+      "name": "aui-series-toggle",
+      "detail": "CandlestickChartSeriesToggleDetail: { id: string; visible: boolean; hidden: string[] }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A moving average was shown or hidden from the legend."
+    },
+    {
+      "name": "aui-zoom",
+      "detail": "CandlestickChartZoomDetail: { x: ChartZoomRange | null; y: null; reason: 'button' | 'keyboard' | 'wheel' | 'pan' | 'select' | 'reset' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "The visible range changed (also announced politely)."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-chart",
+      "description": "Host (shared chart chrome)."
+    },
+    {
+      "name": "aui-candlestick-chart",
+      "description": "Host modifier for this chart type."
+    },
+    {
+      "name": "aui-chart__header / __title / __title--hidden / __description / __toolbar",
+      "description": "Title, description, and the toolbar (zoom buttons)."
+    },
+    {
+      "name": "aui-chart__legend / __legend-entry / __legend-item / __legend-label / __swatch",
+      "description": "Legend and its aria-hidden keys."
+    },
+    {
+      "name": "aui-chart__body / __svg / __layer",
+      "description": "Plot container (height from --aui-chart-height), SVG, and drawing layer."
+    },
+    {
+      "name": "aui-chart__series--c1 ... --c8",
+      "description": "Palette slot classes; set --aui-chart-color from --aui-chart-<n>."
+    },
+    {
+      "name": "aui-chart__mark / __mark--active / __mark--hover",
+      "description": "Focusable marks and their states."
+    },
+    {
+      "name": "aui-chart__tooltip / __tooltip--custom / __tooltip-title / __tooltip-row",
+      "description": "Tooltip (aria-hidden; the focused mark carries the same text)."
+    },
+    {
+      "name": "aui-chart__empty / __summary",
+      "description": "Empty state text and the hidden summary referenced by aria-describedby."
+    },
+    {
+      "name": "aui-chart__data / __data--hidden / __table-toggle / __table-scroll / __table",
+      "description": "Data table fallback."
+    },
+    {
+      "name": "aui-chart--legend-bottom / --legend-start / --legend-end / --animate / --entering",
+      "description": "theme.legendPosition and theme.animation."
+    },
+    {
+      "name": "aui-candlestick-chart__candles / __candle / __candle--up / __candle--down",
+      "description": "Candles (focusable marks): hollow rising, filled falling."
+    },
+    {
+      "name": "aui-candlestick-chart__bar / __bar--up / __bar--down",
+      "description": "OHLC bars (type ohlc); falling bars dashed."
+    },
+    {
+      "name": "aui-candlestick-chart__volume / __volume-bar--up / --down",
+      "description": "aria-hidden volume pane."
+    },
+    {
+      "name": "aui-candlestick-chart__averages / aui-chart__line",
+      "description": "aria-hidden moving-average lines."
+    },
+    {
+      "name": "aui-chart__crosshair / __crosshair-line",
+      "description": "Crosshair (aria-hidden)."
+    },
+    {
+      "name": "aui-chart--zoomable / --zoomed / aui-chart__zoom / __tool / __brush",
+      "description": "Zoom toolbar and selection brush."
+    }
+  ],
+  "iconSlots": []
+}

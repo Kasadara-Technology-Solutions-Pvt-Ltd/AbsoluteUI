@@ -1,0 +1,7 @@
+[
+  { "title": "Type to filter", "text": "Filters options by contains or starts with as the user types, without selecting automatically." },
+  { "title": "Async options", "text": "Loads options from a server with debouncing and cancellation of stale requests." },
+  { "title": "Accessible pattern", "text": "Follows the WAI-ARIA combobox pattern with focus kept on the input." },
+  { "title": "Top layer popup", "text": "The list opens in the browser top layer and stays positioned next to the input." },
+  { "title": "Custom option content", "text": "Render your own option content while the label stays the accessible name." }
+]

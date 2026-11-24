@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/upload-queue",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiUploadQueue",
+      "description": "AbsoluteUI UploadQueue: `<aui-upload-queue>`.",
+      "selector": "aui-upload-queue",
+      "exportAs": [
+        "auiUploadQueue"
+      ],
+      "source": "generated",
+      "component": "upload-queue",
+      "configKey": "uploadQueue",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name of the list."
+        },
+        {
+          "name": "upload",
+          "type": "UploadFunction",
+          "required": true,
+          "description": "Transport: performs one attempt. Resolve on success (the value becomes item.response), reject on failure, honour signal."
+        },
+        {
+          "name": "preview",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Image previews via object URLs for image/* files (needs img-src blob:)."
+        },
+        {
+          "name": "errorMessage",
+          "type": "((error: unknown, file: File) => string | null)",
+          "required": false,
+          "description": "Map a rejection to a user-facing message. Default: generic localized message."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<UploadQueueIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "concurrency",
+          "type": "number",
+          "required": false,
+          "default": "2",
+          "configurable": true,
+          "description": "Uploads running at the same time (1..16)."
+        },
+        {
+          "name": "retries",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "configurable": true,
+          "description": "Automatic retries after a failed attempt (0..10)."
+        },
+        {
+          "name": "retryDelay",
+          "type": "number",
+          "required": false,
+          "default": "1000",
+          "configurable": true,
+          "description": "Delay before the first automatic retry in ms (0..60000); doubles for each further retry."
+        },
+        {
+          "name": "autoStart",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Start uploading as soon as files are added; when false, call start()."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Message and size-formatting locale."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "UploadQueueChangeDetail",
+          "event": "aui-change",
+          "description": "Items were added or removed, or an item changed status (not emitted for progress)."
+        },
+        {
+          "name": "completed",
+          "payload": "UploadQueueCompleteDetail",
+          "event": "aui-complete",
+          "description": "Nothing is queued or uploading any more (once per batch)."
+        }
+      ],
+      "properties": [
+        {
+          "name": "busy",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Any item queued or uploading."
+        }
+      ],
+      "methods": [
+        {
+          "name": "add",
+          "signature": "add(files: Iterable<File>): string[] | undefined",
+          "description": "Queue files; returns item ids."
+        },
+        {
+          "name": "start",
+          "signature": "start(): void",
+          "description": "Start queued items (autoStart: false)."
+        },
+        {
+          "name": "cancel",
+          "signature": "cancel(id: string): void",
+          "description": "Cancel a queued or uploading item (aborts its signal)."
+        },
+        {
+          "name": "cancelAll",
+          "signature": "cancelAll(): void",
+          "description": "Cancel every active item."
+        },
+        {
+          "name": "retry",
+          "signature": "retry(id: string): void",
+          "description": "Queue a failed or cancelled item again."
+        },
+        {
+          "name": "remove",
+          "signature": "remove(id: string): void",
+          "description": "Remove an item (aborts it; revokes its preview URL)."
+        },
+        {
+          "name": "clear",
+          "signature": "clear(): void",
+          "description": "Remove every item."
+        },
+        {
+          "name": "clearCompleted",
+          "signature": "clearCompleted(): void",
+          "description": "Remove finished items."
+        },
+        {
+          "name": "getItem",
+          "signature": "getItem(id: string): UploadItem | null | undefined",
+          "description": "One item snapshot."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "List of Progress Bars (ARIA progressbar) with native action buttons and a polite live region for outcomes.",
+        "source": "packages/components/metadata/upload-queue/accessibility.json"
+      },
+      "limitations": [
+        "Cancellation is cooperative: the consumer function must pass signal to fetch/XHR. A function that ignores it keeps its concurrency slot until it settles (the item is shown as cancelled immediately).",
+        "Retries restart the whole file; resuming from an offset is the consumer function's job (use attempt and id).",
+        "Completion is announced once per batch; individual successes are included in the summary rather than announced one by one.",
+        "State is not persisted across reloads.",
+        "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component, viewChild } from '@angular/core';\nimport { AuiUploadQueue } from '@absoluteui/angular/upload-queue';\nimport type { UploadFunction } from '@absoluteui/components/upload-queue';\n\n@Component({\n  selector: 'app-uploads',\n  imports: [AuiUploadQueue],\n  template: `\n    <input type=\"file\" multiple (change)=\"enqueue($event)\">\n    <aui-upload-queue #queue=\"auiUploadQueue\" label=\"Uploads\" [upload]=\"upload\" [concurrency]=\"3\"></aui-upload-queue>\n  `,\n})\nexport class UploadsComponent {\n  readonly queue = viewChild.required<AuiUploadQueue>('queue');\n  readonly upload: UploadFunction = async (file, { signal }) => (await fetch('/api/files', { method: 'POST', body: file, signal })).json();\n  enqueue(event: Event): void {\n    const input = event.target as HTMLInputElement;\n    this.queue().add(Array.from(input.files ?? []));\n  }\n}"
+    }
+  ]
+}

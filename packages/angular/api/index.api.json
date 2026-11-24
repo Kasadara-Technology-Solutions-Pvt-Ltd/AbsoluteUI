@@ -1,0 +1,17 @@
+{
+  "entry": "@absoluteui/angular",
+  "declarations": {
+    "AbsoluteUIConfig": "export interface AbsoluteUIConfig extends Partial<CommonConfig> {\n    components?: ComponentConfigInput;\n}",
+    "AbsoluteUIOptions": "export interface AbsoluteUIOptions extends AbsoluteUIConfig {\n    icons?: IconProvider;\n    iconSet?: Readonly<Record<string, IconDefinition>>;\n    themeRuntime?: boolean | {\n        applyDirection?: boolean;\n    };\n}",
+    "AuiConfig": "export declare class AuiConfig {\n    #private;\n    constructor(parent: AuiConfig | null, initial: Layer);\n    get isRoot(): boolean;\n    readonly layer: Signal<Layer>;\n    readonly common: Signal<Readonly<CommonConfig>>;\n    set(config: AbsoluteUIConfig): void;\n    patch(config: AbsoluteUIConfig): void;\n    globalChanged(): void;\n    optionsFor(configKey: string | undefined): AnyRecord;\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiConfig, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "AuiDirectionality": "export declare class AuiDirectionality {\n    readonly value: Signal<Direction>;\n    constructor(config: AuiConfig);\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiDirectionality, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "AuiIcons": "export declare class AuiIcons {\n    register(icons: Readonly<Record<string, IconDefinition>>): void;\n    setProvider(provider: IconProvider | null): void;\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiIcons, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "AuiIds": "export declare class AuiIds {\n    #private;\n    next(prefix?: string): string;\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiIds, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "AuiLocale": "export declare class AuiLocale {\n    readonly locale: Signal<string>;\n    readonly timezone: Signal<string>;\n    readonly disambiguation: Signal<Disambiguation>;\n    constructor(config: AuiConfig);\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiLocale, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "AuiPlatform": "export declare class AuiPlatform {\n    readonly isBrowser: boolean;\n    readonly isServer: boolean;\n    readonly document: Document;\n    readonly window: (Window & typeof globalThis) | null;\n    supports(feature: 'ResizeObserver' | 'IntersectionObserver' | 'MutationObserver' | 'matchMedia'): boolean;\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiPlatform, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "AuiTheme": "export declare class AuiTheme {\n    #private;\n    readonly theme: Signal<string>;\n    readonly density: Signal<Density>;\n    readonly animation: Signal<AnimationMode>;\n    setTheme(theme: string): void;\n    setDensity(density: Density): void;\n    setAnimation(animation: AnimationMode): void;\n    static ɵfac: i0.ɵɵFactoryDeclaration<AuiTheme, never>;\n    static ɵprov: i0.ɵɵInjectableDeclaration<any>;\n}",
+    "provideAbsoluteUI": "export declare function provideAbsoluteUI(options?: AbsoluteUIOptions): EnvironmentProviders;",
+    "provideAbsoluteUIConfig": "export declare function provideAbsoluteUIConfig(config: AbsoluteUIConfig): Provider[];"
+  },
+  "reexports": []
+}

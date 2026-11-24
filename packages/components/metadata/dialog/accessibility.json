@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "dialog",
+  "pattern": "WAI-ARIA APG Dialog (Modal) and Alert Dialog patterns, implemented with native <dialog>.showModal().",
+  "roles": [
+    { "element": "<dialog>", "role": "dialog (native) or alertdialog" },
+    { "element": "title", "role": "heading level 2" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "<dialog>", "value": "id of the title heading" },
+    { "attribute": "aria-describedby", "element": "<dialog>", "value": "id of the description (when provided)" },
+    { "attribute": "aria-label", "element": "close button", "value": "Localized 'Close'" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Dialog open", "action": "Moves focus among dialog controls; background is inert (native modal)." },
+    { "key": "Escape", "context": "Dialog open, closeOnEscape=true", "action": "Emits cancelable aui-cancel, then closes and restores focus." },
+    { "key": "Escape", "context": "Dialog open, closeOnEscape=false", "action": "No effect; the native close request is prevented." },
+    { "key": "Escape", "context": "Nested overlay (e.g. combobox listbox) open", "action": "Closes only the topmost overlay." },
+    { "key": "Enter / Space", "context": "Action or close button focused", "action": "Activates the button." }
+  ],
+  "focus": "On open, focus moves to the autofocus action or first focusable element. On close, focus returns to the element focused before opening.",
+  "wcag": ["1.3.1", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "4.1.2"],
+  "notes": [
+    "Background inertness and top-layer rendering are provided by the browser.",
+    "Scroll lock uses scrollbar-gutter to avoid layout shift."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/form",
+  "declarations": [
+    {
+      "kind": "directive",
+      "name": "AuiForm",
+      "description": "AbsoluteUI Form: `<form auiForm (submitted)=\"save($event.values)\">`.\nComplements Angular forms: AbsoluteUI controls also report validity to Angular\nthrough their Validator, so `formGroup.valid` and the AbsoluteUI state agree.\nBind `(submitted)` rather than `(ngSubmit)`: ngSubmit fires before AbsoluteUI validation.",
+      "selector": "form[auiForm]",
+      "exportAs": [
+        "auiForm"
+      ],
+      "source": "hand-written",
+      "component": "form",
+      "configKey": "form",
+      "inputs": [
+        {
+          "name": "rules",
+          "type": "readonly CrossFieldRule[]",
+          "required": false,
+          "default": "",
+          "description": "Cross-field rules { fields, validate(values), target? }. Run on validate/submit and live on every edit after the first submit. The first failing rule per target wins."
+        },
+        {
+          "name": "validate",
+          "type": "AsyncFormValidator",
+          "required": false,
+          "description": "Async validator (values, AbortSignal) => Promise<FormErrors>."
+        },
+        {
+          "name": "summaryTitle",
+          "type": "string",
+          "required": false,
+          "description": "Error summary heading. Default: localized \"There is a problem\". Applied when the summary is created, on update(), and on global configuration changes."
+        },
+        {
+          "name": "summaryHost",
+          "type": "HTMLElement",
+          "required": false,
+          "description": "Element that hosts the error summary. Read only when the summary is first created (on the first failed submission); changing it afterwards has no effect. Default: a <div> inserted as the form's first child on the first failed submit (removed on destroy)."
+        },
+        {
+          "name": "focusOnInvalid",
+          "type": "FocusOnInvalid",
+          "required": false,
+          "default": "summary",
+          "configurable": true,
+          "description": "Where focus moves after a failed submission. Without a summary, focus always goes to the first invalid field."
+        },
+        {
+          "name": "errorSummary",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Render an error summary on failed submission. When false, messages that belong to no field are announced assertively."
+        },
+        {
+          "name": "submitMode",
+          "type": "SubmitMode",
+          "required": false,
+          "default": "event",
+          "configurable": true,
+          "description": "'event': emit aui-submit only. 'native': then call HTMLFormElement.submit() unless aui-submit was prevented (the submitter's name/value is included)."
+        },
+        {
+          "name": "asyncTimeoutMs",
+          "type": "number",
+          "required": false,
+          "default": "10000",
+          "configurable": true,
+          "description": "Async validator timeout in ms (integer 100..120000). On timeout the signal aborts with a TimeoutError."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the summary heading and form-level messages."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "submitted",
+          "payload": "FormSubmitDetail",
+          "event": "aui-submit",
+          "description": "Valid submission: values and the abort signal of the submit."
+        },
+        {
+          "name": "invalidSubmit",
+          "payload": "FormInvalidDetail",
+          "event": "aui-invalid",
+          "description": "Submission blocked by errors (the summary and focus are already handled)."
+        },
+        {
+          "name": "stateChange",
+          "payload": "FormState",
+          "event": "aui-state-change",
+          "description": "dirty, touched, submitting, submitCount, or valid changed (deduplicated)."
+        },
+        {
+          "name": "formReset",
+          "payload": "null",
+          "event": "aui-reset",
+          "description": "The form was reset (reset() or a native reset)."
+        }
+      ],
+      "methods": [
+        {
+          "name": "getValues",
+          "signature": "getValues(): Readonly<Record<string, unknown>> | undefined",
+          "description": "Current values of the registered controls."
+        },
+        {
+          "name": "checkValidity",
+          "signature": "checkValidity(): boolean",
+          "description": "Run synchronous validation now and show the messages; true when valid."
+        },
+        {
+          "name": "submit",
+          "signature": "submit(): void",
+          "description": "Run the submit pipeline (validation, then `submitted` or `invalidSubmit`)."
+        },
+        {
+          "name": "setErrors",
+          "signature": "setErrors(errors: Readonly<Record<string, string>>): void",
+          "description": "Show server or cross-field errors by field name."
+        },
+        {
+          "name": "clearErrors",
+          "signature": "clearErrors(): void",
+          "description": "Remove server or custom errors set with `setErrors`."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Reset the form and every control to its initial values and clear messages."
+        }
+      ],
+      "serverRendering": "browser",
+      "accessibility": {
+        "pattern": "Native <form> with the GOV.UK error summary pattern: validate on submit, then move focus to a summary of links to each invalid field.",
+        "source": "packages/components/metadata/form/accessibility.json"
+      },
+      "limitations": [
+        "Double submission is blocked only while the async validator runs; after aui-submit the consumer must guard its own save request.",
+        "Plain native elements are serialized and reset but not validated; wrap them in Form Field to validate them.",
+        "Cross-field rule targets must be named controls; validate() and submit throw FORM_RULE_TARGET for an unknown target, while live re-checks after the first submit skip it.",
+        "File inputs are not serialized by getValues()."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { AuiForm } from '@absoluteui/angular/form';\nimport { AuiTextInput } from '@absoluteui/angular/text-input';\nimport { AuiButton } from '@absoluteui/angular/button';\n\n@Component({\n  selector: 'app-signup',\n  imports: [ReactiveFormsModule, AuiForm, AuiTextInput, AuiButton],\n  template: `\n    <form auiForm [formGroup]=\"signup\" focusOnInvalid=\"summary\" (submitted)=\"save()\">\n      <aui-text-input label=\"Email\" type=\"email\" name=\"email\" [required]=\"true\" formControlName=\"email\"></aui-text-input>\n      <button type=\"submit\" auiButton variant=\"primary\">Sign up</button>\n    </form>`,\n})\nexport class SignupComponent {\n  readonly signup = new FormGroup({ email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }) });\n  save(): void {\n    // this.signup.getRawValue() is valid here.\n  }\n}"
+    }
+  ]
+}

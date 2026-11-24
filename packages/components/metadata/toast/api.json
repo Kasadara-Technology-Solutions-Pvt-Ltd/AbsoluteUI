@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "component": "toast",
+  "factory": { "name": "Toaster.create", "signature": "Toaster.create(options?: ToasterOptions, doc?: Document): Toaster; toast(options: ToastOptions, doc?: Document): ToastHandle" },
+  "configKey": "toast",
+  "options": [
+    { "name": "icons", "type": "Partial<ToastIcons>", "required": false, "globallyConfigurable": false, "description": "Toaster option: icon slot overrides." },
+    { "name": "position", "type": "'bottom-end' | 'bottom-start' | 'top-end' | 'top-start' | 'top-center' | 'bottom-center'", "default": "bottom-end", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Region corner (logical: end is right in LTR, left in RTL)." },
+    { "name": "max", "type": "number", "default": 3, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Maximum visible toasts (1..20); further toasts queue first-in, first-out." },
+    { "name": "duration", "type": "number", "default": 5000, "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Auto-dismiss delay in ms (0 = persistent). Error toasts persist unless given a duration. Applies to toasts shown afterwards." },
+    { "name": "hotkey", "type": "string | null", "default": "Alt+T", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Moves focus to the newest toast; null disables." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the region label, tone prefixes, and dismiss label." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLElement", "description": "The region <section>; aui-open and aui-close fire here." },
+    { "name": "count", "type": "number", "description": "Visible toasts." },
+    { "name": "queued", "type": "number", "description": "Toasts waiting for a free slot." },
+    { "name": "options", "type": "Readonly<ToasterOptions>", "description": "Current toaster options." }
+  ],
+  "methods": [
+    { "name": "show", "signature": "show(options: ToastOptions): ToastHandle", "description": "Show (or queue) a toast { tone?, title?, message, duration?, action? }. Returns { id, dismiss(), update() }." },
+    { "name": "clear", "signature": "clear(): void", "description": "Dismiss all visible toasts and drop the queue." },
+    { "name": "update", "signature": "update(options: Partial<ToasterOptions>): void", "description": "Merge and apply toaster options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove the region, timers, listeners, and subscriptions (no events)." },
+    { "name": "ToastHandle.dismiss", "signature": "dismiss(): void", "description": "Close the toast (reason programmatic) or drop it from the queue." },
+    { "name": "ToastHandle.update", "signature": "update(options: Partial<ToastOptions>): void", "description": "Merge options; a visible toast is re-announced and its timer restarts." },
+    { "name": "toast", "signature": "toast(options: ToastOptions, doc?: Document): ToastHandle", "description": "Show a toast in a lazily created default Toaster for the document." }
+  ],
+  "events": [
+    { "name": "aui-open", "detail": "{ id: string }", "bubbles": false, "cancelable": false, "description": "A toast became visible (fired on the region)." },
+    { "name": "aui-close", "detail": "{ id: string; reason: 'timeout' | 'dismiss' | 'action' | 'programmatic' }", "bubbles": false, "cancelable": false, "description": "A visible toast closed (fired on the region)." }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-toaster", "description": "Region <section> (manual popover)." },
+    { "name": "aui-toaster--bottom-end | --bottom-start | --top-end | --top-start | --top-center | --bottom-center", "description": "Position modifiers." },
+    { "name": "aui-toaster__list", "description": "Ordered list of toasts." },
+    { "name": "aui-toaster__item", "description": "List item wrapping one toast." },
+    { "name": "aui-toast", "description": "Toast (role=group, tabindex=-1)." },
+    { "name": "aui-toast--info | --success | --warning | --error", "description": "Tone modifiers." },
+    { "name": "aui-toast__icon", "description": "Tone icon (decorative)." },
+    { "name": "aui-toast__text", "description": "Tone prefix, title, and message; labels the toast." },
+    { "name": "aui-toast__tone", "description": "Visually hidden tone prefix." },
+    { "name": "aui-toast__title", "description": "Title." },
+    { "name": "aui-toast__message", "description": "Message." },
+    { "name": "aui-toast__actions", "description": "Action button container." },
+    { "name": "aui-toast__dismiss", "description": "Dismiss button." }
+  ],
+  "iconSlots": [
+    { "name": "info", "default": "info" },
+    { "name": "success", "default": "check-circle" },
+    { "name": "warning", "default": "alert-triangle" },
+    { "name": "error", "default": "alert-circle" },
+    { "name": "dismiss", "default": "close" }
+  ]
+}

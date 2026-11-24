@@ -1,0 +1,175 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+
+  .aui-checkbox-group__fieldset {
+    display: grid;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  // A rendered legend is not a grid item, so it needs its own spacing.
+  .aui-checkbox-group__fieldset > .aui-field__label {
+    margin-block-end: aui.token('space-2');
+  }
+
+  .aui-checkbox-group__options {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-2');
+  }
+
+  .aui-checkbox-group__options--horizontal {
+    flex-flow: row wrap;
+    column-gap: aui.token('space-4');
+  }
+
+  .aui-checkbox-group__option {
+    display: flex;
+    align-items: flex-start;
+    gap: aui.token('space-2');
+    min-block-size: aui.token('touch-target-min');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+  }
+
+  // Same box visuals as Checkbox (duplicated so the stylesheets stay independent).
+  .aui-checkbox-group__box {
+    position: relative;
+    display: block;
+    flex: none;
+    inline-size: aui.token('icon-size-md');
+    block-size: aui.token('icon-size-md');
+    margin-block-start: max(0px, calc((1lh - #{aui.token('icon-size-md')}) / 2));
+  }
+
+  .aui-checkbox-group__input {
+    appearance: none;
+    box-sizing: border-box;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+    @include aui.transition(background-color, border-color);
+
+    &:hover:not(:disabled) {
+      border-color: aui.token('color-primary');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &:checked {
+      background: aui.token('color-primary');
+      border-color: aui.token('color-primary');
+    }
+
+    &[aria-invalid='true'] {
+      border-color: aui.token('color-error-fg');
+    }
+
+    &:disabled {
+      background: aui.token('color-disabled-bg');
+      border-color: aui.token('color-border');
+      cursor: not-allowed;
+    }
+
+    &:disabled:checked {
+      background: aui.token('color-text-disabled');
+      border-color: aui.token('color-text-disabled');
+    }
+  }
+
+  .aui-checkbox-group__mark {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: aui.token('color-on-primary');
+    pointer-events: none;
+
+    .aui-icon {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-checkbox-group__input:checked ~ .aui-checkbox-group__mark {
+    display: flex;
+  }
+
+  .aui-checkbox-group__input:disabled ~ .aui-checkbox-group__mark {
+    color: aui.token('color-surface');
+  }
+
+  .aui-checkbox-group__text {
+    display: grid;
+    min-inline-size: 0;
+  }
+
+  .aui-checkbox-group__label {
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+
+  .aui-checkbox-group__option-description {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-checkbox-group__option:has(.aui-checkbox-group__input:disabled) .aui-checkbox-group__label {
+    color: aui.token('color-text-disabled');
+    cursor: not-allowed;
+  }
+
+  @include aui.forced-colors {
+    .aui-checkbox-group__input,
+    .aui-checkbox-group__mark {
+      forced-color-adjust: none;
+    }
+
+    .aui-checkbox-group__input {
+      background: Canvas;
+      border-color: CanvasText;
+
+      &:checked {
+        background: Highlight;
+        border-color: Highlight;
+      }
+
+      &:focus-visible {
+        outline-color: CanvasText;
+      }
+
+      &:disabled {
+        border-color: GrayText;
+      }
+
+      &:disabled:checked {
+        background: GrayText;
+        border-color: GrayText;
+      }
+    }
+
+    .aui-checkbox-group__mark {
+      color: HighlightText;
+    }
+
+    .aui-checkbox-group__input:disabled ~ .aui-checkbox-group__mark {
+      color: Canvas;
+    }
+  }
+}

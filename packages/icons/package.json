@@ -1,0 +1,45 @@
+{
+  "name": "@absoluteui/icons",
+  "version": "0.13.0",
+  "description": "AbsoluteUI icons: icon provider contract, registry, and built-in icon set.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "homepage": "https://aui.kasadara.com/docs/api/icons/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI.git",
+    "directory": "packages/icons"
+  },
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/kasadara/_packaging/AbsoluteUI/npm/registry/"
+  },
+  "sideEffects": [
+    "**/*.css",
+    "./dist/set/register.js"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md",
+    "metadata"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./set": {
+      "types": "./dist/set/index.d.ts",
+      "default": "./dist/set/index.js"
+    },
+    "./set/*": {
+      "types": "./dist/set/*.d.ts",
+      "default": "./dist/set/*.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@absoluteui/core": "0.13.0"
+  }
+}

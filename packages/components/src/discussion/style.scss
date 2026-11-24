@@ -1,0 +1,311 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+// Requires the Button, Avatar, Mention Input, Toggle Group, Empty State, and Spinner stylesheets.
+@layer aui.components {
+  .aui-discussion {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-3');
+    min-inline-size: 0;
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-md');
+    line-height: aui.token('line-height-normal');
+    color: aui.token('color-text');
+  }
+
+  .aui-discussion__header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2') aui.token('space-3');
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .aui-discussion__heading {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    align-items: baseline;
+    min-inline-size: 0;
+  }
+
+  .aui-discussion__title {
+    margin: 0;
+    font-size: aui.token('font-size-md');
+    font-weight: aui.token('font-weight-semibold');
+    line-height: aui.token('line-height-tight');
+  }
+
+  .aui-discussion__count {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-discussion__composer,
+  .aui-discussion__inline {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-2');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-discussion__inline {
+    margin-block: aui.token('space-2');
+  }
+
+  .aui-discussion__composer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    justify-content: flex-end;
+  }
+
+  .aui-discussion__status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    align-items: center;
+    padding-block: aui.token('space-3');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-discussion__status--error .aui-discussion__status-text,
+  .aui-discussion__extra-error {
+    color: aui.token('color-error-fg');
+  }
+
+  .aui-discussion__empty[hidden],
+  .aui-discussion__more[hidden] {
+    display: none;
+  }
+
+  .aui-discussion__more {
+    align-self: flex-start;
+  }
+
+  .aui-discussion__thread,
+  .aui-discussion__replies {
+    display: flex;
+    flex-direction: column;
+    gap: aui.token('space-3');
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // One indentation step per level, with a guide line; it stops at maxIndent (--flat).
+  .aui-discussion__replies {
+    padding-inline-start: aui.ctoken('discussion', 'indent');
+    margin-block-start: aui.token('space-2');
+    margin-inline-start: aui.token('space-3');
+    border-inline-start: aui.token('border-width') solid aui.ctoken('discussion', 'thread-line');
+  }
+
+  // Narrow screens: half the indentation, so deep threads keep a readable line length.
+  @media (max-width: 30rem) {
+    .aui-discussion__replies {
+      padding-inline-start: aui.token('space-2');
+      margin-inline-start: aui.token('space-1');
+    }
+  }
+
+  .aui-discussion__replies--flat {
+    padding-inline-start: 0;
+    margin-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .aui-discussion__item {
+    min-inline-size: 0;
+  }
+
+  .aui-discussion__comment {
+    display: flex;
+    gap: aui.token('space-2');
+    align-items: flex-start;
+    min-inline-size: 0;
+    border-radius: aui.token('radius-md');
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-discussion__avatar {
+    flex: none;
+  }
+
+  .aui-discussion__avatar--deleted {
+    inline-size: 2rem;
+    block-size: 2rem;
+    border: aui.token('border-width') dashed aui.token('color-border-strong');
+    border-radius: aui.token('radius-pill');
+  }
+
+  .aui-discussion--no-avatars .aui-discussion__comment {
+    gap: 0;
+  }
+
+  .aui-discussion__main {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: aui.token('space-1');
+    min-inline-size: 0;
+  }
+
+  .aui-discussion__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 aui.token('space-2');
+    align-items: baseline;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-discussion__author {
+    font-weight: aui.token('font-weight-semibold');
+    color: aui.token('color-text');
+  }
+
+  .aui-discussion__time {
+    position: relative;
+    border-radius: aui.token('radius-sm');
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  // The absolute date and time: hidden text that becomes a tooltip on hover and focus.
+  .aui-discussion__time-absolute {
+    @include aui.visually-hidden;
+  }
+
+  .aui-discussion__time:is(:hover, :focus-visible):not(.aui-discussion__time--dismissed) .aui-discussion__time-absolute {
+    position: absolute;
+    inset-block-end: calc(100% + #{aui.token('space-1')});
+    inset-inline-start: 0;
+    z-index: 1;
+    // The visually-hidden mixin sets physical sizes; they are undone here.
+    width: max-content;
+    max-width: 20rem;
+    height: auto;
+    padding: aui.token('space-1') aui.token('space-2');
+    margin: 0;
+    overflow: visible;
+    clip-path: none;
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text');
+    white-space: normal;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-sm');
+    box-shadow: aui.token('shadow-md');
+  }
+
+  .aui-discussion__text {
+    margin: 0;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-discussion__text--deleted {
+    font-style: italic;
+    color: aui.token('color-text-muted');
+  }
+
+  .aui-discussion__mention {
+    padding-inline: aui.token('space-1');
+    font-weight: aui.token('font-weight-medium');
+    color: aui.ctoken('discussion', 'mention-fg');
+    white-space: nowrap;
+    background: aui.ctoken('discussion', 'mention-bg');
+    border-radius: aui.token('radius-sm');
+  }
+
+  .aui-discussion__link {
+    color: aui.token('color-link');
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-discussion__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+    margin-inline-start: calc(-1 * #{aui.token('space-2')});
+  }
+
+  .aui-discussion__confirm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-2');
+    align-items: center;
+    padding: aui.token('space-2') aui.token('space-3');
+    margin-block: aui.token('space-2');
+    background: aui.token('color-surface-sunken');
+    border-radius: aui.token('radius-md');
+  }
+
+  .aui-discussion__confirm-text {
+    font-weight: aui.token('font-weight-medium');
+  }
+
+  .aui-discussion__toggle {
+    margin-block-start: aui.token('space-1');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Align the toggle with the comment text (after the avatar).
+  .aui-discussion:not(.aui-discussion--no-avatars) .aui-discussion__toggle,
+  .aui-discussion:not(.aui-discussion--no-avatars) .aui-discussion__slot {
+    margin-inline-start: calc(2rem + #{aui.token('space-2')});
+  }
+
+  .aui-discussion__slot:empty {
+    display: none;
+  }
+
+  .aui-discussion__extra {
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text-muted');
+  }
+
+  @include aui.forced-colors {
+    .aui-discussion__mention {
+      border: 1px solid CanvasText;
+    }
+
+    .aui-discussion__replies {
+      border-inline-start-color: CanvasText;
+    }
+
+    .aui-discussion__time:is(:hover, :focus-visible) .aui-discussion__time-absolute {
+      border-color: CanvasText;
+    }
+  }
+}

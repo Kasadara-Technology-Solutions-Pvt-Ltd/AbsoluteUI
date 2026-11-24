@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="gpu">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="5.5" width="19" height="11" rx="2"/>
+      <path d="M14.5 9h4"/>
+      <path d="M14.5 13h4"/>
+      <path d="M6 16.5V20"/>
+      <path d="M10 16.5V20"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="8.5" cy="11" r="2.75"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <rect x="2.5" y="5.5" width="19" height="11" rx="2"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <rect x="2.5" y="5.5" width="19" height="11" rx="2"/>
+      <path d="M14.5 9h4"/>
+      <path d="M14.5 13h4"/>
+      <path d="M6 16.5V20"/>
+      <path d="M10 16.5V20"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="8.5" cy="11" r="2.75"/>
+    </g>
+  </g>
+</svg>

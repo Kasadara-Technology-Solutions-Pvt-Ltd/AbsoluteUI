@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "component": "tour",
+  "pattern": "WAI-ARIA APG Dialog per step: a non-modal dialog by default (the page stays usable), or a modal dialog with aria-modal and a focus trap. Focus moves to the step dialog on every step and returns to the element that had focus before the tour.",
+  "roles": [
+    { "element": "panel", "role": "dialog" },
+    { "element": "title", "role": "heading (h2)" },
+    { "element": "buttons", "role": "button (native)" },
+    { "element": "overlay", "role": "none (aria-hidden)" }
+  ],
+  "aria": [
+    { "attribute": "aria-labelledby", "element": "panel", "value": "the step title" },
+    { "attribute": "aria-describedby", "element": "panel", "value": "the step content and the progress text" },
+    { "attribute": "aria-modal", "element": "panel", "value": "true with modal" },
+    { "attribute": "aria-describedby", "element": "target", "value": "adds the step content while the step is shown; removed afterwards" },
+    { "attribute": "aria-hidden", "element": "overlay and progress dots", "value": "true (decorative)" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Step dialog", "action": "Move between the step's buttons and content (trapped in modal mode)." },
+    { "key": "Enter / Space", "context": "Button", "action": "Next, Back, Skip, or Finish." },
+    { "key": "ArrowRight / ArrowLeft", "context": "Step dialog or its buttons", "action": "Next and previous step (mirrored in RTL; keyboardNavigation)." },
+    { "key": "Escape", "context": "Tour active", "action": "Skip the tour (closeOnEscape) and return focus." }
+  ],
+  "focus": "On every step, focus moves to the step dialog, which announces its title, content, and progress. When the tour finishes or is skipped, focus returns to the element focused before start(). In modal mode, Tab stays inside the step.",
+  "wcag": ["1.3.1", "1.4.3", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "2.4.11", "4.1.2"],
+  "notes": [
+    "Each step title should name the step on its own (screen readers announce it on every step).",
+    "The non-modal default never blocks keyboard users from leaving the step with Tab; Escape skips the tour from anywhere.",
+    "Missing targets are skipped silently for users; aui-step-missing tells the application."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

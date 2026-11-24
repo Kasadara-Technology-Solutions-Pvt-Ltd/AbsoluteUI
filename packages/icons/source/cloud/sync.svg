@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="sync" data-animations="spin:loading">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M19.9 11A8 8 0 0 0 5.1 8"/>
+      <path d="M5 3.5V8h4.5"/>
+      <path d="M4.1 13A8 8 0 0 0 18.9 16"/>
+      <path d="M19 20.5V16h-4.5"/>
+    </g>
+  </g>
+</svg>

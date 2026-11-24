@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { date, docs, n, stats } from '../site';
+
+const ev = stats.evidence;
+const gates = [
+  { title: 'axe-core scans', text: 'WCAG 2.0, 2.1, and 2.2 A and AA rules on every component harness page, in the default, dark, and high-contrast themes, with popups and edit modes open.' },
+  { title: 'Keyboard flows', text: 'The documented keyboard matrix of each component, focus order, focus return, and no keyboard traps.' },
+  { title: 'Reflow at 320 CSS px', text: 'No horizontal page scrolling (WCAG 1.4.10); two-dimensional surfaces scroll in their own region.' },
+  { title: 'Reduced motion and forced colours', text: 'Animations removed under reduced motion; boundaries, focus, and selection stay visible in Windows contrast themes.' },
+  { title: 'Theme contrast', text: 'Every role-token pair of every shipped theme against WCAG 1.4.3 and 1.4.11.' },
+  { title: 'Strict CSP', text: 'Every harness page runs with script-src self, no inline styles, and Trusted Types enforced.' },
+];
+---
+
+<Base title="Accessibility" description="What AbsoluteUI tests automatically against WCAG 2.2 AA on every release, the latest results, and the known limits of automated testing." path="/accessibility/">
+  <PageHero eyebrow="Accessibility" title="Accessibility you can inspect" lead="AbsoluteUI targets WCAG 2.2 Level AA and tests it automatically on every release. This page reports that testing and its scope. It is not a conformance claim for your application." />
+
+  {
+    ev && (
+      <section class="section section-tight" aria-labelledby="latest">
+        <div class="container">
+          <h2 id="latest" class="visually-hidden">Latest run</h2>
+          <div class="stat-row">
+            <div class="stat">
+              <span class="stat-value">{n(ev.axe.passed)} / {n(ev.axe.total)}</span>
+              <span class="stat-label">axe WCAG 2.2 A and AA scans passed</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">{n(ev.e2e.passed)} / {n(ev.e2e.total)}</span>
+              <span class="stat-label">End-to-end tests passed</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">{n(stats.contrast.reduce((s, t) => s + t.passed, 0))} / {n(stats.contrast.reduce((s, t) => s + t.checked, 0))}</span>
+              <span class="stat-label">Theme contrast pairs at AA</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">{stats.components}</span>
+              <span class="stat-label">Components with an accessibility contract</span>
+            </div>
+          </div>
+          <p class="muted small" id="run-meta">
+            Recorded {date(ev.generatedAt)} at commit <code>{ev.commit}</code> in {ev.environment.browser}.
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section-white section-line" aria-labelledby="gates">
+    <div class="container">
+      <div class="head">
+        <p class="eyebrow">Every release</p>
+        <h2 id="gates">What is tested automatically</h2>
+      </div>
+      <div class="cards">
+        {
+          gates.map((g) => (
+            <div class="card card-flat">
+              <span class="ficon ficon-g">
+                <Icon name="check" />
+              </span>
+              <h3>{g.title}</h3>
+              <p>{g.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="contrast">
+    <div class="container">
+      <div class="split">
+        <div class="stack">
+          <p class="eyebrow">Themes</p>
+          <h2 id="contrast">Contrast by theme</h2>
+          <p class="lead">Measured with the same engine the Theme Designer uses.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption class="visually-hidden">Theme contrast results</caption>
+            <thead><tr><th scope="col">Theme</th><th scope="col" class="num">Pairs</th><th scope="col">Result</th></tr></thead>
+            <tbody>
+              {
+                stats.contrast.map((t) => (
+                  <tr>
+                    <th scope="row"><code>{t.theme}</code></th>
+                    <td class="num">{t.checked}</td>
+                    <td>
+                      {t.failed === 0 ? (
+                        <span class="status status-pass"><Icon name="check-circle" />All pass</span>
+                      ) : (
+                        <span class="status status-fail"><Icon name="alert" />{t.failed} fail</span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-white section-line" aria-labelledby="scope">
+    <div class="container container-narrow">
+      <div class="stack stack-lg">
+        <h2 id="scope">Scope and known limits</h2>
+        <div class="notice notice-amber">
+          <Icon name="info" />
+          <p>Automated tools detect only part of WCAG failures. No third-party manual audit has been performed yet, and screen-reader behaviour has not been manually verified with NVDA, JAWS, and VoiceOver. A VPAT/ACR is not yet available.</p>
+        </div>
+        <p class="muted">Accessibility also depends on how components are composed and labelled, on your content, and on manual testing with assistive technology. Each component page lists its keyboard contract, ARIA roles, and known caveats.</p>
+        <div class="cards cards-2">
+          {
+            stats.reports.accessibility ? (
+              <a class="download" href={stats.reports.accessibility} download>
+                <div>
+                  <strong>Accessibility report (PDF)</strong>
+                  <span>Results, scope, and exceptions from the recorded run</span>
+                </div>
+                <Icon name="download" />
+              </a>
+            ) : (
+              <p class="notice">The PDF report is generated with the site build.</p>
+            )
+          }
+          <a class="download" href={docs('/docs/quality/accessibility/')}>
+            <div>
+              <strong>Full results in the docs</strong>
+              <span>Per-component matrix and WCAG criteria</span>
+            </div>
+            <Icon name="external" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

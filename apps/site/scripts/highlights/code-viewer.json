@@ -1,0 +1,7 @@
+[
+  { "title": "Eight languages", "text": "TypeScript, JavaScript, JSON, HTML, CSS, SQL, Bash, and Markdown, highlighted by an in-repo tokenizer that only creates text nodes." },
+  { "title": "Diff built in", "text": "Unified or side-by-side views from a Myers line diff, with Added and Removed spoken, not just colored." },
+  { "title": "10,000 lines", "text": "Large files are virtualized; only the rows in view are in the DOM, and wrapped rows are measured as they render." },
+  { "title": "Copy and wrap", "text": "One-click copy with an announced result, a wrap toggle, highlighted lines, and pinned line numbers." },
+  { "title": "Themed tokens", "text": "Every token color is a theme token that passes the contrast gate on code, added, removed, and highlighted lines." }
+]

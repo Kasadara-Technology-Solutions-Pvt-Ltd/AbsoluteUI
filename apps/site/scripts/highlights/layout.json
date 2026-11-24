@@ -1,0 +1,6 @@
+[
+  { "title": "Five helpers", "text": "Stack, Flex, Grid, Container, and Divider cover everyday page layout." },
+  { "title": "Auto columns", "text": "Grid fits as many columns of a minimum width as the space allows." },
+  { "title": "Token spacing", "text": "Gaps come from the spacing scale, so layouts follow the theme." },
+  { "title": "Your own elements", "text": "Helpers style elements you already have and can be updated or removed." }
+]

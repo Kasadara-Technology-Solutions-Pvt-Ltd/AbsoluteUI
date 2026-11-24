@@ -1,0 +1,469 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-diagram {
+    display: grid;
+    gap: aui.token('space-2');
+    min-inline-size: 0;
+    color: aui.token('color-text');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    line-height: aui.token('line-height-tight');
+  }
+
+  .aui-diagram__toolbar,
+  .aui-diagram__palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: aui.token('space-1');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-diagram__tool,
+  .aui-diagram__palette-item,
+  .aui-diagram__text-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: aui.token('space-1');
+    min-inline-size: aui.token('touch-target-min');
+    min-block-size: aui.token('touch-target-min');
+    padding: 0;
+    color: aui.token('color-text');
+    font: inherit;
+    background: aui.token('color-surface');
+    border: aui.token('border-width') solid aui.token('color-border-strong');
+    border-radius: aui.token('radius-sm');
+    cursor: pointer;
+
+    &:hover {
+      background: aui.token('color-hover');
+    }
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &[aria-disabled='true'] {
+      color: aui.token('color-text-disabled');
+      cursor: not-allowed;
+    }
+
+    &[aria-pressed='true'] {
+      color: aui.token('color-selected-text');
+      background: aui.token('color-selected');
+      border-color: aui.token('color-selected-text');
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    svg {
+      inline-size: aui.icon-size('sm');
+      block-size: aui.icon-size('sm');
+      font-size: aui.icon-size('sm');
+    }
+  }
+
+  .aui-diagram__palette-item,
+  .aui-diagram__text-toggle {
+    padding-inline: aui.token('space-2');
+    justify-self: start;
+    // Palette items are dragged onto the canvas.
+    touch-action: none;
+  }
+
+  .aui-diagram__palette-shape {
+    fill: aui.ctoken('diagram', 'node-bg');
+    stroke: currentcolor;
+    stroke-width: 1.5;
+  }
+
+  // The viewport clips the scene. Set block-size on it to size the diagram.
+  .aui-diagram__viewport {
+    position: relative;
+    block-size: 30rem;
+    overflow: hidden;
+    background: aui.ctoken('diagram', 'canvas-bg');
+    border: aui.token('border-width') solid aui.token('color-border');
+    border-radius: aui.token('radius-md');
+    cursor: grab;
+    touch-action: none;
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+  }
+
+  .aui-diagram--editing .aui-diagram__viewport {
+    cursor: crosshair;
+  }
+
+  .aui-diagram--hand .aui-diagram__viewport,
+  .aui-diagram__viewport--panning {
+    cursor: grabbing;
+  }
+
+  .aui-diagram--placing .aui-diagram__viewport {
+    cursor: copy;
+  }
+
+  .aui-diagram__svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+  }
+
+  .aui-diagram__grid-dot {
+    fill: aui.ctoken('diagram', 'grid-color');
+  }
+
+  .aui-diagram__group-box {
+    fill: none;
+    stroke: aui.token('color-border-strong');
+    stroke-width: 1;
+    stroke-dasharray: 6 4;
+  }
+
+  .aui-diagram__group-label {
+    fill: aui.token('color-text-muted');
+    font-size: aui.token('font-size-xs');
+    font-weight: aui.token('font-weight-semibold');
+  }
+
+  // Nodes.
+  .aui-diagram__node {
+    cursor: pointer;
+    outline: none;
+  }
+
+  .aui-diagram--editing .aui-diagram__node:not(.aui-diagram__node--locked) {
+    cursor: move;
+  }
+
+  .aui-diagram__shape {
+    fill: aui.ctoken('diagram', 'node-bg');
+    stroke: aui.ctoken('diagram', 'node-border');
+    stroke-width: 1.5;
+  }
+
+  .aui-diagram__shape--custom {
+    fill: transparent;
+    stroke: none;
+  }
+
+  .aui-diagram__shape-detail {
+    fill: none;
+    stroke: aui.ctoken('diagram', 'node-border');
+    stroke-width: 1.5;
+  }
+
+  .aui-diagram__label {
+    fill: aui.token('color-text');
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .aui-diagram__node:hover .aui-diagram__shape:not(.aui-diagram__shape--custom) {
+    fill: aui.token('color-hover');
+  }
+
+  // Selected: fill plus a thicker outline, not color alone.
+  .aui-diagram__node[aria-selected='true'] .aui-diagram__shape:not(.aui-diagram__shape--custom) {
+    fill: aui.token('color-selected');
+    stroke: aui.token('color-selected-text');
+    stroke-width: 3;
+  }
+
+  .aui-diagram__node[aria-selected='true'] .aui-diagram__label {
+    fill: aui.token('color-selected-text');
+  }
+
+  .aui-diagram__node--source .aui-diagram__shape,
+  .aui-diagram__node--moving .aui-diagram__shape,
+  .aui-diagram__node--target .aui-diagram__shape {
+    stroke: aui.token('color-focus-ring');
+    stroke-width: 3;
+    stroke-dasharray: 6 3;
+  }
+
+  .aui-diagram__focus {
+    fill: none;
+    stroke: aui.token('color-focus-ring');
+    stroke-width: aui.token('focus-ring-width');
+    visibility: hidden;
+  }
+
+  .aui-diagram__node:focus-visible .aui-diagram__focus {
+    visibility: visible;
+  }
+
+  // Ports appear in edit mode on hover, focus, and selection.
+  .aui-diagram__port {
+    cursor: crosshair;
+    visibility: hidden;
+  }
+
+  .aui-diagram__node:hover .aui-diagram__port,
+  .aui-diagram__node:focus-visible .aui-diagram__port,
+  .aui-diagram__node[aria-selected='true'] .aui-diagram__port {
+    visibility: visible;
+  }
+
+  .aui-diagram__port-hit {
+    fill: transparent;
+  }
+
+  .aui-diagram__port-dot {
+    fill: aui.ctoken('diagram', 'node-bg');
+    stroke: aui.token('color-focus-ring');
+    stroke-width: 2;
+  }
+
+  // Edges.
+  .aui-diagram__line,
+  .aui-diagram__arrow {
+    fill: none;
+    stroke: aui.ctoken('diagram', 'edge-color');
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+  }
+
+  .aui-diagram__arrow:not(.aui-diagram__arrow--open) {
+    fill: aui.ctoken('diagram', 'edge-color');
+  }
+
+  .aui-diagram__edge--dashed .aui-diagram__line {
+    stroke-dasharray: 6 4;
+  }
+
+  .aui-diagram__edge--selected {
+    .aui-diagram__line,
+    .aui-diagram__arrow {
+      stroke: aui.token('color-selected-text');
+      stroke-width: 3;
+    }
+
+    .aui-diagram__arrow:not(.aui-diagram__arrow--open) {
+      fill: aui.token('color-selected-text');
+    }
+  }
+
+  .aui-diagram__link {
+    cursor: pointer;
+    outline: none;
+  }
+
+  .aui-diagram__link-hit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 14;
+    pointer-events: stroke;
+  }
+
+  .aui-diagram__link-ring,
+  .aui-diagram__link-core {
+    fill: none;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .aui-diagram__link-ring {
+    stroke: aui.token('color-focus-ring');
+    stroke-width: 8;
+  }
+
+  .aui-diagram__link-core {
+    stroke: aui.ctoken('diagram', 'node-bg');
+    stroke-width: 3;
+  }
+
+  .aui-diagram__link:focus-visible {
+    .aui-diagram__link-ring,
+    .aui-diagram__link-core {
+      visibility: visible;
+    }
+  }
+
+  .aui-diagram__edge-label-bg {
+    fill: aui.ctoken('diagram', 'node-bg');
+    stroke: aui.token('color-border');
+    stroke-width: 1;
+  }
+
+  .aui-diagram__edge-label-text {
+    fill: aui.token('color-text');
+    font-size: aui.token('font-size-xs');
+    pointer-events: none;
+  }
+
+  .aui-diagram__handle {
+    fill: aui.ctoken('diagram', 'node-bg');
+    stroke: aui.token('color-focus-ring');
+    stroke-width: 2;
+    cursor: crosshair;
+  }
+
+  // Overlay: guides, marquee, connection preview, palette ghost.
+  .aui-diagram__guide {
+    stroke: aui.token('color-focus-ring');
+    stroke-width: 1;
+    stroke-dasharray: 4 3;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+  }
+
+  .aui-diagram__marquee {
+    fill: aui.token('color-selected');
+    fill-opacity: 0.4;
+    stroke: aui.token('color-focus-ring');
+    stroke-width: 1;
+    stroke-dasharray: 4 3;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+  }
+
+  .aui-diagram__preview {
+    fill: none;
+    stroke: aui.token('color-focus-ring');
+    stroke-width: 2;
+    stroke-dasharray: 6 3;
+    pointer-events: none;
+  }
+
+  .aui-diagram__ghost {
+    fill: aui.ctoken('diagram', 'node-bg');
+    fill-opacity: 0.7;
+    stroke: aui.token('color-focus-ring');
+    stroke-width: 2;
+    stroke-dasharray: 6 3;
+    pointer-events: none;
+  }
+
+  // Inline label editor (positioned through the CSSOM).
+  .aui-diagram__editor {
+    position: absolute;
+    box-sizing: border-box;
+    padding-inline: aui.token('space-2');
+    color: aui.token('color-text');
+    font: inherit;
+    text-align: center;
+    background: aui.token('color-surface');
+    border: aui.token('border-width-strong') solid aui.token('color-focus-ring');
+    border-radius: aui.token('radius-sm');
+    box-shadow: aui.token('shadow-sm');
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // Text alternative.
+  .aui-diagram__text {
+    display: grid;
+    gap: aui.token('space-2');
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-diagram__text--hidden {
+    @include aui.visually-hidden;
+  }
+
+  .aui-diagram__table-scroll {
+    max-block-size: 20rem;
+    overflow: auto;
+
+    &:focus-visible {
+      @include aui.focus-ring;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .aui-diagram__table {
+    inline-size: 100%;
+    border-collapse: collapse;
+
+    caption {
+      padding-block-end: aui.token('space-1');
+      font-weight: aui.token('font-weight-semibold');
+      text-align: start;
+    }
+
+    th,
+    td {
+      padding: aui.token('space-1') aui.token('space-2');
+      text-align: start;
+      border-block-end: aui.token('border-width') solid aui.token('color-border');
+    }
+
+    thead th {
+      color: aui.token('color-text-muted');
+      font-size: aui.token('font-size-xs');
+    }
+  }
+
+  @include aui.reduced-motion {
+    .aui-diagram__viewport {
+      scroll-behavior: auto;
+    }
+  }
+
+  @include aui.forced-colors {
+    .aui-diagram__shape,
+    .aui-diagram__shape-detail,
+    .aui-diagram__line,
+    .aui-diagram__arrow {
+      stroke: CanvasText;
+    }
+
+    .aui-diagram__shape,
+    .aui-diagram__edge-label-bg {
+      fill: Canvas;
+    }
+
+    .aui-diagram__arrow:not(.aui-diagram__arrow--open) {
+      fill: CanvasText;
+    }
+
+    .aui-diagram__label,
+    .aui-diagram__edge-label-text,
+    .aui-diagram__group-label {
+      fill: CanvasText;
+    }
+
+    .aui-diagram__node[aria-selected='true'] .aui-diagram__shape:not(.aui-diagram__shape--custom) {
+      fill: Highlight;
+      stroke: CanvasText;
+    }
+
+    .aui-diagram__node[aria-selected='true'] .aui-diagram__label {
+      fill: HighlightText;
+    }
+
+    .aui-diagram__edge--selected .aui-diagram__line,
+    .aui-diagram__edge--selected .aui-diagram__arrow,
+    .aui-diagram__focus,
+    .aui-diagram__link-ring,
+    .aui-diagram__guide,
+    .aui-diagram__preview {
+      stroke: Highlight;
+    }
+  }
+}

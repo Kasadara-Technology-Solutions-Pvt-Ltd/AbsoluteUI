@@ -1,0 +1,9 @@
+@use 'aui';
+@use '../internal/period-picker';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.field-chrome;
+  @include period-picker.styles;
+}

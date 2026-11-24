@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 1,
+  "component": "password-input",
+  "factory": {
+    "name": "PasswordInput.create",
+    "signature": "PasswordInput.create(host: HTMLElement, options: PasswordInputOptions): PasswordInput"
+  },
+  "configKey": "passwordInput",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Visible label (required accessible name)."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visually hide the label."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Initial value; reset() restores it."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Form field name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Help text, referenced by aria-describedby."
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Value is required."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Disabled."
+    },
+    {
+      "name": "readOnly",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Read-only."
+    },
+    {
+      "name": "minLength",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Minimum length (code points)."
+    },
+    {
+      "name": "maxLength",
+      "type": "number",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Maximum length; validated, not truncated."
+    },
+    {
+      "name": "pattern",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "HTML pattern semantics (anchored, v flag)."
+    },
+    {
+      "name": "autocomplete",
+      "type": "'current-password' | 'new-password' | 'off'",
+      "default": "current-password",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Password-manager hint. Use new-password on sign-up and change-password forms."
+    },
+    {
+      "name": "revealable",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Show the show/hide toggle."
+    },
+    {
+      "name": "clipboard",
+      "type": "'allow' | 'block-copy' | 'block-all'",
+      "default": "allow",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Clipboard policy."
+    },
+    {
+      "name": "describedBy",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Extra element ids for aria-describedby (e.g. a strength meter)."
+    },
+    {
+      "name": "validate",
+      "type": "(value: string) => string | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Consumer validation; the message must not contain the value."
+    },
+    {
+      "name": "icons",
+      "type": "Partial<{ error: IconRef; reveal: IconRef; conceal: IconRef; capsLock: IconRef }>",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Icon slot overrides."
+    },
+    {
+      "name": "validationTiming",
+      "type": "'blur' | 'input' | 'submit'",
+      "default": "blur",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "When validation messages first appear; afterwards they update live."
+    },
+    {
+      "name": "capsLockWarning",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Show a warning while Caps Lock is on and the field has focus."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Message locale."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "Host element."
+    },
+    {
+      "name": "input",
+      "type": "HTMLInputElement",
+      "description": "The native input."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "description": "Current value."
+    },
+    {
+      "name": "validity",
+      "type": "FieldValidity",
+      "description": "Current validity."
+    },
+    {
+      "name": "revealed",
+      "type": "boolean",
+      "description": "Password shown as text."
+    },
+    {
+      "name": "name",
+      "type": "string | null",
+      "description": "Form field name."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Accessible label (used by the error summary)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Whether the control is disabled."
+    },
+    {
+      "name": "dirty",
+      "type": "boolean",
+      "description": "Value differs from the initial value."
+    },
+    {
+      "name": "touched",
+      "type": "boolean",
+      "description": "Focus has left the control at least once."
+    },
+    {
+      "name": "options",
+      "type": "Readonly<PasswordInputOptions>",
+      "description": "Current options."
+    }
+  ],
+  "methods": [
+    {
+      "name": "getFormValue",
+      "signature": "getFormValue(): string",
+      "description": "The value."
+    },
+    {
+      "name": "setValue",
+      "signature": "setValue(value: string): void",
+      "description": "Set the value (no events)."
+    },
+    {
+      "name": "setRevealed",
+      "signature": "setRevealed(revealed: boolean): void",
+      "description": "Show or mask the password."
+    },
+    {
+      "name": "update",
+      "signature": "update(options: Partial<PasswordInputOptions>): void",
+      "description": "Merge and apply options."
+    },
+    {
+      "name": "reportValidity",
+      "signature": "reportValidity(): boolean",
+      "description": "Show messages now (marks the control submitted) and return validity."
+    },
+    {
+      "name": "setCustomError",
+      "signature": "setCustomError(message: string | null): void",
+      "description": "External error (server, cross-field rule); null clears it."
+    },
+    {
+      "name": "focus",
+      "signature": "focus(): void",
+      "description": "Move focus to the primary focusable element."
+    },
+    {
+      "name": "reset",
+      "signature": "reset(): void",
+      "description": "Restore the initial value and clear dirty/touched/submitted state."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, registration, listeners, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-input",
+      "detail": "{ validity: FieldValidity }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "User edited the value (the value is not in the detail)."
+    },
+    {
+      "name": "aui-change",
+      "detail": "{ validity: FieldValidity }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "User committed the value (native change)."
+    },
+    {
+      "name": "aui-caps-lock",
+      "detail": "{ on: boolean }",
+      "bubbles": false,
+      "cancelable": false,
+      "description": "The Caps Lock warning appeared or disappeared."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-password-input",
+      "description": "Host (also aui-field)."
+    },
+    {
+      "name": "aui-password-input--invalid | --disabled",
+      "description": "State modifiers."
+    },
+    {
+      "name": "aui-password-input__control",
+      "description": "Control boundary."
+    },
+    {
+      "name": "aui-password-input__input",
+      "description": "Native input."
+    },
+    {
+      "name": "aui-password-input__reveal",
+      "description": "Show/hide toggle."
+    },
+    {
+      "name": "aui-password-input__caps",
+      "description": "Caps Lock warning."
+    }
+  ],
+  "iconSlots": [
+    {
+      "name": "error",
+      "default": "alert-circle"
+    },
+    {
+      "name": "reveal",
+      "default": "eye"
+    },
+    {
+      "name": "conceal",
+      "default": "eye-off"
+    },
+    {
+      "name": "capsLock",
+      "default": "alert-triangle"
+    }
+  ]
+}

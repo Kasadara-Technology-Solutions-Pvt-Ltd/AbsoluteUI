@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/color-picker",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiColorPicker",
+      "description": "AbsoluteUI ColorPicker: `<aui-color-picker>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-color-picker",
+      "exportAs": [
+        "auiColorPicker"
+      ],
+      "source": "generated",
+      "component": "color-picker",
+      "configKey": "colorPicker",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "ColorPickerValue"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label (accessible name of the trigger or the value field)."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text, referenced by aria-describedby."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name; a hidden input submits the hex value."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "A color must be chosen."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable the picker."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the value without allowing changes (thumbs stay focusable)."
+        },
+        {
+          "name": "alpha",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the opacity slider; the value becomes #rrggbbaa."
+        },
+        {
+          "name": "mode",
+          "type": "\"popup\" | \"inline\"",
+          "required": false,
+          "default": "popup",
+          "description": "Popup from a trigger button, or the panel in place."
+        },
+        {
+          "name": "presets",
+          "type": "readonly (string | ColorSwatch)[]",
+          "required": false,
+          "description": "App-supplied preset swatches with optional spoken names."
+        },
+        {
+          "name": "recent",
+          "type": "readonly (string | ColorSwatch)[]",
+          "required": false,
+          "description": "App-supplied recent colors (the app keeps the list)."
+        },
+        {
+          "name": "eyeDropper",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Offer the screen eyedropper where the browser has the EyeDropper API."
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "required": false,
+          "default": "!required",
+          "description": "Show a clear button that sets the value to null."
+        },
+        {
+          "name": "contrastWith",
+          "type": "string",
+          "required": false,
+          "description": "Background color for the WCAG contrast hint (ratio and AA/AAA verdict)."
+        },
+        {
+          "name": "validate",
+          "type": "((value: string) => string | null)",
+          "required": false,
+          "description": "Consumer validation of the hex value; return a message to mark it invalid."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<ColorPickerIcons>",
+          "required": false,
+          "description": "Icons for the error, eyedropper, and clear button."
+        },
+        {
+          "name": "format",
+          "type": "ColorFormat",
+          "required": false,
+          "default": "hex",
+          "configurable": true,
+          "description": "Text format of the value field: 'hex', 'rgb', or 'hsl'."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages appear."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of messages and value text."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "ColorPickerValue",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "valueInput",
+          "payload": "ColorPickerValueDetail",
+          "event": "aui-input",
+          "description": "The value changes while dragging, with a key, or on any commit: { value, validity }."
+        },
+        {
+          "name": "changed",
+          "payload": "ColorPickerValueDetail",
+          "event": "aui-change",
+          "description": "The value was committed (pointer release, key, swatch, typed text, eyedropper, clear): { value, validity }."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "The popup opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "The popup closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "show",
+          "signature": "show(): void",
+          "description": "Open the popup (popup mode)."
+        },
+        {
+          "name": "hide",
+          "signature": "hide(restoreFocus?: boolean | undefined): void",
+          "description": "Close the popup; focus returns to the trigger by default."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "Show or clear an external error."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the trigger (popup) or the area thumb (inline)."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Restore the initial value and clear validation state."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Slider for hue and opacity; the saturation and brightness area is one role=slider thumb whose aria-valuetext names both values; the popup is a non-modal dialog opened by a button with aria-haspopup=dialog and aria-expanded.",
+        "source": "packages/components/metadata/color-picker/accessibility.json"
+      },
+      "limitations": [
+        "sRGB only; values are 8-bit hex.",
+        "The eyedropper exists only where the browser has the EyeDropper API (Chromium-based browsers); elsewhere the button is not shown."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { ColorPickerValue } from '@absoluteui/components/color-picker';\nimport { AuiColorPicker } from '@absoluteui/angular/color-picker';\n\n@Component({\n  selector: 'app-brand-color',\n  imports: [AuiColorPicker],\n  template: `<aui-color-picker label=\"Brand color\" contrastWith=\"#ffffff\" [presets]=\"presets\" [(value)]=\"color\"></aui-color-picker>`,\n})\nexport class BrandColorComponent {\n  color: ColorPickerValue = '#2563eb';\n  readonly presets = ['#2563eb', '#16a34a', '#dc2626'];\n}"
+    }
+  ]
+}

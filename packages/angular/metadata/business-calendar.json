@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/business-calendar",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiBusinessCalendar",
+      "description": "AbsoluteUI BusinessCalendar: `<aui-business-calendar>`.\nTwo-way: `[(month)]`.",
+      "selector": "aui-business-calendar",
+      "exportAs": [
+        "auiBusinessCalendar"
+      ],
+      "source": "generated",
+      "component": "business-calendar",
+      "configKey": "businessCalendar",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name; each grid is named \"{label}, {month year}\"."
+        },
+        {
+          "name": "definition",
+          "type": "BusinessCalendarDefinition",
+          "required": false,
+          "default": "[object Object]",
+          "description": "Working days (default Monday to Friday), hours (default 09:00 to 17:00), weekday hours, holidays, and exceptions. Validated (BUSINESS_CALENDAR_DEFINITION)."
+        },
+        {
+          "name": "focusedDate",
+          "type": "PlainDate",
+          "required": false,
+          "description": "Initially focused day. Default: today."
+        },
+        {
+          "name": "editable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Enter, Space, or a click toggles a day between working and non-working (an exception)."
+        },
+        {
+          "name": "firstDayOfWeek",
+          "type": "IsoWeekday",
+          "required": false,
+          "description": "First column (1 = Monday). Default: the locale's first day of week."
+        },
+        {
+          "name": "today",
+          "type": "PlainDate",
+          "required": false,
+          "description": "Advanced: fixed \"today\" for tests and demos."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<BusinessCalendarIcons>",
+          "required": false,
+          "description": "Icon slot overrides."
+        },
+        {
+          "name": "months",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "configurable": true,
+          "description": "Consecutive months shown, 1 to 12; the previous/next buttons page by this many."
+        },
+        {
+          "name": "showLegend",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the legend of day kinds."
+        },
+        {
+          "name": "showHolidays",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "List the holidays of the visible months."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Month and weekday names, dates, numbers, the first day of the week, and messages."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "IANA timezone of \"today\" (never the host machine zone, SPEC section 8.1)."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Reading direction; Left/Right arrow keys and chevrons follow it."
+        }
+      ],
+      "models": [
+        {
+          "name": "month",
+          "type": "PlainYearMonth",
+          "change": "monthChange",
+          "description": "First visible month. Default: the month of the focused date."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "BusinessCalendarChangeDetail",
+          "event": "aui-change",
+          "description": "Edit mode: the user toggled a day; definition is the updated definition."
+        },
+        {
+          "name": "daySelected",
+          "payload": "BusinessCalendarDaySelectDetail",
+          "event": "aui-day-select",
+          "description": "The user activated a day (click, Enter, or Space), in both modes."
+        },
+        {
+          "name": "navigate",
+          "payload": "BusinessCalendarNavigateDetail",
+          "event": "aui-navigate",
+          "description": "The visible months changed by user action."
+        }
+      ],
+      "methods": [
+        {
+          "name": "goTo",
+          "signature": "goTo(date: PlainDate): void",
+          "description": "Show a date and make it the focused day (no events)."
+        },
+        {
+          "name": "setWorking",
+          "signature": "setWorking(date: PlainDate, working: boolean): void",
+          "description": "Programmatic edit (no events): adds, or removes when redundant, an exception."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the focused day."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG grid (as Calendar): one table role=grid per month with a single roving tab stop across all months; every day cell names its date and kind.",
+        "source": "packages/components/metadata/business-calendar/accessibility.json"
+      },
+      "limitations": [
+        "One working-hours pattern per weekday (plus per-exception hours); no rotating shifts or per-week patterns.",
+        "Holidays are one-off dates or yearly on the same month and day; movable feasts (Easter) must be listed per year.",
+        "Editing toggles working/non-working only; holiday names and hours are edited in the definition.",
+        "Timezone rule accuracy for workingIntervals depends on the browser ICU data.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { plainDate } from '@absoluteui/core';\nimport type { BusinessCalendarChangeDetail, BusinessCalendarDefinition } from '@absoluteui/components/business-calendar';\nimport { AuiBusinessCalendar } from '@absoluteui/angular/business-calendar';\n\n@Component({\n  selector: 'app-office-days',\n  imports: [AuiBusinessCalendar],\n  template: `<aui-business-calendar label=\"Office\" [definition]=\"definition\" [editable]=\"true\" [months]=\"6\" (changed)=\"save($event)\"></aui-business-calendar>`,\n})\nexport class OfficeDaysComponent {\n  definition: BusinessCalendarDefinition = { holidays: [{ date: plainDate(2026, 1, 1), name: \"New Year's Day\", yearly: true }] };\n\n  save(detail: BusinessCalendarChangeDetail): void {\n    this.definition = detail.definition;\n  }\n}"
+    }
+  ]
+}

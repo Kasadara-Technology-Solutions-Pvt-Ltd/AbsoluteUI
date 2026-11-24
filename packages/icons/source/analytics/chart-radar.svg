@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="chart-radar">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9z"/>
+      <path d="M12 3v18"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="stroke">
+      <path d="M12 7.5l4.5 3-1.5 5.5-5 1-2.5-5z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 7.5l4.5 3-1.5 5.5-5 1-2.5-5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9z"/>
+      <path d="M12 3v18"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="stroke">
+      <path d="M12 7.5l4.5 3-1.5 5.5-5 1-2.5-5z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.35">
+      <path d="M12 7.5l4.5 3-1.5 5.5-5 1-2.5-5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9z"/>
+      <path d="M12 3v18"/>
+    </g>
+    <g data-layer="detail" data-role="accent" data-paint="stroke">
+      <path d="M12 7.5l4.5 3-1.5 5.5-5 1-2.5-5z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,104 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  @include aui.chart-chrome;
+  @include aui.chart-interaction;
+
+  .aui-network-graph .aui-chart__body {
+    touch-action: none;
+  }
+
+  .aui-network-graph__edge {
+    stroke: aui.token('color-chart-axis');
+    stroke-opacity: 0.55;
+  }
+
+  .aui-network-graph__arrow {
+    fill: aui.token('color-chart-axis');
+    fill-opacity: 0.8;
+  }
+
+  .aui-network-graph__node {
+    fill: var(--aui-chart-color);
+    stroke: aui.token('color-surface');
+    stroke-width: 1.5;
+    cursor: grab;
+  }
+
+  .aui-network-graph__node--pinned {
+    stroke: aui.token('color-text');
+    stroke-dasharray: 2 1.5;
+  }
+
+  // Neighborhood highlight: the focused or hovered node, its neighbors, and its edges.
+  .aui-network-graph--lit .aui-network-graph__node:not(.aui-network-graph__lit) {
+    fill-opacity: 0.3;
+  }
+
+  .aui-network-graph--lit .aui-network-graph__edge:not(.aui-network-graph__lit),
+  .aui-network-graph--lit .aui-network-graph__arrow:not(.aui-network-graph__lit) {
+    opacity: 0.15;
+  }
+
+  .aui-network-graph__edge.aui-network-graph__lit {
+    stroke: aui.token('color-text');
+    stroke-opacity: 0.9;
+  }
+
+  .aui-network-graph__arrow.aui-network-graph__lit {
+    fill: aui.token('color-text');
+  }
+
+  .aui-network-graph__node.aui-chart__mark--hover,
+  .aui-network-graph__node.aui-chart__mark--active {
+    stroke: aui.token('color-text');
+    stroke-width: 2.5;
+    stroke-dasharray: none;
+  }
+
+  .aui-network-graph__label {
+    fill: aui.token('color-text');
+    paint-order: stroke;
+    stroke: aui.token('color-surface');
+    stroke-width: 3;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+
+  // Legend and tooltip keys show the group's marker shape only.
+  .aui-network-graph .aui-chart__swatch-line {
+    display: none;
+  }
+
+  @include aui.forced-colors {
+    .aui-network-graph__edge {
+      stroke: CanvasText;
+    }
+
+    .aui-network-graph__arrow {
+      fill: CanvasText;
+    }
+
+    .aui-network-graph__node {
+      fill: CanvasText;
+      stroke: Canvas;
+    }
+
+    .aui-network-graph__edge.aui-network-graph__lit,
+    .aui-network-graph__node.aui-chart__mark--hover,
+    .aui-network-graph__node.aui-chart__mark--active {
+      stroke: Highlight;
+    }
+
+    .aui-network-graph__arrow.aui-network-graph__lit {
+      fill: Highlight;
+    }
+
+    .aui-network-graph__label {
+      fill: CanvasText;
+      stroke: Canvas;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+[
+  { "title": "Preview on hover", "text": "Shows a rich preview for a link or button on hover and keyboard focus." },
+  { "title": "Stays while used", "text": "Users can move the pointer into the card without it closing." },
+  { "title": "Described trigger", "text": "Optionally links the card to its trigger as a description for screen readers." },
+  { "title": "Tunable delays", "text": "Show and hide delays avoid accidental opening while the pointer passes by." }
+]

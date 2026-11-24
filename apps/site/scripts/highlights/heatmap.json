@@ -1,0 +1,6 @@
+[
+  { "title": "Color scales", "text": "Sequential or diverging steps around a midpoint, listed in the legend." },
+  { "title": "Cell labels", "text": "Cells print their values when the formatted value fits." },
+  { "title": "Grid keyboard", "text": "One tab stop; arrow keys move across rows and columns with a tooltip." },
+  { "title": "Data table fallback", "text": "The exact matrix as a table, with a summary of size and extremes." }
+]

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "component": "fieldset",
+  "factory": { "name": "Fieldset.enhance", "signature": "Fieldset.enhance(element: HTMLFieldSetElement, options: FieldsetOptions): Fieldset" },
+  "configKey": "fieldset",
+  "options": [
+    { "name": "legend", "type": "string", "required": true, "globallyConfigurable": false, "description": "Visible legend; the group's accessible name." },
+    { "name": "hideLegend", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Visually hide the legend (it stays the accessible name)." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "description": "Help text for the group, referenced by aria-describedby." },
+    { "name": "required", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Required marker; '(required)' is added to the spoken legend." },
+    { "name": "disabled", "type": "boolean", "required": false, "globallyConfigurable": false, "description": "Sets the native disabled attribute; unset leaves it alone." },
+    { "name": "error", "type": "string | null", "required": false, "globallyConfigurable": false, "description": "Group-level error message; empty or null hides it." },
+    { "name": "icons", "type": "Partial<FieldsetIcons>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Locale of the required text." }
+  ],
+  "properties": [
+    { "name": "element", "type": "HTMLFieldSetElement", "description": "The enhanced fieldset." },
+    { "name": "legend", "type": "HTMLLegendElement", "description": "The rendered legend." },
+    { "name": "options", "type": "Readonly<FieldsetOptions>", "description": "Current options." }
+  ],
+  "methods": [
+    { "name": "focus", "signature": "focus(): void", "description": "Focus the first enabled, visible control in the group (pass as an Error Summary item's focus)." },
+    { "name": "update", "signature": "update(options: Partial<FieldsetOptions>): void", "description": "Merge and apply options." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove the legend, help, and error; restore a page legend and aria-describedby." }
+  ],
+  "events": [],
+  "contentAreas": [
+    { "name": "controls", "description": "The fieldset's own children (any controls); they stay in place after the legend, help, and error." }
+  ],
+  "cssClasses": [
+    { "name": "aui-fieldset", "description": "The enhanced fieldset." },
+    { "name": "aui-fieldset--invalid", "description": "A group error is shown." },
+    { "name": "aui-field__label", "description": "Legend (shared field chrome)." },
+    { "name": "aui-field__required", "description": "Visual required marker." },
+    { "name": "aui-field__description", "description": "Help text." },
+    { "name": "aui-field__error", "description": "Group error message." }
+  ],
+  "iconSlots": [
+    { "name": "error", "default": "alert-circle" }
+  ]
+}

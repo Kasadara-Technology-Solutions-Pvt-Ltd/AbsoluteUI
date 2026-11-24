@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" data-id="dot">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <circle cx="5" cy="5" r="3"/>
+    </g>
+  </g>
+</svg>

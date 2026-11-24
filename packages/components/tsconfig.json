@@ -1,0 +1,30 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "emitDeclarationOnly": true,
+    "tsBuildInfoFile": "../../.cache/tsbuildinfo/components.tsbuildinfo"
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "../helpers"
+    },
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../utilities"
+    },
+    {
+      "path": "../theme"
+    },
+    {
+      "path": "../icons"
+    }
+  ]
+}

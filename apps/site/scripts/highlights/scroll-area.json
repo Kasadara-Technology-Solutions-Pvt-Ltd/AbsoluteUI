@@ -1,0 +1,6 @@
+[
+  { "title": "Enhance in place", "text": "Turns an existing element into a labelled scroll region without moving its content." },
+  { "title": "Keyboard scrolling", "text": "Overflowing regions become focusable so keyboard users can scroll them." },
+  { "title": "Edge fades", "text": "Shadows show where more content is hidden, on any edge." },
+  { "title": "Any axis", "text": "Vertical, horizontal, or both, with a maximum block size you choose." }
+]

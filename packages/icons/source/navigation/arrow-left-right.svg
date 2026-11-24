@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="arrow-left-right">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M5 8h14"/>
+      <path d="M15.5 4.5L19 8l-3.5 3.5"/>
+      <path d="M19 16H5"/>
+      <path d="M8.5 12.5L5 16l3.5 3.5"/>
+    </g>
+  </g>
+</svg>

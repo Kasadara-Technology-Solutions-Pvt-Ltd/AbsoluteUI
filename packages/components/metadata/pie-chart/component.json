@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "name": "pie-chart",
+  "displayName": "Pie Chart",
+  "category": "Charts",
+  "package": "@absoluteui/components",
+  "import": "import { PieChart } from '@absoluteui/components/pie-chart';",
+  "styleImport": "@absoluteui/components/pie-chart/style.css",
+  "purpose": "Accessible SVG pie and donut chart for a single part-to-whole breakdown: slices in data order from 12 o'clock, percentage labels, a legend listing every share, keyboard-reachable slices with tooltips, a generated summary, and a data table fallback.",
+  "whenToUse": [
+    "One breakdown of a total into a few (2-6) parts.",
+    "Donut: when the total (center label) matters as much as the parts."
+  ],
+  "whenNotToUse": [
+    "Comparing many parts or similar sizes: use Bar Chart (lengths compare more accurately than angles).",
+    "Values that can be negative.",
+    "Comparing several breakdowns: use a stacked Bar Chart."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "default",
+    "donut",
+    "empty (no data, all zero)",
+    "all slices hidden",
+    "slice hidden",
+    "slice focused (tooltip)",
+    "slice hovered",
+    "table open"
+  ],
+  "responsive": "The pie fits the smaller of the container width and the height option, centered. Slice labels are printed only where they fit. Reflows at 320 CSS px.",
+  "rtl": "Slices keep their clockwise order (a pie has no reading axis); ArrowLeft/ArrowRight are swapped in RTL so \"forward\" follows the reading direction. Legend, tooltip, and table follow the document direction.",
+  "theme": "Slices use color-chart-1..8 by palette slot with a color-surface separator and color-surface textures; labels color-text with a color-surface halo; center label color-text. Forced colors use CanvasText, Canvas, and Highlight.",
+  "timezone": "Not applicable.",
+  "security": "All text (title, description, labels, values, tooltip, table) is set with textContent; SVG is built with createElementNS. Colors are CSS classes; sizes and the tooltip position are written through the CSSOM (style.setProperty). No innerHTML, no style attributes, no inline handlers: works under style-src without unsafe-inline and require-trusted-types-for.",
+  "dataHandling": "Renders the data it is given; no persistence, network access, or telemetry. Values are not logged; validation errors name the option, never its value.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "PieChart.create with 12 slices (pie and donut), including the first render",
+        "budget": "< 15 ms in headless Chromium (e2e performance test, median of 5)"
+      }
+    ],
+    "testedScale": "Designed for up to about 12 slices; more work but become unreadable (colors repeat after 8)."
+  },
+  "limitations": [
+    "Negative values cannot be drawn and are excluded from the pie (listed as not plotted).",
+    "Slices start at 12 o'clock in data order; sorting is the consumer's choice.",
+    "Slice labels are hidden for slices narrower than about 17 degrees.",
+    "Manual screen-reader verification is pending."
+  ],
+  "unsupported": [
+    "Exploded slices, nested (sunburst) or multi-ring donuts.",
+    "Outside labels with leader lines.",
+    "Export and selection."
+  ],
+  "antiPatterns": [
+    "More than about 6 slices.",
+    "Several pies side by side for comparison.",
+    "Omitting percentages and legend (patterns and labels are the non-color cues)."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/pie-chart: AuiPieChart directive ([auiPieChart]).",
+    "react": "@absoluteui/react/pie-chart: AuiPieChart component.",
+    "vue": "@absoluteui/vue/pie-chart: AuiPieChart component."
+  },
+  "versionIntroduced": "0.3.0",
+  "deprecated": null
+}

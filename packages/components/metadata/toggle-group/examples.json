@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "component": "toggle-group",
+  "examples": [
+    {
+      "id": "alignment",
+      "title": "Required single choice with icon-only buttons",
+      "language": "ts",
+      "code": "import { ToggleGroup } from '@absoluteui/components/toggle-group';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nToggleGroup.create(host, {\n  label: 'Text alignment',\n  required: true,\n  attached: true,\n  value: ['start'],\n  items: [\n    { value: 'start', label: 'Align start', icon: 'align-start', iconOnly: true },\n    { value: 'center', label: 'Align center', icon: 'align-center', iconOnly: true },\n    { value: 'end', label: 'Align end', icon: 'align-end', iconOnly: true },\n  ],\n});"
+    },
+    {
+      "id": "styles",
+      "title": "Multiple text styles",
+      "language": "ts",
+      "code": "import { ToggleGroup, type ToggleGroupChangeDetail } from '@absoluteui/components/toggle-group';\n\nconst host = document.createElement('div');\nconst preview = document.createElement('p');\npreview.textContent = 'The quick brown fox';\ndocument.body.append(host, preview);\nToggleGroup.create(host, {\n  label: 'Text style',\n  multiple: true,\n  items: [\n    { value: 'bold', label: 'Bold', icon: 'bold' },\n    { value: 'italic', label: 'Italic', icon: 'italic' },\n    { value: 'underline', label: 'Underline', icon: 'underline' },\n  ],\n});\nhost.addEventListener('aui-change', (event) => {\n  const { value } = (event as CustomEvent<ToggleGroupChangeDetail>).detail;\n  preview.style.fontWeight = value.includes('bold') ? 'bold' : '';\n  preview.style.fontStyle = value.includes('italic') ? 'italic' : '';\n  preview.style.textDecoration = value.includes('underline') ? 'underline' : '';\n});"
+    }
+  ]
+}

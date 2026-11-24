@@ -1,0 +1,7 @@
+[
+  { "title": "Select-only pattern", "text": "Follows the WAI-ARIA select-only combobox pattern with a popup in the top layer." },
+  { "title": "Typeahead", "text": "Typing letters jumps to the matching option." },
+  { "title": "Option descriptions", "text": "Options can carry a description or be disabled." },
+  { "title": "Custom rendering", "text": "Render your own content for options and the selected value." },
+  { "title": "Form ready", "text": "Submits through a hidden input with localized required validation." }
+]

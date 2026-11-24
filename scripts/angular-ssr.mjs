@@ -1,0 +1,89 @@
+// docs/PLAN-R9-ANGULAR.md M6 (D3): server-render the SSR fixture (packages/angular/test/ssr/app.ts,
+// compiled by `ngc -p packages/angular/tsconfig.test.json`) with @angular/platform-server in Node,
+// check that the reference components rendered on the server, and write the HTML as a module
+// for the hydration test (test/m6-ssr.test.ts) that runs in Chromium.
+// The partially compiled Angular packages need the JIT compiler in Node (no linker here).
+import '@angular/compiler';
+import { writeFileSync } from 'node:fs';
+import { register } from 'node:module';
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { mergeApplicationConfig } from '@angular/core';
+import { bootstrapApplication, provideClientHydration } from '@angular/platform-browser';
+import { provideServerRendering, renderApplication } from '@angular/platform-server';
+import { root, fail } from './lib.mjs';
+
+// ngc adds extensionless relative imports for directives it reaches through arrays (AUI_CARD, ...);
+// Vite resolves them in the browser tests, Node ESM needs the extension.
+register(
+  'data:text/javascript,' +
+    encodeURIComponent(`export async function resolve(specifier, context, next) {
+  try {
+    return await next(specifier, context);
+  } catch (error) {
+    if (error?.code === 'ERR_MODULE_NOT_FOUND' && specifier.startsWith('.') && !/[.][cm]?js$/.test(specifier)) return next(specifier + '.js', context);
+    throw error;
+  }
+}`),
+);
+
+const out = join(root, '.cache', 'angular-test', 'test', 'ssr');
+const app = await import(pathToFileURL(join(out, 'app.js')).href);
+
+const warnings = [];
+const warn = console.warn;
+console.warn = (...args) => {
+  warnings.push(args.map(String).join(' '));
+};
+let html;
+try {
+  const config = mergeApplicationConfig(app.ssrConfig, { providers: [provideServerRendering(), provideClientHydration()] });
+  html = await renderApplication((context) => bootstrapApplication(app.SsrApp, config, context), {
+    document: '<!doctype html><html lang="en"><head><title>SSR</title></head><body><app-ssr></app-ssr></body></html>',
+    url: 'http://localhost/people',
+    allowedHosts: ['localhost'],
+  });
+} finally {
+  console.warn = warn;
+}
+
+/** The outer HTML of the first element with this tag (no nesting of the same tag in the fixture). */
+function element(tag) {
+  const start = html.indexOf(`<${tag}`);
+  const end = html.indexOf(`</${tag}>`, start);
+  return start < 0 || end < 0 ? '' : html.slice(start, end + tag.length + 3);
+}
+
+const errors = [];
+const expect = (ok, message) => {
+  if (!ok) errors.push(message);
+};
+for (const w of warnings) if (w.includes('AbsoluteUI')) errors.push(`server warning: ${w}`);
+
+// Element components render on the server and are marked for re-creation in the browser.
+for (const tag of ['aui-sidebar', 'aui-text-input', 'aui-date-picker', 'aui-select', 'aui-tabs', 'aui-card', 'aui-data-table']) {
+  const el = element(tag);
+  expect(el.includes('ngskiphydration'), `<${tag}> lacks ngSkipHydration`);
+  expect(el.includes('data-aui-ssr='), `<${tag}> was not rendered on the server`);
+}
+expect(/<aui-text-input[^>]*>[\s\S]*<input[^>]*value="Ada"/.test(element('aui-text-input')), 'Text Input: no input with the form value');
+expect(/<input[^>]*value="2026-03-08"/.test(element('aui-date-picker')) || element('aui-date-picker').includes('3/8/2026'), 'Date Picker: no input with the value');
+expect(element('aui-select').includes('Core'), 'Select: selected label missing');
+expect((element('aui-tabs').match(/role="tab"/g) ?? []).length === 2, 'Tabs: tabs missing');
+expect(element('aui-card').includes('Projected 0'), 'Card: projected content missing');
+expect((element('aui-data-table').match(/class="cell-name"/g) ?? []).length === 2, 'Data Table: auiCell template not rendered on the server');
+expect(element('aui-data-table').includes('Lin'), 'Data Table: rows missing');
+expect(/href="\/people"[^>]*aria-current="page"|aria-current="page"[^>]*href="\/people"/.test(element('aui-sidebar')), 'Sidebar: router href or selection missing');
+// Modal overlays live in the body layer and never open on the server: the host stays empty.
+expect(element('aui-dialog') !== '' && !element('aui-dialog').includes('Sure?') &&!element('aui-dialog').includes('data-aui-ssr'), 'Dialog: must not render on the server');
+expect(element('aui-icon').includes('<svg'), 'Icon: not rendered on the server');
+expect(html.includes('id="ng-state"'), 'transfer state (hydration info) missing');
+expect(/<app-ssr[^>]*ngh=/.test(html), 'hydration annotations missing');
+// Class-only directives (typography) apply on the server too.
+expect(/<h1[^>]*class="title aui-heading aui-heading--2"/.test(html), 'Heading: classes not applied on the server');
+// Attribute directives stay browser-only (their hosts are hydrated).
+expect(!/<button[^>]*class="[^"]*aui-button/.test(html), 'Button: attribute directive must not render on the server');
+
+if (errors.length) fail(errors);
+writeFileSync(join(out, 'server.js'), `// Generated by scripts/angular-ssr.mjs.\nexport default ${JSON.stringify(html)};\n`);
+console.log(`angular-ssr: ok (${html.length} bytes rendered)`);

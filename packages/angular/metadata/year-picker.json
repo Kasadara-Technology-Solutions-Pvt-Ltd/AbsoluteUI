@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/year-picker",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiYearPicker",
+      "description": "AbsoluteUI YearPicker: `<aui-year-picker>`.\nImplements ControlValueAccessor and Validator (error key `aui`); `[(value)]` without forms.",
+      "selector": "aui-year-picker",
+      "exportAs": [
+        "auiYearPicker"
+      ],
+      "source": "generated",
+      "component": "year-picker",
+      "configKey": "yearPicker",
+      "forms": {
+        "controlValueAccessor": true,
+        "validator": true,
+        "valueType": "number | null"
+      },
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Visible label and accessible name of the group (via aria-labelledby). Must be a non-empty string."
+        },
+        {
+          "name": "hideLabel",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Visually hide the label; it remains the accessible name."
+        },
+        {
+          "name": "min",
+          "type": "number | null",
+          "required": false,
+          "default": "null",
+          "description": "Inclusive lower bound (integer year; validation and popup). Must not be after max."
+        },
+        {
+          "name": "max",
+          "type": "number | null",
+          "required": false,
+          "default": "null",
+          "description": "Inclusive upper bound (integer year; validation and popup)."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "description": "Form field name; a hidden input carries the year as zero-padded YYYY."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Help text (text only) referenced by the group's aria-describedby."
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "An empty entry is invalid (value-missing); the segment is required and the required indicator is shown."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disables the segment and the button; the popup does not open and the value is not submitted."
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Focusable and submitted, but not editable; the popup does not open."
+        },
+        {
+          "name": "validate",
+          "type": "((value: number | null) => string | null)",
+          "required": false,
+          "description": "Consumer validation after the built-in checks; return a non-empty message to mark the value invalid (error 'custom')."
+        },
+        {
+          "name": "isYearDisabled",
+          "type": "((year: number) => boolean)",
+          "required": false,
+          "description": "Return true to disable a year: focusable in the popup but not selectable; typed, it is invalid (error 'unavailable')."
+        },
+        {
+          "name": "today",
+          "type": "PlainDate",
+          "required": false,
+          "description": "Advanced: fixed today instead of the current date in timezone; it decides the current year. For tests, server rendering, and demos with a fixed clock."
+        },
+        {
+          "name": "icons",
+          "type": "Partial<PeriodPickerIcons>",
+          "required": false,
+          "description": "Icon slot overrides: calendar, previous, next, error."
+        },
+        {
+          "name": "validationTiming",
+          "type": "ValidationTiming",
+          "required": false,
+          "default": "blur",
+          "configurable": true,
+          "description": "When validation messages first appear; afterwards they update live."
+        },
+        {
+          "name": "closeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Close the popup after a year is picked."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Year formatting, headings, labels, and messages."
+        },
+        {
+          "name": "timezone",
+          "type": "string",
+          "required": false,
+          "default": "UTC",
+          "configurable": true,
+          "description": "Zone used only to determine the current year (aria-current, default focus, and the start of stepping an empty segment)."
+        },
+        {
+          "name": "direction",
+          "type": "\"ltr\" | \"rtl\"",
+          "required": false,
+          "default": "ltr",
+          "configurable": true,
+          "description": "Popup and grid direction: grid arrow-key mirroring, chevrons, and popup alignment (applied when the popup opens)."
+        }
+      ],
+      "models": [
+        {
+          "name": "value",
+          "type": "number | null",
+          "change": "valueChange",
+          "description": "The value: `[(value)]` without forms; with Angular forms, bind the form control instead."
+        }
+      ],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "YearPickerChangeDetail",
+          "event": "aui-change",
+          "description": "The user changed the value or its validity error (typing, stepping, or picking a year)."
+        },
+        {
+          "name": "opened",
+          "payload": "unknown",
+          "event": "aui-open",
+          "detail": "null",
+          "description": "The popup opened."
+        },
+        {
+          "name": "closed",
+          "payload": "unknown",
+          "event": "aui-close",
+          "detail": "null",
+          "description": "The popup closed."
+        }
+      ],
+      "properties": [
+        {
+          "name": "isOpen",
+          "type": "Signal<boolean>",
+          "description": "Read-only: Whether the popup is open."
+        },
+        {
+          "name": "formState",
+          "type": "AuiControlState",
+          "description": "Angular form state of this control."
+        }
+      ],
+      "methods": [
+        {
+          "name": "open",
+          "signature": "open(): void",
+          "description": "Open the popup and focus the selected year (or the current year), clamped to min/max. No-op when open, disabled, or read-only."
+        },
+        {
+          "name": "close",
+          "signature": "close(): void",
+          "description": "Close the popup; focus inside it returns to the button."
+        },
+        {
+          "name": "reportValidity",
+          "signature": "reportValidity(): boolean | undefined",
+          "description": "Show messages now (for every validation timing) and return validity."
+        },
+        {
+          "name": "setCustomError",
+          "signature": "setCustomError(message: string | null): void",
+          "description": "External error (server, cross-field rule); null or '' clears it; cleared when the user edits."
+        },
+        {
+          "name": "getFormValue",
+          "signature": "getFormValue(): string | null | undefined",
+          "description": "Zero-padded YYYY, or null when the value is null."
+        },
+        {
+          "name": "focus",
+          "signature": "focus(): void",
+          "description": "Focus the year segment."
+        },
+        {
+          "name": "reset",
+          "signature": "reset(): void",
+          "description": "Close, restore the initial value, and clear dirty/touched/submitted state (no events)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Single-segment year field in a labelled group with a button that opens a non-modal dialog popup (WAI-ARIA APG date picker dialog pattern, non-modal variant) containing a paged role=grid of years with a roving tabindex.",
+        "source": "packages/components/metadata/year-picker/accessibility.json"
+      },
+      "limitations": [
+        "Gregorian (proleptic) years 1 to 9999 only; year 0 and negative years are not supported.",
+        "The year must be typed with four digits (0005 for year 5).",
+        "Only ASCII digits are accepted; other characters are removed.",
+        "Single years only; year ranges need two pickers.",
+        "The popup has no Cancel/OK buttons: picking a year commits it.",
+        "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';\nimport { AuiYearPicker } from '@absoluteui/angular/year-picker';\n\n@Component({\n  selector: 'app-vehicle',\n  imports: [ReactiveFormsModule, AuiYearPicker],\n  template: `<aui-year-picker label=\"Model year\" [min]=\"1990\" [required]=\"true\" [formControl]=\"year\"></aui-year-picker>`,\n})\nexport class VehicleComponent {\n  readonly year = new FormControl<number | null>(null, { validators: [Validators.required] });\n}"
+    }
+  ]
+}

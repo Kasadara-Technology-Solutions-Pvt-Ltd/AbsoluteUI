@@ -1,0 +1,6 @@
+[
+  { "title": "Hover and focus", "text": "Shows on pointer hover and keyboard focus, and hides on Escape." },
+  { "title": "Label or description", "text": "Describes its trigger, or names an icon-only control as its label." },
+  { "title": "Tunable delays", "text": "Show and hide delays keep tooltips from flickering while the pointer moves." },
+  { "title": "Smart placement", "text": "Prefers a side you choose and flips to stay inside the viewport." }
+]

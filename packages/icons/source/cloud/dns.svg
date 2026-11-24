@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="dns">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="7.5" r="5"/>
+      <path d="M7 7.5h10"/>
+      <path d="M12 2.5a7.5 5 0 0 1 0 10a7.5 5 0 0 1 0-10"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M4 17h16"/>
+      <path d="M4 21h16"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="12" cy="7.5" r="5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="12" cy="7.5" r="5"/>
+      <path d="M7 7.5h10"/>
+      <path d="M12 2.5a7.5 5 0 0 1 0 10a7.5 5 0 0 1 0-10"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M4 17h16"/>
+      <path d="M4 21h16"/>
+    </g>
+  </g>
+</svg>

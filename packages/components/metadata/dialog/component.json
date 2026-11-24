@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "dialog",
+  "displayName": "Dialog",
+  "category": "Overlays",
+  "package": "@absoluteui/components",
+  "import": "import { Dialog } from '@absoluteui/components/dialog';",
+  "styleImport": "@absoluteui/components/dialog/style.css",
+  "purpose": "Modal dialog built on native <dialog>.showModal(): top layer, inert background, focus containment, with deterministic Escape/backdrop policy, focus restoration, scroll lock, and cancelable close events.",
+  "whenToUse": [
+    "Tasks that must be completed or dismissed before returning to the page.",
+    "Confirmations of destructive actions (role=alertdialog)."
+  ],
+  "whenNotToUse": [
+    "Non-blocking information: use an inline message, alert, or toast.",
+    "Complex multi-step flows better served by a page or wizard.",
+    "Contextual content anchored to a trigger: use a popover."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities", "@absoluteui/components/button"],
+  "states": ["closed", "open", "closing (aui-cancel pending)"],
+  "responsive": "Width min(size token, 100vw - 2rem); max height 100dvh - 2rem with a scrolling body. Below 480px, footer actions stack full-width.",
+  "rtl": "Logical properties throughout; close button sits at the inline end.",
+  "theme": "Surface, border, radius, shadow and backdrop tokens. Forced-colors mode uses CanvasText borders.",
+  "timezone": "Not applicable.",
+  "security": "Title, description, and string content are rendered as text; never parsed as HTML. CSP-safe.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Dialog.open() to showModal() completion", "budget": "< 16 ms (one frame) in headless Chromium" }
+    ],
+    "testedScale": "Nested dialog stacking is native; tested with one dialog containing a combobox."
+  },
+  "limitations": [
+    "Pressing Escape in a focused combobox with a value but closed listbox clears the combobox first (per APG) instead of closing the dialog.",
+    "Close animation is not played; the open transition uses @starting-style and is removed under reduced motion.",
+    "Initial focus follows the native dialog focusing steps: an action with `autofocus: true`, otherwise the first focusable element (the close button when shown)."
+  ],
+  "unsupported": [
+    "Non-modal dialogs (show() without showModal()).",
+    "Rendering HTML strings as content (pass a Node instead)."
+  ],
+  "antiPatterns": [
+    "Dialogs without a title.",
+    "Enabling closeOnBackdrop for dialogs containing unsaved input without handling aui-cancel.",
+    "Stacking many dialogs; prefer a single dialog with changing content."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/dialog: AuiDialog directive (ng-template[auiDialog]) with an [open] input; the template is the dialog body.",
+    "react": "@absoluteui/react/dialog: AuiDialog component.",
+    "vue": "@absoluteui/vue/dialog: AuiDialog component."
+  },
+  "versionIntroduced": "0.1.0",
+  "deprecated": null
+}

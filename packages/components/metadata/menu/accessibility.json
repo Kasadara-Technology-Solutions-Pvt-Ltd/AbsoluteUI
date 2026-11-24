@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "component": "menu",
+  "pattern": "WAI-ARIA APG Menu Button and Menu (actions menu) with submenus; roving focus with real DOM focus on items.",
+  "roles": [
+    { "element": "trigger", "role": "button (native) with aria-haspopup=menu" },
+    { "element": "popup and submenus", "role": "menu" },
+    { "element": "items", "role": "menuitem, menuitemcheckbox, or menuitemradio" },
+    { "element": "group", "role": "group" },
+    { "element": "separator", "role": "separator" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-haspopup", "element": "trigger and submenu parent items", "value": "\"menu\"" },
+    { "attribute": "aria-expanded", "element": "trigger and submenu parent items", "value": "\"true\" while the corresponding menu is open" },
+    { "attribute": "aria-controls", "element": "trigger and submenu parent items", "value": "id of the controlled menu" },
+    { "attribute": "aria-labelledby / aria-label", "element": "top-level menu", "value": "Trigger id by default; the label option sets aria-label instead" },
+    { "attribute": "aria-labelledby", "element": "submenu", "value": "Label of its parent item" },
+    { "attribute": "aria-labelledby", "element": "items", "value": "The item's label text" },
+    { "attribute": "aria-describedby", "element": "items", "value": "Description and shortcut hint ids" },
+    { "attribute": "aria-labelledby", "element": "group", "value": "Visible group label id" },
+    { "attribute": "aria-disabled", "element": "disabled items", "value": "\"true\"; the item stays focusable but is not activatable" },
+    { "attribute": "aria-checked", "element": "checkbox and radio items", "value": "\"true\" | \"false\"" }
+  ],
+  "keyboard": [
+    { "key": "Enter / Space / ArrowDown", "context": "Trigger focused", "action": "Opens the menu and focuses the first enabled item." },
+    { "key": "ArrowUp", "context": "Trigger focused", "action": "Opens the menu and focuses the last enabled item." },
+    { "key": "ArrowDown / ArrowUp", "context": "Menu", "action": "Next / previous item, wrapping. Disabled items receive focus." },
+    { "key": "Home / End", "context": "Menu", "action": "First / last item." },
+    { "key": "Printable characters", "context": "Menu, typeahead=true", "action": "Focus the next item whose label starts with the typed characters." },
+    { "key": "Enter", "context": "Item focused", "action": "Activates the item (emits aui-select and closes), toggles a checkbox or checks a radio, or opens a submenu." },
+    { "key": "Space", "context": "Item focused", "action": "Same as Enter; with closeOnSelect=false, toggles checkbox/radio items without closing." },
+    { "key": "ArrowRight (ArrowLeft in RTL)", "context": "Submenu parent focused", "action": "Opens the submenu and focuses its first item." },
+    { "key": "ArrowLeft (ArrowRight in RTL)", "context": "Submenu", "action": "Closes the submenu and returns focus to its parent item." },
+    { "key": "Escape", "context": "Submenu", "action": "Closes that submenu only and returns focus to its parent item." },
+    { "key": "Escape", "context": "Top-level menu", "action": "Closes the menu and returns focus to the trigger; an enclosing Dialog stays open." },
+    { "key": "Tab / Shift+Tab", "context": "Menu", "action": "Closes all levels; focus moves to the next/previous element from the trigger." }
+  ],
+  "focus": "Real DOM focus moves to items (tabindex -1) and follows the pointer on hover. Focused items show a background; keyboard focus adds a color-focus-ring outline (:focus-visible). Activation, Escape at the top level, and close() with focus inside return focus to the trigger.",
+  "wcag": ["1.3.1", "1.4.3", "1.4.11", "2.1.1", "2.1.2", "2.4.3", "2.4.7", "4.1.2"],
+  "notes": [
+    "Disabled items stay focusable, per the APG, so screen-reader users discover them.",
+    "The shortcut hint is exposed as a description, not as part of the item name.",
+    "Each level is a separate overlay-stack entry, so Escape and outside presses close the topmost level first."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

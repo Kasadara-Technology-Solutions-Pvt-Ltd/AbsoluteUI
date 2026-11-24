@@ -1,0 +1,64 @@
+@use 'aui';
+
+@include aui.layer-order;
+
+@layer aui.components {
+  .aui-kbd {
+    display: inline-flex;
+    vertical-align: baseline;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  // The combination keeps the text font; only keycaps use the monospace face.
+  .aui-kbd__combo {
+    display: inline-flex;
+    align-items: center;
+    gap: aui.token('space-1');
+    font-family: aui.token('font-family-sans');
+    font-size: aui.token('font-size-sm');
+    color: aui.token('color-text');
+    white-space: nowrap;
+  }
+
+  .aui-kbd__key {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: 1.5rem;
+    min-block-size: 1.5rem;
+    padding-inline: aui.token('space-1');
+    font-family: aui.token('font-family-mono');
+    font-size: inherit;
+    line-height: aui.token('line-height-tight');
+    color: aui.token('color-text');
+    background: aui.ctoken('kbd', 'bg');
+    border: aui.token('border-width') solid aui.ctoken('kbd', 'border-color');
+    border-block-end-width: 2px;
+    border-radius: aui.ctoken('kbd', 'radius');
+  }
+
+  .aui-kbd--sm {
+    .aui-kbd__combo {
+      font-size: aui.token('font-size-xs');
+    }
+
+    .aui-kbd__key {
+      min-inline-size: 1.25rem;
+      min-block-size: 1.25rem;
+    }
+  }
+
+  .aui-kbd__separator {
+    color: aui.token('color-text-muted');
+  }
+
+  @include aui.forced-colors {
+    .aui-kbd__key {
+      border-color: CanvasText;
+    }
+  }
+}

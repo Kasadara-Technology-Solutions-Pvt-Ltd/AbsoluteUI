@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "component": "stat-card",
+  "factory": { "name": "StatCard.create", "signature": "StatCard.create(host: HTMLElement, options: StatCardOptions): StatCard" },
+  "configKey": "statCard",
+  "options": [
+    { "name": "label", "type": "string", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "Metric name; names the card (group) and, by default, the trend sparkline. Non-empty." },
+    { "name": "value", "type": "number | string | null", "required": true, "globallyConfigurable": false, "mutability": "dynamic", "description": "A number (formatted with valueFormat or formatValue), preformatted text, or null ('No value')." },
+    { "name": "previous", "type": "number | null", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Previous value; the change is computed from it when value is a number (percent: (value - previous) / |previous|, not shown for 0; absolute: value - previous). Finite." },
+    { "name": "delta", "type": "number | null", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Explicit change (a ratio for 'percent', units for 'absolute'); wins over previous. Finite." },
+    { "name": "comparisonLabel", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Caption after the change, for example 'vs last month' (shown only with a change)." },
+    { "name": "description", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Supporting text at the bottom." },
+    { "name": "trend", "type": "readonly (number | null)[]", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Trend values rendered as a Sparkline (null is a gap); an empty array shows none." },
+    { "name": "trendLabel", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Sparkline accessible label. Default: the card label." },
+    { "name": "trendColor", "type": "SparklineColor", "default": 1, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Chart palette slot of the sparkline (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8; SparklineColor from @absoluteui/components/sparkline)." },
+    { "name": "valueFormat", "type": "Intl.NumberFormatOptions", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Number format of the value (and of an absolute change)." },
+    { "name": "formatValue", "type": "(value: number) => string", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Custom value formatter; wins over valueFormat (also used for an absolute change)." },
+    { "name": "icon", "type": "IconRef", "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Decorative icon before the label." },
+    { "name": "href", "type": "string", "required": false, "globallyConfigurable": false, "mutability": "init-only", "description": "Make the whole card a link (http(s) or relative URLs only; others throw). The URL can change with update(), but adding or removing href throws." },
+    { "name": "busy", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "mutability": "dynamic", "description": "Show 'Loading' instead of the value (no change) and set aria-busy." },
+    { "name": "sentiment", "type": "'higher-is-better' | 'lower-is-better' | 'neutral'", "default": "higher-is-better", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Whether an increase is favorable, unfavorable, or neither; decides the color and the spoken 'favorable'/'unfavorable'." },
+    { "name": "deltaFormat", "type": "'percent' | 'absolute'", "default": "percent", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Relative change (percent, max 1 fraction digit) or the difference in value units." },
+    { "name": "locale", "type": "string", "default": "en-US", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Number formatting and message locale." },
+    { "name": "direction", "type": "'ltr' | 'rtl'", "default": "ltr", "required": false, "globallyConfigurable": true, "inheritedFromCommon": true, "mutability": "dynamic", "description": "Passed to the trend sparkline." }
+  ],
+  "properties": [
+    { "name": "host", "type": "HTMLElement", "description": "Consumer host; its children are owned by the component." },
+    { "name": "delta", "type": "number | null", "description": "The change as displayed (ratio or units), or null." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<StatCardOptions>): void", "description": "Merge, validate, and re-render. Adding or removing href throws." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Destroy the sparkline, remove the rendering, the host class, and the configuration subscription." }
+  ],
+  "events": [],
+  "contentAreas": [],
+  "cssClasses": [
+    { "name": "aui-stat-card", "description": "Host." },
+    { "name": "aui-stat-card__body", "description": "Card root: a div (role=group) or, with href, an a element (also aui-stat-card__link)." },
+    { "name": "aui-stat-card__top | __icon | __label", "description": "Label row, icon, label." },
+    { "name": "aui-stat-card__value", "description": "Headline value (tabular numerals)." },
+    { "name": "aui-stat-card__change | __delta | __arrow | __comparison", "description": "Change row, change amount, arrow icon, comparison caption." },
+    { "name": "aui-stat-card__delta--good | --bad | --neutral", "description": "Favorable, unfavorable, or neutral/no change." },
+    { "name": "aui-stat-card__sr", "description": "Visually hidden spelled-out change for assistive technology." },
+    { "name": "aui-stat-card__trend", "description": "Sparkline host." },
+    { "name": "aui-stat-card__description", "description": "Supporting text." }
+  ],
+  "iconSlots": [
+    { "name": "icon (option)", "default": "none" },
+    { "name": "increase arrow", "default": "arrow-up" },
+    { "name": "decrease arrow", "default": "arrow-down" }
+  ]
+}

@@ -1,0 +1,6 @@
+[
+  { "title": "Platform aware", "text": "Mod becomes Command on Apple devices and Ctrl elsewhere." },
+  { "title": "Hotkey strings", "text": "Pass a combination like Mod+Shift+K and get separate keycaps." },
+  { "title": "Readable names", "text": "Symbol keys carry a visually hidden name for screen readers." },
+  { "title": "Inline or standalone", "text": "Sits inside text or on its own in two sizes." }
+]

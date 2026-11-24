@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "component": "button",
+  "factory": {
+    "name": "Button.enhance | Button.create",
+    "signature": "Button.enhance<E extends HTMLButtonElement | HTMLAnchorElement>(element: E, options?: ButtonOptions): Button<E>; Button.create(options?: ButtonOptions & { text?: string; type?: 'button' | 'submit' | 'reset' }, doc?: Document): Button<HTMLButtonElement>"
+  },
+  "configKey": "button",
+  "options": [
+    { "name": "variant", "type": "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'", "default": "secondary", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Visual emphasis." },
+    { "name": "size", "type": "'sm' | 'md' | 'lg'", "default": "md", "required": false, "globallyConfigurable": true, "mutability": "dynamic", "description": "Control height and font size." },
+    { "name": "loading", "type": "boolean", "default": false, "required": false, "globallyConfigurable": false, "description": "Busy state: aria-disabled, activation blocked, spinner shown, 'Loading' added to the accessible name." },
+    { "name": "icon", "type": "IconRef | null", "default": null, "required": false, "globallyConfigurable": false, "description": "Icon name or definition." },
+    { "name": "iconPosition", "type": "'start' | 'end'", "default": "start", "required": false, "globallyConfigurable": false, "description": "Icon placement (logical)." },
+    { "name": "fullWidth", "type": "boolean", "default": "false", "required": false, "globallyConfigurable": false, "description": "Stretch to the full inline size of the container." },
+    { "name": "disabled", "type": "boolean", "required": false, "globallyConfigurable": false, "description": "Disabled state (since 0.9.0). Links: aria-disabled, removed from the tab order, activation blocked, href kept. Buttons: sets the native disabled property; unset leaves it alone." },
+    { "name": "label", "type": "string", "required": false, "globallyConfigurable": false, "description": "Accessible name; required for icon-only buttons." },
+    { "name": "icons", "type": "Partial<{ loading: IconRef }>", "required": false, "globallyConfigurable": false, "description": "Icon slot overrides." },
+    { "name": "pressed", "type": "boolean | null", "required": false, "globallyConfigurable": false, "description": "Toggle button: aria-pressed, flips on activation; null or unset is an ordinary button (buttons only)." }
+  ],
+  "properties": [
+    { "name": "element", "type": "E (HTMLButtonElement | HTMLAnchorElement)", "description": "The enhanced native button or link." },
+    { "name": "options", "type": "Readonly<ButtonOptions>", "description": "Current instance options." }
+  ],
+  "methods": [
+    { "name": "update", "signature": "update(options: Partial<ButtonOptions>): void", "description": "Merge and apply options." },
+    { "name": "setLoading", "signature": "setLoading(loading: boolean): void", "description": "Toggle the busy state." },
+    { "name": "destroy", "signature": "destroy(): void", "description": "Remove enhancements, listeners, and subscriptions." }
+  ],
+  "events": [
+    { "name": "aui-change", "detail": "ButtonChangeDetail", "bubbles": true, "cancelable": false, "description": "A toggle button was activated by the user: { pressed }." }
+  ],
+  "contentAreas": [
+    { "name": "label", "description": "Existing child text/elements of the native button." }
+  ],
+  "cssClasses": [
+    { "name": "aui-button", "description": "Base class; usable without JavaScript." },
+    { "name": "aui-button--primary | --secondary | --outline | --ghost | --danger", "description": "Variant modifiers." },
+    { "name": "aui-button--sm | --md | --lg", "description": "Size modifiers." },
+    { "name": "aui-button--icon-only", "description": "Square icon-only layout." },
+    { "name": "aui-button--pressed", "description": "Toggle button in the pressed state." },
+    { "name": "aui-button__icon", "description": "Rendered icon." },
+    { "name": "aui-button__spinner", "description": "Loading spinner; animation removed under reduced motion." }
+  ],
+  "iconSlots": [
+    { "name": "loading", "default": "spinner" }
+  ]
+}

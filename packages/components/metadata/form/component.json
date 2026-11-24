@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "name": "form",
+  "displayName": "Form",
+  "category": "Form Infrastructure",
+  "package": "@absoluteui/components",
+  "import": "import { Form } from '@absoluteui/components/form';",
+  "styleImport": "@absoluteui/components/form/style.css",
+  "purpose": "State manager and validation orchestrator for a native <form>. It discovers AbsoluteUI controls and Form Field-wrapped native controls, validates them on submit, runs cross-field rules and an optional cancellable async validator with a timeout, shows an Error Summary linking to each invalid field, serializes values, applies server errors, tracks dirty/touched/submitting state, and resets every control consistently.",
+  "whenToUse": [
+    "Any form built from AbsoluteUI inputs that needs one consistent submit, validation, and error-navigation flow.",
+    "Rules that span several fields, such as password confirmation or conditional requirements.",
+    "Server-side or async checks (uniqueness, availability) whose errors must appear on the right fields.",
+    "Forms that need dirty/touched state for unsaved-changes prompts."
+  ],
+  "whenNotToUse": [
+    "A single standalone control with no submission: use the control on its own.",
+    "Showing a list of errors you already have without a form: use Error Summary directly.",
+    "Multi-step wizards with per-step persistence: Form manages one <form>; compose one Form per step."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities", "@absoluteui/icons"],
+  "states": ["pristine", "dirty", "touched", "validating (submitting, aria-busy)", "submitted (submitCount > 0)", "invalid (summary shown)", "valid"],
+  "responsive": "The form is a single-column grid with a space-4 gap (layered, so consumer layout wins). .aui-form__actions is an optional wrapping flex row for buttons.",
+  "rtl": "No direction-specific layout; the error summary uses logical properties.",
+  "theme": "Only color-text, the sans font, and spacing tokens on the form itself. aria-busy shows a progress cursor. The error summary brings its own error tokens.",
+  "timezone": "Not applicable. Date controls serialize their own ISO values.",
+  "security": "The form never renders consumer HTML: summary items and announcements use textContent. Server messages passed to setErrors are shown verbatim as text, so do not echo raw user input into them. No network access of its own; the async validator is consumer code and receives an AbortSignal. CSP-safe.",
+  "dataHandling": "Values stay in memory. getValues() serializes AbsoluteUI controls first, then plain named native elements outside controls; repeated names collect into arrays. Disabled controls and :disabled elements (including those inside a disabled <fieldset>, as in FormData) are omitted. Nothing is persisted or sent unless submitMode is 'native' or the consumer sends it.",
+  "performance": {
+    "budgets": [
+      { "metric": "Form.validate / submit", "budget": "< 150 ms for 200 invalid Text Inputs in headless Chromium, including rendering 200 messages and moving focus (about 25 ms of script; the rest is the layout for the new messages)" }
+    ],
+    "testedScale": "200 controls in the performance test; unit tests cover forms with up to 6 controls plus plain native elements."
+  },
+  "limitations": [
+    "Double submission is blocked only while the async validator runs; after aui-submit the consumer must guard its own save request.",
+    "Plain native elements are serialized and reset but not validated; wrap them in Form Field to validate them.",
+    "Cross-field rule targets must be named controls; validate() and submit throw FORM_RULE_TARGET for an unknown target, while live re-checks after the first submit skip it.",
+    "File inputs are not serialized by getValues()."
+  ],
+  "unsupported": [
+    "Nested Form instances on nested forms.",
+    "Native browser validation bubbles (the form sets noValidate).",
+    "Rendering HTML in error messages."
+  ],
+  "antiPatterns": [
+    "Listening to the native submit event or Angular (ngSubmit) instead of aui-submit: they fire before AbsoluteUI validation.",
+    "Disabling the submit button until the form is valid; let users submit and use the error summary.",
+    "Putting user-entered values into server error messages."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/form: AuiForm directive (form[auiForm]), complementing Angular reactive forms; controls report validity under the error key aui.",
+    "react": "@absoluteui/react/form: AuiForm component.",
+    "vue": "@absoluteui/vue/form: AuiForm component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

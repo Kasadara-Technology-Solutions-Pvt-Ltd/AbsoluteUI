@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "dashboard-widget",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Enhance a panel: heading, collapse, and maximize",
+      "language": "ts",
+      "code": "import { DashboardWidget, type DashboardWidgetToggleDetail } from '@absoluteui/components/dashboard-widget';\n\nconst host = document.createElement('section');\nconst body = document.createElement('p');\nbody.textContent = '1,204 open tickets';\nhost.append(body);\ndocument.body.append(host);\n\nconst widget = DashboardWidget.create(host, { title: 'Support queue', subtitle: 'Updated hourly', headingLevel: 2 });\nhost.addEventListener('aui-toggle', (event) => {\n  const { collapsed } = (event as CustomEvent<DashboardWidgetToggleDetail>).detail;\n  host.dataset.collapsed = String(collapsed && widget.collapsed);\n});"
+    },
+    {
+      "id": "actions-and-remove",
+      "title": "Custom actions and a removable widget inside a Dashboard Grid",
+      "language": "ts",
+      "code": "import { DashboardGrid } from '@absoluteui/components/dashboard-grid';\nimport { DashboardWidget, type DashboardWidgetActionDetail, type DashboardWidgetRemoveDetail } from '@absoluteui/components/dashboard-widget';\n\nconst gridHost = document.createElement('div');\nconst widgetHost = document.createElement('section');\nwidgetHost.dataset.auiItem = 'sales';\ngridHost.append(widgetHost);\ndocument.body.append(gridHost);\n\nconst grid = DashboardGrid.create(gridHost, { label: 'Overview', items: [{ id: 'sales', x: 0, y: 0, w: 6, h: 3 }], editable: true });\nconst widget = DashboardWidget.create(widgetHost, {\n  title: 'Sales',\n  removable: true,\n  busy: true,\n  actions: [{ id: 'refresh', label: 'Refresh sales', icon: 'refresh' }],\n});\nwidgetHost.addEventListener('aui-action', (event) => {\n  const { id } = (event as CustomEvent<DashboardWidgetActionDetail>).detail;\n  if (id === 'refresh') widget.update({ busy: true });\n});\nwidgetHost.addEventListener('aui-remove', (event) => {\n  const { id } = (event as CustomEvent<DashboardWidgetRemoveDetail>).detail;\n  if (id !== null) grid.removeItem(id);\n});"
+    },
+    {
+      "id": "global-config",
+      "title": "Widgets without the maximize button",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { dashboardWidget: { maximizable: false } } });"
+    }
+  ]
+}

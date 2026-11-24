@@ -1,0 +1,709 @@
+{
+  "name": "@absoluteui/components",
+  "version": "0.13.0",
+  "description": "AbsoluteUI components.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "homepage": "https://aui.kasadara.com/docs/components/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI.git",
+    "directory": "packages/components"
+  },
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/kasadara/_packaging/AbsoluteUI/npm/registry/"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "NOTICE",
+    "SECURITY.md",
+    "metadata"
+  ],
+  "exports": {
+    "./accordion": {
+      "types": "./dist/accordion/index.d.ts",
+      "default": "./dist/accordion/index.js"
+    },
+    "./accordion/style.css": "./dist/accordion/style.css",
+    "./alert": {
+      "types": "./dist/alert/index.d.ts",
+      "default": "./dist/alert/index.js"
+    },
+    "./alert/style.css": "./dist/alert/style.css",
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "default": "./dist/avatar/index.js"
+    },
+    "./avatar/style.css": "./dist/avatar/style.css",
+    "./avatar-group": {
+      "types": "./dist/avatar-group/index.d.ts",
+      "default": "./dist/avatar-group/index.js"
+    },
+    "./avatar-group/style.css": "./dist/avatar-group/style.css",
+    "./badge": {
+      "types": "./dist/badge/index.d.ts",
+      "default": "./dist/badge/index.js"
+    },
+    "./badge/style.css": "./dist/badge/style.css",
+    "./bar-chart": {
+      "types": "./dist/bar-chart/index.d.ts",
+      "default": "./dist/bar-chart/index.js"
+    },
+    "./bar-chart/style.css": "./dist/bar-chart/style.css",
+    "./bottom-sheet": {
+      "types": "./dist/bottom-sheet/index.d.ts",
+      "default": "./dist/bottom-sheet/index.js"
+    },
+    "./bottom-sheet/style.css": "./dist/bottom-sheet/style.css",
+    "./box-plot": {
+      "types": "./dist/box-plot/index.d.ts",
+      "default": "./dist/box-plot/index.js"
+    },
+    "./box-plot/style.css": "./dist/box-plot/style.css",
+    "./breadcrumb": {
+      "types": "./dist/breadcrumb/index.d.ts",
+      "default": "./dist/breadcrumb/index.js"
+    },
+    "./breadcrumb/style.css": "./dist/breadcrumb/style.css",
+    "./bullet-chart": {
+      "types": "./dist/bullet-chart/index.d.ts",
+      "default": "./dist/bullet-chart/index.js"
+    },
+    "./bullet-chart/style.css": "./dist/bullet-chart/style.css",
+    "./business-calendar": {
+      "types": "./dist/business-calendar/index.d.ts",
+      "default": "./dist/business-calendar/index.js"
+    },
+    "./business-calendar/style.css": "./dist/business-calendar/style.css",
+    "./button": {
+      "types": "./dist/button/index.d.ts",
+      "default": "./dist/button/index.js"
+    },
+    "./button/style.css": "./dist/button/style.css",
+    "./button-group": {
+      "types": "./dist/button-group/index.d.ts",
+      "default": "./dist/button-group/index.js"
+    },
+    "./button-group/style.css": "./dist/button-group/style.css",
+    "./calendar": {
+      "types": "./dist/calendar/index.d.ts",
+      "default": "./dist/calendar/index.js"
+    },
+    "./calendar-heatmap": {
+      "types": "./dist/calendar-heatmap/index.d.ts",
+      "default": "./dist/calendar-heatmap/index.js"
+    },
+    "./calendar-heatmap/style.css": "./dist/calendar-heatmap/style.css",
+    "./calendar/style.css": "./dist/calendar/style.css",
+    "./candlestick-chart": {
+      "types": "./dist/candlestick-chart/index.d.ts",
+      "default": "./dist/candlestick-chart/index.js"
+    },
+    "./candlestick-chart/style.css": "./dist/candlestick-chart/style.css",
+    "./card": {
+      "types": "./dist/card/index.d.ts",
+      "default": "./dist/card/index.js"
+    },
+    "./card/style.css": "./dist/card/style.css",
+    "./carousel": {
+      "types": "./dist/carousel/index.d.ts",
+      "default": "./dist/carousel/index.js"
+    },
+    "./carousel/style.css": "./dist/carousel/style.css",
+    "./chat": {
+      "types": "./dist/chat/index.d.ts",
+      "default": "./dist/chat/index.js"
+    },
+    "./chat/style.css": "./dist/chat/style.css",
+    "./cascader": {
+      "types": "./dist/cascader/index.d.ts",
+      "default": "./dist/cascader/index.js"
+    },
+    "./cascader/style.css": "./dist/cascader/style.css",
+    "./chart-export": {
+      "types": "./dist/chart-export/index.d.ts",
+      "default": "./dist/chart-export/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.ts",
+      "default": "./dist/checkbox/index.js"
+    },
+    "./checkbox/style.css": "./dist/checkbox/style.css",
+    "./checkbox-group": {
+      "types": "./dist/checkbox-group/index.d.ts",
+      "default": "./dist/checkbox-group/index.js"
+    },
+    "./checkbox-group/style.css": "./dist/checkbox-group/style.css",
+    "./code-viewer": {
+      "types": "./dist/code-viewer/index.d.ts",
+      "default": "./dist/code-viewer/index.js"
+    },
+    "./code-viewer/style.css": "./dist/code-viewer/style.css",
+    "./collapsible": {
+      "types": "./dist/collapsible/index.d.ts",
+      "default": "./dist/collapsible/index.js"
+    },
+    "./collapsible/style.css": "./dist/collapsible/style.css",
+    "./color-picker": {
+      "types": "./dist/color-picker/index.d.ts",
+      "default": "./dist/color-picker/index.js"
+    },
+    "./color-picker/style.css": "./dist/color-picker/style.css",
+    "./combo-chart": {
+      "types": "./dist/combo-chart/index.d.ts",
+      "default": "./dist/combo-chart/index.js"
+    },
+    "./combo-chart/style.css": "./dist/combo-chart/style.css",
+    "./command-palette": {
+      "types": "./dist/command-palette/index.d.ts",
+      "default": "./dist/command-palette/index.js"
+    },
+    "./command-palette/style.css": "./dist/command-palette/style.css",
+    "./combobox": {
+      "types": "./dist/combobox/index.d.ts",
+      "default": "./dist/combobox/index.js"
+    },
+    "./combobox/style.css": "./dist/combobox/style.css",
+    "./context-menu": {
+      "types": "./dist/context-menu/index.d.ts",
+      "default": "./dist/context-menu/index.js"
+    },
+    "./context-menu/style.css": "./dist/context-menu/style.css",
+    "./dashboard": {
+      "types": "./dist/dashboard/index.d.ts",
+      "default": "./dist/dashboard/index.js"
+    },
+    "./dashboard/builder": {
+      "types": "./dist/dashboard/builder/index.d.ts",
+      "default": "./dist/dashboard/builder/index.js"
+    },
+    "./dashboard/schema": {
+      "types": "./dist/dashboard/schema/index.d.ts",
+      "default": "./dist/dashboard/schema/index.js"
+    },
+    "./dashboard/widgets": {
+      "types": "./dist/dashboard/widgets/index.d.ts",
+      "default": "./dist/dashboard/widgets/index.js"
+    },
+    "./dashboard/style.css": "./dist/dashboard/style.css",
+    "./dashboard-grid": {
+      "types": "./dist/dashboard-grid/index.d.ts",
+      "default": "./dist/dashboard-grid/index.js"
+    },
+    "./dashboard-grid/style.css": "./dist/dashboard-grid/style.css",
+    "./dashboard-widget": {
+      "types": "./dist/dashboard-widget/index.d.ts",
+      "default": "./dist/dashboard-widget/index.js"
+    },
+    "./dashboard-widget/style.css": "./dist/dashboard-widget/style.css",
+    "./data-table": {
+      "types": "./dist/data-table/index.d.ts",
+      "default": "./dist/data-table/index.js"
+    },
+    "./data-table/style.css": "./dist/data-table/style.css",
+    "./data-grid": {
+      "types": "./dist/data-grid/index.d.ts",
+      "default": "./dist/data-grid/index.js"
+    },
+    "./data-grid/style.css": "./dist/data-grid/style.css",
+    "./data-grid/accessories": {
+      "types": "./dist/data-grid/accessories/index.d.ts",
+      "default": "./dist/data-grid/accessories/index.js"
+    },
+    "./data-grid/export": {
+      "types": "./dist/data-grid/export/index.d.ts",
+      "default": "./dist/data-grid/export/index.js"
+    },
+    "./data-grid/formulas": {
+      "types": "./dist/data-grid/formulas/index.d.ts",
+      "default": "./dist/data-grid/formulas/index.js"
+    },
+    "./data-grid/charts": {
+      "types": "./dist/data-grid/charts/index.d.ts",
+      "default": "./dist/data-grid/charts/index.js"
+    },
+    "./data-grid/pdf": {
+      "types": "./dist/data-grid/pdf/index.d.ts",
+      "default": "./dist/data-grid/pdf/index.js"
+    },
+    "./data-grid/schema": {
+      "types": "./dist/data-grid/schema/index.d.ts",
+      "default": "./dist/data-grid/schema/index.js"
+    },
+    "./data-grid/editors": {
+      "types": "./dist/data-grid/editors/index.d.ts",
+      "default": "./dist/data-grid/editors/index.js"
+    },
+    "./date-input": {
+      "types": "./dist/date-input/index.d.ts",
+      "default": "./dist/date-input/index.js"
+    },
+    "./date-input/style.css": "./dist/date-input/style.css",
+    "./date-picker": {
+      "types": "./dist/date-picker/index.d.ts",
+      "default": "./dist/date-picker/index.js"
+    },
+    "./date-picker/style.css": "./dist/date-picker/style.css",
+    "./date-range-picker": {
+      "types": "./dist/date-range-picker/index.d.ts",
+      "default": "./dist/date-range-picker/index.js"
+    },
+    "./date-range-picker/style.css": "./dist/date-range-picker/style.css",
+    "./date-time-picker": {
+      "types": "./dist/date-time-picker/index.d.ts",
+      "default": "./dist/date-time-picker/index.js"
+    },
+    "./date-time-picker/style.css": "./dist/date-time-picker/style.css",
+    "./diagram": {
+      "types": "./dist/diagram/index.d.ts",
+      "default": "./dist/diagram/index.js"
+    },
+    "./diagram/style.css": "./dist/diagram/style.css",
+    "./discussion": {
+      "types": "./dist/discussion/index.d.ts",
+      "default": "./dist/discussion/index.js"
+    },
+    "./discussion/style.css": "./dist/discussion/style.css",
+    "./dialog": {
+      "types": "./dist/dialog/index.d.ts",
+      "default": "./dist/dialog/index.js"
+    },
+    "./dialog/style.css": "./dist/dialog/style.css",
+    "./drawer": {
+      "types": "./dist/drawer/index.d.ts",
+      "default": "./dist/drawer/index.js"
+    },
+    "./drawer/style.css": "./dist/drawer/style.css",
+    "./empty-state": {
+      "types": "./dist/empty-state/index.d.ts",
+      "default": "./dist/empty-state/index.js"
+    },
+    "./empty-state/style.css": "./dist/empty-state/style.css",
+    "./duration-picker": {
+      "types": "./dist/duration-picker/index.d.ts",
+      "default": "./dist/duration-picker/index.js"
+    },
+    "./duration-picker/style.css": "./dist/duration-picker/style.css",
+    "./error-summary": {
+      "types": "./dist/error-summary/index.d.ts",
+      "default": "./dist/error-summary/index.js"
+    },
+    "./error-summary/style.css": "./dist/error-summary/style.css",
+    "./fieldset": {
+      "types": "./dist/fieldset/index.d.ts",
+      "default": "./dist/fieldset/index.js"
+    },
+    "./fieldset/style.css": "./dist/fieldset/style.css",
+    "./file-manager": {
+      "types": "./dist/file-manager/index.d.ts",
+      "default": "./dist/file-manager/index.js"
+    },
+    "./file-manager/style.css": "./dist/file-manager/style.css",
+    "./file-upload": {
+      "types": "./dist/file-upload/index.d.ts",
+      "default": "./dist/file-upload/index.js"
+    },
+    "./file-upload/style.css": "./dist/file-upload/style.css",
+    "./form": {
+      "types": "./dist/form/index.d.ts",
+      "default": "./dist/form/index.js"
+    },
+    "./form/style.css": "./dist/form/style.css",
+    "./form-builder": {
+      "types": "./dist/form-builder/index.d.ts",
+      "default": "./dist/form-builder/index.js"
+    },
+    "./form-builder/style.css": "./dist/form-builder/style.css",
+    "./form-field": {
+      "types": "./dist/form-field/index.d.ts",
+      "default": "./dist/form-field/index.js"
+    },
+    "./form-field/style.css": "./dist/form-field/style.css",
+    "./funnel-chart": {
+      "types": "./dist/funnel-chart/index.d.ts",
+      "default": "./dist/funnel-chart/index.js"
+    },
+    "./funnel-chart/style.css": "./dist/funnel-chart/style.css",
+    "./gantt": {
+      "types": "./dist/gantt/index.d.ts",
+      "default": "./dist/gantt/index.js"
+    },
+    "./gantt/style.css": "./dist/gantt/style.css",
+    "./gauge": {
+      "types": "./dist/gauge/index.d.ts",
+      "default": "./dist/gauge/index.js"
+    },
+    "./gauge/style.css": "./dist/gauge/style.css",
+    "./heatmap": {
+      "types": "./dist/heatmap/index.d.ts",
+      "default": "./dist/heatmap/index.js"
+    },
+    "./heatmap/style.css": "./dist/heatmap/style.css",
+    "./histogram": {
+      "types": "./dist/histogram/index.d.ts",
+      "default": "./dist/histogram/index.js"
+    },
+    "./histogram/style.css": "./dist/histogram/style.css",
+    "./hover-card": {
+      "types": "./dist/hover-card/index.d.ts",
+      "default": "./dist/hover-card/index.js"
+    },
+    "./hover-card/style.css": "./dist/hover-card/style.css",
+    "./image-viewer": {
+      "types": "./dist/image-viewer/index.d.ts",
+      "default": "./dist/image-viewer/index.js"
+    },
+    "./image-viewer/style.css": "./dist/image-viewer/style.css",
+    "./inline-message": {
+      "types": "./dist/inline-message/index.d.ts",
+      "default": "./dist/inline-message/index.js"
+    },
+    "./inline-message/style.css": "./dist/inline-message/style.css",
+    "./kanban": {
+      "types": "./dist/kanban/index.d.ts",
+      "default": "./dist/kanban/index.js"
+    },
+    "./kanban/style.css": "./dist/kanban/style.css",
+    "./kbd": {
+      "types": "./dist/kbd/index.d.ts",
+      "default": "./dist/kbd/index.js"
+    },
+    "./kbd/style.css": "./dist/kbd/style.css",
+    "./layout": {
+      "types": "./dist/layout/index.d.ts",
+      "default": "./dist/layout/index.js"
+    },
+    "./layout/style.css": "./dist/layout/style.css",
+    "./line-chart": {
+      "types": "./dist/line-chart/index.d.ts",
+      "default": "./dist/line-chart/index.js"
+    },
+    "./line-chart/style.css": "./dist/line-chart/style.css",
+    "./masked-input": {
+      "types": "./dist/masked-input/index.d.ts",
+      "default": "./dist/masked-input/index.js"
+    },
+    "./masked-input/style.css": "./dist/masked-input/style.css",
+    "./mention-input": {
+      "types": "./dist/mention-input/index.d.ts",
+      "default": "./dist/mention-input/index.js"
+    },
+    "./mention-input/style.css": "./dist/mention-input/style.css",
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "default": "./dist/menu/index.js"
+    },
+    "./menu/style.css": "./dist/menu/style.css",
+    "./menu-bar": {
+      "types": "./dist/menu-bar/index.d.ts",
+      "default": "./dist/menu-bar/index.js"
+    },
+    "./menu-bar/style.css": "./dist/menu-bar/style.css",
+    "./month-picker": {
+      "types": "./dist/month-picker/index.d.ts",
+      "default": "./dist/month-picker/index.js"
+    },
+    "./month-picker/style.css": "./dist/month-picker/style.css",
+    "./multi-select": {
+      "types": "./dist/multi-select/index.d.ts",
+      "default": "./dist/multi-select/index.js"
+    },
+    "./multi-select/style.css": "./dist/multi-select/style.css",
+    "./network-graph": {
+      "types": "./dist/network-graph/index.d.ts",
+      "default": "./dist/network-graph/index.js"
+    },
+    "./network-graph/style.css": "./dist/network-graph/style.css",
+    "./number-input": {
+      "types": "./dist/number-input/index.d.ts",
+      "default": "./dist/number-input/index.js"
+    },
+    "./number-input/style.css": "./dist/number-input/style.css",
+    "./org-chart": {
+      "types": "./dist/org-chart/index.d.ts",
+      "default": "./dist/org-chart/index.js"
+    },
+    "./org-chart/style.css": "./dist/org-chart/style.css",
+    "./org-chart-export": {
+      "types": "./dist/org-chart-export/index.d.ts",
+      "default": "./dist/org-chart-export/index.js"
+    },
+    "./otp-input": {
+      "types": "./dist/otp-input/index.d.ts",
+      "default": "./dist/otp-input/index.js"
+    },
+    "./otp-input/style.css": "./dist/otp-input/style.css",
+    "./pagination": {
+      "types": "./dist/pagination/index.d.ts",
+      "default": "./dist/pagination/index.js"
+    },
+    "./pagination/style.css": "./dist/pagination/style.css",
+    "./password-input": {
+      "types": "./dist/password-input/index.d.ts",
+      "default": "./dist/password-input/index.js"
+    },
+    "./password-input/style.css": "./dist/password-input/style.css",
+    "./password-strength-meter": {
+      "types": "./dist/password-strength-meter/index.d.ts",
+      "default": "./dist/password-strength-meter/index.js"
+    },
+    "./password-strength-meter/style.css": "./dist/password-strength-meter/style.css",
+    "./pie-chart": {
+      "types": "./dist/pie-chart/index.d.ts",
+      "default": "./dist/pie-chart/index.js"
+    },
+    "./pie-chart/style.css": "./dist/pie-chart/style.css",
+    "./pivot-grid": {
+      "types": "./dist/pivot-grid/index.d.ts",
+      "default": "./dist/pivot-grid/index.js"
+    },
+    "./pivot-grid/style.css": "./dist/pivot-grid/style.css",
+    "./popover": {
+      "types": "./dist/popover/index.d.ts",
+      "default": "./dist/popover/index.js"
+    },
+    "./popover/style.css": "./dist/popover/style.css",
+    "./progress-bar": {
+      "types": "./dist/progress-bar/index.d.ts",
+      "default": "./dist/progress-bar/index.js"
+    },
+    "./progress-bar/style.css": "./dist/progress-bar/style.css",
+    "./prompt-input": {
+      "types": "./dist/prompt-input/index.d.ts",
+      "default": "./dist/prompt-input/index.js"
+    },
+    "./prompt-input/style.css": "./dist/prompt-input/style.css",
+    "./quarter-picker": {
+      "types": "./dist/quarter-picker/index.d.ts",
+      "default": "./dist/quarter-picker/index.js"
+    },
+    "./quarter-picker/style.css": "./dist/quarter-picker/style.css",
+    "./radar-chart": {
+      "types": "./dist/radar-chart/index.d.ts",
+      "default": "./dist/radar-chart/index.js"
+    },
+    "./radar-chart/style.css": "./dist/radar-chart/style.css",
+    "./radio-group": {
+      "types": "./dist/radio-group/index.d.ts",
+      "default": "./dist/radio-group/index.js"
+    },
+    "./radio-group/style.css": "./dist/radio-group/style.css",
+    "./rating": {
+      "types": "./dist/rating/index.d.ts",
+      "default": "./dist/rating/index.js"
+    },
+    "./rating/style.css": "./dist/rating/style.css",
+    "./recurrence-picker": {
+      "types": "./dist/recurrence-picker/index.d.ts",
+      "default": "./dist/recurrence-picker/index.js"
+    },
+    "./recurrence-picker/style.css": "./dist/recurrence-picker/style.css",
+    "./rich-text-editor": {
+      "types": "./dist/rich-text-editor/index.d.ts",
+      "default": "./dist/rich-text-editor/index.js"
+    },
+    "./rich-text-editor/style.css": "./dist/rich-text-editor/style.css",
+    "./scatter-chart": {
+      "types": "./dist/scatter-chart/index.d.ts",
+      "default": "./dist/scatter-chart/index.js"
+    },
+    "./scatter-chart/style.css": "./dist/scatter-chart/style.css",
+    "./schema-form": {
+      "types": "./dist/schema-form/index.d.ts",
+      "default": "./dist/schema-form/index.js"
+    },
+    "./schema-form/style.css": "./dist/schema-form/style.css",
+    "./schedule-picker": {
+      "types": "./dist/schedule-picker/index.d.ts",
+      "default": "./dist/schedule-picker/index.js"
+    },
+    "./schedule-picker/style.css": "./dist/schedule-picker/style.css",
+    "./scheduler": {
+      "types": "./dist/scheduler/index.d.ts",
+      "default": "./dist/scheduler/index.js"
+    },
+    "./scheduler/style.css": "./dist/scheduler/style.css",
+    "./scroll-area": {
+      "types": "./dist/scroll-area/index.d.ts",
+      "default": "./dist/scroll-area/index.js"
+    },
+    "./scroll-area/style.css": "./dist/scroll-area/style.css",
+    "./select": {
+      "types": "./dist/select/index.d.ts",
+      "default": "./dist/select/index.js"
+    },
+    "./select/style.css": "./dist/select/style.css",
+    "./session-warning-dialog": {
+      "types": "./dist/session-warning-dialog/index.d.ts",
+      "default": "./dist/session-warning-dialog/index.js"
+    },
+    "./session-warning-dialog/style.css": "./dist/session-warning-dialog/style.css",
+    "./sidebar": {
+      "types": "./dist/sidebar/index.d.ts",
+      "default": "./dist/sidebar/index.js"
+    },
+    "./sidebar/style.css": "./dist/sidebar/style.css",
+    "./signature-pad": {
+      "types": "./dist/signature-pad/index.d.ts",
+      "default": "./dist/signature-pad/index.js"
+    },
+    "./signature-pad/style.css": "./dist/signature-pad/style.css",
+    "./skeleton": {
+      "types": "./dist/skeleton/index.d.ts",
+      "default": "./dist/skeleton/index.js"
+    },
+    "./skeleton/style.css": "./dist/skeleton/style.css",
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "default": "./dist/slider/index.js"
+    },
+    "./slider/style.css": "./dist/slider/style.css",
+    "./splitter": {
+      "types": "./dist/splitter/index.d.ts",
+      "default": "./dist/splitter/index.js"
+    },
+    "./splitter/style.css": "./dist/splitter/style.css",
+    "./sortable-list": {
+      "types": "./dist/sortable-list/index.d.ts",
+      "default": "./dist/sortable-list/index.js"
+    },
+    "./sortable-list/style.css": "./dist/sortable-list/style.css",
+    "./sparkline": {
+      "types": "./dist/sparkline/index.d.ts",
+      "default": "./dist/sparkline/index.js"
+    },
+    "./sparkline/style.css": "./dist/sparkline/style.css",
+    "./spinner": {
+      "types": "./dist/spinner/index.d.ts",
+      "default": "./dist/spinner/index.js"
+    },
+    "./spinner/style.css": "./dist/spinner/style.css",
+    "./stat-card": {
+      "types": "./dist/stat-card/index.d.ts",
+      "default": "./dist/stat-card/index.js"
+    },
+    "./stat-card/style.css": "./dist/stat-card/style.css",
+    "./stepper": {
+      "types": "./dist/stepper/index.d.ts",
+      "default": "./dist/stepper/index.js"
+    },
+    "./stepper/style.css": "./dist/stepper/style.css",
+    "./switch": {
+      "types": "./dist/switch/index.d.ts",
+      "default": "./dist/switch/index.js"
+    },
+    "./switch/style.css": "./dist/switch/style.css",
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "default": "./dist/tabs/index.js"
+    },
+    "./tabs/style.css": "./dist/tabs/style.css",
+    "./tag-group": {
+      "types": "./dist/tag-group/index.d.ts",
+      "default": "./dist/tag-group/index.js"
+    },
+    "./tag-group/style.css": "./dist/tag-group/style.css",
+    "./text-input": {
+      "types": "./dist/text-input/index.d.ts",
+      "default": "./dist/text-input/index.js"
+    },
+    "./text-input/style.css": "./dist/text-input/style.css",
+    "./textarea": {
+      "types": "./dist/textarea/index.d.ts",
+      "default": "./dist/textarea/index.js"
+    },
+    "./textarea/style.css": "./dist/textarea/style.css",
+    "./time-picker": {
+      "types": "./dist/time-picker/index.d.ts",
+      "default": "./dist/time-picker/index.js"
+    },
+    "./time-picker/style.css": "./dist/time-picker/style.css",
+    "./timeline": {
+      "types": "./dist/timeline/index.d.ts",
+      "default": "./dist/timeline/index.js"
+    },
+    "./timeline/style.css": "./dist/timeline/style.css",
+    "./toast": {
+      "types": "./dist/toast/index.d.ts",
+      "default": "./dist/toast/index.js"
+    },
+    "./toast/style.css": "./dist/toast/style.css",
+    "./toggle-group": {
+      "types": "./dist/toggle-group/index.d.ts",
+      "default": "./dist/toggle-group/index.js"
+    },
+    "./toggle-group/style.css": "./dist/toggle-group/style.css",
+    "./tooltip": {
+      "types": "./dist/tooltip/index.d.ts",
+      "default": "./dist/tooltip/index.js"
+    },
+    "./tooltip/style.css": "./dist/tooltip/style.css",
+    "./tour": {
+      "types": "./dist/tour/index.d.ts",
+      "default": "./dist/tour/index.js"
+    },
+    "./tour/style.css": "./dist/tour/style.css",
+    "./tree-select": {
+      "types": "./dist/tree-select/index.d.ts",
+      "default": "./dist/tree-select/index.js"
+    },
+    "./tree-select/style.css": "./dist/tree-select/style.css",
+    "./tree-view": {
+      "types": "./dist/tree-view/index.d.ts",
+      "default": "./dist/tree-view/index.js"
+    },
+    "./tree-view/style.css": "./dist/tree-view/style.css",
+    "./transfer-list": {
+      "types": "./dist/transfer-list/index.d.ts",
+      "default": "./dist/transfer-list/index.js"
+    },
+    "./transfer-list/style.css": "./dist/transfer-list/style.css",
+    "./treemap": {
+      "types": "./dist/treemap/index.d.ts",
+      "default": "./dist/treemap/index.js"
+    },
+    "./treemap/style.css": "./dist/treemap/style.css",
+    "./typography": {
+      "types": "./dist/typography/index.d.ts",
+      "default": "./dist/typography/index.js"
+    },
+    "./typography/style.css": "./dist/typography/style.css",
+    "./upload-queue": {
+      "types": "./dist/upload-queue/index.d.ts",
+      "default": "./dist/upload-queue/index.js"
+    },
+    "./upload-queue/style.css": "./dist/upload-queue/style.css",
+    "./virtual-list": {
+      "types": "./dist/virtual-list/index.d.ts",
+      "default": "./dist/virtual-list/index.js"
+    },
+    "./virtual-list/style.css": "./dist/virtual-list/style.css",
+    "./validation-message": {
+      "types": "./dist/validation-message/index.d.ts",
+      "default": "./dist/validation-message/index.js"
+    },
+    "./validation-message/style.css": "./dist/validation-message/style.css",
+    "./waterfall-chart": {
+      "types": "./dist/waterfall-chart/index.d.ts",
+      "default": "./dist/waterfall-chart/index.js"
+    },
+    "./waterfall-chart/style.css": "./dist/waterfall-chart/style.css",
+    "./year-picker": {
+      "types": "./dist/year-picker/index.d.ts",
+      "default": "./dist/year-picker/index.js"
+    },
+    "./year-picker/style.css": "./dist/year-picker/style.css",
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@absoluteui/core": "0.13.0",
+    "@absoluteui/helpers": "0.13.0",
+    "@absoluteui/icons": "0.13.0",
+    "@absoluteui/theme": "0.13.0",
+    "@absoluteui/utilities": "0.13.0"
+  }
+}

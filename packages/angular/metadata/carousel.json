@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/carousel",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiCarousel",
+      "description": "AbsoluteUI Carousel: `<aui-carousel>`.",
+      "selector": "aui-carousel",
+      "exportAs": [
+        "auiCarousel"
+      ],
+      "source": "generated",
+      "component": "carousel",
+      "configKey": "carousel",
+      "inputs": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": true,
+          "description": "Accessible name of the carousel."
+        },
+        {
+          "name": "slides",
+          "type": "readonly CarouselSlide[]",
+          "required": true,
+          "description": "Slides: { content: Node | string, label? } (1 to 100)."
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Current slide (0-based)."
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Wrap from the last slide to the first and back."
+        },
+        {
+          "name": "autoplay",
+          "type": "number | null",
+          "required": false,
+          "default": "null",
+          "description": "Rotation interval in milliseconds (at least 2000), or null."
+        },
+        {
+          "name": "showPicker",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "configurable": true,
+          "description": "Show the slide picker buttons."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of the control labels and slide positions."
+        }
+      ],
+      "models": [],
+      "outputs": [
+        {
+          "name": "changed",
+          "payload": "CarouselChangeDetail",
+          "event": "aui-change",
+          "description": "The user moved to another slide: { index }."
+        }
+      ],
+      "methods": [
+        {
+          "name": "goTo",
+          "signature": "goTo(index: number): void",
+          "description": "Show a slide (no event); clamped, or wrapped with loop."
+        },
+        {
+          "name": "next",
+          "signature": "next(): void",
+          "description": "Show the next slide (no event)."
+        },
+        {
+          "name": "previous",
+          "signature": "previous(): void",
+          "description": "Show the previous slide (no event)."
+        }
+      ],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "WAI-ARIA APG Carousel (basic, with slide picker buttons): region with aria-roledescription 'carousel', slides as groups with aria-roledescription 'slide' and 'N of M' labels, rotation control first.",
+        "source": "packages/components/metadata/carousel/accessibility.json"
+      },
+      "limitations": [
+        "One slide is shown at a time.",
+        "Swiping is for touch and pen; mouse users use the buttons."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport type { CarouselSlide } from '@absoluteui/components/carousel';\nimport { AuiCarousel } from '@absoluteui/angular/carousel';\n\n@Component({\n  selector: 'app-announcements',\n  imports: [AuiCarousel],\n  template: `<aui-carousel label=\"Announcements\" [slides]=\"slides\" [loop]=\"true\" [autoplay]=\"6000\"></aui-carousel>`,\n})\nexport class AnnouncementsComponent {\n  readonly slides: CarouselSlide[] = [{ content: 'The office is closed on Monday.' }, { content: 'Benefits enrollment closes on the 30th.' }];\n}"
+    }
+  ]
+}

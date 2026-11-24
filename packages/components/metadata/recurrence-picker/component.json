@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "name": "recurrence-picker",
+  "displayName": "Recurrence Picker",
+  "category": "Date and Time",
+  "package": "@absoluteui/components",
+  "import": "import { RecurrencePicker } from '@absoluteui/components/recurrence-picker';",
+  "styleImport": "@absoluteui/components/recurrence-picker/style.css",
+  "purpose": "Edit how something repeats: a RecurrenceRule (RFC 5545 RRULE subset from @absoluteui/core) built from native controls for frequency, interval, weekdays, day of month or nth weekday, month, and the end (never, on a date, after a count), with a live summary and a preview of the next occurrences in the timezone. The form value is iCalendar text (RRULE plus EXDATE/RDATE lines).",
+  "whenToUse": [
+    "Repeating meetings, reminders, reports, maintenance windows, or billing cycles.",
+    "Inside an event editor next to a start and end (Schedule Picker embeds it)."
+  ],
+  "whenNotToUse": [
+    "One-off dates: use Date Picker or Schedule Picker without recurrence.",
+    "Hourly or minute-level repetition: not supported by the rule subset.",
+    "Arbitrary lists of dates: store them as RDATE values in code or use a date list."
+  ],
+  "internalDependencies": [
+    "@absoluteui/core",
+    "@absoluteui/icons",
+    "@absoluteui/utilities"
+  ],
+  "states": [
+    "does not repeat",
+    "daily",
+    "weekly",
+    "monthly",
+    "yearly",
+    "custom (unrepresentable rule)",
+    "disabled",
+    "required",
+    "invalid"
+  ],
+  "responsive": "Rows wrap; inline controls stay on one line when they fit and wrap below their radio otherwise. Reflows at 320 px without horizontal scrolling. Weekday toggles meet the 44 px touch target.",
+  "rtl": "The fieldset follows the direction option; controls flow right to left. Weekday toggles start at the locale's first day of the week (or firstDayOfWeek).",
+  "theme": "Native selects and number inputs use the shared control surface; weekday toggles use the primary fill with a heavier border when pressed (aria-pressed carries the state). Forced-colors mode uses Highlight/HighlightText for pressed days and GrayText when disabled.",
+  "timezone": "The rule has no start. With `start` (PlainDateTime in `timezone`, or PlainDate for all-day series) the picker offers defaults (weekday, day, month), validates the end date, and previews occurrences expanded with DST-correct wall-clock semantics (SPEC section 8.5). An end date with a timed start becomes UNTIL at the last second of that day in the timezone, as UTC (RFC 5545).",
+  "security": "All texts use textContent; option labels come from Intl and messages. The iCalendar form value is produced by core serialization, never from user HTML.",
+  "dataHandling": "No persistence or network access. A hidden input carries the iCalendar text when `name` is set (empty when not repeating); disabled pickers are not submitted. EXDATE/RDATE and WKST of an existing value are preserved on edits.",
+  "performance": {
+    "budgets": [
+      {
+        "metric": "RecurrencePicker.create with a start and a 5-occurrence preview",
+        "budget": "< 15 ms per instance in headless Chromium (e2e performance test)"
+      }
+    ],
+    "testedScale": "One rule per instance; previews up to 20 occurrences."
+  },
+  "limitations": [
+    "Controls cover one day of month or one nth weekday per month; other rules (several month days, BYSETPOS, several months) are kept as \"Custom\" and cannot be edited in place.",
+    "No hourly or minute frequencies; the time of day comes from the series start.",
+    "EXDATE/RDATE are preserved but not edited here.",
+    "The end date is always a date (no end time).",
+    "Screen-reader behavior has not yet been manually verified with NVDA, JAWS, and VoiceOver."
+  ],
+  "unsupported": [
+    "BYWEEKNO, BYYEARDAY, BYHOUR, BYMINUTE, RSCALE (rejected by the core parser).",
+    "Negative intervals or counts above maxCount."
+  ],
+  "antiPatterns": [
+    "Rebuilding a series from occurrences instead of storing the rule.",
+    "Omitting `start`: users then pick a weekday or day without defaults and see no preview."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/recurrence-picker: AuiRecurrencePicker directive ([auiRecurrencePicker]) with ControlValueAccessor and Validator.",
+    "react": "@absoluteui/react/recurrence-picker: AuiRecurrencePicker component; controlled (value/defaultValue + onValueChange) or uncontrolled.",
+    "vue": "@absoluteui/vue/recurrence-picker: AuiRecurrencePicker component with v-model."
+  },
+  "versionIntroduced": "0.6.0",
+  "deprecated": null
+}

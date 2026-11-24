@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "component": "masked-input",
+  "examples": [
+    {
+      "id": "phone",
+      "title": "Phone number from a preset",
+      "language": "ts",
+      "code": "import { MaskedInput, MASK_PRESETS, type MaskedInputValueDetail } from '@absoluteui/components/masked-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nMaskedInput.create(host, { label: 'Mobile phone', name: 'phone', required: true, ...MASK_PRESETS.phoneUs });\nhost.addEventListener('aui-change', (event) => {\n  const { value, formattedValue, complete } = (event as CustomEvent<MaskedInputValueDetail>).detail;\n  console.log(value, formattedValue, complete);\n});"
+    },
+    {
+      "id": "iban",
+      "title": "IBAN with a checksum rule",
+      "language": "ts",
+      "code": "import { MaskedInput, MASK_PRESETS } from '@absoluteui/components/masked-input';\n\n/** ISO 13616 mod-97 check. */\nfunction ibanValid(raw: string): boolean {\n  const moved = raw.slice(4) + raw.slice(0, 4);\n  let rest = 0;\n  for (const c of moved) {\n    const n = /\\d/.test(c) ? c : String(c.charCodeAt(0) - 55);\n    for (const d of n) rest = (rest * 10 + Number(d)) % 97;\n  }\n  return rest === 1;\n}\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nMaskedInput.create(host, {\n  label: 'IBAN',\n  submit: 'raw',\n  ...MASK_PRESETS.iban,\n  validate: (value, { complete }) => (complete && !ibanValid(value) ? 'This IBAN is not valid. Check the digits.' : null),\n});"
+    },
+    {
+      "id": "custom-token",
+      "title": "Custom token: upper-case product code",
+      "language": "ts",
+      "code": "import { MaskedInput } from '@absoluteui/components/masked-input';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nMaskedInput.create(host, {\n  label: 'Product code',\n  mask: 'LLL-9999',\n  tokens: { L: { pattern: /[a-z]/i, transform: (c) => c.toUpperCase(), description: 'L is a letter' } },\n  example: 'ABC-1234',\n  submit: 'formatted',\n});"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" data-id="minus">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <circle cx="5" cy="5" r="4"/>
+      <line x1="3" y1="5" x2="7" y2="5" data-outline-width="1.5"/>
+    </g>
+  </g>
+</svg>

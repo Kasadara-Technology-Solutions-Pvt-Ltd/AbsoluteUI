@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "name": "button",
+  "displayName": "Button",
+  "category": "Buttons and Actions",
+  "package": "@absoluteui/components",
+  "import": "import { Button } from '@absoluteui/components/button';",
+  "styleImport": "@absoluteui/components/button/style.css",
+  "purpose": "Triggers an action. Enhances a native <button>, keeping native semantics, form behavior, and keyboard activation.",
+  "whenToUse": [
+    "Submitting forms or triggering in-page actions.",
+    "Icon-only actions that have an accessible name.",
+    "Actions with a busy state while an operation is pending."
+  ],
+  "whenNotToUse": [
+    "Navigation to another page or URL: use a link (<a href>).",
+    "Toggling a persistent on/off state: use Switch.",
+    "Selecting one option among several: use a segmented control or radio group."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["default", "hover", "active", "focus-visible", "disabled", "loading"],
+  "responsive": "Inline-flex sizing; does not wrap its label. Minimum target size 1.5rem (WCAG 2.5.8). Density tokens adjust control height.",
+  "rtl": "Uses logical properties; icon position start/end follows writing direction.",
+  "theme": "All colors, sizes, radii and motion come from role tokens. Forced-colors mode uses system colors for borders and focus.",
+  "timezone": "Not applicable.",
+  "security": "Text content is set via textContent (Button.create). No HTML parsing. CSP-safe: no inline styles or eval.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Button.enhance, per instance (1,000 instances)", "budget": "< 0.5 ms average in headless Chromium" }
+    ],
+    "testedScale": "1,000 buttons on one page in the performance test."
+  },
+  "limitations": [
+    "Loading state blocks activation through a capture-phase click listener; consumer listeners added with capture on the same element before enhancement still run.",
+    "Icon-only buttons without text require `label`, aria-label or aria-labelledby; otherwise construction throws BUTTON_ICON_ONLY_LABEL."
+  ],
+  "unsupported": [
+    "Non-<button> host elements (div/span with role=button).",
+    "Rendering HTML strings as the button label."
+  ],
+  "antiPatterns": [
+    "Using `disabled` for temporarily unavailable actions that users should still discover; prefer loading or an explanatory message.",
+    "Icon-only buttons without an accessible name.",
+    "Using a button for navigation."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/button: AuiButton directive (button[auiButton]), enhancing the native button in place.",
+    "react": "@absoluteui/react/button: AuiButton component.",
+    "vue": "@absoluteui/vue/button: AuiButton component."
+  },
+  "versionIntroduced": "0.1.0",
+  "deprecated": null
+}

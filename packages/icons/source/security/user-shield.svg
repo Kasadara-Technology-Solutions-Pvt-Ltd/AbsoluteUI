@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="user-shield">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="12" cy="9.6" r="2.1"/>
+      <path d="M8.6 16.1a3.4 2.6 0 0 1 6.8 0"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill" data-fill-rule="evenodd" data-compound="true">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z" transform="translate(12 12) scale(1.12) translate(-12 -12)"/>
+      <circle cx="12" cy="9.6" r="2.25"/>
+      <path d="M8.4 16.6a3.6 2.75 0 0 1 7.2 0z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M12 3l7 2.8v5.4c0 4.6-3 8.1-7 9.8-4-1.7-7-5.2-7-9.8V5.8z"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <circle cx="12" cy="9.6" r="2.1"/>
+      <path d="M8.6 16.1a3.4 2.6 0 0 1 6.8 0"/>
+    </g>
+  </g>
+</svg>

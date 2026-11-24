@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "name": "tooltip",
+  "displayName": "Tooltip",
+  "category": "Overlays",
+  "package": "@absoluteui/components",
+  "import": "import { Tooltip } from '@absoluteui/components/tooltip';",
+  "styleImport": "@absoluteui/components/tooltip/style.css",
+  "purpose": "Short text hint for a trigger that meets WCAG 1.4.13: shown after a delay on pointer hover and immediately on keyboard focus, hoverable, dismissible with Escape without moving focus, and referenced from the trigger by aria-describedby (or aria-labelledby for icon-only controls).",
+  "whenToUse": [
+    "Supplementary hints: keyboard shortcuts, the full text of a truncated label, the purpose of an icon-only button.",
+    "Naming an icon-only control visually as well as programmatically (relation 'label')."
+  ],
+  "whenNotToUse": [
+    "Essential information or instructions: touch users never see tooltips; put it on the page.",
+    "Interactive content (links, buttons): use Popover.",
+    "Validation errors: use the field's validation message.",
+    "Long text: tooltips are capped at tooltip-max-width; use Popover or inline help."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/utilities"],
+  "states": ["hidden", "pending (show delay running)", "visible", "hiding (hide delay running)"],
+  "responsive": "Width up to min(tooltip-max-width, 100vw - 1rem); text wraps. The positioning engine flips and shifts to stay in the viewport.",
+  "rtl": "`start`/`end` placements are logical and mirror in RTL (direction option or global direction).",
+  "theme": "Inverse surface (color-inverse, color-on-inverse), radius-sm, shadow-md, font-size-sm. Forced-colors mode draws a CanvasText border.",
+  "timezone": "Not applicable.",
+  "security": "Content is text only (textContent). CSP-safe: positioning uses the CSSOM.",
+  "dataHandling": "No persistence, network access, or telemetry.",
+  "performance": {
+    "budgets": [
+      { "metric": "Tooltip.create, per instance", "budget": "< 1 ms average in headless Chromium" }
+    ],
+    "testedScale": "One visible tooltip at a time by design; instances attach five listeners to the trigger and two to the tooltip."
+  },
+  "limitations": [
+    "Touch pointers never show the tooltip; tooltips must not hold essential information.",
+    "Disabled native buttons receive no pointer or focus events, so their tooltips never show; use aria-disabled instead.",
+    "Only one tooltip is visible at a time per loaded copy of the module.",
+    "The tooltip is appended to the end of the body, or to the trigger's enclosing <dialog> so it stays hoverable while a modal dialog makes the rest of the page inert.",
+    "The gap between trigger and tooltip is fixed at 6px."
+  ],
+  "unsupported": [
+    "Rich or interactive content (use Popover).",
+    "Showing on tap or long press."
+  ],
+  "antiPatterns": [
+    "Putting instructions or error messages only in a tooltip.",
+    "Using relation 'label' on a control that already has visible text (the tooltip would replace its name).",
+    "Tooltips on non-focusable elements: keyboard users cannot reach them."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/tooltip: AuiTooltip directive ([auiTooltip]) on the trigger; auiTooltip binds the content.",
+    "react": "@absoluteui/react/tooltip: AuiTooltip component.",
+    "vue": "@absoluteui/vue/tooltip: AuiTooltip component."
+  },
+  "versionIntroduced": "0.2.0",
+  "deprecated": null
+}

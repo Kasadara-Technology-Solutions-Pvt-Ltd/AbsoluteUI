@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "component": "button-group",
+  "pattern": "Native buttons inside an element with role=group and an accessible name (WAI-ARIA group role). Not the APG Toolbar pattern.",
+  "roles": [
+    { "element": "group element", "role": "group" },
+    { "element": "buttons", "role": "button (native)" },
+    { "element": "icons", "role": "none (aria-hidden=true)" }
+  ],
+  "aria": [
+    { "attribute": "aria-label", "element": "group element", "value": "The label option" },
+    { "attribute": "aria-label", "element": "icon-only button", "value": "The button's label" }
+  ],
+  "keyboard": [
+    { "key": "Tab / Shift+Tab", "context": "Any", "action": "Moves through every enabled button in DOM order (native)." },
+    { "key": "Enter / Space", "context": "Button focused", "action": "Activates the button (native)." }
+  ],
+  "focus": "Each button shows its own :focus-visible outline. In attached groups the focused button is raised and the ring is inset so the scroll container does not clip it.",
+  "wcag": ["1.3.1", "1.4.11", "2.1.1", "2.4.7", "4.1.2"],
+  "notes": [
+    "aria-orientation is not set: the group role does not support it and there is no arrow-key navigation.",
+    "For a toolbar with arrow-key roving focus, a Toolbar component is planned."
+  ],
+  "knownCaveats": [
+    "Manual screen-reader verification (NVDA, JAWS, VoiceOver) is pending."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "component": "stat-card",
+  "examples": [
+    {
+      "id": "basic",
+      "title": "Revenue with the change against last month and a trend",
+      "language": "ts",
+      "code": "import { StatCard } from '@absoluteui/components/stat-card';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst card = StatCard.create(host, {\n  label: 'Revenue',\n  value: 48200,\n  previous: 40100,\n  valueFormat: { style: 'currency', currency: 'USD', maximumFractionDigits: 0 },\n  comparisonLabel: 'vs last month',\n  trend: [31000, 35500, 38200, 40100, 48200],\n});\nhost.dataset.delta = String(card.delta);"
+    },
+    {
+      "id": "lower-is-better",
+      "title": "Error rate where a decrease is favorable, linking to details",
+      "language": "ts",
+      "code": "import { StatCard } from '@absoluteui/components/stat-card';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nStatCard.create(host, {\n  label: 'Error rate',\n  value: 0.012,\n  valueFormat: { style: 'percent', maximumFractionDigits: 1 },\n  delta: -0.003,\n  deltaFormat: 'absolute',\n  sentiment: 'lower-is-better',\n  comparisonLabel: 'vs yesterday',\n  href: '/reports/errors',\n});"
+    },
+    {
+      "id": "busy",
+      "title": "Loading state, then the value",
+      "language": "ts",
+      "code": "import { StatCard } from '@absoluteui/components/stat-card';\n\nconst host = document.createElement('div');\ndocument.body.append(host);\nconst card = StatCard.create(host, { label: 'Active users', value: null, busy: true });\nexport function showActiveUsers(count: number, previous: number): void {\n  card.update({ busy: false, value: count, previous });\n}"
+    },
+    {
+      "id": "global-config",
+      "title": "Absolute changes for every card",
+      "language": "ts",
+      "code": "import { configureAbsoluteUI } from '@absoluteui/core';\n\nconfigureAbsoluteUI({ components: { statCard: { deltaFormat: 'absolute' } } });"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AbsoluteUI R2 harness: charts</title>
+    <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/line-chart.css">
+    <link rel="stylesheet" href="/bar-chart.css">
+    <link rel="stylesheet" href="/pie-chart.css">
+    <link rel="stylesheet" href="/sparkline.css">
+    <link rel="stylesheet" href="/demo.css">
+    <script type="module" src="/charts.js"></script>
+  </head>
+  <body>
+    <main class="demo">
+      <h1>AbsoluteUI R2 charts</h1>
+      <section aria-labelledby="h-line" class="demo-stack">
+        <h2 id="h-line">Line and area</h2>
+        <div id="line"></div>
+        <div id="area"></div>
+      </section>
+      <section aria-labelledby="h-bar" class="demo-stack">
+        <h2 id="h-bar">Bars</h2>
+        <div id="bar"></div>
+        <div id="bar-stacked"></div>
+      </section>
+      <section aria-labelledby="h-pie" class="demo-charts">
+        <h2 id="h-pie">Part to whole</h2>
+        <div id="pie"></div>
+        <div id="donut"></div>
+      </section>
+      <section aria-labelledby="h-spark">
+        <h2 id="h-spark">Sparklines</h2>
+        <p>Weekly sign-ups <span id="spark-line"></span> and net change <span id="spark-bar"></span> this quarter.</p>
+      </section>
+      <p>Last event: <output id="last-event">none</output></p>
+    </main>
+  </body>
+</html>

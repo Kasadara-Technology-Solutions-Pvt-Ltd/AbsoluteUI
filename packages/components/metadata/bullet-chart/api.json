@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "component": "bullet-chart",
+  "factory": {
+    "name": "BulletChart.create",
+    "signature": "BulletChart.create(host: HTMLElement, options: BulletChartOptions): BulletChart"
+  },
+  "configKey": "bulletChart",
+  "options": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Chart title: visible text and the accessible name of the plot (aria-labelledby). Must not be blank."
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visually hide the title; it stays the accessible name."
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Visible description below the title, also referenced by aria-describedby (text only)."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Replaces the generated accessible summary (measure count, each measure's name, and how many are at or above target)."
+    },
+    {
+      "name": "valueFormat",
+      "type": "Intl.NumberFormatOptions",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Number format for values and targets in names, the tooltip, the data table, the summary, and axis ticks (ticks use fixed fraction digits)."
+    },
+    {
+      "name": "formatValue",
+      "type": "(value: number) => string",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Custom value text; overrides valueFormat everywhere except axis ticks."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Shared chart option; validated but has no effect (a bullet chart has no toggleable series)."
+    },
+    {
+      "name": "measures",
+      "type": "readonly BulletMeasure[]",
+      "required": true,
+      "globallyConfigurable": false,
+      "description": "Rows: { id, label, value: number | null, target?: number, ranges?: number[] }. Ids are unique and non-empty; null, NaN, and infinities are a missing value; target is finite; ranges are up to three strictly ascending finite upper ends (the first range starts at the axis minimum)."
+    },
+    {
+      "name": "rangeLabels",
+      "type": "readonly string[]",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Names of the qualitative ranges in the same order as ranges (up to three, for example [\"Poor\", \"Satisfactory\", \"Good\"]); read in each measure's name, tooltip, and table. Default \"Range 1\", \"Range 2\", \"Range 3\"."
+    },
+    {
+      "name": "color",
+      "type": "ChartColor (1-8)",
+      "default": 1,
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Palette slot of the measure bars."
+    },
+    {
+      "name": "valueAxis",
+      "type": "BulletChartValueAxis ({ label?: string; min?: number; max?: number; tickCount?: number; includeZero?: boolean })",
+      "required": false,
+      "globallyConfigurable": false,
+      "description": "Fixed domain (max > min; marks are clamped to it) and approximate tick count (2-20). The automatic domain always includes zero and spans every value, target, and range end. label and includeZero are validated but not drawn or used."
+    },
+    {
+      "name": "theme",
+      "type": "ChartTheme",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Look and feel: { palette?: string[] (1-8 CSS colors for slots 1-8); fontFamily?; fontSize? (8-32 px); textColor?; gridLines?: boolean; gridColor?; gridDash? (\"4 2\" or \"none\"); axisColor?; lineWidth? (0.5-12 px); markerSize? (1-20 px); cornerRadius?, barRadius?, cellRadius?, sliceRadius?, boxRadius? (0-50 px); swatchRadius? (0-8 px); tooltipRadius?, controlRadius? (0-50 px); lineJoin?: 'round' | 'miter' | 'bevel'; areaOpacity? (0-1); gradient?: boolean; valueLabelColor?; tooltip?: { background?, color?, borderColor? }; legendPosition?: 'top' | 'bottom' | 'start' | 'end'; animation?: boolean | { duration?: number (0-5000 ms) } }. Applied as --aui-chart-* custom properties and classes on the host through the CSSOM (CSP-safe); colors are validated with CSS.supports('color'). Animation is opt-in and never runs with prefers-reduced-motion: reduce or [data-aui-animation='none']."
+    },
+    {
+      "name": "renderTooltip",
+      "type": "(context: ChartTooltipContext) => Node | null",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Custom tooltip content as DOM nodes (never HTML strings). context: { title, rows: { label, value, seriesId }[], column, row, source: \"pointer\" | \"focus\" | \"sync\" }. Return null for the default tooltip. The tooltip stays aria-hidden; the focused mark keeps its accessible label."
+    },
+    {
+      "name": "syncGroup",
+      "type": "string",
+      "required": false,
+      "globallyConfigurable": false,
+      "mutability": "dynamic",
+      "description": "Synchronized crosshair: charts with the same group show the crosshair, highlight, and tooltip at the same column (category or x index) when one of them is hovered or focused. Focus never moves between charts. Use charts that share their categories or x values."
+    },
+    {
+      "name": "legend",
+      "type": "'auto' | 'show' | 'hide'",
+      "default": "auto",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Shared chart configuration; a bullet chart never shows a legend (ranges are named in each row's label)."
+    },
+    {
+      "name": "dataTable",
+      "type": "'toggle' | 'visible' | 'hidden' | 'none'",
+      "default": "toggle",
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Data table fallback (Measure, Value, Target, Range): behind a Show data table button (built on first open), always visible, visually hidden (screen readers only), or none."
+    },
+    {
+      "name": "tooltip",
+      "type": "boolean",
+      "default": true,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Tooltip on pointer hover and keyboard focus (value, target, range)."
+    },
+    {
+      "name": "patterns",
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Shared chart configuration; toggles the aui-chart--patterns host class. Bullet charts draw no textures (one measure color; ranges are neutral shades named in text)."
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "default": 300,
+      "required": false,
+      "globallyConfigurable": true,
+      "mutability": "dynamic",
+      "description": "Plot height in CSS px (integer 120-2000), divided evenly between rows; the width follows the container."
+    },
+    {
+      "name": "locale",
+      "type": "string",
+      "default": "en-US",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "Number and message locale."
+    },
+    {
+      "name": "direction",
+      "type": "'ltr' | 'rtl'",
+      "default": "ltr",
+      "required": false,
+      "globallyConfigurable": true,
+      "inheritedFromCommon": true,
+      "mutability": "dynamic",
+      "description": "rtl mirrors the value axis, moves labels to the right, and swaps ArrowLeft/ArrowRight."
+    }
+  ],
+  "properties": [
+    {
+      "name": "host",
+      "type": "HTMLElement",
+      "description": "The host element."
+    },
+    {
+      "name": "element",
+      "type": "SVGSVGElement",
+      "description": "The plot (svg role=\"group\"), named by the title and described by the summary."
+    },
+    {
+      "name": "summary",
+      "type": "string",
+      "description": "The generated (or custom) accessible summary."
+    },
+    {
+      "name": "hiddenSeries",
+      "type": "string[]",
+      "description": "Always empty (a bullet chart has no toggleable series)."
+    }
+  ],
+  "methods": [
+    {
+      "name": "update",
+      "signature": "update(options: Partial<BulletChartOptions>): void",
+      "description": "Merge, validate, and re-render. Invalid options throw and keep the previous state. Keyboard focus stays on the same measure (by id)."
+    },
+    {
+      "name": "setSeriesVisible",
+      "signature": "setSeriesVisible(id: string, visible: boolean): void",
+      "description": "Shared chart method; re-renders but has no visible effect on a bullet chart. Emits no event."
+    },
+    {
+      "name": "destroy",
+      "signature": "destroy(): void",
+      "description": "Remove rendering, host classes, listeners, the resize observer, and the configuration subscription."
+    }
+  ],
+  "events": [
+    {
+      "name": "aui-point-click",
+      "detail": "BulletChartPointClickDetail = ChartPointClickDetail: { seriesId: string | null; column: number; row: number; label: string; series: string; value: string; source: 'pointer' | 'keyboard' }",
+      "bubbles": true,
+      "cancelable": false,
+      "description": "A data mark was activated: pointer click or tap, or Enter / Space on the focused mark. label is the category, x value, or item; value is the formatted value text. Keyboard navigation is unchanged."
+    }
+  ],
+  "contentAreas": [],
+  "cssClasses": [
+    {
+      "name": "aui-chart",
+      "description": "Host (shared chart chrome)."
+    },
+    {
+      "name": "aui-bullet-chart",
+      "description": "Host modifier for this chart type."
+    },
+    {
+      "name": "aui-chart--patterns",
+      "description": "patterns option on (no textures are drawn by a bullet chart)."
+    },
+    {
+      "name": "aui-chart__header / __title / __title--hidden / __description / __toolbar",
+      "description": "Title and description; the toolbar stays hidden."
+    },
+    {
+      "name": "aui-chart__legend",
+      "description": "Legend list; always hidden for a bullet chart."
+    },
+    {
+      "name": "aui-chart__body / __svg / __layer",
+      "description": "Plot container (height from --aui-chart-height), SVG, and drawing layer."
+    },
+    {
+      "name": "aui-chart__grid / __gridline / __zero-line / __axis / __axis--value / __axis--category / __tick-label",
+      "description": "Value axis and the measure label column (aria-hidden)."
+    },
+    {
+      "name": "aui-chart__series--c1 ... --c8",
+      "description": "Palette slot class on the rows group (color option); sets --aui-chart-color from color-chart-<n>."
+    },
+    {
+      "name": "aui-chart__mark / __mark--active / __mark--hover",
+      "description": "Focusable measure bar and its states."
+    },
+    {
+      "name": "aui-chart__bar",
+      "description": "Measure bar paint (series color with a surface-colored separator; text-colored outline on hover and focus)."
+    },
+    {
+      "name": "aui-chart__tooltip / __tooltip-title / __tooltip-rows / __tooltip-row / __tooltip-label / __tooltip-value / __swatch",
+      "description": "Tooltip (aria-hidden; the focused bar carries the same text)."
+    },
+    {
+      "name": "aui-chart__empty",
+      "description": "Empty state text (No data)."
+    },
+    {
+      "name": "aui-chart__summary",
+      "description": "Hidden summary referenced by aria-describedby."
+    },
+    {
+      "name": "aui-chart__data / __data--hidden / __table-toggle / __table-scroll / __table / __cell--numeric",
+      "description": "Data table fallback."
+    },
+    {
+      "name": "aui-bullet-chart__rows / __row",
+      "description": "All rows, and one group per measure."
+    },
+    {
+      "name": "aui-bullet-chart__ranges / __range / __range--1 / __range--2 / __range--3",
+      "description": "Decorative (aria-hidden) qualitative range bands, darkest first."
+    },
+    {
+      "name": "aui-bullet-chart__measure",
+      "description": "The focusable measure bar."
+    },
+    {
+      "name": "aui-bullet-chart__target",
+      "description": "Target tick (aria-hidden)."
+    },
+    {
+      "name": "aui-bullet-chart__label",
+      "description": "Measure label beside the row (aria-hidden)."
+    },
+    {
+      "name": "aui-chart--legend-bottom / --legend-start / --legend-end",
+      "description": "theme.legendPosition (top is the default layout)."
+    },
+    {
+      "name": "aui-chart--no-grid / --gradient / --animate / --entering",
+      "description": "theme.gridLines: false, theme.gradient, theme.animation (entering: the render that animates)."
+    },
+    {
+      "name": "aui-chart__annotations / __annotation-line / __annotation-band / __annotation-label / __annotation--<tone>",
+      "description": "Annotations (aria-hidden), drawn under the marks."
+    },
+    {
+      "name": "aui-chart__gradient / __gradient-stop",
+      "description": "Gradient fills (theme.gradient)."
+    },
+    {
+      "name": "aui-chart__tooltip--custom",
+      "description": "Tooltip content comes from renderTooltip."
+    }
+  ],
+  "iconSlots": []
+}

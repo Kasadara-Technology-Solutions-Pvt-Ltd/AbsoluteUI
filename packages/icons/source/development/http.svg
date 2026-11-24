@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="http">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9.5" cy="9.5" r="6.5"/>
+      <path d="M3 9.5h13"/>
+      <path d="M9.5 3a9.75 9.75 0 0 1 0 13a9.75 9.75 0 0 1 0-13"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15 15.5h6"/>
+      <path d="M19.25 13.5l2 2-2 2"/>
+      <path d="M21 20h-6"/>
+      <path d="M16.75 18l-2 2 2 2"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <circle cx="9.5" cy="9.5" r="6.5"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <circle cx="9.5" cy="9.5" r="6.5"/>
+      <path d="M3 9.5h13"/>
+      <path d="M9.5 3a9.75 9.75 0 0 1 0 13a9.75 9.75 0 0 1 0-13"/>
+    </g>
+    <g data-layer="accent" data-role="accent" data-paint="stroke">
+      <path d="M15 15.5h6"/>
+      <path d="M19.25 13.5l2 2-2 2"/>
+      <path d="M21 20h-6"/>
+      <path d="M16.75 18l-2 2 2 2"/>
+    </g>
+  </g>
+</svg>

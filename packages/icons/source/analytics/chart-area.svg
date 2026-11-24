@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="chart-area">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 4v14.5A1.5 1.5 0 0 0 5.5 20H20"/>
+      <path d="M7 16.5v-4l3.5-3.5 3 3 4.5-5v9.5z"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M3 4.5a1 1 0 0 1 2 0v14a.5.5 0 0 0 .5.5H20a1 1 0 0 1 0 2H5.5A2.5 2.5 0 0 1 3 18.5z"/>
+    </g>
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M7 17v-4.7l3.5-3.5 3 3L18 6.6V17z"/>
+    </g>
+  </g>
+  <g data-variant="duotone">
+    <g data-layer="secondary" data-role="secondary" data-paint="fill">
+      <path d="M7 16.5v-4l3.5-3.5 3 3 4.5-5v9.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 4v14.5A1.5 1.5 0 0 0 5.5 20H20"/>
+      <path d="M7 16.5v-4l3.5-3.5 3 3 4.5-5v9.5z"/>
+    </g>
+  </g>
+  <g data-variant="multicolor">
+    <g data-layer="secondary" data-role="accent" data-paint="fill" data-opacity="0.35">
+      <path d="M7 16.5v-4l3.5-3.5 3 3 4.5-5v9.5z"/>
+    </g>
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M4 4v14.5A1.5 1.5 0 0 0 5.5 20H20"/>
+      <path d="M7 16.5v-4l3.5-3.5 3 3 4.5-5v9.5z"/>
+    </g>
+  </g>
+</svg>

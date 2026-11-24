@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="volume-off" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M11 5L6 9H3v6h3l5 4z"/>
+      <path d="M16 9.5l5 5"/>
+      <path d="M21 9.5l-5 5"/>
+    </g>
+  </g>
+  <g data-variant="solid">
+    <g data-layer="base" data-role="primary" data-paint="fill">
+      <path d="M11 5L6 9H3v6h3l5 4z" transform="translate(7 12) scale(1.08) translate(-7 -12)"/>
+    </g>
+    <g data-layer="detail" data-role="primary" data-paint="fill">
+      <line x1="16" y1="9.5" x2="21" y2="14.5" data-outline-width="2.25"/>
+      <line x1="21" y1="9.5" x2="16" y2="14.5" data-outline-width="2.25"/>
+    </g>
+  </g>
+</svg>

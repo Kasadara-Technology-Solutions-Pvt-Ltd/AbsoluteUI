@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "entry": "@absoluteui/angular/kbd",
+  "declarations": [
+    {
+      "kind": "component",
+      "name": "AuiKbd",
+      "description": "AbsoluteUI Kbd: `<aui-kbd>`.",
+      "selector": "aui-kbd",
+      "exportAs": [
+        "auiKbd"
+      ],
+      "source": "generated",
+      "component": "kbd",
+      "configKey": "kbd",
+      "inputs": [
+        {
+          "name": "hotkey",
+          "type": "string",
+          "required": true,
+          "description": "Shortcut in matchesHotkey syntax, such as 'Mod+Shift+K'; 'Plus' is the + key."
+        },
+        {
+          "name": "platform",
+          "type": "KbdPlatform",
+          "required": false,
+          "default": "auto",
+          "configurable": true,
+          "description": "Apple shows Command for Mod and modifier symbols; other shows Ctrl and '+' separators; auto detects."
+        },
+        {
+          "name": "size",
+          "type": "KbdSize",
+          "required": false,
+          "default": "md",
+          "configurable": true,
+          "description": "Keycap size."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": "en-US",
+          "configurable": true,
+          "description": "Locale of key names."
+        }
+      ],
+      "models": [],
+      "outputs": [],
+      "methods": [],
+      "serverRendering": "server",
+      "accessibility": {
+        "pattern": "Keyboard input markup: a kbd element for the combination with one nested kbd per key (HTML kbd semantics).",
+        "source": "packages/components/metadata/kbd/accessibility.json"
+      },
+      "limitations": [
+        "One combination per instance; for a sequence (G then I) use one Kbd per step.",
+        "Platform detection uses the user-agent string (auto); set platform to override."
+      ]
+    }
+  ],
+  "example": [
+    {
+      "language": "ts",
+      "code": "import { Component } from '@angular/core';\nimport { AuiKbd } from '@absoluteui/angular/kbd';\n\n@Component({\n  selector: 'app-save-hint',\n  imports: [AuiKbd],\n  template: `<p>Save with <aui-kbd hotkey=\"Mod+S\"></aui-kbd></p>`,\n})\nexport class SaveHintComponent {}"
+    }
+  ]
+}

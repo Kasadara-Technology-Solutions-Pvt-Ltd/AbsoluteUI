@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "name": "tag-group",
+  "displayName": "Tag Group",
+  "category": "Data display",
+  "package": "@absoluteui/components",
+  "import": "import { TagGroup } from '@absoluteui/components/tag-group';",
+  "styleImport": "@absoluteui/components/tag-group/style.css",
+  "purpose": "Interactive tags such as applied filters, recipients, or labels on a record: removable, selectable (single or multiple), or both. A grid with one row per tag: one tag in the tab sequence, arrow keys between tags, Space selects, Delete or Backspace removes.",
+  "whenToUse": [
+    "Applied filters the user can remove one by one.",
+    "A short set of labels the user selects to filter or categorize.",
+    "Recipients or assignees shown as removable chips."
+  ],
+  "whenNotToUse": [
+    "Static status or category labels: use Badge.",
+    "Choosing values in a form field: use Multi Select (its chips are part of the field).",
+    "Navigation: use Tabs or links."
+  ],
+  "internalDependencies": ["@absoluteui/core", "@absoluteui/icons", "@absoluteui/utilities"],
+  "states": ["removable", "selection none", "selection single", "selection multiple", "selected", "disabled tag", "sm", "md", "empty"],
+  "responsive": "Tags wrap onto several lines; long labels are truncated with an ellipsis.",
+  "rtl": "Arrow keys follow the reading direction; the remove button sits at the inline end.",
+  "theme": "Component tokens tag-group-bg, tag-group-border-color, tag-group-radius (contrast gate pairs); selected tags use color-selected, color-selected-text, and color-selected-indicator. Forced colors draw selected tags in Highlight.",
+  "timezone": "Not applicable.",
+  "security": "Labels are rendered with textContent; never parsed as HTML.",
+  "dataHandling": "No persistence, network access, or telemetry. Removal changes only the displayed tags; the application updates its own data from aui-remove.",
+  "performance": {
+    "budgets": [
+      { "metric": "TagGroup.create with 50 tags", "budget": "< 5 ms average in headless Chromium" }
+    ],
+    "testedScale": "Up to 1,000 tags accepted; intended for tens."
+  },
+  "limitations": [
+    "Removing the last tag leaves focus on the page body; move focus to a sensible control in an aui-remove handler.",
+    "Every change re-creates the tag elements (focus is restored to the same tag)."
+  ],
+  "unsupported": [
+    "Editing a tag in place.",
+    "Rich content in tags (text only)."
+  ],
+  "antiPatterns": [
+    "Using a tag group for static labels (use Badge).",
+    "Removing tags without a way to add them back."
+  ],
+  "adapters": {
+    "angular": "@absoluteui/angular/tag-group: AuiTagGroup component (<aui-tag-group>, [(value)] for selection).",
+    "react": "@absoluteui/react/tag-group: AuiTagGroup component (value, onValueChange).",
+    "vue": "@absoluteui/vue/tag-group: AuiTagGroup component (v-model for selection)."
+  },
+  "versionIntroduced": "0.9.0",
+  "deprecated": null
+}

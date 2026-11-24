@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-id="arrow-up-right" data-mirror="true">
+  <g data-variant="outline">
+    <g data-layer="base" data-role="primary" data-paint="stroke">
+      <path d="M7 17L17 7"/>
+      <path d="M8 7h9v9"/>
+    </g>
+  </g>
+</svg>
