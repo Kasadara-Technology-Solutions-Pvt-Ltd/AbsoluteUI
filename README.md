@@ -27,4 +27,4 @@ Maintainers of this repository: see the [engineering guide](docs/ENGINEERING.md)
 
 ## License
 
-Copyright (c) 2026 Kasadara Technology Solutions Pvt Ltd. Licensed under the [Apache License 2.0](LICENSE); see also [NOTICE](NOTICE). AbsoluteUI is Kasadara's contribution to the open-source community; the source is at https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI. Bug reports and feature requests are welcome; external code contributions are not accepted.
+Copyright (c) 2026 Kasadara Technology Solutions Pvt Ltd. Licensed under the [Apache License 2.0](LICENSE); see also [NOTICE](NOTICE). AbsoluteUI is Kasadara's contribution to the open-source community; the source is at https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI. Bug reports and feature requests are welcome; external code contributions are not accepted. See [CONTRIBUTING.md](CONTRIBUTING.md) and the [Code of Conduct](CODE_OF_CONDUCT.md).

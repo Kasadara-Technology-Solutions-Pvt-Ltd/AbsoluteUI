@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/Kasadara-Technology-Solutions-Pvt-Ltd/AbsoluteUI/security/advisories/new
+    about: Report vulnerabilities privately, never in a public issue. See SECURITY.md.
+  - name: Documentation
+    url: https://aui.kasadara.com/docs/
+    about: Guides, component reference, API reference, and live examples.
