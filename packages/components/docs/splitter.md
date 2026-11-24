@@ -271,39 +271,11 @@ export class WorkspaceComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiSplitter } from '@absoluteui/react/splitter';
-
-const left = document.createElement('div');
-left.textContent = 'Files';
-const right = document.createElement('div');
-right.textContent = 'Editor';
-
-export function Example() {
-  return <AuiSplitter panes={[{ content: left, label: 'Files', size: '30%' }, { content: right, label: 'Editor' }]} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiSplitter } from '@absoluteui/vue/splitter';
-
-const left = document.createElement('div');
-left.textContent = 'Files';
-const right = document.createElement('div');
-right.textContent = 'Editor';
-</script>
-
-<template>
-  <AuiSplitter :panes="[{ content: left, label: 'Files', size: '30%' }, { content: right, label: 'Editor' }]" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

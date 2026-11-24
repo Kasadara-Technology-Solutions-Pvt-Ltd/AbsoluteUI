@@ -337,47 +337,11 @@ export class CalendarComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import type { SchedulerEvent } from '@absoluteui/components/scheduler';
-import { AuiScheduler } from '@absoluteui/react/scheduler';
-
-export function TeamCalendar({ initial }: { initial: SchedulerEvent[] }) {
-  const [events, setEvents] = useState(initial);
-  return (
-    <AuiScheduler
-      label="Team"
-      events={events}
-      editable
-      view="week"
-      timezone="Europe/London"
-      onEventChange={(d) => { setEvents(d.events); }}
-      onSlotActivate={(d) => { console.info('create', d.start, d.end); }}
-    />
-  );
-}
-```
-
-Passing the emitted `events` back through `events` keeps React the source of truth (it clears the scheduler's undo history; omit it and use `ref` to keep undo). See [docs/REACT.md](../../../docs/REACT.md). Load the stylesheets listed in the header of this document.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import type { SchedulerEvent, SchedulerEventChangeDetail } from '@absoluteui/components/scheduler';
-import { AuiScheduler } from '@absoluteui/vue/scheduler';
-
-const events = ref<SchedulerEvent[]>([]);
-const save = (detail: SchedulerEventChangeDetail) => (events.value = detail.events);
-</script>
-
-<template>
-  <AuiScheduler label="Team" :events="events" editable view="month" timezone="Europe/London" @event-change="save" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md).
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

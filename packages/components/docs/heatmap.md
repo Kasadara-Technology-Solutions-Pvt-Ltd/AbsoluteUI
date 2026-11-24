@@ -358,36 +358,11 @@ export class TicketsComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiHeatmap } from '@absoluteui/react/heatmap';
-
-const columns = ['9:00', '12:00', '15:00', '18:00'];
-const rows = ['Mon', 'Tue', 'Wed'];
-const values = [[4, 12, 9, 3], [6, 15, null, 2], [5, 11, 8, 4]];
-
-export function Example() {
-  return <AuiHeatmap label="Support tickets by hour" columns={columns} rows={rows} values={values} colorScale={{ color: 3, steps: 4 }} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiHeatmap } from '@absoluteui/vue/heatmap';
-const columns = ['9', '12', '15'];
-const rows = ['Mon', 'Tue'];
-const values = [[1, 5, 9], [null, 4, 2]];
-</script>
-
-<template>
-  <AuiHeatmap label="Tickets by weekday and hour" :columns="columns" :rows="rows" :values="values" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

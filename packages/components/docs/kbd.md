@@ -229,29 +229,11 @@ export class SaveHintComponent {}
 
 ## 35. React example
 
-```tsx
-import { AuiKbd } from '@absoluteui/react/kbd';
-
-export function Example() {
-  return <AuiKbd hotkey="Mod+S" />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiKbd } from '@absoluteui/vue/kbd';
-</script>
-
-<template>
-  <AuiKbd hotkey="Mod+S" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

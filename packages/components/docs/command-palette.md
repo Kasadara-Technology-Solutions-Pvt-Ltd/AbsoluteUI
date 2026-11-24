@@ -308,33 +308,11 @@ export class ShellSearchComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiCommandPalette } from '@absoluteui/react/command-palette';
-
-const commands = [{ id: 'home', label: 'Go to dashboard', group: 'Navigation' }];
-
-export function Example() {
-  return <AuiCommandPalette commands={commands} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiCommandPalette } from '@absoluteui/vue/command-palette';
-
-const commands = [{ id: 'home', label: 'Go to dashboard', group: 'Navigation' }];
-</script>
-
-<template>
-  <AuiCommandPalette :commands="commands" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

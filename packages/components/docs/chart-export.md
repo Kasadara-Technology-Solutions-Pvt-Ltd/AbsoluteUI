@@ -280,60 +280,11 @@ export class TicketsComponent {
 
 ## 35. React example
 
-No adapter is needed: import the functions directly and pass the controller from the chart component's `ref`.
-
-```tsx
-import { useRef } from 'react';
-import { AuiBarChart } from '@absoluteui/react/bar-chart';
-import type { BarChart } from '@absoluteui/components/bar-chart';
-import { downloadChart } from '@absoluteui/components/chart-export';
-
-const regions = ['North', 'South'];
-const series = [{ id: 'open', label: 'Open', values: [3, 5] }];
-
-export function Example() {
-  const chart = useRef<BarChart>(null);
-  const save = (): void => {
-    if (chart.current) void downloadChart(chart.current, { format: 'png', fileName: 'tickets' });
-  };
-  return (
-    <>
-      <AuiBarChart ref={chart} label="Tickets" categories={regions} series={series} />
-      <button type="button" onClick={save}>Download chart as PNG</button>
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for refs and SSR. Call the functions only in the browser (event handlers or effects).
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-No adapter is needed: import the functions directly and pass the controller exposed by the chart component's template ref.
-
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiBarChart } from '@absoluteui/vue/bar-chart';
-import type { BarChart } from '@absoluteui/components/bar-chart';
-import { downloadChart } from '@absoluteui/components/chart-export';
-
-const chart = ref<{ controller: BarChart | null } | null>(null);
-const regions = ['North', 'South'];
-const series = [{ id: 'open', label: 'Open', values: [3, 5] }];
-function save(): void {
-  const controller = chart.value?.controller;
-  if (controller) void downloadChart(controller, { format: 'svg', fileName: 'tickets' });
-}
-</script>
-
-<template>
-  <AuiBarChart ref="chart" label="Tickets" :categories="regions" :series="series" />
-  <button type="button" @click="save">Download chart as SVG</button>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for template refs and SSR.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

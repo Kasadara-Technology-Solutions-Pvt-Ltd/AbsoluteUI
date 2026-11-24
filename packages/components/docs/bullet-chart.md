@@ -350,36 +350,11 @@ export class GoalsComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiBulletChart } from '@absoluteui/react/bullet-chart';
-
-const measures = [
-  { id: 'rev', label: 'Revenue', value: 270, target: 250, ranges: [150, 225, 300] },
-  { id: 'profit', label: 'Profit', value: 22, target: 26, ranges: [20, 25, 30] },
-];
-
-export function Example() {
-  return <AuiBulletChart label="Quarterly goals" measures={measures} rangeLabels={['Poor', 'Satisfactory', 'Good']} height={180} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiBulletChart } from '@absoluteui/vue/bullet-chart';
-const measures = [{ id: 'rev', label: 'Revenue', value: 270, target: 250, ranges: [150, 225, 300] }];
-const rangeLabels = ['Poor', 'Satisfactory', 'Good'];
-</script>
-
-<template>
-  <AuiBulletChart label="Quarterly goals" :measures="measures" :range-labels="rangeLabels" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

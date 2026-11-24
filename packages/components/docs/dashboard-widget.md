@@ -268,36 +268,11 @@ export class SalesWidgetComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiDashboardWidget } from '@absoluteui/react/dashboard-widget';
-
-export function Example({ onRemove }: { onRemove: (id: string | null) => void }) {
-  return (
-    <AuiDashboardWidget title="Sales" subtitle="Last 30 days" removable onRemove={(d) => { onRemove(d.id); }} data-aui-item="sales">
-      <p>$48,200</p>
-    </AuiDashboardWidget>
-  );
-}
-```
-
-The component renders a `<section>`; its children are the body. See [docs/REACT.md](../../../docs/REACT.md) for events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiDashboardWidget } from '@absoluteui/vue/dashboard-widget';
-const emit = defineEmits<{ remove: [id: string | null] }>();
-</script>
-
-<template>
-  <AuiDashboardWidget title="Sales" subtitle="Last 30 days" removable data-aui-item="sales" @remove="(d) => emit('remove', d.id)">
-    <p>$48,200</p>
-  </AuiDashboardWidget>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

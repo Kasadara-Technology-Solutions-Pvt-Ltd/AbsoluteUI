@@ -341,34 +341,11 @@ export class AbsencesComponent {
 
 ## 35. React example
 
-```tsx
-import { plainDate } from '@absoluteui/core';
-import { AuiCalendarHeatmap } from '@absoluteui/react/calendar-heatmap';
-
-const data = [{ date: plainDate(2026, 1, 5), value: 3 }];
-
-export function Example() {
-  return <AuiCalendarHeatmap label="Absences" year={2026} data={data} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { plainDate } from '@absoluteui/core';
-import { AuiCalendarHeatmap } from '@absoluteui/vue/calendar-heatmap';
-const data = [{ date: plainDate(2026, 1, 5), value: 3 }];
-</script>
-
-<template>
-  <AuiCalendarHeatmap label="Absences" :year="2026" :data="data" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

@@ -335,39 +335,11 @@ export class LocationFieldComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiCascader } from '@absoluteui/react/cascader';
-import type { CascaderOption, CascaderValue } from '@absoluteui/components/cascader';
-
-const tree: CascaderOption[] = [{ value: 'in', label: 'India', children: [{ value: 'blr', label: 'Bengaluru' }] }];
-
-export function Example() {
-  const [location, setLocation] = useState<CascaderValue>(null);
-  return <AuiCascader label="Location" options={tree} value={location} onValueChange={setLocation} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiCascader } from '@absoluteui/vue/cascader';
-import type { CascaderOption, CascaderValue } from '@absoluteui/components/cascader';
-
-const tree: CascaderOption[] = [{ value: 'in', label: 'India', children: [{ value: 'blr', label: 'Bengaluru' }] }];
-const location = ref<CascaderValue>(null);
-</script>
-
-<template>
-  <AuiCascader v-model="location" label="Location" :options="tree" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

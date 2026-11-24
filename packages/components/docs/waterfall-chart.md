@@ -364,43 +364,11 @@ export class BridgeComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiWaterfallChart } from '@absoluteui/react/waterfall-chart';
-import type { WaterfallStep } from '@absoluteui/components/waterfall-chart';
-
-const steps: WaterfallStep[] = [
-  { id: 'open', label: 'Opening', kind: 'total', value: 100 },
-  { id: 'sales', label: 'Sales', value: 40 },
-  { id: 'refunds', label: 'Refunds', value: -15 },
-  { id: 'close', label: 'Closing', kind: 'total' },
-];
-
-export function Example() {
-  return <AuiWaterfallChart label="Profit bridge" steps={steps} colors={{ increase: 3, decrease: 2, total: 1 }} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiWaterfallChart } from '@absoluteui/vue/waterfall-chart';
-import type { WaterfallStep } from '@absoluteui/components/waterfall-chart';
-const steps: WaterfallStep[] = [
-  { id: 'open', label: 'Opening', kind: 'total', value: 100 },
-  { id: 'sales', label: 'Sales', value: 40 },
-  { id: 'close', label: 'Closing', kind: 'total' },
-];
-</script>
-
-<template>
-  <AuiWaterfallChart label="Profit bridge" :steps="steps" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

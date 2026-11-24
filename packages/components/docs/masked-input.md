@@ -294,34 +294,11 @@ export class BankDetailsComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiMaskedInput } from '@absoluteui/react/masked-input';
-
-export function Example() {
-  const [phone, setPhone] = useState('');
-  return <AuiMaskedInput label="Phone" mask="(999) 999-9999" value={phone} onValueChange={setPhone} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiMaskedInput } from '@absoluteui/vue/masked-input';
-
-const phone = ref('');
-</script>
-
-<template>
-  <AuiMaskedInput v-model="phone" label="Phone" mask="(999) 999-9999" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

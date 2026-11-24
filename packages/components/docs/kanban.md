@@ -320,45 +320,11 @@ export class BoardComponent {
 
 ## 35. React example
 
-```tsx
-import type { KanbanCard, KanbanColumn } from '@absoluteui/components/kanban';
-import { AuiKanban } from '@absoluteui/react/kanban';
-
-const columns: KanbanColumn[] = [{ id: 'todo', label: 'To do' }, { id: 'done', label: 'Done' }];
-
-export function Board({ cards, save }: { cards: KanbanCard[]; save: (id: string, column: string) => Promise<void> }) {
-  return (
-    <AuiKanban
-      label="Sprint"
-      columns={columns}
-      cards={cards}
-      moveCard={(move) => save(move.id, move.to.columnId)}
-      onMoveError={(d) => { console.warn('not saved', d.id); }}
-    />
-  );
-}
-```
-
-The board keeps its own card order after moves; pass new `cards` only when the data changes elsewhere (it clears the undo history). See [docs/REACT.md](../../../docs/REACT.md).
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import type { KanbanCard, KanbanCardMoveDetail } from '@absoluteui/components/kanban';
-import { AuiKanban } from '@absoluteui/vue/kanban';
-
-const columns = [{ id: 'todo', label: 'To do' }, { id: 'done', label: 'Done' }];
-const cards: KanbanCard[] = [{ id: 'a', columnId: 'todo', title: 'Write the spec' }];
-const moved = (detail: KanbanCardMoveDetail) => console.info(detail.id, detail.to);
-</script>
-
-<template>
-  <AuiKanban label="Sprint" :columns="columns" :cards="cards" @card-move="moved" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md).
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

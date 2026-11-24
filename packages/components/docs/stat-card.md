@@ -264,39 +264,11 @@ export class RevenueComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiStatCard } from '@absoluteui/react/stat-card';
-
-export function Example({ revenue, previous }: { revenue: number; previous: number }) {
-  return (
-    <AuiStatCard
-      label="Revenue"
-      value={revenue}
-      previous={previous}
-      valueFormat={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
-      comparisonLabel="vs last month"
-      trend={[31000, 35500, 38200, previous, revenue]}
-    />
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for events, refs, and SSR. Load the stylesheets listed in the header of this document (and the Sparkline stylesheet for `trend`); the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiStatCard } from '@absoluteui/vue/stat-card';
-const currency: Intl.NumberFormatOptions = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 };
-</script>
-
-<template>
-  <AuiStatCard label="Revenue" :value="48200" :previous="40100" :value-format="currency" comparison-label="vs last month" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

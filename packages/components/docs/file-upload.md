@@ -321,33 +321,11 @@ The model is `File[]`; the Validator reports the component's validity under the 
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiFileUpload } from '@absoluteui/react/file-upload';
-
-export function Example() {
-  const [value, setValue] = useState<File[]>([]);
-  return <AuiFileUpload label="Attachments" multiple acceptTypes={['application/pdf']} maxFileSize={5_000_000} value={value} onValueChange={setValue} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiFileUpload } from '@absoluteui/vue/file-upload';
-const value = ref<File[]>([]);
-</script>
-
-<template>
-  <AuiFileUpload v-model="value" label="Attachments" multiple :accept-types="['application/pdf']" :max-file-size="5000000" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

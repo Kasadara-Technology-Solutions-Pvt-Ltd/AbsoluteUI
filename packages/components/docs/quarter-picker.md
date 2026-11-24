@@ -348,35 +348,11 @@ export class ReportComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { type PlainYearQuarter } from '@absoluteui/core';
-import { AuiQuarterPicker } from '@absoluteui/react/quarter-picker';
-
-export function Example() {
-  const [value, setValue] = useState<PlainYearQuarter | null>(null);
-  return <AuiQuarterPicker label="Reporting quarter" value={value} onValueChange={setValue} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { type PlainYearQuarter } from '@absoluteui/core';
-import { AuiQuarterPicker } from '@absoluteui/vue/quarter-picker';
-const value = ref<PlainYearQuarter | null>(null);
-</script>
-
-<template>
-  <AuiQuarterPicker v-model="value" label="Reporting quarter" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

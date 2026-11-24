@@ -287,33 +287,11 @@ export class SignInComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiPasswordInput } from '@absoluteui/react/password-input';
-
-export function Example() {
-  const [value, setValue] = useState<string>('');
-  return <AuiPasswordInput label="New password" autocomplete="new-password" required value={value} onValueChange={setValue} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiPasswordInput } from '@absoluteui/vue/password-input';
-const value = ref<string>('');
-</script>
-
-<template>
-  <AuiPasswordInput v-model="value" label="New password" autocomplete="new-password" required />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

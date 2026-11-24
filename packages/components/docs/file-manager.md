@@ -377,35 +377,11 @@ export class DocumentsComponent {
 
 ## 35. React example
 
-```tsx
-import type { FileManagerProvider } from '@absoluteui/components/file-manager';
-import { AuiFileManager } from '@absoluteui/react/file-manager';
-
-declare const provider: FileManagerProvider;
-
-export function Example() {
-  return <AuiFileManager label="Employee documents" provider={provider} view="list" />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import type { FileManagerProvider } from '@absoluteui/components/file-manager';
-import { AuiFileManager } from '@absoluteui/vue/file-manager';
-
-declare const provider: FileManagerProvider;
-</script>
-
-<template>
-  <AuiFileManager label="Employee documents" :provider="provider" view="list" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

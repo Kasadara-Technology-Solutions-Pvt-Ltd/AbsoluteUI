@@ -667,32 +667,11 @@ export class PeopleGridComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiDataGrid } from '@absoluteui/react/data-grid';
-
-const people = [{ id: '1', name: 'Ada' }];
-
-export function Example() {
-  return <AuiDataGrid label="People" rows={people} rowId={(r) => r.id} columns={[{ id: 'name', header: 'Name', field: 'name' }]} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiDataGrid } from '@absoluteui/vue/data-grid';
-const people = [{ id: '1', name: 'Ada' }];
-</script>
-
-<template>
-  <AuiDataGrid label="People" :rows="people" :row-id="(r) => r.id" :columns="[{ id: 'name', header: 'Name', field: 'name' }]" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

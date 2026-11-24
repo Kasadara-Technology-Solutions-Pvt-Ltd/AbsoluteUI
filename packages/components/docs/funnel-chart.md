@@ -347,39 +347,11 @@ export class CheckoutComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiFunnelChart } from '@absoluteui/react/funnel-chart';
-
-const stages = [
-  { id: 'visits', label: 'Visits', value: 1000 },
-  { id: 'cart', label: 'Cart', value: 400 },
-  { id: 'paid', label: 'Paid', value: 100 },
-];
-
-export function Example() {
-  return <AuiFunnelChart label="Checkout" stages={stages} showConversion={false} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiFunnelChart } from '@absoluteui/vue/funnel-chart';
-const stages = [
-  { id: 'visits', label: 'Visits', value: 1000 },
-  { id: 'paid', label: 'Paid', value: 100 },
-];
-</script>
-
-<template>
-  <AuiFunnelChart label="Checkout" :stages="stages" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

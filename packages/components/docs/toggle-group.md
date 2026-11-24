@@ -249,34 +249,11 @@ export class ViewSwitchComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiToggleGroup } from '@absoluteui/react/toggle-group';
-
-export function Example() {
-  const [view, setView] = useState<string[]>(['list']);
-  return <AuiToggleGroup label="View" required items={[{ value: 'list', label: 'List' }, { value: 'grid', label: 'Grid' }]} value={view} onValueChange={setView} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiToggleGroup } from '@absoluteui/vue/toggle-group';
-
-const view = ref<string[]>(['list']);
-</script>
-
-<template>
-  <AuiToggleGroup v-model="view" label="View" required :items="[{ value: 'list', label: 'List' }, { value: 'grid', label: 'Grid' }]" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

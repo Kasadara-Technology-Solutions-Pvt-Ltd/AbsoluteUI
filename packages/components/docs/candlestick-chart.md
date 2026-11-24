@@ -364,37 +364,11 @@ export class EquityComponent {
 
 ## 35. React example
 
-```tsx
-import { plainDate } from '@absoluteui/core';
-import { AuiCandlestickChart } from '@absoluteui/react/candlestick-chart';
-
-const data = [
-  { date: plainDate(2026, 1, 5), open: 10, high: 11, low: 9.5, close: 10.8 },
-  { date: plainDate(2026, 1, 6), open: 10.8, high: 11.2, low: 10.1, close: 10.2 },
-];
-
-export function Example() {
-  return <AuiCandlestickChart label="Equity" data={data} movingAverages={[{ period: 2 }]} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { plainDate } from '@absoluteui/core';
-import { AuiCandlestickChart } from '@absoluteui/vue/candlestick-chart';
-const data = [{ date: plainDate(2026, 1, 5), open: 10, high: 11, low: 9.5, close: 10.8 }];
-</script>
-
-<template>
-  <AuiCandlestickChart label="Equity" :data="data" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

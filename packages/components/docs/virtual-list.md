@@ -295,34 +295,11 @@ export class PeopleComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiVirtualList } from '@absoluteui/react/virtual-list';
-
-const items = Array.from({ length: 10_000 }, (_, i) => `Item ${String(i + 1)}`);
-
-export function Example() {
-  return <AuiVirtualList label="Items" items={items} renderItem={(item: string) => document.createTextNode(item)} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiVirtualList } from '@absoluteui/vue/virtual-list';
-
-const items = Array.from({ length: 10_000 }, (_, i) => `Item ${String(i + 1)}`);
-const render = (item: string): Node => document.createTextNode(item);
-</script>
-
-<template>
-  <AuiVirtualList label="Items" :items="items" :render-item="render" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

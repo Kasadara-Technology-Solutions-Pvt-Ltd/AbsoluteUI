@@ -267,33 +267,11 @@ export class FeedbackComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiTextarea } from '@absoluteui/react/textarea';
-
-export function Example() {
-  const [value, setValue] = useState<string>('');
-  return <AuiTextarea label="Notes" maxLength={500} value={value} onValueChange={setValue} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiTextarea } from '@absoluteui/vue/textarea';
-const value = ref<string>('');
-</script>
-
-<template>
-  <AuiTextarea v-model="value" label="Notes" :max-length="500" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

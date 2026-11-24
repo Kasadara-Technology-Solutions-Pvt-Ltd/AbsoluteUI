@@ -312,39 +312,11 @@ export class CommentComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiMentionInput } from '@absoluteui/react/mention-input';
-import type { MentionInputValue, MentionTrigger } from '@absoluteui/components/mention-input';
-
-const triggers: MentionTrigger[] = [{ char: '@', provider: (query) => Promise.resolve([{ id: 'u1', label: 'Ana' }].filter((p) => p.label.startsWith(query))) }];
-
-export function Example() {
-  const [comment, setComment] = useState<MentionInputValue>({ text: '', mentions: [] });
-  return <AuiMentionInput label="Comment" triggers={triggers} value={comment} onValueChange={setComment} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiMentionInput } from '@absoluteui/vue/mention-input';
-import type { MentionInputValue, MentionTrigger } from '@absoluteui/components/mention-input';
-
-const comment = ref<MentionInputValue>({ text: '', mentions: [] });
-const triggers: MentionTrigger[] = [{ char: '@', provider: (query) => Promise.resolve([{ id: 'u1', label: 'Ana' }].filter((p) => p.label.startsWith(query))) }];
-</script>
-
-<template>
-  <AuiMentionInput v-model="comment" label="Comment" :triggers="triggers" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

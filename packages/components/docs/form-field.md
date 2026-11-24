@@ -284,39 +284,11 @@ export class GuestsComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiFormField } from '@absoluteui/react/form-field';
-
-export function Example() {
-  const [zip, setZip] = useState('');
-  return (
-    <AuiFormField label="ZIP code" description="5 digits">
-      <input name="zip" required pattern="[0-9]{5}" value={zip} onChange={(e) => { setZip(e.target.value); }} />
-    </AuiFormField>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiFormField } from '@absoluteui/vue/form-field';
-const zip = ref('');
-</script>
-
-<template>
-  <AuiFormField label="ZIP code" description="5 digits">
-    <input v-model="zip" name="zip" required pattern="[0-9]{5}" />
-  </AuiFormField>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

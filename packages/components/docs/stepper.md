@@ -344,32 +344,11 @@ export class CheckoutStepsComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiStepper } from '@absoluteui/react/stepper';
-
-const steps = [{ id: 'cart', label: 'Cart', status: 'complete' as const }, { id: 'shipping', label: 'Shipping' }, { id: 'payment', label: 'Payment' }];
-
-export function Example() {
-  return <AuiStepper label="Checkout" steps={steps} value="shipping" />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiStepper } from '@absoluteui/vue/stepper';
-const steps = [{ id: 'cart', label: 'Cart', status: 'complete' as const }, { id: 'shipping', label: 'Shipping' }, { id: 'payment', label: 'Payment' }];
-</script>
-
-<template>
-  <AuiStepper label="Checkout" :steps="steps" value="shipping" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

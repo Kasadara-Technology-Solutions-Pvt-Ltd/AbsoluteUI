@@ -399,34 +399,11 @@ export class RevenueComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiLineChart } from '@absoluteui/react/line-chart';
-
-const months = ['Jan', 'Feb', 'Mar'];
-const series = [{ id: 'rev', label: 'Revenue', values: [12, 18, 15] }];
-
-export function Example() {
-  return <AuiLineChart label="Monthly revenue" x={months} series={series} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiLineChart } from '@absoluteui/vue/line-chart';
-const months = ['Jan', 'Feb', 'Mar'];
-const series = [{ id: 'rev', label: 'Revenue', values: [12, 18, 15] }];
-</script>
-
-<template>
-  <AuiLineChart label="Monthly revenue" :x="months" :series="series" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

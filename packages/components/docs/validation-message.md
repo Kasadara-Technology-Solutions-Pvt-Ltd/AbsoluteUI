@@ -237,29 +237,11 @@ export class PromoComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiValidationMessage } from '@absoluteui/react/validation-message';
-
-export function Example() {
-  return <AuiValidationMessage message="Enter a valid IBAN." />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiValidationMessage } from '@absoluteui/vue/validation-message';
-</script>
-
-<template>
-  <AuiValidationMessage message="Enter a valid IBAN." />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

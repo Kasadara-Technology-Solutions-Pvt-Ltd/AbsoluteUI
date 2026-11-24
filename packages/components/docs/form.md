@@ -359,44 +359,11 @@ export class SignupComponent {
 
 ## 35. React example
 
-```tsx
-import type { FormSubmitDetail } from '@absoluteui/components/form';
-import { AuiButton } from '@absoluteui/react/button';
-import { AuiForm } from '@absoluteui/react/form';
-import { AuiTextInput } from '@absoluteui/react/text-input';
-
-export function Example({ save }: { save: (values: FormSubmitDetail['values']) => void }) {
-  return (
-    <AuiForm onSubmit={({ values }) => { save(values); }}>
-      <AuiTextInput label="Email" name="email" type="email" required />
-      <AuiButton type="submit" variant="primary">Create account</AuiButton>
-    </AuiForm>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import type { FormSubmitDetail } from '@absoluteui/components/form';
-import { AuiButton } from '@absoluteui/vue/button';
-import { AuiForm } from '@absoluteui/vue/form';
-import { AuiTextInput } from '@absoluteui/vue/text-input';
-const emit = defineEmits<{ save: [values: FormSubmitDetail['values']] }>();
-</script>
-
-<template>
-  <AuiForm @submit="({ values }) => emit('save', values)">
-    <AuiTextInput label="Email" name="email" type="email" required />
-    <AuiButton type="submit" variant="primary">Create account</AuiButton>
-  </AuiForm>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

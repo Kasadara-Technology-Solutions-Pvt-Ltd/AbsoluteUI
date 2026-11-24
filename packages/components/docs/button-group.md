@@ -256,32 +256,11 @@ export class PagerComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiButtonGroup } from '@absoluteui/react/button-group';
-
-const buttons = [{ text: 'List', value: 'list' }, { text: 'Grid', value: 'grid' }];
-
-export function Example() {
-  return <AuiButtonGroup label="View" buttons={buttons} onAction={(d) => { console.log(d); }} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiButtonGroup } from '@absoluteui/vue/button-group';
-const buttons = [{ text: 'List', value: 'list' }, { text: 'Grid', value: 'grid' }];
-</script>
-
-<template>
-  <AuiButtonGroup label="View" :buttons="buttons" @action="(d) => console.log(d)" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

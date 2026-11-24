@@ -284,33 +284,11 @@ export class VerifyComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiOtpInput } from '@absoluteui/react/otp-input';
-
-export function Example() {
-  const [value, setValue] = useState<string>('');
-  return <AuiOtpInput label="Verification code" length={6} value={value} onValueChange={setValue} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiOtpInput } from '@absoluteui/vue/otp-input';
-const value = ref<string>('');
-</script>
-
-<template>
-  <AuiOtpInput v-model="value" label="Verification code" :length="6" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

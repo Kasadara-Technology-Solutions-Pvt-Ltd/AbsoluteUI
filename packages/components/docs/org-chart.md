@@ -319,51 +319,11 @@ export class OrgComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import type { OrgChart, OrgChartNode } from '@absoluteui/components/org-chart';
-import { AuiOrgChart } from '@absoluteui/react/org-chart';
-
-const nodes: OrgChartNode[] = [
-  { id: 'ceo', parentId: null, label: 'Ada Lovelace', title: 'CEO' },
-  { id: 'cto', parentId: 'ceo', label: 'Grace Hopper', title: 'CTO' },
-];
-
-export function Org({ onSave }: { onSave: (nodes: OrgChartNode[]) => void }) {
-  const [chart, setChart] = useState<OrgChart | null>(null);
-  const [query, setQuery] = useState('');
-  return (
-    <>
-      <input type="search" aria-label="Find a person" value={query} onChange={(e) => { setQuery(e.target.value); }}
-        onKeyDown={(e) => { const id = chart?.search(query)[0]; if (e.key === 'Enter' && id) chart?.reveal(id, { select: true }); }} />
-      <AuiOrgChart ref={setChart} label="Company" nodes={nodes} editable onNodeMove={(d) => { onSave(d.nodes); }} />
-    </>
-  );
-}
-```
-
-Keep `nodes` stable (a new array clears the undo history). See [docs/REACT.md](../../../docs/REACT.md) for events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import type { OrgChartNode, OrgChartNodeSelectDetail } from '@absoluteui/components/org-chart';
-import { AuiOrgChart } from '@absoluteui/vue/org-chart';
-
-const nodes: OrgChartNode[] = [
-  { id: 'ceo', parentId: null, label: 'Ada Lovelace', title: 'CEO' },
-  { id: 'cto', parentId: 'ceo', label: 'Grace Hopper', title: 'CTO' },
-];
-const open = (detail: OrgChartNodeSelectDetail) => console.info(detail.node.label);
-</script>
-
-<template>
-  <AuiOrgChart label="Company" :nodes="nodes" :expand-depth="1" @node-select="open" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

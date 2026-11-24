@@ -273,42 +273,11 @@ export class RepeatComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { plainDate, recurrenceRuleToString, type RecurrenceRule } from '@absoluteui/core';
-import { AuiRecurrencePicker } from '@absoluteui/react/recurrence-picker';
-
-export function Repeat() {
-  const [rule, setRule] = useState<RecurrenceRule | null>(null);
-  return (
-    <>
-      <AuiRecurrencePicker label="Repeat" start={plainDate(2026, 9, 29)} value={rule} onValueChange={setRule} />
-      <output>{rule ? recurrenceRuleToString(rule) : 'Does not repeat'}</output>
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md). Load the stylesheets listed in the header of this document.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { plainDate, type RecurrenceRule } from '@absoluteui/core';
-import { AuiRecurrencePicker } from '@absoluteui/vue/recurrence-picker';
-
-const rule = ref<RecurrenceRule | null>(null);
-const start = plainDate(2026, 9, 29);
-</script>
-
-<template>
-  <AuiRecurrencePicker v-model="rule" label="Repeat" :start="start" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md).
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

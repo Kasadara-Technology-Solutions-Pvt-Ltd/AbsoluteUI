@@ -22,8 +22,19 @@ Full documentation, with guides, API reference, and live examples: [aui.kasadara
 | [`@absoluteui/helpers`](packages/helpers/README.md) | Pure helper functions for browsers and Node.js |
 | [`@absoluteui/utilities`](packages/utilities/README.md) | Focus, keyboard, overlay, and positioning primitives |
 | [`@absoluteui/icons`](packages/icons/README.md) | Icon set and icon registry |
+| [`@absoluteui/mcp`](packages/mcp/README.md) | MCP server that gives AI coding assistants the AbsoluteUI documentation and checks ([guide](https://aui.kasadara.com/docs/guides/ai-assistants/)) |
 
-Maintainers of this repository: see the [engineering guide](docs/ENGINEERING.md).
+## Building from source
+
+Requires Node.js 22.22.3 or later in the 22 line, or 24.15.0 or later.
+
+```sh
+npm ci
+npm run build
+npm test
+```
+
+`npm run verify` runs every check, including the browser tests; install the Playwright browsers first with `npx playwright install`.
 
 ## License
 

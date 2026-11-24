@@ -360,11 +360,11 @@ export class HomeDashboardComponent {
 
 ## 35. React example
 
-Not provided: the React adapter is private.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-Not provided: the Vue adapter is private.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

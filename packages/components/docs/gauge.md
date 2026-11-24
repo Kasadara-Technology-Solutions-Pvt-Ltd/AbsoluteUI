@@ -278,38 +278,11 @@ export class CpuComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiGauge } from '@absoluteui/react/gauge';
-
-export function Example() {
-  return (
-    <AuiGauge
-      label="CPU load"
-      value={72}
-      bands={[{ to: 50, label: 'Normal' }, { to: 80, label: 'Busy' }, { to: 100, label: 'Critical' }]}
-      target={60}
-      valueFormat={{ style: 'unit', unit: 'percent' }}
-    />
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiGauge } from '@absoluteui/vue/gauge';
-const bands = [{ to: 50, label: 'Normal' }, { to: 80, label: 'Busy' }, { to: 100, label: 'Critical' }];
-</script>
-
-<template>
-  <AuiGauge label="CPU load" :value="72" :bands="bands" :target="60" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

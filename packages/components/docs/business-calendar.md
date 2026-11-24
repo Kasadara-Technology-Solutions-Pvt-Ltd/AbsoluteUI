@@ -286,41 +286,11 @@ export class OfficeDaysComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { plainDate } from '@absoluteui/core';
-import type { BusinessCalendarDefinition } from '@absoluteui/components/business-calendar';
-import { AuiBusinessCalendar } from '@absoluteui/react/business-calendar';
-
-const initial: BusinessCalendarDefinition = { holidays: [{ date: plainDate(2026, 1, 1), name: "New Year's Day", yearly: true }] };
-
-export function OfficeDays() {
-  const [definition, setDefinition] = useState(initial);
-  return <AuiBusinessCalendar label="Office" definition={definition} editable months={6} onChange={(d) => { setDefinition(d.definition); }} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for events, refs, and SSR. Load the stylesheet listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { plainDate } from '@absoluteui/core';
-import type { BusinessCalendarChangeDetail, BusinessCalendarDefinition } from '@absoluteui/components/business-calendar';
-import { AuiBusinessCalendar } from '@absoluteui/vue/business-calendar';
-
-const definition = ref<BusinessCalendarDefinition>({ holidays: [{ date: plainDate(2026, 1, 1), name: "New Year's Day", yearly: true }] });
-const save = (detail: BusinessCalendarChangeDetail) => (definition.value = detail.definition);
-</script>
-
-<template>
-  <AuiBusinessCalendar label="Office" :definition="definition" editable :months="6" @change="save" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for events, template refs, and SSR.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

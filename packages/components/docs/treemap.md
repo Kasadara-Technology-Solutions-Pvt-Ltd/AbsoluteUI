@@ -380,51 +380,11 @@ export class BudgetComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiTreemap } from '@absoluteui/react/treemap';
-import type { TreemapNode } from '@absoluteui/components/treemap';
-
-const data: TreemapNode[] = [
-  { id: 'eng', label: 'Engineering', children: [{ id: 'web', label: 'Web', value: 30 }, { id: 'api', label: 'API', value: 20 }] },
-  { id: 'ops', label: 'Operations', value: 25 },
-  { id: 'people', label: 'People', value: 25 },
-];
-
-export function Example() {
-  const [path, setPath] = useState<string[]>([]);
-  return (
-    <>
-      <AuiTreemap label="Budget" data={data} onDrill={(detail) => { setPath(detail.path); }} />
-      <p>Level: {path.length === 0 ? 'All' : path.join(' / ')}</p>
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiTreemap } from '@absoluteui/vue/treemap';
-import type { TreemapDrillDetail, TreemapNode } from '@absoluteui/components/treemap';
-const data: TreemapNode[] = [
-  { id: 'eng', label: 'Engineering', children: [{ id: 'web', label: 'Web', value: 30 }, { id: 'api', label: 'API', value: 20 }] },
-  { id: 'ops', label: 'Operations', value: 25 },
-];
-function onDrill(detail: TreemapDrillDetail): void {
-  document.title = detail.path.join(' / ');
-}
-</script>
-
-<template>
-  <AuiTreemap label="Budget" :data="data" @drill="onDrill" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

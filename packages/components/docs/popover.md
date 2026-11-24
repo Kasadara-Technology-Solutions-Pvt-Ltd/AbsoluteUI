@@ -284,38 +284,11 @@ export class ToolbarComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiButton } from '@absoluteui/react/button';
-import { AuiPopover } from '@absoluteui/react/popover';
-
-export function Example() {
-  return (
-    <AuiPopover title="Filters" content={<p>Filter controls go here.</p>}>
-      <AuiButton variant="secondary">Filters</AuiButton>
-    </AuiPopover>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiButton } from '@absoluteui/vue/button';
-import { AuiPopover } from '@absoluteui/vue/popover';
-</script>
-
-<template>
-  <AuiPopover title="Filters">
-    <AuiButton variant="secondary">Filters</AuiButton>
-    <template #content><p>Filter controls go here.</p></template>
-  </AuiPopover>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

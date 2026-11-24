@@ -334,44 +334,11 @@ export class PlanComponent {
 
 ## 35. React example
 
-```tsx
-import type { GanttDependency, GanttTask } from '@absoluteui/components/gantt';
-import { AuiGantt } from '@absoluteui/react/gantt';
-
-export function Plan({ tasks, dependencies, save }: { tasks: GanttTask[]; dependencies: GanttDependency[]; save: (tasks: GanttTask[]) => void }) {
-  return (
-    <AuiGantt
-      label="Plan"
-      tasks={tasks}
-      dependencies={dependencies}
-      editable
-      columns={['name', 'start', 'end', 'duration', 'float']}
-      onTaskChange={(d) => { save(d.tasks); }}
-    />
-  );
-}
-```
-
-Passing the saved `tasks` back through props replaces the data (and clears undo); keep them in a ref or save without re-rendering to keep undo. See [docs/REACT.md](../../../docs/REACT.md).
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { plainDate } from '@absoluteui/core';
-import type { GanttTask, GanttTaskChangeDetail } from '@absoluteui/components/gantt';
-import { AuiGantt } from '@absoluteui/vue/gantt';
-
-const tasks: GanttTask[] = [{ id: 'a', parentId: null, label: 'Kick-off', start: plainDate(2026, 10, 5), duration: 1 }];
-const changed = (detail: GanttTaskChangeDetail) => console.info(detail.reason, detail.schedule.finish);
-</script>
-
-<template>
-  <AuiGantt label="Plan" :tasks="tasks" editable scale="week" @task-change="changed" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md).
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

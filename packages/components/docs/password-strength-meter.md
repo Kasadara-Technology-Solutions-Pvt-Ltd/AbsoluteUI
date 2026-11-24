@@ -278,41 +278,11 @@ export class SignUpComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiPasswordInput } from '@absoluteui/react/password-input';
-import { AuiPasswordStrengthMeter } from '@absoluteui/react/password-strength-meter';
-
-export function Example() {
-  const [password, setPassword] = useState('');
-  return (
-    <>
-      <AuiPasswordInput label="New password" autocomplete="new-password" value={password} onValueChange={setPassword} />
-      <AuiPasswordStrengthMeter value={password} />
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiPasswordInput } from '@absoluteui/vue/password-input';
-import { AuiPasswordStrengthMeter } from '@absoluteui/vue/password-strength-meter';
-const password = ref('');
-</script>
-
-<template>
-  <AuiPasswordInput v-model="password" label="New password" autocomplete="new-password" />
-  <AuiPasswordStrengthMeter :value="password" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

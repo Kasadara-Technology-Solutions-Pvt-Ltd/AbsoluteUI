@@ -331,40 +331,11 @@ export class UploadsComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiUploadQueue } from '@absoluteui/react/upload-queue';
-
-// Your transport: AbsoluteUI never performs the network request itself.
-const upload = async (file: File, { signal }: { signal: AbortSignal }) => {
-  await fetch('/api/files', { method: 'POST', body: file, signal });
-  return null;
-};
-
-export function Example() {
-  return <AuiUploadQueue label="Uploads" upload={upload} concurrency={2} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiUploadQueue } from '@absoluteui/vue/upload-queue';
-// Your transport: AbsoluteUI never performs the network request itself.
-const upload = async (file: File, { signal }: { signal: AbortSignal }) => {
-  await fetch('/api/files', { method: 'POST', body: file, signal });
-  return null;
-};
-</script>
-
-<template>
-  <AuiUploadQueue label="Uploads" :upload="upload" :concurrency="2" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

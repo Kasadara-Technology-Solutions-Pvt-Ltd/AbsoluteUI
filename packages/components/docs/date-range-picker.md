@@ -348,35 +348,11 @@ export class StayComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { type PlainDate, type Range } from '@absoluteui/core';
-import { AuiDateRangePicker } from '@absoluteui/react/date-range-picker';
-
-export function Example() {
-  const [value, setValue] = useState<Range<PlainDate> | null>(null);
-  return <AuiDateRangePicker label="Stay" minDays={1} value={value} onValueChange={setValue} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { type PlainDate, type Range } from '@absoluteui/core';
-import { AuiDateRangePicker } from '@absoluteui/vue/date-range-picker';
-const value = ref<Range<PlainDate> | null>(null);
-</script>
-
-<template>
-  <AuiDateRangePicker v-model="value" label="Stay" :min-days="1" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

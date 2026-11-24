@@ -300,36 +300,11 @@ export class ShippingComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiRadioGroup } from '@absoluteui/react/radio-group';
-
-const methods = [{ value: 'standard', label: 'Standard' }, { value: 'express', label: 'Express' }];
-
-export function Example() {
-  const [value, setValue] = useState<string | null>('standard');
-  return <AuiRadioGroup label="Shipping" options={methods} value={value} onValueChange={setValue} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiRadioGroup } from '@absoluteui/vue/radio-group';
-const methods = [{ value: 'standard', label: 'Standard' }, { value: 'express', label: 'Express' }];
-const value = ref<string | null>('standard');
-</script>
-
-<template>
-  <AuiRadioGroup v-model="value" label="Shipping" :options="methods" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

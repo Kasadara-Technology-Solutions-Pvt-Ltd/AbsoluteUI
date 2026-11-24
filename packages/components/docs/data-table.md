@@ -618,42 +618,11 @@ The column chooser directive takes the table directive (`#users="auiDataTable"`)
 
 ## 35. React example
 
-```tsx
-import { type DataTableColumn } from '@absoluteui/components/data-table';
-import { AuiDataTable } from '@absoluteui/react/data-table';
-
-interface Person { id: string; name: string; age: number }
-const columns: DataTableColumn<Person>[] = [{ id: 'name', header: 'Name', accessor: (p) => p.name }, { id: 'age', header: 'Age', accessor: (p) => p.age, type: 'number' }];
-const rows: Person[] = [{ id: '1', name: 'Ada', age: 36 }];
-
-export function Example() {
-  return <AuiDataTable<Person> caption="People" columns={columns} rows={rows} rowId={(r) => r.id} multiSort searchable />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
-
-Column chooser (since 0.3.0): keep the table controller in state and pass it to `AuiDataTableColumnChooser` from `@absoluteui/react/data-table-column-chooser`: `const [table, setTable] = useState<DataTable<Person> | null>(null);` then `<AuiDataTable ref={setTable} ... />` and `<AuiDataTableColumnChooser table={table}>Columns</AuiDataTableColumnChooser>`.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { type DataTableColumn } from '@absoluteui/components/data-table';
-import { AuiDataTable } from '@absoluteui/vue/data-table';
-interface Person { id: string; name: string; age: number }
-const columns: DataTableColumn<Person>[] = [{ id: 'name', header: 'Name', accessor: (p) => p.name }, { id: 'age', header: 'Age', accessor: (p) => p.age, type: 'number' }];
-const rows: Person[] = [{ id: '1', name: 'Ada', age: 36 }];
-</script>
-
-<template>
-  <AuiDataTable caption="People" :columns="columns" :rows="rows" :row-id="(r) => r.id" multi-sort searchable />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
-
-Column chooser (since 0.3.0): `<AuiDataTable ref="grid" ... />` and `<AuiDataTableColumnChooser :table="grid?.controller ?? null">Columns</AuiDataTableColumnChooser>` from `@absoluteui/vue/data-table-column-chooser`.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

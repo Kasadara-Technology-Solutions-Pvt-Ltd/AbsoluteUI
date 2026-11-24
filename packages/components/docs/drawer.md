@@ -303,45 +303,11 @@ export class OrdersComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiButton } from '@absoluteui/react/button';
-import { AuiDrawer } from '@absoluteui/react/drawer';
-
-export function Example() {
-  const [open, setOpen] = useState(false);
-  return (
-    <>
-      <AuiButton onClick={() => { setOpen(true); }}>Filters</AuiButton>
-      <AuiDrawer title="Filters" placement="end" open={open} onClose={() => { setOpen(false); }}>
-        <p>Filter controls go here.</p>
-      </AuiDrawer>
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiButton } from '@absoluteui/vue/button';
-import { AuiDrawer } from '@absoluteui/vue/drawer';
-const open = ref(false);
-</script>
-
-<template>
-  <AuiButton @click="open = true">Filters</AuiButton>
-  <AuiDrawer v-model:open="open" title="Filters" placement="end">
-    <p>Filter controls go here.</p>
-  </AuiDrawer>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

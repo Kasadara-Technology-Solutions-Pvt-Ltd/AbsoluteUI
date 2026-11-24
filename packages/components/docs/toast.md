@@ -332,31 +332,11 @@ export class SaveButtonComponent {
 
 ## 35. React example
 
-```tsx
-import { useToaster } from '@absoluteui/react/toast';
-
-export function Example() {
-  const toaster = useToaster({ position: 'top-end' });
-  return <button type="button" onClick={() => { toaster.show({ tone: 'success', message: 'Saved' }); }}>Save</button>;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { useToaster } from '@absoluteui/vue/toast';
-const toaster = useToaster({ position: 'top-end' });
-</script>
-
-<template>
-  <button type="button" @click="toaster.show({ tone: 'success', message: 'Saved' })">Save</button>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

@@ -283,36 +283,11 @@ export class ReviewScoreComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiRating } from '@absoluteui/react/rating';
-import type { RatingValue } from '@absoluteui/components/rating';
-
-export function Example() {
-  const [score, setScore] = useState<RatingValue>(4);
-  return <AuiRating label="Quality" value={score} onValueChange={setScore} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiRating } from '@absoluteui/vue/rating';
-import type { RatingValue } from '@absoluteui/components/rating';
-
-const score = ref<RatingValue>(4);
-</script>
-
-<template>
-  <AuiRating v-model="score" label="Quality" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

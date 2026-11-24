@@ -356,53 +356,11 @@ export class SalesPivotComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import type { PivotField, PivotGrid, PivotLayout } from '@absoluteui/components/pivot-grid';
-import { AuiPivotFieldList } from '@absoluteui/react/pivot-field-list';
-import { AuiPivotGrid } from '@absoluteui/react/pivot-grid';
-
-interface Sale { region: string; quarter: string; amount: number }
-
-const fields: PivotField<Sale>[] = [{ id: 'region', label: 'Region' }, { id: 'quarter', label: 'Quarter' }, { id: 'amount', label: 'Amount' }];
-const layout = { rows: ['region'], columns: ['quarter'], values: [{ field: 'amount', aggregate: 'sum' as const }] };
-
-export function SalesPivot({ sales, save }: { sales: Sale[]; save: (layout: PivotLayout) => void }) {
-  const [grid, setGrid] = useState<PivotGrid<Sale> | null>(null);
-  return (
-    <>
-      <AuiPivotFieldList grid={grid} label="Pivot fields" />
-      <AuiPivotGrid<Sale> ref={setGrid} caption="Sales" fields={fields} data={sales} layout={layout} onLayoutChange={(d) => { save(d.layout); }} />
-    </>
-  );
-}
-```
-
-Keep `fields`, `data`, and `layout` stable (each change reloads). See [docs/REACT.md](../../../docs/REACT.md) for events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import type { PivotField, PivotGridLayoutChangeDetail } from '@absoluteui/components/pivot-grid';
-import { AuiPivotGrid } from '@absoluteui/vue/pivot-grid';
-import { AuiPivotFieldList } from '@absoluteui/vue/pivot-field-list';
-
-const fields: PivotField<unknown>[] = [{ id: 'region', label: 'Region' }, { id: 'quarter', label: 'Quarter' }, { id: 'amount', label: 'Amount' }];
-const sales = [{ region: 'North', quarter: 'Q1', amount: 10 }];
-const layout = { rows: ['region'], columns: ['quarter'], values: [{ field: 'amount', aggregate: 'sum' as const }] };
-const pivot = ref<InstanceType<typeof AuiPivotGrid> | null>(null);
-const save = (detail: PivotGridLayoutChangeDetail) => sessionStorage.setItem('pivot', JSON.stringify(detail.layout));
-</script>
-
-<template>
-  <AuiPivotFieldList :grid="pivot?.controller ?? null" label="Pivot fields" />
-  <AuiPivotGrid ref="pivot" caption="Sales" :fields="fields" :data="sales" :layout="layout" @layout-change="save" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

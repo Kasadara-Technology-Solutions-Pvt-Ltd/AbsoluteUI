@@ -375,55 +375,11 @@ export class WorkflowComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import type { Diagram, DiagramModel } from '@absoluteui/components/diagram';
-import { AuiDiagram } from '@absoluteui/react/diagram';
-
-const initial: DiagramModel = {
-  nodes: [
-    { id: 'a', label: 'Request', x: 0, y: 0 },
-    { id: 'b', label: 'Approval', shape: 'diamond', x: 240, y: 0 },
-  ],
-  edges: [{ id: 'ab', from: 'a', to: 'b' }],
-};
-
-export function Workflow({ onSave }: { onSave: (model: DiagramModel) => void }) {
-  const [diagram, setDiagram] = useState<Diagram | null>(null);
-  return (
-    <>
-      <button type="button" onClick={() => { diagram?.layout({ direction: 'LR' }); }}>Left to right</button>
-      <AuiDiagram ref={setDiagram} label="Approval route" model={initial} editable onChange={(d) => { onSave(d.model); }} />
-    </>
-  );
-}
-```
-
-Keep `model` stable (a new object clears the undo history). See [docs/REACT.md](../../../docs/REACT.md) for events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import type { DiagramChangeDetail, DiagramModel } from '@absoluteui/components/diagram';
-import { AuiDiagram } from '@absoluteui/vue/diagram';
-
-const model: DiagramModel = {
-  nodes: [
-    { id: 'a', label: 'Request', x: 0, y: 0 },
-    { id: 'b', label: 'Approval', shape: 'diamond', x: 240, y: 0 },
-  ],
-  edges: [{ id: 'ab', from: 'a', to: 'b' }],
-};
-const save = (detail: DiagramChangeDetail) => console.info(detail.reason, detail.model.nodes.length);
-</script>
-
-<template>
-  <AuiDiagram label="Approval route" :model="model" editable routing="curved" @change="save" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

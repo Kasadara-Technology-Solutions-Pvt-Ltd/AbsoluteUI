@@ -253,29 +253,11 @@ export class AnnouncementsComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiCarousel } from '@absoluteui/react/carousel';
-
-export function Example() {
-  return <AuiCarousel label="Customer quotes" loop slides={[{ content: 'Fast and reliable.' }, { content: 'Great support.' }]} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiCarousel } from '@absoluteui/vue/carousel';
-</script>
-
-<template>
-  <AuiCarousel label="Customer quotes" loop :slides="[{ content: 'Fast and reliable.' }, { content: 'Great support.' }]" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

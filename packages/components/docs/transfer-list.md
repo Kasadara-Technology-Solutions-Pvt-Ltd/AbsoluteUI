@@ -323,45 +323,11 @@ export class TeamPickerComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiTransferList } from '@absoluteui/react/transfer-list';
-import type { TransferListValue } from '@absoluteui/components/transfer-list';
-
-const people = [
-  { value: 'e1', label: 'Asha Rao' },
-  { value: 'e2', label: 'Ben Okafor' },
-];
-
-export function Example() {
-  const [team, setTeam] = useState<TransferListValue>(['e2']);
-  return <AuiTransferList label="Project team" items={people} value={team} onValueChange={setTeam} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiTransferList } from '@absoluteui/vue/transfer-list';
-import type { TransferListValue } from '@absoluteui/components/transfer-list';
-
-const people = [
-  { value: 'e1', label: 'Asha Rao' },
-  { value: 'e2', label: 'Ben Okafor' },
-];
-const team = ref<TransferListValue>(['e2']);
-</script>
-
-<template>
-  <AuiTransferList v-model="team" label="Project team" :items="people" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

@@ -351,34 +351,11 @@ export class OrdersComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiBarChart } from '@absoluteui/react/bar-chart';
-
-const teams = ['Web', 'Mobile'];
-const series = [{ id: 'open', label: 'Open', values: [4, 7] }, { id: 'closed', label: 'Closed', values: [9, 3] }];
-
-export function Example() {
-  return <AuiBarChart label="Tickets by team" categories={teams} series={series} layout="stacked" />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiBarChart } from '@absoluteui/vue/bar-chart';
-const teams = ['Web', 'Mobile'];
-const series = [{ id: 'open', label: 'Open', values: [4, 7] }, { id: 'closed', label: 'Closed', values: [9, 3] }];
-</script>
-
-<template>
-  <AuiBarChart label="Tickets by team" :categories="teams" :series="series" layout="stacked" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

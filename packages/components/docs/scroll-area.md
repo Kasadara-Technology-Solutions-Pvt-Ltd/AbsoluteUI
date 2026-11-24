@@ -235,37 +235,11 @@ export class ActivityComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiScrollArea } from '@absoluteui/react/scroll-area';
-
-export function Example({ lines }: { lines: string[] }) {
-  return (
-    <AuiScrollArea label="Activity" maxBlockSize="16rem">
-      {lines.map((line) => <p key={line}>{line}</p>)}
-    </AuiScrollArea>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiScrollArea } from '@absoluteui/vue/scroll-area';
-
-defineProps<{ lines: string[] }>();
-</script>
-
-<template>
-  <AuiScrollArea label="Activity" max-block-size="16rem">
-    <p v-for="line in lines" :key="line">{{ line }}</p>
-  </AuiScrollArea>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

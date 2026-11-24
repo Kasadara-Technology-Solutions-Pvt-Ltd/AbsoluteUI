@@ -289,47 +289,11 @@ export class DeleteFileComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiButton } from '@absoluteui/react/button';
-import { AuiDialog } from '@absoluteui/react/dialog';
-
-export function Example() {
-  const [open, setOpen] = useState(false);
-  return (
-    <>
-      <AuiButton onClick={() => { setOpen(true); }}>Delete file</AuiButton>
-      <AuiDialog title="Delete file?" role="alertdialog" open={open} onClose={() => { setOpen(false); }}
-        actions={[{ label: 'Cancel', value: 'cancel' }, { label: 'Delete', value: 'delete', variant: 'danger' }]}>
-        <p>This cannot be undone.</p>
-      </AuiDialog>
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiButton } from '@absoluteui/vue/button';
-import { AuiDialog } from '@absoluteui/vue/dialog';
-const open = ref(false);
-const actions = [{ label: 'Cancel', value: 'cancel' }, { label: 'Delete', value: 'delete', variant: 'danger' as const }];
-</script>
-
-<template>
-  <AuiButton @click="open = true">Delete file</AuiButton>
-  <AuiDialog v-model:open="open" title="Delete file?" role="alertdialog" :actions="actions">
-    <p>This cannot be undone.</p>
-  </AuiDialog>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

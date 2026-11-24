@@ -387,51 +387,11 @@ export class RevenueMarginComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiComboChart } from '@absoluteui/react/combo-chart';
-import type { ComboChartSeries } from '@absoluteui/components/combo-chart';
-
-const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
-const series: ComboChartSeries[] = [
-  { id: 'rev', label: 'Revenue', type: 'bar', values: [120, 150, 170, 160] },
-  { id: 'margin', label: 'Margin', type: 'line', axis: 'secondary', color: 3, values: [0.32, 0.4, 0.38, 0.41] },
-];
-
-export function Example() {
-  return (
-    <AuiComboChart
-      label="Revenue and margin"
-      categories={quarters}
-      series={series}
-      secondaryAxis={{ label: 'Margin', format: { style: 'percent' } }}
-      zoom
-      onSeriesToggle={(detail) => console.info(detail.hidden)}
-    />
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiComboChart } from '@absoluteui/vue/combo-chart';
-import type { ComboChartSeries } from '@absoluteui/components/combo-chart';
-const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
-const series: ComboChartSeries[] = [
-  { id: 'rev', label: 'Revenue', type: 'bar', values: [120, 150, 170, 160] },
-  { id: 'margin', label: 'Margin', type: 'line', axis: 'secondary', values: [0.32, 0.4, 0.38, 0.41] },
-];
-</script>
-
-<template>
-  <AuiComboChart label="Revenue and margin" :categories="quarters" :series="series" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

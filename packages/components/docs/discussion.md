@@ -345,29 +345,11 @@ export class CommentsComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiDiscussion } from '@absoluteui/react/discussion';
-
-export function Example() {
-  return <AuiDiscussion label="Comments" currentUser={{ id: 'u1', name: 'Ana' }} maxLength={500} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiDiscussion } from '@absoluteui/vue/discussion';
-</script>
-
-<template>
-  <AuiDiscussion label="Comments" :current-user="{ id: 'u1', name: 'Ana' }" :max-length="500" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

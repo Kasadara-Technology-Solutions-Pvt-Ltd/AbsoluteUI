@@ -274,31 +274,11 @@ export class SaveBarComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiButton } from '@absoluteui/react/button';
-
-export function Example({ saving, onSave }: { saving: boolean; onSave: () => void }) {
-  return <AuiButton variant="primary" icon="check" loading={saving} onClick={onSave}>Save</AuiButton>;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiButton } from '@absoluteui/vue/button';
-defineProps<{ saving: boolean }>();
-const emit = defineEmits<{ save: [] }>();
-</script>
-
-<template>
-  <AuiButton variant="primary" icon="check" :loading="saving" @click="emit('save')">Save</AuiButton>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

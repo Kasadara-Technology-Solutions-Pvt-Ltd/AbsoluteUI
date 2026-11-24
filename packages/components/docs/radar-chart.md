@@ -345,44 +345,11 @@ export class SkillsComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiRadarChart } from '@absoluteui/react/radar-chart';
-
-const axes = ['Speed', 'Power', 'Range', 'Armor'];
-const series = [
-  { id: 'a', label: 'Alpha', values: [3, 5, 2, 4] },
-  { id: 'b', label: 'Beta', values: [4, 2, 5, 1] },
-];
-
-export function Example() {
-  const [hidden, setHidden] = useState<string[]>([]);
-  return (
-    <>
-      <AuiRadarChart label="Skills" axes={axes} series={series} fill={false} onSeriesToggle={(detail) => { setHidden(detail.hidden); }} />
-      <p>Hidden: {hidden.length}</p>
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiRadarChart } from '@absoluteui/vue/radar-chart';
-const axes = ['Speed', 'Power', 'Range', 'Armor'];
-const series = [{ id: 'a', label: 'Alpha', values: [3, 5, 2, 4] }, { id: 'b', label: 'Beta', values: [4, 2, 5, 1] }];
-</script>
-
-<template>
-  <AuiRadarChart label="Skills" :axes="axes" :series="series" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

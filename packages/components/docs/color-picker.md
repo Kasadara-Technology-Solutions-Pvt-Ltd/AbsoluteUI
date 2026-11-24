@@ -313,36 +313,11 @@ export class BrandColorComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiColorPicker } from '@absoluteui/react/color-picker';
-import type { ColorPickerValue } from '@absoluteui/components/color-picker';
-
-export function Example() {
-  const [color, setColor] = useState<ColorPickerValue>('#2563eb');
-  return <AuiColorPicker label="Brand color" value={color} onValueChange={setColor} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiColorPicker } from '@absoluteui/vue/color-picker';
-import type { ColorPickerValue } from '@absoluteui/components/color-picker';
-
-const color = ref<ColorPickerValue>('#2563eb');
-</script>
-
-<template>
-  <AuiColorPicker v-model="color" label="Brand color" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

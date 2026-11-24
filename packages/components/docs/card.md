@@ -288,29 +288,11 @@ export class ProjectCardComponent {}
 
 ## 35. React example
 
-```tsx
-import { AuiCard } from '@absoluteui/react/card';
-
-export function Example() {
-  return <AuiCard title="Invoice 1042" subtitle="Due 30 Sep" content="Amount due: 1,250.00" />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiCard } from '@absoluteui/vue/card';
-</script>
-
-<template>
-  <AuiCard title="Invoice 1042" subtitle="Due 30 Sep" content="Amount due: 1,250.00" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

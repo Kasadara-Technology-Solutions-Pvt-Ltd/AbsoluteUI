@@ -323,41 +323,11 @@ The directive is placed on the trigger button (the menu is created with a trigge
 
 ## 35. React example
 
-```tsx
-import { AuiButton } from '@absoluteui/react/button';
-import { AuiMenu } from '@absoluteui/react/menu';
-
-const items = [{ id: 'duplicate', label: 'Duplicate' }, { id: 'archive', label: 'Archive' }];
-
-export function Example({ run }: { run: (id: string) => void }) {
-  return (
-    <AuiMenu items={items} onSelect={({ id }) => { run(id); }}>
-      <AuiButton>Actions</AuiButton>
-    </AuiMenu>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiButton } from '@absoluteui/vue/button';
-import { AuiMenu } from '@absoluteui/vue/menu';
-const items = [{ id: 'duplicate', label: 'Duplicate' }, { id: 'archive', label: 'Archive' }];
-const emit = defineEmits<{ run: [id: string] }>();
-</script>
-
-<template>
-  <AuiMenu :items="items" @select="({ id }) => emit('run', id)">
-    <AuiButton>Actions</AuiButton>
-  </AuiMenu>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

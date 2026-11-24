@@ -324,45 +324,11 @@ export class ArticleComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiBottomSheet } from '@absoluteui/react/bottom-sheet';
-import { AuiButton } from '@absoluteui/react/button';
-
-export function Example() {
-  const [open, setOpen] = useState(false);
-  return (
-    <>
-      <AuiButton onClick={() => { setOpen(true); }}>Share</AuiButton>
-      <AuiBottomSheet title="Share" snapPoints={[0.5, 1]} open={open} onClose={() => { setOpen(false); }}>
-        <p>Share options go here.</p>
-      </AuiBottomSheet>
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiBottomSheet } from '@absoluteui/vue/bottom-sheet';
-import { AuiButton } from '@absoluteui/vue/button';
-const open = ref(false);
-</script>
-
-<template>
-  <AuiButton @click="open = true">Share</AuiButton>
-  <AuiBottomSheet v-model:open="open" title="Share" :snap-points="[0.5, 1]">
-    <p>Share options go here.</p>
-  </AuiBottomSheet>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

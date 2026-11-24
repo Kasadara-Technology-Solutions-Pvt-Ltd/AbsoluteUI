@@ -227,29 +227,11 @@ export class InvoiceStatusComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiBadge } from '@absoluteui/react/badge';
-
-export function Example() {
-  return <AuiBadge label="Active" tone="success" dot />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiBadge } from '@absoluteui/vue/badge';
-</script>
-
-<template>
-  <AuiBadge label="Active" tone="success" dot />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

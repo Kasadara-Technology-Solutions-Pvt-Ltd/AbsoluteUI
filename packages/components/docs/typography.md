@@ -282,40 +282,11 @@ export class HelpComponent {
 
 ## 35. React example
 
-```tsx
-import { isSafeHref } from '@absoluteui/components/typography';
-
-// Typography is CSS classes (no component): use them in className, and validate dynamic URLs.
-export function Example({ href }: { href: string }) {
-  return (
-    <>
-      <h2 className="aui-heading aui-heading--3">Release notes</h2>
-      <p className="aui-text aui-text--muted">Updated weekly.</p>
-      {isSafeHref(href) ? <a className="aui-link" href={href}>Read more</a> : null}
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { isSafeHref } from '@absoluteui/components/typography';
-// Typography is CSS classes (no component): use them in templates, and validate dynamic URLs.
-defineProps<{ href: string }>();
-</script>
-
-<template>
-  <h2 class="aui-heading aui-heading--3">Release notes</h2>
-  <p class="aui-text aui-text--muted">Updated weekly.</p>
-  <a v-if="isSafeHref(href)" class="aui-link" :href="href">Read more</a>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

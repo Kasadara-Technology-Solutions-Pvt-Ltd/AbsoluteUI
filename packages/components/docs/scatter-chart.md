@@ -397,45 +397,11 @@ export class CorrelationComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiScatterChart } from '@absoluteui/react/scatter-chart';
-import type { ScatterChartSeries } from '@absoluteui/components/scatter-chart';
-
-const series: ScatterChartSeries[] = [
-  { id: 'a', label: 'Group A', color: 1, points: [{ x: 160, y: 55 }, { x: 175, y: 72 }] },
-  { id: 'b', label: 'Group B', color: 3, points: [{ x: 150, y: 48 }, { x: 170, y: 65 }] },
-];
-
-export function Example() {
-  return (
-    <AuiScatterChart
-      label="Height and weight"
-      series={series}
-      xAxis={{ label: 'Height (cm)' }}
-      yAxis={{ label: 'Weight (kg)' }}
-      zoom="x"
-      onZoom={(detail) => console.info(detail.reason)}
-    />
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiScatterChart } from '@absoluteui/vue/scatter-chart';
-const series = [{ id: 'a', label: 'Group A', points: [{ x: 160, y: 55 }, { x: 175, y: 72 }] }];
-</script>
-
-<template>
-  <AuiScatterChart label="Height and weight" :series="series" :crosshair="true" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

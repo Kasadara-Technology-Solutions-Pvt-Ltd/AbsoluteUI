@@ -328,39 +328,11 @@ The directive also emits `auiOpen` and `auiClose`.
 
 ## 35. React example
 
-```tsx
-import { AuiContextMenu } from '@absoluteui/react/context-menu';
-
-const items = [{ id: 'open', label: 'Open' }, { id: 'rename', label: 'Rename' }];
-
-export function Example({ run }: { run: (id: string) => void }) {
-  return (
-    <AuiContextMenu items={items} label="File actions" onSelect={({ id }) => { run(id); }}>
-      <ul className="files"><li><button type="button">report.pdf</button></li></ul>
-    </AuiContextMenu>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiContextMenu } from '@absoluteui/vue/context-menu';
-const items = [{ id: 'open', label: 'Open' }, { id: 'rename', label: 'Rename' }];
-const emit = defineEmits<{ run: [id: string] }>();
-</script>
-
-<template>
-  <AuiContextMenu :items="items" label="File actions" @select="({ id }) => emit('run', id)">
-    <ul class="files"><li><button type="button">report.pdf</button></li></ul>
-  </AuiContextMenu>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

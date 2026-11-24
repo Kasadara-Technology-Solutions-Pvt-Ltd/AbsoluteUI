@@ -302,36 +302,11 @@ The directive goes on an `<ng-template>` (hand-written, like Dialog); `[open]` d
 
 ## 35. React example
 
-```tsx
-import { duration, type Instant } from '@absoluteui/core';
-import { AuiSessionWarningDialog } from '@absoluteui/react/session-warning-dialog';
-
-// Your session API renews or ends the session: AbsoluteUI is not an authentication provider.
-export function Example({ expiresAt, renew, signOut }: { expiresAt: Instant; renew: () => void; signOut: () => void }) {
-  return <AuiSessionWarningDialog expiresAt={expiresAt} warnBefore={duration(120_000)} onExtend={renew} onSignOut={signOut} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { duration, type Instant } from '@absoluteui/core';
-import { AuiSessionWarningDialog } from '@absoluteui/vue/session-warning-dialog';
-// Your session API renews or ends the session: AbsoluteUI is not an authentication provider.
-defineProps<{ expiresAt: Instant }>();
-const emit = defineEmits<{ renew: []; signOut: [] }>();
-const warnBefore = duration(120_000);
-</script>
-
-<template>
-  <AuiSessionWarningDialog :expires-at="expiresAt" :warn-before="warnBefore" @extend="emit('renew')" @sign-out="emit('signOut')" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

@@ -305,47 +305,11 @@ export class DashboardComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiContainer, AuiGrid, AuiStack } from '@absoluteui/react/layout';
-
-export function Example() {
-  return (
-    <AuiContainer size="lg" as="main">
-      <AuiStack gap={6}>
-        <h1>Dashboard</h1>
-        <AuiGrid columns="auto" minColumnWidth="16rem" gap={4}>
-          <section>Revenue</section>
-          <section>Orders</section>
-        </AuiGrid>
-      </AuiStack>
-    </AuiContainer>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiContainer, AuiGrid, AuiStack } from '@absoluteui/vue/layout';
-</script>
-
-<template>
-  <AuiContainer size="lg" as="main">
-    <AuiStack :gap="6">
-      <h1>Dashboard</h1>
-      <AuiGrid columns="auto" min-column-width="16rem" :gap="4">
-        <section>Revenue</section>
-        <section>Orders</section>
-      </AuiGrid>
-    </AuiStack>
-  </AuiContainer>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

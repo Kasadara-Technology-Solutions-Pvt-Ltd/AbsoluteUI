@@ -341,56 +341,11 @@ export class OverviewComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import type { DashboardGrid, DashboardItem } from '@absoluteui/components/dashboard-grid';
-import { AuiDashboardGrid } from '@absoluteui/react/dashboard-grid';
-
-const items: DashboardItem[] = [
-  { id: 'sales', x: 0, y: 0, w: 6, h: 2 },
-  { id: 'users', x: 6, y: 0, w: 6, h: 2 },
-];
-
-export function Example({ save }: { save: (layouts: Record<string, DashboardItem[]>) => void }) {
-  const [grid, setGrid] = useState<DashboardGrid | null>(null);
-  return (
-    <>
-      <button type="button" disabled={grid === null} onClick={() => { grid?.undo(); }}>Undo</button>
-      <AuiDashboardGrid ref={setGrid} label="Overview" items={items} editable onLayoutChange={(d) => { save(d.layouts); }}>
-        <section data-aui-item="sales"><h2>Sales</h2></section>
-        <section data-aui-item="users"><h2>Active users</h2></section>
-      </AuiDashboardGrid>
-    </>
-  );
-}
-```
-
-Keep `items` stable (a new array replaces the stored layouts). For a catalog, pass the controller: `<AuiDashboardCatalog grid={grid} label="Widgets" templates={templates} onCatalogAdd={(d) => ...} />` from `@absoluteui/react/dashboard-catalog`, and render a child with `data-aui-item={d.item.id}` in `onCatalogAdd`. See [docs/REACT.md](../../../docs/REACT.md) for events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import type { DashboardGridLayoutChangeDetail, DashboardItem } from '@absoluteui/components/dashboard-grid';
-import { AuiDashboardGrid } from '@absoluteui/vue/dashboard-grid';
-import { AuiDashboardCatalog } from '@absoluteui/vue/dashboard-catalog';
-
-const items: DashboardItem[] = [{ id: 'sales', x: 0, y: 0, w: 6, h: 2 }];
-const templates = [{ id: 'note', label: 'Note', w: 3, h: 2 }];
-const grid = ref<InstanceType<typeof AuiDashboardGrid> | null>(null);
-const save = (detail: DashboardGridLayoutChangeDetail) => localStorage.setItem('dashboard', JSON.stringify(detail.layouts));
-</script>
-
-<template>
-  <AuiDashboardCatalog :grid="grid?.controller ?? null" label="Widgets" :templates="templates" />
-  <AuiDashboardGrid ref="grid" label="Overview" :items="items" editable @layout-change="save">
-    <section data-aui-item="sales"><h2>Sales</h2></section>
-  </AuiDashboardGrid>
-</template>
-```
-
-`@catalog-add` receives the DOM event (`event.detail` has the template and item; `event.preventDefault()` vetoes); render the new child there. See [docs/VUE.md](../../../docs/VUE.md) for events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

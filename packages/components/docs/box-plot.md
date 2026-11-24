@@ -366,38 +366,11 @@ export class LatencyComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiBoxPlot } from '@absoluteui/react/box-plot';
-import type { BoxPlotSeries } from '@absoluteui/components/box-plot';
-
-const regions = ['EU', 'US'];
-const series: BoxPlotSeries[] = [
-  { id: 'prod', label: 'Prod', data: [[10, 12, 14, 16, 90], { min: 8, q1: 10, median: 11, q3: 13, max: 15 }] },
-  { id: 'staging', label: 'Staging', data: [[11, 13, 15, 18, 20], null] },
-];
-
-export function Example() {
-  return <AuiBoxPlot label="Latency by region" categories={regions} series={series} whiskers="tukey" />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiBoxPlot } from '@absoluteui/vue/box-plot';
-const regions = ['EU', 'US'];
-const series = [{ id: 'prod', label: 'Prod', data: [[10, 12, 14, 16, 90], [8, 10, 11, 13, 15]] }];
-</script>
-
-<template>
-  <AuiBoxPlot label="Latency by region" :categories="regions" :series="series" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

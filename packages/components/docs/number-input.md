@@ -297,33 +297,11 @@ export class OrderComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { AuiNumberInput } from '@absoluteui/react/number-input';
-
-export function Example() {
-  const [value, setValue] = useState<number | null>(null);
-  return <AuiNumberInput label="Quantity" min={1} max={99} value={value} onValueChange={setValue} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { AuiNumberInput } from '@absoluteui/vue/number-input';
-const value = ref<number | null>(null);
-</script>
-
-<template>
-  <AuiNumberInput v-model="value" label="Quantity" :min="1" :max="99" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

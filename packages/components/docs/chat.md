@@ -313,29 +313,11 @@ export class TranscriptComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiChat } from '@absoluteui/react/chat';
-
-export function Example() {
-  return <AuiChat label="Transcript" composer={false} messages={[{ id: '1', role: 'user', text: 'Hello' }]} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiChat } from '@absoluteui/vue/chat';
-</script>
-
-<template>
-  <AuiChat label="Transcript" :composer="false" :messages="[{ id: '1', role: 'user', text: 'Hello' }]" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

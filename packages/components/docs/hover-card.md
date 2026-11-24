@@ -282,36 +282,11 @@ export class AuthorComponent {
 
 ## 35. React example
 
-```tsx
-import { AuiHoverCard } from '@absoluteui/react/hover-card';
-
-export function Example() {
-  return (
-    <AuiHoverCard content={<p>Ada Lovelace, mathematician.</p>}>
-      <a href="/people/ada">Ada Lovelace</a>
-    </AuiHoverCard>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { AuiHoverCard } from '@absoluteui/vue/hover-card';
-</script>
-
-<template>
-  <AuiHoverCard>
-    <a href="/people/ada">Ada Lovelace</a>
-    <template #content><p>Ada Lovelace, mathematician.</p></template>
-  </AuiHoverCard>
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

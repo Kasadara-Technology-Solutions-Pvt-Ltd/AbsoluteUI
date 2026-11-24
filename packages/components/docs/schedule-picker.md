@@ -264,41 +264,11 @@ export class WhenComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { scheduleToString, type ScheduleValue } from '@absoluteui/components/schedule-picker';
-import { AuiSchedulePicker } from '@absoluteui/react/schedule-picker';
-
-export function When() {
-  const [value, setValue] = useState<ScheduleValue | null>(null);
-  return (
-    <>
-      <AuiSchedulePicker label="When" recurrence timezone="Europe/London" value={value} onValueChange={setValue} />
-      <pre>{value ? scheduleToString(value) : ''}</pre>
-    </>
-  );
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md). Load the stylesheets listed in the header of this document.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import type { ScheduleValue } from '@absoluteui/components/schedule-picker';
-import { AuiSchedulePicker } from '@absoluteui/vue/schedule-picker';
-
-const when = ref<ScheduleValue | null>(null);
-</script>
-
-<template>
-  <AuiSchedulePicker v-model="when" label="When" recurrence timezone="Europe/London" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md).
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 

@@ -345,35 +345,11 @@ export class BillingComponent {
 
 ## 35. React example
 
-```tsx
-import { useState } from 'react';
-import { type PlainYearMonth } from '@absoluteui/core';
-import { AuiMonthPicker } from '@absoluteui/react/month-picker';
-
-export function Example() {
-  const [value, setValue] = useState<PlainYearMonth | null>(null);
-  return <AuiMonthPicker label="Billing month" value={value} onValueChange={setValue} />;
-}
-```
-
-See [docs/REACT.md](../../../docs/REACT.md) for value binding, events, refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published React adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 36. Vue example
 
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { type PlainYearMonth } from '@absoluteui/core';
-import { AuiMonthPicker } from '@absoluteui/vue/month-picker';
-const value = ref<PlainYearMonth | null>(null);
-</script>
-
-<template>
-  <AuiMonthPicker v-model="value" label="Billing month" />
-</template>
-```
-
-See [docs/VUE.md](../../../docs/VUE.md) for `v-model`, events, template refs, and SSR. Load the stylesheets listed in the header of this document; the adapter does not inject CSS.
+Not available: AbsoluteUI has no published Vue adapter. Use the vanilla API (section 33) or the Web Component-style usage (section 37).
 
 ## 37. Web Component-style usage example
 
