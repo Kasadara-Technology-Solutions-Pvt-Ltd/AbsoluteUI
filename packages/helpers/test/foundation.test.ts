@@ -13,7 +13,7 @@ describe('error', () => {
     expect(s.stack).toBeUndefined();
     const back = deserializeError(JSON.parse(JSON.stringify(s)));
     expect(back).toBeInstanceOf(HttpError);
-    expect((back as HttpError).status).toBe(503);
+    expect(back instanceof HttpError ? back.status : undefined).toBe(503);
   });
   it('normalizes non-errors and captures throws', () => {
     expect(toError('x')).toBeInstanceOf(HelperError);
